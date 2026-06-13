@@ -13,7 +13,10 @@ Base: BKS_V21 (Dawn 15.4.1). Fusione V21 + BKS_Tm01.
 | `sections/bks-collection-signal.liquid` | Aggiunta subnav a blocchi (Apparel / Swim / Accessories / Editorial), link vuoto = collezione stessa |
 | `sections/bks-collection-signal.liquid` | Ora legge media dal metaobject `bks_collection`: `hero_image` per la preview editoriale e `hero_video` per video/spot sopra il titolo |
 | `sections/main-collection-product-grid-bks.liquid` | Nuova griglia prodotto BKS, più editoriale e leggera: palette salt/onyx/dune, vendor e rating nascosti, quick add minimo |
+| `sections/bks-impact-home.liquid` | Sostituita come hero BKS ufficiale: titolo BKS, orbit interattivo e progressione cinematica controllata |
+| `assets/bks-theme-effects.css` | Effetti globali leggeri per tutto il tema: grain, reveal, hover su bottoni/card/media e rispetto `prefers-reduced-motion` |
 | 8 × `collection.bks-*.json` | Subnav (4 blocchi) inserita in ogni template |
+| `templates/index.json` | Lo ZIP ottimizzato porta `bks-impact-home` come hero BKS dopo il ticker iniziale |
 | `templates/collection*.json` | Il product grid viene puntato a `main-collection-product-grid-bks` quando viene generato lo ZIP ottimizzato |
 | `sections/bks-collections-index.liquid` | Portata da Tm01 — indice tipografico numerato |
 | `templates/list-collections.json` | Riscritto: solo gli 8 mondi con tagline |

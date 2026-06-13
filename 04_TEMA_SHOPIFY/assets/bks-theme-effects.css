@@ -1,0 +1,209 @@
+/*
+  BKS theme effects layer.
+  Purpose: extend the impact-home feeling across the storefront without
+  adding heavy canvas scripts to product, collection or checkout-facing pages.
+*/
+
+:root {
+  --bks-effect-onyx: #0a0a0a;
+  --bks-effect-salt: #fafaf7;
+  --bks-effect-dune: #c9b79c;
+  --bks-effect-line: rgba(10, 10, 10, 0.1);
+  --bks-effect-shadow: 0 18px 56px rgba(10, 10, 10, 0.12);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at 15% 8%, rgba(201, 183, 156, 0.1), transparent 28rem),
+    linear-gradient(180deg, #ffffff 0%, var(--bks-effect-salt) 100%);
+}
+
+body::before {
+  animation: bks-global-grain 10s steps(6) infinite;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  content: "";
+  inset: -20%;
+  mix-blend-mode: multiply;
+  opacity: 0.035;
+  pointer-events: none;
+  position: fixed;
+  z-index: 2147483000;
+}
+
+@keyframes bks-global-grain {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-3%, 2%);
+  }
+  50% {
+    transform: translate(3%, -2%);
+  }
+  75% {
+    transform: translate(-2%, -3%);
+  }
+}
+
+@keyframes bks-global-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+main .shopify-section > * {
+  animation: bks-global-rise 620ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.button,
+.shopify-payment-button__button,
+.quick-add__submit,
+.product-form__submit,
+.bks-button {
+  isolation: isolate;
+  letter-spacing: 0;
+  overflow: hidden;
+  position: relative;
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    color 220ms ease,
+    transform 220ms ease;
+}
+
+.button::after,
+.shopify-payment-button__button::after,
+.quick-add__submit::after,
+.product-form__submit::after,
+.bks-button::after {
+  background: linear-gradient(90deg, transparent, rgba(201, 183, 156, 0.34), transparent);
+  content: "";
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-100%);
+  transition: opacity 220ms ease, transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+
+.button:hover,
+.shopify-payment-button__button:hover,
+.quick-add__submit:hover,
+.product-form__submit:hover,
+.bks-button:hover {
+  box-shadow: var(--bks-effect-shadow);
+  transform: translateY(-2px);
+}
+
+.button:hover::after,
+.shopify-payment-button__button:hover::after,
+.quick-add__submit:hover::after,
+.product-form__submit:hover::after,
+.bks-button:hover::after {
+  opacity: 1;
+  transform: translateX(100%);
+}
+
+.card__inner,
+.product__media,
+.collection-card-wrapper,
+.multicolumn-card,
+.bks-product-editorial-care,
+.bks-trust-strip,
+.bks-collection-signal__hero {
+  transition:
+    border-color 260ms ease,
+    box-shadow 260ms ease,
+    filter 260ms ease,
+    transform 260ms ease;
+}
+
+.card-wrapper:hover .card__inner,
+.product__media:hover,
+.collection-card-wrapper:hover,
+.multicolumn-card:hover {
+  box-shadow: var(--bks-effect-shadow);
+  filter: saturate(1.03) contrast(1.02);
+  transform: translateY(-3px);
+}
+
+.card__media img,
+.media img,
+.product__media img,
+.bks-collection-signal__hero img,
+.bks-impact img {
+  transition: filter 320ms ease, transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-wrapper:hover .card__media img,
+.media:hover img,
+.product__media:hover img {
+  filter: saturate(1.04) contrast(1.02);
+  transform: scale(1.018);
+}
+
+.card__heading,
+.product__title,
+.collection-hero__title,
+.main-page-title,
+.title,
+.h0,
+.h1,
+.h2 {
+  letter-spacing: 0;
+}
+
+.bks-signal-tag span,
+.badge,
+.price__badge-sale,
+.price__badge-sold-out {
+  box-shadow: 0 10px 30px rgba(10, 10, 10, 0.08);
+}
+
+@media screen and (max-width: 749px) {
+  main .shopify-section > * {
+    animation-duration: 420ms;
+  }
+
+  .button:hover,
+  .shopify-payment-button__button:hover,
+  .quick-add__submit:hover,
+  .product-form__submit:hover,
+  .bks-button:hover,
+  .card-wrapper:hover .card__inner,
+  .product__media:hover,
+  .collection-card-wrapper:hover,
+  .multicolumn-card:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body::before,
+  main .shopify-section > * {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

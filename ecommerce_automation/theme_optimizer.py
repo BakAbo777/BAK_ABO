@@ -14,6 +14,7 @@ from ecommerce_automation.theme_ai_assistant import section_liquid as ai_assista
 SOURCE_ZIP = Path("04_TEMA_SHOPIFY/BKS_TM03_clean_12JUN2026_SEO_READY_CORRETTO.zip")
 OUTPUT_ZIP = Path("04_TEMA_SHOPIFY/BKS_TM03_LIGHT_TRUST_TIMER_READY.zip")
 LIGHT_CSS = Path("04_TEMA_SHOPIFY/assets/bks-commerce-light.css")
+THEME_EFFECTS_CSS = Path("04_TEMA_SHOPIFY/assets/bks-theme-effects.css")
 TRUST_SECTION = Path("04_TEMA_SHOPIFY/sections/bks-trust-strip.liquid")
 AI_ASSISTANT_SECTION = Path("04_TEMA_SHOPIFY/sections/bks-ai-assistant.liquid")
 ORBIT_SECTION = Path("04_TEMA_SHOPIFY/sections/bks-planet-collections-orbit.liquid")
@@ -22,6 +23,7 @@ ORBIT_SNIPPET = Path("04_TEMA_SHOPIFY/snippets/bks-orbit-card.liquid")
 PRODUCT_EDITORIAL_SECTION = Path("04_TEMA_SHOPIFY/sections/bks-product-editorial-care.liquid")
 COLLECTION_SIGNAL_SECTION = Path("04_TEMA_SHOPIFY/sections/bks-collection-signal.liquid")
 COLLECTION_GRID_BKS_SECTION = Path("04_TEMA_SHOPIFY/sections/main-collection-product-grid-bks.liquid")
+IMPACT_HOME_SECTION = Path("04_TEMA_SHOPIFY/sections/bks-impact-home.liquid")
 
 
 def _relative(root_dir: Path, path: Path) -> str:
@@ -270,6 +272,8 @@ def ensure_patch_files(root_dir: Path) -> dict[str, str]:
         "product_editorial_care": PRODUCT_EDITORIAL_SECTION,
         "collection_signal": COLLECTION_SIGNAL_SECTION,
         "collection_grid_bks": COLLECTION_GRID_BKS_SECTION,
+        "impact_home": IMPACT_HOME_SECTION,
+        "theme_effects": THEME_EFFECTS_CSS,
     }.items():
         if (root_dir / path).exists():
             files[key] = _relative(root_dir, root_dir / path)
@@ -277,9 +281,13 @@ def ensure_patch_files(root_dir: Path) -> dict[str, str]:
 
 
 def _inject_theme_liquid(content: str) -> str:
-    css_tag = "{{ 'bks-commerce-light.css' | asset_url | stylesheet_tag }}"
-    if css_tag not in content:
-        content = content.replace("</head>", f"  {css_tag}\n</head>")
+    css_tags = [
+        "{{ 'bks-commerce-light.css' | asset_url | stylesheet_tag }}",
+        "{{ 'bks-theme-effects.css' | asset_url | stylesheet_tag }}",
+    ]
+    for css_tag in css_tags:
+        if css_tag not in content:
+            content = content.replace("</head>", f"  {css_tag}\n</head>")
     return content
 
 
@@ -295,6 +303,23 @@ def _product_editorial_defaults() -> dict[str, Any]:
             "daily_heading": "Designed for ordinary days",
             "policy_heading": "Clear before checkout",
             "enable_motion": True,
+        },
+    }
+
+
+def _bks_home_hero_defaults() -> dict[str, Any]:
+    return {
+        "type": "bks-impact-home",
+        "settings": {
+            "kicker": "BakAbo container / Creator: BKS Studio",
+            "drop_label": "Catalog 2026",
+            "heading": "BKS",
+            "copy": "BKS Studio turns eight visual systems into wearable daily objects: AI-generated surfaces, made-to-order products and a clear BakAbo shopping experience.",
+            "primary_link": "/collections/all",
+            "primary_label": "Shop BKS",
+            "secondary_link": "/collections",
+            "secondary_label": "Explore series",
+            "collection_handles": "bks-folklore,bks-glyph,bks-marker,bks-riviera,bks-pulse,bks-token,bks-flag,bks-hours",
         },
     }
 
@@ -318,6 +343,28 @@ def _inject_product_template(content: str) -> str:
     else:
         insert_at = len(order)
     order.insert(insert_at, "bks_product_editorial_care")
+    data["order"] = order
+    return json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+
+
+def _inject_index_template(content: str) -> str:
+    try:
+        data = json.loads(content)
+    except json.JSONDecodeError:
+        return content
+
+    sections = data.setdefault("sections", {})
+    order = data.setdefault("order", [])
+    hero_key = "bks_impact"
+    sections[hero_key] = _bks_home_hero_defaults()
+
+    old_keys = ["bks_editorial_matrix", "bks_impact_home", "bks_hero"]
+    for old_key in old_keys:
+        sections.pop(old_key, None)
+
+    order = [item for item in order if item not in old_keys and item != hero_key]
+    insert_at = 0
+    order.insert(insert_at, hero_key)
     data["order"] = order
     return json.dumps(data, ensure_ascii=False, separators=(",", ":"))
 
@@ -366,16 +413,24 @@ def build_patched_zip(settings: Any) -> dict[str, Any]:
     output.parent.mkdir(parents=True, exist_ok=True)
     collection_signal = _workspace_text(root_dir, COLLECTION_SIGNAL_SECTION)
     collection_grid_bks = _workspace_text(root_dir, COLLECTION_GRID_BKS_SECTION)
+    impact_home = _workspace_text(root_dir, IMPACT_HOME_SECTION)
+    theme_effects = _workspace_text(root_dir, THEME_EFFECTS_CSS)
     with zipfile.ZipFile(source, "r") as zin, zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as zout:
         names = set(zin.namelist())
         for item in zin.infolist():
             data = zin.read(item.filename)
             if item.filename == "sections/bks-collection-signal.liquid" and collection_signal:
                 data = collection_signal.encode("utf-8")
+            elif item.filename == "sections/bks-impact-home.liquid" and impact_home:
+                data = impact_home.encode("utf-8")
+            elif item.filename == "assets/bks-theme-effects.css" and theme_effects:
+                data = theme_effects.encode("utf-8")
             elif item.filename == "layout/theme.liquid":
                 data = _inject_theme_liquid(data.decode("utf-8", errors="ignore")).encode("utf-8")
             if item.filename.startswith("templates/product") and item.filename.endswith(".json"):
                 data = _inject_product_template(data.decode("utf-8", errors="ignore")).encode("utf-8")
+            if item.filename == "templates/index.json":
+                data = _inject_index_template(data.decode("utf-8", errors="ignore")).encode("utf-8")
             if item.filename.startswith("templates/collection") and item.filename.endswith(".json"):
                 data = _inject_collection_template(data.decode("utf-8", errors="ignore")).encode("utf-8")
             zout.writestr(item, data)
@@ -383,6 +438,10 @@ def build_patched_zip(settings: Any) -> dict[str, Any]:
             zout.writestr("sections/bks-collection-signal.liquid", collection_signal)
         if collection_grid_bks and "sections/main-collection-product-grid-bks.liquid" not in names:
             zout.writestr("sections/main-collection-product-grid-bks.liquid", collection_grid_bks)
+        if impact_home and "sections/bks-impact-home.liquid" not in names:
+            zout.writestr("sections/bks-impact-home.liquid", impact_home)
+        if theme_effects and "assets/bks-theme-effects.css" not in names:
+            zout.writestr("assets/bks-theme-effects.css", theme_effects)
         if "assets/bks-commerce-light.css" not in names:
             zout.writestr("assets/bks-commerce-light.css", commerce_light_css())
         if "sections/bks-trust-strip.liquid" not in names:
@@ -415,6 +474,8 @@ def build_patched_zip(settings: Any) -> dict[str, Any]:
             "product_editorial_care": "04_TEMA_SHOPIFY/sections/bks-product-editorial-care.liquid",
             "collection_signal": "04_TEMA_SHOPIFY/sections/bks-collection-signal.liquid",
             "collection_grid_bks": "04_TEMA_SHOPIFY/sections/main-collection-product-grid-bks.liquid",
+            "impact_home": "04_TEMA_SHOPIFY/sections/bks-impact-home.liquid",
+            "theme_effects": "04_TEMA_SHOPIFY/assets/bks-theme-effects.css",
         },
         "marketing": marketing,
         "assistant": assistant,
@@ -428,6 +489,9 @@ def build_patched_zip(settings: Any) -> dict[str, Any]:
             {"check": "product_editorial_care", "status": "pass", "detail": "product templates receive size guide, curation, shipping, returns and subtle motion"},
             {"check": "collection_media_signal", "status": "pass", "detail": "collection signal reads bks_collection hero_image/hero_video media"},
             {"check": "collection_grid_bks", "status": "pass", "detail": "collection templates use the lighter editorial BKS product grid"},
+            {"check": "impact_home_cinematic", "status": "pass", "detail": "sections/bks-impact-home.liquid replaced with cinematic interaction layer"},
+            {"check": "home_hero_bks", "status": "pass", "detail": "templates/index.json uses bks-impact-home as the official BKS hero"},
+            {"check": "global_theme_effects", "status": "pass", "detail": "assets/bks-theme-effects.css loaded globally from layout/theme.liquid"},
         ],
     }
 

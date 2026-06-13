@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 import csv
+import json
 import os
 import socket
 import subprocess
@@ -16,6 +17,12 @@ from typing import Any
 
 import pandas as pd
 import streamlit as st
+
+from ecommerce_automation.config import settings as master_settings
+from ecommerce_automation.master_actions import payload as master_actions_payload
+from ecommerce_automation.master_agent import reply as agent_reply
+from ecommerce_automation.realtime_control import payload as realtime_payload
+from ecommerce_automation.theme_optimizer import payload as theme_optimizer_payload
 
 from bks_assets import (
     ACTIVE_ASSETS_PATH,
@@ -90,6 +97,16 @@ PROJECT_PHASES = (
     {"fase": "10", "nome": "Deploy", "obiettivo": "Upload tema, import CSV, audit, publish", "comando": "07_DEPLOY_CHECK", "output": "tema + catalogo live", "stato": "da eseguire", "guida": "07_DEPLOY_CHECK/README.md"},
 )
 
+STATUS_PROGRESS = {
+    "pronto": 100,
+    "integrata": 100,
+    "attivo": 90,
+    "operativa": 78,
+    "monitoraggio": 68,
+    "verifica": 55,
+    "da eseguire": 18,
+}
+
 
 def load_local_env(path: Path = ENV_PATH) -> None:
     if not path.exists():
@@ -119,6 +136,230 @@ def file_info(path_value: str | Path) -> dict[str, Any]:
         "size_mb": round(stat.st_size / 1024 / 1024, 2),
         "updated": datetime.fromtimestamp(stat.st_mtime).strftime("%Y-%m-%d %H:%M"),
     }
+
+
+def phase_records() -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for phase in PROJECT_PHASES:
+        status = str(phase["stato"])
+        rows.append(
+            {
+                "phase_id": phase["fase"],
+                "name": phase["nome"],
+                "status": status,
+                "progress": STATUS_PROGRESS.get(status, 40),
+                "objective": phase["obiettivo"],
+                "command": phase["comando"],
+                "output": phase["output"],
+            }
+        )
+    return rows
+
+
+def services_snapshot() -> dict[str, dict[str, Any]]:
+    return {
+        service.name.lower().replace(" ", "_"): {
+            "configured": port_open(service.port),
+            "status": "online" if port_open(service.port) else "offline",
+            "port": service.port,
+            "url": service.url,
+            "role": service.role,
+        }
+        for service in SERVICES
+    }
+
+
+def safe_theme_payload() -> dict[str, Any]:
+    try:
+        return theme_optimizer_payload(master_settings)
+    except Exception as exc:
+        return {"summary": {"status": "error", "goal": str(exc)}, "checks": [], "files": {}}
+
+
+def light_theme_snapshot() -> dict[str, Any]:
+    output_zip = BASE_DIR / "04_TEMA_SHOPIFY" / "BKS_TM03_LIGHT_TRUST_TIMER_READY.zip"
+    return {
+        "summary": {
+            "status": "ready" if output_zip.exists() else "missing",
+            "goal": "hero_bks_global_effects_trust_theme",
+            "output_zip": relative_to_base(output_zip),
+        }
+    }
+
+
+def safe_actions_payload(snapshot: dict[str, Any] | None = None) -> dict[str, Any]:
+    try:
+        return master_actions_payload(master_settings, snapshot or {})
+    except Exception as exc:
+        return {
+            "summary": {"total": 0, "pass": 0, "needs_fix": 0, "blocked": 0, "error": str(exc)},
+            "next_action": {"title": "Errore lettura azioni", "why": str(exc), "do": "Controlla log Python."},
+            "actions": [],
+        }
+
+
+def safe_realtime_payload(phases: list[dict[str, Any]], actions: dict[str, Any]) -> dict[str, Any]:
+    try:
+        return realtime_payload(master_settings, phases, [], [{"event_type": "streamlit.master", "payload": {"status": "open"}}])
+    except Exception:
+        progress = round(sum(int(row["progress"]) for row in phases) / len(phases)) if phases else 0
+        next_action = actions.get("next_action", {}) if isinstance(actions, dict) else {}
+        return {
+            "summary": {
+                "mode": "streamlit_local",
+                "status": "ready",
+                "progress": progress,
+                "poll_seconds": 0,
+                "updated_at": datetime.now().isoformat(timespec="seconds"),
+                "next_action": next_action.get("title", "Agente pronto"),
+                "current_event": "streamlit.local",
+            },
+            "stages": [
+                {"stage": row["name"], "status": row["status"], "progress": row["progress"], "signal": row["phase_id"], "detail": row["objective"]}
+                for row in phases
+            ],
+        }
+
+
+def build_master_snapshot() -> dict[str, Any]:
+    phases = phase_records()
+    snapshot: dict[str, Any] = {
+        "phases": phases,
+        "services": services_snapshot(),
+        "theme": light_theme_snapshot(),
+    }
+    snapshot["actions"] = safe_actions_payload(snapshot)
+    snapshot["realtime"] = safe_realtime_payload(phases, snapshot["actions"])
+    return snapshot
+
+
+def render_progression_panel(snapshot: dict[str, Any] | None = None) -> None:
+    snapshot = snapshot or build_master_snapshot()
+    realtime = snapshot.get("realtime", {})
+    summary = realtime.get("summary", {})
+    stages = realtime.get("stages", [])
+    progress = int(summary.get("progress", 0) or 0)
+
+    st.subheader("Progressione visibile")
+    cols = st.columns(4)
+    cols[0].metric("Stato", summary.get("status", "ready"))
+    cols[1].metric("Progress", f"{progress}%")
+    cols[2].metric("Evento", summary.get("current_event", "streamlit"))
+    cols[3].metric("Next", summary.get("next_action", "Agente pronto"))
+    st.progress(progress / 100, text=f"Avanzamento agente: {progress}%")
+
+    if stages:
+        frame = pd.DataFrame(stages)
+        st.dataframe(
+            frame,
+            use_container_width=True,
+            hide_index=True,
+            column_config={
+                "progress": st.column_config.ProgressColumn("progress", min_value=0, max_value=100, format="%d%%"),
+            },
+        )
+
+
+def render_agent_console(snapshot: dict[str, Any] | None = None) -> None:
+    snapshot = snapshot or build_master_snapshot()
+    st.subheader("Domande e risposte Master")
+    st.caption("Area ampia: scrivi una richiesta operativa, il Master risponde dai dati e mostra la prossima azione.")
+
+    if "bks_master_chat" not in st.session_state:
+        st.session_state.bks_master_chat = [
+            {
+                "role": "assistant",
+                "content": "Sono pronto. Chiedimi: prima cosa da fare, progressione, Google Merchant, tema, social, catalogo o connessioni.",
+            }
+        ]
+
+    history = st.container(height=460, border=True)
+    with history:
+        for index, item in enumerate(st.session_state.bks_master_chat[-12:]):
+            role = "Tu" if item["role"] == "user" else "Master"
+            st.markdown(f"**{role}**")
+            st.text_area(
+                role,
+                value=item["content"],
+                height=150 if item["role"] == "user" else 220,
+                disabled=True,
+                label_visibility="collapsed",
+                key=f"bks-chat-{index}-{item['role']}",
+            )
+
+    question = st.text_area(
+        "Domanda al Master",
+        placeholder="Esempio: qual e la prima azione ora? Mostrami la progressione. Cosa blocca Google Merchant?",
+        height=170,
+    )
+    col_send, col_clear = st.columns([2, 1])
+    if col_send.button("Invia al Master", type="primary", use_container_width=True, disabled=not question.strip()):
+        answer = agent_reply(question, snapshot)
+        st.session_state.bks_master_chat.append({"role": "user", "content": question.strip()})
+        st.session_state.bks_master_chat.append({"role": "assistant", "content": answer.get("reply", "")})
+        st.rerun()
+    if col_clear.button("Pulisci chat", use_container_width=True):
+        st.session_state.bks_master_chat = []
+        st.rerun()
+
+
+def render_master_actions(snapshot: dict[str, Any] | None = None) -> None:
+    snapshot = snapshot or build_master_snapshot()
+    actions = snapshot.get("actions", {})
+    summary = actions.get("summary", {})
+    next_action = actions.get("next_action", {})
+    cols = st.columns(4)
+    cols[0].metric("Azioni", summary.get("total", 0))
+    cols[1].metric("Pass", summary.get("pass", 0))
+    cols[2].metric("Da fare", summary.get("needs_fix", 0))
+    cols[3].metric("Bloccate", summary.get("blocked", 0))
+    with st.container(border=True):
+        st.markdown("#### Prima azione consigliata")
+        st.write(next_action.get("title", "Agente pronto"))
+        st.caption(next_action.get("why", ""))
+        st.info(next_action.get("do", ""))
+    rows = actions.get("actions", [])
+    if rows:
+        st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+
+
+def render_theme_bks_page() -> None:
+    st.title("Tema BKS")
+    st.caption("Hero BKS, effetti globali, grid collection, trust strip e ZIP pronto.")
+    data = safe_theme_payload()
+    summary = data.get("summary", {})
+    files = data.get("files", {})
+    cols = st.columns(4)
+    cols[0].metric("Patch", summary.get("status", "unknown"))
+    cols[1].metric("Output", "ready" if summary.get("output_zip") else "missing")
+    cols[2].metric("Hero", "BKS")
+    cols[3].metric("Effetti", "global")
+    st.write(summary.get("output_zip", ""))
+    output = BASE_DIR / summary.get("output_zip", "")
+    if output.exists():
+        st.download_button("Scarica ZIP tema", output.read_bytes(), file_name=output.name, mime="application/zip", use_container_width=True)
+    st.dataframe(pd.DataFrame(data.get("checks", [])), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame([{"file": key, "path": value} for key, value in files.items()]), use_container_width=True, hide_index=True)
+
+
+def render_overview_page() -> None:
+    st.title("BKS MASTER STREAMLIT")
+    st.caption("Interfaccia principale con progressione visibile, Q&A ampia e pagine operative nella sidebar.")
+
+    service_states = [port_open(service.port) for service in SERVICES]
+    theme_path = active_theme_zip()
+    catalog_path = active_catalog_csv()
+    snapshot = build_master_snapshot()
+    _, live_summary = read_live_audit()
+    cols = st.columns(4)
+    cols[0].metric("Servizi online", f"{sum(service_states)}/{len(SERVICES)}")
+    cols[1].metric("Tema zip", "ok" if theme_path.exists() else "missing")
+    cols[2].metric("CSV catalogo", "ok" if catalog_path.exists() else "missing")
+    cols[3].metric("Audit live", live_summary.get("checked", 0) if live_summary else "n/d")
+
+    render_progression_panel(snapshot)
+    render_agent_console(snapshot)
+    render_master_actions(snapshot)
 
 
 def critical_files() -> tuple[tuple[str, str | Path], ...]:
@@ -632,27 +873,8 @@ def render_environment() -> None:
 
 
 def main() -> None:
-    st.set_page_config(page_title="BKS Master Monitor", page_icon="BKS", layout="wide")
-    st.title("BKS MASTER MONITOR")
-    st.caption("Pannello unico di avvio e controllo per BakAbo / BKS.")
-
-    service_states = [port_open(service.port) for service in SERVICES]
-    theme_path = active_theme_zip()
-    catalog_path = active_catalog_csv()
-    cols = st.columns(4)
-    cols[0].metric("Servizi online", f"{sum(service_states)}/{len(SERVICES)}")
-    cols[1].metric("Tema zip", "ok" if theme_path.exists() else "missing")
-    cols[2].metric("CSV catalogo", "ok" if catalog_path.exists() else "missing")
-    _, live_summary = read_live_audit()
-    cols[3].metric("Audit live", live_summary.get("checked", 0) if live_summary else "n/d")
-
-    tabs = st.tabs(["1_Gestione", "2_Social", "3_Project Manager"])
-    with tabs[0]:
-        render_management_panel()
-    with tabs[1]:
-        render_social_panel()
-    with tabs[2]:
-        render_project_manager()
+    st.set_page_config(page_title="BKS Master Streamlit", page_icon="BKS", layout="wide")
+    render_overview_page()
 
 
 if __name__ == "__main__":

@@ -31,8 +31,8 @@ if not exist ".venv_dashboard\Scripts\activate.bat" (
 
 call .venv_dashboard\Scripts\activate.bat
 
-echo [2/3] Verifico dipendenze master...
-python -c "import flask,requests,PIL" >nul 2>&1
+echo [2/3] Verifico dipendenze master Streamlit...
+python -c "import streamlit,pandas,requests,PIL" >nul 2>&1
 if %errorlevel% neq 0 (
     echo Installo dipendenze da ecommerce_automation\requirements.txt...
     python -m pip install --upgrade pip
@@ -52,7 +52,7 @@ echo Apri: http://127.0.0.1:8600
 echo.
 
 start /b "" cmd /c "timeout /t 2 /nobreak >nul && start http://127.0.0.1:8600"
-python -m ecommerce_automation.app
+python -m streamlit run streamlit_master.py --server.port 8600 --server.address 127.0.0.1
 
 echo.
 echo Master fermato.

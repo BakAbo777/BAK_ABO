@@ -13,9 +13,9 @@ Launcher principale:
 Nuovo control plane ECAMP / BKS Master:
 
 1. `Start_Master.bat`
-2. Oppure: `python -m ecommerce_automation.app`
+2. Oppure: `.venv_dashboard\Scripts\python.exe -m streamlit run streamlit_master.py --server.port 8600`
 3. Apri `http://127.0.0.1:8600`
-3. Specifica tecnica: `docs/ECAMP_CONTROL_PLANE.md`
+4. Specifica tecnica: `docs/ECAMP_CONTROL_PLANE.md`
 
 Launcher tecnici richiamabili anche dal master:
 
@@ -23,10 +23,10 @@ Launcher tecnici richiamabili anche dal master:
 2. `02_START_COLLECTIONS_DASHBOARD.bat`
 3. `03_START_METAFIELDS_RUNNER.bat`
 
-Il master apre `http://127.0.0.1:8600` e unisce fasi operative, servizi locali,
-reference prodotto, run ledger, social pipeline e Avatar Production HeyGen.
-Il vecchio Streamlit master resta in `streamlit_master.py` finche non viene
-spostato in `old`.
+Il master apre `http://127.0.0.1:8600` con Streamlit multipagina: Overview,
+Agente/Progressione, Gestione, Social, Project Manager e Tema BKS. La vecchia
+dashboard Flask resta disponibile con `python -m ecommerce_automation.app` per
+endpoint/API e fallback tecnico.
 
 ## BKS Master Agent
 
