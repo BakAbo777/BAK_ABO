@@ -21,6 +21,7 @@ TYPO_FIXES: tuple[tuple[str, str], ...] = (
 
 EXPECTED_COLLECTIONS = ("Hours", "Glyph", "Marker", "Riviera", "Pulse", "Token", "Flag", "Folklore")
 EXPECTED_PREFIXES = ("BKS", "BakAbo")
+EXPECTED_MARKER_PATTERN = re.compile(r"\b(BKS|BakAbo)\b", flags=re.IGNORECASE)
 DECORATIVE_SYMBOL_PATTERN = re.compile(r"[™®©★☆◆◇●○■□▲△▶▷✓✔✦✧]")
 VARIATION_SELECTOR_PATTERN = re.compile("[\ufe0e\ufe0f\u200d]")
 EMOJI_PATTERN = re.compile(
@@ -66,6 +67,10 @@ def _suggest_title(title: str, handle: str) -> str:
         suggestion = re.sub(re.escape(bad), good, suggestion, flags=re.IGNORECASE)
     suggestion = re.sub(r"\bBks\b", "BKS", suggestion)
     suggestion = re.sub(r"\bBKS\s+BKS\b", "BKS", suggestion)
+    suggestion = re.sub(r"\s+([,.;:])", r"\1", suggestion)
+    suggestion = re.sub(r"(?<=\S)(\()", r" \1", suggestion)
+    suggestion = re.sub(r"([)\]])(?=\S)", r"\1 ", suggestion)
+    suggestion = re.sub(r"\s+", " ", suggestion).strip()
     if not suggestion and handle:
         suggestion = _title_from_handle(handle)
     return suggestion
@@ -89,8 +94,8 @@ def _issues(row: dict[str, Any], duplicate_titles: Counter[str], duplicate_handl
     if not title:
         issues.append("missing_title")
         mark("needs_fix")
-    if title and not any(title.startswith(prefix) for prefix in EXPECTED_PREFIXES):
-        issues.append("missing_bks_prefix")
+    if title and not EXPECTED_MARKER_PATTERN.search(title):
+        issues.append("missing_bks_marker")
         mark("needs_review")
     if title and DECORATIVE_SYMBOL_PATTERN.search(title):
         issues.append("decorative_symbol_in_title")

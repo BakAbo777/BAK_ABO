@@ -122,8 +122,11 @@ def section_liquid() -> str:
     --bks-paper: #fafaf7;
     --bks-line: #ded8cd;
     --bks-accent: #2f6f6b;
+    --bks-font-display: "BKS Display", var(--font-heading-family, "Segoe UI", Arial, sans-serif);
+    --bks-font-text: "BKS Text", var(--font-body-family, "Segoe UI", Arial, sans-serif);
     background: var(--bks-ink);
     color: var(--bks-paper);
+    font-family: var(--bks-font-text);
     padding: 18px 20px;
   }
   #shopify-section-{{ sid }} .bks-timed-offer[hidden] { display: none; }
@@ -138,20 +141,23 @@ def section_liquid() -> str:
   #shopify-section-{{ sid }} .bks-timed-offer__kicker {
     color: #bfcfca;
     font-size: 11px;
-    letter-spacing: .08em;
+    letter-spacing: 0;
+    line-height: 1.3;
     margin: 0 0 4px;
     text-transform: uppercase;
   }
   #shopify-section-{{ sid }} .bks-timed-offer__title {
-    font-size: clamp(20px, 2.4vw, 34px);
+    font-family: var(--bks-font-display);
+    font-size: 28px;
     font-weight: 600;
-    line-height: 1.05;
+    letter-spacing: 0;
+    line-height: 1.12;
     margin: 0;
   }
   #shopify-section-{{ sid }} .bks-timed-offer__copy {
     color: #e7e0d6;
-    font-size: 13px;
-    line-height: 1.45;
+    font-size: 14px;
+    line-height: 1.5;
     margin: 6px 0 0;
     max-width: 760px;
   }
@@ -174,7 +180,8 @@ def section_liquid() -> str:
     color: #bfcfca;
     display: block;
     font-size: 9px;
-    letter-spacing: .08em;
+    letter-spacing: 0;
+    line-height: 1.2;
     text-transform: uppercase;
   }
   #shopify-section-{{ sid }} .bks-timed-offer__cta {
@@ -184,6 +191,8 @@ def section_liquid() -> str:
     font-size: 12px;
     font-weight: 700;
     justify-content: center;
+    line-height: 1.2;
+    min-height: 44px;
     min-width: 150px;
     padding: 12px 16px;
     text-decoration: none;
@@ -191,8 +200,9 @@ def section_liquid() -> str:
   }
   #shopify-section-{{ sid }} .bks-timed-offer__terms {
     color: #bfcfca;
-    font-size: 11px;
+    font-size: 12px;
     grid-column: 1 / -1;
+    line-height: 1.45;
     margin: 0;
   }
   @media (max-width: 760px) {
@@ -202,6 +212,13 @@ def section_liquid() -> str:
     #shopify-section-{{ sid }} .bks-timed-offer__clock {
       grid-template-columns: repeat(4, minmax(0, 1fr));
       width: 100%;
+    }
+    #shopify-section-{{ sid }} .bks-timed-offer__title {
+      font-size: 22px;
+    }
+    #shopify-section-{{ sid }} .bks-timed-offer__copy {
+      font-size: 14px;
+      line-height: 1.55;
     }
   }
 </style>

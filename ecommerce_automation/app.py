@@ -31,6 +31,7 @@ from ecommerce_automation.api_orchestrator import write_matrix as api_orchestrat
 from ecommerce_automation.agent_os import payload as agent_os_payload
 from ecommerce_automation.agent_routine import payload as agent_routine_payload
 from ecommerce_automation.always_on_agent import payload as always_on_payload
+from ecommerce_automation.canva_connectors import payload as canva_connectors_payload
 from ecommerce_automation.catalog_live_sync import payload as catalog_live_sync_payload
 from ecommerce_automation.communications import payload as communications_payload
 from ecommerce_automation.daily_web_update import payload as daily_web_update_payload, run as run_daily_web_update
@@ -38,6 +39,7 @@ from ecommerce_automation.dialogic_agent import payload as dialogic_agent_payloa
 from ecommerce_automation.google_merchant_monitor import payload as google_merchant_payload
 from ecommerce_automation.google_trust_contract import payload as google_trust_payload
 from ecommerce_automation.growth_crm import payload as growth_crm_payload
+from ecommerce_automation.hyperframes_connectors import payload as hyperframes_connectors_payload
 from ecommerce_automation.marketing_offers import payload as marketing_offer_payload
 from ecommerce_automation.marketing_logic_scout import payload as marketing_logic_payload
 from ecommerce_automation.market_sense import payload as market_sense_payload
@@ -46,6 +48,7 @@ from ecommerce_automation.master_agent import AGENT_MODES, AGENT_PROFILE, reply 
 from ecommerce_automation.network_monitor import payload as network_monitor_payload
 from ecommerce_automation.legal_guardrails import payload as legal_guardrails_payload
 from ecommerce_automation.official_inbox import payload as official_inbox_payload
+from ecommerce_automation.openai_alliance import payload as openai_alliance_payload
 from ecommerce_automation.payments import payload as payments_payload
 from ecommerce_automation.photo_studio import payload as photo_studio_payload
 from ecommerce_automation.product_name_audit import payload as product_name_audit_payload
@@ -139,6 +142,18 @@ def create_app() -> Flask:
         return {
             "make": services["make"].health_snapshot(),
             "openai": services["openai"].health(),
+            "openai_project": {
+                "configured": bool(settings.openai_project_id or settings.openai_chatgpt_project_url),
+                "status": "project_ready" if settings.openai_project_id or settings.openai_chatgpt_project_url else "env_pending",
+            },
+            "canva": {
+                "configured": bool(settings.canva_api_key),
+                "status": "configured" if settings.canva_api_key else "connector_available",
+            },
+            "hyperframes": {
+                "configured": bool(settings.hyperframes_api_key or settings.hyperframes_project_id),
+                "status": "configured" if settings.hyperframes_api_key or settings.hyperframes_project_id else "connector_available",
+            },
             "heygen": heygen_health(),
             "youtube": youtube_health(),
             "meta": {
@@ -236,6 +251,18 @@ def create_app() -> Flask:
         snapshots: dict[str, Any] = {
             "make": services["make"].health_snapshot(),
             "openai": services["openai"].health(),
+            "openai_project": {
+                "configured": bool(settings.openai_project_id or settings.openai_chatgpt_project_url),
+                "status": "project_ready" if settings.openai_project_id or settings.openai_chatgpt_project_url else "env_pending",
+            },
+            "canva": {
+                "configured": bool(settings.canva_api_key),
+                "status": "configured" if settings.canva_api_key else "connector_available",
+            },
+            "hyperframes": {
+                "configured": bool(settings.hyperframes_api_key or settings.hyperframes_project_id),
+                "status": "configured" if settings.hyperframes_api_key or settings.hyperframes_project_id else "connector_available",
+            },
             "heygen": heygen_health(),
             "youtube": youtube_health(),
             "image_factory": {
@@ -283,6 +310,9 @@ def create_app() -> Flask:
         theme_data = theme_optimizer_payload(settings)
         turbobak_data = turbobak_payload(settings)
         agent_os_data = agent_os_payload(settings)
+        openai_alliance_data = openai_alliance_payload(settings)
+        canva_data = canva_connectors_payload(settings)
+        hyperframes_data = hyperframes_connectors_payload(settings)
         payments_data = payments_payload(settings)
         network_data = network_monitor_payload(settings)
         catalog_sync_data = catalog_live_sync_payload(settings, build_services(), references, live=False)
@@ -332,6 +362,9 @@ def create_app() -> Flask:
                 "social_campaigns": social_campaigns_data,
                 "legal_guardrails": legal_data,
                 "theme_assistant": theme_assistant_data,
+                "openai_alliance": openai_alliance_data,
+                "canva": canva_data,
+                "hyperframes": hyperframes_data,
             },
         )
         market_data = market_sense_payload(
@@ -344,6 +377,9 @@ def create_app() -> Flask:
                 "sales_channels": sales_channels_payload(settings),
                 "avatar": avatar_data,
                 "agent_os": agent_os_data,
+                "openai_alliance": openai_alliance_data,
+                "canva": canva_data,
+                "hyperframes": hyperframes_data,
                 "payments": payments_data,
                 "network": network_data,
                 "catalog_sync": catalog_sync_data,
@@ -356,6 +392,9 @@ def create_app() -> Flask:
                 "growth_crm": growth_crm_data,
                 "photo_studio": photo_studio_data,
                 "theme_assistant": theme_assistant_data,
+                "openai_alliance": openai_alliance_data,
+                "canva": canva_data,
+                "hyperframes": hyperframes_data,
             },
         )
         actions_data = master_actions_payload(
@@ -376,6 +415,9 @@ def create_app() -> Flask:
                 "growth_crm": growth_crm_data,
                 "photo_studio": photo_studio_data,
                 "theme_assistant": theme_assistant_data,
+                "openai_alliance": openai_alliance_data,
+                "canva": canva_data,
+                "hyperframes": hyperframes_data,
             },
         )
         weekly_data = weekly_goals_payload(
@@ -405,6 +447,9 @@ def create_app() -> Flask:
             "theme": theme_data,
             "turbobak": turbobak_data,
             "agent_os": agent_os_data,
+            "openai_alliance": openai_alliance_data,
+            "canva": canva_data,
+            "hyperframes": hyperframes_data,
             "payments": payments_data,
             "network": network_data,
             "catalog_sync": catalog_sync_data,
@@ -550,6 +595,18 @@ def create_app() -> Flask:
     def api_agent_os():
         return jsonify(agent_os_payload(settings))
 
+    @app.get("/api/openai-alliance")
+    def api_openai_alliance():
+        return jsonify(openai_alliance_payload(settings))
+
+    @app.get("/api/canva-connectors")
+    def api_canva_connectors():
+        return jsonify(canva_connectors_payload(settings))
+
+    @app.get("/api/hyperframes-connectors")
+    def api_hyperframes_connectors():
+        return jsonify(hyperframes_connectors_payload(settings))
+
     @app.get("/api/agent-routine")
     def api_agent_routine():
         return jsonify(action_snapshot()["routine"])
@@ -608,6 +665,9 @@ def create_app() -> Flask:
             "theme": theme_optimizer_payload(settings),
             "turbobak": turbobak_payload(settings),
             "agent_os": agent_os_payload(settings),
+            "openai_alliance": openai_alliance_payload(settings),
+            "canva": canva_connectors_payload(settings),
+            "hyperframes": hyperframes_connectors_payload(settings),
             "payments": payments_payload(settings),
             "network": network_monitor_payload(settings),
             "catalog_sync": catalog_live_sync_payload(settings, build_services(), references, live=False),

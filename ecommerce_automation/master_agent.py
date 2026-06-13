@@ -70,6 +70,9 @@ def reply(message: str, snapshot: dict[str, Any]) -> dict[str, Any]:
     growth_crm = snapshot.get("growth_crm", {})
     catalog_sync = snapshot.get("catalog_sync", {})
     product_names = snapshot.get("product_names", {})
+    openai_alliance = snapshot.get("openai_alliance", {})
+    canva = snapshot.get("canva", {})
+    hyperframes = snapshot.get("hyperframes", {})
 
     if not lower:
         return {"reply": "Scrivimi una richiesta operativa: stato, connessioni, avatar, social, skill, oppure run fase 09.", "actions": []}
@@ -181,9 +184,19 @@ def reply(message: str, snapshot: dict[str, Any]) -> dict[str, Any]:
             "reply": (
                 f"Product Name Audit: sorgente {summary.get('source', 'active_csv')}, {summary.get('products', 0)} prodotti controllati, "
                 f"{summary.get('needs_fix', 0)} da correggere e {summary.get('needs_review', 0)} da verificare. "
-                "Priorita: correggere titoli mancanti/refusi/draft word e poi controllare mismatch handle-titolo prima di feed Google o campagne."
+                "Priorita: correggere emoji, simboli, refusi e mismatch handle-titolo. Non stravolgo: se BKS e serie/collezione sono gia nel nome, li preservo."
             ),
             "actions": ["open_product_name_audit", "open_catalog_sync"],
+        }
+
+    if "font" in lower or "tipografia" in lower or ("mobile" in lower and "descriz" in lower) or "bks e la serie" in lower or "non stravolgere" in lower:
+        return {
+            "reply": (
+                "Standard BKS impostato in modo conservativo: BKS Display per titoli, BKS Text per descrizioni e pannelli, BKS Mono per log e dati. "
+                "Su mobile le descrizioni restano almeno 14-15px con line-height ariosa, i bottoni almeno 44px, spaziatura lettere a zero. "
+                "Naming: BKS + serie/collezione rimane il riferimento, senza riordinare aggressivamente i titoli prodotto."
+            ),
+            "actions": ["open_theme", "open_skills"],
         }
 
     if "fiducia" in lower or "trust" in lower or "esigenza google" in lower:
@@ -317,6 +330,44 @@ def reply(message: str, snapshot: dict[str, Any]) -> dict[str, Any]:
                 "Architettura: percezione, memoria, planner, registry connettori, approval gate, executor e osservabilita."
             ),
             "actions": ["open_agent_os", "open_api"],
+        }
+
+    if "open ai" in lower or "openai" in lower or "chatgpt" in lower or "alleata" in lower or "allinea" in lower:
+        summary = openai_alliance.get("summary", {})
+        return {
+            "reply": (
+                "OpenAI si allinea al progetto BKS, non il contrario. "
+                "BKS resta la fonte: identita, serie/collezioni, catalogo, policy, Google trust, tono e approvazioni. "
+                f"OpenAI Alliance: {summary.get('ready', 0)} capacita ready, {summary.get('partial', 0)} parziali, "
+                f"Project {summary.get('project_link', 'env_pending')}, modello {summary.get('default_model', 'project_default')}. "
+                "Uso OpenAI per ragionare, riassumere, scrivere bozze, controllare rischi e preparare output; non per cambiare direzione al brand. "
+                "Canva e HyperFrames restano strumenti a valle: impaginano e animano cio che BKS ha gia deciso."
+            ),
+            "actions": ["open_openai_alliance", "open_agent_os"],
+        }
+
+    if "canva" in lower or "brand kit" in lower or "brand template" in lower or "autofill" in lower or "search designs" in lower:
+        summary = canva.get("summary", {})
+        return {
+            "reply": (
+                f"Canva Connector Agent: stato {summary.get('status', 'connector_available')}, "
+                f"{summary.get('groups', 0)} gruppi strumenti, {summary.get('workflows', 0)} workflow. "
+                "Sequenza corretta: Brand Kit o template BKS, dataset/autofill se ripetibile, generazione candidata se serve, review, resize, export. "
+                "Salvataggi ufficiali, template pubblicati ed export campagna richiedono approvazione."
+            ),
+            "actions": ["open_canva_connectors", "open_social_campaigns"],
+        }
+
+    if "hyperframes" in lower or "motion" in lower or "explainer" in lower or "video html" in lower or "animated" in lower:
+        summary = hyperframes.get("summary", {})
+        return {
+            "reply": (
+                f"HyperFrames: stato {summary.get('status', 'connector_available')}, "
+                f"{summary.get('tools', 0)} strumenti, formato default {summary.get('default_format', '1080x1920')}. "
+                "Lo uso per trasformare storyboard HTML approvati in slide animate, explainer e motion graphics. "
+                "HeyGen parla, HyperFrames visualizza; render solo dopo review e con metadata."
+            ),
+            "actions": ["open_hyperframes_connectors", "open_social_render"],
         }
 
     if "assistente" in lower and ("tema" in lower or "cliente" in lower or "fruitore" in lower or "shopify" in lower):

@@ -15,6 +15,9 @@ OUTPUT_ZIP = Path("04_TEMA_SHOPIFY/BKS_TM03_LIGHT_TRUST_TIMER_READY.zip")
 LIGHT_CSS = Path("04_TEMA_SHOPIFY/assets/bks-commerce-light.css")
 TRUST_SECTION = Path("04_TEMA_SHOPIFY/sections/bks-trust-strip.liquid")
 AI_ASSISTANT_SECTION = Path("04_TEMA_SHOPIFY/sections/bks-ai-assistant.liquid")
+ORBIT_SECTION = Path("04_TEMA_SHOPIFY/sections/bks-planet-collections-orbit.liquid")
+ORBIT_TEMPLATE = Path("04_TEMA_SHOPIFY/templates/page.bks-planet-collections-orbit.json")
+ORBIT_SNIPPET = Path("04_TEMA_SHOPIFY/snippets/bks-orbit-card.liquid")
 
 
 def _relative(root_dir: Path, path: Path) -> str:
@@ -24,7 +27,14 @@ def _relative(root_dir: Path, path: Path) -> str:
         return path.as_posix()
 
 
+def _workspace_text(root_dir: Path, path: Path) -> str:
+    full_path = root_dir / path
+    return full_path.read_text(encoding="utf-8") if full_path.exists() else ""
+
+
 def commerce_light_css() -> str:
+    if LIGHT_CSS.exists():
+        return LIGHT_CSS.read_text(encoding="utf-8")
     return """/*
   BKS commerce trust layer.
   Purpose: lighten the storefront, keep product and policy information readable,
@@ -248,7 +258,15 @@ def ensure_patch_files(root_dir: Path) -> dict[str, str]:
     section_path = root_dir / TRUST_SECTION
     section_path.parent.mkdir(parents=True, exist_ok=True)
     section_path.write_text(trust_section_liquid(), encoding="utf-8")
-    return {"css": _relative(root_dir, css_path), "trust_section": _relative(root_dir, section_path)}
+    files = {"css": _relative(root_dir, css_path), "trust_section": _relative(root_dir, section_path)}
+    for key, path in {
+        "orbit_section": ORBIT_SECTION,
+        "orbit_template": ORBIT_TEMPLATE,
+        "orbit_snippet": ORBIT_SNIPPET,
+    }.items():
+        if (root_dir / path).exists():
+            files[key] = _relative(root_dir, root_dir / path)
+    return files
 
 
 def _inject_theme_liquid(content: str) -> str:
@@ -291,6 +309,15 @@ def build_patched_zip(settings: Any) -> dict[str, Any]:
             zout.writestr("sections/bks-timed-offer.liquid", timed_offer_section())
         if "sections/bks-ai-assistant.liquid" not in names:
             zout.writestr("sections/bks-ai-assistant.liquid", ai_assistant_section(settings))
+        orbit_section = _workspace_text(root_dir, ORBIT_SECTION)
+        orbit_template = _workspace_text(root_dir, ORBIT_TEMPLATE)
+        orbit_snippet = _workspace_text(root_dir, ORBIT_SNIPPET)
+        if orbit_section and "sections/bks-planet-collections-orbit.liquid" not in names:
+            zout.writestr("sections/bks-planet-collections-orbit.liquid", orbit_section)
+        if orbit_template and "templates/page.bks-planet-collections-orbit.json" not in names:
+            zout.writestr("templates/page.bks-planet-collections-orbit.json", orbit_template)
+        if orbit_snippet and "snippets/bks-orbit-card.liquid" not in names:
+            zout.writestr("snippets/bks-orbit-card.liquid", orbit_snippet)
 
     return {
         "status": "ready",
@@ -299,6 +326,7 @@ def build_patched_zip(settings: Any) -> dict[str, Any]:
         "files": files | {
             "timed_offer": "04_TEMA_SHOPIFY/sections/bks-timed-offer.liquid",
             "ai_assistant": "04_TEMA_SHOPIFY/sections/bks-ai-assistant.liquid",
+            "planet_collections_orbit": "04_TEMA_SHOPIFY/sections/bks-planet-collections-orbit.liquid",
         },
         "marketing": marketing,
         "assistant": assistant,
@@ -308,6 +336,7 @@ def build_patched_zip(settings: Any) -> dict[str, Any]:
             {"check": "trust_strip_section", "status": "pass", "detail": "sections/bks-trust-strip.liquid added"},
             {"check": "timed_offer_section", "status": "pass", "detail": "sections/bks-timed-offer.liquid added"},
             {"check": "ai_assistant_section", "status": "pass", "detail": "sections/bks-ai-assistant.liquid added disabled-by-default"},
+            {"check": "planet_collections_orbit", "status": "pass", "detail": "sections/bks-planet-collections-orbit.liquid added with page template"},
         ],
     }
 

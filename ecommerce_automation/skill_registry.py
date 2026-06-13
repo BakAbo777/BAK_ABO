@@ -50,6 +50,14 @@ def _section_names(text: str) -> list[str]:
 
 def _phase_hint(skill_name: str, text: str) -> str:
     haystack = f"{skill_name} {text}".lower()
+    if "openai" in haystack or "chatgpt" in haystack:
+        return "AI / Agent OS"
+    if "canva" in haystack:
+        return "Creative connectors"
+    if "hyperframes" in haystack or "motion graphics" in haystack or "html-to-video" in haystack:
+        return "Motion / Video"
+    if "design system" in haystack or "typography" in haystack:
+        return "Tema Shopify / Design system"
     if "avatar" in haystack or "heygen" in haystack or "tiktok" in haystack:
         return "Avatar / Social Render"
     if "armocrom" in haystack or "palette" in haystack or "shooting" in haystack:

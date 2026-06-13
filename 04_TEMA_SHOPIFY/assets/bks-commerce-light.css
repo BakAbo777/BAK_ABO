@@ -9,6 +9,9 @@
   --bks-commerce-muted: #5f5a52;
   --bks-commerce-line: #ded8cd;
   --bks-commerce-accent: #2f6f6b;
+  --bks-font-display: "BKS Display", var(--font-heading-family, "Segoe UI", Arial, sans-serif);
+  --bks-font-text: "BKS Text", var(--font-body-family, "Segoe UI", Arial, sans-serif);
+  --bks-font-mono: "BKS Mono", Consolas, "Liberation Mono", monospace;
 }
 
 body,
@@ -18,6 +21,17 @@ body,
 .shopify-section {
   background: var(--bks-commerce-paper);
   color: var(--bks-commerce-ink);
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--bks-font-text);
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: 1.5;
 }
 
 .header-wrapper,
@@ -45,6 +59,10 @@ body,
   background: var(--bks-commerce-ink);
   border-color: var(--bks-commerce-ink);
   color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.2;
+  min-height: 44px;
 }
 
 .button--secondary,
@@ -79,6 +97,21 @@ body,
 .h2,
 .h3 {
   color: var(--bks-commerce-ink);
+  font-family: var(--bks-font-display);
+  letter-spacing: 0;
+  line-height: 1.15;
+}
+
+.product__title {
+  font-size: 32px;
+}
+
+.collection-hero__title,
+.main-page-title,
+.title,
+.h1,
+.h2 {
+  font-size: 30px;
 }
 
 .price,
@@ -88,6 +121,8 @@ body,
 .collection-hero__description,
 .footer-block__details-content {
   color: var(--bks-commerce-muted);
+  font-size: 15px;
+  line-height: 1.62;
 }
 
 .product-form__input input[type='radio'] + label,
@@ -137,6 +172,7 @@ body,
 .bks-trust-strip__item strong {
   display: block;
   font-size: 13px;
+  line-height: 1.25;
   margin-bottom: 4px;
 }
 
@@ -144,12 +180,41 @@ body,
   color: var(--bks-commerce-muted);
   display: block;
   font-size: 12px;
-  line-height: 1.35;
+  line-height: 1.45;
 }
 
 @media (max-width: 760px) {
+  body,
+  button,
+  input,
+  select,
+  textarea {
+    font-size: 15px;
+  }
+
+  .product__title,
+  .collection-hero__title,
+  .main-page-title,
+  .title,
+  .h1,
+  .h2 {
+    font-size: 26px;
+    line-height: 1.18;
+  }
+
+  .price,
+  .caption,
+  .rte,
+  .product__description,
+  .collection-hero__description,
+  .footer-block__details-content {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
   .bks-trust-strip__inner {
     grid-template-columns: 1fr;
+    padding: 16px;
   }
   .bks-trust-strip__item,
   .bks-trust-strip__item:first-child {
@@ -161,5 +226,12 @@ body,
   .bks-trust-strip__item:first-child {
     border-top: 0;
     padding-top: 0;
+  }
+  .bks-trust-strip__item strong {
+    font-size: 14px;
+  }
+  .bks-trust-strip__item span {
+    font-size: 13px;
+    line-height: 1.5;
   }
 }

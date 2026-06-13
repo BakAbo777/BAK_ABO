@@ -79,8 +79,12 @@ def section_liquid(settings: Any) -> str:
     --bks-ai-muted: #5f5a52;
     --bks-ai-line: #ded8cd;
     --bks-ai-accent: #2f6f6b;
+    --bks-font-display: "BKS Display", var(--font-heading-family, "Segoe UI", Arial, sans-serif);
+    --bks-font-text: "BKS Text", var(--font-body-family, "Segoe UI", Arial, sans-serif);
     bottom: 18px;
-    font: inherit;
+    font-family: var(--bks-font-text);
+    font-size: 14px;
+    line-height: 1.5;
     position: fixed;
     right: 18px;
     z-index: 80;
@@ -92,6 +96,8 @@ def section_liquid(settings: Any) -> str:
     cursor: pointer;
     font: inherit;
     font-weight: 700;
+    line-height: 1.2;
+    min-height: 44px;
     padding: 12px 15px;
   }}
   .bks-ai-assistant__panel {{
@@ -123,10 +129,15 @@ def section_liquid(settings: Any) -> str:
   .bks-ai-assistant__head small {{
     display: block;
   }}
+  .bks-ai-assistant__head strong {{
+    font-family: var(--bks-font-display);
+    letter-spacing: 0;
+    line-height: 1.2;
+  }}
   .bks-ai-assistant__head small {{
     color: var(--bks-ai-muted);
     font-size: 12px;
-    line-height: 1.35;
+    line-height: 1.45;
     margin-top: 3px;
   }}
   .bks-ai-assistant__head button {{
@@ -146,7 +157,8 @@ def section_liquid(settings: Any) -> str:
   }}
   .bks-ai-assistant__message {{
     border: 1px solid var(--bks-ai-line);
-    line-height: 1.42;
+    font-size: 14px;
+    line-height: 1.5;
     margin: 0;
     padding: 9px 10px;
     white-space: pre-wrap;
@@ -170,6 +182,7 @@ def section_liquid(settings: Any) -> str:
     border: 1px solid var(--bks-ai-line);
     color: var(--bks-ai-ink);
     font: inherit;
+    font-size: 16px;
     min-width: 0;
     padding: 10px 11px;
   }}
@@ -180,12 +193,13 @@ def section_liquid(settings: Any) -> str:
     cursor: pointer;
     font: inherit;
     font-weight: 700;
+    min-height: 44px;
     padding: 10px 12px;
   }}
   .bks-ai-assistant__terms {{
     color: var(--bks-ai-muted);
-    font-size: 11px;
-    line-height: 1.35;
+    font-size: 12px;
+    line-height: 1.45;
     margin: 0;
     padding: 0 14px 14px;
   }}
@@ -198,6 +212,11 @@ def section_liquid(settings: Any) -> str:
       bottom: 50px;
       max-height: calc(100vh - 80px);
       width: calc(100vw - 24px);
+    }}
+    .bks-ai-assistant__message.user,
+    .bks-ai-assistant__message.assistant {{
+      margin-left: 0;
+      margin-right: 0;
     }}
   }}
 </style>

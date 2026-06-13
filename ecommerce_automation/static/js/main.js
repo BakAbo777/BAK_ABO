@@ -854,6 +854,117 @@ async function refreshAgentOS() {
   }
 }
 
+async function refreshOpenAIAlliance() {
+  const summaryRoot = document.querySelector("#openai-alliance-summary");
+  const tableRoot = document.querySelector("#openai-alliance-table");
+  const guardsRoot = document.querySelector("#openai-alliance-guards");
+  const downloadLink = document.querySelector("#openai-alliance-download");
+  if (!summaryRoot && !tableRoot && !guardsRoot && !downloadLink) return;
+  const data = await getJson("/api/openai-alliance");
+  const summary = data.summary || {};
+  if (summaryRoot) {
+    summaryRoot.innerHTML = [
+      avatarSummaryCard("Status", summary.status || "planned", "aligned to BKS"),
+      avatarSummaryCard("Ready", summary.ready || 0, `${summary.capabilities || 0} capabilities`),
+      avatarSummaryCard("Project", summary.project_link || "env_pending", "ChatGPT Project"),
+      avatarSummaryCard("Model", summary.default_model || "project_default", "BKS decides"),
+    ].join("");
+  }
+  if (tableRoot) {
+    tableRoot.innerHTML = simpleRowsTable(data.capabilities || [], [
+      { key: "capability", label: "Capability", render: (row) => `<strong>${escapeHtml(row.capability)}</strong><br><small>${escapeHtml(row.area)}</small>` },
+      { key: "status", label: "Status", render: (row) => `<span class="status-${escapeHtml(row.status)}">${escapeHtml(row.status)}</span><br><small>${escapeHtml(row.configured)}</small>` },
+      { key: "autonomy", label: "Autonomy" },
+      { key: "use", label: "Use" },
+      { key: "agent_rule", label: "BKS rule" },
+    ], "openai-row");
+  }
+  if (guardsRoot) {
+    guardsRoot.innerHTML = (data.guardrails || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+  }
+  if (downloadLink && summary.sheet) {
+    downloadLink.href = mediaUrl(summary.sheet);
+  }
+}
+
+async function refreshCanvaConnectors() {
+  const summaryRoot = document.querySelector("#canva-connectors-summary");
+  const tableRoot = document.querySelector("#canva-connectors-table");
+  const workflowsRoot = document.querySelector("#canva-workflows");
+  const downloadLink = document.querySelector("#canva-connectors-download");
+  if (!summaryRoot && !tableRoot && !workflowsRoot && !downloadLink) return;
+  const data = await getJson("/api/canva-connectors");
+  const summary = data.summary || {};
+  if (summaryRoot) {
+    summaryRoot.innerHTML = [
+      avatarSummaryCard("Status", summary.status || "connector_available", "Canva connector"),
+      avatarSummaryCard("Tool groups", summary.groups || 0, "read/write/review"),
+      avatarSummaryCard("Workflows", summary.workflows || 0, "social + catalog"),
+      avatarSummaryCard("Autonomy", "Draft", summary.autonomy || "supervised"),
+    ].join("");
+  }
+  if (tableRoot) {
+    tableRoot.innerHTML = simpleRowsTable(data.tool_groups || [], [
+      { key: "group", label: "Group", render: (row) => `<strong>${escapeHtml(row.group)}</strong><br><small>${escapeHtml(row.autonomy)} · ${escapeHtml(row.risk)}</small>` },
+      { key: "status", label: "Status", render: (row) => `<span class="status-${escapeHtml(row.status)}">${escapeHtml(row.status)}</span>` },
+      { key: "tools", label: "Tools" },
+      { key: "use", label: "Use" },
+      { key: "agent_rule", label: "Rule" },
+    ], "canva-row");
+  }
+  if (workflowsRoot) {
+    workflowsRoot.innerHTML = (data.workflows || []).map((workflow) => `
+      <div class="mode-card">
+        <strong>${escapeHtml(workflow.workflow)}</strong>
+        <p>${escapeHtml(workflow.sequence)}</p>
+        <span>${escapeHtml(workflow.output)}</span>
+      </div>
+    `).join("");
+  }
+  if (downloadLink && summary.sheet) {
+    downloadLink.href = mediaUrl(summary.sheet);
+  }
+}
+
+async function refreshHyperFramesConnectors() {
+  const summaryRoot = document.querySelector("#hyperframes-connectors-summary");
+  const tableRoot = document.querySelector("#hyperframes-connectors-table");
+  const workflowsRoot = document.querySelector("#hyperframes-workflows");
+  const downloadLink = document.querySelector("#hyperframes-connectors-download");
+  if (!summaryRoot && !tableRoot && !workflowsRoot && !downloadLink) return;
+  const data = await getJson("/api/hyperframes-connectors");
+  const summary = data.summary || {};
+  if (summaryRoot) {
+    summaryRoot.innerHTML = [
+      avatarSummaryCard("Status", summary.status || "connector_available", "HTML to video"),
+      avatarSummaryCard("Tools", summary.tools || 0, "compose/render/status"),
+      avatarSummaryCard("Format", summary.default_format || "1080x1920", "default"),
+      avatarSummaryCard("Autonomy", "Render draft", summary.autonomy || "approval"),
+    ].join("");
+  }
+  if (tableRoot) {
+    tableRoot.innerHTML = simpleRowsTable(data.tools || [], [
+      { key: "tool", label: "Tool", render: (row) => `<strong>${escapeHtml(row.tool)}</strong><br><small>${escapeHtml(row.mode)}</small>` },
+      { key: "status", label: "Status", render: (row) => `<span class="status-${escapeHtml(row.status)}">${escapeHtml(row.status)}</span>` },
+      { key: "risk", label: "Risk" },
+      { key: "use", label: "Use" },
+      { key: "agent_rule", label: "Rule" },
+    ], "hyperframes-row");
+  }
+  if (workflowsRoot) {
+    workflowsRoot.innerHTML = (data.workflows || []).map((workflow) => `
+      <div class="mode-card">
+        <strong>${escapeHtml(workflow.workflow)}</strong>
+        <p>${escapeHtml(workflow.sequence)}</p>
+        <span>${escapeHtml(workflow.output)}</span>
+      </div>
+    `).join("");
+  }
+  if (downloadLink && summary.sheet) {
+    downloadLink.href = mediaUrl(summary.sheet);
+  }
+}
+
 async function refreshGoogleTrust() {
   const summaryRoot = document.querySelector("#google-trust-summary");
   const tableRoot = document.querySelector("#google-trust-table");
@@ -1561,7 +1672,7 @@ async function refreshThemeOptimizer() {
       avatarSummaryCard("Patch", summary.status || "unknown", summary.goal || ""),
       avatarSummaryCard("Output", summary.output_zip ? "Ready" : "Missing", summary.output_zip || ""),
       avatarSummaryCard("CSS", files.css ? "Ready" : "Missing", files.css || ""),
-      avatarSummaryCard("Sections", "Trust + Timer", `${files.trust_section || ""} ${files.timed_offer || ""}`),
+      avatarSummaryCard("Sections", "Trust + Timer + Orbit", `${files.trust_section || ""} ${files.timed_offer || ""} ${files.planet_collections_orbit || ""}`),
     ].join("");
   }
   if (tableRoot) {
@@ -1650,6 +1761,9 @@ async function refreshDashboard() {
   await refreshAgentRoutine();
   await refreshThemeAIAssistant();
   await refreshAgentOS();
+  await refreshOpenAIAlliance();
+  await refreshCanvaConnectors();
+  await refreshHyperFramesConnectors();
   await refreshGoogleTrust();
   await refreshNetworkMonitor();
   await refreshLegalGuardrails();
