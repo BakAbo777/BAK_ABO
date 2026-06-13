@@ -8,6 +8,7 @@ from typing import Any
 PHOTO_SHEET = Path("output/photo_studio_pipeline.csv")
 THEME_PROGRESSIONS = Path("output/theme_progression_matrix.csv")
 PHOTO_SKILL = Path("docs/bakabo-photo-studio_SKILL.md")
+WORLD_MODEL_SHEET = Path("output/world_model_context_matrix.csv")
 
 
 SHOT_TYPES: tuple[dict[str, str], ...] = (
@@ -126,6 +127,74 @@ REVIEW_GUARDS: tuple[dict[str, str], ...] = (
 )
 
 
+WORLD_MODEL_CONTEXTS: tuple[dict[str, str], ...] = (
+    {
+        "market": "United States",
+        "language": "English",
+        "model_direction": "Diverse adult pair, relaxed city-to-coast life, confident but not celebrity-coded.",
+        "weather_logic": "Use lightweight tops, shorts, swimwear or sneakers by local season and region.",
+        "copy_tone": "Direct, practical, optimistic, product-first.",
+        "guardrail": "Do not imply US-made unless true; keep shipping/returns and price currency consistent.",
+    },
+    {
+        "market": "France",
+        "language": "French",
+        "model_direction": "Adult pair with understated editorial styling, street/gallery/cafe movement.",
+        "weather_logic": "Layer outerwear and sneakers in mild/cool weather, resort pieces only in seasonal context.",
+        "copy_tone": "Minimal, cultured, tactile, never loud.",
+        "guardrail": "Translate product facts accurately; do not overclaim luxury origin.",
+    },
+    {
+        "market": "Germany",
+        "language": "German",
+        "model_direction": "Adult pair in clean urban settings, function and material clarity visible.",
+        "weather_logic": "Favor practical layering, windbreakers, sneakers and bags by temperature.",
+        "copy_tone": "Precise, clear, trustworthy, low-pressure.",
+        "guardrail": "Make delivery, returns and material/care details easy to inspect.",
+    },
+    {
+        "market": "Canada",
+        "language": "English/French",
+        "model_direction": "Adult pair in city/outdoor transition, warm but understated.",
+        "weather_logic": "Use climate-aware layering; avoid beachwear outside plausible seasonal scenes.",
+        "copy_tone": "Friendly, transparent, everyday premium.",
+        "guardrail": "Match language/currency to feed and landing page requirements.",
+    },
+    {
+        "market": "Japan",
+        "language": "Japanese",
+        "model_direction": "Adult pair with composed styling, detail shots, clean negative space and care for proportion.",
+        "weather_logic": "Use seasonally precise looks and smaller gestures; product texture remains inspectable.",
+        "copy_tone": "Respectful, concise, craft-oriented.",
+        "guardrail": "Use native review for translation before publication.",
+    },
+    {
+        "market": "South Korea",
+        "language": "Korean",
+        "model_direction": "Adult pair with polished daily styling and street/editorial balance.",
+        "weather_logic": "Seasonal layering; strong footwear and bag visibility.",
+        "copy_tone": "Modern, clean, design-conscious.",
+        "guardrail": "Activate only after Merchant business registration and country policies are complete.",
+    },
+    {
+        "market": "China / Chinese-language creative",
+        "language": "Chinese",
+        "model_direction": "Adult pair with metropolitan daily-life styling and careful product close-ups.",
+        "weather_logic": "Adapt by region and season; avoid political or restricted-market assumptions.",
+        "copy_tone": "Elegant, practical, image-led.",
+        "guardrail": "Use only if channel, payment, shipping and compliance are approved for the market.",
+    },
+    {
+        "market": "Egypt / Arabic-speaking markets",
+        "language": "Arabic/English",
+        "model_direction": "Adult pair styled with cultural respect, heat-aware layering and modest options when relevant.",
+        "weather_logic": "Prefer breathable tops, bags, sandals and swim only in suitable resort contexts.",
+        "copy_tone": "Warm, clear, trust-first.",
+        "guardrail": "Use local-language review and do not publish unsupported shipping destinations.",
+    },
+)
+
+
 def _relative(root_dir: Path, path: Path) -> str:
     try:
         return path.relative_to(root_dir).as_posix()
@@ -216,6 +285,11 @@ def write_outputs(settings: Any, photos: list[dict[str, str]]) -> tuple[str, str
     lines.extend(f"- {row['stage']}: {row['theme_use']} / images: {row['image_need']}." for row in THEME_STAGES)
     lines.extend(["", "## Collection directions", ""])
     lines.extend(f"- {row['collection']}: {row['surface']}; {row['light']}; {row['mood']}." for row in COLLECTION_DIRECTIONS)
+    lines.extend(["", "## Adam and Eve world model system", ""])
+    lines.extend(
+        f"- {row['market']}: {row['model_direction']} Weather: {row['weather_logic']} Guardrail: {row['guardrail']}"
+        for row in WORLD_MODEL_CONTEXTS
+    )
     lines.extend(
         [
             "",
@@ -226,12 +300,20 @@ def write_outputs(settings: Any, photos: list[dict[str, str]]) -> tuple[str, str
     lines.extend(f"- {row['guard']}: {row['meaning']}" for row in REVIEW_GUARDS)
     skill_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
-    return _relative(settings.root_dir, photo_path), _relative(settings.root_dir, progression_path), _relative(settings.root_dir, skill_path)
+    world_path = settings.root_dir / WORLD_MODEL_SHEET
+    world_path.parent.mkdir(parents=True, exist_ok=True)
+    world_fields = ["market", "language", "model_direction", "weather_logic", "copy_tone", "guardrail"]
+    with world_path.open("w", newline="", encoding="utf-8-sig") as handle:
+        writer = csv.DictWriter(handle, fieldnames=world_fields)
+        writer.writeheader()
+        writer.writerows([{key: row.get(key, "") for key in world_fields} for row in WORLD_MODEL_CONTEXTS])
+
+    return _relative(settings.root_dir, photo_path), _relative(settings.root_dir, progression_path), _relative(settings.root_dir, skill_path), _relative(settings.root_dir, world_path)
 
 
 def payload(settings: Any, snapshot: dict[str, Any]) -> dict[str, Any]:
     photos = photo_rows(settings, snapshot)
-    sheet, progression, skill = write_outputs(settings, photos)
+    sheet, progression, skill, world_sheet = write_outputs(settings, photos)
     return {
         "summary": {
             "shot_types": len(photos),
@@ -242,10 +324,13 @@ def payload(settings: Any, snapshot: dict[str, Any]) -> dict[str, Any]:
             "progression": progression,
             "skill": skill,
             "directions": len(COLLECTION_DIRECTIONS),
+            "world_contexts": len(WORLD_MODEL_CONTEXTS),
+            "world_sheet": world_sheet,
         },
         "shots": photos,
         "theme_stages": list(THEME_STAGES),
         "collection_directions": list(COLLECTION_DIRECTIONS),
         "review_guards": list(REVIEW_GUARDS),
+        "world_contexts": list(WORLD_MODEL_CONTEXTS),
         "learning_rule": "The agent records which photo/theme/review combinations improve trust, clarity and conversion. It never invents product patterns, colors or logos.",
     }

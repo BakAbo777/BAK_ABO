@@ -1331,10 +1331,11 @@ async function refreshPhotoStudio() {
   const chartsRoot = document.querySelector("#photo-studio-charts");
   const tableRoot = document.querySelector("#photo-studio-table");
   const progressionRoot = document.querySelector("#theme-progression-table");
+  const worldRoot = document.querySelector("#world-model-context-table");
   const reviewRoot = document.querySelector("#review-guard-table");
   const photoLink = document.querySelector("#photo-studio-download");
   const progressionLink = document.querySelector("#theme-progression-download");
-  if (!summaryRoot && !chartsRoot && !tableRoot && !progressionRoot && !reviewRoot && !photoLink && !progressionLink) return;
+  if (!summaryRoot && !chartsRoot && !tableRoot && !progressionRoot && !worldRoot && !reviewRoot && !photoLink && !progressionLink) return;
   const data = await getJson("/api/photo-studio");
   const summary = data.summary || {};
   if (summaryRoot) {
@@ -1342,6 +1343,7 @@ async function refreshPhotoStudio() {
       avatarSummaryCard("Shot types", summary.shot_types || 0, "catalogo foto"),
       avatarSummaryCard("P0", summary.p0 || 0, "product truth"),
       avatarSummaryCard("Ready", summary.ready || 0, "ready to plan"),
+      avatarSummaryCard("World contexts", summary.world_contexts || 0, "Adam/Eve system"),
       avatarSummaryCard("Reviews", summary.review_guards || 0, "guardrails"),
     ].join("");
   }
@@ -1374,6 +1376,14 @@ async function refreshPhotoStudio() {
       { key: "theme_use", label: "Theme use" },
       { key: "image_need", label: "Image need" },
     ], "theme-stage-row");
+  }
+  if (worldRoot) {
+    worldRoot.innerHTML = simpleRowsTable(data.world_contexts || [], [
+      { key: "market", label: "Market", render: (row) => `<strong>${escapeHtml(row.market)}</strong><br><small>${escapeHtml(row.language)}</small>` },
+      { key: "model_direction", label: "Model direction" },
+      { key: "weather_logic", label: "Weather logic" },
+      { key: "guardrail", label: "Guardrail" },
+    ], "world-model-row");
   }
   if (reviewRoot) {
     reviewRoot.innerHTML = simpleRowsTable(data.review_guards || [], [
@@ -1526,16 +1536,24 @@ async function refreshGoogleMerchant() {
   const chartsRoot = document.querySelector("#google-merchant-charts");
   const trustRoot = document.querySelector("#google-trust-pages-table");
   const tagRoot = document.querySelector("#google-tag-table");
+  const issuesRoot = document.querySelector("#google-merchant-issues-table");
+  const actionsRoot = document.querySelector("#google-merchant-actions-table");
+  const attributesRoot = document.querySelector("#google-product-attributes-table");
+  const countryRoot = document.querySelector("#google-country-policy-table");
   const downloadLink = document.querySelector("#google-merchant-download");
-  if (!summaryRoot && !chartsRoot && !trustRoot && !tagRoot && !downloadLink) return;
+  if (!summaryRoot && !chartsRoot && !trustRoot && !tagRoot && !issuesRoot && !actionsRoot && !attributesRoot && !countryRoot && !downloadLink) return;
   const data = await getJson("/api/google-merchant");
   const summary = data.summary || {};
   const tag = data.tag_summary || {};
+  const feedSummary = data.feed?.summary || {};
   if (summaryRoot) {
     summaryRoot.innerHTML = [
       avatarSummaryCard("Merchant", summary.status || "unknown", `ID ${summary.merchant_id || ""}`),
       avatarSummaryCard("Reason", summary.reason || "unknown", "policy issue"),
       avatarSummaryCard("P0 blockers", summary.blockers || 0, "before appeal"),
+      avatarSummaryCard("First action", summary.first_action || "Local inventory", "Merchant recovery queue"),
+      avatarSummaryCard("Attrs", feedSummary.attribute_issues || 0, "size/color/gender/age"),
+      avatarSummaryCard("Countries", feedSummary.country_needs_config || 0, "needs config"),
       avatarSummaryCard("GTM / GA4", `${tag.expected_gtm_percent || 0}% / ${tag.ga4_percent || 0}%`, tag.gtm_target || ""),
     ].join("");
   }
@@ -1547,6 +1565,41 @@ async function refreshGoogleMerchant() {
   }
   if (tagRoot) {
     tagRoot.innerHTML = tagIssuesTable(data.tag_issues || []);
+  }
+  if (issuesRoot) {
+    issuesRoot.innerHTML = simpleRowsTable(data.merchant_issues || [], [
+      { key: "merchant_label", label: "Issue", render: (row) => `<strong>${escapeHtml(row.merchant_label)}</strong><br><small>${escapeHtml(row.issue)}</small>` },
+      { key: "status", label: "Status", render: (row) => `<span class="status-${escapeHtml(row.status)}">${escapeHtml(row.status)}</span>` },
+      { key: "impact", label: "Impact" },
+      { key: "first_action", label: "First action" },
+    ], "merchant-issue-row");
+  }
+  if (actionsRoot) {
+    actionsRoot.innerHTML = simpleRowsTable(data.actions || [], [
+      { key: "priority", label: "P" },
+      { key: "area", label: "Area", render: (row) => `<strong>${escapeHtml(row.area)}</strong><br><small>${escapeHtml(row.action)}</small>` },
+      { key: "status", label: "Status", render: (row) => `<span class="status-${escapeHtml(row.status)}">${escapeHtml(row.status)}</span>` },
+      { key: "detail", label: "Detail" },
+    ], "merchant-action-row");
+  }
+  if (attributesRoot) {
+    attributesRoot.innerHTML = simpleRowsTable((data.feed?.attribute_rows || []).slice(0, 30), [
+      { key: "handle", label: "Product", render: (row) => `<strong>${escapeHtml(row.handle)}</strong><br><small>${escapeHtml(row.title)}</small>` },
+      { key: "detail", label: "Missing" },
+      { key: "size", label: "Size" },
+      { key: "color", label: "Color" },
+      { key: "gender", label: "Gender" },
+      { key: "age_group", label: "Age" },
+    ], "merchant-attribute-row");
+  }
+  if (countryRoot) {
+    countryRoot.innerHTML = simpleRowsTable(data.country_policy || [], [
+      { key: "country", label: "Country", render: (row) => `<strong>${escapeHtml(row.country)}</strong><br><small>${escapeHtml(row.code)}</small>` },
+      { key: "status", label: "Status", render: (row) => `<span class="status-${escapeHtml(row.status)}">${escapeHtml(row.status)}</span>` },
+      { key: "included_products", label: "Included" },
+      { key: "priced_products", label: "Priced" },
+      { key: "next_action", label: "Next" },
+    ], "merchant-country-row");
   }
   if (downloadLink && summary.matrix) {
     downloadLink.href = mediaUrl(summary.matrix);
@@ -1672,7 +1725,7 @@ async function refreshThemeOptimizer() {
       avatarSummaryCard("Patch", summary.status || "unknown", summary.goal || ""),
       avatarSummaryCard("Output", summary.output_zip ? "Ready" : "Missing", summary.output_zip || ""),
       avatarSummaryCard("CSS", files.css ? "Ready" : "Missing", files.css || ""),
-      avatarSummaryCard("Sections", "Trust + Timer + Orbit", `${files.trust_section || ""} ${files.timed_offer || ""} ${files.planet_collections_orbit || ""}`),
+      avatarSummaryCard("Sections", "Trust + Timer + Orbit + Product care", `${files.trust_section || ""} ${files.timed_offer || ""} ${files.planet_collections_orbit || ""} ${files.product_editorial_care || ""}`),
     ].join("");
   }
   if (tableRoot) {

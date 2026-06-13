@@ -75,8 +75,30 @@ def build_actions(snapshot: dict[str, Any], memory: dict[str, Any]) -> list[dict
 
     actions = [
         {
-            "id": "google_trust_pages",
+            "id": "google_local_inventory_gate",
             "priority": "1",
+            "title": "Disattiva o completa inventario locale Google",
+            "area": "Google Merchant",
+            "status": "needs_fix",
+            "why": "Merchant segnala dati di inventario locale mancanti su circa 65,6K prodotti. Per un modello print-on-demand senza negozio fisico, il canale locale va disattivato o alimentato con feed locale completo.",
+            "do": "In Merchant Center disattiva local inventory ads/free local listings se non hai stock fisico; in alternativa carica feed locale con id, store_code, availability e quantity coerenti.",
+            "verify": "GET /api/master-actions/verify/google_local_inventory_gate",
+            "next": "google_product_pages_available",
+        },
+        {
+            "id": "google_product_pages_available",
+            "priority": "2",
+            "title": "Correggi pagine prodotto non disponibili",
+            "area": "Google Merchant",
+            "status": "needs_fix",
+            "why": "Merchant segnala circa 13,2K prodotti con pagina non disponibile. Questo puo sembrare offerta non reale o non consegnabile.",
+            "do": "Rimuovi prodotti vecchi dal feed, risincronizza Shopify, verifica URL desktop/mobile e aspetta la nuova scansione Merchant.",
+            "verify": "GET /api/master-actions/verify/google_product_pages_available",
+            "next": "google_trust_pages",
+        },
+        {
+            "id": "google_trust_pages",
+            "priority": "3",
             "title": "Sistema pagine fiducia Google",
             "area": "Google Merchant",
             "status": "pass" if not trust_fail else "needs_fix",
@@ -87,7 +109,7 @@ def build_actions(snapshot: dict[str, Any], memory: dict[str, Any]) -> list[dict
         },
         {
             "id": "network_trust_monitor",
-            "priority": "2",
+            "priority": "4",
             "title": "Sistema DNS, DSN e dominio fiducia",
             "area": "Network",
             "status": "pass" if network_needs_fix == 0 and network_summary.get("status") != "manual_pending" else "needs_fix",
@@ -98,7 +120,7 @@ def build_actions(snapshot: dict[str, Any], memory: dict[str, Any]) -> list[dict
         },
         {
             "id": "google_feed_cleanup",
-            "priority": "3",
+            "priority": "5",
             "title": "Pulisci feed prodotti non disponibili",
             "area": "Google Merchant",
             "status": "manual_pending",
@@ -109,7 +131,7 @@ def build_actions(snapshot: dict[str, Any], memory: dict[str, Any]) -> list[dict
         },
         {
             "id": "catalog_live_sync",
-            "priority": "4",
+            "priority": "6",
             "title": "Sincronizza catalogo Shopify/Printify",
             "area": "Catalog",
             "status": "pass" if catalog_summary.get("status") == "synced" and catalog_attention == 0 else "needs_review",
@@ -120,7 +142,7 @@ def build_actions(snapshot: dict[str, Any], memory: dict[str, Any]) -> list[dict
         },
         {
             "id": "copy_claims_review",
-            "priority": "5",
+            "priority": "7",
             "title": "Ripulisci claim potenzialmente fuorvianti",
             "area": "Copy",
             "status": "needs_review" if feed.get("claim_review", 0) else "pass",
@@ -131,7 +153,7 @@ def build_actions(snapshot: dict[str, Any], memory: dict[str, Any]) -> list[dict
         },
         {
             "id": "product_name_cleanup",
-            "priority": "6",
+            "priority": "8",
             "title": "Pulisci nomi prodotto online",
             "area": "Catalog",
             "status": "pass" if name_issues == 0 and name_summary.get("status") == "pass" else "needs_fix",
@@ -142,7 +164,7 @@ def build_actions(snapshot: dict[str, Any], memory: dict[str, Any]) -> list[dict
         },
         {
             "id": "theme_light_trust",
-            "priority": "7",
+            "priority": "9",
             "title": "Applica tema piu chiaro e rassicurante",
             "area": "Theme",
             "status": "pass" if theme_summary.get("status") == "ready" else "needs_build",
@@ -153,7 +175,7 @@ def build_actions(snapshot: dict[str, Any], memory: dict[str, Any]) -> list[dict
         },
         {
             "id": "marketing_timer_safe",
-            "priority": "8",
+            "priority": "10",
             "title": "Attiva timer offerta con regole chiare",
             "area": "Marketing",
             "status": "pass" if timer_summary.get("compliance") == "google_safe" else "needs_fix",
@@ -164,7 +186,7 @@ def build_actions(snapshot: dict[str, Any], memory: dict[str, Any]) -> list[dict
         },
         {
             "id": "merchant_appeal_ready",
-            "priority": "9",
+            "priority": "11",
             "title": "Richiedi revisione Merchant",
             "area": "Google Merchant",
             "status": "blocked" if google_summary.get("blockers", 0) else "ready",
@@ -175,7 +197,7 @@ def build_actions(snapshot: dict[str, Any], memory: dict[str, Any]) -> list[dict
         },
         {
             "id": "turbobak_memory",
-            "priority": "10",
+            "priority": "12",
             "title": "Usa TurboBAK come memoria operativa",
             "area": "Agent",
             "status": "pass" if turbo_exists else "needs_fix",

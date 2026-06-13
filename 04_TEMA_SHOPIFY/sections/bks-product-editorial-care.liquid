@@ -1,0 +1,384 @@
+{% comment %}
+  BKS Product Editorial Care
+  Universal product-page layer for size guidance, curation, shipping/returns clarity
+  and a small editorial motion cue. It is intentionally factual for Merchant trust.
+{% endcomment %}
+
+{% liquid
+  assign bks_collection = product.metafields.bks.collection.value | default: product.collections.first.title | default: 'BKS'
+  assign bks_design = product.metafields.bks.design.value | default: product.title
+  assign bks_series = product.metafields.bks.series.value | default: 'BKS Series'
+  assign bks_drop = product.metafields.bks.drop.value | default: 'Current drop'
+  assign care_text = product.metafields.shopify['care-instructions'].value | default: section.settings.default_care
+  assign fallback_size = product.metafields.shopify.size.value | default: product.metafields.shopify['shoe-size'].value | default: product.metafields.shopify['accessory-size'].value
+  assign fallback_color = product.metafields.shopify['color-pattern'].value
+%}
+
+{% assign size_values = '' %}
+{% assign color_values = '' %}
+{% for option in product.options_with_values %}
+  {% assign option_name = option.name | downcase %}
+  {% if option_name contains 'size' or option_name contains 'taglia' %}
+    {% capture size_values %}
+      {% for value in option.values %}
+        {% unless forloop.first %}, {% endunless %}{{ value }}
+      {% endfor %}
+    {% endcapture %}
+  {% endif %}
+  {% if option_name contains 'color' or option_name contains 'colore' %}
+    {% capture color_values %}
+      {% for value in option.values %}
+        {% unless forloop.first %}, {% endunless %}{{ value }}
+      {% endfor %}
+    {% endcapture %}
+  {% endif %}
+{% endfor %}
+
+<style>
+  #shopify-section-{{ section.id }} .bks-product-care {
+    --bks-care-paper: {{ section.settings.background }};
+    --bks-care-ink: {{ section.settings.text }};
+    --bks-care-muted: {{ section.settings.muted }};
+    --bks-care-line: {{ section.settings.line }};
+    --bks-care-accent: {{ section.settings.accent }};
+    background: var(--bks-care-paper);
+    color: var(--bks-care-ink);
+    font-family: var(--bks-font-text, var(--font-body-family, "Segoe UI", Arial, sans-serif));
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__inner {
+    margin: 0 auto;
+    max-width: 1320px;
+    padding: 56px 20px 64px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__head {
+    align-items: end;
+    display: grid;
+    gap: 24px;
+    grid-template-columns: minmax(0, 0.9fr) minmax(260px, 0.52fr);
+    margin-bottom: 30px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__kicker,
+  #shopify-section-{{ section.id }} .bks-product-care__label {
+    color: var(--bks-care-muted);
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1.35;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__title {
+    color: var(--bks-care-ink);
+    font-family: var(--bks-font-display, var(--font-heading-family, "Segoe UI", Arial, sans-serif));
+    font-size: 44px;
+    line-height: 1.02;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__intro {
+    color: var(--bks-care-muted);
+    font-size: 15px;
+    line-height: 1.62;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__motion {
+    background: var(--bks-care-line);
+    height: 1px;
+    margin: 4px 0 30px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__motion::after {
+    animation: bksCareSignal-{{ section.id }} 4.8s ease-in-out infinite;
+    background: var(--bks-care-accent);
+    content: "";
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 18%;
+  }
+
+  @keyframes bksCareSignal-{{ section.id }} {
+    0% { transform: translateX(-120%); }
+    45% { transform: translateX(250%); }
+    100% { transform: translateX(720%); }
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__grid {
+    display: grid;
+    gap: 1px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    background: var(--bks-care-line);
+    border: 1px solid var(--bks-care-line);
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__card {
+    background: var(--bks-care-paper);
+    min-height: 180px;
+    padding: 22px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__card strong {
+    color: var(--bks-care-ink);
+    display: block;
+    font-size: 18px;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__card p,
+  #shopify-section-{{ section.id }} .bks-product-care__card li {
+    color: var(--bks-care-muted);
+    font-size: 14px;
+    line-height: 1.58;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__card p {
+    margin: 0 0 12px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__card ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__facts {
+    display: grid;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__fact {
+    border-top: 1px solid var(--bks-care-line);
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 116px minmax(0, 1fr);
+    padding-top: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__fact span {
+    color: var(--bks-care-muted);
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__fact b {
+    color: var(--bks-care-ink);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.42;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__link {
+    border: 1px solid var(--bks-care-ink);
+    color: var(--bks-care-ink);
+    display: inline-flex;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.2;
+    min-height: 42px;
+    padding: 13px 14px;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} details.bks-product-care__details {
+    border-top: 1px solid var(--bks-care-line);
+    margin-top: 12px;
+    padding-top: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__details summary {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-care__details div {
+    color: var(--bks-care-muted);
+    font-size: 14px;
+    line-height: 1.58;
+    margin-top: 10px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .bks-product-care__motion::after {
+      animation: none;
+      transform: none;
+      width: 32%;
+    }
+  }
+
+  @media screen and (max-width: 989px) {
+    #shopify-section-{{ section.id }} .bks-product-care__head,
+    #shopify-section-{{ section.id }} .bks-product-care__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .bks-product-care__inner {
+      padding: 38px 16px 46px;
+    }
+
+    #shopify-section-{{ section.id }} .bks-product-care__head,
+    #shopify-section-{{ section.id }} .bks-product-care__grid {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .bks-product-care__title {
+      font-size: 30px;
+      line-height: 1.08;
+    }
+
+    #shopify-section-{{ section.id }} .bks-product-care__intro,
+    #shopify-section-{{ section.id }} .bks-product-care__card p,
+    #shopify-section-{{ section.id }} .bks-product-care__card li,
+    #shopify-section-{{ section.id }} .bks-product-care__details div {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    #shopify-section-{{ section.id }} .bks-product-care__fact {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .bks-product-care__link {
+      justify-content: center;
+      min-height: 44px;
+      width: 100%;
+    }
+  }
+</style>
+
+<section class="bks-product-care" aria-label="BKS product guidance">
+  <div class="bks-product-care__inner">
+    <div class="bks-product-care__head">
+      <div>
+        <span class="bks-product-care__kicker">{{ section.settings.kicker | escape }}</span>
+        <h2 class="bks-product-care__title">{{ section.settings.heading | escape }}</h2>
+      </div>
+      <p class="bks-product-care__intro">{{ section.settings.intro | escape }}</p>
+    </div>
+
+    {% if section.settings.enable_motion %}
+      <div class="bks-product-care__motion" aria-hidden="true"></div>
+    {% endif %}
+
+    <div class="bks-product-care__grid">
+      <article class="bks-product-care__card">
+        <span class="bks-product-care__label">Curation</span>
+        <strong>{{ bks_design | escape }}</strong>
+        <p>{{ section.settings.curation_copy | escape }}</p>
+        <div class="bks-product-care__facts">
+          <div class="bks-product-care__fact">
+            <span>Collection</span>
+            <b>{{ bks_collection | escape }}</b>
+          </div>
+          <div class="bks-product-care__fact">
+            <span>Series</span>
+            <b>{{ bks_series | escape }}</b>
+          </div>
+          <div class="bks-product-care__fact">
+            <span>Drop</span>
+            <b>{{ bks_drop | escape }}</b>
+          </div>
+        </div>
+      </article>
+
+      <article class="bks-product-care__card">
+        <span class="bks-product-care__label">Size guide</span>
+        <strong>{{ section.settings.size_heading | escape }}</strong>
+        {% if size_values != blank %}
+          <p>{{ section.settings.size_copy | escape }}</p>
+          <p><b>{{ size_values | strip | escape }}</b></p>
+        {% elsif fallback_size != blank %}
+          <p>{{ section.settings.size_copy | escape }}</p>
+          <p><b>{{ fallback_size | escape }}</b></p>
+        {% else %}
+          <p>{{ section.settings.size_missing_copy | escape }}</p>
+        {% endif %}
+        {% if color_values != blank or fallback_color != blank %}
+          <details class="bks-product-care__details">
+            <summary>Color reference</summary>
+            <div>{{ color_values | default: fallback_color | strip | escape }}</div>
+          </details>
+        {% endif %}
+      </article>
+
+      <article class="bks-product-care__card">
+        <span class="bks-product-care__label">Daily use</span>
+        <strong>{{ section.settings.daily_heading | escape }}</strong>
+        <p>{{ section.settings.daily_copy | escape }}</p>
+        {% if care_text != blank %}
+          <details class="bks-product-care__details">
+            <summary>Care notes</summary>
+            <div>{{ care_text }}</div>
+          </details>
+        {% endif %}
+      </article>
+
+      <article class="bks-product-care__card">
+        <span class="bks-product-care__label">Shipping and returns</span>
+        <strong>{{ section.settings.policy_heading | escape }}</strong>
+        <ul>
+          <li>{{ section.settings.shipping_copy | escape }}</li>
+          <li>{{ section.settings.returns_copy | escape }}</li>
+          <li>{{ section.settings.country_copy | escape }}</li>
+        </ul>
+        <div class="bks-product-care__links">
+          <a class="bks-product-care__link" href="{{ routes.root_url }}policies/shipping-policy">Shipping</a>
+          <a class="bks-product-care__link" href="{{ routes.root_url }}policies/refund-policy">Returns</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BKS product care",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "BKS Studio / product truth" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Wear it, read it, keep it clear" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "A compact guide for fit, curation and customer trust. The product page remains editorial, but the essential information stays visible before purchase." },
+    { "type": "textarea", "id": "curation_copy", "label": "Curation copy", "default": "Selected by BKS Studio as wearable visual work. The print, collection and release context stay attached to the product so the customer understands what they are buying." },
+    { "type": "text", "id": "size_heading", "label": "Size heading", "default": "Choose the real fit" },
+    { "type": "textarea", "id": "size_copy", "label": "Size copy", "default": "Available size values are read from the product variant or Shopify metafields. Check the product description for measurement tables when present." },
+    { "type": "textarea", "id": "size_missing_copy", "label": "Missing-size copy", "default": "Use the size selector above and the measurements in the product description when present. If you are between sizes, contact support before checkout." },
+    { "type": "text", "id": "daily_heading", "label": "Daily-use heading", "default": "Designed for ordinary days" },
+    { "type": "textarea", "id": "daily_copy", "label": "Daily-use copy", "default": "BKS products should look lived-in and natural, not staged as unreachable fashion. They are made to travel through daily routines, weather and movement." },
+    { "type": "richtext", "id": "default_care", "label": "Default care", "default": "<p>Follow the care instructions shown in the product description or label. Avoid harsh treatment that could damage printed surfaces.</p>" },
+    { "type": "text", "id": "policy_heading", "label": "Policy heading", "default": "Clear before checkout" },
+    { "type": "textarea", "id": "shipping_copy", "label": "Shipping copy", "default": "Shipping costs and delivery estimates are shown before checkout according to destination." },
+    { "type": "textarea", "id": "returns_copy", "label": "Returns copy", "default": "Return and refund terms are always available from the policy link and must match checkout information." },
+    { "type": "textarea", "id": "country_copy", "label": "Country copy", "default": "Country availability is controlled by Shopify, Printify and Merchant settings. If a destination is not enabled, the product should not be advertised there." },
+    { "type": "checkbox", "id": "enable_motion", "label": "Enable subtle motion", "default": true },
+    { "type": "color", "id": "background", "label": "Background", "default": "#FAFAF7" },
+    { "type": "color", "id": "text", "label": "Text", "default": "#111111" },
+    { "type": "color", "id": "muted", "label": "Muted", "default": "#5F5A52" },
+    { "type": "color", "id": "line", "label": "Line", "default": "#DED8CD" },
+    { "type": "color", "id": "accent", "label": "Accent", "default": "#2F6F6B" }
+  ],
+  "presets": [
+    { "name": "BKS product care" }
+  ]
+}
+{% endschema %}

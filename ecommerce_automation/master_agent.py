@@ -213,12 +213,15 @@ def reply(message: str, snapshot: dict[str, Any]) -> dict[str, Any]:
     if "google" in lower or "merchant" in lower or "fuorviant" in lower or "sospes" in lower or "analytics" in lower or "gtm" in lower or "ga4" in lower or "tag" in lower:
         summary = google.get("summary", {})
         tag_summary = google.get("tag_summary", {})
+        feed_summary = google.get("feed", {}).get("summary", {})
         return {
             "reply": (
                 f"Google Merchant: stato {summary.get('status', 'unknown')}, motivo {summary.get('reason', 'unknown')}, "
                 f"P0 blocker {summary.get('blockers', 0)}. "
                 f"GTM {tag_summary.get('expected_gtm_percent', 0)}%, GA4 {tag_summary.get('ga4_percent', 0)}%. "
-                "Per rappresentazione ingannevole la priorita e: pagine fiducia, feed prodotti disponibili, claim sobri, poi ricorso."
+                f"Attributi prodotto da sistemare: {feed_summary.get('attribute_issues', 0)}; paesi da configurare: {feed_summary.get('country_needs_config', 0)}. "
+                f"Prima azione: {summary.get('first_action', 'disattiva o completa inventario locale')}. "
+                "Poi pagine prodotto disponibili, size/color/gender/age, spedizioni/resi per paese, trust pages e ricorso."
             ),
             "actions": ["open_google", "open_master_actions"],
         }
@@ -298,13 +301,25 @@ def reply(message: str, snapshot: dict[str, Any]) -> dict[str, Any]:
             "actions": ["open_routine", "open_master_actions"],
         }
 
-    if "foto" in lower or "fotografia" in lower or "cataloghi" in lower or "recension" in lower or "photo" in lower:
+    if "adamo" in lower or "eva" in lower or "modelli" in lower or "mondo" in lower or "temperatur" in lower or "contesto" in lower:
+        summary = snapshot.get("photo_studio", {}).get("summary", {})
+        return {
+            "reply": (
+                f"Adamo/Eva nuova era: sistema pronto con {summary.get('world_contexts', 0)} contesti mercato. "
+                "Non sono celebrita e non fingono appartenenze: sono una coppia adulta, internazionale, adattata al mercato solo quando Analytics, lingua, shipping, resi e Merchant sono coerenti. "
+                "Usano prodotti reali in azioni quotidiane plausibili, con clima locale e tono culturale sobrio. "
+                "Per mercati non configurati o ad alto rischio, l'agente propone di sospendere il target invece di forzare traduzioni o immagini."
+            ),
+            "actions": ["open_photo_studio", "open_market_sense"],
+        }
+
+    if "foto" in lower or "fotografia" in lower or "cataloghi" in lower or "recension" in lower or "photo" in lower or "size guide" in lower or "curation" in lower:
         summary = snapshot.get("photo_studio", {}).get("summary", {})
         return {
             "reply": (
                 f"Photo Studio: {summary.get('shot_types', 0)} tipi scatto, {summary.get('p0', 0)} P0, "
                 f"{summary.get('ready', 0)} pronti da pianificare. "
-                "Progressione tema: fiducia/prodotto reale, identita collezione, supporto conversione, poi campagne. Le recensioni si chiedono solo dopo esperienza reale e senza feedback finti."
+                "Progressione tema: fiducia/prodotto reale, size guide e curation su ogni PDP, identita collezione, supporto conversione, poi campagne. Le recensioni si chiedono solo dopo esperienza reale e senza feedback finti."
             ),
             "actions": ["open_photo_studio", "open_theme"],
         }

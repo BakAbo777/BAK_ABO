@@ -947,6 +947,10 @@ h2 {
 .weekly-row,
 .trust-row,
 .tag-row,
+.merchant-issue-row,
+.merchant-action-row,
+.merchant-attribute-row,
+.merchant-country-row,
 .market-row,
 .offer-row,
 .theme-row,
@@ -979,6 +983,7 @@ h2 {
 .legal-row,
 .supplier-row,
 .photo-row,
+.world-model-row,
 .theme-stage-row,
 .review-row {
   border-bottom: 1px solid var(--line);
@@ -1026,6 +1031,22 @@ h2 {
 
 .tag-row {
   grid-template-columns: 70px 150px 120px 160px minmax(260px, 1fr);
+}
+
+.merchant-issue-row {
+  grid-template-columns: minmax(210px, 1fr) 120px 120px minmax(260px, 1.4fr);
+}
+
+.merchant-action-row {
+  grid-template-columns: 54px minmax(180px, 1fr) 120px minmax(280px, 1.5fr);
+}
+
+.merchant-attribute-row {
+  grid-template-columns: minmax(220px, 1.4fr) 130px 90px 110px 100px 90px;
+}
+
+.merchant-country-row {
+  grid-template-columns: minmax(150px, 1fr) 120px 90px 90px minmax(260px, 1.5fr);
 }
 
 .market-row {
@@ -1108,14 +1129,23 @@ h2 {
 .campaign-row,
 .legal-row,
 .supplier-row,
-.photo-row {
+.photo-row,
+.world-model-row {
   grid-template-columns: minmax(180px, 1fr) 130px minmax(220px, 1fr) minmax(240px, 1.2fr);
+}
+
+.world-model-row {
+  grid-template-columns: minmax(180px, 1fr) minmax(260px, 1.2fr) minmax(260px, 1.2fr) minmax(280px, 1.4fr);
 }
 
 .action-row:last-child,
 .weekly-row:last-child,
 .trust-row:last-child,
 .tag-row:last-child,
+.merchant-issue-row:last-child,
+.merchant-action-row:last-child,
+.merchant-attribute-row:last-child,
+.merchant-country-row:last-child,
 .market-row:last-child,
 .offer-row:last-child,
 .theme-row:last-child,
@@ -1148,6 +1178,7 @@ h2 {
 .legal-row:last-child,
 .supplier-row:last-child,
 .photo-row:last-child,
+.world-model-row:last-child,
 .theme-stage-row:last-child,
 .review-row:last-child {
   border-bottom: 0;
@@ -1157,6 +1188,10 @@ h2 {
 .weekly-row small,
 .trust-row small,
 .tag-row small,
+.merchant-issue-row small,
+.merchant-action-row small,
+.merchant-attribute-row small,
+.merchant-country-row small,
 .market-row small,
 .daily-row small,
 .always-row small,
@@ -1187,6 +1222,7 @@ h2 {
 .legal-row small,
 .supplier-row small,
 .photo-row small,
+.world-model-row small,
 .theme-stage-row small,
 .review-row small {
   color: #615c54;
@@ -1198,6 +1234,10 @@ h2 {
   .weekly-row,
   .trust-row,
   .tag-row,
+  .merchant-issue-row,
+  .merchant-action-row,
+  .merchant-attribute-row,
+  .merchant-country-row,
   .market-row,
   .offer-row,
   .theme-row,
@@ -1230,6 +1270,7 @@ h2 {
   .legal-row,
   .supplier-row,
   .photo-row,
+  .world-model-row,
   .theme-stage-row,
   .review-row,
   .api-row,

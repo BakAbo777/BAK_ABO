@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import zipfile
 from pathlib import Path
 from typing import Any
@@ -18,6 +19,7 @@ AI_ASSISTANT_SECTION = Path("04_TEMA_SHOPIFY/sections/bks-ai-assistant.liquid")
 ORBIT_SECTION = Path("04_TEMA_SHOPIFY/sections/bks-planet-collections-orbit.liquid")
 ORBIT_TEMPLATE = Path("04_TEMA_SHOPIFY/templates/page.bks-planet-collections-orbit.json")
 ORBIT_SNIPPET = Path("04_TEMA_SHOPIFY/snippets/bks-orbit-card.liquid")
+PRODUCT_EDITORIAL_SECTION = Path("04_TEMA_SHOPIFY/sections/bks-product-editorial-care.liquid")
 
 
 def _relative(root_dir: Path, path: Path) -> str:
@@ -263,6 +265,7 @@ def ensure_patch_files(root_dir: Path) -> dict[str, str]:
         "orbit_section": ORBIT_SECTION,
         "orbit_template": ORBIT_TEMPLATE,
         "orbit_snippet": ORBIT_SNIPPET,
+        "product_editorial_care": PRODUCT_EDITORIAL_SECTION,
     }.items():
         if (root_dir / path).exists():
             files[key] = _relative(root_dir, root_dir / path)
@@ -274,6 +277,45 @@ def _inject_theme_liquid(content: str) -> str:
     if css_tag not in content:
         content = content.replace("</head>", f"  {css_tag}\n</head>")
     return content
+
+
+def _product_editorial_defaults() -> dict[str, Any]:
+    return {
+        "type": "bks-product-editorial-care",
+        "settings": {
+            "kicker": "BKS Studio / product truth",
+            "heading": "Wear it, read it, keep it clear",
+            "intro": "A compact guide for fit, curation and customer trust. The product page remains editorial, but the essential information stays visible before purchase.",
+            "curation_copy": "Selected by BKS Studio as wearable visual work. The print, collection and release context stay attached to the product so the customer understands what they are buying.",
+            "size_heading": "Choose the real fit",
+            "daily_heading": "Designed for ordinary days",
+            "policy_heading": "Clear before checkout",
+            "enable_motion": True,
+        },
+    }
+
+
+def _inject_product_template(content: str) -> str:
+    try:
+        data = json.loads(content)
+    except json.JSONDecodeError:
+        return content
+
+    sections = data.setdefault("sections", {})
+    order = data.setdefault("order", [])
+    if "bks_product_editorial_care" not in sections:
+        sections["bks_product_editorial_care"] = _product_editorial_defaults()
+
+    order = [item for item in order if item != "bks_product_editorial_care"]
+    if "bks_product_meta" in order:
+        insert_at = order.index("bks_product_meta") + 1
+    elif "main" in order:
+        insert_at = order.index("main") + 1
+    else:
+        insert_at = len(order)
+    order.insert(insert_at, "bks_product_editorial_care")
+    data["order"] = order
+    return json.dumps(data, ensure_ascii=False, separators=(",", ":"))
 
 
 def build_patched_zip(settings: Any) -> dict[str, Any]:
@@ -300,6 +342,8 @@ def build_patched_zip(settings: Any) -> dict[str, Any]:
             data = zin.read(item.filename)
             if item.filename == "layout/theme.liquid":
                 data = _inject_theme_liquid(data.decode("utf-8", errors="ignore")).encode("utf-8")
+            if item.filename.startswith("templates/product") and item.filename.endswith(".json"):
+                data = _inject_product_template(data.decode("utf-8", errors="ignore")).encode("utf-8")
             zout.writestr(item, data)
         if "assets/bks-commerce-light.css" not in names:
             zout.writestr("assets/bks-commerce-light.css", commerce_light_css())
@@ -312,12 +356,15 @@ def build_patched_zip(settings: Any) -> dict[str, Any]:
         orbit_section = _workspace_text(root_dir, ORBIT_SECTION)
         orbit_template = _workspace_text(root_dir, ORBIT_TEMPLATE)
         orbit_snippet = _workspace_text(root_dir, ORBIT_SNIPPET)
+        product_editorial = _workspace_text(root_dir, PRODUCT_EDITORIAL_SECTION)
         if orbit_section and "sections/bks-planet-collections-orbit.liquid" not in names:
             zout.writestr("sections/bks-planet-collections-orbit.liquid", orbit_section)
         if orbit_template and "templates/page.bks-planet-collections-orbit.json" not in names:
             zout.writestr("templates/page.bks-planet-collections-orbit.json", orbit_template)
         if orbit_snippet and "snippets/bks-orbit-card.liquid" not in names:
             zout.writestr("snippets/bks-orbit-card.liquid", orbit_snippet)
+        if product_editorial and "sections/bks-product-editorial-care.liquid" not in names:
+            zout.writestr("sections/bks-product-editorial-care.liquid", product_editorial)
 
     return {
         "status": "ready",
@@ -327,6 +374,7 @@ def build_patched_zip(settings: Any) -> dict[str, Any]:
             "timed_offer": "04_TEMA_SHOPIFY/sections/bks-timed-offer.liquid",
             "ai_assistant": "04_TEMA_SHOPIFY/sections/bks-ai-assistant.liquid",
             "planet_collections_orbit": "04_TEMA_SHOPIFY/sections/bks-planet-collections-orbit.liquid",
+            "product_editorial_care": "04_TEMA_SHOPIFY/sections/bks-product-editorial-care.liquid",
         },
         "marketing": marketing,
         "assistant": assistant,
@@ -337,6 +385,7 @@ def build_patched_zip(settings: Any) -> dict[str, Any]:
             {"check": "timed_offer_section", "status": "pass", "detail": "sections/bks-timed-offer.liquid added"},
             {"check": "ai_assistant_section", "status": "pass", "detail": "sections/bks-ai-assistant.liquid added disabled-by-default"},
             {"check": "planet_collections_orbit", "status": "pass", "detail": "sections/bks-planet-collections-orbit.liquid added with page template"},
+            {"check": "product_editorial_care", "status": "pass", "detail": "product templates receive size guide, curation, shipping, returns and subtle motion"},
         ],
     }
 
@@ -348,7 +397,7 @@ def payload(settings: Any) -> dict[str, Any]:
             "status": data["status"],
             "output_zip": data.get("output_zip", ""),
             "source_zip": data.get("source_zip", ""),
-            "goal": "lighter_commerce_trust_theme",
+            "goal": "lighter_editorial_trust_theme",
         },
         **data,
     }

@@ -30,6 +30,17 @@ Skill for product photography, collection imagery, theme composition and review 
 - Flag: white studio; flat uniform light; pop, graphic.
 - Folklore: light stone / linen / earth; soft overcast; narrative, naive.
 
+## Adam and Eve world model system
+
+- United States: Diverse adult pair, relaxed city-to-coast life, confident but not celebrity-coded. Weather: Use lightweight tops, shorts, swimwear or sneakers by local season and region. Guardrail: Do not imply US-made unless true; keep shipping/returns and price currency consistent.
+- France: Adult pair with understated editorial styling, street/gallery/cafe movement. Weather: Layer outerwear and sneakers in mild/cool weather, resort pieces only in seasonal context. Guardrail: Translate product facts accurately; do not overclaim luxury origin.
+- Germany: Adult pair in clean urban settings, function and material clarity visible. Weather: Favor practical layering, windbreakers, sneakers and bags by temperature. Guardrail: Make delivery, returns and material/care details easy to inspect.
+- Canada: Adult pair in city/outdoor transition, warm but understated. Weather: Use climate-aware layering; avoid beachwear outside plausible seasonal scenes. Guardrail: Match language/currency to feed and landing page requirements.
+- Japan: Adult pair with composed styling, detail shots, clean negative space and care for proportion. Weather: Use seasonally precise looks and smaller gestures; product texture remains inspectable. Guardrail: Use native review for translation before publication.
+- South Korea: Adult pair with polished daily styling and street/editorial balance. Weather: Seasonal layering; strong footwear and bag visibility. Guardrail: Activate only after Merchant business registration and country policies are complete.
+- China / Chinese-language creative: Adult pair with metropolitan daily-life styling and careful product close-ups. Weather: Adapt by region and season; avoid political or restricted-market assumptions. Guardrail: Use only if channel, payment, shipping and compliance are approved for the market.
+- Egypt / Arabic-speaking markets: Adult pair styled with cultural respect, heat-aware layering and modest options when relevant. Weather: Prefer breathable tops, bags, sandals and swim only in suitable resort contexts. Guardrail: Use local-language review and do not publish unsupported shipping destinations.
+
 ## Review guardrails
 
 - Honest review only: Ask for real experience; do not script fake reviews.

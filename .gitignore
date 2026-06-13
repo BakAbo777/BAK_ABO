@@ -33,6 +33,7 @@ BAKABO_IMAGE_FACTORY_v1.1/runs/
 BAKABO_IMAGE_FACTORY_v1.1/temp/
 
 *.zip
+*.msi
 *.mp4
 *.mov
 *.avi

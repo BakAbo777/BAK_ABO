@@ -35,11 +35,13 @@ def _signals(settings: Any, snapshot: dict[str, Any]) -> list[dict[str, Any]]:
     sales = snapshot.get("sales_channels", {})
     avatar = snapshot.get("avatar", {})
     turbobak = snapshot.get("turbobak", {})
+    photo_studio = snapshot.get("photo_studio", {})
 
     google_summary = google.get("summary", {})
     sales_summary = sales.get("summary", {})
     avatar_summary = avatar.get("summary", {})
     turbo_summary = turbobak.get("summary", {})
+    photo_summary = photo_studio.get("summary", {})
 
     return [
         {
@@ -84,6 +86,13 @@ def _signals(settings: Any, snapshot: dict[str, Any]) -> list[dict[str, Any]]:
             "score": min(100, int(turbo_summary.get("workers", 0)) * 10 + int(turbo_summary.get("pages", 0)) * 3),
             "meaning": "Local worker/dashboard patterns can guide next actions.",
         },
+        {
+            "signal": "World-model creative system",
+            "source": "Photo Studio / Analytics market context",
+            "status": "ready" if int(photo_summary.get("world_contexts", 0) or 0) else "needs_build",
+            "score": min(100, int(photo_summary.get("world_contexts", 0) or 0) * 12),
+            "meaning": "Adam/Eve market-localized visuals can adapt product context after trust and shipping gates are green.",
+        },
     ]
 
 
@@ -108,6 +117,15 @@ def _recommendations(signals: list[dict[str, Any]], snapshot: dict[str, Any]) ->
             "change_type": "content",
             "site_change": "Feature one collection at a time in homepage/social based on active campaign and inventory/feed health.",
             "verification": "Collection page HTTP 200, GTM present, product feed available.",
+        }
+    )
+    recommendations.append(
+        {
+            "priority": "P1",
+            "recommendation": "Adapt Adam/Eve visuals by market only where Merchant, shipping, returns and language are aligned.",
+            "change_type": "creative",
+            "site_change": "Use local-language copy and culturally plausible adult models, but keep the same product, price, availability and policy evidence.",
+            "verification": "Country policy matrix is green and landing page language/currency match the submitted feed.",
         }
     )
     recommendations.append(

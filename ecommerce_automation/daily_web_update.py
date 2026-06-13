@@ -34,6 +34,9 @@ def sources(settings: Any) -> list[dict[str, str]]:
         {"name": "Shipping Policy", "kind": "trust_page", "url": f"https://{store}/policies/shipping-policy", "purpose": "Shipping disclosure."},
         {"name": "Refund Policy", "kind": "trust_page", "url": f"https://{store}/policies/refund-policy", "purpose": "Returns/refunds disclosure."},
         {"name": "Google Misrepresentation Policy", "kind": "policy", "url": "https://support.google.com/merchants/answer/6150127?hl=it", "purpose": "Official policy baseline."},
+        {"name": "Google Product Data Spec", "kind": "policy", "url": "https://support.google.com/merchants/answer/7052112", "purpose": "Size, color, gender, age, landing and image feed rules."},
+        {"name": "Google Local Inventory Spec", "kind": "policy", "url": "https://support.google.com/merchants/answer/14819809", "purpose": "Local inventory id, store_code, availability and quantity baseline."},
+        {"name": "Google Landing Page Requirements", "kind": "policy", "url": "https://support.google.com/merchants/answer/4752265", "purpose": "Product page availability and consistency baseline."},
     ]
 
 
@@ -86,6 +89,8 @@ def run(settings: Any, snapshot: dict[str, Any], *, live: bool = False) -> dict[
     rows = [check_source(source, live=live) for source in sources(settings)]
     sheet = _write_sheet(settings, rows)
     next_action = snapshot.get("actions", {}).get("next_action", {})
+    google = snapshot.get("google", {})
+    feed = google.get("feed", {}).get("summary", {})
     report = {
         "summary": {
             "mode": "live" if live else "local_snapshot",
@@ -98,6 +103,9 @@ def run(settings: Any, snapshot: dict[str, Any], *, live: bool = False) -> dict[
             "sheet": sheet,
             "report": _relative(settings.root_dir, settings.root_dir / REPORT_FILE),
             "next_action": next_action.get("title", ""),
+            "merchant_first_action": google.get("summary", {}).get("first_action", ""),
+            "attribute_issues": feed.get("attribute_issues", 0),
+            "country_needs_config": feed.get("country_needs_config", 0),
         },
         "sources": rows,
         "next_action": next_action,
