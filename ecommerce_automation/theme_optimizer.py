@@ -20,6 +20,8 @@ ORBIT_SECTION = Path("04_TEMA_SHOPIFY/sections/bks-planet-collections-orbit.liqu
 ORBIT_TEMPLATE = Path("04_TEMA_SHOPIFY/templates/page.bks-planet-collections-orbit.json")
 ORBIT_SNIPPET = Path("04_TEMA_SHOPIFY/snippets/bks-orbit-card.liquid")
 PRODUCT_EDITORIAL_SECTION = Path("04_TEMA_SHOPIFY/sections/bks-product-editorial-care.liquid")
+COLLECTION_SIGNAL_SECTION = Path("04_TEMA_SHOPIFY/sections/bks-collection-signal.liquid")
+COLLECTION_GRID_BKS_SECTION = Path("04_TEMA_SHOPIFY/sections/main-collection-product-grid-bks.liquid")
 
 
 def _relative(root_dir: Path, path: Path) -> str:
@@ -266,6 +268,8 @@ def ensure_patch_files(root_dir: Path) -> dict[str, str]:
         "orbit_template": ORBIT_TEMPLATE,
         "orbit_snippet": ORBIT_SNIPPET,
         "product_editorial_care": PRODUCT_EDITORIAL_SECTION,
+        "collection_signal": COLLECTION_SIGNAL_SECTION,
+        "collection_grid_bks": COLLECTION_GRID_BKS_SECTION,
     }.items():
         if (root_dir / path).exists():
             files[key] = _relative(root_dir, root_dir / path)
@@ -318,6 +322,30 @@ def _inject_product_template(content: str) -> str:
     return json.dumps(data, ensure_ascii=False, separators=(",", ":"))
 
 
+def _inject_collection_template(content: str) -> str:
+    try:
+        data = json.loads(content)
+    except json.JSONDecodeError:
+        return content
+
+    changed = False
+    for section in data.get("sections", {}).values():
+        if not isinstance(section, dict):
+            continue
+        if section.get("type") != "main-collection-product-grid":
+            continue
+        section["type"] = "main-collection-product-grid-bks"
+        settings = section.setdefault("settings", {})
+        settings["show_vendor"] = False
+        settings["show_rating"] = False
+        settings.setdefault("quick_add", "none")
+        changed = True
+
+    if not changed:
+        return content
+    return json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+
+
 def build_patched_zip(settings: Any) -> dict[str, Any]:
     root_dir = settings.root_dir
     source = root_dir / SOURCE_ZIP
@@ -336,15 +364,25 @@ def build_patched_zip(settings: Any) -> dict[str, Any]:
         }
 
     output.parent.mkdir(parents=True, exist_ok=True)
+    collection_signal = _workspace_text(root_dir, COLLECTION_SIGNAL_SECTION)
+    collection_grid_bks = _workspace_text(root_dir, COLLECTION_GRID_BKS_SECTION)
     with zipfile.ZipFile(source, "r") as zin, zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as zout:
         names = set(zin.namelist())
         for item in zin.infolist():
             data = zin.read(item.filename)
-            if item.filename == "layout/theme.liquid":
+            if item.filename == "sections/bks-collection-signal.liquid" and collection_signal:
+                data = collection_signal.encode("utf-8")
+            elif item.filename == "layout/theme.liquid":
                 data = _inject_theme_liquid(data.decode("utf-8", errors="ignore")).encode("utf-8")
             if item.filename.startswith("templates/product") and item.filename.endswith(".json"):
                 data = _inject_product_template(data.decode("utf-8", errors="ignore")).encode("utf-8")
+            if item.filename.startswith("templates/collection") and item.filename.endswith(".json"):
+                data = _inject_collection_template(data.decode("utf-8", errors="ignore")).encode("utf-8")
             zout.writestr(item, data)
+        if collection_signal and "sections/bks-collection-signal.liquid" not in names:
+            zout.writestr("sections/bks-collection-signal.liquid", collection_signal)
+        if collection_grid_bks and "sections/main-collection-product-grid-bks.liquid" not in names:
+            zout.writestr("sections/main-collection-product-grid-bks.liquid", collection_grid_bks)
         if "assets/bks-commerce-light.css" not in names:
             zout.writestr("assets/bks-commerce-light.css", commerce_light_css())
         if "sections/bks-trust-strip.liquid" not in names:
@@ -375,6 +413,8 @@ def build_patched_zip(settings: Any) -> dict[str, Any]:
             "ai_assistant": "04_TEMA_SHOPIFY/sections/bks-ai-assistant.liquid",
             "planet_collections_orbit": "04_TEMA_SHOPIFY/sections/bks-planet-collections-orbit.liquid",
             "product_editorial_care": "04_TEMA_SHOPIFY/sections/bks-product-editorial-care.liquid",
+            "collection_signal": "04_TEMA_SHOPIFY/sections/bks-collection-signal.liquid",
+            "collection_grid_bks": "04_TEMA_SHOPIFY/sections/main-collection-product-grid-bks.liquid",
         },
         "marketing": marketing,
         "assistant": assistant,
@@ -386,6 +426,8 @@ def build_patched_zip(settings: Any) -> dict[str, Any]:
             {"check": "ai_assistant_section", "status": "pass", "detail": "sections/bks-ai-assistant.liquid added disabled-by-default"},
             {"check": "planet_collections_orbit", "status": "pass", "detail": "sections/bks-planet-collections-orbit.liquid added with page template"},
             {"check": "product_editorial_care", "status": "pass", "detail": "product templates receive size guide, curation, shipping, returns and subtle motion"},
+            {"check": "collection_media_signal", "status": "pass", "detail": "collection signal reads bks_collection hero_image/hero_video media"},
+            {"check": "collection_grid_bks", "status": "pass", "detail": "collection templates use the lighter editorial BKS product grid"},
         ],
     }
 

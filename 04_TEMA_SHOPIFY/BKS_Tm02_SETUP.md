@@ -11,7 +11,10 @@ Base: BKS_V21 (Dawn 15.4.1). Fusione V21 + BKS_Tm01.
 | `layout/theme.liquid` | header-group ora renderizzato SOPRA l'header custom (announcement in cima) |
 | `snippets/bakabo-header.liquid` | Nav desktop: dropdown COLLECTIONS con le 8 collezioni + tagline, hover/focus accessibile. Catalog → `/collections/all` |
 | `sections/bks-collection-signal.liquid` | Aggiunta subnav a blocchi (Apparel / Swim / Accessories / Editorial), link vuoto = collezione stessa |
+| `sections/bks-collection-signal.liquid` | Ora legge media dal metaobject `bks_collection`: `hero_image` per la preview editoriale e `hero_video` per video/spot sopra il titolo |
+| `sections/main-collection-product-grid-bks.liquid` | Nuova griglia prodotto BKS, più editoriale e leggera: palette salt/onyx/dune, vendor e rating nascosti, quick add minimo |
 | 8 × `collection.bks-*.json` | Subnav (4 blocchi) inserita in ogni template |
+| `templates/collection*.json` | Il product grid viene puntato a `main-collection-product-grid-bks` quando viene generato lo ZIP ottimizzato |
 | `sections/bks-collections-index.liquid` | Portata da Tm01 — indice tipografico numerato |
 | `templates/list-collections.json` | Riscritto: solo gli 8 mondi con tagline |
 | `templates/index.json` | `bks-planet-orbit` rimosso dalla home; la nuova scheda editoriale usa `page.bks-planet-collections-orbit` e va linkata da EDITORIAL. Apre `bks-impact-home`, `bks-collections-index` al posto del vecchio collection-list-v2 |
@@ -30,7 +33,7 @@ Il problema nasce quando più collezioni/pagine condividono lo stesso template: 
 
 **Restano su Default (intenzionale):** "New Arrivals", "AVADA - Best Sellers", "Digital Goods VAT Tax".
 
-Nota: il carattere per-collezione del signal arriva dal metaobject `bks_collection` (campi `name`, `tagline`, `color_hex`) con fallback su titolo/descrizione collezione. Compila i metaobject per le 8 collezioni e ogni hub avrà nome, tagline e colore accent propri senza toccare il codice.
+Nota: il carattere per-collezione del signal arriva dal metaobject `bks_collection` (campi `name`, `tagline`, `description`, `series`, `color_hex`, `shopify_handle`, `hero_image`, `hero_video`) con fallback su titolo/descrizione collezione. Compila i metaobject per le 8 collezioni e ogni hub avrà nome, tagline, colore accent e preview/video propri senza toccare il codice.
 
 ## Subnav delle 8 collezioni
 I 4 link sono nel theme editor di ogni template. Link vuoto = punta alla collezione. Imposta:

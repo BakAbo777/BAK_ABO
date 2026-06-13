@@ -1725,7 +1725,7 @@ async function refreshThemeOptimizer() {
       avatarSummaryCard("Patch", summary.status || "unknown", summary.goal || ""),
       avatarSummaryCard("Output", summary.output_zip ? "Ready" : "Missing", summary.output_zip || ""),
       avatarSummaryCard("CSS", files.css ? "Ready" : "Missing", files.css || ""),
-      avatarSummaryCard("Sections", "Trust + Timer + Orbit + Product care", `${files.trust_section || ""} ${files.timed_offer || ""} ${files.planet_collections_orbit || ""} ${files.product_editorial_care || ""}`),
+      avatarSummaryCard("Sections", "Trust + Timer + Orbit + Product care + Grid", `${files.trust_section || ""} ${files.timed_offer || ""} ${files.planet_collections_orbit || ""} ${files.product_editorial_care || ""} ${files.collection_signal || ""} ${files.collection_grid_bks || ""}`),
     ].join("");
   }
   if (tableRoot) {

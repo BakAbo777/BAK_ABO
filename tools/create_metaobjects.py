@@ -31,6 +31,27 @@ FIELD_DEFINITIONS = [
         "description": "Nome display della collezione editoriale.",
     },
     {
+        "key": "tagline",
+        "name": "Tagline",
+        "type": "single_line_text_field",
+        "required": False,
+        "description": "Sottotitolo breve per hero e collection signal.",
+    },
+    {
+        "key": "description",
+        "name": "Descrizione",
+        "type": "multi_line_text_field",
+        "required": False,
+        "description": "Descrizione editoriale principale, leggibile dal tema.",
+    },
+    {
+        "key": "series",
+        "name": "Serie",
+        "type": "single_line_text_field",
+        "required": False,
+        "description": "Serie o registro creativo della collezione.",
+    },
+    {
         "key": "editorial_description",
         "name": "Descrizione editoriale",
         "type": "multi_line_text_field",
@@ -51,6 +72,20 @@ FIELD_DEFINITIONS = [
         "required": True,
         "description": "Handle della smart collection Shopify collegata.",
     },
+    {
+        "key": "hero_image",
+        "name": "Hero image",
+        "type": "file_reference",
+        "required": False,
+        "description": "Immagine hero della collezione, ideale 1600x900 o superiore.",
+    },
+    {
+        "key": "hero_video",
+        "name": "Hero video",
+        "type": "url",
+        "required": False,
+        "description": "URL video MP4 o CDN HeyGen per hero collection.",
+    },
 ]
 
 
@@ -58,6 +93,8 @@ COLLECTIONS = [
     {
         "handle": "bks-folklore",
         "name": "BKS Folklore",
+        "tagline": "Invented imagery and private bestiary",
+        "series": "naif",
         "editorial_description": "Invented imagery, private bestiary and naif register. Folklore builds a visual world that belongs only to BKS Studio.",
         "color_hex": "#4A7C59",
         "shopify_handle": "bks-folklore",
@@ -65,6 +102,8 @@ COLLECTIONS = [
     {
         "handle": "bks-glyph",
         "name": "BKS Glyph",
+        "tagline": "Sign systems and brut geometry",
+        "series": "brut",
         "editorial_description": "Sign systems, brut geometry and modular codes. Glyph treats surface as structure and pattern as an internal alphabet.",
         "color_hex": "#1A1A2E",
         "shopify_handle": "bks-glyph",
@@ -72,6 +111,8 @@ COLLECTIONS = [
     {
         "handle": "bks-marker",
         "name": "BKS Marker",
+        "tagline": "Urban gesture and neo-expressionism",
+        "series": "neo-expressionism",
         "editorial_description": "Urban gesture, neo-expressionism and the mark as identity. Marker moves through painterly action and city texture.",
         "color_hex": "#C84B31",
         "shopify_handle": "bks-marker",
@@ -79,6 +120,8 @@ COLLECTIONS = [
     {
         "handle": "bks-riviera",
         "name": "BKS Riviera",
+        "tagline": "Mediterranean register and coastal geometry",
+        "series": "islands",
         "editorial_description": "Mediterranean register, coastal geometry and islands palette. Riviera works with water, tile, stone and resort rhythm.",
         "color_hex": "#2B7A8D",
         "shopify_handle": "bks-riviera",
@@ -86,6 +129,8 @@ COLLECTIONS = [
     {
         "handle": "bks-pulse",
         "name": "BKS Pulse",
+        "tagline": "Optical geometry and kinetic fields",
+        "series": "optical",
         "editorial_description": "Optical geometry, kinetic fields and chromatic oscillation. Pulse is precise, restless and built from visual tension.",
         "color_hex": "#6B2D8B",
         "shopify_handle": "bks-pulse",
@@ -93,6 +138,8 @@ COLLECTIONS = [
     {
         "handle": "bks-token",
         "name": "BKS Token",
+        "tagline": "Arcade logic and digital memory",
+        "series": "arcade",
         "editorial_description": "Arcade logic, digital register and vintage electronics as surface. Token turns low-bit memory into wearable code.",
         "color_hex": "#E8A838",
         "shopify_handle": "bks-token",
@@ -100,6 +147,8 @@ COLLECTIONS = [
     {
         "handle": "bks-flag",
         "name": "BKS Flag",
+        "tagline": "Coded colour fields and signal structure",
+        "series": "neo-dada",
         "editorial_description": "Coded colour fields, neo-dada geometry and signal structure. Flag uses blocks and fields without referencing real flags.",
         "color_hex": "#2C3E7A",
         "shopify_handle": "bks-flag",
@@ -107,6 +156,8 @@ COLLECTIONS = [
     {
         "handle": "bks-hours",
         "name": "BKS Hours",
+        "tagline": "Urban contemplation and painterly stillness",
+        "series": "hyperrealism",
         "editorial_description": "Urban contemplation, painterly register and hyperrealist surface. Hours holds architecture and figures in stillness.",
         "color_hex": "#8B7355",
         "shopify_handle": "bks-hours",
@@ -120,6 +171,13 @@ query GetMetaobjectDefinition($type: String!) {
     id
     type
     name
+    fieldDefinitions {
+      key
+      name
+      type {
+        name
+      }
+    }
   }
 }
 """
@@ -135,6 +193,30 @@ mutation CreateMetaobjectDefinition($definition: MetaobjectDefinitionCreateInput
     userErrors {
       field
       message
+    }
+  }
+}
+"""
+
+UPDATE_DEFINITION = """
+mutation UpdateMetaobjectDefinition($id: ID!, $definition: MetaobjectDefinitionUpdateInput!) {
+  metaobjectDefinitionUpdate(id: $id, definition: $definition) {
+    metaobjectDefinition {
+      id
+      type
+      name
+      fieldDefinitions {
+        key
+        name
+        type {
+          name
+        }
+      }
+    }
+    userErrors {
+      field
+      message
+      code
     }
   }
 }
@@ -171,7 +253,22 @@ def ensure_definition(client: ShopifyGraphQL) -> str:
     existing = client.query(GET_DEFINITION, {"type": METAOBJECT_TYPE})
     definition = existing["data"].get("metaobjectDefinitionByType")
     if definition:
-        print(f"exists  definition {METAOBJECT_TYPE} {definition['id']}")
+        existing_keys = {field["key"] for field in definition.get("fieldDefinitions", [])}
+        missing_fields = [field for field in FIELD_DEFINITIONS if field["key"] not in existing_keys]
+        if not missing_fields:
+            print(f"exists  definition {METAOBJECT_TYPE} {definition['id']}")
+            return definition["id"]
+
+        payload = {
+            "fieldDefinitions": [{"create": field} for field in missing_fields],
+        }
+        updated = client.query(UPDATE_DEFINITION, {"id": definition["id"], "definition": payload})
+        result = updated["data"]["metaobjectDefinitionUpdate"]
+        errors = result.get("userErrors") or []
+        if errors:
+            raise RuntimeError(errors)
+        added = ", ".join(field["key"] for field in missing_fields)
+        print(f"updated definition {METAOBJECT_TYPE} {definition['id']} added: {added}")
         return definition["id"]
 
     payload = {
@@ -204,6 +301,9 @@ def ensure_metaobject(client: ShopifyGraphQL, collection: dict[str, str]) -> dic
 
     fields = [
         {"key": "name", "value": collection["name"]},
+        {"key": "tagline", "value": collection["tagline"]},
+        {"key": "description", "value": collection["editorial_description"]},
+        {"key": "series", "value": collection["series"]},
         {"key": "editorial_description", "value": collection["editorial_description"]},
         {"key": "color_hex", "value": collection["color_hex"]},
         {"key": "shopify_handle", "value": collection["shopify_handle"]},
