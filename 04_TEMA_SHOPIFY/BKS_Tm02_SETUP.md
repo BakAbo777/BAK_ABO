@@ -14,7 +14,7 @@ Base: BKS_V21 (Dawn 15.4.1). Fusione V21 + BKS_Tm01.
 | 8 × `collection.bks-*.json` | Subnav (4 blocchi) inserita in ogni template |
 | `sections/bks-collections-index.liquid` | Portata da Tm01 — indice tipografico numerato |
 | `templates/list-collections.json` | Riscritto: solo gli 8 mondi con tagline |
-| `templates/index.json` | `bks-planet-orbit` rimosso dalla home (resta su `page.bks-planet-orbit` → linkalo da EDITORIAL). Apre `bks-impact-home`, `bks-collections-index` al posto del vecchio collection-list-v2 |
+| `templates/index.json` | `bks-planet-orbit` rimosso dalla home; la nuova scheda editoriale usa `page.bks-planet-collections-orbit` e va linkata da EDITORIAL. Apre `bks-impact-home`, `bks-collections-index` al posto del vecchio collection-list-v2 |
 | `sections/bks-impact-home.liquid` | Corretto nome schema (era "BKS editorial matrix" per copia-incolla) |
 
 ## Il problema "tutto su default" — mappa assegnazioni
@@ -26,7 +26,7 @@ Il problema nasce quando più collezioni/pagine condividono lo stesso template: 
 
 **Collezioni categoria** → template omonimo già presente: `sneakers`, `swimwear`, `outerwear`, `backpack`, `travel-bag`, `lounge-pants`, `pullover-hoodie`, `windbreaker`, `puffer-jacket`, `athletic-shorts`, `one-piece-swimsuit`, `swim-trunks`, `flip-flop`, `cozy-slipper`, `racerback-dress`, `womens-tee`
 
-**Pagine:** `about → about` · `help/FAQ → help-faq` · `policy → policy` · `planet orbit → bks-planet-orbit`
+**Pagine:** `about → about` · `help/FAQ → help-faq` · `policy → policy` · `planet orbit → bks-planet-collections-orbit`
 
 **Restano su Default (intenzionale):** "New Arrivals", "AVADA - Best Sellers", "Digital Goods VAT Tax".
 
