@@ -1,0 +1,588 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="intro" id="overview">
+    <div>
+      <p class="eyebrow">BakAbo / BKS Studio</p>
+      <h1>BKS Master Control Plane</h1>
+      <p class="lede">Interfaccia unica per fasi operative, servizi locali, references, social pipeline e produzione avatar HeyGen.</p>
+    </div>
+    <div class="button-row">
+      <button id="refresh-button" class="button">Refresh</button>
+      <button id="live-health-button" class="button secondary">Live health</button>
+    </div>
+  </section>
+
+  <section class="panel anchor" id="agent-console">
+    <div class="panel-head">
+      <div>
+        <h2>Agente Master</h2>
+        <p class="panel-subtitle">Dialogo operativo con il sistema: fasi, connessioni, avatar, social render e skill registry.</p>
+      </div>
+      <span class="phase-meta">Comandi: stato, connessioni, run fase 09</span>
+    </div>
+    <div id="agent-log" class="agent-log">
+      <div class="agent-message assistant">Sono pronto. Chiedimi stato fasi, connessioni, avatar, social, skill, oppure scrivi run fase 09.</div>
+    </div>
+    <form id="agent-form" class="agent-form">
+      <input id="agent-input" type="text" autocomplete="off" placeholder="Scrivi al Master Agent...">
+      <button class="button" type="submit">Invia</button>
+    </form>
+    <div class="agent-actions">
+      <button class="button secondary" data-agent-message="stato fasi">Stato fasi</button>
+      <button class="button secondary" data-agent-message="prima cosa da fare">Prima cosa</button>
+      <button class="button secondary" data-agent-message="google merchant fuorvianti">Google</button>
+      <button class="button secondary" data-agent-message="dns dsn network suffissi dati">Network</button>
+      <button class="button secondary" data-agent-message="obiettivi settimanali">Settimana</button>
+      <button class="button secondary" data-agent-message="aggiornamento giornaliero in rete">Daily update</button>
+      <button class="button secondary" data-agent-message="sempre attivo monitor drive">Always-On</button>
+      <button class="button secondary" data-agent-message="sentore del mercato">Mercato</button>
+      <button class="button secondary" data-agent-message="connessioni">Connessioni</button>
+      <button class="button secondary" data-agent-message="stato avatar">Avatar</button>
+      <button class="button secondary" data-agent-message="stato social">Social</button>
+      <button class="button secondary" data-agent-message="skill">Skill</button>
+    </div>
+    <div id="agent-profile" class="agent-profile">Loading agent profile...</div>
+    <div id="agent-modes" class="mode-grid"></div>
+  </section>
+
+  <section class="panel anchor" id="realtime-control">
+    <div class="panel-head">
+      <div>
+        <h2>Real-Time Control</h2>
+        <p class="panel-subtitle">Progressione dell'elaborazione: ascolto, memoria, network, trust, azione, verifica.</p>
+      </div>
+      <span class="phase-meta" id="realtime-updated">Live leggero</span>
+    </div>
+    <div id="realtime-summary" class="reference-grid">Loading...</div>
+    <div id="realtime-charts" class="chart-grid">Loading...</div>
+    <div id="realtime-stages" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="master-actions">
+    <div class="panel-head">
+      <div>
+        <h2>Azioni Master</h2>
+        <p class="panel-subtitle">Coda guidata: fai prima questo, verifica, poi passa alla fase successiva.</p>
+      </div>
+      <a id="master-actions-download" class="button secondary" href="#" download>Scarica CSV</a>
+    </div>
+    <div id="master-next-action" class="next-action-card">Loading...</div>
+    <div id="master-actions-summary" class="reference-grid">Loading...</div>
+    <div id="master-actions-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="agent-routine">
+    <div class="panel-head">
+      <div>
+        <h2>Routine Agente & Cost Guard</h2>
+        <p class="panel-subtitle">Si attiva, aggiorna, suggerisce, verifica e passa avanti usando le API con controllo costi.</p>
+      </div>
+      <div class="button-row">
+        <a id="agent-routine-download" class="button secondary" href="#" download>Routine CSV</a>
+        <a id="api-cost-guard-download" class="button secondary" href="#" download>Costi CSV</a>
+      </div>
+    </div>
+    <div id="agent-routine-summary" class="reference-grid">Loading...</div>
+    <div id="agent-routine-next" class="next-action-card">Loading...</div>
+    <div class="split-panel">
+      <div>
+        <h3>Runbook</h3>
+        <div id="agent-routine-table" class="data-table">Loading...</div>
+      </div>
+      <div>
+        <h3>API cost guard</h3>
+        <div id="api-cost-guard-table" class="data-table">Loading...</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel anchor" id="weekly-goals">
+    <div class="panel-head">
+      <div>
+        <h2>Obiettivi Settimanali</h2>
+        <p class="panel-subtitle">Routine minima di verifica per Merchant, tag, feed, timer, tema, mercato e memoria agente.</p>
+      </div>
+      <a id="weekly-goals-download" class="button secondary" href="#" download>Scarica CSV</a>
+    </div>
+    <div id="weekly-goals-summary" class="reference-grid">Loading...</div>
+    <div id="weekly-goals-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="daily-web-update">
+    <div class="panel-head">
+      <div>
+        <h2>Daily Web Update</h2>
+        <p class="panel-subtitle">Aggiornamento giornaliero in rete: fonti live, policy, sitemap, landing e prossima azione.</p>
+      </div>
+      <div class="button-row">
+        <button id="daily-web-update-run" class="button secondary">Run local</button>
+        <button id="daily-web-update-live" class="button">Run live</button>
+        <a id="daily-web-update-download" class="button secondary" href="#" download>Scarica CSV</a>
+      </div>
+    </div>
+    <div id="daily-web-update-summary" class="reference-grid">Loading...</div>
+    <div id="daily-web-update-next" class="next-action-card">Loading...</div>
+    <div id="daily-web-update-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="always-on">
+    <div class="panel-head">
+      <div>
+        <h2>Always-On Agent</h2>
+        <p class="panel-subtitle">Monitor attivo: osserva, prepara correzioni, aggiorna memoria e resta pronto per mirror su Google Drive.</p>
+      </div>
+      <a id="always-on-download" class="button secondary" href="#" download>Drive manifest</a>
+    </div>
+    <div id="always-on-summary" class="reference-grid">Loading...</div>
+    <div class="split-panel">
+      <div>
+        <h3>Loop attivi</h3>
+        <div id="always-on-loops" class="data-table">Loading...</div>
+      </div>
+      <div>
+        <h3>Drive mirror</h3>
+        <div id="always-on-drive" class="data-table">Loading...</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel anchor" id="knowledge-db">
+    <div class="panel-head">
+      <div>
+        <h2>Knowledge DB</h2>
+        <p class="panel-subtitle">Memoria SQLite dell'agente: dati, verifiche, decisioni e risposte salvate.</p>
+      </div>
+      <span class="phase-meta">Risposte basate sui dati conservati</span>
+    </div>
+    <div id="knowledge-db-summary" class="reference-grid">Loading...</div>
+    <div id="knowledge-db-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="theme-ai-assistant">
+    <div class="panel-head">
+      <div>
+        <h2>Assistente AI Cliente</h2>
+        <p class="panel-subtitle">Widget Shopify predisposto: dialogo cliente in tempo reale, basato su Knowledge DB e policy ufficiali BKS.</p>
+      </div>
+      <a id="theme-ai-assistant-download" class="button secondary" href="#" download>Nota Google</a>
+    </div>
+    <div id="theme-ai-assistant-summary" class="reference-grid">Loading...</div>
+    <div id="theme-ai-assistant-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="api-orchestration">
+    <div class="panel-head">
+      <div>
+        <h2>API Orchestrator</h2>
+        <p class="panel-subtitle">Matrice minima per coordinare API, fasi operative e credenziali richieste.</p>
+      </div>
+      <a id="api-orchestration-download" class="button secondary" href="#" download>Scarica CSV</a>
+    </div>
+    <div id="api-orchestration-summary" class="reference-grid">Loading...</div>
+    <div id="api-orchestration-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="agent-os">
+    <div class="panel-head">
+      <div>
+        <h2>Agent OS</h2>
+        <p class="panel-subtitle">Architettura superiore: percezione, memoria, planner, registry connettori, approval gate, executor e osservabilità.</p>
+      </div>
+      <a id="agent-os-download" class="button secondary" href="#" download>Scarica CSV</a>
+    </div>
+    <div id="agent-os-summary" class="reference-grid">Loading...</div>
+    <div id="agent-os-layers" class="mode-grid"></div>
+    <div id="agent-os-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="google-merchant">
+    <div class="panel-head">
+      <div>
+        <h2>Google Merchant & Analytics</h2>
+        <p class="panel-subtitle">Sospensione, rappresentazione ingannevole, tag GTM/GA4, feed e pagine fiducia.</p>
+      </div>
+      <a id="google-merchant-download" class="button secondary" href="#" download>Scarica CSV</a>
+    </div>
+    <div id="google-merchant-summary" class="reference-grid">Loading...</div>
+    <div id="google-merchant-charts" class="metric-bars">Loading...</div>
+    <div class="split-panel">
+      <div>
+        <h3>Pagine fiducia</h3>
+        <div id="google-trust-pages-table" class="data-table">Loading...</div>
+      </div>
+      <div>
+        <h3>Tag issues</h3>
+        <div id="google-tag-table" class="data-table">Loading...</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel anchor" id="google-trust">
+    <div class="panel-head">
+      <div>
+        <h2>Google Trust Contract</h2>
+        <p class="panel-subtitle">Le esigenze di fiducia Google tradotte in prove locali e regole dell'agente.</p>
+      </div>
+      <a id="google-trust-download" class="button secondary" href="#" download>Scarica CSV</a>
+    </div>
+    <div id="google-trust-summary" class="reference-grid">Loading...</div>
+    <div id="google-trust-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="network-monitor">
+    <div class="panel-head">
+      <div>
+        <h2>Network Trust Monitor</h2>
+        <p class="panel-subtitle">DNS, DSN/bounce, email auth, HTTPS endpoint e suffissi dati per consegna pulita e fiducia Google.</p>
+      </div>
+      <div class="button-row">
+        <button id="network-monitor-live" class="button secondary">Run live</button>
+        <a id="network-monitor-download" class="button secondary" href="#" download>Report</a>
+      </div>
+    </div>
+    <div id="network-monitor-summary" class="reference-grid">Loading...</div>
+    <div id="network-monitor-charts" class="chart-grid">Loading...</div>
+    <div class="split-panel">
+      <div>
+        <h3>DNS e dominio</h3>
+        <div id="network-dns-table" class="data-table">Loading...</div>
+      </div>
+      <div>
+        <h3>Email, DSN e reputazione</h3>
+        <div id="network-email-table" class="data-table">Loading...</div>
+      </div>
+    </div>
+    <div class="split-panel">
+      <div>
+        <h3>Endpoint</h3>
+        <div id="network-endpoint-table" class="data-table">Loading...</div>
+      </div>
+      <div>
+        <h3>Suffissi dati</h3>
+        <div id="network-suffix-table" class="data-table">Loading...</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel anchor" id="legal-guardrails">
+    <div class="panel-head">
+      <div>
+        <h2>Legal Guardrails</h2>
+        <p class="panel-subtitle">Garanzie cliente, privacy, email marketing, sicurezza prodotto e rapporti BKS con produttori/fornitori.</p>
+      </div>
+      <div class="button-row">
+        <a id="legal-guardrails-download" class="button secondary" href="#" download>Clienti CSV</a>
+        <a id="supplier-contract-download" class="button secondary" href="#" download>Fornitori CSV</a>
+      </div>
+    </div>
+    <div id="legal-guardrails-summary" class="reference-grid">Loading...</div>
+    <div class="split-panel">
+      <div>
+        <h3>Garanzie cliente</h3>
+        <div id="legal-guardrails-table" class="data-table">Loading...</div>
+      </div>
+      <div>
+        <h3>Produttori e fornitori</h3>
+        <div id="supplier-contract-table" class="data-table">Loading...</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel anchor" id="market-sense">
+    <div class="panel-head">
+      <div>
+        <h2>Market Sense</h2>
+        <p class="panel-subtitle">Segnali locali e adattamenti prudenti del sito, guidati da TurboBAK e verifiche Merchant.</p>
+      </div>
+      <a id="market-sense-download" class="button secondary" href="#" download>Scarica CSV</a>
+    </div>
+    <div id="market-sense-summary" class="reference-grid">Loading...</div>
+    <div id="market-sense-signals" class="metric-bars">Loading...</div>
+    <div id="market-sense-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="marketing-offers">
+    <div class="panel-head">
+      <div>
+        <h2>Marketing Timer</h2>
+        <p class="panel-subtitle">Offerta a tempo con scadenza reale, termini visibili e claim compatibili con Google Merchant.</p>
+      </div>
+      <span class="phase-meta">Countdown sobrio, non pressione artificiale</span>
+    </div>
+    <div id="marketing-offers-summary" class="reference-grid">Loading...</div>
+    <div id="marketing-offers-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="marketing-logic">
+    <div class="panel-head">
+      <div>
+        <h2>Marketing Logic Scout</h2>
+        <p class="panel-subtitle">Playbook già attivi nel mercato: ranking per qualità prodotto, fit BKS, rischio Google e applicabilità al tema.</p>
+      </div>
+      <a id="marketing-logic-download" class="button secondary" href="#" download>Scarica CSV</a>
+    </div>
+    <div id="marketing-logic-summary" class="reference-grid">Loading...</div>
+    <div id="marketing-logic-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="social-campaigns">
+    <div class="panel-head">
+      <div>
+        <h2>Campagne Social Multilingua</h2>
+        <p class="panel-subtitle">Canali social, lingue, asset e autonomia supervisionata per campagne trasparenti e performanti.</p>
+      </div>
+      <a id="social-campaigns-download" class="button secondary" href="#" download>Scarica CSV</a>
+    </div>
+    <div id="social-campaigns-summary" class="reference-grid">Loading...</div>
+    <div class="split-panel">
+      <div>
+        <h3>Canali</h3>
+        <div id="social-campaigns-table" class="data-table">Loading...</div>
+      </div>
+      <div>
+        <h3>Lingue</h3>
+        <div id="social-languages-table" class="data-table">Loading...</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel anchor" id="growth-crm">
+    <div class="panel-head">
+      <div>
+        <h2>Growth CRM & Member Area</h2>
+        <p class="panel-subtitle">Clienti reali, welcome flow, PDP clarity, recensioni, wishlist e member area senza over-engineering.</p>
+      </div>
+      <a id="growth-crm-download" class="button secondary" href="#" download>Scarica CSV</a>
+    </div>
+    <div id="growth-crm-summary" class="reference-grid">Loading...</div>
+    <div id="growth-crm-charts" class="chart-grid">Loading...</div>
+    <div class="split-panel">
+      <div>
+        <h3>Segmenti</h3>
+        <div id="growth-crm-segments-table" class="data-table">Loading...</div>
+      </div>
+      <div>
+        <h3>Diagnostica PDP / CRM</h3>
+        <div id="growth-crm-diagnostics-table" class="data-table">Loading...</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel anchor" id="theme-optimizer">
+    <div class="panel-head">
+      <div>
+        <h2>Tema Light Trust</h2>
+        <p class="panel-subtitle">Patch reversibile: sito meno scuro, più leggibile, trust strip e timer installabile.</p>
+      </div>
+      <a id="theme-optimizer-download" class="button secondary" href="#" download>Scarica ZIP</a>
+    </div>
+    <div id="theme-optimizer-summary" class="reference-grid">Loading...</div>
+    <div id="theme-optimizer-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="photo-studio">
+    <div class="panel-head">
+      <div>
+        <h2>Photo Studio & Reviews</h2>
+        <p class="panel-subtitle">Operazioni fotografia post-Shopify: cataloghi foto prodotto/collezione, progressione tema e recensioni oneste.</p>
+      </div>
+      <div class="button-row">
+        <a id="photo-studio-download" class="button secondary" href="#" download>Foto CSV</a>
+        <a id="theme-progression-download" class="button secondary" href="#" download>Tema CSV</a>
+      </div>
+    </div>
+    <div id="photo-studio-summary" class="reference-grid">Loading...</div>
+    <div id="photo-studio-charts" class="chart-grid">Loading...</div>
+    <div class="split-panel">
+      <div>
+        <h3>Scatti</h3>
+        <div id="photo-studio-table" class="data-table">Loading...</div>
+      </div>
+      <div>
+        <h3>Progressione tema</h3>
+        <div id="theme-progression-table" class="data-table">Loading...</div>
+      </div>
+    </div>
+    <div id="review-guard-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="payments">
+    <div class="panel-head">
+      <div>
+        <h2>Pagamenti e Bitcoin</h2>
+        <p class="panel-subtitle">Bitcoin come competenza commerciale moderna: opzione checkout chiara, non promessa finanziaria.</p>
+      </div>
+      <a id="payments-download" class="button secondary" href="#" download>Scarica CSV</a>
+    </div>
+    <div id="payments-summary" class="reference-grid">Loading...</div>
+    <div id="payments-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="services">
+    <div class="panel-head">
+      <div>
+        <h2>Connessioni</h2>
+        <p class="panel-subtitle">Segnali live per API, servizi locali e automazioni collegate.</p>
+      </div>
+      <span class="phase-meta">Connesso / Non connesso</span>
+    </div>
+    <div class="status-grid" id="service-status"></div>
+  </section>
+
+  <section class="panel anchor" id="phases">
+    <div class="panel-head">
+      <h2>Fasi operative</h2>
+    </div>
+    <div id="phase-grid" class="phase-grid"></div>
+  </section>
+
+  <section class="panel anchor" id="avatar-production">
+    <div class="panel-head">
+      <div>
+        <h2>Avatar production</h2>
+        <p class="panel-subtitle">Standard bakabo-avatar-production: brief, script, 9:16 image, HeyGen export, metadata.</p>
+      </div>
+      <div class="button-row">
+        <button id="bootstrap-avatar-button" class="button secondary">Prepare workspace</button>
+        <button class="button" data-run-phase="09">Run phase 09</button>
+      </div>
+    </div>
+    <div id="avatar-summary" class="reference-grid">Loading...</div>
+    <div id="heygen-api-status" class="api-status"></div>
+    <div id="avatar-preview-grid" class="preview-grid"></div>
+    <div class="split-panel">
+      <div>
+        <h3>Collection queue</h3>
+        <div id="avatar-table" class="data-table">Loading...</div>
+      </div>
+      <div>
+        <h3>HeyGen steps</h3>
+        <ol id="heygen-steps" class="compact-list"></ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel anchor" id="social-render">
+    <div class="panel-head">
+      <div>
+        <h2>Scheda Social Render</h2>
+        <p class="panel-subtitle">Dati minimi per collegare HeyGen, avatar video e pubblicazione social, incluso YouTube Shorts.</p>
+      </div>
+      <a id="social-render-download" class="button secondary" href="#" download>Scarica CSV</a>
+    </div>
+    <div id="social-render-status" class="reference-grid">Loading...</div>
+    <div id="social-render-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="sales-channels">
+    <div class="panel-head">
+      <div>
+        <h2>Canali di Vendita</h2>
+        <p class="panel-subtitle">Storefront, marketplace, social commerce e canali assistiti coordinati dal Master.</p>
+      </div>
+      <a id="sales-channels-download" class="button secondary" href="#" download>Scarica CSV</a>
+    </div>
+    <div id="sales-channels-summary" class="reference-grid">Loading...</div>
+    <div id="sales-channels-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="catalog-sync">
+    <div class="panel-head">
+      <div>
+        <h2>Catalog Sync Shopify / Printify</h2>
+        <p class="panel-subtitle">Caricamento automatico prodotti live, CSV generati, mapping ID e verifica aggiornamenti tra Shopify e Printify.</p>
+      </div>
+      <div class="button-row">
+        <button id="catalog-sync-run" class="button">Run live sync</button>
+        <a id="catalog-sync-download" class="button secondary" href="#" download>Differenze CSV</a>
+      </div>
+    </div>
+    <div id="catalog-sync-summary" class="reference-grid">Loading...</div>
+    <div id="catalog-sync-charts" class="chart-grid">Loading...</div>
+    <div id="catalog-sync-diff-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="product-name-audit">
+    <div class="panel-head">
+      <div>
+        <h2>Product Name Audit</h2>
+        <p class="panel-subtitle">Controllo nomi prodotto: refusi, duplicati, mismatch handle/titolo, collection mancanti e titoli non coerenti.</p>
+      </div>
+      <div class="button-row">
+        <button id="product-name-audit-live" class="button secondary">Run online check</button>
+        <a id="product-name-audit-download" class="button secondary" href="#" download>Scarica CSV</a>
+      </div>
+    </div>
+    <div id="product-name-audit-summary" class="reference-grid">Loading...</div>
+    <div id="product-name-audit-charts" class="chart-grid">Loading...</div>
+    <div id="product-name-audit-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="official-inbox">
+    <div class="panel-head">
+      <div>
+        <h2>Official Inbox crew@bakabo.club</h2>
+        <p class="panel-subtitle">Posta ufficiale: comunicazioni cliente, gestione, bozze, tracking trasparente e segnali smartphone/lettura.</p>
+      </div>
+      <a id="official-inbox-download" class="button secondary" href="#" download>Scarica CSV</a>
+    </div>
+    <div id="official-inbox-summary" class="reference-grid">Loading...</div>
+    <div class="split-panel">
+      <div>
+        <h3>Stato inbox</h3>
+        <div id="official-inbox-status-table" class="data-table">Loading...</div>
+      </div>
+      <div>
+        <h3>Categorie</h3>
+        <div id="official-inbox-category-table" class="data-table">Loading...</div>
+      </div>
+    </div>
+    <div id="official-inbox-transparency-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="communications">
+    <div class="panel-head">
+      <div>
+        <h2>Messaggi, Email e Bot Links</h2>
+        <p class="panel-subtitle">Canali per dialogo cliente, Instagram/Meta, Telegram bot, email e consenso.</p>
+      </div>
+      <span class="phase-meta">Opt-in richiesto per conversazioni automatiche</span>
+    </div>
+    <div id="communications-summary" class="reference-grid">Loading...</div>
+    <div id="communications-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="skill-registry">
+    <div class="panel-head">
+      <div>
+        <h2>Skill Registry</h2>
+        <p class="panel-subtitle">Skill operative del progetto importate da Claude/Codex e collegate alle fasi Master.</p>
+      </div>
+      <a id="skill-registry-download" class="button secondary" href="#" download>Scarica CSV</a>
+    </div>
+    <div id="skill-registry-summary" class="reference-grid">Loading...</div>
+    <div id="skill-registry-table" class="data-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="references">
+    <div class="panel-head">
+      <h2>Product references</h2>
+      <button id="sync-references-button" class="button secondary">Sync catalog refs</button>
+    </div>
+    <div id="references-summary" class="reference-grid">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="runs">
+    <div class="panel-head">
+      <h2>Run ledger</h2>
+    </div>
+    <div id="run-ledger" class="ledger-table">Loading...</div>
+  </section>
+
+  <section class="panel anchor" id="events">
+    <div class="panel-head">
+      <h2>Eventi recenti</h2>
+    </div>
+    <pre id="event-log" class="event-log">Loading...</pre>
+  </section>
+{% endblock %}

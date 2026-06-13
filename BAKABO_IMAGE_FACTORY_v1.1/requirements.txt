@@ -1,0 +1,11 @@
+streamlit>=1.35.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+pillow>=10.0.0
+numpy>=1.26.0
+pandas>=2.2.0
+openai>=1.30.0
+rembg>=2.0.57
+pyyaml>=6.0.1
+pywin32>=306; sys_platform == "win32"
+winshell>=0.6; sys_platform == "win32"

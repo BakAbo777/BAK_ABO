@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="intro">
+    <div>
+      <p class="eyebrow">Fase {{ phase_id }}</p>
+      <h1>Dettaglio fase</h1>
+    </div>
+    <button class="button" data-run-phase="{{ phase_id }}">Run phase</button>
+  </section>
+  <section class="panel">
+    <pre id="phase-detail" data-phase-id="{{ phase_id }}">Loading...</pre>
+  </section>
+{% endblock %}
+

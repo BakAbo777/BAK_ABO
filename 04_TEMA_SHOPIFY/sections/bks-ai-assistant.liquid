@@ -1,0 +1,252 @@
+{% comment %}
+  BKS AI Assistant
+  Customer-facing assistant for Shopify. It must answer from verified BKS data,
+  disclose that it is AI, avoid payments/data collection, and route policy
+  questions to official store pages.
+{% endcomment %}
+
+{% if section.settings.enabled %}
+<section
+  class="bks-ai-assistant"
+  data-bks-ai-assistant
+  data-endpoint="{{ section.settings.api_endpoint | escape }}"
+  data-token="{{ section.settings.public_token | escape }}"
+  data-product-title="{% if product %}{{ product.title | escape }}{% endif %}"
+  aria-label="{{ section.settings.title | default: 'BKS AI Assistant' | escape }}"
+>
+  <button class="bks-ai-assistant__button" type="button" data-bks-ai-toggle aria-expanded="false">
+    <span>{{ section.settings.button_label | default: 'Ask BKS' | escape }}</span>
+  </button>
+  <div class="bks-ai-assistant__panel" data-bks-ai-panel hidden>
+    <div class="bks-ai-assistant__head">
+      <div>
+        <strong>{{ section.settings.title | default: 'BKS AI Assistant' | escape }}</strong>
+        <small>{{ section.settings.disclosure | escape }}</small>
+      </div>
+      <button type="button" data-bks-ai-close aria-label="Close">x</button>
+    </div>
+    <div class="bks-ai-assistant__log" data-bks-ai-log>
+      <p class="bks-ai-assistant__message assistant">{{ section.settings.welcome | escape }}</p>
+    </div>
+    <form class="bks-ai-assistant__form" data-bks-ai-form>
+      <input data-bks-ai-input type="text" autocomplete="off" placeholder="{{ section.settings.placeholder | escape }}">
+      <button type="submit">{{ section.settings.send_label | default: 'Send' | escape }}</button>
+    </form>
+    <p class="bks-ai-assistant__terms">{{ section.settings.terms | escape }}</p>
+  </div>
+</section>
+
+<style>
+  .bks-ai-assistant {
+    --bks-ai-ink: #111111;
+    --bks-ai-paper: #ffffff;
+    --bks-ai-muted: #5f5a52;
+    --bks-ai-line: #ded8cd;
+    --bks-ai-accent: #2f6f6b;
+    bottom: 18px;
+    font: inherit;
+    position: fixed;
+    right: 18px;
+    z-index: 80;
+  }
+  .bks-ai-assistant__button {
+    background: var(--bks-ai-ink);
+    border: 1px solid var(--bks-ai-ink);
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+    padding: 12px 15px;
+  }
+  .bks-ai-assistant__panel {
+    background: var(--bks-ai-paper);
+    border: 1px solid var(--bks-ai-line);
+    bottom: 54px;
+    box-shadow: 0 18px 48px rgba(17, 17, 17, .18);
+    color: var(--bks-ai-ink);
+    display: grid;
+    gap: 10px;
+    max-height: min(620px, calc(100vh - 100px));
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    width: min(380px, calc(100vw - 36px));
+  }
+  .bks-ai-assistant__panel[hidden] {
+    display: none;
+  }
+  .bks-ai-assistant__head {
+    align-items: start;
+    border-bottom: 1px solid var(--bks-ai-line);
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    padding: 13px 14px;
+  }
+  .bks-ai-assistant__head strong,
+  .bks-ai-assistant__head small {
+    display: block;
+  }
+  .bks-ai-assistant__head small {
+    color: var(--bks-ai-muted);
+    font-size: 12px;
+    line-height: 1.35;
+    margin-top: 3px;
+  }
+  .bks-ai-assistant__head button {
+    background: transparent;
+    border: 0;
+    color: var(--bks-ai-ink);
+    cursor: pointer;
+    font: inherit;
+    padding: 2px 4px;
+  }
+  .bks-ai-assistant__log {
+    display: grid;
+    gap: 8px;
+    max-height: 320px;
+    overflow: auto;
+    padding: 12px 14px;
+  }
+  .bks-ai-assistant__message {
+    border: 1px solid var(--bks-ai-line);
+    line-height: 1.42;
+    margin: 0;
+    padding: 9px 10px;
+    white-space: pre-wrap;
+  }
+  .bks-ai-assistant__message.user {
+    background: #f1ede5;
+    margin-left: 28px;
+  }
+  .bks-ai-assistant__message.assistant {
+    background: #fff;
+    margin-right: 28px;
+  }
+  .bks-ai-assistant__form {
+    border-top: 1px solid var(--bks-ai-line);
+    display: grid;
+    gap: 8px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 12px 14px 0;
+  }
+  .bks-ai-assistant__form input {
+    border: 1px solid var(--bks-ai-line);
+    color: var(--bks-ai-ink);
+    font: inherit;
+    min-width: 0;
+    padding: 10px 11px;
+  }
+  .bks-ai-assistant__form button {
+    background: var(--bks-ai-accent);
+    border: 1px solid var(--bks-ai-accent);
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+    padding: 10px 12px;
+  }
+  .bks-ai-assistant__terms {
+    color: var(--bks-ai-muted);
+    font-size: 11px;
+    line-height: 1.35;
+    margin: 0;
+    padding: 0 14px 14px;
+  }
+  @media (max-width: 760px) {
+    .bks-ai-assistant {
+      bottom: 12px;
+      right: 12px;
+    }
+    .bks-ai-assistant__panel {
+      bottom: 50px;
+      max-height: calc(100vh - 80px);
+      width: calc(100vw - 24px);
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    var root = document.querySelector('[data-bks-ai-assistant]');
+    if (!root || root.dataset.bound === '1') return;
+    root.dataset.bound = '1';
+    var panel = root.querySelector('[data-bks-ai-panel]');
+    var toggle = root.querySelector('[data-bks-ai-toggle]');
+    var close = root.querySelector('[data-bks-ai-close]');
+    var form = root.querySelector('[data-bks-ai-form]');
+    var input = root.querySelector('[data-bks-ai-input]');
+    var log = root.querySelector('[data-bks-ai-log]');
+    var endpoint = root.dataset.endpoint || '';
+    var token = root.dataset.token || '';
+    function append(role, text) {
+      var node = document.createElement('p');
+      node.className = 'bks-ai-assistant__message ' + role;
+      node.textContent = text;
+      log.appendChild(node);
+      log.scrollTop = log.scrollHeight;
+    }
+    function setOpen(open) {
+      panel.hidden = !open;
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) input.focus();
+    }
+    toggle.addEventListener('click', function () { setOpen(panel.hidden); });
+    close.addEventListener('click', function () { setOpen(false); });
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var message = (input.value || '').trim();
+      if (!message) return;
+      input.value = '';
+      append('user', message);
+      if (!endpoint) {
+        append('assistant', 'Assistente BKS predisposto: per attivarlo serve collegare un endpoint pubblico sicuro nel tema.');
+        return;
+      }
+      append('assistant', 'Controllo i dati BKS disponibili...');
+      fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-BKS-Assistant-Token': token
+        },
+        body: JSON.stringify({
+          message: message,
+          page_url: window.location.href,
+          product_title: root.dataset.productTitle || ''
+        })
+      })
+        .then(function (response) { return response.json(); })
+        .then(function (data) {
+          var pending = log.querySelector('.bks-ai-assistant__message.assistant:last-child');
+          if (pending && pending.textContent === 'Controllo i dati BKS disponibili...') pending.remove();
+          append('assistant', data.reply || 'Non ho trovato una risposta verificata nel database BKS.');
+        })
+        .catch(function () {
+          append('assistant', 'In questo momento non riesco a raggiungere il database BKS. Usa le pagine policy o il contatto ufficiale.');
+        });
+    });
+  })();
+</script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "BKS AI assistant",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Enable assistant", "default": false },
+    { "type": "text", "id": "api_endpoint", "label": "Public API endpoint", "default": "" },
+    { "type": "text", "id": "public_token", "label": "Public routing token", "default": "" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Ask BKS" },
+    { "type": "text", "id": "title", "label": "Panel title", "default": "BKS AI Assistant" },
+    { "type": "textarea", "id": "disclosure", "label": "AI disclosure", "default": "AI assistant: answers from verified BKS data and official store policies." },
+    { "type": "textarea", "id": "welcome", "label": "Welcome message", "default": "Hi, I can help with BKS collections, shipping, returns and product information. Prices and availability are always confirmed on the product page and at checkout." },
+    { "type": "text", "id": "placeholder", "label": "Input placeholder", "default": "Ask about BKS..." },
+    { "type": "text", "id": "send_label", "label": "Send label", "default": "Send" },
+    { "type": "textarea", "id": "terms", "label": "Footer terms", "default": "The assistant does not collect payment details and cannot replace checkout, order confirmation, shipping policy, refund policy or human support." }
+  ],
+  "presets": [
+    { "name": "BKS AI assistant" }
+  ]
+}
+{% endschema %}

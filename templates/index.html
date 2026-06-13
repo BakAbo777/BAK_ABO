@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BKS Studio Catalog Workboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">BKS</div>
+        <div>
+          <h1>BKS Studio Workboard</h1>
+          <p>Curation, tag semplici e base theme v3 Shopify</p>
+        </div>
+      </div>
+      <div class="system-pill" id="systemStatus">Loading</div>
+    </header>
+
+    <section class="grid">
+      <aside class="panel command-panel">
+        <div class="panel-title">
+          <div>
+            <h2>Comandi</h2>
+            <span>CSV attivo, tag puliti e export Shopify</span>
+          </div>
+        </div>
+
+        <div class="upload-box" id="uploadBox">
+          <input id="csvInput" type="file" accept=".csv" hidden>
+          <div class="upload-icon">CSV</div>
+          <p>Trascina o scegli il CSV Shopify con colonna Handle.</p>
+          <button class="btn ghost" id="chooseCsvBtn" type="button">Scegli CSV</button>
+        </div>
+
+        <div class="settings-block">
+          <label>Background</label>
+          <div class="segmented">
+            <button class="seg-btn active" type="button" data-bg-mode="bone">Bone 4:5</button>
+            <button class="seg-btn" type="button" data-bg-mode="salt">Salt 4:5</button>
+            <button class="seg-btn" type="button" data-bg-mode="gradient">Gradiente</button>
+            <button class="seg-btn" type="button" data-bg-mode="hero">Hero</button>
+            <button class="seg-btn" type="button" data-bg-mode="editorial">Editorial</button>
+          </div>
+        </div>
+
+        <div class="settings-block">
+          <label>Preset colore</label>
+          <div class="swatches" id="swatches"></div>
+        </div>
+
+        <div class="settings-block two-inputs">
+          <div>
+            <label>Colore 1</label>
+            <input id="color1" type="color" value="#ffffff">
+          </div>
+          <div>
+            <label>Colore 2</label>
+            <input id="color2" type="color" value="#e8e8e8">
+          </div>
+        </div>
+
+        <label class="check-row">
+          <input id="autofill" type="checkbox" checked>
+          <span>Applica compliance BKS: SEO, tag semplici, alt text, made-to-order ed EU Representative.</span>
+        </label>
+
+        <div class="settings-block">
+          <label>Max immagini</label>
+          <input class="field" id="maxImages" type="number" min="0" value="0">
+          <small>0 significa tutte. Per test rapidi usa 5 o 10.</small>
+        </div>
+
+        <button class="btn primary" id="processBtn" type="button">Avvia elaborazione</button>
+
+        <div class="progress-wrap" id="progressWrap" hidden>
+          <div class="progress-meta">
+            <span id="progressLabel">In attesa</span>
+            <b id="progressPct">0%</b>
+          </div>
+          <div class="progress-track">
+            <div class="progress-bar-fill" id="progressBar"></div>
+          </div>
+        </div>
+
+        <div class="status-box" id="processStatus">Pronto.</div>
+      </aside>
+
+      <section class="workspace">
+        <nav class="tabs">
+          <button class="tab active" type="button" data-tab="overviewPanel">Overview</button>
+          <button class="tab" type="button" data-tab="curationPanel">Curation</button>
+          <button class="tab" type="button" data-tab="backgroundPanel">Background</button>
+          <button class="tab" type="button" data-tab="seoPanel">SEO</button>
+          <button class="tab" type="button" data-tab="exportPanel">Export</button>
+        </nav>
+
+        <section class="tab-panel active" id="overviewPanel">
+          <div class="stats">
+            <div class="stat"><b id="rowsStat">-</b><span>Righe CSV</span></div>
+            <div class="stat"><b id="handlesStat">-</b><span>Prodotti unici</span></div>
+            <div class="stat"><b id="imagesStat">-</b><span>Righe immagine</span></div>
+            <div class="stat"><b id="rembgStat">-</b><span>Rembg</span></div>
+          </div>
+
+          <div class="split">
+            <div class="panel wide-panel">
+              <h3>Type principali</h3>
+              <div class="list" id="typesList"></div>
+            </div>
+            <div class="panel wide-panel">
+              <h3>Vendor principali</h3>
+              <div class="list" id="vendorsList"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="curationPanel">
+          <div class="stats">
+            <div class="stat"><b id="curProductsStat">-</b><span>Prodotti</span></div>
+            <div class="stat"><b id="curYesStat">-</b><span>Keep Yes</span></div>
+            <div class="stat warning"><b id="curNoStat">-</b><span>No / Draft</span></div>
+            <div class="stat"><b id="curEmptyStat">-</b><span>Da decidere</span></div>
+          </div>
+
+          <div class="panel target-panel">
+            <div>
+              <h3>Target matrice</h3>
+              <p id="targetSummary">90-150 active totali, 8-22 active per collection.</p>
+            </div>
+            <div class="target-meter">
+              <div id="targetMeterFill"></div>
+            </div>
+          </div>
+
+          <div class="split">
+            <div class="panel wide-panel">
+              <h3>Active per Series / Collection</h3>
+              <div class="list" id="activeSeriesList"></div>
+            </div>
+            <div class="panel wide-panel">
+              <h3>Active per Type</h3>
+              <div class="list" id="activeTypeList"></div>
+            </div>
+          </div>
+
+          <div class="split">
+            <div class="panel wide-panel">
+              <h3>Tutte le Series</h3>
+              <div class="list" id="seriesList"></div>
+            </div>
+            <div class="panel wide-panel">
+              <h3>Status CSV</h3>
+              <div class="list" id="statusList"></div>
+            </div>
+          </div>
+
+          <div class="status-box" id="curationStatus">Caricamento curation...</div>
+        </section>
+
+        <section class="tab-panel" id="backgroundPanel">
+          <div class="background-preview">
+            <div class="mock-card">
+              <div class="mock-image" id="mockImage">BKS</div>
+              <p>Anteprima rapida del fondo scelto. L'elaborazione reale lavora sulle immagini prodotto del CSV.</p>
+            </div>
+            <div class="rules-card">
+              <h3>Regole operative BKS</h3>
+              <ul>
+                <li>Usa batch piccoli per validare WebP e naming.</li>
+                <li>Scarica ZIP solo dopo stato Completed.</li>
+                <li>Nessun campo pubblico deve usare BAKABO o emoji.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="seoPanel">
+          <div class="stats">
+            <div class="stat warning"><b id="missingTitleStat">-</b><span>SEO title mancanti</span></div>
+            <div class="stat warning"><b id="missingDescStat">-</b><span>SEO description mancanti</span></div>
+            <div class="stat warning"><b id="missingAltStat">-</b><span>Alt text mancanti</span></div>
+            <div class="stat"><b>BKS</b><span>Skill copy</span></div>
+          </div>
+          <div class="seo-rules">
+            <div>
+              <h3>Active CSV</h3>
+              <p>Keep = Yes diventa la base per i prodotti attivi Shopify con tag semplice active.</p>
+            </div>
+            <div>
+              <h3>Taxonomy</h3>
+              <p>Le smart collections leggono tag semplici: hours, glyph, man, woman, sneakers, puffer-jacket.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="exportPanel">
+          <div class="exports">
+            <a class="export-card" href="/download/csv">
+              <b>CSV aggiornato</b>
+              <span>SEO, tag e dati immagine.</span>
+            </a>
+            <a class="export-card" href="/download/seo">
+              <b>SEO report</b>
+              <span>Audit prodotto per prodotto.</span>
+            </a>
+            <a class="export-card" href="/download/zip">
+              <b>Pacchetto ZIP</b>
+              <span>CSV, report e immagini esportate.</span>
+            </a>
+          </div>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

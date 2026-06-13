@@ -1,0 +1,43 @@
+{% comment %}
+  BKS Trust Strip: explicit customer reassurance for Google Merchant review.
+{% endcomment %}
+
+<section class="bks-trust-strip" aria-label="Shopping information">
+  <div class="bks-trust-strip__inner">
+    <div class="bks-trust-strip__item">
+      <strong>{{ section.settings.item_1_title | default: 'Made to order' | escape }}</strong>
+      <span>{{ section.settings.item_1_copy | default: 'Products are produced after purchase to avoid overstock.' | escape }}</span>
+    </div>
+    <div class="bks-trust-strip__item">
+      <strong>{{ section.settings.item_2_title | default: 'Clear delivery' | escape }}</strong>
+      <span>{{ section.settings.item_2_copy | default: 'Shipping costs and delivery estimates are shown before checkout.' | escape }}</span>
+    </div>
+    <div class="bks-trust-strip__item">
+      <strong>{{ section.settings.item_3_title | default: 'Returns policy' | escape }}</strong>
+      <span>{{ section.settings.item_3_copy | default: 'Return and refund terms are available from the footer.' | escape }}</span>
+    </div>
+    <div class="bks-trust-strip__item">
+      <strong>{{ section.settings.item_4_title | default: 'BKS Studio' | escape }}</strong>
+      <span>{{ section.settings.item_4_copy | default: 'Original AI-generated visual collections curated by BakAbo.' | escape }}</span>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BKS trust strip",
+  "settings": [
+    { "type": "text", "id": "item_1_title", "label": "Item 1 title", "default": "Made to order" },
+    { "type": "text", "id": "item_1_copy", "label": "Item 1 copy", "default": "Products are produced after purchase to avoid overstock." },
+    { "type": "text", "id": "item_2_title", "label": "Item 2 title", "default": "Clear delivery" },
+    { "type": "text", "id": "item_2_copy", "label": "Item 2 copy", "default": "Shipping costs and delivery estimates are shown before checkout." },
+    { "type": "text", "id": "item_3_title", "label": "Item 3 title", "default": "Returns policy" },
+    { "type": "text", "id": "item_3_copy", "label": "Item 3 copy", "default": "Return and refund terms are available from the footer." },
+    { "type": "text", "id": "item_4_title", "label": "Item 4 title", "default": "BKS Studio" },
+    { "type": "text", "id": "item_4_copy", "label": "Item 4 copy", "default": "Original AI-generated visual collections curated by BakAbo." }
+  ],
+  "presets": [
+    { "name": "BKS trust strip" }
+  ]
+}
+{% endschema %}

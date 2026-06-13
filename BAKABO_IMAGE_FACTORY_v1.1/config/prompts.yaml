@@ -1,0 +1,95 @@
+# BKS Studio — Prompt templates
+# Variables: {product_type} {collection} {surface} {light} {mood} {gender} {bg_color}
+
+base_rules: |
+  Use the uploaded product reference as the exact BKS Studio product.
+  Preserve shape, cut, scale, seams, waistband, drawstring, trims,
+  print layout, colors and all-over pattern exactly.
+  Do not invent a new pattern. No text, no logo overlay.
+  Photorealistic fabric texture.
+
+slots:
+
+  product_front:
+    label: "Product Front — clean background"
+    template: |
+      Product photography for e-commerce, square 1:1 format 2000x2000px.
+      Exact {product_type} from the uploaded reference image, centered
+      on a clean white background #FAFAF7. No model, no props, no shadows.
+      All-over print fully visible. No text, no logo. Photorealistic.
+
+  product_back:
+    label: "Product Back — clean background"
+    template: |
+      Product photography for e-commerce, square 1:1 format 2000x2000px.
+      Exact {product_type} from uploaded reference, BACK view, centered
+      on clean white background #FAFAF7. No model, no props, no shadows.
+      All-over print fully visible on back panel. No text, no logo.
+
+  editorial_square:
+    label: "Editorial Square 1:1"
+    template: |
+      Editorial fashion photography, square 1:1 format 2000x2000px.
+      BKS Studio {collection} collection.
+      {shooting_instruction}
+      {surface}. {light}.
+      Mood: {mood}.
+      All-over print clearly legible. No text, no logo.
+
+  editorial_4x5:
+    label: "Editorial Vertical 4:5"
+    template: |
+      Editorial fashion photography, vertical 4:5 format 1600x2000px.
+      BKS Studio {collection} collection.
+      {shooting_instruction}
+      {surface}. {light}.
+      Mood: {mood}.
+      All-over print clearly legible. No text, no logo.
+
+  hero_banner:
+    label: "Hero Banner 16:7"
+    template: |
+      Wide hero banner, horizontal 16:7 format 2400x1050px.
+      BKS Studio {collection} collection.
+      {shooting_instruction}
+      Background matching collection palette {bg_color}.
+      {light}. Mood: {mood}.
+      Generous negative space on right for text overlay.
+      All-over print clearly legible. No text, no logo.
+
+  texture_detail:
+    label: "Texture Detail Macro"
+    template: |
+      Close-up macro photography, square 1:1 format 1500x1500px.
+      Fabric surface of exact {product_type} from uploaded reference.
+      Shallow depth of field, sharp on the pattern center.
+      Fabric fills frame edge to edge. Realistic fiber texture.
+      Stitching visible if present. No background visible. No text, no logo.
+
+shooting_instructions:
+  still_life: |
+    Exact {product_type} from uploaded reference, arranged on {surface}.
+    No model, no hands.
+  on_model_woman: |
+    Adult woman model with {model_season} coloring, wearing exact
+    {product_type} from uploaded reference. {pose}.
+    No celebrity resemblance. No face required if product-first.
+  on_model_man: |
+    Adult male model, wearing exact {product_type} from uploaded reference.
+    {pose}. No celebrity resemblance.
+
+poses:
+  lounge-pants: "seated on surface, legs extended, product visible waist to ankle"
+  swim-trunks: "standing near water or seated on pool edge, relaxed resort pose"
+  one-piece-swimsuit: "standing or seated, full body visible"
+  puffer-jacket: "jacket laid flat front panel up, or worn standing"
+  windbreaker: "jacket draped open on surface or hanging"
+  pullover-hoodie: "hoodie laid flat or worn, front visible"
+  racerback-dress: "standing, full length visible"
+  athletic-shorts: "standing or dynamic pose, shorts fully visible"
+  sneakers: "pair placed on surface, unlaced"
+  backpack: "placed upright, front panel facing camera"
+  travel-bag: "placed upright or flat, main compartment visible"
+  flip-flop: "pair arranged on surface"
+  cozy-slipper: "pair arranged on soft surface"
+  womens-tee: "laid flat or worn, front print visible"

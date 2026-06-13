@@ -1,0 +1,169 @@
+{% comment %}
+  BKS Timed Offer
+  Google-safe countdown: requires a real end date, visible terms, and no fake discount claims.
+{% endcomment %}
+
+{%- assign sid = section.id -%}
+{%- assign ends_at = section.settings.ends_at | strip -%}
+{%- assign starts_at = section.settings.starts_at | strip -%}
+
+<style>
+  #shopify-section-{{ sid }} .bks-timed-offer {
+    --bks-ink: #111111;
+    --bks-paper: #fafaf7;
+    --bks-line: #ded8cd;
+    --bks-accent: #2f6f6b;
+    background: var(--bks-ink);
+    color: var(--bks-paper);
+    padding: 18px 20px;
+  }
+  #shopify-section-{{ sid }} .bks-timed-offer[hidden] { display: none; }
+  #shopify-section-{{ sid }} .bks-timed-offer__inner {
+    align-items: center;
+    display: grid;
+    gap: 14px;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    margin: 0 auto;
+    max-width: 1320px;
+  }
+  #shopify-section-{{ sid }} .bks-timed-offer__kicker {
+    color: #bfcfca;
+    font-size: 11px;
+    letter-spacing: .08em;
+    margin: 0 0 4px;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ sid }} .bks-timed-offer__title {
+    font-size: clamp(20px, 2.4vw, 34px);
+    font-weight: 600;
+    line-height: 1.05;
+    margin: 0;
+  }
+  #shopify-section-{{ sid }} .bks-timed-offer__copy {
+    color: #e7e0d6;
+    font-size: 13px;
+    line-height: 1.45;
+    margin: 6px 0 0;
+    max-width: 760px;
+  }
+  #shopify-section-{{ sid }} .bks-timed-offer__clock {
+    display: grid;
+    gap: 6px;
+    grid-template-columns: repeat(4, 54px);
+    text-align: center;
+  }
+  #shopify-section-{{ sid }} .bks-timed-offer__unit {
+    border: 1px solid rgba(250,250,247,.28);
+    padding: 8px 6px;
+  }
+  #shopify-section-{{ sid }} .bks-timed-offer__num {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  #shopify-section-{{ sid }} .bks-timed-offer__label {
+    color: #bfcfca;
+    display: block;
+    font-size: 9px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ sid }} .bks-timed-offer__cta {
+    border: 1px solid var(--bks-paper);
+    color: var(--bks-paper);
+    display: inline-flex;
+    font-size: 12px;
+    font-weight: 700;
+    justify-content: center;
+    min-width: 150px;
+    padding: 12px 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ sid }} .bks-timed-offer__terms {
+    color: #bfcfca;
+    font-size: 11px;
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+  @media (max-width: 760px) {
+    #shopify-section-{{ sid }} .bks-timed-offer__inner {
+      grid-template-columns: 1fr;
+    }
+    #shopify-section-{{ sid }} .bks-timed-offer__clock {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      width: 100%;
+    }
+  }
+</style>
+
+<section
+  class="bks-timed-offer"
+  data-bks-timed-offer
+  data-starts-at="{{ starts_at | escape }}"
+  data-ends-at="{{ ends_at | escape }}"
+  aria-label="{{ section.settings.kicker | default: 'Timed offer' | escape }}"
+>
+  <div class="bks-timed-offer__inner">
+    <div>
+      <p class="bks-timed-offer__kicker">{{ section.settings.kicker | default: 'Timed offer' | escape }}</p>
+      <h2 class="bks-timed-offer__title">{{ section.settings.heading | default: 'BKS Launch Window' | escape }}</h2>
+      <p class="bks-timed-offer__copy">{{ section.settings.copy | escape }}</p>
+    </div>
+    <div class="bks-timed-offer__clock" aria-live="polite">
+      <span class="bks-timed-offer__unit"><b class="bks-timed-offer__num" data-bks-days>0</b><small class="bks-timed-offer__label">Days</small></span>
+      <span class="bks-timed-offer__unit"><b class="bks-timed-offer__num" data-bks-hours>0</b><small class="bks-timed-offer__label">Hours</small></span>
+      <span class="bks-timed-offer__unit"><b class="bks-timed-offer__num" data-bks-minutes>0</b><small class="bks-timed-offer__label">Min</small></span>
+      <span class="bks-timed-offer__unit"><b class="bks-timed-offer__num" data-bks-seconds>0</b><small class="bks-timed-offer__label">Sec</small></span>
+    </div>
+    <a class="bks-timed-offer__cta" href="{{ section.settings.link }}">{{ section.settings.cta | default: 'Shop now' | escape }}</a>
+    <p class="bks-timed-offer__terms">{{ section.settings.terms | escape }}</p>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var root = document.querySelector('#shopify-section-{{ sid }} [data-bks-timed-offer]');
+    if (!root) return;
+    var end = new Date(root.dataset.endsAt || '').getTime();
+    var start = new Date(root.dataset.startsAt || '').getTime();
+    var days = root.querySelector('[data-bks-days]');
+    var hours = root.querySelector('[data-bks-hours]');
+    var minutes = root.querySelector('[data-bks-minutes]');
+    var seconds = root.querySelector('[data-bks-seconds]');
+    function tick() {
+      var now = Date.now();
+      if (!end || (start && now < start) || now >= end) {
+        root.hidden = true;
+        return;
+      }
+      var diff = end - now;
+      days.textContent = Math.floor(diff / 86400000);
+      hours.textContent = Math.floor((diff % 86400000) / 3600000);
+      minutes.textContent = Math.floor((diff % 3600000) / 60000);
+      seconds.textContent = Math.floor((diff % 60000) / 1000);
+      root.hidden = false;
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "BKS timed offer",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Timed offer" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "BKS Launch Window" },
+    { "type": "textarea", "id": "copy", "label": "Copy", "default": "A timed shopping window for the current BKS Studio drop." },
+    { "type": "text", "id": "link", "label": "CTA link", "default": "/collections/new-arrivals" },
+    { "type": "text", "id": "cta", "label": "CTA", "default": "Shop the drop" },
+    { "type": "text", "id": "starts_at", "label": "Start ISO date", "default": "2026-06-13T00:00:00+02:00" },
+    { "type": "text", "id": "ends_at", "label": "End ISO date", "default": "2026-06-20T23:59:59+02:00" },
+    { "type": "textarea", "id": "terms", "label": "Visible terms", "default": "Valid only while this campaign is active. Final prices, taxes, shipping and delivery times are shown at checkout. Products are made to order." }
+  ],
+  "presets": [
+    { "name": "BKS timed offer" }
+  ]
+}
+{% endschema %}

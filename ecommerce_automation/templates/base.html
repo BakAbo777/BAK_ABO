@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ app_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    <div class="app-frame">
+      <aside class="sidebar">
+        <a class="brand" href="/">BKS MASTER</a>
+        <nav class="side-nav">
+          <a href="/#overview">Overview</a>
+          <a href="/#agent-console">Agente</a>
+          <a href="/#realtime-control">Real-time</a>
+          <a href="/#master-actions">Azioni</a>
+          <a href="/#agent-routine">Routine</a>
+          <a href="/#weekly-goals">Settimana</a>
+          <a href="/#daily-web-update">Daily</a>
+          <a href="/#always-on">Always-On</a>
+          <a href="/#knowledge-db">Knowledge DB</a>
+          <a href="/#theme-ai-assistant">AI Cliente</a>
+          <a href="/#agent-os">Agent OS</a>
+          <a href="/#api-orchestration">API</a>
+          <a href="/#google-merchant">Google</a>
+          <a href="/#google-trust">Trust</a>
+          <a href="/#network-monitor">Network</a>
+          <a href="/#legal-guardrails">Legal</a>
+          <a href="/#market-sense">Mercato</a>
+          <a href="/#marketing-offers">Marketing</a>
+          <a href="/#social-campaigns">Campagne</a>
+          <a href="/#growth-crm">CRM</a>
+          <a href="/#theme-optimizer">Tema</a>
+          <a href="/#photo-studio">Photo</a>
+          <a href="/#payments">Pagamenti</a>
+          <a href="/#services">Servizi</a>
+          <a href="/#phases">Fasi</a>
+          <a href="/#avatar-production">Avatar</a>
+          <a href="/#social-render">Social Render</a>
+          <a href="/#sales-channels">Vendita</a>
+          <a href="/#catalog-sync">Catalog Sync</a>
+          <a href="/#product-name-audit">Nomi Prodotti</a>
+          <a href="/#official-inbox">Inbox</a>
+          <a href="/#communications">Messaggi</a>
+          <a href="/#skill-registry">Skills</a>
+          <a href="/#references">References</a>
+          <a href="/#runs">Run ledger</a>
+          <a href="/#events">Eventi</a>
+        </nav>
+        <div class="sidebar-note">
+          Interfaccia unica: tutto resta nella stessa dashboard, con l'Agente Master come controllo operativo.
+        </div>
+      </aside>
+      <div class="main-frame">
+        <header class="topbar">
+          <span>{{ app_name }}</span>
+          <nav>
+            <a href="/">Dashboard</a>
+            <a href="/api/health">Health JSON</a>
+          </nav>
+        </header>
+        <main class="shell">
+          {% block content %}{% endblock %}
+        </main>
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>

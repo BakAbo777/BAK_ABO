@@ -1,0 +1,166 @@
+# BKS Studio — Collection definitions
+# Used by collection_detector.py and image_director.py
+
+collections:
+
+  hours:
+    label: "BKS Hours"
+    series: "hyperrealism"
+    shooting_mode: "still-life"
+    model_season: null
+    surface: "dark concrete / rough stone"
+    light: "hard single lateral source"
+    mood: "urban, contemplative, muted"
+    bg_color: "#1A1A1A"
+    text_color: "#FAFAF7"
+    accent: "#C9B79C"
+    keywords: ["urban", "window", "shadow", "city", "concrete", "grey", "monochrome", "architectural"]
+
+  glyph:
+    label: "BKS Glyph"
+    series: "brut"
+    shooting_mode: "still-life"
+    model_season: null
+    surface: "matte black / polished black"
+    light: "flat studio ring light"
+    mood: "graphic, coded, symbolic"
+    bg_color: "#0A0A0A"
+    text_color: "#FAFAF7"
+    accent: "#C9B79C"
+    keywords: ["symbol", "mark", "glyph", "code", "hieroglyph", "abstract", "geometric", "sign", "black", "white"]
+
+  marker:
+    label: "BKS Marker"
+    series: "neo-expressionism"
+    shooting_mode: "still-life"
+    model_season: null
+    surface: "rough paper / iron / industrial surface"
+    light: "hard lateral, sharp shadow"
+    mood: "gestural, urban, painted"
+    bg_color: "#F5F0E8"
+    text_color: "#0A0A0A"
+    accent: "#0A0A0A"
+    keywords: ["brush", "drip", "stroke", "paint", "graffiti", "urban", "gestural", "color block", "marker"]
+
+  riviera:
+    label: "BKS Riviera"
+    series: "islands"
+    shooting_mode: "on-model"
+    model_season: "Autunno Caldo"
+    surface: "travertine / linen / sand"
+    light: "golden hour lateral right"
+    mood: "resort, mediterranean, coastal"
+    bg_color: "#E8DCC8"
+    text_color: "#2A2018"
+    accent: "#2A8B85"
+    keywords: ["sea", "coast", "mediterranean", "palm", "terracotta", "sun", "island", "blue", "sand", "resort"]
+
+  pulse:
+    label: "BKS Pulse"
+    series: "optical"
+    shooting_mode: "on-model"
+    model_season: "Inverno Brillante"
+    surface: "dark checkerboard / dark flat"
+    light: "ring light frontal / studio uniform"
+    mood: "optical, kinetic, vibrating"
+    bg_color: "#0E1420"
+    text_color: "#FAFAF7"
+    accent: "#C9B79C"
+    keywords: ["optical", "geometric", "grid", "wave", "pattern", "stripe", "checkerboard", "modular", "kinetic"]
+
+  token:
+    label: "BKS Token"
+    series: "arcade"
+    shooting_mode: "on-model"
+    model_season: "Inverno Brillante"
+    surface: "reflective / plexiglass / dark"
+    light: "low-key neon accent"
+    mood: "arcade, digital, pixel"
+    bg_color: "#080810"
+    text_color: "#FAFAF7"
+    accent: "#C9B79C"
+    keywords: ["pixel", "arcade", "digital", "neon", "low-bit", "kaleidoscope", "electric", "game", "token"]
+
+  flag:
+    label: "BKS Flag"
+    series: "neo-dada"
+    shooting_mode: "still-life"
+    model_season: null
+    surface: "white studio / flat white"
+    light: "flat frontal uniform"
+    mood: "pop, collage, graphic"
+    bg_color: "#FAFAF7"
+    text_color: "#0A0A0A"
+    accent: "#0A0A0A"
+    keywords: ["color block", "flat", "stencil", "banner", "geometric", "primary", "pop", "flag", "field"]
+
+  folklore:
+    label: "BKS Folklore"
+    series: "naif"
+    shooting_mode: "on-model"
+    model_season: "Autunno Caldo"
+    surface: "light stone / linen / garden"
+    light: "soft overcast or golden hour"
+    mood: "narrative, figurative, invented"
+    bg_color: "#EDE5D0"
+    text_color: "#2A2018"
+    accent: "#2A8B85"
+    keywords: ["animal", "plant", "garden", "naif", "illustration", "flat-draw", "fable", "organic", "warm", "botanical"]
+
+product_types:
+  - id: lounge-pants
+    label: Lounge Pants
+    gender: woman
+    default_collection: folklore
+  - id: swim-trunks
+    label: Swim Trunks
+    gender: man
+    default_collection: riviera
+  - id: one-piece-swimsuit
+    label: One-Piece Swimsuit
+    gender: woman
+    default_collection: glyph
+  - id: puffer-jacket
+    label: Puffer Jacket
+    gender: unisex
+    default_collection: hours
+  - id: windbreaker
+    label: Windbreaker
+    gender: unisex
+    default_collection: marker
+  - id: pullover-hoodie
+    label: Pullover Hoodie
+    gender: unisex
+    default_collection: folklore
+  - id: racerback-dress
+    label: Racerback Dress
+    gender: woman
+    default_collection: folklore
+  - id: athletic-shorts
+    label: Athletic Shorts
+    gender: unisex
+    default_collection: pulse
+  - id: sneakers
+    label: Sneakers
+    gender: unisex
+    default_collection: glyph
+  - id: backpack
+    label: Backpack
+    gender: unisex
+    default_collection: glyph
+  - id: travel-bag
+    label: Travel Bag
+    gender: unisex
+    default_collection: riviera
+  - id: flip-flop
+    label: Flip Flop
+    gender: unisex
+    default_collection: riviera
+  - id: cozy-slipper
+    label: Cozy Slipper
+    gender: unisex
+    default_collection: token
+  - id: womens-tee
+    label: Women's Tee
+    gender: woman
+    default_collection: glyph
