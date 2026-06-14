@@ -1,0 +1,28 @@
+{%- comment -%}
+  BKS Member Tier Detection
+  Sets: bks_tier (none/subscriber/drop/archive), bks_tier_label, bks_tier_rank
+  Usage: {% render 'bks-member-tier' %}  — call once, then use variables
+{%- endcomment -%}
+
+{%- assign bks_tier       = "none" -%}
+{%- assign bks_tier_label = "" -%}
+{%- assign bks_tier_rank  = 0 -%}
+
+{%- if customer -%}
+  {%- for tag in customer.tags -%}
+    {%- if tag == "bks-archive" -%}
+      {%- assign bks_tier       = "archive" -%}
+      {%- assign bks_tier_label = "BKS Archive" -%}
+      {%- assign bks_tier_rank  = 3 -%}
+      {%- break -%}
+    {%- elsif tag == "bks-drop" and bks_tier_rank < 2 -%}
+      {%- assign bks_tier       = "drop" -%}
+      {%- assign bks_tier_label = "BKS Drop" -%}
+      {%- assign bks_tier_rank  = 2 -%}
+    {%- elsif tag == "bks-subscriber" and bks_tier_rank < 1 -%}
+      {%- assign bks_tier       = "subscriber" -%}
+      {%- assign bks_tier_label = "BKS Subscriber" -%}
+      {%- assign bks_tier_rank  = 1 -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}

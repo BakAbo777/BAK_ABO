@@ -181,8 +181,8 @@
   #shopify-section-{{ section.id }} .bks-impact__title {
     margin: 0;
     font-family: var(--bks-font-display,'Bebas Neue',sans-serif);
-    font-size: 136px;
-    line-height: 0.82;
+    font-size: clamp(56px, 9vw, 136px);
+    line-height: 0.88;
     letter-spacing: 0;
     text-transform: uppercase;
     color: #FAFAF7;
@@ -212,6 +212,24 @@
       transform: translateY(0) rotateX(0);
     }
   }
+
+  /* Colori identitari per collezione — ogni mondo ha il suo tono */
+  #shopify-section-{{ section.id }} [data-handle="bks-folklore"] .bks-collection-card__overlay { background: rgba(82,54,32,0.82); }
+  #shopify-section-{{ section.id }} [data-handle="bks-folklore"] .bks-collection-card__overlay-count { color: #D4A96A; }
+  #shopify-section-{{ section.id }} [data-handle="bks-glyph"]    .bks-collection-card__overlay { background: rgba(20,20,20,0.88); }
+  #shopify-section-{{ section.id }} [data-handle="bks-glyph"]    .bks-collection-card__overlay-count { color: #E8E8E4; }
+  #shopify-section-{{ section.id }} [data-handle="bks-marker"]   .bks-collection-card__overlay { background: rgba(28,48,28,0.84); }
+  #shopify-section-{{ section.id }} [data-handle="bks-marker"]   .bks-collection-card__overlay-count { color: #7DBF72; }
+  #shopify-section-{{ section.id }} [data-handle="bks-riviera"]  .bks-collection-card__overlay { background: rgba(20,38,72,0.84); }
+  #shopify-section-{{ section.id }} [data-handle="bks-riviera"]  .bks-collection-card__overlay-count { color: #7EB3D4; }
+  #shopify-section-{{ section.id }} [data-handle="bks-pulse"]    .bks-collection-card__overlay { background: rgba(80,16,16,0.84); }
+  #shopify-section-{{ section.id }} [data-handle="bks-pulse"]    .bks-collection-card__overlay-count { color: #E05C5C; }
+  #shopify-section-{{ section.id }} [data-handle="bks-token"]    .bks-collection-card__overlay { background: rgba(60,44,10,0.84); }
+  #shopify-section-{{ section.id }} [data-handle="bks-token"]    .bks-collection-card__overlay-count { color: #F0C84A; }
+  #shopify-section-{{ section.id }} [data-handle="bks-flag"]     .bks-collection-card__overlay { background: rgba(60,16,50,0.84); }
+  #shopify-section-{{ section.id }} [data-handle="bks-flag"]     .bks-collection-card__overlay-count { color: #C97AB8; }
+  #shopify-section-{{ section.id }} [data-handle="bks-hours"]    .bks-collection-card__overlay { background: rgba(10,10,10,0.90); }
+  #shopify-section-{{ section.id }} [data-handle="bks-hours"]    .bks-collection-card__overlay-count { color: #C9B79C; }
 
   #shopify-section-{{ section.id }} .bks-impact__copy {
     max-width: 56ch;
@@ -318,97 +336,19 @@
     }
   }
 
-  #shopify-section-{{ section.id }} .bks-orbit__core {
+  /* Punto focale invisibile al centro — le 8 collezioni orbitano come mondi */
+  #shopify-section-{{ section.id }} .bks-orbit__focal {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    z-index: 10;
-    width: clamp(100px,14vw,180px);
-    aspect-ratio: 1;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
-    display: grid;
-    place-items: center;
-    background: radial-gradient(circle at 30% 30%, #FAFAF7, #D4D4D4);
-    color: #0A0A0A;
-    font-family: var(--bks-font-display,'Bebas Neue',sans-serif);
-    font-size: 56px;
-    line-height: 1;
-    letter-spacing: 0;
-    box-shadow: 
-      0 0 0 4px rgba(250,250,247,0.1),
-      0 0 60px rgba(250,250,247,0.2),
-      inset 0 0 40px rgba(0,0,0,0.1);
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    pointer-events: auto;
-    animation: coreBreath 4s ease-in-out infinite, coreGlow 3s ease-in-out infinite;
-    transform-style: preserve-3d;
-  }
-
-  @keyframes coreBreath {
-    0%, 100% {
-      box-shadow: 
-        0 0 0 4px rgba(250,250,247,0.1),
-        0 0 60px rgba(250,250,247,0.2),
-        inset 0 0 40px rgba(0,0,0,0.1);
-    }
-    50% {
-      box-shadow: 
-        0 0 0 8px rgba(250,250,247,0.15),
-        0 0 100px rgba(201,183,156,0.4),
-        0 0 160px rgba(201,183,156,0.2),
-        inset 0 0 40px rgba(0,0,0,0.1);
-    }
-  }
-
-  @keyframes coreGlow {
-    0%, 100% { filter: brightness(1) saturate(1); }
-    50% { filter: brightness(1.15) saturate(1.2); }
-  }
-
-  #shopify-section-{{ section.id }} .bks-orbit__core::before {
-    content: '';
-    position: absolute;
-    inset: -20px;
-    border-radius: 50%;
-    background: conic-gradient(from 0deg, transparent, rgba(201,183,156,0.3), transparent 30%);
-    animation: coreRotate 8s linear infinite;
-    z-index: -1;
-    opacity: 0.6;
-  }
-
-  @keyframes coreRotate {
-    to { transform: rotate(360deg); }
-  }
-
-  #shopify-section-{{ section.id }} .bks-orbit__core:hover {
-    transform: translate(-50%, -50%) scale(1.08);
-    box-shadow: 
-      0 0 0 6px rgba(250,250,247,0.15),
-      0 0 120px rgba(201,183,156,0.5),
-      inset 0 0 40px rgba(0,0,0,0.1);
-  }
-
-  #shopify-section-{{ section.id }} .bks-orbit__core:active {
-    transform: translate(-50%, -50%) scale(0.96);
-  }
-
-  /* Ripple effect */
-  #shopify-section-{{ section.id }} .bks-orbit__core .ripple {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(201,183,156,0.4);
-    transform: scale(0);
-    animation: rippleExpand 1s ease-out forwards;
+    background: radial-gradient(circle, rgba(201,183,156,0.3), transparent);
     pointer-events: none;
-  }
-
-  @keyframes rippleExpand {
-    to {
-      transform: scale(4);
-      opacity: 0;
-    }
+    z-index: 1;
+    box-shadow: 0 0 40px 20px rgba(201,183,156,0.06);
   }
 
   #shopify-section-{{ section.id }} .bks-orbit__ring {
@@ -520,34 +460,53 @@
     pointer-events: none;
   }
 
-  #shopify-section-{{ section.id }} .bks-collection-card__label {
+  /* Portal overlay — appare al hover, tutta la card è il portale */
+  #shopify-section-{{ section.id }} .bks-collection-card__overlay {
     position: absolute;
-    bottom: -28px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 6px 14px;
-    background: rgba(10,10,10,0.9);
-    color: #FAFAF7;
-    font-family: var(--bks-font-mono,'DM Mono',monospace);
-    font-size: 0.64rem;
-    text-transform: uppercase;
-    letter-spacing: 0;
-    border-radius: 4px;
-    white-space: nowrap;
-    border: 1px solid rgba(250,250,247,0.2);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-    backdrop-filter: blur(8px);
+    inset: 0;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: rgba(10,10,10,0.78);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
   }
 
-  #shopify-section-{{ section.id }} .bks-collection-card__label:hover {
-    background: rgba(250,250,247,0.1);
-    border-color: rgba(201,183,156,0.5);
+  #shopify-section-{{ section.id }} .bks-collection-card:hover .bks-collection-card__overlay {
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .bks-collection-card__overlay-name {
+    font-family: var(--bks-font-display,'Bebas Neue',sans-serif);
+    font-size: clamp(14px,1.4vw,20px);
+    letter-spacing: 0.02em;
+    color: #FAFAF7;
+    text-align: center;
+    padding: 0 12px;
+    line-height: 1.1;
+  }
+
+  #shopify-section-{{ section.id }} .bks-collection-card__overlay-count {
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.6rem;
+    text-transform: uppercase;
     color: #C9B79C;
-    transform: translateX(-50%) translateY(-3px);
-    box-shadow: 0 8px 24px rgba(201,183,156,0.3);
+    letter-spacing: 0.06em;
+  }
+
+  #shopify-section-{{ section.id }} .bks-collection-card__overlay-enter {
+    margin-top: 6px;
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    color: rgba(250,250,247,0.5);
+    letter-spacing: 0.1em;
   }
 
   #shopify-section-{{ section.id }} .bks-collection-card:hover .bks-collection-card__inner {
@@ -833,22 +792,24 @@
       <div class="bks-orbit__ring bks-orbit__ring--2"></div>
       <div class="bks-orbit__ring bks-orbit__ring--3"></div>
 
-      <div class="bks-orbit__core" id="orbitCore">BKS</div>
+      <div class="bks-orbit__focal" aria-hidden="true"></div>
 
       {% for handle in collection_handles %}
         {% assign collection = collections[handle] %}
         {% if collection %}
           {% assign angle = forloop.index0 | times: 45 %}
-          <div class="bks-collection-card" 
-               data-index="{{ forloop.index0 }}"
-               data-angle="{{ angle }}"
-               data-handle="{{ collection.handle }}"
-               data-url="{{ collection.url }}"
-               id="card-{{ forloop.index0 }}"
-               style="animation-delay: {{ 0.6 | plus: forloop.index0 | times: 0.1 }}s">
+          <a href="{{ collection.url }}"
+             class="bks-collection-card"
+             data-index="{{ forloop.index0 }}"
+             data-angle="{{ angle }}"
+             data-handle="{{ collection.handle }}"
+             data-url="{{ collection.url }}"
+             id="card-{{ forloop.index0 }}"
+             style="animation-delay: {{ 0.6 | plus: forloop.index0 | times: 0.1 }}s"
+             aria-label="{{ collection.title | escape }}">
             <div class="bks-collection-card__inner">
               {% if collection.image %}
-                <img src="{{ collection.image | image_url: width: 400 }}" 
+                <img src="{{ collection.image | image_url: width: 400 }}"
                      alt="{{ collection.title | escape }}"
                      width="400"
                      height="400"
@@ -858,9 +819,13 @@
                   {{ collection.title }}
                 </div>
               {% endif %}
+              <div class="bks-collection-card__overlay" aria-hidden="true">
+                <span class="bks-collection-card__overlay-name">{{ collection.title }}</span>
+                <span class="bks-collection-card__overlay-count">{{ collection.products_count }} pezzi</span>
+                <span class="bks-collection-card__overlay-enter">Entra →</span>
+              </div>
             </div>
-            <a href="{{ collection.url }}" class="bks-collection-card__label">{{ collection.title }}</a>
-          </div>
+          </a>
         {% endif %}
       {% endfor %}
     </div>
@@ -875,13 +840,12 @@
   if (!impactSection) return;
 
   const container = impactSection.querySelector('#orbitContainer');
-  const core = impactSection.querySelector('#orbitCore');
   const svg = impactSection.querySelector('#elasticSvg');
   const tooltip = impactSection.querySelector('#mathTooltip');
   const cards = impactSection.querySelectorAll('.bks-collection-card');
   const canvas = impactSection.querySelector('#mathCanvas');
   const impactInner = impactSection.querySelector('#impactInner');
-  if (!container || !core || !svg || !tooltip || !canvas || !impactInner) return;
+  if (!container || !svg || !tooltip || !canvas || !impactInner) return;
 
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
@@ -890,6 +854,7 @@
 
   let connections = new Map();
   let isDragging = false;
+  let dragMoved  = false;   // distingue click da drag
   let draggedCard = null;
   let mousePos = { x: 0, y: 0 };
   let corePos = { x: 0, y: 0 };
@@ -1079,28 +1044,12 @@
     });
   }
 
-  // ── RIPPLE EFFECT ON CORE ──
-  function createRipple(e) {
-    const ripple = document.createElement('span');
-    ripple.className = 'ripple';
-    const rect = core.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    ripple.style.width = ripple.style.height = `${size}px`;
-    ripple.style.left = `${e.clientX - rect.left - size/2}px`;
-    ripple.style.top = `${e.clientY - rect.top - size/2}px`;
-    core.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 1000);
-  }
-
   // ── INIT POSITIONS ──
   function initPositions() {
     const rect = container.getBoundingClientRect();
-    const coreRect = core.getBoundingClientRect();
-    
-    corePos = {
-      x: coreRect.left + coreRect.width / 2 - rect.left,
-      y: coreRect.top + coreRect.height / 2 - rect.top
-    };
+
+    // Centro geometrico invisibile — nessun core, solo gravità
+    corePos = { x: rect.width / 2, y: rect.height / 2 };
 
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
@@ -1226,27 +1175,14 @@
   // ── EVENTS ──
   cards.forEach((card, index) => {
     card.addEventListener('click', (e) => {
-      if (e.target.closest('.bks-collection-card__inner')) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        if (connections.has(index)) {
-          connections.delete(index);
-          removeElasticLine(index);
-          showTooltip('Connessione rimossa', e.clientX, e.clientY);
-        } else {
-          connections.set(index, true);
-          card.classList.add('connected');
-          updateElasticLine(index, corePos.x, corePos.y);
-          showTooltip('Connesso al core', e.clientX, e.clientY);
-        }
-      }
+      // Blocca la navigazione se era un drag, non un click pulito
+      if (dragMoved) { e.preventDefault(); dragMoved = false; }
     });
 
     card.addEventListener('mousedown', (e) => {
-      if (e.target.closest('.bks-collection-card__label')) return;
-      
+      if (e.target.tagName === 'A' && e.target !== card) return;
       isDragging = true;
+      dragMoved   = false;
       draggedCard = card;
       card.style.cursor = 'grabbing';
       
@@ -1268,6 +1204,7 @@
       draggedCard.style.transform = 'translate(-50%, -50%) scale(1.1)';
       draggedCard.dataset.dx = x;
       draggedCard.dataset.dy = y;
+      dragMoved = true;
 
       const index = parseInt(draggedCard.dataset.index);
       if (connections.has(index)) {
@@ -1296,24 +1233,6 @@
       
       isDragging = false;
       draggedCard = null;
-    }
-  });
-
-  core.addEventListener('click', (e) => {
-    createRipple(e);
-    
-    if (connections.size > 0) {
-      connections.forEach((_, index) => removeElasticLine(index));
-      connections.clear();
-      showTooltip('Tutte le connessioni rimosse', e.clientX, e.clientY);
-    } else {
-      cards.forEach((_, index) => {
-        connections.set(index, true);
-        const card = impactSection.querySelector(`#card-${index}`);
-        if (card) card.classList.add('connected');
-        setTimeout(() => updateElasticLine(index, corePos.x, corePos.y), index * 80);
-      });
-      showTooltip('Tutte le collezioni connesse', e.clientX, e.clientY);
     }
   });
 
@@ -1352,7 +1271,7 @@
   });
 
   document.addEventListener('click', (e) => {
-    if (!container.contains(e.target) && e.target !== core) {
+    if (!container.contains(e.target)) {
       connections.forEach((_, index) => removeElasticLine(index));
       connections.clear();
     }

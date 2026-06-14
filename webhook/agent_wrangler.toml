@@ -1,0 +1,15 @@
+name = "bks-agent-refresh"
+main = "agent_refresh_worker.js"
+compatibility_date = "2024-01-01"
+workers_dev = true
+
+# Cron: ogni giorno alle 10:00 UTC = 12:00 CET (12:00 CEST d'estate)
+[triggers]
+crons = ["0 10 * * *"]
+
+# KV namespace per il catalogo agente
+# Crea con: wrangler kv namespace create BKS_AGENT_KV
+# poi incolla l'id qui sotto
+[[kv_namespaces]]
+binding = "BKS_AGENT_KV"
+id      = "SOSTITUISCI_CON_ID_KV"

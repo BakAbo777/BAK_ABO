@@ -1,0 +1,17 @@
+{% comment %}
+  BKS Google Customer Reviews — Survey opt-in
+  Paste this code in: Shopify Admin → Settings → Checkout → Order status page → Additional scripts
+  OR include via theme.liquid only on /thank_you page (checkout.order_id present).
+  Merchant ID: 5295165689
+{% endcomment %}
+
+{% if first_time_accessed %}
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<g:surveylabel merchant_id="5295165689"
+  order_id="{{ order.name }}"
+  email="{{ order.email }}"
+  delivery_country="{{ order.shipping_address.country_code }}"
+  estimated_delivery_date="{{ order.fulfillments.first.estimated_delivery_at | date: '%Y-%m-%d' }}"
+  opt_in_style="OPT_IN">
+</g:surveylabel>
+{% endif %}

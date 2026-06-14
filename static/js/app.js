@@ -1,3 +1,14 @@
+const COLLECTION_COLORS = {
+  folklore: { bg: 'rgba(82,54,32,0.82)', dot: '#D4A96A' },
+  glyph:    { bg: 'rgba(20,20,20,0.88)', dot: '#E8E8E4' },
+  marker:   { bg: 'rgba(28,48,28,0.84)', dot: '#7DBF72' },
+  riviera:  { bg: 'rgba(20,38,72,0.84)', dot: '#7EB3D4' },
+  pulse:    { bg: 'rgba(80,16,16,0.84)', dot: '#E05C5C' },
+  token:    { bg: 'rgba(60,44,10,0.84)', dot: '#F0C84A' },
+  flag:     { bg: 'rgba(60,16,50,0.84)', dot: '#C97AB8' },
+  hours:    { bg: 'rgba(10,10,10,0.90)', dot: '#C9B79C' },
+};
+
 const PRESETS = [
   { label: 'Bone', c1: '#EFEAE0', c2: '#FAFAF7', mode: 'bone' },
   { label: 'Salt', c1: '#FAFAF7', c2: '#EFEAE0', mode: 'salt' },
@@ -98,6 +109,8 @@ async function loadSummary() {
     if (!data.ok) throw new Error(data.error || 'Summary error');
     updateSummary(data);
     await loadCurationStats();
+    loadPreview();
+    loadExportPreview();
     setStatus('CSV loaded');
   } catch (err) {
     $('processStatus').textContent = err.message;
@@ -155,46 +168,121 @@ function initSwatches() {
   });
 }
 
+function buildBackground(c1, c2, mode) {
+  if (mode === 'gradient' || mode === 'editorial') return `linear-gradient(135deg, ${c1}, ${c2})`;
+  if (mode === 'hero') return `radial-gradient(ellipse at 20% 30%, #1a1510, #0A0A0A 60%, #000)`;
+  return c1;
+}
+
 function updateMock() {
   const c1 = selectedPreset.c1 === 'transparent' ? '#ffffff' : $('color1').value;
   const c2 = $('color2').value;
   if (selectedPreset.c1 === 'transparent') {
     $('mockImage').style.background = 'repeating-conic-gradient(#ccc 0% 25%, #eee 0% 50%) 0 0 / 22px 22px';
-    return;
+  } else {
+    $('mockImage').style.background = buildBackground(c1, c2, currentMode);
   }
-  $('mockImage').style.background = currentMode === 'gradient' || currentMode === 'editorial'
-    ? `linear-gradient(135deg, ${c1}, ${c2})`
-    : c1;
+  updatePreviewGrid(c1, c2);
+}
+
+let _previewProducts = [];
+
+function renderPreviewGrid(products, c1, c2) {
+  const grid = $('previewGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  const slots = products.length > 0 ? products : Array(6).fill(null);
+  slots.forEach((p, i) => {
+    const col = p ? (COLLECTION_COLORS[p.collection] || COLLECTION_COLORS.glyph) : COLLECTION_COLORS[Object.keys(COLLECTION_COLORS)[i % 8]];
+    const bg = selectedPreset.c1 === 'transparent'
+      ? 'repeating-conic-gradient(#ccc 0% 25%, #eee 0% 50%) 0 0 / 18px 18px'
+      : buildBackground(c1, c2, currentMode);
+    const labelColor = currentMode === 'bone' || currentMode === 'salt' || (c1 && isLightColor(c1)) ? 'rgba(10,10,10,.5)' : 'rgba(250,250,247,.45)';
+
+    const slot = document.createElement('div');
+    slot.className = 'preview-slot';
+    slot.style.background = bg;
+
+    const safe = document.createElement('div');
+    safe.className = 'preview-safe';
+    slot.appendChild(safe);
+
+    if (p && p.image) {
+      const img = document.createElement('img');
+      img.className = 'preview-img';
+      img.src = p.image;
+      img.alt = p.title;
+      img.loading = 'lazy';
+      slot.appendChild(img);
+    } else {
+      const ph = document.createElement('div');
+      ph.className = 'preview-img-placeholder';
+      ph.style.background = col.bg;
+      ph.style.color = col.dot;
+      ph.textContent = p ? (p.collection || 'BKS').toUpperCase() : Object.keys(COLLECTION_COLORS)[i % 8].toUpperCase();
+      slot.appendChild(ph);
+    }
+
+    const dot = document.createElement('div');
+    dot.className = 'preview-collection-dot';
+    dot.style.background = col.dot;
+    slot.appendChild(dot);
+
+    const label = document.createElement('div');
+    label.className = 'preview-label';
+    label.style.color = labelColor;
+    label.textContent = p ? `${p.collection} · ${p.type}` : `${Object.keys(COLLECTION_COLORS)[i % 8]} · AOP`;
+    slot.appendChild(label);
+
+    grid.appendChild(slot);
+  });
+}
+
+function isLightColor(hex) {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return (r*299 + g*587 + b*114) / 1000 > 150;
+}
+
+function updatePreviewGrid(c1, c2) {
+  renderPreviewGrid(_previewProducts, c1, c2);
+}
+
+async function loadPreview() {
+  try {
+    const res = await fetch('/api/preview');
+    const data = await res.json();
+    if (data.ok && data.products?.length) {
+      _previewProducts = data.products;
+      const c1 = selectedPreset.c1 === 'transparent' ? '#ffffff' : $('color1').value;
+      renderPreviewGrid(_previewProducts, c1, $('color2').value);
+    }
+  } catch (_) { /* silenzioso */ }
+}
+
+async function loadExportPreview() {
+  try {
+    const res = await fetch('/api/preview');
+    const data = await res.json();
+    const bar = $('exportPreviewBar');
+    const list = $('exportPreviewList');
+    if (!bar || !list) return;
+    if (data.ok && data.products?.length) {
+      bar.hidden = false;
+      list.innerHTML = '';
+      data.products.forEach(p => {
+        const row = document.createElement('div');
+        row.className = 'export-preview-row';
+        const col = COLLECTION_COLORS[p.collection] || COLLECTION_COLORS.glyph;
+        row.innerHTML = `<strong title="${p.title}">${p.title || '—'}</strong><span style="color:${col.dot}">${p.collection} · ${p.type}${p.price ? ' · €' + p.price : ''}</span>`;
+        list.appendChild(row);
+      });
+    }
+  } catch (_) { /* silenzioso */ }
 }
 
 $('color1').addEventListener('input', () => { selectedPreset.c1 = $('color1').value; updateMock(); });
 $('color2').addEventListener('input', () => { selectedPreset.c2 = $('color2').value; updateMock(); });
 
-$('chooseCsvBtn').addEventListener('click', () => $('csvInput').click());
-$('uploadBox').addEventListener('click', (e) => {
-  if (e.target.id !== 'chooseCsvBtn') $('csvInput').click();
-});
-
-$('csvInput').addEventListener('change', async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const fd = new FormData();
-  fd.append('csv', file);
-  $('processStatus').textContent = 'Uploading CSV...';
-  setStatus('Uploading');
-  try {
-    const res = await fetch('/api/upload', { method: 'POST', body: fd });
-    const data = await res.json();
-    if (!data.ok) throw new Error(data.error || 'Upload error');
-    updateSummary(data);
-    await loadCurationStats();
-    $('processStatus').textContent = `CSV uploaded: ${file.name}\nRows: ${data.rows}\nProducts: ${data.handles}`;
-    setStatus('CSV uploaded');
-  } catch (err) {
-    $('processStatus').textContent = err.message;
-    setStatus('Upload error');
-  }
-});
 
 $('processBtn').addEventListener('click', async () => {
   const color1 = selectedPreset.c1 === 'transparent' ? 'transparent' : $('color1').value;
@@ -267,31 +355,12 @@ async function pollProgress() {
 }
 
 document.addEventListener('dragover', (event) => event.preventDefault());
-document.addEventListener('drop', async (event) => {
-  event.preventDefault();
-  const file = event.dataTransfer?.files?.[0];
-  if (!file) return;
-  const fd = new FormData();
-  fd.append('csv', file);
-  $('processStatus').textContent = 'Uploading CSV...';
-  setStatus('Uploading');
-  try {
-    const res = await fetch('/api/upload', { method: 'POST', body: fd });
-    const data = await res.json();
-    if (!data.ok) throw new Error(data.error || 'Upload error');
-    updateSummary(data);
-    await loadCurationStats();
-    $('processStatus').textContent = `CSV uploaded: ${file.name}\nRows: ${data.rows}\nProducts: ${data.handles}`;
-    setStatus('CSV uploaded');
-  } catch (err) {
-    $('processStatus').textContent = err.message;
-    setStatus('Upload error');
-  }
-});
+document.addEventListener('drop', (event) => event.preventDefault());
 
 initTabs();
 initModes();
 initSwatches();
 updateMock();
+loadPreview();
 loadSummary();
 loadCurationStats();

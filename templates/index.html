@@ -24,15 +24,8 @@
         <div class="panel-title">
           <div>
             <h2>Comandi</h2>
-            <span>CSV attivo, tag puliti e export Shopify</span>
+            <span>Catalogo auto-caricato, tag puliti e export Shopify</span>
           </div>
-        </div>
-
-        <div class="upload-box" id="uploadBox">
-          <input id="csvInput" type="file" accept=".csv" hidden>
-          <div class="upload-icon">CSV</div>
-          <p>Trascina o scegli il CSV Shopify con colonna Handle.</p>
-          <button class="btn ghost" id="chooseCsvBtn" type="button">Scegli CSV</button>
         </div>
 
         <div class="settings-block">
@@ -169,10 +162,26 @@
             <div class="rules-card">
               <h3>Regole operative BKS</h3>
               <ul>
+                <li>Ratio 4:5 — safe zone 88% del canvas. Il graphic non entra nella zona di ritaglio.</li>
                 <li>Usa batch piccoli per validare WebP e naming.</li>
                 <li>Scarica ZIP solo dopo stato Completed.</li>
                 <li>Nessun campo pubblico deve usare BAKABO o emoji.</li>
               </ul>
+            </div>
+          </div>
+
+          <div class="preview-section">
+            <div class="preview-header">
+              <h3>Multi-preview export — 6 prodotti attivi</h3>
+              <span class="preview-legend"><span class="safe-dot"></span> Safe zone 88%</span>
+            </div>
+            <div class="preview-grid" id="previewGrid">
+              <div class="preview-slot skeleton"></div>
+              <div class="preview-slot skeleton"></div>
+              <div class="preview-slot skeleton"></div>
+              <div class="preview-slot skeleton"></div>
+              <div class="preview-slot skeleton"></div>
+              <div class="preview-slot skeleton"></div>
             </div>
           </div>
         </section>
@@ -197,19 +206,29 @@
         </section>
 
         <section class="tab-panel" id="exportPanel">
+          <div class="export-preview-bar" id="exportPreviewBar" hidden>
+            <h3>Anteprima export — ultimi prodotti arricchiti</h3>
+            <div class="export-preview-list" id="exportPreviewList"></div>
+          </div>
           <div class="exports">
             <a class="export-card" href="/download/csv">
+              <div class="export-icon">CSV</div>
               <b>CSV aggiornato</b>
-              <span>SEO, tag e dati immagine.</span>
+              <span>SEO, tag, metafield e alt text.</span>
             </a>
             <a class="export-card" href="/download/seo">
-              <b>SEO report</b>
-              <span>Audit prodotto per prodotto.</span>
+              <div class="export-icon">SEO</div>
+              <b>SEO Report</b>
+              <span>Audit prodotto per prodotto: campi modificati.</span>
             </a>
             <a class="export-card" href="/download/zip">
+              <div class="export-icon">ZIP</div>
               <b>Pacchetto ZIP</b>
-              <span>CSV, report e immagini esportate.</span>
+              <span>CSV + report compressi. Pronto per Shopify.</span>
             </a>
+          </div>
+          <div class="export-status-row">
+            <span id="exportStatusText" class="export-status-text">Elabora il catalogo per generare i file export.</span>
           </div>
         </section>
       </section>

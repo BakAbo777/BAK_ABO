@@ -191,7 +191,7 @@ def api_process():
     if PROGRESS.get("active"):
         return jsonify({"ok": False, "error": "Elaborazione gia' in corso"}), 409
     source = active_catalog_csv()
-    if not source.exists():
+    if source is None or not source.exists():
         return jsonify({"ok": False, "error": f"CSV non trovato: {relative_to_base(source)}"}), 404
     threading.Thread(target=run_enrichment, args=(source,), daemon=True).start()
     return jsonify({"ok": True, "message": "Elaborazione avviata."})
@@ -202,11 +202,34 @@ def api_progress():
     return jsonify(PROGRESS)
 
 
+@app.get("/api/preview")
+def api_preview():
+    path = active_catalog_csv()
+    rows, _ = read_rows(path)
+    products = product_rows(rows)[:6]
+    preview = []
+    for row in products:
+        tags = split_tags(row.get("Tags", ""))
+        collection = tag_value(tags, "collection:") or "glyph"
+        product_type = (row.get("Type") or "").strip() or "AOP"
+        preview.append({
+            "title": (row.get("Title") or "").strip()[:48],
+            "handle": (row.get("Handle") or "").strip(),
+            "collection": collection,
+            "type": product_type,
+            "image": (row.get("Image Src") or "").strip(),
+            "price": (row.get("Variant Price") or "").strip(),
+        })
+    return jsonify({"ok": bool(preview), "products": preview})
+
+
 @app.get("/download/csv")
 def download_csv():
     path = active_catalog_csv()
     if UPDATED_CSV.exists():
         path = UPDATED_CSV
+    if path is None or not path.exists():
+        return jsonify({"ok": False, "error": "CSV non trovato"}), 404
     return send_file(path, as_attachment=True)
 
 

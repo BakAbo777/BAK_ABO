@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import os
 from pathlib import Path
 from typing import Any
 
@@ -84,7 +85,10 @@ def _env_value(settings: Any, name: str) -> str:
         "OFFICIAL_INBOX_IMAP_USER": "official_inbox_imap_user",
         "OFFICIAL_INBOX_IMAP_PASSWORD": "official_inbox_imap_password",
     }
-    return str(getattr(settings, aliases.get(name, attr), "") or "")
+    val = str(getattr(settings, aliases.get(name, attr), "") or "")
+    if not val:
+        val = str(os.environ.get(name, "") or "")
+    return val
 
 
 def _status(settings: Any, envs: tuple[str, ...], stage: str) -> str:

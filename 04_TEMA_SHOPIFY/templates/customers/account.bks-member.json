@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "bks-member-dashboard",
+      "settings": {
+        "drop_title": "",
+        "drop_date": "",
+        "drop_teaser": "",
+        "drop_live": false,
+        "drop_url": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": ["main"]
+}

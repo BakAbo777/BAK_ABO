@@ -1,0 +1,67 @@
+{{ 'bks-member.css' | asset_url | stylesheet_tag }}
+
+{%- render 'bks-member-tier' -%}
+
+<div class="bks-member-wrap">
+  <div style="max-width:1100px;padding:{{ section.settings.padding_top }}px 32px {{ section.settings.padding_bottom }}px;">
+
+    {%- if customer -%}
+      {%- if bks_tier == "archive" -%}
+        {%- render 'bks-member-archive' -%}
+      {%- else -%}
+        <div class="bks-upgrade-card" style="max-width:480px;">
+          <div class="bks-upgrade-icon">🗄</div>
+          <h3 class="bks-upgrade-title">BKS Studio Archive</h3>
+          <p class="bks-upgrade-text">
+            {%- if bks_tier_rank >= 2 -%}
+              Hai {{ customer.orders_count }} ordine{% if customer.orders_count != 1 %}i{% endif %}.
+              L'accesso Archive si sblocca con il secondo ordine.
+            {%- else -%}
+              Riservato ai clienti con 2+ ordini.
+              Continua a esplorare BKS — l'archivio ti aspetta.
+            {%- endif -%}
+          </p>
+          <a href="/collections/all" class="bks-btn-gold">Esplora i prodotti</a>
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <div class="bks-upgrade-card" style="max-width:480px;">
+        <div class="bks-upgrade-icon">🔐</div>
+        <h3 class="bks-upgrade-title">Area riservata</h3>
+        <p class="bks-upgrade-text">Accedi al tuo account per visualizzare il contenuto.</p>
+        <a href="{{ routes.account_login_url }}?return_url=/pages/bks-archive" class="bks-btn-gold">
+          Accedi
+        </a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "BKS Archive Page",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 60
+    }
+  ]
+}
+{% endschema %}

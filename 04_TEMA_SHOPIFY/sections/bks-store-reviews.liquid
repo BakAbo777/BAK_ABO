@@ -1,0 +1,52 @@
+{% comment %}
+  BKS Store Reviews — Google Customer Reviews badge section
+  Add to homepage or footer via theme editor.
+{% endcomment %}
+
+{% if section.settings.enabled %}
+<section class="bks-store-reviews" aria-label="Store ratings">
+  <div class="bks-store-reviews__inner">
+    {% if section.settings.heading != blank %}
+      <p class="bks-store-reviews__heading">{{ section.settings.heading | escape }}</p>
+    {% endif %}
+    {% render 'bks-gcr-badge' %}
+  </div>
+</section>
+
+<style>
+  .bks-store-reviews {
+    display: flex;
+    justify-content: center;
+    padding: 24px 16px;
+    background: {{ section.settings.bg_color }};
+  }
+  .bks-store-reviews__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .bks-store-reviews__heading {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: {{ section.settings.text_color }};
+    margin: 0;
+  }
+</style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "BKS Store reviews",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show badge", "default": true },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Verified by Google" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#f9f9f9" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "default": "#444444" }
+  ],
+  "presets": [
+    { "name": "BKS Store reviews" }
+  ]
+}
+{% endschema %}

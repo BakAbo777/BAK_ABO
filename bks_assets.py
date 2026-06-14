@@ -1,15 +1,21 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Any
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).resolve().parent / ".env", override=False)
+except ImportError:
+    pass
 
 BASE_DIR = Path(__file__).resolve().parent
 OUTPUT_DIR = BASE_DIR / "output"
 THEME_DIR = BASE_DIR / "04_TEMA_SHOPIFY"
 CATALOG_DIR = BASE_DIR / "collezioni_csv"
-IMAGE_FACTORY_DIR = BASE_DIR / "BAKABO_IMAGE_FACTORY_v1.1"
+IMAGE_FACTORY_DIR = Path(os.getenv("IMAGE_FACTORY_DIR", str(BASE_DIR / "BAKABO_IMAGE_FACTORY_v1.1")))
 ACTIVE_ASSETS_PATH = OUTPUT_DIR / "bks_active_assets.json"
 
 
@@ -57,24 +63,24 @@ def discover_catalog_csvs() -> list[Path]:
     return sorted(unique.values(), key=lambda item: item.stat().st_mtime, reverse=True)
 
 
-def latest_theme_zip() -> Path:
+def latest_theme_zip() -> Path | None:
     files = discover_theme_zips()
-    return files[0] if files else THEME_DIR / "BKS_TM03_clean_12JUN2026.zip"
+    return files[0] if files else None
 
 
-def latest_catalog_csv() -> Path:
+def latest_catalog_csv() -> Path | None:
     files = discover_catalog_csvs()
-    return files[0] if files else CATALOG_DIR / "collezione 12_06_2026.csv"
+    return files[0] if files else None
 
 
-def active_theme_zip() -> Path:
+def active_theme_zip() -> Path | None:
     configured = _resolve_path(_load_config().get("theme_zip"))
     if configured and configured.exists():
         return configured
     return latest_theme_zip()
 
 
-def active_catalog_csv() -> Path:
+def active_catalog_csv() -> Path | None:
     configured = _resolve_path(_load_config().get("catalog_csv"))
     if configured and configured.exists():
         return configured

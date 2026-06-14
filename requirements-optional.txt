@@ -1,0 +1,5 @@
+# Dipendenze opzionali — background removal e modelli ONNX
+# Richiedono compilatori nativi su Windows.
+# Installa solo se necessario: pip install -r requirements-optional.txt
+rembg>=2.0.0
+onnxruntime>=1.15.0

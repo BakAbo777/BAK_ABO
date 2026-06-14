@@ -1,0 +1,488 @@
+{% comment %}
+  BKS Piano Hero — Sezione tastiera musicale interattiva
+  8 collezioni BKS come tasti di pianoforte in prospettiva 3D
+  Audio: file Suno MP3 (asset o CDN) + fallback Web Audio API
+  Versione 1.0 — Giugno 2026
+{% endcomment %}
+
+{{ 'bks-piano-hero.css' | asset_url | stylesheet_tag }}
+
+<style>
+  #shopify-section-{{ section.id }} .bks-piano-hero {
+    height: {{ section.settings.height }}px;
+  }
+</style>
+
+{% comment %} ── JSON data per il JS ── {% endcomment %}
+<script id="bks-piano-data" type="application/json">
+{
+  "fallboard_label": {{ section.settings.fallboard_label | default: "BAK | ABO" | json }},
+  "use_webaudio_fallback": {{ section.settings.use_webaudio_fallback | json }},
+  "collections": [
+    {%- for block in section.blocks -%}
+      {%- unless forloop.first %},{%- endunless -%}
+      {
+        "name":       {{ block.settings.name   | default: "Collection" | json }},
+        "note":       {{ block.settings.note   | default: "Do"         | json }},
+        "freq":       {{ block.settings.freq   | default: 261 }},
+        "white":      {{ block.settings.white  | json }},
+        "color":      {{ block.settings.color  | default: "#C9B79C"    | json }},
+        "url":        {{ block.settings.url    | default: "/collections" | json }},
+        "quote":      {{ block.settings.quote  | default: ""            | json }},
+        "products":   {{ block.settings.products   | default: ""        | json }},
+        "arm_season": {{ block.settings.arm_season | default: ""        | json }},
+        "arm_desc":   {{ block.settings.arm_desc   | default: ""        | json }},
+        "gradient":   {{ block.settings.color | default: "#C9B79C" | prepend: "linear-gradient(160deg," | append: "22 0%,rgba(8,6,4,0.95) 60%)" | json }},
+        "audio_index": {{ forloop.index0 }},
+        "audio_src":  {% if block.settings.audio_url != blank %}{{ block.settings.audio_url | json }}{% elsif block.settings.audio_file != blank %}{{ block.settings.audio_file | asset_url | json }}{% else %}""{% endif %},
+        "bpm":   {{ block.settings.bpm   | default: 36 }},
+        "decay": {{ block.settings.decay | default: 4  }}
+      }
+    {%- endfor -%}
+  ]
+}
+</script>
+
+{% comment %} ── Audio elements — preload="none" finché non attivati ── {% endcomment %}
+{%- for block in section.blocks -%}
+  {%- liquid
+    assign audio_src = ''
+    if block.settings.audio_url != blank
+      assign audio_src = block.settings.audio_url
+    elsif block.settings.audio_file != blank
+      assign audio_src = block.settings.audio_file | asset_url
+    endif
+  -%}
+  <audio id="bks-audio-{{ forloop.index0 }}" preload="none" loop>
+    {%- if audio_src != '' -%}
+      <source src="{{ audio_src }}" type="audio/mpeg">
+    {%- endif -%}
+  </audio>
+{%- endfor -%}
+
+<div class="bks-piano-hero" data-section-id="{{ section.id }}">
+
+  <canvas id="bks-piano-canvas"
+          aria-label="{{ 'BKS Studio — tastiera interattiva: 8 collezioni come tasti di pianoforte' | escape }}"
+          role="img"
+          tabindex="0"></canvas>
+
+  {% comment %} ── Pannello collezione ── {% endcomment %}
+  <div id="bks-coll-screen" aria-live="polite" aria-atomic="true">
+
+    {% comment %} — Pannello sinistra: manichino armocromia — {% endcomment %}
+    <div id="bks-model-panel">
+      <div id="bks-model-bg" aria-hidden="true"></div>
+
+      <div id="bks-mannequin" aria-hidden="true">
+        <div id="bks-mq-head">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="8" cy="8" r="5" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+          </svg>
+        </div>
+        <div id="bks-mq-body">
+          <div id="bks-mq-body-fill"></div>
+        </div>
+        <div id="bks-mq-legs">
+          <div class="bks-mq-leg">
+            <div class="bks-mq-leg-fill" id="bks-leg-l"></div>
+          </div>
+          <div class="bks-mq-leg">
+            <div class="bks-mq-leg-fill" id="bks-leg-r"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="bks-arm-info">
+        <div id="bks-arm-season"></div>
+        <div id="bks-arm-desc"></div>
+      </div>
+    </div>
+
+    {% comment %} — Pannello destra: info collezione — {% endcomment %}
+    <div id="bks-coll-info">
+      <div id="bks-coll-divider" aria-hidden="true"></div>
+      <p class="bks-coll-eyebrow">BKS Studio — Wearable Art</p>
+      <h2 id="bks-coll-name"></h2>
+      <p id="bks-coll-note"></p>
+      <blockquote id="bks-coll-quote"></blockquote>
+      <div id="bks-coll-pills" role="list" aria-label="{{ 'Tipi prodotto disponibili' | escape }}"></div>
+      <a id="bks-coll-cta"
+         class="bks-cta-link"
+         href="#"
+         aria-label="{{ 'Entra nella collezione' | escape }}">
+        {{ section.settings.cta_label | default: 'Entra nella collezione' }}
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  {% comment %} ── Indicatore audio ── {% endcomment %}
+  <div id="bks-music-ind" aria-hidden="true" title="Audio in riproduzione">
+    <span style="height:4px"></span>
+    <span style="height:8px"></span>
+    <span style="height:6px"></span>
+    <span style="height:10px"></span>
+  </div>
+
+  {% comment %} ── Controllo volume ── {% endcomment %}
+  <div id="bks-vol-wrap">
+    <span class="bks-vol-label">Vol</span>
+    <input id="bks-vol-sl"
+           type="range"
+           min="0" max="1" step="0.05" value="0.75"
+           aria-label="{{ 'Volume audio' | escape }}"
+           oninput="window.BKSPiano && window.BKSPiano.setVolume(parseFloat(this.value))">
+  </div>
+
+  {% comment %} ── Tasto Torna al piano ── {% endcomment %}
+  <button id="bks-back-btn"
+          type="button"
+          aria-label="{{ 'Torna al piano' | escape }}"
+          onclick="window.BKSPiano && window.BKSPiano.closeCollection()">
+    ↩ {{ section.settings.back_label | default: 'Torna al piano' }}
+  </button>
+
+  {% comment %} ── Hint ── {% endcomment %}
+  <div id="bks-hint" aria-hidden="true">
+    {{ section.settings.hint_text | default: 'Clicca un tasto per esplorare la collezione' }}
+  </div>
+
+</div>
+
+<script src="{{ 'bks-piano-hero.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "BKS Piano Hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "label": "Altezza sezione (px)",
+      "min": 360,
+      "max": 900,
+      "step": 20,
+      "default": 620
+    },
+    {
+      "type": "header",
+      "content": "Testi interfaccia"
+    },
+    {
+      "type": "text",
+      "id": "fallboard_label",
+      "label": "Label coperchio pianoforte",
+      "default": "BAK | ABO"
+    },
+    {
+      "type": "text",
+      "id": "hint_text",
+      "label": "Testo hint",
+      "default": "Clicca un tasto per esplorare la collezione"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Label CTA collezione",
+      "default": "Entra nella collezione"
+    },
+    {
+      "type": "text",
+      "id": "back_label",
+      "label": "Label tasto ritorno",
+      "default": "Torna al piano"
+    },
+    {
+      "type": "header",
+      "content": "Audio"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_webaudio_fallback",
+      "label": "Usa Web Audio API se nessun file audio configurato",
+      "default": true,
+      "info": "Genera note sintetizzate quando non ci sono file MP3 Suno"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collezione",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Identità"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nome collezione",
+          "default": "Hours"
+        },
+        {
+          "type": "select",
+          "id": "note",
+          "label": "Nota musicale",
+          "options": [
+            { "value": "Do",   "label": "Do — C (261 Hz)" },
+            { "value": "Re♭",  "label": "Re♭ — C# / Db (277 Hz)" },
+            { "value": "Re",   "label": "Re — D (293 Hz)" },
+            { "value": "Mi♭",  "label": "Mi♭ — D# / Eb (311 Hz)" },
+            { "value": "Mi",   "label": "Mi — E (329 Hz)" },
+            { "value": "Fa",   "label": "Fa — F (349 Hz)" },
+            { "value": "Sol♭", "label": "Sol♭ — F# / Gb (369 Hz)" },
+            { "value": "Sol",  "label": "Sol — G (392 Hz)" }
+          ],
+          "default": "Do"
+        },
+        {
+          "type": "range",
+          "id": "freq",
+          "label": "Frequenza Hz (info display)",
+          "min": 220,
+          "max": 440,
+          "step": 10,
+          "default": 260,
+          "unit": "Hz"
+        },
+        {
+          "type": "checkbox",
+          "id": "white",
+          "label": "Tasto bianco",
+          "default": true,
+          "info": "Disattiva per tasto nero (Do#, Re♭, ecc.)"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Colore identitario collezione",
+          "default": "#C9B79C"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL collezione"
+        },
+        {
+          "type": "header",
+          "content": "Contenuto pannello"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Citazione editoriale",
+          "info": "Tono della collezione — breve, poetico"
+        },
+        {
+          "type": "text",
+          "id": "products",
+          "label": "Prodotti disponibili (separati da virgola)",
+          "default": "Sneakers, Backpack, Duffle"
+        },
+        {
+          "type": "text",
+          "id": "arm_season",
+          "label": "Stagione armocromica",
+          "default": "Stagione Inverno",
+          "info": "Es: Stagione Primavera, Estate, Autunno, Inverno"
+        },
+        {
+          "type": "textarea",
+          "id": "arm_desc",
+          "label": "Descrizione armocromica",
+          "info": "Note sul tono cromatico della collezione (opzionale)"
+        },
+        {
+          "type": "header",
+          "content": "Audio Suno"
+        },
+        {
+          "type": "text",
+          "id": "audio_file",
+          "label": "File audio in assets",
+          "info": "Solo nome file: BKS-Concept-Ambient-001.mp3. Caricare in Themes → Assets."
+        },
+        {
+          "type": "text",
+          "id": "audio_url",
+          "label": "URL audio esterno (CDN / R2 / S3)",
+          "info": "URL HTTPS diretto al MP3. Priorità su file asset se compilato."
+        },
+        {
+          "type": "header",
+          "content": "Web Audio (fallback)"
+        },
+        {
+          "type": "range",
+          "id": "bpm",
+          "label": "BPM loop sintetizzato",
+          "min": 20,
+          "max": 80,
+          "step": 2,
+          "default": 36
+        },
+        {
+          "type": "range",
+          "id": "decay",
+          "label": "Decay nota (secondi)",
+          "min": 1,
+          "max": 8,
+          "step": 1,
+          "default": 4,
+          "unit": "s"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BKS Piano Hero",
+      "blocks": [
+        {
+          "type": "collection",
+          "settings": {
+            "name": "Hours",
+            "note": "Do",
+            "freq": 260,
+            "white": true,
+            "color": "#C9B79C",
+            "url": "/collections/bks-hours",
+            "quote": "Urban contemplation, painterly register, hyperrealist surface.",
+            "products": "Sneakers, Backpack, Travel Bag",
+            "arm_season": "Stagione Inverno",
+            "arm_desc": "Toni profondi, neutri caldi. Dune, grigio ardesia, avorio antico.",
+            "bpm": 36,
+            "decay": 4
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "name": "Glyph",
+            "note": "Re♭",
+            "freq": 280,
+            "white": false,
+            "color": "#E8E8E4",
+            "url": "/collections/bks-glyph",
+            "quote": "Symbol, code, sign — a proprietary visual alphabet.",
+            "products": "Pullover Hoodie, Windbreaker, Lounge Pants",
+            "arm_season": "Stagione Estate",
+            "arm_desc": "Neutri freddi, bianco ghiaccio, grigio fumo.",
+            "bpm": 40,
+            "decay": 4
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "name": "Marker",
+            "note": "Re",
+            "freq": 290,
+            "white": true,
+            "color": "#7DBF72",
+            "url": "/collections/bks-marker",
+            "quote": "The brush, the wall, the mark left behind.",
+            "products": "Athletic Shorts, Swim Trunks, Sneakers",
+            "arm_season": "Stagione Primavera",
+            "arm_desc": "Verde organico, giallo chart, terracotta viva.",
+            "bpm": 44,
+            "decay": 3
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "name": "Riviera",
+            "note": "Mi♭",
+            "freq": 310,
+            "white": false,
+            "color": "#7EB3D4",
+            "url": "/collections/bks-riviera",
+            "quote": "Salt, sun, terracotta, deep blue.",
+            "products": "Swim Trunks, One-Piece Swimsuit, Flip Flop",
+            "arm_season": "Stagione Estate",
+            "arm_desc": "Azzurro oceano, corallo, bianco sale.",
+            "bpm": 36,
+            "decay": 5
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "name": "Pulse",
+            "note": "Mi",
+            "freq": 330,
+            "white": true,
+            "color": "#E05C5C",
+            "url": "/collections/bks-pulse",
+            "quote": "Rhythm, vibration, visual motion.",
+            "products": "Puffer Jacket, Athletic Shorts, Sneakers",
+            "arm_season": "Stagione Inverno",
+            "arm_desc": "Rosso acido, fucsia elettrico, nero puro.",
+            "bpm": 52,
+            "decay": 3
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "name": "Token",
+            "note": "Fa",
+            "freq": 350,
+            "white": true,
+            "color": "#F0C84A",
+            "url": "/collections/bks-token",
+            "quote": "Pixel, game, digital field — each piece a collectible.",
+            "products": "Sneakers, Backpack, Pullover Hoodie",
+            "arm_season": "Stagione Autunno",
+            "arm_desc": "Oro saturno, arancio pixel, verde arcade.",
+            "bpm": 48,
+            "decay": 4
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "name": "Flag",
+            "note": "Sol♭",
+            "freq": 370,
+            "white": false,
+            "color": "#C97AB8",
+            "url": "/collections/bks-flag",
+            "quote": "Abstract fields, coded color, graphic blocks.",
+            "products": "Windbreaker, Travel Bag, Women's Tee",
+            "arm_season": "Stagione Primavera",
+            "arm_desc": "Viola intenso, magenta Dada, giallo stencil.",
+            "bpm": 38,
+            "decay": 5
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "name": "Folklore",
+            "note": "Sol",
+            "freq": 390,
+            "white": true,
+            "color": "#D4A96A",
+            "url": "/collections/bks-folklore",
+            "quote": "Imaginary worlds, drawn stories, invented memory.",
+            "products": "Racerback Dress, Cozy Slipper, Travel Bag",
+            "arm_season": "Stagione Autunno",
+            "arm_desc": "Ambra calda, ruggine botanico, crema antico.",
+            "bpm": 32,
+            "decay": 5
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,460 @@
+{{ 'bks-member.css' | asset_url | stylesheet_tag }}
+
+{%- render 'bks-member-tier' -%}
+
+{%- comment -%} Referral code: customer ID encoded as base36-style string {%- endcomment -%}
+{%- assign bks_ref_code = customer.id -%}
+{%- assign bks_ref_url  = shop.url | append: "?ref=" | append: bks_ref_code -%}
+
+{%- comment -%} Most recent order for MTO tracker {%- endcomment -%}
+{%- assign bks_latest_order = customer.orders | first -%}
+
+<div class="bks-member-wrap">
+
+  {%- comment -%} ── Hero ── {%- endcomment -%}
+  <div class="bks-member-hero">
+    <div>
+      <h1 class="bks-member-greeting">
+        Ciao, <span>{{ customer.first_name }}</span>
+      </h1>
+      <p class="bks-member-meta">{{ customer.email }}</p>
+    </div>
+    <div class="bks-member-actions">
+      {%- if bks_tier != "none" -%}
+        <span class="bks-tier-badge bks-tier-badge--{{ bks_tier }}">
+          <span class="bks-tier-dot"></span>
+          {{ bks_tier_label }}
+        </span>
+      {%- endif -%}
+      <a href="{{ routes.account_logout_url }}" class="bks-logout-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/>
+        </svg>
+        Esci
+      </a>
+    </div>
+  </div>
+
+  {%- comment -%} ── Tabs ── {%- endcomment -%}
+  <nav class="bks-member-tabs">
+    <button class="bks-tab-btn" data-tab="orders">Ordini</button>
+    <button class="bks-tab-btn" data-tab="wishlist">Wishlist</button>
+    <button class="bks-tab-btn" data-tab="early-access">Early Access</button>
+    <button class="bks-tab-btn" data-tab="referral">Referral</button>
+    {%- if bks_tier == "archive" -%}
+      <button class="bks-tab-btn" data-tab="archive">BKS Archive</button>
+    {%- else -%}
+      <button class="bks-tab-btn" data-tab="archive" title="Disponibile con BKS Archive">
+        Archive <span class="bks-tab-lock">🔒</span>
+      </button>
+    {%- endif -%}
+    <button class="bks-tab-btn" data-tab="account">Account</button>
+  </nav>
+
+  {%- comment -%} ══════════════════════════════════════════
+      TAB: Ordini
+  ══════════════════════════════════════════ {%- endcomment -%}
+  <div id="bks-panel-orders" class="bks-member-panel">
+
+    {%- comment -%} MTO tracker for bks-drop+ {%- endcomment -%}
+    {%- if bks_tier_rank >= 2 and bks_latest_order -%}
+      {%- render 'bks-member-tracker', order: bks_latest_order -%}
+    {%- endif -%}
+
+    <p class="bks-section-title">Storico ordini</p>
+
+    {%- paginate customer.orders by 20 -%}
+      {%- if customer.orders.size > 0 -%}
+        <table class="bks-orders-table" role="table">
+          <thead>
+            <tr>
+              <th>Ordine</th>
+              <th>Data</th>
+              <th>Pagamento</th>
+              <th>Spedizione</th>
+              <th>Totale</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for order in customer.orders -%}
+              {%- assign pay_class = "bks-status-pill--" | append: order.financial_status -%}
+              {%- assign ful_class = "bks-status-pill--" | append: order.fulfillment_status -%}
+              <tr>
+                <td>
+                  <a href="{{ order.customer_url }}">{{ order.name }}</a>
+                </td>
+                <td>{{ order.created_at | time_tag: format: 'date' }}</td>
+                <td>
+                  <span class="bks-status-pill {{ pay_class }}">
+                    {{ order.financial_status_label }}
+                  </span>
+                </td>
+                <td>
+                  <span class="bks-status-pill {{ ful_class }}">
+                    {{ order.fulfillment_status_label }}
+                  </span>
+                </td>
+                <td>{{ order.total_net_amount | money_with_currency }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+
+        {%- comment -%} CTA recensione 7 giorni post-consegna (bks-drop+) {%- endcomment -%}
+        {%- if bks_tier_rank >= 2 and bks_latest_order.fulfillment_status == "fulfilled" -%}
+          {%- assign fulfilled_days = bks_latest_order.created_at | date: "%s" | plus: 604800 -%}
+          {%- assign now_ts = "now" | date: "%s" | plus: 0 -%}
+          {%- if now_ts >= fulfilled_days -%}
+            <div style="margin-top:24px;padding:20px 24px;background:var(--bks-surface);border:1px solid var(--bks-border);border-radius:3px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+              <div>
+                <p style="margin:0 0 4px;font-size:13px;font-weight:500;">Come sta il tuo {{ bks_latest_order.line_items.first.title | split: " " | slice: 0, 3 | join: " " }}?</p>
+                <p style="margin:0;font-size:12px;color:var(--bks-muted);">Lascia una recensione — aiuta la community BKS.</p>
+              </div>
+              <a href="{{ bks_latest_order.customer_url }}#reviews" class="bks-btn-gold" style="font-size:11px;">
+                Scrivi recensione
+              </a>
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+
+      {%- else -%}
+        <div class="bks-empty-state">
+          <p>Nessun ordine ancora.</p>
+          <a href="/collections/all" class="bks-btn-ghost" style="margin-top:16px;">Scopri i prodotti</a>
+        </div>
+      {%- endif -%}
+
+      {%- if paginate.pages > 1 -%}
+        <nav style="margin-top:24px;display:flex;gap:8px;align-items:center;">
+          {%- if paginate.previous -%}
+            <a href="{{ paginate.previous.url }}" class="bks-btn-ghost" style="padding:7px 14px;">← Precedente</a>
+          {%- endif -%}
+          {%- if paginate.next -%}
+            <a href="{{ paginate.next.url }}" class="bks-btn-ghost" style="padding:7px 14px;">Successivo →</a>
+          {%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+
+  {%- comment -%} ══════════════════════════════════════════
+      TAB: Wishlist
+  ══════════════════════════════════════════ {%- endcomment -%}
+  <div id="bks-panel-wishlist" class="bks-member-panel">
+    <p class="bks-section-title">La tua wishlist</p>
+    <div id="bks-wishlist-container">
+      <div class="bks-empty-state" style="color:var(--bks-muted);font-size:13px;">
+        Caricamento...
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ══════════════════════════════════════════
+      TAB: Early Access
+  ══════════════════════════════════════════ {%- endcomment -%}
+  <div id="bks-panel-early-access" class="bks-member-panel">
+    <p class="bks-section-title">Early Access</p>
+
+    {%- if bks_tier_rank >= 1 -%}
+      {%- comment -%}
+        Edit the fields below to update the teaser for each drop.
+        Set drop_live to true once the collection is public.
+      {%- endcomment -%}
+
+      {%- assign drop_title    = section.settings.drop_title -%}
+      {%- assign drop_date     = section.settings.drop_date -%}
+      {%- assign drop_teaser   = section.settings.drop_teaser -%}
+      {%- assign drop_live     = section.settings.drop_live -%}
+      {%- assign drop_url      = section.settings.drop_url -%}
+
+      {%- if drop_title != blank -%}
+        <div class="bks-early-access-card">
+          <div style="flex:1;min-width:220px;">
+            <p class="bks-early-access-label">
+              {%- if bks_tier_rank >= 3 -%}+24h Anteprima esclusiva{%- else -%}Prossimo drop{%- endif -%}
+            </p>
+            <h2 class="bks-early-access-title">{{ drop_title }}</h2>
+            <p class="bks-early-access-date">
+              Drop pubblico: <strong>{{ drop_date }}</strong>
+              {%- if bks_tier_rank >= 3 -%}
+                — Tu accedi <strong>24h prima</strong>
+              {%- endif -%}
+            </p>
+
+            {%- if drop_teaser != blank -%}
+              <p style="font-size:13px;color:var(--bks-muted);line-height:1.6;margin:0 0 20px;">{{ drop_teaser }}</p>
+            {%- endif -%}
+
+            {%- if drop_live -%}
+              <a href="{{ drop_url | default: '/collections/new-arrivals' }}" class="bks-btn-gold">
+                Vai alla collezione →
+              </a>
+            {%- else -%}
+              {%- if drop_date != blank -%}
+                <div class="bks-countdown" id="bks-countdown" data-target="{{ drop_date }}">
+                  <div class="bks-countdown-block">
+                    <span class="bks-countdown-num bks-countdown-d">--</span>
+                    <span class="bks-countdown-unit">giorni</span>
+                  </div>
+                  <div class="bks-countdown-block">
+                    <span class="bks-countdown-num bks-countdown-h">--</span>
+                    <span class="bks-countdown-unit">ore</span>
+                  </div>
+                  <div class="bks-countdown-block">
+                    <span class="bks-countdown-num bks-countdown-m">--</span>
+                    <span class="bks-countdown-unit">min</span>
+                  </div>
+                  <div class="bks-countdown-block">
+                    <span class="bks-countdown-num bks-countdown-s">--</span>
+                    <span class="bks-countdown-unit">sec</span>
+                  </div>
+                </div>
+              {%- endif -%}
+              <p class="bks-early-access-teaser-label" style="margin-top:16px;">
+                Notificheremo via email al lancio.
+              </p>
+            {%- endif -%}
+          </div>
+
+          {%- if section.settings.drop_image -%}
+            <img
+              class="bks-early-access-image"
+              src="{{ section.settings.drop_image | image_url: width: 400 }}"
+              alt="{{ drop_title }}"
+              loading="lazy"
+            >
+          {%- endif -%}
+        </div>
+      {%- else -%}
+        <div class="bks-empty-state">
+          <p>Nessun drop in arrivo annunciato.<br>Controlla di nuovo presto.</p>
+        </div>
+      {%- endif -%}
+
+    {%- else -%}
+      <div class="bks-upgrade-card">
+        <div class="bks-upgrade-icon">📭</div>
+        <h3 class="bks-upgrade-title">Early Access riservato ai member</h3>
+        <p class="bks-upgrade-text">
+          Crea un account e iscriviti alla newsletter per diventare BKS Subscriber e accedere ai drop in anteprima.
+        </p>
+        <span class="bks-upgrade-badge">
+          <span class="bks-tier-dot"></span>
+          BKS Subscriber
+        </span>
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} ══════════════════════════════════════════
+      TAB: Referral
+  ══════════════════════════════════════════ {%- endcomment -%}
+  <div id="bks-panel-referral" class="bks-member-panel">
+    <p class="bks-section-title">Programma referral</p>
+
+    {%- if bks_tier_rank >= 1 -%}
+      <div class="bks-referral-card">
+        <h2 class="bks-referral-heading">Porta un amico, guadagnate entrambi</h2>
+        <p class="bks-referral-sub">
+          Ogni persona che acquista tramite il tuo link riceve <strong style="color:var(--bks-text);">€10 di sconto</strong> sul primo ordine.<br>
+          Tu ricevi <strong style="color:var(--bks-gold);">€10 di credito</strong> sul tuo account BKS.
+        </p>
+
+        <div class="bks-referral-link-row">
+          <input
+            id="bks-referral-url"
+            class="bks-referral-input"
+            type="text"
+            readonly
+            value="{{ bks_ref_url }}"
+          >
+          <button id="bks-referral-copy" class="bks-referral-copy-btn">Copia link</button>
+        </div>
+
+        <div class="bks-referral-stats">
+          <div>
+            <span class="bks-referral-stat-val">—</span>
+            <span class="bks-referral-stat-label">Inviti inviati</span>
+          </div>
+          <div>
+            <span class="bks-referral-stat-val">—</span>
+            <span class="bks-referral-stat-label">Acquisti completati</span>
+          </div>
+          <div>
+            <span class="bks-referral-stat-val">€0</span>
+            <span class="bks-referral-stat-label">Crediti guadagnati</span>
+          </div>
+        </div>
+
+        <div class="bks-referral-how">
+          <p class="bks-referral-how-title">Come funziona</p>
+          <ol>
+            <li>Copia il tuo link personale e condividilo</li>
+            <li>Il tuo amico arriva su bakabo.club con €10 di sconto automatico</li>
+            <li>Dopo il suo primo ordine ricevi €10 di credito via email</li>
+          </ol>
+        </div>
+      </div>
+
+    {%- else -%}
+      <div class="bks-upgrade-card">
+        <div class="bks-upgrade-icon">🔗</div>
+        <h3 class="bks-upgrade-title">Referral disponibile per i member</h3>
+        <p class="bks-upgrade-text">
+          Diventa BKS Subscriber per ottenere il tuo link referral personale.
+        </p>
+        <span class="bks-upgrade-badge">
+          <span class="bks-tier-dot"></span>
+          BKS Subscriber
+        </span>
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} ══════════════════════════════════════════
+      TAB: Archive
+  ══════════════════════════════════════════ {%- endcomment -%}
+  <div id="bks-panel-archive" class="bks-member-panel">
+
+    {%- if bks_tier == "archive" -%}
+      {%- render 'bks-member-archive' -%}
+
+    {%- elsif bks_tier_rank >= 2 -%}
+      <div class="bks-upgrade-card">
+        <div class="bks-upgrade-icon">🗄</div>
+        <h3 class="bks-upgrade-title">BKS Studio Archive</h3>
+        <p class="bks-upgrade-text">
+          Hai {{ customer.orders_count }} ordine{% if customer.orders_count != 1 %}i{% endif %}.
+          Con il secondo ordine sblocchi l'accesso all'archivio esclusivo — prompt library, pattern scartati, process notes, wallpaper AI.
+        </p>
+        <span class="bks-upgrade-badge">
+          <span class="bks-tier-dot"></span>
+          BKS Archive — 2+ ordini
+        </span>
+      </div>
+
+    {%- else -%}
+      <div class="bks-upgrade-card">
+        <div class="bks-upgrade-icon">🗄</div>
+        <h3 class="bks-upgrade-title">BKS Studio Archive</h3>
+        <p class="bks-upgrade-text">
+          La pagina più esclusiva del brand. Accesso riservato ai clienti con 2+ ordini.<br>
+          Contiene il processo creativo reale: prompt AI, pattern scartati, wallpaper in alta risoluzione.
+        </p>
+        <span class="bks-upgrade-badge">
+          <span class="bks-tier-dot"></span>
+          BKS Archive — 2+ ordini
+        </span>
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} ══════════════════════════════════════════
+      TAB: Account
+  ══════════════════════════════════════════ {%- endcomment -%}
+  <div id="bks-panel-account" class="bks-member-panel">
+    <p class="bks-section-title">Dettagli account</p>
+
+    <div class="bks-account-details">
+      <div class="bks-account-card">
+        <h3>Indirizzo predefinito</h3>
+        {%- if customer.default_address -%}
+          <address>{{ customer.default_address | format_address }}</address>
+        {%- else -%}
+          <p style="color:var(--bks-muted);font-size:13px;">Nessun indirizzo salvato.</p>
+        {%- endif -%}
+        <a href="{{ routes.account_addresses_url }}">
+          Gestisci indirizzi ({{ customer.addresses_count }})
+        </a>
+      </div>
+
+      <div class="bks-account-card">
+        <h3>Profilo</h3>
+        <address>
+          {{ customer.name }}<br>
+          {{ customer.email }}<br>
+          {%- if bks_tier != "none" -%}
+            <span class="bks-tier-badge bks-tier-badge--{{ bks_tier }}" style="margin-top:12px;display:inline-flex;">
+              <span class="bks-tier-dot"></span>{{ bks_tier_label }}
+            </span>
+          {%- endif -%}
+        </address>
+        <a href="mailto:info@bakabo.club">Contatta supporto</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="{{ 'bks-member.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "BKS Member Dashboard",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Early Access — prossimo drop"
+    },
+    {
+      "type": "text",
+      "id": "drop_title",
+      "label": "Titolo del drop",
+      "placeholder": "BKS Glyph — Estate 2026"
+    },
+    {
+      "type": "text",
+      "id": "drop_date",
+      "label": "Data drop (ISO 8601)",
+      "placeholder": "2026-07-10T10:00:00+02:00",
+      "info": "Formato: YYYY-MM-DDTHH:MM:SS+02:00"
+    },
+    {
+      "type": "textarea",
+      "id": "drop_teaser",
+      "label": "Teaser (breve descrizione)",
+      "placeholder": "Una nuova interpretazione del pattern Glyph, con tessuti tecnici riciclati."
+    },
+    {
+      "type": "image_picker",
+      "id": "drop_image",
+      "label": "Immagine teaser (blurred preview)"
+    },
+    {
+      "type": "checkbox",
+      "id": "drop_live",
+      "label": "Drop è live?",
+      "default": false
+    },
+    {
+      "type": "url",
+      "id": "drop_url",
+      "label": "URL collezione (quando live)"
+    },
+    {
+      "type": "header",
+      "content": "Spaziatura"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 0
+    }
+  ]
+}
+{% endschema %}

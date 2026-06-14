@@ -41,8 +41,6 @@ class CollectionSpec:
         if self.template == "collection":
             if template == "collection":
                 return None
-        if template == "collection":
-            return None
         if template.startswith("collection."):
             return template.removeprefix("collection.")
         return template

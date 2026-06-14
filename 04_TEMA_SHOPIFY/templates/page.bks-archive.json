@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "bks-member-archive-page",
+      "settings": {
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": ["main"]
+}

@@ -251,7 +251,7 @@ def is_bad_category(value: str) -> bool:
 
 def enrich(input_path: Path, output_path: Path, report_path: Path) -> tuple[int, int]:
     with input_path.open("r", encoding="utf-8-sig", newline="") as source:
-        reader = csv.DictReader(source)
+        reader = csv.DictReader(source, restval='')
         if not reader.fieldnames:
             raise ValueError(f"CSV senza header: {input_path}")
         fieldnames = reader.fieldnames
@@ -268,7 +268,7 @@ def enrich(input_path: Path, output_path: Path, report_path: Path) -> tuple[int,
     output_rows: list[dict[str, str]] = []
 
     for row in rows:
-        fixed = dict(row)
+        fixed = {k: ('' if v is None else v) for k, v in row.items()}
         handle = (row.get("Handle") or "").strip()
         title = (row.get("Title") or "").strip()
         changes: list[str] = []

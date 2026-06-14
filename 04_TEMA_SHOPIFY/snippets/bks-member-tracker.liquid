@@ -1,0 +1,97 @@
+{%- comment -%}
+  BKS MTO Order Tracker
+  Usage: {% render 'bks-member-tracker', order: order %}
+
+  Stage logic:
+    1. Ordine ricevuto  — always done (order exists)
+    2. In produzione    — financial_status = paid
+    3. Stampato         — order tag 'bks-printed' OR fulfillment_status = partial
+    4. Spedito          — any line_item has fulfillment with tracking_number
+    5. Consegnato       — order tag 'bks-delivered'
+{%- endcomment -%}
+
+{%- assign trk_order = order -%}
+
+{%- comment -%} Determine active step {%- endcomment -%}
+{%- assign trk_step = 1 -%}
+
+{%- if trk_order.financial_status == "paid" or trk_order.financial_status == "partially_paid" -%}
+  {%- assign trk_step = 2 -%}
+{%- endif -%}
+
+{%- assign trk_has_printed = false -%}
+{%- for tag in trk_order.tags -%}
+  {%- if tag == "bks-printed" -%}{%- assign trk_has_printed = true -%}{%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if trk_has_printed or trk_order.fulfillment_status == "partial" -%}
+  {%- assign trk_step = 3 -%}
+{%- endif -%}
+
+{%- assign trk_has_tracking = false -%}
+{%- for line_item in trk_order.line_items -%}
+  {%- if line_item.fulfillment.tracking_number -%}
+    {%- assign trk_has_tracking = true -%}
+    {%- assign trk_tracking_number = line_item.fulfillment.tracking_number -%}
+    {%- assign trk_tracking_url    = line_item.fulfillment.tracking_url -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if trk_has_tracking or trk_order.fulfillment_status == "fulfilled" -%}
+  {%- assign trk_step = 4 -%}
+{%- endif -%}
+
+{%- assign trk_delivered = false -%}
+{%- for tag in trk_order.tags -%}
+  {%- if tag == "bks-delivered" -%}{%- assign trk_delivered = true -%}{%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if trk_delivered -%}
+  {%- assign trk_step = 5 -%}
+{%- endif -%}
+
+{%- assign trk_stages = "Ordine ricevuto,In produzione,Stampato,Spedito,Consegnato" | split: "," -%}
+{%- assign trk_icons  = "✓,⚙,🖨,✈,✓" | split: "," -%}
+
+<div class="bks-tracker-wrap">
+  <p class="bks-tracker-label">
+    Tracker MTO
+    <span class="bks-tracker-order-name">{{ trk_order.name }}</span>
+  </p>
+
+  <div class="bks-tracker-steps">
+    {%- for stage in trk_stages -%}
+      {%- assign stage_num = forloop.index -%}
+      {%- if stage_num < trk_step -%}
+        {%- assign stage_class = "done" -%}
+      {%- elsif stage_num == trk_step -%}
+        {%- assign stage_class = "current" -%}
+      {%- else -%}
+        {%- assign stage_class = "" -%}
+      {%- endif -%}
+
+      <div class="bks-tracker-step {{ stage_class }}">
+        <div class="bks-tracker-step-dot">
+          {%- if stage_num < trk_step -%}✓{%- endif -%}
+        </div>
+        <span class="bks-tracker-step-label">{{ stage }}</span>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- if trk_has_tracking -%}
+    <div style="margin-top:20px;font-size:13px;color:var(--bks-muted);">
+      Tracking:
+      {%- if trk_tracking_url -%}
+        <a href="{{ trk_tracking_url }}" target="_blank" style="color:var(--bks-gold);margin-left:6px;text-decoration:none;">
+          {{ trk_tracking_number }}
+        </a>
+      {%- else -%}
+        <span style="margin-left:6px;color:var(--bks-text);">{{ trk_tracking_number }}</span>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>
