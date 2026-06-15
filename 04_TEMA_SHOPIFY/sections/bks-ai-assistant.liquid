@@ -254,8 +254,8 @@
   "name": "BKS AI assistant",
   "settings": [
     { "type": "checkbox", "id": "enabled", "label": "Enable assistant", "default": false },
-    { "type": "text", "id": "api_endpoint", "label": "Public API endpoint", "info": "URL del Worker BKS (es: https://bks-agent.bakabo.workers.dev)" },
-    { "type": "text", "id": "public_token", "label": "Public routing token", "info": "Token opzionale per autenticazione" },
+    { "type": "text", "id": "api_endpoint", "label": "Public API endpoint", "default": "https://bks-agent.bakabo.workers.dev", "info": "Worker URL — update before enabling" },
+    { "type": "text", "id": "public_token", "label": "Public routing token", "default": "bks-assistant", "info": "Optional auth token" },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Ask BKS" },
     { "type": "text", "id": "title", "label": "Panel title", "default": "BKS AI Assistant" },
     { "type": "textarea", "id": "disclosure", "label": "AI disclosure", "default": "AI assistant: answers from verified BKS data and official store policies." },

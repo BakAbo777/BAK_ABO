@@ -201,6 +201,140 @@
     setInterval(tick, 1000);
   }
 
+  /* ── Customize form ── */
+  const CZ_KEY = 'bks_customize_v1';
+  const CZ_TYPE_LABELS = {
+    palette: 'Color palette', text: 'Text / Monogram',
+    placement: 'Graphic placement', sizing: 'Non-standard sizing',
+    composition: 'Composition', full: 'Full custom'
+  };
+
+  function czLoad() { try { return JSON.parse(localStorage.getItem(CZ_KEY) || '[]'); } catch { return []; } }
+  function czSave(list) { try { localStorage.setItem(CZ_KEY, JSON.stringify(list)); } catch {} }
+
+  function czRenderHistory() {
+    const container = document.getElementById('bks-cz-history');
+    if (!container) return;
+    const reqs = czLoad();
+    if (!reqs.length) { container.innerHTML = ''; return; }
+    container.innerHTML = `
+      <div class="bks-cz-history-block">
+        <p class="bks-cz-history-title">Sent requests (${reqs.length})</p>
+        ${reqs.map(r => `
+          <div class="bks-cz-req-card">
+            <span class="bks-cz-req-status">Pending</span>
+            <div class="bks-cz-req-info">
+              <p class="bks-cz-req-title">${r.type_label} — ${r.collection} / ${r.product}</p>
+              <p class="bks-cz-req-meta">${r.date} · Size ${r.size}</p>
+            </div>
+          </div>`).join('')}
+      </div>`;
+  }
+
+  function initCustomizeForm() {
+    const form      = document.getElementById('bks-cz-form');
+    const success   = document.getElementById('bks-cz-success');
+    const submitBtn = document.getElementById('bks-cz-submit');
+    const newBtn    = document.getElementById('bks-cz-new');
+    const descArea  = document.getElementById('bks-cz-desc');
+    const descCount = document.getElementById('bks-cz-desc-count');
+    if (!form) return;
+
+    czRenderHistory();
+
+    if (descArea && descCount) {
+      descArea.addEventListener('input', () => {
+        const len = Math.min(descArea.value.length, 500);
+        if (descArea.value.length > 500) descArea.value = descArea.value.slice(0, 500);
+        descCount.textContent = len;
+      });
+    }
+
+    form.querySelectorAll('.bks-cz-type-card:not(.bks-cz-type-locked)').forEach(card => {
+      card.addEventListener('click', () => {
+        const radio = card.querySelector('input[type="radio"]');
+        if (radio && !radio.disabled) radio.checked = true;
+      });
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const collection = form.querySelector('#bks-cz-collection').value;
+      const product    = form.querySelector('#bks-cz-product').value;
+      const size       = form.querySelector('#bks-cz-size').value;
+      const typeRadio  = form.querySelector('input[name="bks-cz-type"]:checked');
+      const desc       = (form.querySelector('#bks-cz-desc').value || '').trim();
+      const ref        = (form.querySelector('#bks-cz-ref').value || '').trim();
+
+      if (!collection || !product || !typeRadio || desc.length < 20) {
+        alert('Please fill in all required fields (description min. 20 characters).');
+        return;
+      }
+
+      const typeLabel = CZ_TYPE_LABELS[typeRadio.value] || typeRadio.value;
+      const name      = form.dataset.customerName  || '';
+      const email     = form.dataset.customerEmail || '';
+
+      const msgBody = [
+        'BKS CUSTOMIZATION REQUEST',
+        '---',
+        `Customer: ${name} <${email}>`,
+        `Collection: ${collection}`,
+        `Garment: ${product}`,
+        `Size: ${size}`,
+        `Type: ${typeLabel}`,
+        '---',
+        'Description:',
+        desc,
+        ref ? `\nVisual reference: ${ref}` : ''
+      ].filter(Boolean).join('\n');
+
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+
+      try {
+        const params = new URLSearchParams({
+          'form_type':      'contact',
+          'utf8':           '✓',
+          'contact[name]':  name,
+          'contact[email]': email,
+          'contact[body]':  msgBody
+        });
+        const r = await fetch('/contact', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' },
+          body:    params.toString()
+        });
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+
+        const reqs = czLoad();
+        reqs.unshift({
+          date: new Date().toLocaleDateString('en-GB'),
+          collection, product, size,
+          type: typeRadio.value, type_label: typeLabel, desc
+        });
+        czSave(reqs.slice(0, 20));
+
+        form.hidden = true;
+        if (success) success.hidden = false;
+        czRenderHistory();
+
+      } catch {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Send request'; }
+        alert('Send error. Please retry or contact us at info@bakabo.club');
+      }
+    });
+
+    if (newBtn) {
+      newBtn.addEventListener('click', () => {
+        form.reset();
+        form.hidden = false;
+        if (success) success.hidden = true;
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Send request'; }
+        if (descCount) descCount.textContent = '0';
+      });
+    }
+  }
+
   /* ── Boot ── */
   function init() {
     importSharedWishlist();
@@ -209,6 +343,7 @@
     renderWishlistPanel();
     initReferralCopy();
     initCountdown();
+    initCustomizeForm();
   }
 
   if (document.readyState === 'loading') {

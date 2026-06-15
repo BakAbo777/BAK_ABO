@@ -36,10 +36,14 @@ FILES = [
     # Assets piano hero
     ("assets/bks-piano-hero.css",                  "assets/bks-piano-hero.css"),
     ("assets/bks-piano-hero.js",                   "assets/bks-piano-hero.js"),
+    # Assets member area
+    ("assets/bks-member.css",                      "assets/bks-member.css"),
+    ("assets/bks-member.js",                       "assets/bks-member.js"),
     # Snippet
     ("snippets/bks-gcr-badge.liquid",              "snippets/bks-gcr-badge.liquid"),
     ("snippets/bks-gcr-survey.liquid",             "snippets/bks-gcr-survey.liquid"),
     # Template membri
+    ("templates/customers/account.json",           "templates/customers/account.json"),
     ("templates/customers/account.bks-member.json","templates/customers/account.bks-member.json"),
     # Template pagine custom
     ("templates/page.bks-archive.json",            "templates/page.bks-archive.json"),

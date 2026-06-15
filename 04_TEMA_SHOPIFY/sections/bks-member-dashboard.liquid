@@ -41,6 +41,7 @@
     <button class="bks-tab-btn" data-tab="wishlist">Wishlist</button>
     <button class="bks-tab-btn" data-tab="early-access">Early Access</button>
     <button class="bks-tab-btn" data-tab="referral">Referral</button>
+    <button class="bks-tab-btn" data-tab="customize">Customize</button>
     {%- if bks_tier == "archive" -%}
       <button class="bks-tab-btn" data-tab="archive">BKS Archive</button>
     {%- else -%}
@@ -309,6 +310,174 @@
         </span>
       </div>
     {%- endif -%}
+  </div>
+
+  {%- comment -%} ══════════════════════════════════════════
+      TAB: Customize
+  ══════════════════════════════════════════ {%- endcomment -%}
+  <div id="bks-panel-customize" class="bks-member-panel">
+    <p class="bks-section-title">Garment customization</p>
+
+    <div class="bks-cz-tier-banner bks-cz-tier-banner--{{ bks_tier | default: 'none' }}">
+      <span class="bks-cz-tier-icon">
+        {%- if bks_tier == "archive" -%}✦{%- elsif bks_tier == "drop" -%}◈{%- elsif bks_tier == "subscriber" -%}◇{%- else -%}○{%- endif -%}
+      </span>
+      <div>
+        <p class="bks-cz-tier-name">
+          {%- if bks_tier == "archive" -%}BKS Archive — Full customization
+          {%- elsif bks_tier == "drop" -%}BKS Drop — Advanced customization
+          {%- elsif bks_tier == "subscriber" -%}BKS Subscriber — Base customization
+          {%- else -%}Open request — become a member for priority access
+          {%- endif -%}
+        </p>
+        <p class="bks-cz-tier-desc">
+          {%- if bks_tier == "archive" -%}All options unlocked: palette, text, graphic placement, custom sizing and full compositions.
+          {%- elsif bks_tier == "drop" -%}Palette, text, graphic placement and non-standard sizing available.
+          {%- elsif bks_tier == "subscriber" -%}Palette variation and text / monogram requests available.
+          {%- else -%}Send a customization request. Upgrade to BKS Subscriber for faster turnaround.
+          {%- endif -%}
+        </p>
+      </div>
+    </div>
+
+    <div id="bks-cz-history"></div>
+
+    <div class="bks-cz-form-wrap">
+      <p class="bks-cz-form-title">New request</p>
+
+      <form id="bks-cz-form"
+            data-tier="{{ bks_tier | default: 'none' }}"
+            data-tier-rank="{{ bks_tier_rank | default: 0 }}"
+            data-customer-name="{{ customer.name | escape }}"
+            data-customer-email="{{ customer.email | escape }}">
+
+        <div class="bks-cz-row">
+          <div class="bks-cz-field">
+            <label class="bks-cz-label" for="bks-cz-collection">Collection</label>
+            <select id="bks-cz-collection" class="bks-cz-select" required>
+              <option value="">— Select —</option>
+              <option value="BKS Folklore">Folklore</option>
+              <option value="BKS Glyph">Glyph</option>
+              <option value="BKS Marker">Marker</option>
+              <option value="BKS Riviera">Riviera</option>
+              <option value="BKS Pulse">Pulse</option>
+              <option value="BKS Token">Token</option>
+              <option value="BKS Flag">Flag</option>
+              <option value="BKS Hours">Hours</option>
+              <option value="Other / Not sure">Other / Not sure</option>
+            </select>
+          </div>
+          <div class="bks-cz-field">
+            <label class="bks-cz-label" for="bks-cz-product">Garment type</label>
+            <select id="bks-cz-product" class="bks-cz-select" required>
+              <option value="">— Select —</option>
+              <option value="Pullover Hoodie">Pullover Hoodie</option>
+              <option value="Windbreaker">Windbreaker</option>
+              <option value="T-Shirt">T-Shirt</option>
+              <option value="Lounge Pants">Lounge Pants</option>
+              <option value="Athletic Shorts">Athletic Shorts</option>
+              <option value="Swim Trunks">Swim Trunks</option>
+              <option value="One-Piece Swimsuit">One-Piece Swimsuit</option>
+              <option value="Puffer Jacket">Puffer Jacket</option>
+              <option value="Racerback Dress">Racerback Dress</option>
+              <option value="Sneakers">Sneakers</option>
+              <option value="Backpack">Backpack</option>
+              <option value="Travel Bag">Travel Bag</option>
+              <option value="Flip Flop">Flip Flop</option>
+              <option value="Cozy Slipper">Cozy Slipper</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="bks-cz-field">
+            <label class="bks-cz-label" for="bks-cz-size">Size</label>
+            <select id="bks-cz-size" class="bks-cz-select">
+              <option value="XS">XS</option>
+              <option value="S">S</option>
+              <option value="M" selected>M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+              <option value="XXL">XXL</option>
+              <option value="Custom">Custom</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="bks-cz-field" style="margin-top:24px;">
+          <label class="bks-cz-label">Customization type <span class="bks-cz-req">*</span></label>
+          <div class="bks-cz-type-grid">
+
+            <label class="bks-cz-type-card">
+              <input type="radio" name="bks-cz-type" value="palette" required>
+              <span class="bks-cz-type-icon">🎨</span>
+              <span class="bks-cz-type-name">Color palette</span>
+              <span class="bks-cz-type-desc">Tonal variation of the pattern</span>
+            </label>
+
+            <label class="bks-cz-type-card">
+              <input type="radio" name="bks-cz-type" value="text">
+              <span class="bks-cz-type-icon">✍</span>
+              <span class="bks-cz-type-name">Text / Monogram</span>
+              <span class="bks-cz-type-desc">Add initials or custom text</span>
+            </label>
+
+            <label class="bks-cz-type-card{%- if bks_tier_rank < 2 %} bks-cz-type-locked{%- endif -%}">
+              <input type="radio" name="bks-cz-type" value="placement"{% if bks_tier_rank < 2 %} disabled{% endif %}>
+              <span class="bks-cz-type-icon">◱</span>
+              <span class="bks-cz-type-name">Graphic placement</span>
+              <span class="bks-cz-type-desc">Drop+ · Reposition the pattern</span>
+            </label>
+
+            <label class="bks-cz-type-card{%- if bks_tier_rank < 2 %} bks-cz-type-locked{%- endif -%}">
+              <input type="radio" name="bks-cz-type" value="sizing"{% if bks_tier_rank < 2 %} disabled{% endif %}>
+              <span class="bks-cz-type-icon">📐</span>
+              <span class="bks-cz-type-name">Non-standard sizing</span>
+              <span class="bks-cz-type-desc">Drop+ · Custom measurements</span>
+            </label>
+
+            <label class="bks-cz-type-card{%- if bks_tier_rank < 3 %} bks-cz-type-locked{%- endif -%}">
+              <input type="radio" name="bks-cz-type" value="composition"{% if bks_tier_rank < 3 %} disabled{% endif %}>
+              <span class="bks-cz-type-icon">⧉</span>
+              <span class="bks-cz-type-name">Composition</span>
+              <span class="bks-cz-type-desc">Archive · Pattern on different garment</span>
+            </label>
+
+            <label class="bks-cz-type-card{%- if bks_tier_rank < 3 %} bks-cz-type-locked{%- endif -%}">
+              <input type="radio" name="bks-cz-type" value="full"{% if bks_tier_rank < 3 %} disabled{% endif %}>
+              <span class="bks-cz-type-icon">✦</span>
+              <span class="bks-cz-type-name">Full custom</span>
+              <span class="bks-cz-type-desc">Archive · Entirely new concept</span>
+            </label>
+
+          </div>
+        </div>
+
+        <div class="bks-cz-field" style="margin-top:24px;">
+          <label class="bks-cz-label" for="bks-cz-desc">Request description <span class="bks-cz-req">*</span></label>
+          <textarea id="bks-cz-desc" class="bks-cz-textarea" rows="4"
+                    placeholder="Describe the customization you'd like. The more detail you provide, the more accurate our response will be."
+                    required minlength="20"></textarea>
+          <span class="bks-cz-char-count"><span id="bks-cz-desc-count">0</span> / 500</span>
+        </div>
+
+        <div class="bks-cz-field" style="margin-top:16px;">
+          <label class="bks-cz-label" for="bks-cz-ref">Visual reference (URL, optional)</label>
+          <input type="url" id="bks-cz-ref" class="bks-cz-input" placeholder="https://...">
+        </div>
+
+        <div class="bks-cz-actions">
+          <button type="submit" class="bks-btn-gold" id="bks-cz-submit">Send request</button>
+          <p class="bks-cz-note">Reply within 2–3 business days to <strong>{{ customer.email }}</strong></p>
+        </div>
+
+      </form>
+
+      <div id="bks-cz-success" class="bks-cz-success" hidden>
+        <div class="bks-cz-success-icon">✓</div>
+        <h3>Request sent</h3>
+        <p>We'll get back to you within 2–3 business days at <strong>{{ customer.email }}</strong>.</p>
+        <button class="bks-btn-ghost" id="bks-cz-new">New request</button>
+      </div>
+    </div>
   </div>
 
   {%- comment -%} ══════════════════════════════════════════
