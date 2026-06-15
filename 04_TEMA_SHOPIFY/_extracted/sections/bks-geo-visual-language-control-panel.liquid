@@ -1,0 +1,520 @@
+{% comment %}
+  BakAbo / BKS-GEO Visual Language Control Panel
+  File: sections/bks-geo-visual-language-control-panel.liquid
+  Pannello di controllo BKS/GEO: meta bianco / meta nero, selettore Light code / Dark code, simboli PNG o glyph.
+{% endcomment %}
+
+<section id="BKS-GEO-Panel-{{ section.id }}" class="bks-geo-panel" data-bks-geo-panel>
+  <div class="bks-geo-panel__wrap{% unless section.settings.full_width %} page-width{% endunless %}">
+    <div class="bks-geo-panel__matrix">
+      <div class="bks-geo-panel__side bks-geo-panel__side--man">
+        <div class="bks-geo-panel__section-head">
+          <div class="bks-geo-panel__brand notranslate" translate="no">
+            <span>BAK</span><span>ABO</span>
+          </div>
+          <div>
+            {% if section.settings.kicker != blank %}<p>{{ section.settings.kicker }}</p>{% endif %}
+            {% if section.settings.heading != blank %}<h2>{{ section.settings.heading }}</h2>{% endif %}
+            {% if section.settings.subheading != blank %}<small>{{ section.settings.subheading }}</small>{% endif %}
+          </div>
+        </div>
+
+        <div class="bks-geo-panel__topbar">
+          <div>
+            <p>{{ section.settings.man_kicker }}</p>
+            <h3>{{ section.settings.man_title }}</h3>
+          </div>
+          <span>{{ section.settings.man_status }}</span>
+        </div>
+
+        <div class="bks-geo-panel__controls" style="--columns: {{ section.settings.columns_desktop }};">
+          {% for block in section.blocks %}
+            {% if block.type == 'man_code' %}
+              <a class="bks-geo-card" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+                <span class="bks-geo-card__index">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+                <span class="bks-geo-card__symbol">
+                  {% if block.settings.symbol_png != blank %}
+                    <img src="{{ block.settings.symbol_png | image_url: width: 260 }}" alt="{{ block.settings.title | escape }}" width="130" height="130" loading="lazy">
+                  {% else %}
+                    <b>{{ block.settings.glyph }}</b>
+                  {% endif %}
+                </span>
+                <strong>{{ block.settings.title }}</strong>
+                {% if block.settings.label != blank %}<small>{{ block.settings.label }}</small>{% endif %}
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="bks-geo-panel__side bks-geo-panel__side--woman">
+        <div class="bks-geo-panel__section-head">
+          <div class="bks-geo-panel__brand notranslate" translate="no">
+            <span>BAK</span><span>ABO</span>
+          </div>
+          <div>
+            {% if section.settings.woman_panel_kicker != blank %}<p>{{ section.settings.woman_panel_kicker }}</p>{% endif %}
+            {% if section.settings.woman_panel_heading != blank %}<h2>{{ section.settings.woman_panel_heading }}</h2>{% endif %}
+            {% if section.settings.woman_panel_subheading != blank %}<small>{{ section.settings.woman_panel_subheading }}</small>{% endif %}
+          </div>
+        </div>
+
+        <div class="bks-geo-panel__topbar">
+          <div>
+            <p>{{ section.settings.woman_kicker }}</p>
+            <h3>{{ section.settings.woman_title }}</h3>
+          </div>
+          <span>{{ section.settings.woman_status }}</span>
+        </div>
+
+        <div class="bks-geo-panel__controls" style="--columns: {{ section.settings.columns_desktop }};">
+          {% for block in section.blocks %}
+            {% if block.type == 'woman_code' %}
+              <a class="bks-geo-card" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+                <span class="bks-geo-card__index">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+                <span class="bks-geo-card__symbol">
+                  {% if block.settings.symbol_png != blank %}
+                    <img src="{{ block.settings.symbol_png | image_url: width: 260 }}" alt="{{ block.settings.title | escape }}" width="130" height="130" loading="lazy">
+                  {% else %}
+                    <b>{{ block.settings.glyph }}</b>
+                  {% endif %}
+                </span>
+                <strong>{{ block.settings.title }}</strong>
+                {% if block.settings.label != blank %}<small>{{ block.settings.label }}</small>{% endif %}
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #BKS-GEO-Panel-{{ section.id }} {
+    --bks-white: {{ section.settings.meta_white }};
+    --bks-black: {{ section.settings.meta_black }};
+    --bks-line: {{ section.settings.line_color }};
+    --bks-glow: {{ section.settings.glow_color }};
+    --bks-radius: {{ section.settings.radius }}px;
+    --bks-gap: {{ section.settings.gap }}px;
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background: linear-gradient(90deg, {{ section.settings.man_panel_background }} 0 50%, {{ section.settings.woman_panel_background }} 50% 100%);
+    overflow: hidden;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__wrap {
+    width: 100%;
+    max-width: {% if section.settings.full_width %}none{% else %}var(--page-width, 1200px){% endif %};
+    margin-inline: auto;
+    padding-inline: {% if section.settings.full_width %}{{ section.settings.full_width_padding }}px{% else %}var(--page-width-margin, 1.5rem){% endif %};
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__section-head {
+    display: grid;
+    grid-template-columns: minmax(160px, 280px) 1fr;
+    align-items: end;
+    gap: clamp(18px, 3vw, 42px);
+    margin-bottom: clamp(28px, 4vw, 58px);
+    padding-bottom: clamp(18px, 2.4vw, 28px);
+    border-bottom: 1px solid currentColor;
+    color: inherit;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__brand {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: min(100%, {{ section.settings.brand_width }}px);
+    height: {{ section.settings.brand_height }}px;
+    font-family: "Berlin Sans FB Demi Bold", "Berlin Sans FB", "Arial Black", Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: -.08em;
+    font-size: clamp(30px, 4vw, 64px);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__brand span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__brand span:first-child { background: var(--bks-white); color: var(--bks-black); }
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__brand span:last-child { background: var(--bks-black); color: var(--bks-white); }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__section-head p,
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__topbar p {
+    margin: 0 0 10px;
+    font-size: 11px;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    opacity: .62;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__section-head h2 {
+    margin: 0;
+    font-size: clamp(28px, 3.8vw, 64px);
+    line-height: .88;
+    letter-spacing: -.07em;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__section-head small {
+    display: block;
+    max-width: 520px;
+    margin-top: 16px;
+    font-size: clamp(13px, 1.1vw, 16px);
+    line-height: 1.55;
+    color: {{ section.settings.header_muted_color }};
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__side--woman .bks-geo-panel__section-head p,
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__side--woman .bks-geo-panel__section-head h2,
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__side--woman .bks-geo-panel__section-head small {
+    color: {{ section.settings.woman_panel_header_text_color }};
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__side--woman .bks-geo-panel__section-head small {
+    opacity: .72;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__matrix {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 0;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__side--man {
+    border-right: 0;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__side--woman {
+    border-left: 1px solid {{ section.settings.center_divider_color }};
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__side {
+    position: relative;
+    min-height: {{ section.settings.panel_min_height }}px;
+    padding: clamp(24px, 4vw, 56px);
+    border: 1px solid currentColor;
+    border-radius: 0;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__side::before {
+    content: '';
+    position: absolute;
+    inset: -30%;
+    z-index: -2;
+    background:
+      radial-gradient(circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--bks-glow), transparent 38%), transparent 30rem),
+      linear-gradient(90deg, currentColor 1px, transparent 1px),
+      linear-gradient(0deg, currentColor 1px, transparent 1px);
+    background-size: auto, {{ section.settings.grid_size }}px {{ section.settings.grid_size }}px, {{ section.settings.grid_size }}px {{ section.settings.grid_size }}px;
+    opacity: {{ section.settings.grid_opacity | divided_by: 100.0 }};
+    transform: translate3d(calc(var(--px, 0) * -14px), calc(var(--py, 0) * -14px), 0);
+    transition: transform .22s ease-out;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__side::after {
+    content: 'BKS/GEO';
+    position: absolute;
+    right: clamp(16px, 3vw, 42px);
+    bottom: clamp(16px, 3vw, 42px);
+    z-index: -1;
+    font-size: clamp(42px, 7vw, 112px);
+    line-height: .82;
+    letter-spacing: -.08em;
+    font-weight: 600;
+    opacity: {{ section.settings.watermark_opacity | divided_by: 100.0 }};
+    pointer-events: none;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__side--man {
+    background: {{ section.settings.man_panel_background }};
+    color: {{ section.settings.man_text_color }};
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__side--woman {
+    background: {{ section.settings.woman_panel_background }};
+    color: {{ section.settings.woman_text_color }};
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__topbar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: clamp(20px, 3vw, 38px);
+    padding-bottom: 18px;
+    border-bottom: 1px solid currentColor;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__topbar h3 {
+    margin: 0;
+    font-size: clamp(28px, 4.4vw, 72px);
+    line-height: .86;
+    letter-spacing: -.065em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__topbar > span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0 10px;
+    border: 1px solid currentColor;
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: .82;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__controls {
+    display: grid;
+    grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+    gap: clamp(8px, 1vw, 14px);
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-card {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    display: grid;
+    grid-template-rows: auto 1fr auto auto;
+    gap: 10px;
+    padding: clamp(12px, 1.35vw, 18px);
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid currentColor;
+    border-radius: calc(var(--bks-radius) * .6);
+    overflow: hidden;
+    transition: transform .28s ease, background .28s ease, box-shadow .28s ease;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__side--man .bks-geo-card {
+    background: {{ section.settings.man_card_background }};
+    color: {{ section.settings.man_card_text_color }};
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__side--woman .bks-geo-card {
+    background: {{ section.settings.woman_card_background }};
+    color: {{ section.settings.woman_card_text_color }};
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,.22), transparent 45%);
+    opacity: 0;
+    transition: opacity .28s ease;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-card__index,
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-card__symbol,
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-card strong,
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-card small {
+    position: relative;
+    z-index: 1;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-card__index {
+    justify-self: end;
+    font-size: 10px;
+    letter-spacing: .16em;
+    opacity: .52;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-card__symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(42px, 4.5vw, {{ section.settings.symbol_size }}px);
+    height: clamp(42px, 4.5vw, {{ section.settings.symbol_size }}px);
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-card__symbol img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: {{ section.settings.symbol_filter }};
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-card__symbol b {
+    font-size: clamp(30px, 4vw, {{ section.settings.glyph_size }}px);
+    line-height: 1;
+    font-weight: 500;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-card strong {
+    display: block;
+    font-size: clamp(12px, 1.15vw, 16px);
+    line-height: 1.06;
+    text-transform: uppercase;
+    letter-spacing: -.025em;
+    font-weight: 500;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-card small {
+    display: block;
+    font-size: 10px;
+    line-height: 1.25;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .62;
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,.14);
+  }
+
+  #BKS-GEO-Panel-{{ section.id }} .bks-geo-card:hover::before { opacity: .9; }
+
+  @media screen and (max-width: 989px) {
+    #BKS-GEO-Panel-{{ section.id }} { background: var(--bks-white); }
+    #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__matrix { grid-template-columns: 1fr; }
+    #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__section-head { grid-template-columns: 1fr; }
+  }
+
+  @media screen and (max-width: 749px) {
+    #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__wrap { padding-inline: {{ section.settings.mobile_padding }}px; }
+    #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__controls { grid-template-columns: repeat({{ section.settings.columns_mobile }}, minmax(0, 1fr)); }
+    #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__topbar { display: block; }
+    #BKS-GEO-Panel-{{ section.id }} .bks-geo-panel__topbar > span { margin-top: 16px; }
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.querySelector('#BKS-GEO-Panel-{{ section.id }}[data-bks-geo-panel]');
+    if (!root || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    root.querySelectorAll('.bks-geo-panel__side, .bks-geo-card').forEach((item) => {
+      item.addEventListener('pointermove', (event) => {
+        const rect = item.getBoundingClientRect();
+        const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+        const y = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+        item.style.setProperty('--mx', `${x * 100}%`);
+        item.style.setProperty('--my', `${y * 100}%`);
+        item.style.setProperty('--px', (x - 0.5).toFixed(3));
+        item.style.setProperty('--py', (y - 0.5).toFixed(3));
+      }, { passive: true });
+
+      item.addEventListener('pointerleave', () => {
+        item.style.setProperty('--mx', '50%');
+        item.style.setProperty('--my', '50%');
+        item.style.setProperty('--px', '0');
+        item.style.setProperty('--py', '0');
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "BKS GEO Control Panel",
+  "tag": "section",
+  "class": "section-bks-geo-control-panel",
+  "settings": [
+    { "type": "checkbox", "id": "full_width", "label": "Larghezza piena pagina", "default": true },
+    { "type": "range", "id": "full_width_padding", "label": "Padding laterale desktop", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "mobile_padding", "label": "Padding laterale mobile", "min": 0, "max": 36, "step": 2, "unit": "px", "default": 14 },
+    { "type": "color", "id": "meta_white", "label": "Meta bianco", "default": "#f4f1eb" },
+    { "type": "color", "id": "meta_black", "label": "Meta nero", "default": "#050505" },
+    { "type": "color", "id": "line_color", "label": "Linee tecniche", "default": "#c7c7c7" },
+    { "type": "color", "id": "center_divider_color", "label": "Linea centrale Light/Dark code", "default": "#2a2a2a" },
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "BAK|ABO VISUAL LANGUAGE SYSTEM" },
+    { "type": "text", "id": "heading", "label": "Titolo pannello Light code", "default": "BKS/GEO LIGHT" },
+    { "type": "textarea", "id": "subheading", "label": "Sottotitolo Light code", "default": "Technical visual dashboard for light code symbols and BKS product families." },
+    { "type": "text", "id": "woman_panel_kicker", "label": "Kicker pannello Dark code", "default": "BAK|ABO VISUAL LANGUAGE SYSTEM" },
+    { "type": "text", "id": "woman_panel_heading", "label": "Titolo pannello Dark code", "default": "BKS/GEO DARK" },
+    { "type": "textarea", "id": "woman_panel_subheading", "label": "Sottotitolo Dark code", "default": "Technical visual dashboard for dark code symbols and BKS product families." },
+    { "type": "color", "id": "header_text_color", "label": "Colore titolo header", "default": "#050505" },
+    { "type": "color", "id": "header_muted_color", "label": "Colore testo secondario header", "default": "#5f5a52" },
+    { "type": "range", "id": "padding_top", "label": "Padding superiore", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding inferiore", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 64 },
+    { "type": "range", "id": "gap", "label": "Spazio tra pannelli", "min": 8, "max": 64, "step": 2, "unit": "px", "default": 18 },
+    { "type": "range", "id": "radius", "label": "Raggio bordi", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 0 },
+    { "type": "range", "id": "panel_min_height", "label": "Altezza minima pannelli", "min": 420, "max": 900, "step": 20, "unit": "px", "default": 620 },
+    { "type": "range", "id": "columns_desktop", "label": "Colonne desktop", "min": 2, "max": 6, "step": 1, "default": 4 },
+    { "type": "range", "id": "columns_mobile", "label": "Colonne mobile", "min": 1, "max": 3, "step": 1, "default": 2 },
+    { "type": "range", "id": "brand_width", "label": "Larghezza logo testuale", "min": 180, "max": 520, "step": 10, "unit": "px", "default": 320 },
+    { "type": "range", "id": "brand_height", "label": "Altezza logo testuale", "min": 50, "max": 140, "step": 10, "unit": "px", "default": 80 },
+
+    { "type": "header", "content": "Pannello Light code" },
+    { "type": "color", "id": "man_panel_background", "label": "Sfondo metà Light code", "default": "#f4f1eb" },
+    { "type": "text", "id": "man_kicker", "label": "Kicker Light code", "default": "WHITE GRID / LIGHT SELECTOR" },
+    { "type": "text", "id": "man_title", "label": "Titolo Light code", "default": "LIGHT" },
+    { "type": "text", "id": "man_status", "label": "Status Light code", "default": "ACTIVE" },
+    { "type": "color", "id": "man_text_color", "label": "Colore testo Light code", "default": "#050505" },
+    { "type": "color", "id": "man_card_background", "label": "Sfondo card Light code", "default": "#ffffff" },
+    { "type": "color", "id": "man_card_text_color", "label": "Testo card Light code", "default": "#050505" },
+
+    { "type": "header", "content": "Pannello Dark code" },
+    { "type": "color", "id": "woman_panel_background", "label": "Sfondo metà Dark code", "default": "#050505" },
+    { "type": "text", "id": "woman_kicker", "label": "Kicker Dark code", "default": "BLACK GRID / DARK SELECTOR" },
+    { "type": "text", "id": "woman_title", "label": "Titolo Dark code", "default": "DARK" },
+    { "type": "text", "id": "woman_status", "label": "Status Dark code", "default": "ACTIVE" },
+    { "type": "color", "id": "woman_text_color", "label": "Colore testo Dark code", "default": "#ffffff" },
+    { "type": "color", "id": "woman_panel_header_text_color", "label": "Colore testi header Dark code", "default": "#ffffff" },
+    { "type": "color", "id": "woman_card_background", "label": "Sfondo card Dark code", "default": "#111111" },
+    { "type": "color", "id": "woman_card_text_color", "label": "Testo card Dark code", "default": "#ffffff" },
+
+    { "type": "header", "content": "Simboli ed effetti" },
+    { "type": "range", "id": "symbol_size", "label": "Dimensione simboli PNG", "min": 48, "max": 160, "step": 4, "unit": "px", "default": 92 },
+    { "type": "range", "id": "glyph_size", "label": "Dimensione glyph", "min": 48, "max": 160, "step": 4, "unit": "px", "default": 88 },
+    { "type": "text", "id": "symbol_filter", "label": "Filtro CSS simboli", "default": "none" },
+    { "type": "color", "id": "glow_color", "label": "Colore glow mouse", "default": "#b58cff" },
+    { "type": "range", "id": "grid_size", "label": "Dimensione griglia", "min": 8, "max": 40, "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "grid_opacity", "label": "Opacità griglia", "min": 0, "max": 20, "step": 1, "unit": "%", "default": 7 },
+    { "type": "range", "id": "watermark_opacity", "label": "Opacità watermark", "min": 0, "max": 20, "step": 1, "unit": "%", "default": 4 }
+  ],
+  "blocks": [
+    {
+      "type": "man_code",
+      "name": "Codice Light",
+      "settings": [
+        { "type": "image_picker", "id": "symbol_png", "label": "Simbolo PNG BKS" },
+        { "type": "text", "id": "glyph", "label": "Glyph fallback", "default": "▣" },
+        { "type": "text", "id": "title", "label": "Titolo", "default": "Puffer" },
+        { "type": "text", "id": "label", "label": "Etichetta", "default": "Outerwear" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    },
+    {
+      "type": "woman_code",
+      "name": "Codice Dark",
+      "settings": [
+        { "type": "image_picker", "id": "symbol_png", "label": "Simbolo PNG BKS" },
+        { "type": "text", "id": "glyph", "label": "Glyph fallback", "default": "∞" },
+        { "type": "text", "id": "title", "label": "Titolo", "default": "Pajama" },
+        { "type": "text", "id": "label", "label": "Etichetta", "default": "Lounge" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BKS GEO Control Panel",
+      "category": "BakAbo",
+      "blocks": [
+        { "type": "man_code", "settings": { "glyph": "▣", "title": "Puffer", "label": "Outerwear" } },
+        { "type": "man_code", "settings": { "glyph": "◧", "title": "Windbreaker", "label": "Technical" } },
+        { "type": "man_code", "settings": { "glyph": "△", "title": "Swim Trunks", "label": "Resort" } },
+        { "type": "man_code", "settings": { "glyph": "◇", "title": "Hawaiian", "label": "Shirts" } },
+        { "type": "woman_code", "settings": { "glyph": "∞", "title": "Pajama Pants", "label": "Lounge" } },
+        { "type": "woman_code", "settings": { "glyph": "✦", "title": "Cut Dress", "label": "Dress" } },
+        { "type": "woman_code", "settings": { "glyph": "◐", "title": "Swimsuit", "label": "Resort" } },
+        { "type": "woman_code", "settings": { "glyph": "⬚", "title": "Hoodie", "label": "Streetwear" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

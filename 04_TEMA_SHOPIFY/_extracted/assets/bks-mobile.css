@@ -1,0 +1,400 @@
+/* ============================================================
+   BKS MOBILE OPTIMIZATIONS — bakabo.club
+   Mobile-first: touch targets, grid, typography, sticky cart
+   ============================================================ */
+
+/* ── TOUCH TARGETS: min 44×44px everywhere ── */
+.btn,
+.button,
+.quantity__button,
+.product-form__submit,
+.header__icon,
+.header__icon--cart,
+.slider-button,
+.facets__checkbox,
+.swatch-input,
+.link,
+[type="checkbox"],
+[type="radio"] {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.facets__checkbox,
+[type="checkbox"],
+[type="radio"] {
+  width: 22px !important;
+  height: 22px !important;
+  cursor: pointer;
+}
+
+/* ── PRODUCT GRID: 2-col on mobile ── */
+@media screen and (max-width: 749px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.2rem 0.8rem !important;
+  }
+  .product-grid .grid__item {
+    padding: 0 !important;
+  }
+  .card__inner,
+  .card--standard .card__inner {
+    border-radius: 0 !important;
+  }
+  /* Product images: full-width, preserve ratio */
+  .card__media,
+  .card-wrapper .media {
+    aspect-ratio: 3/4;
+    overflow: hidden;
+  }
+  .card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+/* ── TYPOGRAPHY: ≥16px body, readable headings ── */
+@media screen and (max-width: 749px) {
+  body,
+  .rte,
+  p,
+  li,
+  .product__description {
+    font-size: max(16px, 1rem) !important;
+    line-height: 1.6 !important;
+  }
+  h1, .h1 { font-size: clamp(28px, 8vw, 48px) !important; }
+  h2, .h2 { font-size: clamp(22px, 6vw, 36px) !important; }
+  h3, .h3 { font-size: clamp(18px, 5vw, 28px) !important; }
+
+  /* Price */
+  .price__regular,
+  .price-item,
+  .price-item--regular { font-size: 1.6rem !important; }
+}
+
+/* ── STICKY ADD-TO-CART BAR (mobile) ── */
+@media screen and (max-width: 749px) {
+  .bks-sticky-cart {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 8000;
+    background: #080808;
+    border-top: 1px solid rgba(196,150,74,0.3);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transform: translateY(100%);
+    transition: transform 0.28s ease;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+  }
+  .bks-sticky-cart.is-visible {
+    transform: translateY(0);
+  }
+  .bks-sticky-cart__title {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 500;
+    color: #f2ede6;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: 0.04em;
+  }
+  .bks-sticky-cart__price {
+    font-size: 14px;
+    font-weight: 600;
+    color: #c4964a;
+    flex-shrink: 0;
+  }
+  .bks-sticky-cart__btn {
+    background: #c4964a;
+    color: #080808;
+    border: none;
+    padding: 11px 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    flex-shrink: 0;
+    min-height: 44px;
+    font-family: var(--font-body-family);
+    transition: background 0.15s;
+  }
+  .bks-sticky-cart__btn:active { background: #d4aa5e; }
+
+  /* Push page up so sticky cart doesn't cover content */
+  .product__info-wrapper,
+  .product-form {
+    padding-bottom: 72px;
+  }
+}
+
+/* ── COLLECTION PAGE: filter bar mobile ── */
+@media screen and (max-width: 749px) {
+  .facets-mobile-open {
+    width: 100% !important;
+    min-height: 48px;
+    padding: 12px 20px !important;
+    font-size: 14px !important;
+  }
+  .facets__header {
+    padding: 14px 16px !important;
+  }
+  .facets__label {
+    font-size: 14px !important;
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+}
+
+/* ── IMAGE GALLERY: swipe-friendly ── */
+@media screen and (max-width: 749px) {
+  .product__media-list {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 0;
+    scrollbar-width: none;
+  }
+  .product__media-list::-webkit-scrollbar { display: none; }
+  .product__media-item {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+  }
+  .product__media-list img,
+  .product__media-list video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  /* Dots indicator */
+  .bks-media-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .bks-media-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(196,150,74,0.3);
+    transition: background 0.2s;
+  }
+  .bks-media-dot.active { background: #c4964a; }
+}
+
+/* ── HEADER: mobile adjustments ── */
+@media screen and (max-width: 749px) {
+  /* Ensure language selector doesn't overlap nav buttons */
+  .header__icons.header__icons--localization {
+    gap: 0.4rem !important;
+  }
+  .header__icon {
+    padding: 0 6px !important;
+  }
+  /* Cart bubble position */
+  .cart-count-bubble {
+    top: -4px !important;
+    right: -4px !important;
+  }
+}
+
+/* ── SIZE GUIDE / CARE BUTTONS: mobile full-width ── */
+@media screen and (max-width: 749px) {
+  .bks-sg__trigger,
+  .bks-hsg__trigger,
+  .bks-care__trigger {
+    width: 100% !important;
+    justify-content: center !important;
+    min-height: 48px !important;
+    font-size: 12px !important;
+  }
+  /* Modals: full screen on small phones */
+  .bks-sg-modal__box,
+  .bks-hsg-modal__box,
+  .bks-care-modal__box {
+    max-width: 100% !important;
+    max-height: 95vh !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    padding: 20px 14px 16px !important;
+  }
+  /* Finder inputs: stack on mobile */
+  .bks-sg__finder-inputs,
+  .bks-hsg__finder-inputs {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+}
+
+/* ── COLLAPSIBLE CONTENT: bigger tap areas ── */
+@media screen and (max-width: 749px) {
+  .collapsible-trigger {
+    min-height: 52px !important;
+    padding: 14px 16px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* ── VARIANT PICKER: bigger swatches/buttons ── */
+@media screen and (max-width: 749px) {
+  .product-form__input .swatch-input__input + .swatch__button,
+  .product-form__input .product-form__radio + label {
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+}
+
+/* ── CART DRAWER: mobile padding ── */
+@media screen and (max-width: 749px) {
+  .cart-drawer__inner {
+    padding: 16px 14px !important;
+  }
+}
+
+/* ── ANNOUNCEMENT BAR: readable on mobile ── */
+@media screen and (max-width: 749px) {
+  .announcement-bar__message {
+    font-size: 12px !important;
+    padding: 8px 16px !important;
+  }
+}
+
+/* ── REDUCE ANIMATION ON SLOW DEVICES ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── CART DRAWER: hide sticky cart when drawer is open ── */
+@media screen and (max-width: 749px) {
+  cart-drawer[open] ~ * .bks-sticky-cart,
+  .js-drawer-open .bks-sticky-cart {
+    transform: translateY(100%) !important;
+    pointer-events: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   BKS LUXURY MOBILE POLISH — Pre-launch visual upgrades
+   ══════════════════════════════════════════════════════ */
+@media screen and (max-width: 749px) {
+  /* A. Product card — subtle luxury elevation */
+  .card-wrapper {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transition: box-shadow 0.25s ease;
+  }
+  .card-wrapper:active {
+    box-shadow: 0 4px 22px rgba(0,0,0,0.12);
+  }
+
+  /* B. Sale price — BKS gold */
+  .price__sale .price-item--sale {
+    color: #c4964a;
+    font-weight: 600;
+  }
+
+  /* C. CTA buttons — luxury letter spacing */
+  .button:not(.slider-button):not(.quantity__button),
+  .product-form__submit {
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* D. Form inputs — unified BKS style, CRITICAL: 16px prevents iOS zoom */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"],
+  input[type="search"],
+  select,
+  textarea {
+    border-radius: 0 !important;
+    font-size: 16px !important;
+    border-color: #e0d9ce !important;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: #c4964a !important;
+    outline: none !important;
+    box-shadow: 0 0 0 1px #c4964a !important;
+  }
+
+  /* E. Product grid — editorial zero-gap */
+  .product-grid {
+    gap: 1px !important;
+    background: #e0d9ce !important;
+  }
+  .product-grid .grid__item {
+    background: #ffffff;
+    padding: 0 !important;
+  }
+
+  /* F. Add to cart — BKS gold on mobile */
+  .product-form__submit:not([disabled]) {
+    background: #c4964a !important;
+    color: #080808 !important;
+    border-color: #c4964a !important;
+  }
+  .product-form__submit:not([disabled]):active {
+    background: #d4aa5e !important;
+  }
+
+  /* G. Announcement bar — refined */
+  .announcement-bar {
+    letter-spacing: 0.18em;
+  }
+  .announcement-bar__message {
+    font-size: 11px !important;
+  }
+
+  /* H. Font smoothing */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* I. Breadcrumbs — readable */
+  .breadcrumb,
+  nav[aria-label="breadcrumb"] {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: rgba(0,0,0,0.45);
+    padding: 10px 16px;
+  }
+
+  /* J. Pagination — bigger tap targets */
+  .pagination__item a,
+  .pagination__item button {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+}
+
+/* K. Sticky cart — gold separator */
+@media screen and (max-width: 749px) {
+  .bks-sticky-cart {
+    border-top: 1px solid #c4964a !important;
+  }
+  .bks-sticky-cart__btn {
+    letter-spacing: 0.16em !important;
+    font-size: 10px !important;
+  }
+}

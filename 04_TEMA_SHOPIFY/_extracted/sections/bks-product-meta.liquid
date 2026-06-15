@@ -1,0 +1,146 @@
+{{ 'bks-future.css' | asset_url | stylesheet_tag }}
+
+<style>
+  /* ── BKS PRODUCT META — self-contained ─────────────────── */
+  #shopify-section-{{ section.id }} .bks-product-meta {
+    background: #EFEAE0;
+    color: #0A0A0A;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-meta__inner {
+    width: min(1440px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: clamp(40px,6vw,80px) 0;
+  }
+
+  #shopify-section-{{ section.id }} .bks-section-head {
+    display: grid;
+    grid-template-columns: minmax(0,0.78fr) minmax(220px,0.42fr);
+    gap: 24px;
+    align-items: end;
+    margin-bottom: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-kicker {
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #5F5A52;
+    margin-bottom: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-section-head h2 {
+    margin: 0;
+    font-family: var(--bks-font-display,'Bebas Neue',sans-serif);
+    font-size: clamp(2.4rem,5vw,5rem);
+    line-height: 0.9;
+    text-transform: uppercase;
+    color: #0A0A0A;
+  }
+
+  #shopify-section-{{ section.id }} .bks-section-head p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #3D3D3D;
+  }
+
+  /* Data grid */
+  #shopify-section-{{ section.id }} .bks-product-meta__grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0,1fr));
+    gap: 1px;
+    background: rgba(10,10,10,0.15);
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-meta__cell {
+    padding: 16px 18px;
+    background: #EFEAE0;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-meta__cell span {
+    display: block;
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #5F5A52;
+    margin-bottom: 6px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-product-meta__cell strong {
+    display: block;
+    font-family: var(--bks-font-body,'DM Sans',sans-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    color: #0A0A0A;
+    line-height: 1.3;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .bks-product-meta__grid {
+      grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+    #shopify-section-{{ section.id }} .bks-section-head {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% liquid
+  assign bks_collection = product.metafields.bks.collection.value
+  assign bks_design     = product.metafields.bks.design.value
+  assign bks_drop       = product.metafields.bks.drop.value
+%}
+
+{% if bks_collection != blank or bks_design != blank %}
+  <section class="bks-product-meta" id="bks-meta-{{ section.id }}">
+    <div class="bks-product-meta__inner">
+      <div class="bks-section-head">
+        <div>
+          <div class="bks-kicker">BKS Studio · AI-Art Atelier</div>
+          <h2>About this piece</h2>
+        </div>
+        <p>Every BKS piece is designed by the studio, printed on demand after purchase, and carried inside the BakAbo storefront container.</p>
+      </div>
+
+      <div class="bks-product-meta__grid">
+        <div class="bks-product-meta__cell">
+          <span>Container</span>
+          <strong>BAK|ABO</strong>
+        </div>
+        <div class="bks-product-meta__cell">
+          <span>Creator</span>
+          <strong>BKS Studio</strong>
+        </div>
+        <div class="bks-product-meta__cell">
+          <span>Collection</span>
+          <strong>{{ bks_collection | default: 'BKS' }}</strong>
+        </div>
+        <div class="bks-product-meta__cell">
+          <span>Design</span>
+          <strong>{{ bks_design | default: product.title }}</strong>
+        </div>
+        {%- comment -%} Series metadata is internal and never customer-facing. {%- endcomment -%}
+        <div class="bks-product-meta__cell">
+          <span>Release</span>
+          <strong>{{ bks_drop | default: '2026' }}</strong>
+        </div>
+        <div class="bks-product-meta__cell">
+          <span>Production</span>
+          <strong>Printed on demand</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "BKS product meta",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [],
+  "presets": [{ "name": "BKS product meta" }]
+}
+{% endschema %}

@@ -1,0 +1,86 @@
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "17792132921f05e55e": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "1779213378afac0d7c": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_featured_carousel_bBjjPg": {
+          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "maxwidth": 1080
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_featured_carousel_bBjjPg"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "brand_information_jwCqE8": {
+          "type": "brand_information",
+          "settings": {
+            "show_social": true
+          }
+        },
+        "image_WCDfxz": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/sdfg_5fc5a842-e381-4cfd-8340-dedaab4698fc.png",
+            "image_width": 550,
+            "alignment": "right"
+          }
+        },
+        "link_list_qnWVPM": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Support",
+            "menu": "support"
+          }
+        }
+      },
+      "block_order": [
+        "brand_information_jwCqE8",
+        "image_WCDfxz",
+        "link_list_qnWVPM"
+      ],
+      "settings": {
+        "color_scheme": "background-2",
+        "newsletter_enable": true,
+        "newsletter_heading": "<strong>Stay in the loop.</strong> New drops, editorial releases, studio notes.",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "1779213307522fa131": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "17792132921f05e55e",
+    "1779213378afac0d7c",
+    "footer",
+    "1779213307522fa131"
+  ]
+}

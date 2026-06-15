@@ -1,0 +1,11 @@
+BKS TM03 — correzioni applicate
+
+1. Header group pulito: rimosso blocco app Google/YouTube automated discounts price dall’header.
+2. Announcement bar riscritta in tono BKS: niente emoji, niente messaggi generici, warranty formattata.
+3. Disattivati social/country/language nella announcement bar per ridurre rumore visivo.
+4. Header custom BakAbo: etichette aria in inglese, account icon aggiunta, drawer mobile più largo e stabile.
+5. Header non si nasconde su mobile o mentre il drawer è aperto.
+6. Dropdown desktop con z-index dedicato.
+7. Correzione typo Pollover → Pullover dove presente.
+
+Verifica consigliata dopo upload su Shopify: anteprima mobile, apertura hamburger, controllo dropdown desktop, controllo announcement bar.

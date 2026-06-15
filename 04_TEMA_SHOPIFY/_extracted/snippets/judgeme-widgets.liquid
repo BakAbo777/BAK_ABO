@@ -1,0 +1,56 @@
+{% comment %}
+  Judge.me Reviews Integration for bakabo.club
+  Reads from shop.metafields.judgeme.* (populated by Judge.me app)
+  
+  Usage:
+    {% render 'judgeme-widgets', widget_type: 'product_widget', product: product %}
+    {% render 'judgeme-widgets', widget_type: 'all_reviews' %}
+    {% render 'judgeme-widgets', widget_type: 'preview_badge', product: product %}
+    {% render 'judgeme-widgets', widget_type: 'featured_carousel' %}
+{% endcomment %}
+
+{%- liquid
+  assign jdgm_settings = shop.metafields.judgeme.settings | default: nil
+-%}
+
+{%- if jdgm_settings != nil -%}
+
+  {%- comment -%} Load Judge.me JS once via layout (injected via shop metafield) {%- endcomment -%}
+  {%- if widget_type == 'init' -%}
+    {{ shop.metafields.judgeme.settings }}
+
+  {%- elsif widget_type == 'preview_badge' and product != blank -%}
+    {%- comment -%} Star badge shown next to product title / in collection cards {%- endcomment -%}
+    <div
+      class="jdgm-widget jdgm-preview-badge"
+      data-id="{{ product.id }}"
+      data-auto-install="true">
+      {{ product.metafields.judgeme.badge }}
+    </div>
+
+  {%- elsif widget_type == 'product_widget' and product != blank -%}
+    {%- comment -%} Full reviews widget on product page {%- endcomment -%}
+    <div
+      id="judgeme_product_reviews"
+      class="jdgm-widget jdgm-review-widget"
+      data-id="{{ product.id }}">
+      {{ product.metafields.judgeme.all_reviews_html }}
+    </div>
+
+  {%- elsif widget_type == 'all_reviews' -%}
+    {%- comment -%} All-reviews page widget {%- endcomment -%}
+    <div class="jdgm-widget jdgm-all-reviews-widget">
+      {{ shop.metafields.judgeme.all_reviews_header }}
+    </div>
+
+  {%- elsif widget_type == 'popup_widget' -%}
+    {%- comment -%} Floating reviews popup / badge {%- endcomment -%}
+    {{ shop.metafields.judgeme.popup_widget }}
+
+  {%- elsif widget_type == 'featured_carousel' -%}
+    {%- comment -%} Homepage / landing page review carousel {%- endcomment -%}
+    {{ shop.metafields.judgeme.featured_carousel }}
+
+  {%- endif -%}
+
+{%- endif -%}

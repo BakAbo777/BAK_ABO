@@ -4,6 +4,7 @@ import argparse
 import csv
 import json
 import re
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
@@ -17,7 +18,11 @@ except Exception:  # pragma: no cover - optional preview dependency
 
 
 BASE_DIR = Path(__file__).resolve().parents[1]
-DEFAULT_CSV = BASE_DIR / "BKS_COLLEZIONE_26_v6.csv"
+sys.path.insert(0, str(BASE_DIR))
+
+from bks_assets import active_catalog_csv  # noqa: E402
+
+DEFAULT_CSV = active_catalog_csv() or BASE_DIR / "collezioni_csv" / "collezione_12_06_2026_VERIFIED.csv"
 DEFAULT_IMAGE_DIR = BASE_DIR / "output" / "images"
 DEFAULT_MODEL_DIR = BASE_DIR / "input" / "models"
 DEFAULT_OUT_DIR = BASE_DIR / "output" / "collection_image_program"

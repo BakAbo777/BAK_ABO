@@ -758,9 +758,9 @@ def render_asset_selectors() -> None:
     current_theme = active_theme_zip()
     current_catalog = active_catalog_csv()
 
-    if current_theme.exists() and all(path.resolve() != current_theme.resolve() for path in theme_options):
+    if current_theme and current_theme.exists() and all(path.resolve() != current_theme.resolve() for path in theme_options):
         theme_options.insert(0, current_theme)
-    if current_catalog.exists() and all(path.resolve() != current_catalog.resolve() for path in catalog_options):
+    if current_catalog and current_catalog.exists() and all(path.resolve() != current_catalog.resolve() for path in catalog_options):
         catalog_options.insert(0, current_catalog)
 
     col_theme, col_catalog = st.columns(2)

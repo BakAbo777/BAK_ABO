@@ -1,0 +1,928 @@
+{% comment %}
+  BKS Studio — BKS Meta Split Header
+  File: sections/Bks-meta-split-header.liquid
+  Split header: white left / black right. BAK|ABO typographic logo.
+  Cart, search, account, drawer, sticky — all visible on mobile.
+{% endcomment %}
+
+<link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-cart-notification.css' | asset_url }}" media="print" onload="this.media='all'">
+
+{%- if settings.predictive_search_enabled -%}
+  <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endif -%}
+
+{%- if section.settings.menu_type_desktop == 'mega' -%}
+  <link rel="stylesheet" href="{{ 'component-mega-menu.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endif -%}
+
+{%- if section.settings.enable_berlin_font_asset -%}
+  <style>
+    @font-face {
+      font-family: 'BKS Berlin Sans FB Demi';
+      src: url({{ section.settings.berlin_font_asset | asset_url }}) format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+{%- endif -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --bks-header-white: {{ section.settings.left_background }};
+    --bks-header-black: {{ section.settings.right_background }};
+    --bks-header-left-text: {{ section.settings.left_text_color }};
+    --bks-header-right-text: {{ section.settings.right_text_color }};
+    --bks-header-border: {{ section.settings.border_color }};
+    --bks-header-height-min: {{ section.settings.header_min_height }}px;
+    --bks-logo-max-width: {{ section.settings.logo_max_width }}px;
+    --bks-logo-max-height: {{ section.settings.logo_max_height }}px;
+    --bks-logo-scale: {{ section.settings.logo_scale | divided_by: 100.0 }};
+  }
+
+  #shopify-section-{{ section.id }} .header-wrapper {
+    position: relative;
+    background: linear-gradient(90deg, var(--bks-header-white) 0 50%, var(--bks-header-black) 50% 100%) !important;
+    border-bottom: {% if section.settings.show_line_separator %}1px solid var(--bks-header-border){% else %}0{% endif %};
+    isolation: isolate;
+  }
+
+  #shopify-section-{{ section.id }} .header-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      linear-gradient(90deg, transparent calc(50% - .5px), var(--bks-header-border) calc(50% - .5px), var(--bks-header-border) calc(50% + .5px), transparent calc(50% + .5px)),
+      radial-gradient(circle at var(--mx, 50%) 50%, rgba(201,183,156,.14), transparent 28rem);
+    opacity: {{ section.settings.meta_effect_opacity | divided_by: 100.0 }};
+  }
+
+  #shopify-section-{{ section.id }} .header {
+    position: relative;
+    z-index: 1;
+    min-height: var(--bks-header-height-min);
+    padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
+    background: transparent !important;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+  }
+
+  /* ── LOGO ── */
+  #shopify-section-{{ section.id }} .bks-meta-logo {
+    unicode-bidi: isolate;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: min(34vw, var(--bks-logo-max-width));
+    height: var(--bks-logo-max-height);
+    min-width: 150px;
+    overflow: hidden;
+    transform: scale(var(--bks-logo-scale));
+    transform-origin: center;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .bks-meta-logo__left,
+  #shopify-section-{{ section.id }} .bks-meta-logo__right {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: {%- if section.settings.enable_berlin_font_asset -%}'BKS Berlin Sans FB Demi', {%- endif -%}"Berlin Sans FB Demi Bold", "Berlin Sans FB", "Arial Black", Arial, sans-serif;
+    font-size: clamp(26px, 3.2vw, 54px);
+    font-weight: 700;
+    letter-spacing: -0.08em;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .bks-meta-logo__left {
+    background: var(--bks-header-white);
+    color: var(--bks-header-left-text);
+  }
+
+  #shopify-section-{{ section.id }} .bks-meta-logo__right {
+    background: var(--bks-header-black);
+    color: var(--bks-header-right-text);
+  }
+
+  #shopify-section-{{ section.id }} .bks-meta-logo::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: var(--bks-header-border);
+    transform: translateX(-50%);
+    opacity: .65;
+    z-index: 5;
+  }
+
+  /* ── Z-INDEX ── */
+  #shopify-section-{{ section.id }} .header__heading-link,
+  #shopify-section-{{ section.id }} .header__inline-menu,
+  #shopify-section-{{ section.id }} .header__icons,
+  #shopify-section-{{ section.id }} header-drawer {
+    position: relative;
+    z-index: 2;
+  }
+
+  #shopify-section-{{ section.id }} .header__inline-menu,
+  #shopify-section-{{ section.id }} header-drawer {
+    color: var(--bks-header-left-text);
+    justify-self: start;
+  }
+
+  /* ── RIGHT ICONS ── */
+  #shopify-section-{{ section.id }} .header__icons {
+    justify-self: end;
+    display: flex;
+    gap: 1rem;
+  }
+
+  #shopify-section-{{ section.id }} .header__icons *,
+  #shopify-section-{{ section.id }} .header__icons .header__icon,
+  #shopify-section-{{ section.id }} .header__icons .svg-wrapper,
+  #shopify-section-{{ section.id }} .header__icons svg,
+  #shopify-section-{{ section.id }} .desktop-localization-wrapper,
+  #shopify-section-{{ section.id }} .desktop-localization-wrapper *,
+  #shopify-section-{{ section.id }} localization-form,
+  #shopify-section-{{ section.id }} localization-form * {
+    color: var(--bks-header-right-text) !important;
+    opacity: 1 !important;
+  }
+
+  #shopify-section-{{ section.id }} .header__icons svg,
+  #shopify-section-{{ section.id }} .header__icons path,
+  #shopify-section-{{ section.id }} .header__icons circle,
+  #shopify-section-{{ section.id }} .header__icons line,
+  #shopify-section-{{ section.id }} .header__icons polyline {
+    stroke: var(--bks-header-right-text) !important;
+    fill: none;
+  }
+
+  #shopify-section-{{ section.id }} .header__icon--cart svg path,
+  #shopify-section-{{ section.id }} .icon-cart-empty path,
+  #shopify-section-{{ section.id }} .icon-cart path {
+    stroke: var(--bks-header-right-text) !important;
+  }
+
+  /* ── CART BUBBLE ── */
+  #shopify-section-{{ section.id }} .cart-count-bubble {
+    background: var(--bks-header-right-text) !important;
+    color: var(--bks-header-black) !important;
+    border: 1px solid var(--bks-header-right-text);
+  }
+
+  #shopify-section-{{ section.id }} .cart-count-bubble span {
+    color: var(--bks-header-black) !important;
+  }
+
+  /* ── CART always visible ── */
+  #shopify-section-{{ section.id }} .header__icon--cart {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── LABELS ── */
+  #shopify-section-{{ section.id }} .header__icons::before {
+    content: '{{ section.settings.right_label }}';
+    display: {% if section.settings.show_right_label %}inline-flex{% else %}none{% endif %};
+    align-items: center;
+    min-height: 32px;
+    margin-right: 1.2rem;
+    padding: 0 .9rem;
+    border: 1px solid currentColor;
+    font-size: 10px;
+    line-height: 1;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--bks-header-right-text);
+  }
+
+  #shopify-section-{{ section.id }} .header__inline-menu::before {
+    content: '{{ section.settings.left_label }}';
+    display: {% if section.settings.show_left_label %}inline-flex{% else %}none{% endif %};
+    align-items: center;
+    min-height: 32px;
+    margin-right: 1.2rem;
+    padding: 0 .9rem;
+    border: 1px solid currentColor;
+    font-size: 10px;
+    line-height: 1;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--bks-header-left-text);
+  }
+
+  /* ── DAWN RESETS ── */
+  header-drawer { justify-self: start; margin-left: -1.2rem; }
+  .menu-drawer-container { display: flex; }
+  .list-menu { list-style: none; padding: 0; margin: 0; }
+  .list-menu--inline { display: inline-flex; flex-wrap: wrap; }
+  summary.list-menu__item { padding-right: 2.7rem; }
+  .list-menu__item { display: flex; align-items: center; line-height: calc(1 + 0.3 / var(--font-body-scale)); }
+  .list-menu__item--link { text-decoration: none; padding-bottom: 1rem; padding-top: 1rem; line-height: calc(1 + 0.8 / var(--font-body-scale)); }
+
+  {%- if section.settings.sticky_header_type == 'reduce-logo-size' -%}
+    .scrolled-past-header .bks-meta-logo { transform: scale(calc(var(--bks-logo-scale) * .82)); }
+  {%- endif -%}
+
+  {%- if section.settings.menu_type_desktop != 'drawer' -%}
+    @media screen and (min-width: 990px) {
+      header-drawer { display: none; }
+    }
+  {%- endif -%}
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .list-menu__item--link { padding-bottom: 0.5rem; padding-top: 0.5rem; }
+  }
+
+  @media screen and (min-width: 990px) {
+    #shopify-section-{{ section.id }} .header {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* ── MOBILE ── */
+  @media screen and (max-width: 989px) {
+
+    #shopify-section-{{ section.id }} .header-wrapper::before {
+      background: linear-gradient(
+        90deg,
+        transparent calc(50% - .5px),
+        var(--bks-header-border) calc(50% - .5px),
+        var(--bks-header-border) calc(50% + .5px),
+        transparent calc(50% + .5px)
+      );
+    }
+
+    #shopify-section-{{ section.id }} .header {
+      position: relative;
+      min-height: 64px;
+      padding: 0 12px;
+      display: grid;
+      grid-template-columns: 44px 1fr 88px;
+      align-items: center;
+      gap: 0;
+      overflow: visible !important;
+    }
+
+    #shopify-section-{{ section.id }} header-drawer {
+      position: relative;
+      z-index: 9999;
+      grid-column: 1;
+      width: 44px;
+      height: 44px;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      margin-left: 0;
+    }
+
+    #shopify-section-{{ section.id }} .header__icon--menu {
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--bks-header-left-text) !important;
+    }
+
+    #shopify-section-{{ section.id }} .header__icon--menu svg,
+    #shopify-section-{{ section.id }} .header__icon--menu path {
+      stroke: var(--bks-header-left-text) !important;
+    }
+
+    #shopify-section-{{ section.id }} .header__heading {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      margin: 0;
+      line-height: 1;
+    }
+
+    #shopify-section-{{ section.id }} .bks-meta-logo {
+      width: 120px;
+      min-width: 120px;
+      height: 44px;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    #shopify-section-{{ section.id }} .bks-meta-logo__left,
+    #shopify-section-{{ section.id }} .bks-meta-logo__right {
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+
+    /* ── RIGHT ICONS MOBILE ── */
+    #shopify-section-{{ section.id }} .header__icons {
+      position: relative;
+      z-index: 9999;
+      grid-column: 3;
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0;
+      min-width: 88px;
+    }
+
+    #shopify-section-{{ section.id }} .header__icon {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    #shopify-section-{{ section.id }} .header__icon--account,
+    #shopify-section-{{ section.id }} .header__icon--cart {
+      color: var(--bks-header-right-text) !important;
+      opacity: 1 !important;
+    }
+
+    #shopify-section-{{ section.id }} .header__icon--account svg,
+    #shopify-section-{{ section.id }} .header__icon--cart svg,
+    #shopify-section-{{ section.id }} .header__icon--account path,
+    #shopify-section-{{ section.id }} .header__icon--cart path {
+      stroke: var(--bks-header-right-text) !important;
+    }
+
+    #shopify-section-{{ section.id }} .cart-count-bubble {
+      bottom: 4px;
+      right: 2px;
+      background: var(--bks-header-right-text) !important;
+      color: var(--bks-header-black) !important;
+      border: 1px solid var(--bks-header-right-text);
+    }
+
+    #shopify-section-{{ section.id }} .cart-count-bubble span {
+      color: var(--bks-header-black) !important;
+    }
+
+    /* ── DRAWER ── */
+    #shopify-section-{{ section.id }} .menu-drawer-container {
+      position: static !important;
+    }
+
+    #shopify-section-{{ section.id }} .menu-drawer {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: min(80vw, 320px) !important;
+      max-width: 320px !important;
+      height: 100dvh !important;
+      z-index: 99999 !important;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch;
+      background: #ffffff !important;
+      border-right: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 0 40px rgba(0,0,0,.18);
+    }
+
+    #shopify-section-{{ section.id }} .menu-drawer__navigation {
+      padding: 20px 20px 40px !important;
+    }
+
+    #shopify-section-{{ section.id }} .menu-drawer__menu-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      min-height: 48px;
+      padding: 12px 0 !important;
+      font-size: 17px !important;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    /* ── SEARCH visible on mobile ── */
+    #shopify-section-{{ section.id }} .header__search {
+      display: flex !important;
+      align-items: center;
+    }
+
+    #shopify-section-{{ section.id }} .header__icon--search {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      color: var(--bks-header-right-text) !important;
+    }
+
+    #shopify-section-{{ section.id }} .header__icon--search svg,
+    #shopify-section-{{ section.id }} .header__icon--search path {
+      stroke: var(--bks-header-right-text) !important;
+    }
+
+    /* ── HIDE desktop-only ── */
+    #shopify-section-{{ section.id }} .desktop-localization-wrapper,
+    #shopify-section-{{ section.id }} details-modal,
+    #shopify-section-{{ section.id }} .header__icons::before,
+    #shopify-section-{{ section.id }} .header__inline-menu::before {
+      display: none !important;
+    }
+  }
+
+  /* ── SMALL PHONES ≤390px ── */
+  @media screen and (max-width: 390px) {
+    #shopify-section-{{ section.id }} .bks-meta-logo {
+      width: 104px;
+      min-width: 104px;
+      height: 40px;
+    }
+
+    #shopify-section-{{ section.id }} .bks-meta-logo__left,
+    #shopify-section-{{ section.id }} .bks-meta-logo__right {
+      font-size: 21px;
+    }
+
+    #shopify-section-{{ section.id }} .header {
+      grid-template-columns: 40px 1fr 80px;
+      min-height: 58px;
+    }
+
+    #shopify-section-{{ section.id }} .header__icons {
+      min-width: 80px;
+    }
+
+    #shopify-section-{{ section.id }} .header__icon {
+      width: 40px;
+      min-width: 40px;
+      height: 40px;
+      min-height: 40px;
+    }
+  }
+
+  /* ── MOBILE NAV BUTTONS ── */
+  #shopify-section-{{ section.id }} .bks-header-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    margin-left: 8px;
+    flex-shrink: 0;
+  }
+
+  #shopify-section-{{ section.id }} .bks-hnav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    color: var(--bks-header-left-text);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.15s;
+    text-decoration: none;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  #shopify-section-{{ section.id }} .bks-hnav-btn:hover,
+  #shopify-section-{{ section.id }} .bks-hnav-btn:focus-visible {
+    background: rgba(201,183,156,0.15);
+    outline: none;
+  }
+
+  #shopify-section-{{ section.id }} .bks-hnav-btn svg {
+    width: 15px; height: 15px;
+    fill: none; stroke: currentColor;
+    stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .bks-hnav-btn--disabled {
+    opacity: 0.28; pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .bks-hnav-divider {
+    width: 1px; height: 16px;
+    background: rgba(201,183,156,0.25);
+    margin: 0 2px; flex-shrink: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .bks-header-nav {
+      display: none;
+    }
+  }
+</style>
+
+{%- style -%}
+  .section-header {
+    position: sticky;
+    margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
+    z-index: 100;
+  }
+  @media screen and (min-width: 750px) {
+    .section-header { margin-bottom: {{ section.settings.margin_bottom }}px; }
+  }
+{%- endstyle -%}
+
+<script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  for block in section.blocks
+    if block.type == '@app'
+      assign has_app_block = true
+    endif
+  endfor
+-%}
+
+{% liquid
+  assign header_tag = 'div'
+  if section.settings.sticky_header_type != 'none'
+    assign header_tag = 'sticky-header'
+  endif
+%}
+
+<{{ header_tag }}
+  {% if header_tag == 'sticky-header' %}data-sticky-type="{{ section.settings.sticky_header_type }}"{% endif %}
+  class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}"
+>
+  {%- liquid
+    assign social_links = false
+    assign localization_forms = false
+    if settings.social_twitter_link != blank or settings.social_facebook_link != blank or settings.social_pinterest_link != blank or settings.social_instagram_link != blank or settings.social_youtube_link != blank or settings.social_vimeo_link != blank or settings.social_tiktok_link != blank or settings.social_tumblr_link != blank or settings.social_snapchat_link != blank
+      assign social_links = true
+    endif
+    if localization.available_countries.size > 1 and section.settings.enable_country_selector or section.settings.enable_language_selector and localization.available_languages.size > 1
+      assign localization_forms = true
+    endif
+  -%}
+
+  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
+
+    {%- liquid
+      if section.settings.menu != blank
+        render 'header-drawer'
+      endif
+      if section.settings.logo_position == 'top-center' or section.settings.menu == blank
+        render 'header-search', input_id: 'Search-In-Modal-1'
+      endif
+    -%}
+
+    <nav class="bks-header-nav" aria-label="Quick navigation" id="bks-hnav-{{ section.id }}">
+      <button class="bks-hnav-btn" id="bks-hnav-back-{{ section.id }}" onclick="history.back()" aria-label="Previous page" title="Back">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><polyline points="10 3 5 8 10 13"/></svg>
+      </button>
+      <button class="bks-hnav-btn" id="bks-hnav-fwd-{{ section.id }}" onclick="history.forward()" aria-label="Next page" title="Forward">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><polyline points="6 3 11 8 6 13"/></svg>
+      </button>
+      <span class="bks-hnav-divider" aria-hidden="true"></span>
+      <a class="bks-hnav-btn" href="{{ routes.root_url }}" aria-label="Home" title="Home">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 7l6-5 6 5v7H10v-4H6v4H2z"/></svg>
+      </a>
+    </nav>
+    <script>
+    (function(){
+      var back = document.getElementById('bks-hnav-back-{{ section.id }}');
+      if (back && window.history.length <= 1) {
+        back.classList.add('bks-hnav-btn--disabled');
+        back.setAttribute('aria-disabled','true');
+      }
+    })();
+    </script>
+
+    {%- if section.settings.logo_position != 'middle-center' -%}
+      {%- if request.page_type == 'index' -%}<h1 class="header__heading">{%- endif -%}
+      <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset" aria-label="BAK|ABO" translate="no">
+        <div class="bks-meta-logo notranslate" translate="no" aria-label="BAK|ABO">
+          <span class="bks-meta-logo__left" translate="no">BAK</span>
+          <span class="bks-meta-logo__right" translate="no">ABO</span>
+        </div>
+      </a>
+      {%- if request.page_type == 'index' -%}</h1>{%- endif -%}
+    {%- endif -%}
+
+    {%- liquid
+      if section.settings.menu != blank
+        if section.settings.menu_type_desktop == 'dropdown'
+          render 'header-dropdown-menu'
+        elsif section.settings.menu_type_desktop != 'drawer'
+          render 'header-mega-menu'
+        endif
+      endif
+    %}
+
+    {%- if section.settings.logo_position == 'middle-center' -%}
+      {%- if request.page_type == 'index' -%}<h1 class="header__heading">{%- endif -%}
+      <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset" aria-label="BAK|ABO" translate="no">
+        <div class="bks-meta-logo notranslate" translate="no" aria-label="BAK|ABO">
+          <span class="bks-meta-logo__left" translate="no">BAK</span>
+          <span class="bks-meta-logo__right" translate="no">ABO</span>
+        </div>
+      </a>
+      {%- if request.page_type == 'index' -%}</h1>{%- endif -%}
+    {%- endif -%}
+
+    <div class="header__icons{% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header__icons--localization header-localization{% endif %}">
+      <div class="desktop-localization-wrapper">
+        {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
+          <localization-form class="small-hide medium-hide" data-prevent-hide>
+            {%- form 'localization', id: 'HeaderCountryForm', class: 'localization-form' -%}
+              <div>
+                <h2 class="visually-hidden" id="HeaderCountryLabel">{{ 'localization.country_label' | t }}</h2>
+                {%- render 'country-localization', localPosition: 'HeaderCountry' -%}
+              </div>
+            {%- endform -%}
+          </localization-form>
+        {% endif %}
+        {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
+          <localization-form class="small-hide medium-hide" data-prevent-hide>
+            {%- form 'localization', id: 'HeaderLanguageForm', class: 'localization-form' -%}
+              <div>
+                <h2 class="visually-hidden" id="HeaderLanguageLabel">{{ 'localization.language_label' | t }}</h2>
+                {%- render 'language-localization', localPosition: 'HeaderLanguage' -%}
+              </div>
+            {%- endform -%}
+          </localization-form>
+        {%- endif -%}
+      </div>
+
+      {% render 'header-search', input_id: 'Search-In-Modal' %}
+
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="header__icon header__icon--account link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}" rel="nofollow">
+          {%- if section.settings.enable_customer_avatar -%}
+            <account-icon>
+              {%- if customer and customer.has_avatar? -%}
+                {{ customer | avatar }}
+              {%- else -%}
+                <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+              {%- endif -%}
+            </account-icon>
+          {%- else -%}
+            <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+          {%- endif -%}
+          <span class="visually-hidden">
+            {%- if customer -%}{{ 'customer.account_fallback' | t }}{%- else -%}{{ 'customer.log_in' | t }}{%- endif -%}
+          </span>
+        </a>
+      {%- endif -%}
+
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when '@app' -%}{% render block %}
+        {%- endcase -%}
+      {%- endfor -%}
+
+      <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
+        {% if cart == empty %}
+          <span class="svg-wrapper">{{ 'icon-cart-empty.svg' | inline_asset_content }}</span>
+        {% else %}
+          <span class="svg-wrapper">{{ 'icon-cart.svg' | inline_asset_content }}</span>
+        {% endif %}
+        <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+        {%- if cart != empty -%}
+          <div class="cart-count-bubble">
+            {%- if cart.item_count < 100 -%}<span aria-hidden="true">{{ cart.item_count }}</span>{%- endif -%}
+            <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+          </div>
+        {%- endif -%}
+      </a>
+    </div>
+  </header>
+</{{ header_tag }}>
+
+{%- if settings.cart_type == 'notification' -%}
+  {%- render 'cart-notification', color_scheme: section.settings.color_scheme, desktop_menu_type: section.settings.menu_type_desktop -%}
+{%- endif -%}
+
+{% javascript %}
+  class StickyHeader extends HTMLElement {
+    constructor() { super(); }
+    connectedCallback() {
+      this.header = document.querySelector('.section-header');
+      this.headerIsAlwaysSticky = this.getAttribute('data-sticky-type') === 'always' || this.getAttribute('data-sticky-type') === 'reduce-logo-size';
+      this.headerBounds = {};
+      this.setHeaderHeight();
+      window.matchMedia('(max-width: 990px)').addEventListener('change', this.setHeaderHeight.bind(this));
+      if (this.headerIsAlwaysSticky) this.header.classList.add('shopify-section-header-sticky');
+      this.currentScrollTop = 0;
+      this.preventReveal = false;
+      this.predictiveSearch = this.querySelector('predictive-search');
+      this.onScrollHandler = this.onScroll.bind(this);
+      this.hideHeaderOnScrollUp = () => (this.preventReveal = true);
+      this.addEventListener('preventHeaderReveal', this.hideHeaderOnScrollUp);
+      window.addEventListener('scroll', this.onScrollHandler, false);
+      this.createObserver();
+    }
+    setHeaderHeight() { document.documentElement.style.setProperty('--header-height', `${this.header.offsetHeight}px`); }
+    disconnectedCallback() {
+      this.removeEventListener('preventHeaderReveal', this.hideHeaderOnScrollUp);
+      window.removeEventListener('scroll', this.onScrollHandler);
+    }
+    createObserver() {
+      let observer = new IntersectionObserver((entries, observer) => {
+        this.headerBounds = entries[0].intersectionRect;
+        observer.disconnect();
+      });
+      observer.observe(this.header);
+    }
+    onScroll() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      if (this.predictiveSearch && this.predictiveSearch.isOpen) return;
+      if (scrollTop > this.currentScrollTop && scrollTop > this.headerBounds.bottom) {
+        this.header.classList.add('scrolled-past-header');
+        if (this.preventHide) return;
+        requestAnimationFrame(this.hide.bind(this));
+      } else if (scrollTop < this.currentScrollTop && scrollTop > this.headerBounds.bottom) {
+        this.header.classList.add('scrolled-past-header');
+        if (!this.preventReveal) requestAnimationFrame(this.reveal.bind(this));
+        else {
+          window.clearTimeout(this.isScrolling);
+          this.isScrolling = setTimeout(() => { this.preventReveal = false; }, 66);
+          requestAnimationFrame(this.hide.bind(this));
+        }
+      } else if (scrollTop <= this.headerBounds.top) {
+        this.header.classList.remove('scrolled-past-header');
+        requestAnimationFrame(this.reset.bind(this));
+      }
+      this.currentScrollTop = scrollTop;
+    }
+    hide() {
+      if (this.headerIsAlwaysSticky) return;
+      this.header.classList.add('shopify-section-header-hidden', 'shopify-section-header-sticky');
+      this.closeMenuDisclosure();
+      this.closeSearchModal();
+    }
+    reveal() {
+      if (this.headerIsAlwaysSticky) return;
+      this.header.classList.add('shopify-section-header-sticky', 'animate');
+      this.header.classList.remove('shopify-section-header-hidden');
+    }
+    reset() {
+      if (this.headerIsAlwaysSticky) return;
+      this.header.classList.remove('shopify-section-header-hidden', 'shopify-section-header-sticky', 'animate');
+    }
+    closeMenuDisclosure() {
+      this.disclosures = this.disclosures || this.header.querySelectorAll('header-menu');
+      this.disclosures.forEach((disclosure) => disclosure.close());
+    }
+    closeSearchModal() {
+      this.searchModal = this.searchModal || this.header.querySelector('details-modal');
+      if (this.searchModal) this.searchModal.close(false);
+    }
+  }
+  customElements.define('sticky-header', StickyHeader);
+{% endjavascript %}
+
+<script>
+  (() => {
+    const section = document.querySelector('#shopify-section-{{ section.id }} .header-wrapper');
+    if (!section) return;
+    section.addEventListener('pointermove', (event) => {
+      const rect = section.getBoundingClientRect();
+      const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+      section.style.setProperty('--mx', `${x * 100}%`);
+    }, { passive: true });
+  })();
+</script>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    {% if settings.logo %}"logo": {{ settings.logo | image_url: width: 500 | prepend: "https:" | json }},{% endif %}
+    "sameAs": [
+      {{ settings.social_twitter_link | json }},
+      {{ settings.social_facebook_link | json }},
+      {{ settings.social_pinterest_link | json }},
+      {{ settings.social_instagram_link | json }},
+      {{ settings.social_tiktok_link | json }},
+      {{ settings.social_tumblr_link | json }},
+      {{ settings.social_snapchat_link | json }},
+      {{ settings.social_youtube_link | json }},
+      {{ settings.social_vimeo_link | json }}
+    ],
+    "url": {{ request.origin | append: page.url | json }}
+  }
+</script>
+
+{%- if request.page_type == 'index' -%}
+  {% assign potential_action_target = request.origin | append: routes.search_url | append: '?q={search_term_string}' %}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": {{ shop.name | json }},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {{ potential_action_target | json }},
+        "query-input": "required name=search_term_string"
+      },
+      "url": {{ request.origin | append: page.url | json }}
+    }
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BKS Meta Split Header",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "select",
+      "id": "logo_position",
+      "options": [
+        { "value": "top-left", "label": "Top left" },
+        { "value": "top-center", "label": "Top center" },
+        { "value": "middle-left", "label": "Middle left" },
+        { "value": "middle-center", "label": "Middle center" }
+      ],
+      "default": "middle-left",
+      "label": "Logo position"
+    },
+    {
+      "type": "select",
+      "id": "mobile_logo_position",
+      "options": [
+        { "value": "center", "label": "Center" },
+        { "value": "left", "label": "Left" }
+      ],
+      "default": "center",
+      "label": "Mobile logo position"
+    },
+    { "type": "link_list", "id": "menu", "default": "main-menu", "label": "Menu" },
+    {
+      "type": "select",
+      "id": "menu_type_desktop",
+      "options": [
+        { "value": "dropdown", "label": "Dropdown" },
+        { "value": "mega", "label": "Mega menu" },
+        { "value": "drawer", "label": "Drawer" }
+      ],
+      "default": "dropdown",
+      "label": "Desktop menu type"
+    },
+    {
+      "type": "select",
+      "id": "sticky_header_type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "on-scroll-up", "label": "On scroll up" },
+        { "value": "always", "label": "Always" },
+        { "value": "reduce-logo-size", "label": "Reduce logo size" }
+      ],
+      "default": "on-scroll-up",
+      "label": "Sticky header type"
+    },
+    { "type": "checkbox", "id": "show_line_separator", "default": true, "label": "Show line separator" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "color_scheme", "id": "menu_color_scheme", "label": "Menu color scheme", "default": "scheme-1" },
+    { "type": "header", "content": "BKS Meta split style" },
+    { "type": "color", "id": "left_background", "label": "Left background", "default": "#ffffff" },
+    { "type": "color", "id": "right_background", "label": "Right background", "default": "#050505" },
+    { "type": "color", "id": "left_text_color", "label": "Left text/icons", "default": "#050505" },
+    { "type": "color", "id": "right_text_color", "label": "Right text/icons", "default": "#ffffff" },
+    { "type": "color", "id": "border_color", "label": "Center/bottom divider", "default": "#c7c7c7" },
+    { "type": "range", "id": "meta_effect_opacity", "min": 0, "max": 100, "step": 5, "unit": "%", "label": "Mouse glow opacity", "default": 25 },
+    { "type": "checkbox", "id": "show_left_label", "default": false, "label": "Show left label" },
+    { "type": "text", "id": "left_label", "label": "Left label", "default": "BAK|ABO" },
+    { "type": "checkbox", "id": "show_right_label", "default": false, "label": "Show right label" },
+    { "type": "text", "id": "right_label", "label": "Right label", "default": "BKS STUDIO" },
+    { "type": "range", "id": "header_min_height", "min": 56, "max": 120, "step": 4, "unit": "px", "label": "Minimum header height", "default": 72 },
+    { "type": "range", "id": "logo_max_width", "min": 80, "max": 520, "step": 10, "unit": "px", "label": "Logo max width", "default": 320 },
+    { "type": "range", "id": "logo_max_height", "min": 40, "max": 180, "step": 10, "unit": "px", "label": "Logo max height", "default": 90 },
+    { "type": "range", "id": "logo_scale", "min": 80, "max": 160, "step": 5, "unit": "%", "label": "Logo visual scale", "default": 100 },
+    { "type": "checkbox", "id": "enable_berlin_font_asset", "default": false, "label": "Use Berlin font asset from theme files" },
+    { "type": "text", "id": "berlin_font_asset", "label": "Berlin Sans FB Demi asset filename", "default": "BerlinSansFBDemiBold.woff2" },
+    { "type": "header", "content": "Utilities" },
+    { "type": "checkbox", "id": "enable_country_selector", "default": true, "label": "Enable country selector" },
+    { "type": "checkbox", "id": "enable_language_selector", "default": true, "label": "Enable language selector" },
+    { "type": "checkbox", "id": "enable_customer_avatar", "default": true, "label": "Enable customer avatar" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "margin_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Margin bottom", "default": 0 },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 36, "step": 4, "unit": "px", "label": "Padding top", "default": 20 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 36, "step": 4, "unit": "px", "label": "Padding bottom", "default": 20 }
+  ],
+  "blocks": [
+    { "type": "@app" }
+  ]
+}
+{% endschema %}

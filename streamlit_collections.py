@@ -4,9 +4,6 @@ BKS CRUSCOTTO COLLEZIONI
 
 Run:
   streamlit run streamlit_collections.py
-
-Il cruscotto usa Shopify come sorgente reale. I CSV locali restano strumenti di
-preparazione/import, ma stato prodotti e collection vengono letti dal negozio.
 """
 
 from __future__ import annotations
@@ -21,6 +18,9 @@ import time
 from pathlib import Path
 from typing import Any
 
+BASE_DIR = Path(__file__).resolve().parent
+sys.path.insert(0, str(BASE_DIR))
+
 import pandas as pd
 import requests
 import streamlit as st  # type: ignore
@@ -32,7 +32,7 @@ except ImportError:
     certifi = None
 
 from bks_assets import active_catalog_csv, relative_to_base
-from bks_collection_specs import (
+from bks_collection_specs import ( # type: ignore
     ALL_COLLECTIONS,
     LEGACY_COLLECTION_METAFIELDS,
     MANAGED_HANDLES,
@@ -150,8 +150,9 @@ def collections_dataframe(collections: tuple[CollectionSpec, ...], live: dict[st
         item = live.get(spec.handle, {})
         live_template_suffix = item.get("template_suffix")
         live_template = f"collection.{live_template_suffix}" if live_template_suffix else "collection"
-        live_title = item.get("metafields_global_title_tag", "")
-        live_description = item.get("metafields_global_description_tag", "")
+        live_title = item.get("metafields_global_title_tag", "") or ""
+        live_description = item.get("metafields_global_description_tag", "") or ""
+        
         rows.append(
             {
                 "sync": spec.handle not in TEMPLATE_EXCLUDED_HANDLES,
@@ -173,35 +174,65 @@ def collections_dataframe(collections: tuple[CollectionSpec, ...], live: dict[st
     return pd.DataFrame(rows)
 
 
-def read_csv_summary(path: Path) -> dict[str, Any]:
-    if not path.exists():
+def read_csv_summary(path: Path | None) -> dict[str, Any]:
+    if path is None or not path.exists():
         return {"exists": False, "rows": 0, "products": 0, "published": 0, "active": 0}
+    
     products: set[str] = set()
     rows = published = active = 0
-    with path.open("r", encoding="utf-8-sig", newline="") as fh:
-        reader = csv.DictReader(fh)
-        for row in reader:
-            rows += 1
-            handle = (row.get("Handle") or "").strip()
-            if handle:
-                products.add(handle)
-            if str(row.get("Published", "")).strip().lower() in {"true", "1", "yes"}:
-                published += 1
-            if str(row.get("Status", "")).strip().lower() == "active":
-                active += 1
+    
+    try:
+        with path.open("r", encoding="utf-8-sig", newline="") as fh:
+            first_line = fh.readline()
+            if not first_line:
+                return {"exists": True, "rows": 0, "products": 0, "published": 0, "active": 0}
+            
+            fh.seek(0)
+            reader = csv.DictReader(fh)
+            
+            if not reader.fieldnames:
+                return {"exists": True, "rows": 0, "products": 0, "published": 0, "active": 0}
+
+            for row in reader:
+                if row is None: continue
+                rows += 1
+                handle = (row.get("Handle") or "").strip()
+                if handle:
+                    products.add(handle)
+                
+                pub_val = str(row.get("Published", "")).strip().lower()
+                if pub_val in {"true", "1", "yes"}:
+                    published += 1
+                
+                status_val = str(row.get("Status", "")).strip().lower()
+                if status_val == "active":
+                    active += 1
+    except Exception as e:
+        return {"exists": True, "rows": rows, "products": len(products), "published": published, "active": active, "error": str(e)}
+
     return {"exists": True, "rows": rows, "products": len(products), "published": published, "active": active}
 
 
 def log_counts(path: Path) -> dict[str, int]:
     if not path.exists():
         return {}
+    
     try:
-        frame = pd.read_csv(path)
+        frame = pd.read_csv(path, on_bad_lines='skip', engine='python')
     except Exception:
-        return {"error": 1}
+        return {"error_reading_file": 1}
+
+    if frame.empty:
+        return {"empty_file": 1}
+
     if "status" not in frame.columns:
         return {"rows": len(frame)}
-    return {str(key): int(value) for key, value in frame["status"].value_counts().items()}
+    
+    try:
+        counts = frame["status"].fillna("unknown").value_counts()
+        return {str(key): int(value) for key, value in counts.items()}
+    except Exception:
+        return {"count_error": 1}
 
 
 def strip_html(value: str) -> str:
@@ -209,7 +240,6 @@ def strip_html(value: str) -> str:
 
 
 def safe_file_stem(value: str, fallback: str = "bks-asset") -> str:
-    """Return a Windows-safe filename stem."""
     cleaned = re.sub(r'[<>:"/\\|?*\x00-\x1f]+', "-", value or "")
     cleaned = re.sub(r"\s+", "-", cleaned.strip())
     cleaned = re.sub(r"-{2,}", "-", cleaned).strip(" .-_").lower()
@@ -511,19 +541,30 @@ def render_plan_tab(store_domain: str, token: str, api_version: str) -> None:
         ("Audit metafield legacy", LEGACY_AUDIT_CSV),
         ("Prompt immagini", IMAGE_PROMPTS_MD),
     ]
+    
+    display_rows = []
+    for label, path in rows:
+        display_rows.append({"file": label, "path": str(path), "exists": path.exists()})
+        
     st.dataframe(
-        pd.DataFrame([{"file": label, "path": str(path), "exists": path.exists()} for label, path in rows]),
+        pd.DataFrame(display_rows),
         use_container_width=True,
         hide_index=True,
     )
 
     if COLLECTION_PLAN_CSV.exists():
-        st.write("Collection plan")
-        st.dataframe(pd.read_csv(COLLECTION_PLAN_CSV), use_container_width=True, hide_index=True)
+        try:
+            st.write("Collection plan")
+            st.dataframe(pd.read_csv(COLLECTION_PLAN_CSV), use_container_width=True, hide_index=True)
+        except Exception:
+            st.warning("Impossibile leggere Collection Plan CSV.")
 
     if TEMPLATE_EXCLUSIONS_CSV.exists():
-        st.write("Collection escluse dai template BKS")
-        st.dataframe(pd.read_csv(TEMPLATE_EXCLUSIONS_CSV), use_container_width=True, hide_index=True)
+        try:
+            st.write("Collection escluse dai template BKS")
+            st.dataframe(pd.read_csv(TEMPLATE_EXCLUSIONS_CSV), use_container_width=True, hide_index=True)
+        except Exception:
+            st.warning("Impossibile leggere Template Exclusions CSV.")
 
     st.write("Audit metafield legacy da eliminare in Shopify Admin")
     st.dataframe(pd.DataFrame(LEGACY_COLLECTION_METAFIELDS), use_container_width=True, hide_index=True)
@@ -868,7 +909,7 @@ def render_analytics_tab(store_domain: str, token: str, api_version: str) -> Non
 def render_logs_tab() -> None:
     st.subheader("Log operativi")
     rows = []
-    for label, path in [
+    log_files = [
         ("Piano collection V20", COLLECTION_PLAN_CSV),
         ("Template assignment V20", TEMPLATE_ASSIGNMENT_CSV),
         ("Template exclusions V20", TEMPLATE_EXCLUSIONS_CSV),
@@ -878,9 +919,21 @@ def render_logs_tab() -> None:
         ("Metafields", METAFIELDS_LOG),
         ("Metaobjects", METAOBJECTS_LOG),
         ("Populate metafields", POPULATE_LOG),
-    ]:
-        rows.append({"fase": label, "path": str(path), "exists": path.exists(), "counts": log_counts(path)})
-    st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+    ]
+    
+    for label, path in log_files:
+        counts = log_counts(path)
+        counts_str = json.dumps(counts) if counts else "-"
+        
+        rows.append({
+            "fase": label, 
+            "path": str(path), 
+            "exists": path.exists(), 
+            "counts": counts_str
+        })
+        
+    df_logs = pd.DataFrame(rows)
+    st.dataframe(df_logs, use_container_width=True, hide_index=True)
 
 
 def main() -> None:

@@ -7,12 +7,12 @@ Indice operativo delle skill BKS integrate nel Master.
 - `bakabo-armocromia` - Image Factory / Direzione artistica - `docs/bakabo-armocromia_SKILL.md`
 - `bakabo-avatar-production` - Avatar / Social Render - `docs/bakabo-avatar-production_SKILL.md`
 - `bakabo-bitcoin-payments` - Project management - `docs/bakabo-bitcoin-payments_SKILL.md`
-- `bakabo-canva-connectors` - Creative connectors - `docs/bakabo-canva-connectors_SKILL.md`
-- `bakabo-design-system` - Tema Shopify / Design system - `docs/bakabo-design-system_SKILL.md`
+- `bakabo-canva-connectors` - Avatar / Social Render - `docs/bakabo-canva-connectors_SKILL.md`
+- `bakabo-design-system` - Project management - `docs/bakabo-design-system_SKILL.md`
 - `bakabo-growth-crm-member-area` - Project management - `docs/bakabo-growth-crm-member-area_SKILL.md`
-- `bakabo-hyperframes-video` - Motion / Video - `docs/bakabo-hyperframes-video_SKILL.md`
+- `bakabo-hyperframes-video` - Avatar / Social Render - `docs/bakabo-hyperframes-video_SKILL.md`
 - `bakabo-official-inbox` - Project management - `docs/bakabo-official-inbox_SKILL.md`
-- `bakabo-openai-alliance` - AI / Agent OS - `docs/bakabo-openai-alliance_SKILL.md`
+- `bakabo-openai-alliance` - Avatar / Social Render - `docs/bakabo-openai-alliance_SKILL.md`
 - `bakabo-photo-studio` - Avatar / Social Render - `docs/bakabo-photo-studio_SKILL.md`
 - `bakabo-social-campaigns` - Avatar / Social Render - `docs/bakabo-social-campaigns_SKILL.md`
 - `bakabo-web-experience` - Tema Shopify / UX - `docs/bakabo-web-experience_SKILL.md`

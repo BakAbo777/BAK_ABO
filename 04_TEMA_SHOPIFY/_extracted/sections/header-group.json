@@ -1,0 +1,49 @@
+{
+  "name": "header-group",
+  "type": "header",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_bks_printed": {
+          "type": "announcement",
+          "settings": {
+            "text": "Every piece uniquely printed for you",
+            "link": ""
+          }
+        },
+        "announcement_bks_mto": {
+          "type": "announcement",
+          "settings": {
+            "text": "Made to order. Printed for you.",
+            "link": ""
+          }
+        },
+        "announcement_bks_warranty": {
+          "type": "announcement",
+          "settings": {
+            "text": "Covered by EU warranty.",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_bks_printed",
+        "announcement_bks_mto",
+        "announcement_bks_warranty"
+      ],
+      "settings": {
+        "auto_rotate": true,
+        "change_slides_speed": 5,
+        "color_scheme": "background-2",
+        "show_line_separator": true,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    }
+  },
+  "order": [
+    "announcement"
+  ]
+}

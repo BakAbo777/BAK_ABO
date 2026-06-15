@@ -1,0 +1,475 @@
+{% doc %}
+  @prompt
+    A magazine-style editorial layout
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-editorial-layout-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding }}px;
+  }
+
+  .ai-editorial-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ block.settings.grid_gap }}px;
+    align-items: start;
+  }
+
+  .ai-editorial-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .ai-editorial-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .ai-editorial-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-editorial-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-editorial-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .ai-editorial-content-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.content_gap }}px;
+  }
+
+  .ai-editorial-category-{{ ai_gen_id }} {
+    font-size: {{ block.settings.category_size }}px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: {{ block.settings.category_color }};
+    margin: 0;
+  }
+
+  .ai-editorial-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.headline_size }}px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: {{ block.settings.headline_color }};
+    margin: 0;
+    font-family: {{ block.settings.headline_font.family }}, {{ block.settings.headline_font.fallback_families }};
+    font-weight: {{ block.settings.headline_font.weight }};
+    font-style: {{ block.settings.headline_font.style }};
+  }
+
+  .ai-editorial-byline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.byline_size }}px;
+    color: {{ block.settings.byline_color }};
+    font-style: italic;
+  }
+
+  .ai-editorial-date-{{ ai_gen_id }} {
+    font-size: {{ block.settings.date_size }}px;
+    color: {{ block.settings.date_color }};
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .ai-editorial-body-{{ ai_gen_id }} {
+    font-size: {{ block.settings.body_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.body_color }};
+  }
+
+  .ai-editorial-body-{{ ai_gen_id }} p {
+    margin: 0 0 1em 0;
+  }
+
+  .ai-editorial-body-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-editorial-cta-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: {{ block.settings.cta_bg_color }};
+    color: {{ block.settings.cta_text_color }};
+    text-decoration: none;
+    font-size: {{ block.settings.cta_size }}px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 2px solid {{ block.settings.cta_border_color }};
+    transition: all 0.3s ease;
+  }
+
+  .ai-editorial-cta-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.cta_hover_bg_color }};
+    color: {{ block.settings.cta_hover_text_color }};
+    border-color: {{ block.settings.cta_hover_border_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-editorial-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.grid_gap | times: 0.75 }}px;
+    }
+
+    .ai-editorial-headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.headline_size | times: 0.7 }}px;
+    }
+
+    .ai-editorial-body-{{ ai_gen_id }} {
+      font-size: {{ block.settings.body_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-editorial-layout-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-editorial-grid-{{ ai_gen_id }}">
+    <div class="ai-editorial-image-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.featured_image %}
+        <img
+          src="{{ block.settings.featured_image | image_url: width: 1200 }}"
+          alt="{{ block.settings.featured_image.alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.featured_image.width }}"
+          height="{{ block.settings.featured_image.height }}"
+          class="ai-editorial-image-{{ ai_gen_id }}"
+        >
+      {% else %}
+        <div class="ai-editorial-image-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+          <div class="ai-editorial-empty-state-{{ ai_gen_id }}">
+            Next, add a featured image
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-editorial-content-{{ ai_gen_id }}">
+      {% if block.settings.category != blank %}
+        <p class="ai-editorial-category-{{ ai_gen_id }}">{{ block.settings.category }}</p>
+      {% endif %}
+
+      {% if block.settings.headline != blank %}
+        <h2 class="ai-editorial-headline-{{ ai_gen_id }}">{{ block.settings.headline }}</h2>
+      {% endif %}
+
+      {% if block.settings.byline != blank %}
+        <p class="ai-editorial-byline-{{ ai_gen_id }}">{{ block.settings.byline }}</p>
+      {% endif %}
+
+      {% if block.settings.date != blank %}
+        <p class="ai-editorial-date-{{ ai_gen_id }}">{{ block.settings.date }}</p>
+      {% endif %}
+
+      {% if block.settings.body_text != blank %}
+        <div class="ai-editorial-body-{{ ai_gen_id }}">
+          {{ block.settings.body_text }}
+        </div>
+      {% endif %}
+
+      {% if block.settings.cta_text != blank and block.settings.cta_link != blank %}
+        <a href="{{ block.settings.cta_link }}" class="ai-editorial-cta-{{ ai_gen_id }}">
+          {{ block.settings.cta_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Magazine editorial",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid gap",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Content gap",
+      "min": 5,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_image",
+      "label": "Featured image"
+    },
+    {
+      "type": "header",
+      "content": "Category"
+    },
+    {
+      "type": "text",
+      "id": "category",
+      "label": "Category",
+      "default": "Fashion"
+    },
+    {
+      "type": "range",
+      "id": "category_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "category_color",
+      "label": "Color",
+      "default": "#999999"
+    },
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "headline",
+      "label": "Headline",
+      "default": "The Future of Sustainable Fashion"
+    },
+    {
+      "type": "font_picker",
+      "id": "headline_font",
+      "label": "Font",
+      "default": "bebas_neue_n4"
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "label": "Font size",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "header",
+      "content": "Byline"
+    },
+    {
+      "type": "text",
+      "id": "byline",
+      "label": "Byline",
+      "default": "By Editorial Team"
+    },
+    {
+      "type": "range",
+      "id": "byline_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "byline_color",
+      "label": "Color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Date"
+    },
+    {
+      "type": "text",
+      "id": "date",
+      "label": "Date",
+      "default": "June 9, 2026"
+    },
+    {
+      "type": "range",
+      "id": "date_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "date_color",
+      "label": "Color",
+      "default": "#999999"
+    },
+    {
+      "type": "header",
+      "content": "Body text"
+    },
+    {
+      "type": "richtext",
+      "id": "body_text",
+      "label": "Body text",
+      "default": "<p>Discover how innovative designers are reshaping the fashion industry with eco-conscious materials and ethical production methods. From regenerative fabrics to circular design principles, the movement toward sustainability is transforming how we think about style.</p>"
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "Read More"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "cta_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_color",
+      "label": "Background color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_border_color",
+      "label": "Border color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_bg_color",
+      "label": "Hover background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_text_color",
+      "label": "Hover text color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_border_color",
+      "label": "Hover border color",
+      "default": "#0a0a0a"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Magazine editorial"
+    }
+  ]
+}
+{% endschema %}

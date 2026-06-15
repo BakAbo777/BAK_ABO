@@ -1,4 +1,4 @@
-# BKS Studio — Testi sito completi
+﻿# BKS Studio — Testi sito completi
 ## bakabo.club — Giugno 2026
 
 Tutte le pagine non-prodotto del sito. Formato: copy pronto da incollare in Shopify.
@@ -110,10 +110,10 @@ Lingua: EN only. Italian text never appears in storefront HTML.
   <p>Orders shipped outside the European Union may be subject to import duties and taxes levied by the destination country. These charges are the responsibility of the recipient. BKS Studio has no control over customs processes and cannot predict their cost or duration.</p>
 
   <h2>Incorrect address</h2>
-  <p>Please verify your delivery address before placing your order. If you notice an error immediately after ordering, contact us at studio@bakabo.club as soon as possible. Once production has started, address changes may not be possible.</p>
+  <p>Please verify your delivery address before placing your order. If you notice an error immediately after ordering, contact us at crew@bakabo.club as soon as possible. Once production has started, address changes may not be possible.</p>
 
   <h2>Contact</h2>
-  <p>For shipping enquiries: <a href="mailto:studio@bakabo.club">studio@bakabo.club</a>. We reply within 2 business days.</p>
+  <p>For shipping enquiries: <a href="mailto:crew@bakabo.club">crew@bakabo.club</a>. We reply within 2 business days.</p>
 
   <hr>
   <p><small>EU Representative: HONSON VENTURES LIMITED, Gnaftis House flat 102, Limassol, Mesa Geitonia, 4003, Cyprus — gpsr@honsonventures.com</small></p>
@@ -150,7 +150,7 @@ Lingua: EN only. Italian text never appears in storefront HTML.
 
   <h2>How to start a return</h2>
   <ol>
-    <li>Email <a href="mailto:studio@bakabo.club">studio@bakabo.club</a> with your order number and the item(s) you wish to return</li>
+    <li>Email <a href="mailto:crew@bakabo.club">crew@bakabo.club</a> with your order number and the item(s) you wish to return</li>
     <li>We will confirm your return and provide a return address within 2 business days</li>
     <li>Ship the item back using a trackable method — return shipping costs are at the customer's expense unless the item is defective or incorrectly sent</li>
     <li>Once we receive and inspect the return, a refund is issued to your original payment method within 5–10 business days</li>
@@ -163,7 +163,7 @@ Lingua: EN only. Italian text never appears in storefront HTML.
   <p>Items that have been worn, washed, or show signs of use cannot be returned. Swimwear (swim trunks and one-piece swimsuits) cannot be returned once the hygiene seal has been removed.</p>
 
   <h2>2-Year EU Warranty</h2>
-  <p>All BKS Studio products carry a 2-year legal warranty in accordance with EU Directive 1999/44/EC. If a product develops a manufacturing defect within 2 years of purchase, we will repair, replace, or refund it. Normal wear and damage from misuse are not covered.</p>
+  <p>All BKS Studio products carry a 2-year legal warranty in accordance with EU Directive 2019/771. If a product develops a manufacturing defect within 2 years of purchase, we will repair, replace, or refund it. Normal wear and damage from misuse are not covered.</p>
 
   <h2>Exchanges</h2>
   <p>We do not offer direct exchanges. If you need a different size or colour, please return the original item and place a new order.</p>
@@ -172,7 +172,7 @@ Lingua: EN only. Italian text never appears in storefront HTML.
   <p>Refunds are processed within 5–10 business days of receiving your return. Your bank or card provider may take an additional 3–5 business days to reflect the amount in your account.</p>
 
   <h2>Contact</h2>
-  <p>Returns enquiries: <a href="mailto:studio@bakabo.club">studio@bakabo.club</a></p>
+  <p>Returns enquiries: <a href="mailto:crew@bakabo.club">crew@bakabo.club</a></p>
 
   <hr>
   <p><small>EU Representative: HONSON VENTURES LIMITED, Gnaftis House flat 102, Limassol, Mesa Geitonia, 4003, Cyprus — gpsr@honsonventures.com</small></p>
@@ -202,7 +202,7 @@ Lingua: EN only. Italian text never appears in storefront HTML.
 
   <h2>Who we are</h2>
   <p>BKS Studio is operated by an Italian registered entity. Our store runs on Shopify. EU Representative for product compliance: HONSON VENTURES LIMITED, Gnaftis House flat 102, Limassol, Mesa Geitonia, 4003, Cyprus — <a href="mailto:gpsr@honsonventures.com">gpsr@honsonventures.com</a>.</p>
-  <p>For privacy enquiries: <a href="mailto:studio@bakabo.club">studio@bakabo.club</a></p>
+  <p>For privacy enquiries: <a href="mailto:crew@bakabo.club">crew@bakabo.club</a></p>
 
   <h2>Data we collect</h2>
   <ul>
@@ -249,7 +249,7 @@ Lingua: EN only. Italian text never appears in storefront HTML.
     <li>Withdraw consent at any time (e.g. unsubscribe from newsletter)</li>
     <li>Lodge a complaint with your national data protection authority</li>
   </ul>
-  <p>To exercise any of these rights, email <a href="mailto:studio@bakabo.club">studio@bakabo.club</a>. We will respond within 30 days.</p>
+  <p>To exercise any of these rights, email <a href="mailto:crew@bakabo.club">crew@bakabo.club</a>. We will respond within 30 days.</p>
 
   <h2>Data retention</h2>
   <p>Order data is retained for 10 years to comply with Italian fiscal law. Account data is retained until you request deletion. Newsletter data is retained until you unsubscribe.</p>
@@ -287,7 +287,7 @@ Lingua: EN only. Italian text never appears in storefront HTML.
   <p>By placing an order on bakabo.club you agree to these terms. Please read them before purchasing.</p>
 
   <h2>The seller</h2>
-  <p>BKS Studio, operated by an Italian registered entity. Contact: <a href="mailto:studio@bakabo.club">studio@bakabo.club</a>. EU Representative: HONSON VENTURES LIMITED, Gnaftis House flat 102, Limassol, Mesa Geitonia, 4003, Cyprus.</p>
+  <p>BKS Studio, operated by an Italian registered entity. Contact: <a href="mailto:crew@bakabo.club">crew@bakabo.club</a>. EU Representative: HONSON VENTURES LIMITED, Gnaftis House flat 102, Limassol, Mesa Geitonia, 4003, Cyprus.</p>
 
   <h2>Orders and contract</h2>
   <p>An order placed on bakabo.club constitutes an offer to purchase. The contract is formed when we send your order confirmation email. We reserve the right to cancel an order if a product becomes unavailable or if payment cannot be verified.</p>
@@ -302,7 +302,7 @@ Lingua: EN only. Italian text never appears in storefront HTML.
   <p>All prints, patterns, designs, and visual content on bakabo.club are the property of BKS Studio. You may not reproduce, distribute, or create derivative works from any BKS Studio design without written permission. Purchasing a product grants you the right to wear it — not to reproduce the design commercially.</p>
 
   <h2>EU consumer rights</h2>
-  <p>Customers in the European Union retain all rights under applicable EU consumer protection law, including the right of withdrawal under Directive 2011/83/EU and the 2-year warranty under Directive 1999/44/EC. These rights are not limited by these terms.</p>
+  <p>Customers in the European Union retain all rights under applicable EU consumer protection law, including the right of withdrawal under Directive 2011/83/EU and the 2-year warranty under Directive 2019/771. These rights are not limited by these terms.</p>
 
   <h2>Limitation of liability</h2>
   <p>BKS Studio is not liable for delays caused by production disruption, carrier failure, customs processes, or events outside our control. Our liability is limited to the value of the order placed.</p>
@@ -311,7 +311,7 @@ Lingua: EN only. Italian text never appears in storefront HTML.
   <p>These terms are governed by Italian law. Disputes shall be subject to the jurisdiction of Italian courts, without prejudice to mandatory consumer protection provisions applicable in your country of residence.</p>
 
   <h2>Contact</h2>
-  <p><a href="mailto:studio@bakabo.club">studio@bakabo.club</a></p>
+  <p><a href="mailto:crew@bakabo.club">crew@bakabo.club</a></p>
 
 </section>
 ```
@@ -332,7 +332,7 @@ Lingua: EN only. Italian text never appears in storefront HTML.
 <section class="bks-faq">
 
   <h1>Help &amp; FAQ</h1>
-  <p>Common questions about ordering, shipping, and BKS Studio products. If your question is not here, write to <a href="mailto:studio@bakabo.club">studio@bakabo.club</a> — we reply within 2 business days.</p>
+  <p>Common questions about ordering, shipping, and BKS Studio products. If your question is not here, write to <a href="mailto:crew@bakabo.club">crew@bakabo.club</a> — we reply within 2 business days.</p>
 
   <h2>Orders &amp; Production</h2>
 
@@ -343,12 +343,12 @@ Lingua: EN only. Italian text never appears in storefront HTML.
 
   <details>
     <summary>Can I cancel or modify my order?</summary>
-    <p>Orders can be cancelled or modified within 12 hours of placement, before production starts. After that, the item is already in production and changes are not possible. Email studio@bakabo.club immediately if you need to make a change.</p>
+    <p>Orders can be cancelled or modified within 12 hours of placement, before production starts. After that, the item is already in production and changes are not possible. Email crew@bakabo.club immediately if you need to make a change.</p>
   </details>
 
   <details>
     <summary>I made an error in my delivery address — what do I do?</summary>
-    <p>Contact us at studio@bakabo.club as soon as possible with your order number and the correct address. If production has not yet started we can update it. Once an order is in production, address changes may not be possible.</p>
+    <p>Contact us at crew@bakabo.club as soon as possible with your order number and the correct address. If production has not yet started we can update it. Once an order is in production, address changes may not be possible.</p>
   </details>
 
   <h2>Shipping &amp; Tracking</h2>
@@ -372,12 +372,12 @@ Lingua: EN only. Italian text never appears in storefront HTML.
 
   <details>
     <summary>Can I return a made-to-order item?</summary>
-    <p>Yes. We accept returns within 30 days of delivery for all products in original, unworn condition. Email studio@bakabo.club with your order number to start a return. Return shipping costs are at the customer's expense unless the item is defective.</p>
+    <p>Yes. We accept returns within 30 days of delivery for all products in original, unworn condition. Email crew@bakabo.club with your order number to start a return. Return shipping costs are at the customer's expense unless the item is defective.</p>
   </details>
 
   <details>
     <summary>I received a defective or wrong item</summary>
-    <p>Contact us within 7 days of delivery at studio@bakabo.club with your order number and a photo of the issue. We will arrange a replacement or refund, including return shipping.</p>
+    <p>Contact us within 7 days of delivery at crew@bakabo.club with your order number and a photo of the issue. We will arrange a replacement or refund, including return shipping.</p>
   </details>
 
   <details>
@@ -435,7 +435,7 @@ Lingua: EN only. Italian text never appears in storefront HTML.
 **Shopify:** Online Store → Pages → handle: `contact`
 **Template:** `page.contact` o `page`
 **SEO Title:** `Contact BKS Studio`
-**Meta description:** `Contact BKS Studio for order support, returns, or general enquiries. We reply within 2 business days. studio@bakabo.club` (120 chars)
+**Meta description:** `Contact BKS Studio for order support, returns, or general enquiries. We reply within 2 business days. crew@bakabo.club` (120 chars)
 
 ---
 
@@ -445,7 +445,7 @@ Lingua: EN only. Italian text never appears in storefront HTML.
 <section class="bks-contact">
 
   <h1>Contact</h1>
-  <p>For order enquiries, returns, or any questions about BKS Studio products, write to us at <a href="mailto:studio@bakabo.club">studio@bakabo.club</a>. We reply within 2 business days.</p>
+  <p>For order enquiries, returns, or any questions about BKS Studio products, write to us at <a href="mailto:crew@bakabo.club">crew@bakabo.club</a>. We reply within 2 business days.</p>
 
   <h2>Before you write</h2>
   <p>Most questions about production times, shipping, sizing, and returns are answered in the <a href="/pages/help-faq">Help &amp; FAQ</a>.</p>
@@ -453,7 +453,7 @@ Lingua: EN only. Italian text never appears in storefront HTML.
   <h2>Studio</h2>
   <p>BKS Studio<br>
   Terni, Italy<br>
-  <a href="mailto:studio@bakabo.club">studio@bakabo.club</a></p>
+  <a href="mailto:crew@bakabo.club">crew@bakabo.club</a></p>
 
   <h2>EU Representative</h2>
   <p>HONSON VENTURES LIMITED<br>
@@ -500,7 +500,7 @@ Label row:   Hours · Glyph · Marker · Riviera · Pulse · Token · Flag · Fo
 ①  Made to order       Every piece produced after purchase. No warehouse, no overstock.
 ②  AI-generated art    Prints built on art-movement references. Editorial direction, AI craft.
 ③  30-Day Returns      Change your mind within 30 days. Hassle-free.
-④  2-Year EU Warranty  Manufacturing defects covered for 2 years under EU Directive 1999/44/EC.
+④  2-Year EU Warranty  Manufacturing defects covered for 2 years under EU Directive 2019/771.
 ```
 
 ## 8.5 Newsletter section
@@ -552,7 +552,7 @@ Option C:   [vuoto / disattivato — default raccomandato]
 **Note critiche:**
 - Le 4 policy (Shipping, Returns, Privacy, Terms) vanno inserite in **Settings → Policies** in Shopify — non come Pages normali. Shopify le linka automaticamente nel checkout footer.
 - Il link `/pages/help-faq` nel footer menu va aggiornato una volta creata la pagina.
-- `studio@bakabo.club` — verificare che questo indirizzo esista e sia monitorato prima del lancio.
+- `crew@bakabo.club` — verificare che questo indirizzo esista e sia monitorato prima del lancio.
 - Il blocco HONSON VENTURES LIMITED compare in About, Shipping, Returns, Terms. Non in Privacy (già menzionato nel corpo) e non in FAQ/Contact (link policy sufficienti).
 
 ---

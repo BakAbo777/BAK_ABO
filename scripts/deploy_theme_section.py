@@ -33,6 +33,8 @@ FILES = [
     ("sections/bks-timed-offer.liquid",             "sections/bks-timed-offer.liquid"),
     ("sections/bks-trust-strip.liquid",             "sections/bks-trust-strip.liquid"),
     ("sections/bks-product-editorial-care.liquid",  "sections/bks-product-editorial-care.liquid"),
+    # Assets globali
+    ("assets/bks-commerce-light.css",              "assets/bks-commerce-light.css"),
     # Assets piano hero
     ("assets/bks-piano-hero.css",                  "assets/bks-piano-hero.css"),
     ("assets/bks-piano-hero.js",                   "assets/bks-piano-hero.js"),
@@ -48,6 +50,9 @@ FILES = [
     # Template pagine custom
     ("templates/page.bks-archive.json",            "templates/page.bks-archive.json"),
     ("templates/page.bks-planet-collections-orbit.json", "templates/page.bks-planet-collections-orbit.json"),
+    # Custom request page
+    ("sections/bks-custom-request.liquid",              "sections/bks-custom-request.liquid"),
+    ("templates/page.bks-custom.json",                  "templates/page.bks-custom.json"),
 ]
 
 

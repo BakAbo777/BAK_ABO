@@ -181,12 +181,12 @@
   #shopify-section-{{ section.id }} .bks-impact__title {
     margin: 0;
     font-family: var(--bks-font-display,'Bebas Neue',sans-serif);
-    font-size: clamp(56px, 9vw, 136px);
-    line-height: 0.88;
+    font-size: clamp(40px, 5.5vw, 88px);
+    line-height: 0.9;
     letter-spacing: 0;
     text-transform: uppercase;
     color: #FAFAF7;
-    max-width: 12ch;
+    max-width: 18ch;
   }
 
   #shopify-section-{{ section.id }} .bks-impact__title .char {
@@ -494,19 +494,19 @@
 
   #shopify-section-{{ section.id }} .bks-collection-card__overlay-count {
     font-family: var(--bks-font-mono,'DM Mono',monospace);
-    font-size: 0.6rem;
+    font-size: 11px;
     text-transform: uppercase;
     color: #C9B79C;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
   }
 
   #shopify-section-{{ section.id }} .bks-collection-card__overlay-enter {
     margin-top: 6px;
     font-family: var(--bks-font-mono,'DM Mono',monospace);
-    font-size: 0.58rem;
+    font-size: 11px;
     text-transform: uppercase;
     color: rgba(250,250,247,0.5);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.06em;
   }
 
   #shopify-section-{{ section.id }} .bks-collection-card:hover .bks-collection-card__inner {
@@ -652,7 +652,7 @@
     display: block;
     margin-top: 8px;
     font-family: var(--bks-font-mono,'DM Mono',monospace);
-    font-size: 0.68rem;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0;
     color: rgba(250,250,247,0.55);
@@ -685,8 +685,8 @@
     }
 
     #shopify-section-{{ section.id }} .bks-impact__title {
-      font-size: 86px;
-      max-width: 11ch;
+      font-size: 64px;
+      max-width: 18ch;
     }
 
     #shopify-section-{{ section.id }} .bks-impact__copy {
@@ -705,8 +705,8 @@
 
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .bks-impact__title {
-      font-size: 52px;
-      line-height: 0.9;
+      font-size: 44px;
+      line-height: 0.92;
     }
 
     #shopify-section-{{ section.id }} .bks-impact__copy {
@@ -821,8 +821,8 @@
               {% endif %}
               <div class="bks-collection-card__overlay" aria-hidden="true">
                 <span class="bks-collection-card__overlay-name">{{ collection.title }}</span>
-                <span class="bks-collection-card__overlay-count">{{ collection.products_count }} pezzi</span>
-                <span class="bks-collection-card__overlay-enter">Entra →</span>
+                <span class="bks-collection-card__overlay-count">{{ collection.products_count }} pieces</span>
+                <span class="bks-collection-card__overlay-enter">Enter →</span>
               </div>
             </div>
           </a>

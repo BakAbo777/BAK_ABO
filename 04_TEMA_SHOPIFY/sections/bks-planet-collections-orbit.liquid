@@ -34,8 +34,8 @@
     --bks-muted: {{ section.settings.muted_text_color }};
     --bks-accent: {{ section.settings.accent_color }};
     --bks-accent-2: {{ section.settings.accent_color_2 }};
-    --bks-font-display: "BKS Display", var(--font-heading-family, "Segoe UI", Arial, sans-serif);
-    --bks-font-text: "BKS Text", var(--font-body-family, "Segoe UI", Arial, sans-serif);
+    --bks-font-display: 'Bebas Neue', 'Arial Narrow', Arial, sans-serif;
+    --bks-font-text: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
     --bks-planet-size: 250px;
     position: relative;
     overflow: hidden;
@@ -122,9 +122,9 @@
     margin: 0;
     max-width: 10ch;
     font-family: var(--bks-font-display);
-    font-size: 96px;
+    font-size: clamp(48px, 6vw, 80px);
     font-weight: 850;
-    line-height: 0.9;
+    line-height: 0.92;
     letter-spacing: 0;
     text-transform: uppercase;
     color: var(--bks-text);
@@ -737,8 +737,8 @@
     }
 
     #shopify-section-{{ section.id }} .bks-planet-orbit__heading {
-      font-size: 52px;
-      max-width: 8ch;
+      font-size: 44px;
+      max-width: 10ch;
     }
 
     #shopify-section-{{ section.id }} .bks-planet-orbit__copy {

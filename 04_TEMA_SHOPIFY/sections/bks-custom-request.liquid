@@ -1,0 +1,720 @@
+{% comment %}
+  BKS Custom Request — /pages/bks-custom
+  Accesso: tag bks-drop o bks-archive
+  Pattern mix: solo bks-archive
+{% endcomment %}
+
+{% liquid
+  assign has_access = false
+  assign is_archive = false
+  if customer
+    for tag in customer.tags
+      if tag == 'bks-drop' or tag == 'bks-archive'
+        assign has_access = true
+      endif
+      if tag == 'bks-archive'
+        assign is_archive = true
+      endif
+    endfor
+  endif
+%}
+
+<style>
+  .bks-cr-page {
+    background: #0A0A0A;
+    color: #FAFAF7;
+    min-height: 80vh;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    padding: clamp(48px, 6vw, 96px) 0 clamp(64px, 8vw, 120px);
+  }
+  .bks-cr-inner {
+    width: min(720px, calc(100% - 32px));
+    margin: 0 auto;
+  }
+
+  /* ── HERO ── */
+  .bks-cr-hero {
+    margin-bottom: 52px;
+    padding-bottom: 44px;
+    border-bottom: 1px solid rgba(250,250,247,0.1);
+  }
+  .bks-cr-eyebrow {
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #C9B79C;
+    margin: 0 0 18px;
+  }
+  .bks-cr-title {
+    font-family: 'Bebas Neue', 'Arial Narrow', Arial, sans-serif;
+    font-size: clamp(36px, 5.5vw, 64px);
+    line-height: 0.92;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: #FAFAF7;
+    margin: 0 0 24px;
+  }
+  .bks-cr-copy {
+    font-size: 16px;
+    line-height: 1.72;
+    color: rgba(250,250,247,0.65);
+    margin: 0;
+    max-width: 54ch;
+  }
+  .bks-cr-copy em {
+    font-style: normal;
+    display: block;
+    margin-top: 16px;
+    font-size: 14px;
+    color: rgba(250,250,247,0.38);
+    font-family: 'DM Mono', 'Courier New', monospace;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── ACCESS DENIED ── */
+  .bks-cr-denied {
+    padding: 52px 32px;
+    border: 1px solid rgba(250,250,247,0.1);
+    text-align: center;
+  }
+  .bks-cr-denied p {
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 13px;
+    color: rgba(250,250,247,0.48);
+    margin: 0 0 28px;
+    letter-spacing: 0.04em;
+    line-height: 1.6;
+  }
+  .bks-cr-denied a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 28px;
+    background: #FAFAF7;
+    color: #0A0A0A;
+    text-decoration: none;
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: background 0.2s ease;
+  }
+  .bks-cr-denied a:hover { background: #C9B79C; }
+
+  /* ── FORM BLOCKS ── */
+  .bks-cr-block {
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(250,250,247,0.07);
+  }
+  .bks-cr-block:last-child { border-bottom: none; }
+  .bks-cr-block-num {
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #C9B79C;
+    margin: 0 0 8px;
+  }
+  .bks-cr-block-title {
+    font-family: 'Bebas Neue', 'Arial Narrow', Arial, sans-serif;
+    font-size: clamp(22px, 3vw, 30px);
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: #FAFAF7;
+    margin: 0 0 28px;
+    line-height: 1;
+  }
+
+  /* ── FIELDS ── */
+  .bks-cr-field { margin-bottom: 20px; }
+  .bks-cr-label {
+    display: block;
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(250,250,247,0.48);
+    margin-bottom: 8px;
+  }
+  .bks-cr-label .req { color: #C9B79C; }
+  .bks-cr-input,
+  .bks-cr-select,
+  .bks-cr-textarea {
+    display: block;
+    width: 100%;
+    background: rgba(250,250,247,0.04);
+    border: 1px solid rgba(250,250,247,0.14);
+    color: #FAFAF7;
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-size: 15px;
+    padding: 13px 16px;
+    transition: border-color 0.2s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+  .bks-cr-input:focus,
+  .bks-cr-select:focus,
+  .bks-cr-textarea:focus {
+    outline: none;
+    border-color: rgba(201,183,156,0.55);
+    background: rgba(250,250,247,0.06);
+  }
+  .bks-cr-select {
+    background-image: url("data:image/svg+xml,%3Csvg width='11' height='7' viewBox='0 0 11 7' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%23FAFAF7' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+  .bks-cr-select option { background: #1a1a1a; color: #FAFAF7; }
+  .bks-cr-textarea { resize: vertical; min-height: 110px; line-height: 1.62; }
+  .bks-cr-char-count {
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 11px;
+    color: rgba(250,250,247,0.3);
+    text-align: right;
+    margin-top: 5px;
+  }
+  .bks-cr-char-count.near { color: #C9B79C; }
+  .bks-cr-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .bks-cr-hint {
+    font-size: 13px;
+    color: rgba(250,250,247,0.35);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* ── RADIO CARDS ── */
+  .bks-cr-type-grid { display: flex; flex-direction: column; gap: 10px; }
+  .bks-cr-type-card {
+    position: relative;
+    border: 1px solid rgba(250,250,247,0.12);
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    display: grid;
+    grid-template-columns: 20px 1fr auto;
+    align-items: start;
+    gap: 16px;
+  }
+  .bks-cr-type-card:hover:not(.bks-cr-type-card--locked) {
+    border-color: rgba(201,183,156,0.38);
+    background: rgba(250,250,247,0.025);
+  }
+  .bks-cr-type-card:has(input:checked) {
+    border-color: #C9B79C;
+    background: rgba(201,183,156,0.05);
+  }
+  .bks-cr-type-card--locked {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  .bks-cr-type-card input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgba(250,250,247,0.28);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 1px;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.2s ease;
+  }
+  .bks-cr-type-card input[type="radio"]:checked {
+    border-color: #C9B79C;
+    background: #C9B79C;
+  }
+  .bks-cr-type-card input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: #0A0A0A;
+  }
+  .bks-cr-type-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #FAFAF7;
+    margin: 0 0 4px;
+    line-height: 1.3;
+  }
+  .bks-cr-type-desc {
+    font-size: 13px;
+    line-height: 1.55;
+    color: rgba(250,250,247,0.5);
+    margin: 0;
+  }
+  .bks-cr-type-tier {
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #C9B79C;
+    border: 1px solid rgba(201,183,156,0.28);
+    padding: 3px 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    align-self: start;
+  }
+  .bks-cr-type-card--locked .bks-cr-type-tier {
+    color: rgba(250,250,247,0.28);
+    border-color: rgba(250,250,247,0.1);
+  }
+  .bks-cr-type-unlock {
+    grid-column: 2 / -1;
+    font-size: 12px;
+    color: rgba(250,250,247,0.35);
+    margin-top: 6px;
+  }
+  .bks-cr-type-unlock a {
+    color: #C9B79C;
+    text-decoration: underline;
+  }
+
+  /* ── PROCESS NOTES ── */
+  .bks-cr-process {
+    background: rgba(250,250,247,0.025);
+    border: 1px solid rgba(250,250,247,0.07);
+    padding: 28px;
+  }
+  .bks-cr-process-label {
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #C9B79C;
+    margin: 0 0 20px;
+  }
+  .bks-cr-steps {
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 0;
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .bks-cr-steps li {
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(250,250,247,0.6);
+  }
+  .bks-cr-steps li::before {
+    content: counter(step);
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 11px;
+    color: #C9B79C;
+    line-height: 1.8;
+  }
+  .bks-cr-process-note {
+    font-size: 13px;
+    color: rgba(250,250,247,0.3);
+    margin: 0;
+    line-height: 1.55;
+    border-top: 1px solid rgba(250,250,247,0.06);
+    padding-top: 16px;
+  }
+
+  /* ── SUBMIT ── */
+  .bks-cr-email-note {
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(250,250,247,0.32);
+    margin: 0 0 20px;
+  }
+  .bks-cr-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 52px;
+    padding: 0 32px;
+    background: #FAFAF7;
+    color: #0A0A0A;
+    border: none;
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .bks-cr-btn:hover:not(:disabled) {
+    background: #C9B79C;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(201,183,156,0.28);
+  }
+  .bks-cr-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+  .bks-cr-error {
+    background: rgba(180,40,40,0.12);
+    border: 1px solid rgba(200,60,60,0.3);
+    padding: 12px 16px;
+    font-size: 13px;
+    color: rgba(255,190,190,0.88);
+    margin-bottom: 16px;
+    display: none;
+  }
+  .bks-cr-error.visible { display: block; }
+
+  /* ── SUCCESS ── */
+  .bks-cr-success {
+    padding: 56px 32px;
+    border: 1px solid rgba(201,183,156,0.25);
+    text-align: center;
+  }
+  .bks-cr-success-icon {
+    display: block;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(201,183,156,0.4);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #C9B79C;
+    font-size: 20px;
+  }
+  .bks-cr-success-title {
+    font-family: 'Bebas Neue', 'Arial Narrow', Arial, sans-serif;
+    font-size: 32px;
+    color: #FAFAF7;
+    margin: 0 0 12px;
+    letter-spacing: 0;
+  }
+  .bks-cr-success-copy {
+    font-size: 15px;
+    color: rgba(250,250,247,0.55);
+    margin: 0 0 28px;
+    line-height: 1.65;
+  }
+  .bks-cr-success-back {
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #C9B79C;
+    text-decoration: underline;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  @media (max-width: 600px) {
+    .bks-cr-row { grid-template-columns: 1fr; }
+    .bks-cr-type-card { grid-template-columns: 20px 1fr; }
+    .bks-cr-type-tier { display: none; }
+    .bks-cr-process { padding: 20px; }
+  }
+</style>
+
+<div class="bks-cr-page">
+  <div class="bks-cr-inner">
+
+    <div class="bks-cr-hero">
+      <p class="bks-cr-eyebrow">BKS Studio — Member Area</p>
+      <h1 class="bks-cr-title">Custom Request</h1>
+      <p class="bks-cr-copy">
+        Ogni pezzo BKS è prodotto su ordinazione.<br>
+        Alcuni clienti possono richiedere una variante personalizzata —
+        palette diversa, iniziali, combinazione di pattern.
+        <em>◈ Questo non è un configuratore. È una richiesta diretta allo studio.</em>
+      </p>
+    </div>
+
+    {% if customer %}
+      {% if has_access %}
+
+        <form id="bks-cr-form"
+              data-customer-name="{{ customer.name | escape }}"
+              data-customer-email="{{ customer.email | escape }}"
+              data-is-archive="{{ is_archive }}">
+
+          <!-- BLOCCO 1 — Prodotto -->
+          <div class="bks-cr-block">
+            <p class="bks-cr-block-num">01 /</p>
+            <h2 class="bks-cr-block-title">Quale prodotto?</h2>
+            <div class="bks-cr-field">
+              <label class="bks-cr-label" for="bks-cr-product-url">URL prodotto <span class="req">*</span></label>
+              <input class="bks-cr-input" type="url" id="bks-cr-product-url"
+                     placeholder="https://bakabo.club/products/..."
+                     autocomplete="off">
+              <p class="bks-cr-hint">Vai alla pagina prodotto e incolla l'URL completo.</p>
+            </div>
+          </div>
+
+          <!-- BLOCCO 2 — Tipo personalizzazione -->
+          <div class="bks-cr-block">
+            <p class="bks-cr-block-num">02 /</p>
+            <h2 class="bks-cr-block-title">Tipo di personalizzazione</h2>
+            <div class="bks-cr-type-grid">
+
+              <label class="bks-cr-type-card">
+                <input type="radio" name="bks-cr-type" value="swap_palette">
+                <div class="bks-cr-type-body">
+                  <p class="bks-cr-type-name">Swap palette</p>
+                  <p class="bks-cr-type-desc">Variazione cromatica del pattern su questo prodotto</p>
+                </div>
+                <span class="bks-cr-type-tier">Drop+</span>
+              </label>
+
+              <label class="bks-cr-type-card">
+                <input type="radio" name="bks-cr-type" value="text_monogram">
+                <div class="bks-cr-type-body">
+                  <p class="bks-cr-type-name">Iniziali / testo</p>
+                  <p class="bks-cr-type-desc">Aggiungi iniziali o una parola su area designata</p>
+                </div>
+                <span class="bks-cr-type-tier">Drop+</span>
+              </label>
+
+              <label class="bks-cr-type-card{% unless is_archive %} bks-cr-type-card--locked{% endunless %}">
+                <input type="radio" name="bks-cr-type" value="pattern_mix"
+                       {% unless is_archive %}disabled{% endunless %}>
+                <div class="bks-cr-type-body">
+                  <p class="bks-cr-type-name">Pattern mix</p>
+                  <p class="bks-cr-type-desc">Combina due pattern della stessa collection</p>
+                  {% unless is_archive %}
+                    <p class="bks-cr-type-unlock">
+                      Disponibile da BKS Archive. <a href="/collections">Scopri come accedere →</a>
+                    </p>
+                  {% endunless %}
+                </div>
+                <span class="bks-cr-type-tier">Archive</span>
+              </label>
+
+            </div>
+          </div>
+
+          <!-- BLOCCO 3 — Dettagli -->
+          <div class="bks-cr-block">
+            <p class="bks-cr-block-num">03 /</p>
+            <h2 class="bks-cr-block-title">Dettagli richiesta</h2>
+
+            <div class="bks-cr-field">
+              <label class="bks-cr-label" for="bks-cr-desc">Descrivi la tua richiesta <span class="req">*</span></label>
+              <textarea class="bks-cr-textarea" id="bks-cr-desc"
+                        placeholder="Descrivi nel dettaglio cosa vuoi personalizzare..."></textarea>
+              <p class="bks-cr-char-count"><span id="bks-cr-count">0</span>/300</p>
+            </div>
+
+            <div class="bks-cr-row">
+              <div class="bks-cr-field">
+                <label class="bks-cr-label" for="bks-cr-size">Taglia <span class="req">*</span></label>
+                <select class="bks-cr-select" id="bks-cr-size">
+                  <option value="">— seleziona —</option>
+                  <option value="XS">XS</option>
+                  <option value="S">S</option>
+                  <option value="M">M</option>
+                  <option value="L">L</option>
+                  <option value="XL">XL</option>
+                  <option value="XXL">XXL</option>
+                  <option value="XXXL">XXXL</option>
+                  <option value="Personalizzata">Personalizzata</option>
+                </select>
+              </div>
+              <div class="bks-cr-field">
+                <label class="bks-cr-label" for="bks-cr-qty">Quantità <span class="req">*</span></label>
+                <select class="bks-cr-select" id="bks-cr-qty">
+                  <option value="1">1 pezzo</option>
+                  <option value="2">2 pezzi</option>
+                  <option value="3">3 pezzi</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- BLOCCO 4 — Processo -->
+          <div class="bks-cr-block">
+            <div class="bks-cr-process">
+              <p class="bks-cr-process-label">◈ Come funziona</p>
+              <ol class="bks-cr-steps">
+                <li>Invii la richiesta. Lo studio la valuta entro 3 giorni lavorativi.</li>
+                <li>Ricevi un'anteprima del pattern modificato via email.</li>
+                <li>Confermi. Il prodotto entra in produzione come ordine MTO standard.</li>
+                <li>Tempi di produzione invariati rispetto al catalogo.</li>
+              </ol>
+              <p class="bks-cr-process-note">
+                Non tutte le richieste sono realizzabili. Il parere dello studio è definitivo.
+                Nessun pagamento anticipato — il pricing viene definito via email dopo valutazione.
+              </p>
+            </div>
+          </div>
+
+          <!-- BLOCCO 5 — Invio -->
+          <div class="bks-cr-block">
+            <p class="bks-cr-block-num">05 /</p>
+            <h2 class="bks-cr-block-title">Invia richiesta</h2>
+            <p class="bks-cr-email-note">Riceverai conferma all'indirizzo: {{ customer.email }}</p>
+            <div class="bks-cr-error" id="bks-cr-error"></div>
+            <button class="bks-cr-btn" type="submit" id="bks-cr-submit">Invia richiesta</button>
+          </div>
+
+        </form>
+
+        <div id="bks-cr-success" class="bks-cr-success" hidden>
+          <div class="bks-cr-success-icon">✓</div>
+          <h2 class="bks-cr-success-title">Richiesta inviata</h2>
+          <p class="bks-cr-success-copy">
+            La tua richiesta è stata ricevuta dallo studio.<br>
+            Riceverai una risposta entro 3 giorni lavorativi all'indirizzo<br>
+            <strong>{{ customer.email }}</strong>
+          </p>
+          <button class="bks-cr-success-back" id="bks-cr-new">Invia un'altra richiesta</button>
+        </div>
+
+      {% else %}
+        <div class="bks-cr-denied">
+          <p>Questa sezione è riservata ai clienti BKS Drop e BKS Archive.</p>
+          <a href="/account">Vai al tuo account</a>
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="bks-cr-denied">
+        <p>Accedi al tuo account per continuare.</p>
+        <a href="/account/login?return_url=/pages/bks-custom">Accedi</a>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<script>
+(function () {
+  const form    = document.getElementById('bks-cr-form');
+  const success = document.getElementById('bks-cr-success');
+  const newBtn  = document.getElementById('bks-cr-new');
+  const submit  = document.getElementById('bks-cr-submit');
+  const descEl  = document.getElementById('bks-cr-desc');
+  const countEl = document.getElementById('bks-cr-count');
+  const errEl   = document.getElementById('bks-cr-error');
+  if (!form) return;
+
+  const TYPE_LABELS = {
+    swap_palette:  'Swap palette',
+    text_monogram: 'Iniziali / testo',
+    pattern_mix:   'Pattern mix'
+  };
+
+  /* char counter */
+  if (descEl && countEl) {
+    descEl.addEventListener('input', function () {
+      if (descEl.value.length > 300) descEl.value = descEl.value.slice(0, 300);
+      const n = descEl.value.length;
+      countEl.textContent = n;
+      countEl.parentElement.classList.toggle('near', n >= 260);
+    });
+  }
+
+  /* radio cards — click on label clicks radio */
+  form.querySelectorAll('.bks-cr-type-card:not(.bks-cr-type-card--locked)').forEach(function (card) {
+    card.addEventListener('click', function () {
+      const r = card.querySelector('input[type="radio"]');
+      if (r && !r.disabled) r.checked = true;
+    });
+  });
+
+  function showError(msg) {
+    errEl.textContent = msg;
+    errEl.classList.add('visible');
+    errEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  function clearError() { errEl.classList.remove('visible'); }
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    clearError();
+
+    const productUrl = (form.querySelector('#bks-cr-product-url').value || '').trim();
+    const typeRadio  = form.querySelector('input[name="bks-cr-type"]:checked');
+    const desc       = (descEl ? descEl.value : '').trim();
+    const size       = form.querySelector('#bks-cr-size').value;
+    const qty        = form.querySelector('#bks-cr-qty').value;
+
+    if (!productUrl) { showError('Incolla l\'URL del prodotto.'); return; }
+    if (!typeRadio)  { showError('Seleziona un tipo di personalizzazione.'); return; }
+    if (desc.length < 20) { showError('Descrivi la richiesta (minimo 20 caratteri).'); return; }
+    if (!size) { showError('Seleziona la taglia.'); return; }
+
+    const name     = form.dataset.customerName  || '';
+    const email    = form.dataset.customerEmail || '';
+    const typeLabel = TYPE_LABELS[typeRadio.value] || typeRadio.value;
+
+    const body = [
+      'BKS STUDIO — CUSTOM REQUEST',
+      '───────────────────────────',
+      'Cliente: ' + name + ' <' + email + '>',
+      'Prodotto: ' + productUrl,
+      'Tipo: ' + typeLabel,
+      'Taglia: ' + size,
+      'Quantità: ' + qty,
+      '───────────────────────────',
+      'Richiesta:',
+      desc
+    ].join('\n');
+
+    submit.disabled = true;
+    submit.textContent = 'Invio in corso…';
+
+    try {
+      const params = new URLSearchParams({
+        'form_type':      'contact',
+        'utf8':           '✓',
+        'contact[name]':  name,
+        'contact[email]': email,
+        'contact[body]':  body
+      });
+      const r = await fetch('/contact', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' },
+        body:    params.toString()
+      });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+
+      form.hidden = true;
+      if (success) success.hidden = false;
+
+    } catch (err) {
+      submit.disabled = false;
+      submit.textContent = 'Invia richiesta';
+      showError('Errore di invio. Riprova o scrivi a crew@bakabo.club');
+    }
+  });
+
+  if (newBtn) {
+    newBtn.addEventListener('click', function () {
+      form.reset();
+      if (countEl) countEl.textContent = '0';
+      form.hidden = false;
+      if (success) success.hidden = true;
+      submit.disabled = false;
+      submit.textContent = 'Invia richiesta';
+    });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "BKS Custom Request",
+  "settings": [],
+  "presets": [{ "name": "BKS Custom Request" }]
+}
+{% endschema %}

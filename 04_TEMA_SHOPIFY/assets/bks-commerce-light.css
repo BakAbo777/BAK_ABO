@@ -9,9 +9,9 @@
   --bks-commerce-muted: #5f5a52;
   --bks-commerce-line: #ded8cd;
   --bks-commerce-accent: #2f6f6b;
-  --bks-font-display: "BKS Display", var(--font-heading-family, "Segoe UI", Arial, sans-serif);
-  --bks-font-text: "BKS Text", var(--font-body-family, "Segoe UI", Arial, sans-serif);
-  --bks-font-mono: "BKS Mono", Consolas, "Liberation Mono", monospace;
+  --bks-font-display: 'Bebas Neue', 'Arial Narrow', Arial, sans-serif;
+  --bks-font-text: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  --bks-font-mono: 'DM Mono', 'Courier New', monospace;
 }
 
 body,

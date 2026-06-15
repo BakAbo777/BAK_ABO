@@ -1,24 +1,29 @@
 """BKS Studio — Printify API client."""
 import os
+import functools
 import requests
 from pathlib import Path
 from config.settings import PRINTIFY_API_TOKEN, PRINTIFY_SHOP_ID, SOURCE_DIR
 
 BASE = "https://api.printify.com/v1"
-HEADERS = {"Authorization": f"Bearer {PRINTIFY_API_TOKEN}"}
 PRINTIFY_SHOP_TITLE = os.getenv("PRINTIFY_SHOP_TITLE", "bakabo.club")
 
 
+def _headers() -> dict[str, str]:
+    token = os.getenv("PRINTIFY_API_TOKEN", PRINTIFY_API_TOKEN)
+    return {"Authorization": f"Bearer {token}"}
+
+
 def _get(path: str, params: dict = None) -> dict:
-    import ssl, urllib3
-    # Retry with SSL verification disabled if SSL handshake fails (proxy/antivirus intercept)
+    import urllib3
+    hdrs = _headers()
     try:
-        r = requests.get(f"{BASE}{path}", headers=HEADERS, params=params, timeout=30)
+        r = requests.get(f"{BASE}{path}", headers=hdrs, params=params, timeout=30)
         r.raise_for_status()
         return r.json()
     except requests.exceptions.SSLError:
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-        r = requests.get(f"{BASE}{path}", headers=HEADERS, params=params,
+        r = requests.get(f"{BASE}{path}", headers=hdrs, params=params,
                          timeout=30, verify=False)
         r.raise_for_status()
         return r.json()
@@ -39,6 +44,7 @@ def get_correct_shop_id() -> str:
     return str(first["id"] if isinstance(first, dict) else first)
 
 
+@functools.lru_cache(maxsize=1)
 def resolve_shop_id() -> str:
     """Return the numeric Printify shop ID for bakabo.club.
 
@@ -46,6 +52,7 @@ def resolve_shop_id() -> str:
     1. PRINTIFY_SHOP_ID in .env if it's a valid integer
     2. Find the shop whose title or domain contains 'bakabo'
     3. Fall back to the first shop found
+    Result is cached for the lifetime of the process.
     """
     sid = PRINTIFY_SHOP_ID.strip()
     if sid.isdigit():
@@ -169,17 +176,18 @@ def is_bks_product(product: dict) -> bool:
 
 
 def load_all_products(published_only: bool = True,
-                      bks_only: bool = True) -> list[dict]:
+                      bks_only: bool = True,
+                      max_pages: int = 100) -> list[dict]:
     """Paginate through all products and return filtered list.
 
     Args:
         published_only: if True (default), return only products pushed to Shopify.
         bks_only:       if True (default), return only products whose title
                         starts with "BKS" (brand safety filter).
+        max_pages:      safety cap to prevent infinite pagination (default 100).
     """
     products = []
-    page = 1
-    while True:
+    for page in range(1, max_pages + 1):
         batch = load_products(page=page, limit=20)
         if not batch:
             break
@@ -188,7 +196,6 @@ def load_all_products(published_only: bool = True,
         if published_only:
             batch = [p for p in batch if is_published(p)]
         products.extend(batch)
-        page += 1
     return products
 
 

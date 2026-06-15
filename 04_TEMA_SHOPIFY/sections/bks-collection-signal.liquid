@@ -85,9 +85,9 @@
   #shopify-section-{{ section.id }} .bks-collection-signal h1 {
     color: #FAFAF7;
     font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
-    font-size: 112px;
+    font-size: clamp(48px, 6.5vw, 88px);
     letter-spacing: 0;
-    line-height: 0.88;
+    line-height: 0.9;
     margin: 0 0 20px;
     text-transform: uppercase;
   }
@@ -182,12 +182,6 @@
     outline-offset: 4px;
   }
 
-  @media screen and (max-width: 989px) {
-    #shopify-section-{{ section.id }} .bks-collection-signal h1 {
-      font-size: 72px;
-    }
-  }
-
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .bks-collection-signal__hero {
       margin-bottom: 32px;
@@ -203,7 +197,7 @@
     }
 
     #shopify-section-{{ section.id }} .bks-collection-signal h1 {
-      font-size: 48px;
+      font-size: 44px;
       line-height: 0.94;
     }
 

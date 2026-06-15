@@ -1,0 +1,99 @@
+{
+  "sections": {
+    "index": {
+      "type": "bks-collections-index",
+      "blocks": {
+        "c1": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Hours",
+            "tagline": "Time as Graphic Language",
+            "collection_handle": "bks-hours",
+            "link": ""
+          }
+        },
+        "c2": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Folklore",
+            "tagline": "Contemporary Cultural Fragments",
+            "collection_handle": "bks-folklore",
+            "link": ""
+          }
+        },
+        "c3": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Glyph",
+            "tagline": "Symbols and Signs",
+            "collection_handle": "bks-glyph",
+            "link": ""
+          }
+        },
+        "c4": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Marker",
+            "tagline": "Urban Gestures",
+            "collection_handle": "bks-marker",
+            "link": ""
+          }
+        },
+        "c5": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Riviera",
+            "tagline": "Mediterranean Geometry",
+            "collection_handle": "bks-riviera",
+            "link": ""
+          }
+        },
+        "c6": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Pulse",
+            "tagline": "Digital Motion",
+            "collection_handle": "bks-pulse",
+            "link": ""
+          }
+        },
+        "c7": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Token",
+            "tagline": "Encoded Identity",
+            "collection_handle": "bks-token",
+            "link": ""
+          }
+        },
+        "c8": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Flag",
+            "tagline": "Global Signals",
+            "collection_handle": "bks-flag",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8"
+      ],
+      "settings": {
+        "heading": "Collections",
+        "subheading": "Eight permanent visual worlds. Apparel, swim and accessories share the same graphic language inside each one.",
+        "scheme": "light"
+      }
+    }
+  },
+  "order": [
+    "index"
+  ]
+}

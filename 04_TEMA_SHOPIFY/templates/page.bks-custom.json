@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "bks-custom-request",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

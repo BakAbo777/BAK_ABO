@@ -1,0 +1,597 @@
+{% comment %}
+  BakAbo / BKS Collection Banner — Split Mirror
+  File: sections/banner_Accessories.liquid
+  v3: fix marquee z-index, marquee full customization, collection link nativo
+{% endcomment %}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --bks-left-bg:    {{ section.settings.left_background }};
+    --bks-right-bg:   {{ section.settings.right_background }};
+    --bks-left-text:  {{ section.settings.left_text_color }};
+    --bks-right-text: {{ section.settings.right_text_color }};
+    --bks-accent:     {{ section.settings.accent_color }};
+    --bks-accent-text:{{ section.settings.accent_text_color }};
+    --bks-divider:    {{ section.settings.divider_color }};
+    --bks-bleed:      {{ section.settings.image_bleed }}px;
+    --bks-min-h:      {{ section.settings.min_height }}px;
+  }
+
+  /* Sezione sotto l'header — mai sopra */
+  #shopify-section-{{ section.id }} {
+    position: relative;
+    z-index: 1;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+
+  /* ================================
+     MARQUEE — posizione e z-index corretti
+  ================================ */
+  #shopify-section-{{ section.id }} .bks-marquee {
+    position: relative;
+    z-index: 1;           /* mai sopra la sticky header (z-index 200) */
+    overflow: hidden;
+    background: var(--bks-accent);
+    color: var(--bks-accent-text);
+    padding: {{ section.settings.marquee_padding }}px 0;
+    white-space: nowrap;
+    display: {% if section.settings.show_marquee %}flex{% else %}none{% endif %};
+    border-bottom: {% if section.settings.marquee_border %}1px solid rgba(255,255,255,.12){% else %}none{% endif %};
+  }
+
+  #shopify-section-{{ section.id }} .bks-marquee__track {
+    display: inline-flex;
+    animation: bks-mq-{{ section.id }} {{ section.settings.marquee_speed }}s linear infinite;
+    {% if section.settings.marquee_direction == 'right' %}
+      animation-direction: reverse;
+    {% endif %}
+  }
+
+  #shopify-section-{{ section.id }} .bks-marquee__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.6rem;
+    padding: 0 1.6rem;
+    font-size: {{ section.settings.marquee_font_size }}px;
+    font-weight: {{ section.settings.marquee_font_weight }};
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--bks-accent-text);
+  }
+
+  #shopify-section-{{ section.id }} .bks-marquee__item::after {
+    content: '{{ section.settings.marquee_separator }}';
+    font-size: calc({{ section.settings.marquee_font_size }}px * .8);
+    opacity: .5;
+  }
+
+  @keyframes bks-mq-{{ section.id }} {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ================================
+     WRAPPER BANNER
+  ================================ */
+  #shopify-section-{{ section.id }} .bks-banner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: var(--bks-min-h);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* Sfondo split */
+  #shopify-section-{{ section.id }} .bks-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+      var(--bks-left-bg)  0 50%,
+      var(--bks-right-bg) 50% 100%);
+    z-index: 0;
+  }
+
+  /* Linea centrale */
+  #shopify-section-{{ section.id }} .bks-banner::after {
+    content: '';
+    position: absolute;
+    left: 50%; top: 0;
+    width: 1px; height: 100%;
+    background: var(--bks-divider);
+    transform: translateX(-50%);
+    opacity: .45;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  /* ================================
+     PANNELLO TESTO
+  ================================ */
+  #shopify-section-{{ section.id }} .bks-banner__text {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: {{ section.settings.padding_v }}px {{ section.settings.padding_h }}px;
+    background: var(--bks-left-bg);
+    color: var(--bks-left-text);
+  }
+
+  #shopify-section-{{ section.id }} .bks-banner__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--bks-left-text);
+    opacity: .5;
+    margin-bottom: 1.4rem;
+  }
+  #shopify-section-{{ section.id }} .bks-banner__tag::before {
+    content: '';
+    display: block;
+    width: 28px; height: 1px;
+    background: currentColor;
+  }
+
+  #shopify-section-{{ section.id }} .bks-banner__title {
+    font-size: clamp(38px, 5vw, 92px);
+    font-weight: 800;
+    line-height: .9;
+    letter-spacing: -.04em;
+    text-transform: uppercase;
+    color: var(--bks-left-text);
+    margin: 0 0 1.6rem;
+    word-break: break-word;
+  }
+
+  #shopify-section-{{ section.id }} .bks-banner__desc {
+    font-size: clamp(13px, 1vw, 15px);
+    line-height: 1.7;
+    color: var(--bks-left-text);
+    opacity: .6;
+    max-width: 36ch;
+    margin-bottom: 2.4rem;
+  }
+
+  #shopify-section-{{ section.id }} .bks-banner__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: .8rem;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--bks-left-bg);
+    background: var(--bks-left-text);
+    padding: 15px 30px;
+    border: 1.5px solid var(--bks-left-text);
+    transition: background .2s, color .2s;
+    align-self: flex-start;
+  }
+  #shopify-section-{{ section.id }} .bks-banner__cta:hover {
+    background: transparent;
+    color: var(--bks-left-text);
+  }
+  #shopify-section-{{ section.id }} .bks-banner__cta svg {
+    width: 13px; height: 13px;
+    transition: transform .2s;
+    flex-shrink: 0;
+  }
+  #shopify-section-{{ section.id }} .bks-banner__cta:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* ================================
+     PANNELLO MEDIA
+  ================================ */
+  #shopify-section-{{ section.id }} .bks-banner__media {
+    position: relative;
+    z-index: 4;
+    background: var(--bks-right-bg);
+    overflow: visible;
+  }
+
+  #shopify-section-{{ section.id }} .bks-banner__media-inner {
+    position: relative;
+    width: calc(100% + var(--bks-bleed));
+    height: 100%;
+    margin-left: calc(-1 * var(--bks-bleed));
+    overflow: hidden;
+    min-height: var(--bks-min-h);
+  }
+
+  #shopify-section-{{ section.id }} .bks-banner__img,
+  #shopify-section-{{ section.id }} .bks-banner__video {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: {{ section.settings.focal_point }};
+    display: block;
+    will-change: transform;
+  }
+
+  /* Gradiente bleed */
+  #shopify-section-{{ section.id }} .bks-banner__media-inner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: calc(var(--bks-bleed) + 50px);
+    height: 100%;
+    background: linear-gradient(90deg, var(--bks-left-bg) 0%, transparent 100%);
+    z-index: 2;
+    pointer-events: none;
+    opacity: .5;
+  }
+
+  /* Badge video */
+  #shopify-section-{{ section.id }} .bks-video-badge {
+    position: absolute;
+    bottom: 20px; right: 20px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0,0,0,.55);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,.15);
+  }
+  #shopify-section-{{ section.id }} .bks-video-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #ff3b30;
+    animation: bks-pulse 1.6s ease infinite;
+  }
+  @keyframes bks-pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50%      { opacity:.4; transform:scale(.75); }
+  }
+
+  /* ================================
+     INVERSIONE POLARITÀ
+  ================================ */
+  {% if section.settings.invert_split %}
+  #shopify-section-{{ section.id }} .bks-banner            { direction: rtl; }
+  #shopify-section-{{ section.id }} .bks-banner > *        { direction: ltr; }
+  #shopify-section-{{ section.id }} .bks-banner__text      { background: var(--bks-right-bg); color: var(--bks-right-text); }
+  #shopify-section-{{ section.id }} .bks-banner__tag,
+  #shopify-section-{{ section.id }} .bks-banner__title,
+  #shopify-section-{{ section.id }} .bks-banner__desc      { color: var(--bks-right-text); }
+  #shopify-section-{{ section.id }} .bks-banner__cta       { color: var(--bks-right-bg); background: var(--bks-right-text); border-color: var(--bks-right-text); }
+  #shopify-section-{{ section.id }} .bks-banner__cta:hover { background: transparent; color: var(--bks-right-text); }
+  #shopify-section-{{ section.id }} .bks-banner__media     { background: var(--bks-left-bg); }
+  #shopify-section-{{ section.id }} .bks-banner__media-inner::before { background: linear-gradient(90deg, var(--bks-right-bg) 0%, transparent 100%); }
+  {% endif %}
+
+  /* ================================
+     TABLET
+  ================================ */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #shopify-section-{{ section.id }} .bks-banner__title { font-size: clamp(32px, 5.5vw, 60px); }
+    #shopify-section-{{ section.id }} .bks-banner__text  { padding: 48px 36px; }
+  }
+
+  /* ================================
+     MOBILE
+  ================================ */
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .bks-banner {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+      min-height: unset;
+      direction: ltr !important;
+    }
+    #shopify-section-{{ section.id }} .bks-banner::before { background: var(--bks-left-bg); }
+    #shopify-section-{{ section.id }} .bks-banner::after  { display: none; }
+
+    #shopify-section-{{ section.id }} .bks-banner__media       { grid-row: 1; grid-column: 1; width: 100%; }
+    #shopify-section-{{ section.id }} .bks-banner__media-inner { width: 100%; margin-left: 0; min-height: 58vw; max-height: 75vw; }
+    #shopify-section-{{ section.id }} .bks-banner__media-inner::before { display: none; }
+    #shopify-section-{{ section.id }} .bks-banner__img,
+    #shopify-section-{{ section.id }} .bks-banner__video        { position: absolute; inset: 0; }
+
+    #shopify-section-{{ section.id }} .bks-banner__text {
+      grid-row: 2; grid-column: 1;
+      padding: 30px 20px 40px;
+      align-items: flex-start;
+    }
+    {% if section.settings.invert_split %}
+    #shopify-section-{{ section.id }} .bks-banner__text      { background: var(--bks-right-bg) !important; color: var(--bks-right-text) !important; }
+    #shopify-section-{{ section.id }} .bks-banner__tag,
+    #shopify-section-{{ section.id }} .bks-banner__title,
+    #shopify-section-{{ section.id }} .bks-banner__desc      { color: var(--bks-right-text) !important; }
+    #shopify-section-{{ section.id }} .bks-banner__cta       { color: var(--bks-right-bg) !important; background: var(--bks-right-text) !important; border-color: var(--bks-right-text) !important; }
+    {% endif %}
+
+    #shopify-section-{{ section.id }} .bks-banner__title { font-size: clamp(34px, 10vw, 52px); margin-bottom: .9rem; }
+    #shopify-section-{{ section.id }} .bks-banner__desc  { font-size: 14px; max-width: 100%; margin-bottom: 1.6rem; }
+    #shopify-section-{{ section.id }} .bks-banner__cta   { width: 100%; justify-content: center; padding: 16px 20px; }
+    #shopify-section-{{ section.id }}                    { margin-bottom: {{ section.settings.margin_bottom | times: 0.6 | round }}px; }
+
+    #shopify-section-{{ section.id }} .bks-marquee__item { font-size: {{ section.settings.marquee_font_size | minus: 1 }}px; }
+    #shopify-section-{{ section.id }} .bks-video-badge   { bottom: 10px; right: 10px; }
+  }
+
+  @media screen and (max-width: 390px) {
+    #shopify-section-{{ section.id }} .bks-banner__media-inner { min-height: 64vw; max-height: 80vw; }
+    #shopify-section-{{ section.id }} .bks-banner__title       { font-size: 32px; }
+    #shopify-section-{{ section.id }} .bks-banner__text        { padding: 26px 16px 36px; }
+  }
+</style>
+
+{% comment %} ── MARQUEE ── {% endcomment %}
+{%- if section.settings.show_marquee -%}
+  {%- assign mq_text = section.settings.marquee_text | default: section.settings.collection_title -%}
+  <div class="bks-marquee" aria-hidden="true">
+    <div class="bks-marquee__track">
+      {%- for i in (1..16) -%}
+        <span class="bks-marquee__item">{{ mq_text }}</span>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% comment %} ── BANNER ── {% endcomment %}
+<div class="bks-banner" id="bks-banner-{{ section.id }}">
+
+  {% comment %} TESTO + CTA {% endcomment %}
+  <div class="bks-banner__text">
+    {%- if section.settings.tag != blank -%}
+      <span class="bks-banner__tag">{{ section.settings.tag }}</span>
+    {%- endif -%}
+
+    <h2 class="bks-banner__title">
+      {{ section.settings.collection_title | default: 'Accessories' }}
+    </h2>
+
+    {%- if section.settings.description != blank -%}
+      <p class="bks-banner__desc">{{ section.settings.description }}</p>
+    {%- endif -%}
+
+    {%- comment -%}
+      Link: usa la collection nativa se impostata,
+      altrimenti il campo URL manuale come fallback.
+    {%- endcomment -%}
+    {%- assign cta_href = '' -%}
+    {%- if section.settings.collection != blank -%}
+      {%- assign cta_href = section.settings.collection.url -%}
+    {%- elsif section.settings.cta_link != blank -%}
+      {%- assign cta_href = section.settings.cta_link -%}
+    {%- endif -%}
+
+    {%- if section.settings.cta_label != blank and cta_href != '' -%}
+      <a href="{{ cta_href }}" class="bks-banner__cta">
+        {{ section.settings.cta_label }}
+        <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    {%- endif -%}
+  </div>
+
+  {% comment %} MEDIA {% endcomment %}
+  <div class="bks-banner__media">
+    <div class="bks-banner__media-inner" id="bks-media-{{ section.id }}">
+
+      {%- assign use_video = false -%}
+      {%- if section.settings.media_type == 'video' -%}
+        {%- if section.settings.video != blank or section.settings.video_url != blank -%}
+          {%- assign use_video = true -%}
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- if use_video -%}
+        {%- if section.settings.video != blank -%}
+          {%- comment -%} video_tag: solo params supportati da Shopify {%- endcomment -%}
+          {{- section.settings.video
+            | video_tag:
+              class: 'bks-banner__video',
+              autoplay: true,
+              loop: true,
+              muted: true,
+              playsinline: true
+          -}}
+        {%- elsif section.settings.video_url != blank -%}
+          <video
+            class="bks-banner__video"
+            id="bks-video-{{ section.id }}"
+            autoplay muted loop playsinline preload="metadata"
+            {%- if section.settings.video_poster != blank %} poster="{{ section.settings.video_poster | image_url: width: 1400 }}"{% endif %}>
+            <source src="{{ section.settings.video_url }}" type="video/mp4">
+          </video>
+        {%- endif -%}
+        {%- if section.settings.show_video_badge -%}
+          <div class="bks-video-badge" aria-hidden="true">Video</div>
+        {%- endif -%}
+
+      {%- elsif section.settings.image != blank -%}
+        {%- assign img_id = 'bks-img-' | append: section.id -%}
+        {{- section.settings.image
+          | image_url: width: 1600
+          | image_tag:
+            class: 'bks-banner__img',
+            id: img_id,
+            loading: 'lazy',
+            widths: '600,800,1000,1200,1600',
+            sizes: '(max-width: 749px) 100vw, 55vw',
+            alt: section.settings.collection_title
+        -}}
+
+      {%- else -%}
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,#1a1a1a,#2d2d2d,#111);display:flex;align-items:center;justify-content:center;">
+          <span style="color:rgba(255,255,255,.15);font-size:10px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;">Aggiungi immagine o video</span>
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+
+</div>
+
+{% comment %} ── PARALLAX ── {% endcomment %}
+{%- if section.settings.enable_parallax and section.settings.media_type == 'image' -%}
+<script>
+  (() => {
+    const wrap = document.getElementById('bks-banner-{{ section.id }}');
+    const img  = document.getElementById('bks-img-{{ section.id }}');
+    if (!wrap || !img) return;
+    if (window.matchMedia('(max-width: 749px)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const s = {{ section.settings.parallax_intensity | default: 14 }};
+    let t = false;
+    function update() {
+      const r = wrap.getBoundingClientRect();
+      const ratio = (r.top + r.height / 2 - window.innerHeight / 2) / (window.innerHeight / 2);
+      img.style.transform = `translateY(${(ratio * s).toFixed(1)}px) scale(1.05)`;
+      t = false;
+    }
+    window.addEventListener('scroll', () => { if (!t) { requestAnimationFrame(update); t = true; } }, { passive: true });
+    update();
+  })();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BKS Banner Collezione",
+  "tag": "section",
+  "settings": [
+
+    { "type": "header", "content": "Contenuto" },
+    { "type": "text",     "id": "collection_title", "label": "Titolo collezione", "default": "Accessories" },
+    { "type": "text",     "id": "tag",    "label": "Tag sopra il titolo", "default": "SS25", "info": "Es. 'SS25' o 'New In'. Lascia vuoto per nasconderlo." },
+    { "type": "textarea", "id": "description", "label": "Descrizione", "default": "Dettagli che definiscono ogni look. Accessori selezionati per completare la tua identità." },
+    { "type": "text",     "id": "cta_label", "label": "Testo CTA", "default": "Explore the Edit" },
+
+    { "type": "header", "content": "Link collezione" },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collezione",
+      "info": "Seleziona direttamente la collezione Shopify. Ha priorità sul campo URL manuale."
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "URL manuale (fallback)",
+      "info": "Usato solo se nessuna collezione è selezionata sopra."
+    },
+
+    { "type": "header", "content": "Media" },
+    {
+      "type": "select",
+      "id": "media_type",
+      "label": "Tipo di media",
+      "options": [
+        { "value": "image", "label": "Immagine" },
+        { "value": "video", "label": "Video"    }
+      ],
+      "default": "image"
+    },
+    { "type": "image_picker", "id": "image",        "label": "Immagine",                "info": "Ideale: 1400×920px JPG, < 400KB." },
+    { "type": "video",        "id": "video",         "label": "Video Shopify hosted",    "info": "Autoplay, mute, loop. Priorità su URL esterno." },
+    { "type": "text",         "id": "video_url",     "label": "URL video MP4 esterno",   "info": "Incolla URL diretto .mp4" },
+    { "type": "image_picker", "id": "video_poster",  "label": "Poster video",            "info": "Frame iniziale prima che il video parta." },
+    { "type": "checkbox",     "id": "show_video_badge", "label": "Badge 'Video' animato","default": false },
+    {
+      "type": "select",
+      "id": "focal_point",
+      "label": "Punto fuoco",
+      "options": [
+        { "value": "center center", "label": "Centro"   },
+        { "value": "top center",    "label": "Alto"     },
+        { "value": "bottom center", "label": "Basso"    },
+        { "value": "center left",   "label": "Sinistra" },
+        { "value": "center right",  "label": "Destra"   }
+      ],
+      "default": "center center"
+    },
+
+    { "type": "header", "content": "Marquee" },
+    { "type": "checkbox", "id": "show_marquee",       "label": "Mostra marquee",                "default": true  },
+    { "type": "text",     "id": "marquee_text",        "label": "Testo marquee",                "default": "Accessories" },
+    { "type": "text",     "id": "marquee_separator",   "label": "Separatore",                   "default": "✦", "info": "Es. ✦ · — ★ /" },
+    {
+      "type": "select",
+      "id": "marquee_direction",
+      "label": "Direzione scorrimento",
+      "options": [
+        { "value": "left",  "label": "← Sinistra (default)" },
+        { "value": "right", "label": "→ Destra" }
+      ],
+      "default": "left"
+    },
+    { "type": "range",    "id": "marquee_speed",       "min": 8,  "max": 60, "step": 2,  "unit": "s",  "label": "Velocità (secondi per ciclo)", "default": 22,  "info": "Piu alto = piu lento." },
+    { "type": "range",    "id": "marquee_font_size",   "min": 8,  "max": 16, "step": 1,  "unit": "px", "label": "Dimensione testo",            "default": 10  },
+    {
+      "type": "select",
+      "id": "marquee_font_weight",
+      "label": "Peso font",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "600", "label": "Semibold" },
+        { "value": "700", "label": "Bold" },
+        { "value": "800", "label": "Extrabold" }
+      ],
+      "default": "700"
+    },
+    { "type": "range",    "id": "marquee_padding",     "min": 6,  "max": 24, "step": 2,  "unit": "px", "label": "Altezza barra (padding)",     "default": 12  },
+    { "type": "checkbox", "id": "marquee_border",      "label": "Bordo inferiore barra",         "default": false },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "checkbox", "id": "invert_split",    "label": "Inverti polarità (nero|bianco)", "default": false, "info": "Attiva per alternare con il banner precedente." },
+    { "type": "range",    "id": "image_bleed",     "min": 0,   "max": 160, "step": 8,  "unit": "px", "label": "Bleed immagine oltre linea centrale", "default": 88  },
+    { "type": "range",    "id": "min_height",      "min": 320, "max": 900, "step": 20, "unit": "px", "label": "Altezza minima banner",               "default": 560 },
+
+    { "type": "header", "content": "Effetti" },
+    { "type": "checkbox", "id": "enable_parallax",    "label": "Parallax immagine (solo desktop)", "default": true },
+    { "type": "range",    "id": "parallax_intensity", "min": 4, "max": 30, "step": 2, "unit": "px", "label": "Intensità parallax", "default": 14 },
+
+    { "type": "header", "content": "Colori" },
+    { "type": "color", "id": "left_background",   "label": "Sfondo sinistra",         "default": "#ffffff" },
+    { "type": "color", "id": "right_background",  "label": "Sfondo destra",           "default": "#050505" },
+    { "type": "color", "id": "left_text_color",   "label": "Testo sinistra",          "default": "#050505" },
+    { "type": "color", "id": "right_text_color",  "label": "Testo destra",            "default": "#ffffff" },
+    { "type": "color", "id": "divider_color",     "label": "Linea centrale",          "default": "#c7c7c7" },
+    { "type": "color", "id": "accent_color",      "label": "Sfondo marquee",          "default": "#050505" },
+    { "type": "color", "id": "accent_text_color", "label": "Testo marquee",           "default": "#ffffff" },
+
+    { "type": "header", "content": "Spaziatura" },
+    { "type": "range", "id": "padding_v",     "min": 32, "max": 120, "step": 8, "unit": "px", "label": "Padding verticale testo",   "default": 72 },
+    { "type": "range", "id": "padding_h",     "min": 24, "max": 120, "step": 8, "unit": "px", "label": "Padding orizzontale testo", "default": 56 },
+    { "type": "range", "id": "margin_bottom", "min": 0,  "max": 120, "step": 8, "unit": "px", "label": "Margine inferiore",         "default": 0  }
+  ],
+  "presets": [
+    {
+      "name": "BKS Banner — Accessories",
+      "settings": {
+        "collection_title": "Accessories",
+        "tag": "SS25",
+        "description": "Dettagli che definiscono ogni look. Accessori selezionati per completare la tua identità.",
+        "cta_label": "Explore the Edit",
+        "media_type": "image",
+        "show_marquee": true,
+        "marquee_text": "Accessories",
+        "marquee_separator": "✦",
+        "marquee_speed": 22,
+        "enable_parallax": true,
+        "invert_split": false
+      }
+    }
+  ]
+}
+{% endschema %}

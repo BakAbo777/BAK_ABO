@@ -1,0 +1,342 @@
+{% comment %}
+  BakAbo / BKS Accessories Panel
+  File: sections/bks-accessories-panel.liquid
+  Accessories navigation grid with checker background
+{% endcomment %}
+
+<style>
+  #shopify-section-{{ section.id }} .bks-acc {
+    position: relative;
+    overflow: hidden;
+    background: {{ section.settings.background }};
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__checker {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: {{ section.settings.checker_opacity | divided_by: 100.0 }};
+    background-image:
+      linear-gradient(45deg, {{ section.settings.border_color }} 25%, transparent 25%),
+      linear-gradient(-45deg, {{ section.settings.border_color }} 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, {{ section.settings.border_color }} 75%),
+      linear-gradient(-45deg, transparent 75%, {{ section.settings.border_color }} 75%);
+    background-size: {{ section.settings.checker_size }}px {{ section.settings.checker_size }}px;
+    background-position: 0 0, 0 {{ section.settings.checker_size | divided_by: 2 }}px, {{ section.settings.checker_size | divided_by: 2 }}px {{ section.settings.checker_size | divided_by: -2 }}px, {{ section.settings.checker_size | divided_by: -2 }}px 0;
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: clamp(36px, 4vw, 60px) clamp(20px, 4vw, 48px) clamp(28px, 3vw, 44px);
+    border-bottom: 1px solid {{ section.settings.border_color }};
+    gap: 20px;
+    flex-wrap: wrap;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__kicker {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: {{ section.settings.muted_color }};
+    margin: 0 0 10px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__title {
+    font-size: clamp(32px, 4.5vw, 72px);
+    font-weight: 500;
+    letter-spacing: -0.06em;
+    line-height: 0.88;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__desc {
+    font-size: 13px;
+    color: {{ section.settings.muted_color }};
+    margin: 14px 0 0;
+    max-width: 440px;
+    line-height: 1.6;
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__status {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border: 1px solid {{ section.settings.border_color }};
+    color: {{ section.settings.muted_color }};
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+    gap: 1px;
+    background: {{ section.settings.border_color }};
+    border: 1px solid {{ section.settings.border_color }};
+    border-top: none;
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__card {
+    background: {{ section.settings.card_bg }};
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: clamp(22px, 2.5vw, 36px) clamp(14px, 2vw, 24px);
+    text-decoration: none;
+    color: {{ section.settings.text_color }};
+    transition: background 0.22s ease;
+    position: relative;
+    min-height: 200px;
+    justify-content: flex-end;
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__card:hover {
+    background: {{ section.settings.card_bg_hover }};
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__num {
+    position: absolute;
+    top: 12px;
+    left: 14px;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    color: {{ section.settings.muted_color }};
+    font-weight: 500;
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__icon {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 80px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__icon img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100px;
+    object-fit: contain;
+    filter: {{ section.settings.icon_filter }};
+    transition: transform 0.28s ease;
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__card:hover .bks-acc__icon img {
+    transform: scale(1.06);
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__glyph {
+    font-size: 60px;
+    font-weight: 300;
+    line-height: 1;
+    color: {{ section.settings.text_color }};
+    opacity: 0.7;
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__copy {
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid {{ section.settings.border_color }};
+    padding-top: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__copy-title {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__copy-label {
+    font-size: 10px;
+    color: {{ section.settings.muted_color }};
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__footer {
+    padding: clamp(20px, 2.5vw, 32px) clamp(20px, 4vw, 48px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__footer-text {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: {{ section.settings.muted_color }};
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__footer-link {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: {{ section.settings.text_color }};
+    padding: 12px 24px;
+    border: 1px solid {{ section.settings.border_color }};
+    transition: background 0.22s ease, color 0.22s ease;
+  }
+
+  #shopify-section-{{ section.id }} .bks-acc__footer-link:hover {
+    background: {{ section.settings.text_color }};
+    color: {{ section.settings.background }};
+  }
+
+  @media screen and (max-width: 989px) {
+    #shopify-section-{{ section.id }} .bks-acc__grid { grid-template-columns: repeat({{ section.settings.columns_tablet }}, 1fr); }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .bks-acc__grid { grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr); }
+    #shopify-section-{{ section.id }} .bks-acc__card { padding: 18px 12px; min-height: 160px; }
+    #shopify-section-{{ section.id }} .bks-acc__icon img { max-height: 64px; }
+    #shopify-section-{{ section.id }} .bks-acc__glyph { font-size: 42px; }
+    #shopify-section-{{ section.id }} .bks-acc__head { padding: 24px 16px 20px; flex-direction: column; align-items: flex-start; }
+    #shopify-section-{{ section.id }} .bks-acc__title { font-size: clamp(36px, 12vw, 64px); }
+  }
+</style>
+
+<section class="bks-acc">
+  <div class="bks-acc__checker" aria-hidden="true"></div>
+
+  <header class="bks-acc__head">
+    <div>
+      {%- if section.settings.kicker != blank -%}
+        <p class="bks-acc__kicker">{{ section.settings.kicker | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="bks-acc__title">{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <p class="bks-acc__desc">{{ section.settings.description | escape }}</p>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.status != blank -%}
+      <span class="bks-acc__status">{{ section.settings.status | escape }}</span>
+    {%- endif -%}
+  </header>
+
+  <div class="bks-acc__grid">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'item' -%}
+        {%- assign card_link = block.settings.link | default: '#' -%}
+        <a class="bks-acc__card" href="{{ card_link }}" {{ block.shopify_attributes }}>
+          <span class="bks-acc__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+          <span class="bks-acc__icon">
+            {%- if block.settings.icon != blank -%}
+              <img src="{{ block.settings.icon | image_url: width: 240 }}" alt="{{ block.settings.title | default: 'Accessory' | escape }}" width="120" height="120" loading="lazy">
+            {%- else -%}
+              <span class="bks-acc__glyph">{{ block.settings.glyph | default: '✦' }}</span>
+            {%- endif -%}
+          </span>
+          <span class="bks-acc__copy">
+            <span class="bks-acc__copy-title">{{ block.settings.title | default: 'Item' | escape }}</span>
+            {%- if block.settings.label != blank -%}
+              <span class="bks-acc__copy-label">{{ block.settings.label | escape }}</span>
+            {%- endif -%}
+          </span>
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  {%- if section.settings.show_footer -%}
+    <div class="bks-acc__footer">
+      <span class="bks-acc__footer-text">{{ section.settings.footer_label | default: 'BKS Accessories' | escape }}</span>
+      {%- if section.settings.footer_cta_label != blank -%}
+        <a href="{{ section.settings.footer_cta_link | default: '#' }}" class="bks-acc__footer-link">{{ section.settings.footer_cta_label | escape }}</a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "BKS Accessories Panel",
+  "tag": "section",
+  "class": "section-bks-accessories",
+  "settings": [
+    { "type": "header", "content": "Contenuto" },
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "BAK|ABO ACCESSORIES" },
+    { "type": "text", "id": "title", "label": "Titolo", "default": "ACCESSORIES" },
+    { "type": "text", "id": "description", "label": "Descrizione", "default": "Travel essentials, resort wear and lifestyle accessories." },
+    { "type": "text", "id": "status", "label": "Badge", "default": "BKS ✦ SS25" },
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "columns_desktop", "label": "Colonne desktop", "min": 3, "max": 8, "step": 1, "default": 7 },
+    { "type": "range", "id": "columns_tablet", "label": "Colonne tablet", "min": 2, "max": 5, "step": 1, "default": 4 },
+    { "type": "range", "id": "columns_mobile", "label": "Colonne mobile", "min": 2, "max": 4, "step": 1, "default": 3 },
+    { "type": "select", "id": "icon_filter", "label": "Filtro icone", "options": [
+        { "value": "none", "label": "Nessuno" },
+        { "value": "invert(1)", "label": "Inverti (white)" },
+        { "value": "brightness(0)", "label": "Nero" },
+        { "value": "brightness(0) invert(1)", "label": "Bianco puro" }
+      ], "default": "brightness(0)" },
+    { "type": "header", "content": "Footer" },
+    { "type": "checkbox", "id": "show_footer", "label": "Mostra footer", "default": true },
+    { "type": "text", "id": "footer_label", "label": "Testo footer", "default": "BKS Accessories Collection" },
+    { "type": "text", "id": "footer_cta_label", "label": "CTA", "default": "View All" },
+    { "type": "url", "id": "footer_cta_link", "label": "Link CTA" },
+    { "type": "header", "content": "Colori" },
+    { "type": "color", "id": "background", "label": "Sfondo", "default": "#FAFAF7" },
+    { "type": "color", "id": "text_color", "label": "Testo", "default": "#0A0A0A" },
+    { "type": "color", "id": "muted_color", "label": "Testo secondario", "default": "#9A9A9A" },
+    { "type": "color", "id": "border_color", "label": "Bordi", "default": "#E5E0D5" },
+    { "type": "color", "id": "card_bg", "label": "Sfondo card", "default": "#FFFFFF" },
+    { "type": "color", "id": "card_bg_hover", "label": "Hover card", "default": "#EFEAE0" },
+    { "type": "header", "content": "Pattern" },
+    { "type": "range", "id": "checker_size", "label": "Checker px", "min": 6, "max": 40, "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "checker_opacity", "label": "Opacita checker", "min": 0, "max": 20, "step": 1, "unit": "%", "default": 5 }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Accessorio",
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "Immagine prodotto" },
+        { "type": "text", "id": "glyph", "label": "Glifo (se no immagine)", "default": "◈" },
+        { "type": "text", "id": "title", "label": "Nome", "default": "Travel Bag" },
+        { "type": "text", "id": "label", "label": "Etichetta", "default": "Accessories" },
+        { "type": "url", "id": "link", "label": "Link collezione" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BKS Accessories Panel",
+      "blocks": [
+        { "type": "item", "settings": { "glyph": "◈", "title": "Travel Gear", "label": "BKS Travel" } },
+        { "type": "item", "settings": { "glyph": "▣", "title": "Backpacks", "label": "BKS Backpack" } },
+        { "type": "item", "settings": { "glyph": "◧", "title": "Duffel Bags", "label": "BKS Duffel" } },
+        { "type": "item", "settings": { "glyph": "≋", "title": "Beach Towels", "label": "BKS Resort" } },
+        { "type": "item", "settings": { "glyph": "⌁", "title": "Flip Flops", "label": "BKS Resort" } },
+        { "type": "item", "settings": { "glyph": "◑", "title": "Flip Flops L", "label": "BKS Line" } },
+        { "type": "item", "settings": { "glyph": "⬚", "title": "Indoor Slippers", "label": "BKS Lounge" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

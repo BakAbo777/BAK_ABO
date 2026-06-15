@@ -424,7 +424,7 @@
 }
 
 .bks-early-access-label {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--bks-gold);
@@ -476,7 +476,7 @@
 
 .bks-countdown-unit {
   display: block;
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--bks-muted);
@@ -608,7 +608,7 @@
 }
 
 .bks-archive-eyebrow {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -666,7 +666,7 @@
 }
 
 .bks-archive-card-cat {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -854,7 +854,7 @@
   .bks-member-hero { padding: 32px 20px 24px; }
   .bks-member-tabs { padding: 0 16px; }
   .bks-member-panel { padding: 28px 20px; }
-  .bks-tracker-step-label { font-size: 10px; }
+  .bks-tracker-step-label { font-size: 11px; }
   .bks-account-details { grid-template-columns: 1fr; }
   .bks-referral-link-row { flex-direction: column; }
   .bks-early-access-card { flex-direction: column-reverse; }
@@ -919,7 +919,7 @@
 }
 .bks-cz-req-status {
   flex-shrink: 0;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;

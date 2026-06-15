@@ -1,0 +1,483 @@
+{% comment %}
+  BakAbo / BKS Trust + Reviews
+  File: sections/bks-trust-reviews.liquid
+  Pattern: Dawn 15.4 compatible — section-scoped via #shopify-section-{{ section.id }}
+{% endcomment %}
+
+<style>
+  #shopify-section-{{ section.id }} .bks-trust {
+    position: relative;
+    overflow: hidden;
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__checker {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: {{ section.settings.checker_opacity | divided_by: 100.0 }};
+    background-image:
+      linear-gradient(45deg, {{ section.settings.border_color }} 25%, transparent 25%),
+      linear-gradient(-45deg, {{ section.settings.border_color }} 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, {{ section.settings.border_color }} 75%),
+      linear-gradient(-45deg, transparent 75%, {{ section.settings.border_color }} 75%);
+    background-size: {{ section.settings.checker_size }}px {{ section.settings.checker_size }}px;
+    background-position: 0 0, 0 {{ section.settings.checker_size | divided_by: 2 }}px, {{ section.settings.checker_size | divided_by: 2 }}px {{ section.settings.checker_size | divided_by: -2 }}px, {{ section.settings.checker_size | divided_by: -2 }}px 0;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__bar {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.trust_columns }}, 1fr);
+    border-bottom: 1px solid {{ section.settings.border_color }};
+    padding: 0 clamp(20px, 4vw, 64px);
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__badge {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 22px 20px;
+    border-right: 1px solid {{ section.settings.border_color }};
+    transition: background 0.22s ease, transform 0.22s ease, border-color 0.22s ease;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__badge:hover {
+    background: rgba(255,255,255,0.42);
+    transform: translateY(-2px);
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__bar > .bks-trust__badge:last-child {
+    border-right: none;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__badge-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid {{ section.settings.border_color }};
+    border-radius: 999px;
+    font-size: 17px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__badge-text strong {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__badge-text span {
+    display: block;
+    font-size: 11px;
+    color: {{ section.settings.muted_color }};
+    margin-top: 2px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: clamp(32px, 4vw, 56px) clamp(20px, 4vw, 64px) 0;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__kicker {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: {{ section.settings.muted_color }};
+    margin: 0 0 10px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__context {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 14px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__context span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 7px 11px;
+    border: 1px solid {{ section.settings.border_color }};
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__context span:first-child {
+    background: {{ section.settings.accent_color }};
+    border-color: {{ section.settings.accent_color }};
+    color: {{ section.settings.accent_text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__title {
+    font-size: clamp(28px, 3.5vw, 52px);
+    font-family: var(--bks-font-display,'Bebas Neue',sans-serif);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 0.92;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__stars {
+    display: flex;
+    gap: 3px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__stars svg {
+    width: 16px;
+    height: 16px;
+    fill: {{ section.settings.star_color }};
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__rating-text {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__rating-count {
+    font-size: 12px;
+    color: {{ section.settings.muted_color }};
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.review_columns }}, 1fr);
+    gap: 1px;
+    background: {{ section.settings.border_color }};
+    margin: clamp(28px, 3vw, 48px) 0 0;
+    border-top: 1px solid {{ section.settings.border_color }};
+    border-bottom: 1px solid {{ section.settings.border_color }};
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__card {
+    background: {{ section.settings.background_color }};
+    padding: clamp(24px, 3vw, 40px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-top: 4px solid transparent;
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__card:hover {
+    background: {{ section.settings.card_hover_color }};
+    border-top-color: {{ section.settings.star_color }};
+    transform: translateY(-4px);
+    box-shadow: 0 18px 46px rgba(0,0,0,0.1);
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__card-stars {
+    display: flex;
+    gap: 3px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__card-stars svg {
+    width: 14px;
+    height: 14px;
+    fill: {{ section.settings.star_color }};
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__card-text {
+    font-size: clamp(14px, 1.05vw, 16px);
+    line-height: 1.6;
+    flex: 1;
+    margin: 0;
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid {{ section.settings.border_color }};
+    padding-top: 14px;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__card-author strong {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__card-author span {
+    font-size: 10px;
+    color: {{ section.settings.muted_color }};
+    letter-spacing: 0.08em;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__card-badge {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid {{ section.settings.border_color }};
+    color: {{ section.settings.text_color }};
+    background: rgba(255,255,255,0.34);
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: clamp(24px, 3vw, 40px) clamp(20px, 4vw, 64px);
+    flex-wrap: wrap;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__cta-link {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: {{ section.settings.text_color }};
+    padding: 14px 28px;
+    border: 1px solid {{ section.settings.border_color }};
+    transition: background 0.22s ease, color 0.22s ease;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__cta-link--primary {
+    background: {{ section.settings.accent_color }};
+    color: {{ section.settings.accent_text_color }};
+    border-color: {{ section.settings.accent_color }};
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__cta-link:hover {
+    background: {{ section.settings.text_color }};
+    color: {{ section.settings.background_color }};
+    border-color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__policy-note {
+    margin: -10px auto 0;
+    max-width: 1400px;
+    padding: 0 clamp(20px, 4vw, 64px) clamp(26px, 3vw, 44px);
+    color: {{ section.settings.muted_color }};
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .bks-trust__policy-note a {
+    color: {{ section.settings.text_color }};
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media screen and (max-width: 989px) {
+    #shopify-section-{{ section.id }} .bks-trust__bar { grid-template-columns: repeat(2, 1fr); }
+    #shopify-section-{{ section.id }} .bks-trust__bar > .bks-trust__badge:nth-child(2n) { border-right: none; }
+    #shopify-section-{{ section.id }} .bks-trust__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .bks-trust__bar { grid-template-columns: 1fr 1fr; }
+    #shopify-section-{{ section.id }} .bks-trust__badge { padding: 16px 14px; gap: 10px; }
+    #shopify-section-{{ section.id }} .bks-trust__badge-icon { width: 32px; height: 32px; font-size: 15px; }
+    #shopify-section-{{ section.id }} .bks-trust__grid { grid-template-columns: 1fr; }
+    #shopify-section-{{ section.id }} .bks-trust__header { flex-direction: column; align-items: flex-start; }
+    #shopify-section-{{ section.id }} .bks-trust__cta-link { padding: 12px 20px; font-size: 10px; }
+  }
+</style>
+
+<section class="bks-trust">
+  <div class="bks-trust__checker" aria-hidden="true"></div>
+
+  {%- if section.settings.show_trust_bar -%}
+    <div class="bks-trust__bar">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'trust_badge' -%}
+          <div class="bks-trust__badge" {{ block.shopify_attributes }}>
+            <span class="bks-trust__badge-icon">{{ block.settings.icon }}</span>
+            <div class="bks-trust__badge-text">
+              <strong>{{ block.settings.title | escape }}</strong>
+              {%- if block.settings.subtitle != blank -%}
+                <span>{{ block.settings.subtitle | escape }}</span>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  <div class="bks-trust__header">
+    <div>
+      <div class="bks-trust__context" aria-label="BAKABO review context">
+        <span>BakAbo trust layer</span>
+        <span>Creator context: BKS Studio</span>
+      </div>
+      {%- if section.settings.kicker != blank -%}
+        <p class="bks-trust__kicker">{{ section.settings.kicker | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="bks-trust__title">{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.show_rating_summary -%}
+      <div class="bks-trust__summary">
+        <div class="bks-trust__stars">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M10 1l2.39 4.84 5.34.77-3.86 3.77.91 5.31L10 13.27l-4.78 2.52.91-5.31L2.27 6.61l5.34-.77z"/></svg>
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M10 1l2.39 4.84 5.34.77-3.86 3.77.91 5.31L10 13.27l-4.78 2.52.91-5.31L2.27 6.61l5.34-.77z"/></svg>
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M10 1l2.39 4.84 5.34.77-3.86 3.77.91 5.31L10 13.27l-4.78 2.52.91-5.31L2.27 6.61l5.34-.77z"/></svg>
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M10 1l2.39 4.84 5.34.77-3.86 3.77.91 5.31L10 13.27l-4.78 2.52.91-5.31L2.27 6.61l5.34-.77z"/></svg>
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M10 1l2.39 4.84 5.34.77-3.86 3.77.91 5.31L10 13.27l-4.78 2.52.91-5.31L2.27 6.61l5.34-.77z"/></svg>
+        </div>
+        <span class="bks-trust__rating-text">{{ section.settings.rating_value }}</span>
+        <span class="bks-trust__rating-count">/ {{ section.settings.rating_count }} reviews</span>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="bks-trust__grid">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'review_card' -%}
+        <article class="bks-trust__card" {{ block.shopify_attributes }}>
+          <div class="bks-trust__card-stars">
+            {%- assign star_count = block.settings.stars | default: 5 -%}
+            {%- for i in (1..star_count) -%}
+              <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M10 1l2.39 4.84 5.34.77-3.86 3.77.91 5.31L10 13.27l-4.78 2.52.91-5.31L2.27 6.61l5.34-.77z"/></svg>
+            {%- endfor -%}
+          </div>
+          {%- if block.settings.review_text != blank -%}
+            <p class="bks-trust__card-text">"{{ block.settings.review_text | escape }}"</p>
+          {%- endif -%}
+          <footer class="bks-trust__card-footer">
+            <div class="bks-trust__card-author">
+              <strong>{{ block.settings.author_name | default: 'Customer' | escape }}</strong>
+              <span>{{ block.settings.author_location | default: 'Verified Buyer' | escape }}</span>
+            </div>
+            {%- if block.settings.product_name != blank -%}
+              <span class="bks-trust__card-badge">{{ block.settings.product_name | escape }}</span>
+            {%- endif -%}
+          </footer>
+        </article>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  {%- if section.settings.show_cta -%}
+    <div class="bks-trust__cta">
+      {%- if section.settings.cta_label != blank -%}
+        <a href="{{ section.settings.cta_link | default: '#' }}" class="bks-trust__cta-link bks-trust__cta-link--primary">{{ section.settings.cta_label | escape }}</a>
+      {%- endif -%}
+      {%- if section.settings.cta_secondary_label != blank -%}
+        <a href="{{ section.settings.cta_secondary_link | default: '#' }}" class="bks-trust__cta-link">{{ section.settings.cta_secondary_label | escape }}</a>
+      {%- endif -%}
+    </div>
+    <p class="bks-trust__policy-note">
+      Reviews, shipping, returns and support are part of the same BakAbo trust system.
+      <a href="/policies/refund-policy">Returns</a>,
+      <a href="/policies/shipping-policy">shipping</a> and
+      <a href="/policies/contact-information">support</a> stay accessible sitewide.
+    </p>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "BKS Trust + Reviews",
+  "tag": "section",
+  "class": "section-bks-trust",
+  "settings": [
+    { "type": "header", "content": "Contenuto" },
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "BakAbo TRUST / REVIEW SYSTEM" },
+    { "type": "text", "id": "title", "label": "Titolo", "default": "Trust around the catalog" },
+    { "type": "checkbox", "id": "show_trust_bar", "label": "Mostra trust bar", "default": true },
+    { "type": "checkbox", "id": "show_rating_summary", "label": "Mostra voto globale", "default": false },
+    { "type": "text", "id": "rating_value", "label": "Voto (es 4.9)", "default": "4.9" },
+    { "type": "text", "id": "rating_count", "label": "Numero recensioni", "default": "238" },
+    { "type": "range", "id": "review_columns", "label": "Colonne recensioni", "min": 2, "max": 4, "step": 1, "default": 3 },
+    { "type": "range", "id": "trust_columns", "label": "Colonne trust bar", "min": 2, "max": 5, "step": 1, "default": 4 },
+    { "type": "header", "content": "CTA" },
+    { "type": "checkbox", "id": "show_cta", "label": "Mostra bottoni", "default": true },
+    { "type": "text", "id": "cta_label", "label": "Bottone primario", "default": "Enter the catalog" },
+    { "type": "url", "id": "cta_link", "label": "Link primario" },
+    { "type": "text", "id": "cta_secondary_label", "label": "Bottone secondario", "default": "Review policy" },
+    { "type": "url", "id": "cta_secondary_link", "label": "Link secondario" },
+    { "type": "header", "content": "Colori" },
+    { "type": "color", "id": "background_color", "label": "Sfondo", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Testo", "default": "#050505" },
+    { "type": "color", "id": "muted_color", "label": "Testo secondario", "default": "#888888" },
+    { "type": "color", "id": "border_color", "label": "Bordi", "default": "#e0e0e0" },
+    { "type": "color", "id": "card_hover_color", "label": "Sfondo card hover", "default": "#fafafa" },
+    { "type": "color", "id": "accent_color", "label": "Accento", "default": "#050505" },
+    { "type": "color", "id": "accent_text_color", "label": "Testo su accento", "default": "#ffffff" },
+    { "type": "color", "id": "star_color", "label": "Stelle", "default": "#d4a843" },
+    { "type": "header", "content": "Pattern" },
+    { "type": "range", "id": "checker_size", "label": "Dimensione checker", "min": 6, "max": 32, "step": 2, "unit": "px", "default": 12 },
+    { "type": "range", "id": "checker_opacity", "label": "Opacita checker", "min": 0, "max": 12, "step": 1, "unit": "%", "default": 3 }
+  ],
+  "blocks": [
+    {
+      "type": "trust_badge",
+      "name": "Trust Badge",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icona", "default": "*" },
+        { "type": "text", "id": "title", "label": "Titolo", "default": "Free Shipping" },
+        { "type": "text", "id": "subtitle", "label": "Sottotitolo", "default": "On orders over EUR 60" }
+      ]
+    },
+    {
+      "type": "review_card",
+      "name": "Recensione",
+      "settings": [
+        { "type": "range", "id": "stars", "label": "Stelle", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "review_text", "label": "Testo recensione", "default": "Review and policy signals stay inside the BakAbo container, connected to BKS Studio products." },
+        { "type": "text", "id": "author_name", "label": "Nome cliente", "default": "BAK|ABO" },
+        { "type": "text", "id": "author_location", "label": "Citta", "default": "Trust system" },
+        { "type": "text", "id": "product_name", "label": "Prodotto", "default": "Review layer" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BKS Trust + Reviews",
+      "blocks": [
+        { "type": "trust_badge", "settings": { "icon": "✈", "title": "Shipping policy", "subtitle": "Accessible before checkout" } },
+        { "type": "trust_badge", "settings": { "icon": "↩", "title": "Returns policy", "subtitle": "Clear support path" } },
+        { "type": "trust_badge", "settings": { "icon": "✦", "title": "BKS Studio creator", "subtitle": "Inside the BakAbo container" } },
+        { "type": "trust_badge", "settings": { "icon": "✓", "title": "Secure Checkout", "subtitle": "SSL encrypted" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

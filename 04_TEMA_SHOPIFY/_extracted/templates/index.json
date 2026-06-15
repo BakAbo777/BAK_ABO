@@ -1,0 +1,283 @@
+{
+  "sections": {
+    "bks_slogan": {
+      "type": "bks-rich-text",
+      "settings": {
+        "mode": "ticker",
+        "slogan": "AI-Art Atelier · Wearable art, on demand",
+        "slogan_2": "BKS Studio · bakabo.club",
+        "slogan_3": "Printed to order · 30-Day Returns · 2-Year EU Warranty · Designed in Italy",
+        "slogan_4": "",
+        "slogan_5": "",
+        "use_collection_metafield": true,
+        "ticker_speed": 30,
+        "ticker_gap": 56,
+        "ticker_pause_hover": true,
+        "fade_interval": 4,
+        "font_weight": "400",
+        "letter_spacing": "0.2",
+        "alignment": "center",
+        "font_size_fluid": 1,
+        "font_size_max": 16,
+        "uppercase": true,
+        "italic": false,
+        "background_color": "#0a0a0a",
+        "text_color": "#9a9a9a",
+        "border_color": "#e8e8e8",
+        "show_border": false,
+        "min_height": 52,
+        "padding_v": 20,
+        "padding_h": 40,
+        "margin_bottom": 0
+      }
+    },
+    "bks_editorial_matrix": {
+      "type": "bks-editorial-matrix",
+      "settings": {
+        "kicker": "The eight editorial systems",
+        "heading": "Eight signals",
+        "copy": "Folklore. Glyph. Marker. Riviera. Pulse. Token. Flag. Hours. Eight permanent collections, each a distinct visual language.",
+        "collection_handles": "bks-folklore,bks-glyph,bks-marker,bks-riviera,bks-pulse,bks-token,bks-flag,bks-hours"
+      }
+    },
+    "bks_sneakers_grid": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "sneakers",
+        "products_to_show": 6,
+        "title": "Sneakers",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": true,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "link",
+        "color_scheme": "accent-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "bks_accessories_grid": {
+      "type": "bks-collections-index",
+      "blocks": {
+        "c1": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Hours",
+            "tagline": "Time as Graphic Language",
+            "collection_handle": "bks-hours",
+            "link": ""
+          }
+        },
+        "c2": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Folklore",
+            "tagline": "Contemporary Cultural Fragments",
+            "collection_handle": "bks-folklore",
+            "link": ""
+          }
+        },
+        "c3": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Glyph",
+            "tagline": "Symbols and Signs",
+            "collection_handle": "bks-glyph",
+            "link": ""
+          }
+        },
+        "c4": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Marker",
+            "tagline": "Urban Gestures",
+            "collection_handle": "bks-marker",
+            "link": ""
+          }
+        },
+        "c5": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Riviera",
+            "tagline": "Mediterranean Geometry",
+            "collection_handle": "bks-riviera",
+            "link": ""
+          }
+        },
+        "c6": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Pulse",
+            "tagline": "Digital Motion",
+            "collection_handle": "bks-pulse",
+            "link": ""
+          }
+        },
+        "c7": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Token",
+            "tagline": "Encoded Identity",
+            "collection_handle": "bks-token",
+            "link": ""
+          }
+        },
+        "c8": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Flag",
+            "tagline": "Global Signals",
+            "collection_handle": "bks-flag",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8"
+      ],
+      "settings": {
+        "heading": "Collections",
+        "subheading": "Eight permanent visual worlds. Every piece printed on demand.",
+        "scheme": "light"
+      }
+    },
+    "bks_swimwear_grid": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "swimwear",
+        "products_to_show": 6,
+        "title": "Swimwear",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": true,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "link",
+        "color_scheme": "background-2",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "bks_trust": {
+      "type": "bks-trust-reviews",
+      "blocks": {
+        "trust_shipping": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "SHIP",
+            "title": "Free shipping",
+            "subtitle": "On orders over €60 · Italy & Europe"
+          }
+        },
+        "trust_returns": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "RET",
+            "title": "30-day returns",
+            "subtitle": "Free return by mail, 80+ countries"
+          }
+        },
+        "trust_pod": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "BKS",
+            "title": "Printed on demand",
+            "subtitle": "Each piece made after you order"
+          }
+        },
+        "trust_secure": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "SSL",
+            "title": "Secure checkout",
+            "subtitle": "Encrypted — Shopify Payments"
+          }
+        }
+      },
+      "block_order": [
+        "trust_shipping",
+        "trust_returns",
+        "trust_pod",
+        "trust_secure"
+      ],
+      "settings": {
+        "kicker": "BKS Studio",
+        "title": "Designed in Italy. Printed for you.",
+        "show_trust_bar": true,
+        "show_rating_summary": false,
+        "rating_value": "4.9",
+        "rating_count": "238",
+        "review_columns": 3,
+        "trust_columns": 4,
+        "show_cta": true,
+        "cta_label": "Enter the catalog",
+        "cta_link": "/collections",
+        "cta_secondary_label": "Returns policy",
+        "cta_secondary_link": "/policies/refund-policy",
+        "background_color": "#efeae0",
+        "text_color": "#0a0a0a",
+        "muted_color": "#5f5a52",
+        "border_color": "#d4cbbc",
+        "card_hover_color": "#f7f3ea",
+        "accent_color": "#050505",
+        "accent_text_color": "#ffffff",
+        "star_color": "#d4a843",
+        "checker_size": 12,
+        "checker_opacity": 3
+      }
+    },
+    "bks_impact": {
+      "type": "bks-impact-home",
+      "settings": {
+        "kicker": "BKS Studio · AI-Art Atelier",
+        "drop_label": "SS26",
+        "heading": "Wearable art, on demand",
+        "copy": "Eight permanent collections designed with artificial intelligence and printed to order. No stock, no expiring seasons.",
+        "primary_link": "/collections",
+        "primary_label": "Explore collections",
+        "secondary_link": "/pages/about",
+        "secondary_label": "About BKS Studio",
+        "collection_handles": "bks-folklore,bks-glyph,bks-marker,bks-riviera,bks-pulse,bks-token,bks-flag,bks-hours"
+      }
+    }
+  },
+  "order": [
+    "bks_impact",
+    "bks_slogan",
+    "bks_editorial_matrix",
+    "bks_sneakers_grid",
+    "bks_accessories_grid",
+    "bks_swimwear_grid",
+    "bks_trust"
+  ]
+}

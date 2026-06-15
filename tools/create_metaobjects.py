@@ -317,7 +317,7 @@ def ensure_metaobject(client: ShopifyGraphQL, collection: dict[str, str]) -> dic
             "status": "error",
             "handle": collection["handle"],
             "id": "",
-            "message": "; ".join(error.get("message", "") for error in errors),
+            "message": "; ".join(error.get("message") or "" for error in errors),
         }
 
     metaobject = result["metaobject"]

@@ -1,0 +1,68 @@
+{% comment %}
+  Structured data - aggregateRating for Google/Merchant Center
+  Priority: 1. Judge.me  2. Tydal/BA Reviews  3. Shopify native reviews
+{% endcomment %}
+{%- if product != blank -%}
+  {%- liquid
+    assign review_count = 0
+    assign review_rating = 0.0
+
+    comment
+      Judge.me (primary) - shop.metafields.judgeme.all_reviews_count > 0
+    endcomment
+    assign jdgm_count = shop.metafields.judgeme.all_reviews_count | plus: 0
+    assign jdgm_rating = shop.metafields.judgeme.all_reviews_rating | plus: 0.0
+
+    comment
+      Tydal/BA Reviews (secondary)
+    endcomment
+    assign tydal_stars = product.metafields.ba_rev.review_data.stars | default: nil
+    assign tydal_count = product.metafields.ba_rev.review_data.reviews_count | default: 0 | plus: 0
+
+    comment
+      Shopify native (tertiary)
+    endcomment
+    assign shopify_rating = product.metafields.reviews.rating.value | default: nil
+
+    if jdgm_count > 0
+      assign review_count = jdgm_count
+      assign review_rating = jdgm_rating
+    elsif tydal_stars != nil and tydal_count > 0
+      assign review_count = tydal_count
+      assign review_rating = tydal_stars | plus: 0.0
+    elsif shopify_rating != nil
+      assign review_count = product.metafields.reviews.rating_count | plus: 0
+      assign review_rating = shopify_rating.rating | plus: 0.0
+    endif
+  -%}
+  {%- if review_count > 0 -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "url": {{ shop.url | append: product.url | json }},
+    "image": {{ product.featured_image | image_url: width: 800 | prepend: 'https:' | json }},
+    "brand": {
+      "@type": "Brand",
+      "name": {{ product.vendor | json }}
+    },
+    "sku": {{ product.selected_or_first_available_variant.sku | json }},
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": {{ cart.currency.iso_code | json }},
+      "price": {{ product.price | money_without_currency | remove: ',' | json }},
+      "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+      "url": {{ shop.url | append: product.url | json }}
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "{{ review_rating | round: 1 }}",
+      "bestRating": "5",
+      "worstRating": "1",
+      "reviewCount": "{{ review_count }}"
+    }
+  }
+  </script>
+  {%- endif -%}
+{%- endif -%}

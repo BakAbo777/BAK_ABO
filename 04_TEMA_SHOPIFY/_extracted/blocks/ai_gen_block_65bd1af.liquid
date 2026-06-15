@@ -1,0 +1,615 @@
+{% doc %}
+  @prompt
+    crea haeder - sparita fallo da zero
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-header-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    border-bottom: {{ block.settings.border_thickness }}px solid {{ block.settings.border_color }};
+    position: {{ block.settings.position }};
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-header-{{ ai_gen_id }}.ai-header-hidden-{{ ai_gen_id }} {
+    transform: translateY(-100%);
+  }
+
+  .ai-header-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: {{ block.settings.padding_vertical }}px {{ block.settings.padding_horizontal }}px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .ai-header-logo-{{ ai_gen_id }} {
+    flex-shrink: 0;
+  }
+
+  .ai-header-logo-link-{{ ai_gen_id }} {
+    display: block;
+    line-height: 0;
+  }
+
+  .ai-header-logo-image-{{ ai_gen_id }} {
+    height: {{ block.settings.logo_height }}px;
+    width: auto;
+    display: block;
+  }
+
+  .ai-header-logo-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.logo_text_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.text_color }};
+    text-decoration: none;
+    display: block;
+  }
+
+  .ai-header-nav-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.nav_spacing }}px;
+    flex-grow: 1;
+    justify-content: {{ block.settings.nav_alignment }};
+  }
+
+  .ai-header-nav-link-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    text-decoration: none;
+    font-size: {{ block.settings.nav_font_size }}px;
+    font-weight: {{ block.settings.nav_font_weight }};
+    transition: color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .ai-header-nav-link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.text_hover_color }};
+  }
+
+  .ai-header-actions-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.icon_spacing }}px;
+    flex-shrink: 0;
+  }
+
+  .ai-header-icon-button-{{ ai_gen_id }} {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: {{ block.settings.text_color }};
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-header-icon-button-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.text_hover_color }};
+  }
+
+  .ai-header-icon-button-{{ ai_gen_id }} svg {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+  }
+
+  .ai-header-mobile-toggle-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  @media screen and (max-width: 990px) {
+    .ai-header-nav-{{ ai_gen_id }} {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: {{ block.settings.background_color }};
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 80px 20px 20px;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 999;
+    }
+
+    .ai-header-nav-{{ ai_gen_id }}.ai-header-nav-open-{{ ai_gen_id }} {
+      transform: translateX(0);
+    }
+
+    .ai-header-mobile-toggle-{{ ai_gen_id }} {
+      display: flex;
+    }
+
+    .ai-header-nav-link-{{ ai_gen_id }} {
+      font-size: {{ block.settings.nav_font_size | times: 1.2 }}px;
+      padding: 12px 0;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-header-container-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding_vertical | times: 0.7 }}px {{ block.settings.padding_horizontal | times: 0.7 }}px;
+    }
+
+    .ai-header-logo-image-{{ ai_gen_id }} {
+      height: {{ block.settings.logo_height | times: 0.8 }}px;
+    }
+
+    .ai-header-logo-text-{{ ai_gen_id }} {
+      font-size: {{ block.settings.logo_text_size | times: 0.8 }}px;
+    }
+  }
+{% endstyle %}
+
+<ai-header-{{ ai_gen_id }} class="ai-header-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-header-container-{{ ai_gen_id }}">
+    <div class="ai-header-logo-{{ ai_gen_id }}">
+      <a href="/" class="ai-header-logo-link-{{ ai_gen_id }}">
+        {% if block.settings.logo %}
+          <img
+            src="{{ block.settings.logo | image_url: width: 400 }}"
+            alt="{{ shop.name }}"
+            class="ai-header-logo-image-{{ ai_gen_id }}"
+            width="{{ block.settings.logo_height | times: 2 }}"
+            height="{{ block.settings.logo_height }}"
+            loading="eager"
+          >
+        {% else %}
+          <span class="ai-header-logo-text-{{ ai_gen_id }}">{{ shop.name }}</span>
+        {% endif %}
+      </a>
+    </div>
+
+    <button
+      class="ai-header-icon-button-{{ ai_gen_id }} ai-header-mobile-toggle-{{ ai_gen_id }}"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+
+    <nav class="ai-header-nav-{{ ai_gen_id }}">
+      {% if block.settings.nav_link_1_text != blank %}
+        <a href="{{ block.settings.nav_link_1_url }}" class="ai-header-nav-link-{{ ai_gen_id }}">
+          {{ block.settings.nav_link_1_text }}
+        </a>
+      {% endif %}
+      {% if block.settings.nav_link_2_text != blank %}
+        <a href="{{ block.settings.nav_link_2_url }}" class="ai-header-nav-link-{{ ai_gen_id }}">
+          {{ block.settings.nav_link_2_text }}
+        </a>
+      {% endif %}
+      {% if block.settings.nav_link_3_text != blank %}
+        <a href="{{ block.settings.nav_link_3_url }}" class="ai-header-nav-link-{{ ai_gen_id }}">
+          {{ block.settings.nav_link_3_text }}
+        </a>
+      {% endif %}
+      {% if block.settings.nav_link_4_text != blank %}
+        <a href="{{ block.settings.nav_link_4_url }}" class="ai-header-nav-link-{{ ai_gen_id }}">
+          {{ block.settings.nav_link_4_text }}
+        </a>
+      {% endif %}
+      {% if block.settings.nav_link_5_text != blank %}
+        <a href="{{ block.settings.nav_link_5_url }}" class="ai-header-nav-link-{{ ai_gen_id }}">
+          {{ block.settings.nav_link_5_text }}
+        </a>
+      {% endif %}
+    </nav>
+
+    <div class="ai-header-actions-{{ ai_gen_id }}">
+      {% if block.settings.show_search %}
+        <a href="/search" class="ai-header-icon-button-{{ ai_gen_id }}" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </a>
+      {% endif %}
+
+      {% if block.settings.show_account %}
+        <a href="/account" class="ai-header-icon-button-{{ ai_gen_id }}" aria-label="Account">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+        </a>
+      {% endif %}
+
+      {% if block.settings.show_cart %}
+        <a href="/cart" class="ai-header-icon-button-{{ ai_gen_id }}" aria-label="Cart">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+          </svg>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</ai-header-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class AiHeader{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.mobileToggle = this.querySelector('.ai-header-mobile-toggle-{{ ai_gen_id }}');
+        this.nav = this.querySelector('.ai-header-nav-{{ ai_gen_id }}');
+        this.navLinks = this.querySelectorAll('.ai-header-nav-link-{{ ai_gen_id }}');
+        this.lastScrollY = window.scrollY;
+        this.isSticky = {{ block.settings.position }} === 'sticky';
+      }
+
+      connectedCallback() {
+        this.setupMobileMenu();
+        if (this.isSticky && {{ block.settings.hide_on_scroll }}) {
+          this.setupScrollBehavior();
+        }
+      }
+
+      setupMobileMenu() {
+        if (!this.mobileToggle || !this.nav) return;
+
+        this.mobileToggle.addEventListener('click', () => {
+          const isOpen = this.nav.classList.contains('ai-header-nav-open-{{ ai_gen_id }}');
+          this.nav.classList.toggle('ai-header-nav-open-{{ ai_gen_id }}');
+          this.mobileToggle.setAttribute('aria-expanded', !isOpen);
+        });
+
+        this.navLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            this.nav.classList.remove('ai-header-nav-open-{{ ai_gen_id }}');
+            this.mobileToggle.setAttribute('aria-expanded', 'false');
+          });
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!this.contains(e.target) && this.nav.classList.contains('ai-header-nav-open-{{ ai_gen_id }}')) {
+            this.nav.classList.remove('ai-header-nav-open-{{ ai_gen_id }}');
+            this.mobileToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+
+      setupScrollBehavior() {
+        let ticking = false;
+
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              this.handleScroll();
+              ticking = false;
+            });
+            ticking = true;
+          }
+        });
+      }
+
+      handleScroll() {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY > this.lastScrollY && currentScrollY > 100) {
+          this.classList.add('ai-header-hidden-{{ ai_gen_id }}');
+        } else {
+          this.classList.remove('ai-header-hidden-{{ ai_gen_id }}');
+        }
+
+        this.lastScrollY = currentScrollY;
+      }
+    }
+
+    customElements.define('ai-header-{{ ai_gen_id }}', AiHeader{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "position",
+      "label": "Position",
+      "options": [
+        {
+          "value": "relative",
+          "label": "Static"
+        },
+        {
+          "value": "sticky",
+          "label": "Sticky"
+        }
+      ],
+      "default": "sticky"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_scroll",
+      "label": "Hide on scroll down",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container width",
+      "min": 1000,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "default": 1600
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "label": "Vertical padding",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Logo height",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "logo_text_size",
+      "label": "Text logo size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "select",
+      "id": "nav_alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "nav_font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "nav_font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "range",
+      "id": "nav_spacing",
+      "label": "Link spacing",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "text",
+      "id": "nav_link_1_text",
+      "label": "Link 1 text",
+      "default": "Shop"
+    },
+    {
+      "type": "url",
+      "id": "nav_link_1_url",
+      "label": "Link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "nav_link_2_text",
+      "label": "Link 2 text",
+      "default": "Collections"
+    },
+    {
+      "type": "url",
+      "id": "nav_link_2_url",
+      "label": "Link 2 URL"
+    },
+    {
+      "type": "text",
+      "id": "nav_link_3_text",
+      "label": "Link 3 text",
+      "default": "About"
+    },
+    {
+      "type": "url",
+      "id": "nav_link_3_url",
+      "label": "Link 3 URL"
+    },
+    {
+      "type": "text",
+      "id": "nav_link_4_text",
+      "label": "Link 4 text"
+    },
+    {
+      "type": "url",
+      "id": "nav_link_4_url",
+      "label": "Link 4 URL"
+    },
+    {
+      "type": "text",
+      "id": "nav_link_5_text",
+      "label": "Link 5 text"
+    },
+    {
+      "type": "url",
+      "id": "nav_link_5_url",
+      "label": "Link 5 URL"
+    },
+    {
+      "type": "header",
+      "content": "Icons"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show account",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Show cart",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "icon_spacing",
+      "label": "Icon spacing",
+      "min": 10,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "text_hover_color",
+      "label": "Text hover",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Border"
+    },
+    {
+      "type": "range",
+      "id": "border_thickness",
+      "label": "Border thickness",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#e5e5e5"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header"
+    }
+  ]
+}
+{% endschema %}
