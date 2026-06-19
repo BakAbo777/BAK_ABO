@@ -169,11 +169,12 @@ def safe_theme_payload() -> dict[str, Any]:
 
 def light_theme_snapshot() -> dict[str, Any]:
     output_zip = active_theme_zip()
+    zip_exists = output_zip is not None and Path(output_zip).exists()
     return {
         "summary": {
-            "status": "ready" if output_zip.exists() else "missing",
+            "status": "ready" if zip_exists else "missing",
             "goal": "TM04_live_bks_sections_member_area_camerino",
-            "output_zip": relative_to_base(output_zip),
+            "output_zip": relative_to_base(output_zip) if output_zip else None,
         }
     }
 
@@ -566,8 +567,8 @@ def render_overview_page() -> None:
 
     cols = st.columns(5)
     cols[0].metric("Servizi online", f"{sum(service_states)}/{len(SERVICES)}")
-    cols[1].metric("Tema TM04", "OK" if theme_path.exists() else "missing")
-    cols[2].metric("CSV catalogo", "OK" if catalog_path.exists() else "missing")
+    cols[1].metric("Tema TM04", "OK" if (theme_path and Path(theme_path).exists()) else "missing")
+    cols[2].metric("CSV catalogo", "OK" if (catalog_path and Path(catalog_path).exists()) else "missing")
     cols[3].metric("Prodotti DB", catalog_summary.get("products", "n/d"))
     cols[4].metric("Audit live", live_summary.get("checked", 0) if live_summary else "n/d")
 
@@ -733,8 +734,8 @@ def render_project_manager() -> None:
     cols[0].metric("Servizi", f"{svc_online}/3", delta=None)
     cols[1].metric("Prodotti DB", cat_sum.get("products", "n/d"))
     cols[2].metric("Handles", cat_sum.get("handles", "n/d"))
-    cols[3].metric("Tema", "TM04 OK" if theme_zip.exists() else "missing")
-    cols[4].metric("CSV", catalog_csv.name[:18] if catalog_csv.exists() else "missing")
+    cols[3].metric("Tema", "TM04 OK" if (theme_zip and Path(theme_zip).exists()) else "missing")
+    cols[4].metric("CSV", Path(catalog_csv).name[:18] if (catalog_csv and Path(catalog_csv).exists()) else "missing")
 
     st.divider()
 
