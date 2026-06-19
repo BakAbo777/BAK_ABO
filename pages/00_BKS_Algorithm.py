@@ -225,12 +225,12 @@ with tab_queue:
 
         def _color_score(val: float) -> str:
             if val >= 75:
-                return "color: #69db7c"
+                return "color: #2f9e44; font-weight: 500"
             if val >= 55:
-                return "color: #ffe066"
+                return "color: #e67700; font-weight: 500"
             if val >= 35:
-                return "color: #ffa94d"
-            return "color: #ff6b6b"
+                return "color: #d9480f; font-weight: 500"
+            return "color: #c92a2a; font-weight: 600"
 
         styled = df_show.style.map(
             lambda v: _color_score(v) if isinstance(v, (int, float)) else "",
@@ -263,7 +263,7 @@ with tab_all:
         st.caption(f"{len(df_all)} prodotti")
         st.dataframe(
             df_all.style.map(
-                lambda v: ("color:#69db7c" if v >= 75 else "color:#ffe066" if v >= 55 else "color:#ffa94d" if v >= 35 else "color:#ff6b6b")
+                lambda v: ("color:#2f9e44;font-weight:500" if v >= 75 else "color:#e67700;font-weight:500" if v >= 55 else "color:#d9480f;font-weight:500" if v >= 35 else "color:#c92a2a;font-weight:600")
                 if isinstance(v, (int, float)) else "",
                 subset=pd.IndexSlice[:, ["score", "seo", "images", "data"]] if all(c in df_all.columns for c in ["score","seo","images","data"]) else pd.IndexSlice[:, []]
             ).set_properties(**{"font-size": "0.72rem", "font-family": "DM Mono, monospace"}),
