@@ -17,6 +17,7 @@ THEME_DIR = BASE_DIR / "04_TEMA_SHOPIFY"
 CATALOG_DIR = BASE_DIR / "collezioni_csv"
 IMAGE_FACTORY_DIR = Path(os.getenv("IMAGE_FACTORY_DIR", str(BASE_DIR / "BAKABO_IMAGE_FACTORY_v1.1")))
 ACTIVE_ASSETS_PATH = OUTPUT_DIR / "bks_active_assets.json"
+_DEFAULT_MEDIA_ROOT = Path(os.getenv("BKS_MEDIA_ROOT", r"I:\BKS database"))
 
 
 def _resolve_path(value: str | Path | None) -> Path | None:
@@ -94,11 +95,35 @@ def active_image_factory_dir() -> Path:
     return IMAGE_FACTORY_DIR
 
 
+def active_catalog_db() -> Path:
+    configured = _resolve_path(_load_config().get("catalog_db"))
+    if configured:
+        return configured
+    return CATALOG_DIR / "bks_catalog.db"
+
+
+def bks_media_root() -> Path:
+    """Ritorna il root dell'archivio media BKS (I:\\BKS database).
+
+    Override priorità: bks_active_assets.json → env BKS_MEDIA_ROOT → default I:\\BKS database.
+    """
+    configured = _load_config().get("media_root")
+    if configured:
+        p = Path(configured)
+        if p.exists():
+            return p
+    if _DEFAULT_MEDIA_ROOT.exists():
+        return _DEFAULT_MEDIA_ROOT
+    return _DEFAULT_MEDIA_ROOT
+
+
 def load_active_assets() -> dict[str, str]:
     return {
         "theme_zip": relative_to_base(active_theme_zip()),
         "catalog_csv": relative_to_base(active_catalog_csv()),
         "image_factory_dir": relative_to_base(active_image_factory_dir()),
+        "catalog_db": relative_to_base(active_catalog_db()),
+        "media_root": str(bks_media_root()),
     }
 
 
@@ -107,6 +132,8 @@ def save_active_assets(
     theme_zip: str | Path | None = None,
     catalog_csv: str | Path | None = None,
     image_factory_dir: str | Path | None = None,
+    catalog_db: str | Path | None = None,
+    media_root: str | Path | None = None,
 ) -> dict[str, str]:
     current = load_active_assets()
     if theme_zip is not None:
@@ -115,6 +142,10 @@ def save_active_assets(
         current["catalog_csv"] = relative_to_base(catalog_csv)
     if image_factory_dir is not None:
         current["image_factory_dir"] = relative_to_base(image_factory_dir)
+    if catalog_db is not None:
+        current["catalog_db"] = relative_to_base(catalog_db)
+    if media_root is not None:
+        current["media_root"] = str(Path(media_root))
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     ACTIVE_ASSETS_PATH.write_text(json.dumps(current, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

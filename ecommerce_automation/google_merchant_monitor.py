@@ -8,8 +8,16 @@ from typing import Any
 
 LIVE_AUDIT = Path("output/live_site_audit/live_pages.csv")
 STATE_DOC = Path("00_PROCEDURA/02_STATO_ATTUALE.md")
-PRODUCT_EXPORT = Path("output/products_export_updated.csv")
 COUNTRY_POLICY_MATRIX = Path("output/merchant_country_policy_matrix.csv")
+
+BAKABO_STORE_DOMAIN = "bakabo.club"
+
+PRODUCT_EXPORT_CANDIDATES = (
+    Path("output/live_shopify_products.csv"),
+    Path("collezioni_csv/collezione 12_06_2026_SHOPIFY_IMPORT_READY_SEO_TAGS_READY.csv"),
+    Path("collezioni_csv/collezione 12_06_2026_SHOPIFY_IMPORT_READY.csv"),
+    Path("output/products_export_updated.csv"),
+)
 
 SCREENSHOT_ISSUES: tuple[dict[str, str], ...] = (
     {
@@ -114,6 +122,15 @@ def _read_csv(path: Path) -> list[dict[str, str]]:
         return []
     with path.open("r", newline="", encoding="utf-8-sig") as handle:
         return [dict(row) for row in csv.DictReader(handle)]
+
+
+def _read_product_export(root_dir: Path) -> tuple[list[dict[str, str]], str]:
+    for candidate in PRODUCT_EXPORT_CANDIDATES:
+        path = root_dir / candidate
+        rows = _read_csv(path)
+        if rows:
+            return rows, str(candidate)
+    return [], ""
 
 
 def _as_int(value: str) -> int:
@@ -227,7 +244,7 @@ def _trust_pages(rows: list[dict[str, str]]) -> list[dict[str, str]]:
             {
                 "check": label,
                 "status": "pass" if ok else "fail",
-                "url": match.get("url", f"https://bakabo.club{fragment}") if match else f"https://bakabo.club{fragment}",
+                "url": match.get("url", f"https://{BAKABO_STORE_DOMAIN}{fragment}") if match else f"https://{BAKABO_STORE_DOMAIN}{fragment}",
                 "http_status": str(status or ""),
                 "purpose": purpose,
                 "next_action": "OK" if ok else "Publish page, fix URL, or remove the broken navigation target.",
@@ -365,7 +382,7 @@ def write_country_policy_matrix(root_dir: Path, rows: list[dict[str, str]]) -> s
 
 
 def product_feed_diagnostics(root_dir: Path) -> dict[str, Any]:
-    rows = _read_csv(root_dir / PRODUCT_EXPORT)
+    rows, active_csv = _read_product_export(root_dir)
     product_rows = [row for row in rows if row.get("Title", "").strip()]
     required_fields = (
         "Handle",
@@ -462,7 +479,7 @@ def product_feed_diagnostics(root_dir: Path) -> dict[str, Any]:
 
     return {
         "summary": {
-            "csv": str(PRODUCT_EXPORT),
+            "csv": active_csv,
             "rows_total": len(rows),
             "product_rows": len(product_rows),
             "missing_required": len(missing_rows),
@@ -598,6 +615,8 @@ def payload(settings: Any) -> dict[str, Any]:
     country_matrix = write_country_policy_matrix(root_dir, feed.get("country_rows", []))
     blocker_count = sum(1 for row in actions if row["priority"] == "P0" and row["status"] != "pass")
     pass_count = sum(1 for row in actions if row["status"] == "pass")
+    local_inv_str = merchant.get("local_inventory_missing", "")
+    unavail_str = merchant.get("product_page_unavailable", "")
     return {
         "merchant": merchant,
         "summary": {
@@ -610,6 +629,8 @@ def payload(settings: Any) -> dict[str, Any]:
             "matrix": matrix,
             "country_matrix": country_matrix,
             "first_action": actions[0]["action"] if actions else "",
+            "local_inventory_errors": 0 if not local_inv_str or local_inv_str in {"0", "none", "resolved"} else -1,
+            "unavailable_pages": 0 if not unavail_str or unavail_str in {"0", "none", "resolved"} else -1,
         },
         "charts": issue_bars(merchant, live, feed),
         "merchant_issues": list(SCREENSHOT_ISSUES),

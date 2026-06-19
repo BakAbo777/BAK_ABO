@@ -4,6 +4,8 @@ import csv
 from pathlib import Path
 from typing import Any
 
+BAKABO_STORE_DOMAIN = "bakabo.club"
+BKS_TM04_THEME_ID = "202392961362"
 
 COLLECTIONS: tuple[str, ...] = (
     "Hours",
@@ -13,8 +15,21 @@ COLLECTIONS: tuple[str, ...] = (
     "Pulse",
     "Token",
     "Flag",
-    "Folklore",
+    "Origin",
 )
+
+# TM04 accent per collection — matches hyperframes_connectors.COLLECTION_VIDEO_BRIEFS.
+# Never reference "Folklore" — the collection was renamed Origin.
+COLLECTION_ACCENTS: dict[str, str] = {
+    "Hours":   "#1a1a2e",
+    "Glyph":   "#2e1a1a",
+    "Marker":  "#1a2e1a",
+    "Riviera": "#1a2a3e",
+    "Pulse":   "#2e1a2e",
+    "Token":   "#2e2a1a",
+    "Flag":    "#1a1e2e",
+    "Origin":  "#489808",
+}
 
 SCRIPT_TARGET = "15s social script, 35-50 words, calm premium voice, no exclamation marks."
 
@@ -86,10 +101,10 @@ SCRIPT_TEMPLATES: dict[str, str] = {
         "build a visual signal for travel, streetwear, and daily motion. Explore Flag on bakabo.club and "
         "save the edit for your next drop."
     ),
-    "Folklore": (
-        "BKS Folklore brings old symbols into a sharper present. Ornament, myth, and digital print meet in "
-        "pieces made to order for everyday movement. It feels storied, not nostalgic. Explore Folklore on "
-        "bakabo.club and keep the signal close."
+    "Origin": (
+        "BKS Origin starts with the earth. Natural tones, naive marks, and honest materials become prints "
+        "made to order for daily wear. No filters, no performance. Just the thing itself. Explore Origin "
+        "on bakabo.club."
     ),
 }
 
@@ -262,6 +277,7 @@ def collection_rows(root_dir: Path) -> list[dict[str, Any]]:
         rows.append(
             {
                 "collection": collection,
+                "accent": COLLECTION_ACCENTS.get(collection, ""),
                 "progress": progress,
                 "script_status": script_status,
                 "script_words": words,
@@ -319,6 +335,7 @@ def summary(root_dir: Path) -> dict[str, Any]:
         "social_render_sheet": _relative(root_dir, social_render_sheet_path(root_dir)),
         "qc_checklist": _relative(root_dir, qc_checklist_path(root_dir)),
         "metadata_template": _relative(root_dir, metadata_template_path(root_dir)),
+        "trust_gate": "collection_identity",
     }
 
 
@@ -397,8 +414,9 @@ def social_render_rows(root_dir: Path) -> list[dict[str, Any]]:
                 "suggested_image": row["suggested_image"],
                 "video_file": row["export_file"],
                 "metadata_file": row["metadata_file"],
+                "accent": COLLECTION_ACCENTS.get(row["collection"], ""),
                 "cta": "Explore collection",
-                "target_url": f"https://bakabo.club/collections/bks-{slug}",
+                "target_url": f"https://{BAKABO_STORE_DOMAIN}/collections/bks-{slug}",
                 "utm_campaign": f"bks-{slug}-avatar",
                 "make_event": "avatar.render.request",
                 "agent_persona": "BKS Master Agent",

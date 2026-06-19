@@ -6,31 +6,34 @@
   <div style="max-width:1100px;padding:{{ section.settings.padding_top }}px 32px {{ section.settings.padding_bottom }}px;">
 
     {%- if customer -%}
-      {%- if bks_tier == "archive" -%}
+      {%- if bks_tier_rank >= 3 -%}
         {%- render 'bks-member-archive' -%}
       {%- else -%}
         <div class="bks-upgrade-card" style="max-width:480px;">
-          <div class="bks-upgrade-icon">🗄</div>
+          <div class="bks-upgrade-icon">◈</div>
           <h3 class="bks-upgrade-title">BKS Studio Archive</h3>
           <p class="bks-upgrade-text">
-            {%- if bks_tier_rank >= 2 -%}
-              Hai {{ customer.orders_count }} ordine{% if customer.orders_count != 1 %}i{% endif %}.
-              L'accesso Archive si sblocca con il secondo ordine.
+            {%- assign bks_orders = customer.orders_count | default: 0 -%}
+            {%- assign bks_needed = 6 | minus: bks_orders -%}
+            {%- if bks_orders > 0 -%}
+              You have {{ bks_orders }} order{% if bks_orders != 1 %}s{% endif %}.
+              Archive access unlocks at 6 orders —
+              {{ bks_needed }} more to go.
             {%- else -%}
-              Riservato ai clienti con 2+ ordini.
-              Continua a esplorare BKS — l'archivio ti aspetta.
+              Reserved for members with 6+ orders.
+              Keep exploring BKS — the archive will be waiting.
             {%- endif -%}
           </p>
-          <a href="/collections/all" class="bks-btn-gold">Esplora i prodotti</a>
+          <a href="/collections/all" class="bks-btn-gold">Explore products</a>
         </div>
       {%- endif -%}
     {%- else -%}
       <div class="bks-upgrade-card" style="max-width:480px;">
-        <div class="bks-upgrade-icon">🔐</div>
-        <h3 class="bks-upgrade-title">Area riservata</h3>
-        <p class="bks-upgrade-text">Accedi al tuo account per visualizzare il contenuto.</p>
+        <div class="bks-upgrade-icon">—</div>
+        <h3 class="bks-upgrade-title">Members only</h3>
+        <p class="bks-upgrade-text">Sign in to your account to view this content.</p>
         <a href="{{ routes.account_login_url }}?return_url=/pages/bks-archive" class="bks-btn-gold">
-          Accedi
+          Sign in
         </a>
       </div>
     {%- endif -%}

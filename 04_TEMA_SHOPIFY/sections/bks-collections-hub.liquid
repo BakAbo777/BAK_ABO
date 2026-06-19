@@ -1,0 +1,251 @@
+{{ 'bks-future.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  BKS Collections Hub — TM04
+  Full-page index of all 8 BKS collections with accent colors,
+  product counts, taglines, and typology chips.
+{%- endcomment -%}
+
+{%- liquid
+  assign collections_data = "bks-hours:measured urban stillness:#c8c4be|bks-glyph:constructed signs:#d4a030|bks-marker:gesture and motion:#c04418|bks-riviera:coastal geometry:#0ca898|bks-pulse:optical movement:#8888cc|bks-token:digital objects:#9828d8|bks-flag:graphic fields:#c82020|bks-origin:invented narrative marks:#489808" | split: "|"
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.bg_color | default: '#FAFAF7' }};
+    color: #0A0A0A;
+    padding: clamp(48px, 7vw, 96px) 0;
+  }
+
+  #shopify-section-{{ section.id }} .bks-hub__inner {
+    width: min(1440px, calc(100% - 32px));
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .bks-hub__eyebrow {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(10, 10, 10, 0.46);
+    margin-bottom: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-hub__headline {
+    font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
+    font-size: clamp(2.8rem, 6vw, 6rem);
+    line-height: 0.9;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: #0A0A0A;
+    margin: 0 0 10px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-hub__subtitle {
+    font-family: var(--bks-font-body, 'DM Sans', sans-serif);
+    font-size: clamp(0.96rem, 1.1vw, 1.08rem);
+    line-height: 1.62;
+    color: rgba(10, 10, 10, 0.62);
+    max-width: 52ch;
+    margin: 0 0 clamp(32px, 5vw, 56px);
+  }
+
+  /* ── Grid ── */
+  #shopify-section-{{ section.id }} .bks-hub__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(16px, 2.5vw, 28px);
+  }
+
+  #shopify-section-{{ section.id }} .bks-hub__card {
+    position: relative;
+    background: #fff;
+    border: 1px solid rgba(10, 10, 10, 0.1);
+    border-left: 4px solid var(--card-accent, #c8c4be);
+    border-radius: 0;
+    padding: clamp(20px, 3vw, 28px);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.22s cubic-bezier(0.22,1,0.36,1),
+                box-shadow 0.22s ease;
+  }
+
+  #shopify-section-{{ section.id }} .bks-hub__card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.09);
+    border-left-color: var(--card-accent, #c8c4be);
+  }
+
+  #shopify-section-{{ section.id }} .bks-hub__card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-top: 2px solid var(--card-accent, #c8c4be);
+    opacity: 0;
+    transition: opacity 0.22s;
+  }
+
+  #shopify-section-{{ section.id }} .bks-hub__card:hover::after {
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .bks-hub__card-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(10, 10, 10, 0.44);
+  }
+
+  #shopify-section-{{ section.id }} .bks-hub__card-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--card-accent, #c8c4be);
+    flex-shrink: 0;
+    box-shadow: 0 0 14px color-mix(in srgb, var(--card-accent, #c8c4be) 54%, transparent);
+  }
+
+  #shopify-section-{{ section.id }} .bks-hub__card-name {
+    font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    color: #0A0A0A;
+  }
+
+  #shopify-section-{{ section.id }} .bks-hub__card-series {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.76rem;
+    color: rgba(10, 10, 10, 0.52);
+    letter-spacing: 0.06em;
+    font-style: italic;
+  }
+
+  #shopify-section-{{ section.id }} .bks-hub__card-count {
+    margin-top: auto;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(10, 10, 10, 0.44);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-hub__card-count::before {
+    content: '→';
+    color: var(--card-accent, #c8c4be);
+    font-style: normal;
+  }
+
+  /* Dark variant */
+  #shopify-section-{{ section.id }}.bks-hub--dark {
+    background: #0A0A0A;
+    color: #FAFAF7;
+  }
+
+  #shopify-section-{{ section.id }}.bks-hub--dark .bks-hub__headline { color: #FAFAF7; }
+  #shopify-section-{{ section.id }}.bks-hub--dark .bks-hub__subtitle { color: rgba(250,250,247,0.58); }
+  #shopify-section-{{ section.id }}.bks-hub--dark .bks-hub__eyebrow  { color: rgba(250,250,247,0.38); }
+  #shopify-section-{{ section.id }}.bks-hub--dark .bks-hub__card     { background: rgba(250,250,247,0.04); border-color: rgba(250,250,247,0.1); }
+  #shopify-section-{{ section.id }}.bks-hub--dark .bks-hub__card-name,
+  #shopify-section-{{ section.id }}.bks-hub--dark .bks-hub__card-tag { color: #FAFAF7; }
+  #shopify-section-{{ section.id }}.bks-hub--dark .bks-hub__card-series,
+  #shopify-section-{{ section.id }}.bks-hub--dark .bks-hub__card-count { color: rgba(250,250,247,0.48); }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .bks-hub__grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+  }
+</style>
+
+<div id="bks-hub-{{ section.id }}" {% if section.settings.dark_mode %}class="bks-hub--dark"{% endif %}>
+  <div class="bks-hub__inner">
+    <p class="bks-hub__eyebrow">BKS Studio · All Collections</p>
+    <h1 class="bks-hub__headline">{{ section.settings.headline | default: 'The Collections' }}</h1>
+    {%- if section.settings.subtitle != blank -%}
+      <p class="bks-hub__subtitle">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+
+    <div class="bks-hub__grid">
+      {%- for row in collections_data -%}
+        {%- assign parts = row | split: ':' -%}
+        {%- assign col_handle = parts[0] -%}
+        {%- assign col_series = parts[1] -%}
+        {%- assign col_accent = parts[2] -%}
+        {%- assign col_obj = collections[col_handle] -%}
+        {%- assign col_name = col_obj.title | default: col_handle | replace: 'bks-', '' | capitalize -%}
+        {%- assign col_count = col_obj.products_count | default: 0 -%}
+
+        <a href="{{ col_obj.url | default: '/collections/' | append: col_handle }}"
+           class="bks-hub__card"
+           style="--card-accent: {{ col_accent }};"
+           aria-label="{{ col_name }} — {{ col_series }}">
+          <div class="bks-hub__card-tag">
+            <span class="bks-hub__card-dot"></span>
+            {{ col_handle | replace: 'bks-', '' | upcase }}
+          </div>
+          <p class="bks-hub__card-name">{{ col_name }}</p>
+          <p class="bks-hub__card-series">{{ col_series }}</p>
+          <p class="bks-hub__card-count">
+            {{ col_count }}{% if col_count == 1 %}&nbsp;piece{% else %}&nbsp;pieces{% endif %}
+          </p>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "BKS Collections Hub",
+  "tag": "section",
+  "class": "bks-hub-section",
+  "enabled_on": {
+    "templates": ["index", "page", "404", "list-collections"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "The Collections"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Eight visual systems. Designed for print-on-demand outerwear, swim, footwear and accessories."
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#FAFAF7"
+    },
+    {
+      "type": "checkbox",
+      "id": "dark_mode",
+      "label": "Dark mode",
+      "default": false
+    }
+  ],
+  "presets": [{
+    "name": "BKS Collections Hub"
+  }]
+}
+{% endschema %}

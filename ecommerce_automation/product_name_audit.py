@@ -10,6 +10,7 @@ import requests
 import urllib3
 
 AUDIT_CSV = Path("output/product_name_audit.csv")
+BAKABO_STORE_DOMAIN = "bakabo.club"
 
 TYPO_FIXES: tuple[tuple[str, str], ...] = (
     ("on linr", "online"),
@@ -19,7 +20,7 @@ TYPO_FIXES: tuple[tuple[str, str], ...] = (
     ("bks studio studio", "BKS Studio"),
 )
 
-EXPECTED_COLLECTIONS = ("Hours", "Glyph", "Marker", "Riviera", "Pulse", "Token", "Flag", "Folklore")
+EXPECTED_COLLECTIONS = ("Hours", "Glyph", "Marker", "Riviera", "Pulse", "Token", "Flag", "Origin")
 EXPECTED_PREFIXES = ("BKS", "BakAbo")
 EXPECTED_MARKER_PATTERN = re.compile(r"\b(BKS|BakAbo)\b", flags=re.IGNORECASE)
 DECORATIVE_SYMBOL_PATTERN = re.compile(r"[™®©★☆◆◇●○■□▲△▶▷✓✔✦✧]")
@@ -203,7 +204,7 @@ def _from_live_shopify(root_dir: Path) -> list[dict[str, Any]]:
     ]
 
 def _from_public_shopify(settings: Any) -> list[dict[str, Any]]:
-    domain = str(getattr(settings, "primary_domain", "") or getattr(settings, "shopify_public_domain", "") or "bakabo.club")
+    domain = str(getattr(settings, "primary_domain", "") or getattr(settings, "shopify_public_domain", "") or BAKABO_STORE_DOMAIN)
     domain = domain.replace("https://", "").replace("http://", "").strip("/")
     if not domain:
         return []
@@ -243,6 +244,7 @@ def payload(settings: Any, *, products: list[dict[str, Any]] | None = None, live
     if not product_rows:
         source = "active_csv"
         candidates = [
+            settings.root_dir / "collezioni_csv" / "collezione 12_06_2026_SHOPIFY_IMPORT_READY_SEO_TAGS_READY.csv",
             settings.root_dir / "collezioni_csv" / "collezione 12_06_2026_SHOPIFY_IMPORT_READY.csv",
             settings.root_dir / "collezioni_csv" / "collezione_12_06_2026_VERIFIED.csv",
         ]

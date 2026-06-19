@@ -1,0 +1,255 @@
+{%- liquid
+  assign col = collection
+  assign accent_color = section.settings.accent_color | default: '#C9B79C'
+  assign tagline     = section.settings.tagline
+  assign description = section.settings.description
+  assign hero_image  = section.settings.hero_image | default: col.image
+-%}
+
+<style>
+  #bks-col-hero-{{ section.id }} {
+    --bks-ch-accent: {{ accent_color }};
+    /* Full accent color background — same logic as home, one color per collection */
+    background: var(--bks-ch-accent);
+    position: relative;
+    overflow: hidden;
+  }
+  /* Subtle grain overlay for depth */
+  #bks-col-hero-{{ section.id }}::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.3'/%3E%3C/svg%3E");
+    opacity: 0.06;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+  #bks-col-hero-{{ section.id }} .bks-ch__accent-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: rgba(0,0,0,0.15);
+  }
+  #bks-col-hero-{{ section.id }} .bks-ch__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: {{ section.settings.min_height | default: 420 }}px;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 clamp(16px, 3vw, 48px);
+  }
+  #bks-col-hero-{{ section.id }} .bks-ch__copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(40px, 6vw, 80px) clamp(24px, 3vw, 56px) clamp(40px, 6vw, 80px) 0;
+  }
+  /* Text color: section setting controls ink vs white on colored background */
+  #bks-col-hero-{{ section.id }} .bks-ch__copy {
+    --bks-ch-text: {% if section.settings.text_on_dark %}#fafaf7{% else %}#0a0a0a{% endif %};
+    --bks-ch-text-muted: {% if section.settings.text_on_dark %}rgba(250,250,247,0.7){% else %}rgba(10,10,10,0.55){% endif %};
+  }
+  #bks-col-hero-{{ section.id }} .bks-ch__overline {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bks-ch-text-muted);
+    margin: 0 0 12px;
+    font-weight: 500;
+  }
+  #bks-col-hero-{{ section.id }} .bks-ch__title {
+    font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
+    font-size: clamp(4rem, 8vw, 8rem);
+    line-height: 0.92;
+    color: var(--bks-ch-text);
+    margin: 0 0 20px;
+    letter-spacing: 0.01em;
+  }
+  #bks-col-hero-{{ section.id }} .bks-ch__tagline {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.88rem;
+    letter-spacing: 0.08em;
+    color: var(--bks-ch-text-muted);
+    margin: 0 0 20px;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+  #bks-col-hero-{{ section.id }} .bks-ch__desc {
+    font-family: var(--bks-font-body, 'DM Sans', sans-serif);
+    font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+    line-height: 1.7;
+    color: var(--bks-ch-text-muted);
+    max-width: 48ch;
+    margin: 0 0 28px;
+  }
+  #bks-col-hero-{{ section.id }} .bks-ch__accent-rule {
+    width: 48px;
+    height: 3px;
+    background: {% if section.settings.text_on_dark %}rgba(250,250,247,0.4){% else %}rgba(0,0,0,0.25){% endif %};
+    display: block;
+    margin-bottom: 28px;
+    flex-shrink: 0;
+  }
+  #bks-col-hero-{{ section.id }} .bks-ch__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--bks-ch-text);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+    width: fit-content;
+    transition: opacity 0.2s;
+  }
+  #bks-col-hero-{{ section.id }} .bks-ch__cta:hover { opacity: 0.6; }
+  #bks-col-hero-{{ section.id }} .bks-ch__image {
+    position: relative;
+    overflow: hidden;
+  }
+  #bks-col-hero-{{ section.id }} .bks-ch__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: {{ section.settings.image_position | default: 'center top' }};
+    display: block;
+  }
+  #bks-col-hero-{{ section.id }} .bks-ch__image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(250,250,247,0.18) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  @media (max-width: 900px) {
+    #bks-col-hero-{{ section.id }} .bks-ch__inner {
+      grid-template-columns: 1fr;
+    }
+    #bks-col-hero-{{ section.id }} .bks-ch__image {
+      min-height: 300px;
+      order: -1;
+    }
+    #bks-col-hero-{{ section.id }} .bks-ch__copy {
+      padding: 32px 0 40px;
+    }
+    #bks-col-hero-{{ section.id }} .bks-ch__title {
+      font-size: clamp(3.2rem, 12vw, 6rem);
+    }
+  }
+</style>
+
+<div id="bks-col-hero-{{ section.id }}" class="bks-collection-hero">
+  <div class="bks-ch__accent-bar"></div>
+  <div class="bks-ch__inner">
+
+    <div class="bks-ch__copy">
+      <p class="bks-ch__overline">BKS Studio — {{ col.title | upcase }}</p>
+      <h1 class="bks-ch__title">{{ col.title | upcase }}</h1>
+      {%- if tagline != blank -%}
+        <p class="bks-ch__tagline">{{ tagline }}</p>
+      {%- endif -%}
+      <span class="bks-ch__accent-rule"></span>
+      {%- if description != blank -%}
+        <p class="bks-ch__desc">{{ description }}</p>
+      {%- elsif col.description != blank -%}
+        <p class="bks-ch__desc">{{ col.description | strip_html | truncate: 280 }}</p>
+      {%- endif -%}
+      {%- if section.settings.show_cta -%}
+        <a href="#collection-grid" class="bks-ch__cta">
+          Shop the collection
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 8h10M9 4l4 4-4 4"/>
+          </svg>
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- if hero_image != blank -%}
+      <div class="bks-ch__image">
+        <img
+          src="{{ hero_image | image_url: width: 1200 }}"
+          alt="{{ col.title | escape }}"
+          width="{{ hero_image.width }}"
+          height="{{ hero_image.height }}"
+          loading="eager"
+          fetchpriority="high"
+        >
+        <div class="bks-ch__image-overlay"></div>
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "BKS Collection Hero",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#C9B79C",
+      "info": "Hours #c8c4be · Origin #489808 · Glyph #d4a030 · Marker #c04418 · Riviera #0ca898 · Pulse #8888cc · Token #9828d8 · Flag #c82020"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "placeholder": "e.g. Measured urban stillness"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Editorial description",
+      "info": "Overrides collection description. 2-3 sentences max."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image",
+      "info": "Falls back to collection image if not set"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image focal point",
+      "options": [
+        { "value": "center top",    "label": "Top center" },
+        { "value": "center center", "label": "Center" },
+        { "value": "center bottom", "label": "Bottom center" },
+        { "value": "left center",   "label": "Left" },
+        { "value": "right center",  "label": "Right" }
+      ],
+      "default": "center top"
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 300,
+      "max": 700,
+      "step": 20,
+      "unit": "px",
+      "label": "Min section height",
+      "default": 440
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show 'Shop the collection' link",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "BKS Collection Hero"
+    }
+  ]
+}
+{% endschema %}

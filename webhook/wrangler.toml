@@ -1,4 +1,4 @@
 name = "bks-tier-upgrade"
 main = "tier_upgrade_worker.js"
-compatibility_date = "2024-01-01"
+compatibility_date = "2024-11-01"
 workers_dev = true

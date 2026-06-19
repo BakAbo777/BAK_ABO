@@ -11,6 +11,11 @@ from ecommerce_automation.theme_ai_assistant import ensure_workspace as ensure_a
 from ecommerce_automation.theme_ai_assistant import section_liquid as ai_assistant_section
 
 
+BAKABO_STORE_DOMAIN = "bakabo.club"
+BKS_TM04_THEME_ID = "202392961362"
+BKS_THEME_VERSION = "BKS TM04 18_06_2026 V.0"
+BKS_LAST_DEPLOY = "18_06_2026"
+# TM03 zip paths kept for archival — TM04 is live on bakabo.club, deploy via scripts/deploy_theme_section.py
 SOURCE_ZIP = Path("04_TEMA_SHOPIFY/BKS_TM03_clean_12JUN2026_SEO_READY_CORRETTO.zip")
 OUTPUT_ZIP = Path("04_TEMA_SHOPIFY/BKS_TM03_LIGHT_TRUST_TIMER_READY.zip")
 LIGHT_CSS = Path("04_TEMA_SHOPIFY/assets/bks-commerce-light.css")
@@ -319,7 +324,7 @@ def _bks_home_hero_defaults() -> dict[str, Any]:
             "primary_label": "Shop BKS",
             "secondary_link": "/collections",
             "secondary_label": "Explore series",
-            "collection_handles": "bks-folklore,bks-glyph,bks-marker,bks-riviera,bks-pulse,bks-token,bks-flag,bks-hours",
+            "collection_handles": "bks-origin,bks-glyph,bks-marker,bks-riviera,bks-pulse,bks-token,bks-flag,bks-hours",
         },
     }
 
@@ -504,6 +509,11 @@ def payload(settings: Any) -> dict[str, Any]:
             "output_zip": data.get("output_zip", ""),
             "source_zip": data.get("source_zip", ""),
             "goal": "lighter_editorial_trust_theme",
+            "live_theme_id": BKS_TM04_THEME_ID,
+            "live_theme_version": BKS_THEME_VERSION,
+            "last_deploy": BKS_LAST_DEPLOY,
+            "deploy_path": "scripts/deploy_theme_section.py",
+            "trust_gate": "trust_foundation",
         },
         **data,
     }

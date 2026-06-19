@@ -5,8 +5,13 @@ from pathlib import Path
 from typing import Any
 
 
+BAKABO_STORE_DOMAIN = "bakabo.club"
+BKS_TM04_THEME_ID = "202392961362"
+BAKABO_CREW_EMAIL = "crew@bakabo.club"
+
 SOCIAL_SHEET = Path("output/social_campaigns_matrix.csv")
-PROTOCOL_DOC = Path("docs/bakabo-social-campaigns_SKILL.md")
+SKILL_DOC = Path("BKS_SKILL/skills/bakabo-social-campaigns/SKILL.md")
+PROTOCOL_DOC = Path("docs/bakabo-social-campaigns_SKILL.md")  # legacy
 
 
 LANGUAGES: tuple[dict[str, str], ...] = (
@@ -161,9 +166,18 @@ def write_sheet(settings: Any, data: list[dict[str, str]]) -> str:
 
 
 def write_protocol(settings: Any) -> str:
-    path = settings.root_dir / PROTOCOL_DOC
-    path.parent.mkdir(parents=True, exist_ok=True)
+    skill_path = settings.root_dir / SKILL_DOC
+    skill_path.parent.mkdir(parents=True, exist_ok=True)
     lines = [
+        "---",
+        "name: bakabo-social-campaigns",
+        "description: Multilingual, transparent, supervised social campaigns for BKS Studio / bakabo.club.",
+        "metadata:",
+        "  type: skill",
+        "  trust_gate: campaign_layer",
+        f"  store: {BAKABO_STORE_DOMAIN}",
+        "---",
+        "",
         "# bakabo-social-campaigns",
         "",
         "Skill for multilingual, transparent, supervised social campaigns.",
@@ -190,13 +204,17 @@ def write_protocol(settings: Any) -> str:
             "",
             "## Sources",
             "",
-            "- TikTok Content Posting API: https://developers.tiktok.com/doc/content-posting-api-get-started/",
-            "- YouTube Data API videos.insert: https://developers.google.com/youtube/v3/docs/videos/insert",
-            "- FTC CAN-SPAM guidance: https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business",
+            "- [TikTok Content Posting API](https://developers.tiktok.com/doc/content-posting-api-get-started/)",
+            "- [YouTube Data API videos.insert](https://developers.google.com/youtube/v3/docs/videos/insert)",
+            "- [FTC CAN-SPAM guidance](https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business)",
         ]
     )
-    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    return _relative(settings.root_dir, path)
+    content = "\n".join(lines) + "\n"
+    skill_path.write_text(content, encoding="utf-8")
+    legacy_path = settings.root_dir / PROTOCOL_DOC
+    legacy_path.parent.mkdir(parents=True, exist_ok=True)
+    legacy_path.write_text(content, encoding="utf-8")
+    return _relative(settings.root_dir, skill_path)
 
 
 def payload(settings: Any, snapshot: dict[str, Any]) -> dict[str, Any]:
@@ -212,7 +230,8 @@ def payload(settings: Any, snapshot: dict[str, Any]) -> dict[str, Any]:
             "languages": len(LANGUAGES),
             "autonomy": "supervised_transparent_campaigns",
             "sheet": sheet,
-            "protocol": protocol,
+            "skill": protocol,
+            "trust_gate": "campaign_layer",
         },
         "channels": data,
         "languages": list(LANGUAGES),

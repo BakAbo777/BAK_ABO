@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
+BAKABO_STORE_DOMAIN = "bakabo.club"
+
 
 def run(context: dict[str, Any]) -> dict[str, Any]:
     settings = context["settings"]
@@ -15,6 +17,8 @@ def run(context: dict[str, Any]) -> dict[str, Any]:
             "status": "needs_config",
             "progress": 45,
             "message": "Catalog references seeded. Add PRINTIFY_API_TOKEN before Printify reconciliation.",
+            "store": BAKABO_STORE_DOMAIN,
+            "trust_gate": "trust_foundation",
             "metrics": {"printify": "missing_token", "catalog_references": catalog_result},
         }
 
@@ -25,5 +29,7 @@ def run(context: dict[str, Any]) -> dict[str, Any]:
         "progress": 100,
         "message": f"Printify shop resolved: {shop_id}. Product sample loaded.",
         "external_ref": shop_id,
+        "store": BAKABO_STORE_DOMAIN,
+        "trust_gate": "trust_foundation",
         "metrics": {"printify": snapshot, "catalog_references": catalog_result},
     }

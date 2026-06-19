@@ -1,0 +1,72 @@
+{%- liquid
+  assign ctx_accent = '#C9B79C'
+  assign ctx_handle = ''
+  assign ctx_page_type = request.page_type
+  assign ctx_has_collection = false
+  assign ctx_collection_url = ''
+
+  if request.page_type == 'collection'
+    assign ctx_handle = collection.handle
+    assign ctx_has_collection = true
+    assign ctx_collection_url = collection.url
+    assign bks_meta = collection.metafields.bks_collection
+    if bks_meta != blank and bks_meta.color_hex.value != blank
+      assign ctx_accent = bks_meta.color_hex.value
+    else
+      case collection.handle
+        when 'bks-hours'
+          assign ctx_accent = '#c8c4be'
+        when 'bks-origin'
+          assign ctx_accent = '#489808'
+        when 'bks-glyph'
+          assign ctx_accent = '#d4a030'
+        when 'bks-marker'
+          assign ctx_accent = '#c04418'
+        when 'bks-riviera'
+          assign ctx_accent = '#0ca898'
+        when 'bks-pulse'
+          assign ctx_accent = '#8888cc'
+        when 'bks-token'
+          assign ctx_accent = '#9828d8'
+        when 'bks-flag'
+          assign ctx_accent = '#c82020'
+      endcase
+    endif
+  elsif request.page_type == 'product'
+    for col in product.collections
+      if col.handle contains 'bks-'
+        assign ctx_handle = col.handle
+        assign ctx_has_collection = true
+        assign ctx_collection_url = col.url
+        break
+      endif
+    endfor
+    case ctx_handle
+      when 'bks-hours'
+        assign ctx_accent = '#c8c4be'
+      when 'bks-origin'
+        assign ctx_accent = '#489808'
+      when 'bks-glyph'
+        assign ctx_accent = '#d4a030'
+      when 'bks-marker'
+        assign ctx_accent = '#c04418'
+      when 'bks-riviera'
+        assign ctx_accent = '#0ca898'
+      when 'bks-pulse'
+        assign ctx_accent = '#8888cc'
+      when 'bks-token'
+        assign ctx_accent = '#9828d8'
+      when 'bks-flag'
+        assign ctx_accent = '#c82020'
+    endcase
+  endif
+-%}
+<script type="application/json" id="bks-ai-context">
+{
+  "accent": {{ ctx_accent | json }},
+  "contextHandle": {{ ctx_handle | json }},
+  "pageType": {{ ctx_page_type | json }},
+  "hasCollectionContext": {{ ctx_has_collection }},
+  "collectionUrl": {{ ctx_collection_url | json }}
+}
+</script>

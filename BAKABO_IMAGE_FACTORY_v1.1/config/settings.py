@@ -7,13 +7,16 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).parent.parent
 load_dotenv(BASE_DIR / ".env", override=False)
+_parent_env = BASE_DIR.parent / ".env"
+if _parent_env.exists():
+    load_dotenv(_parent_env, override=False)
 
 # ── API KEYS ──────────────────────────────────────────────────────────────────
 OPENAI_API_KEY        = os.getenv("OPENAI_API_KEY", "")
 PRINTIFY_API_TOKEN    = os.getenv("PRINTIFY_API_TOKEN", "")
 PRINTIFY_SHOP_ID      = os.getenv("PRINTIFY_SHOP_ID", "")
-SHOPIFY_STORE         = os.getenv("SHOPIFY_STORE", "")
-SHOPIFY_ACCESS_TOKEN  = os.getenv("SHOPIFY_ACCESS_TOKEN", "")
+SHOPIFY_STORE         = os.getenv("SHOPIFY_STORE") or os.getenv("SHOPIFY_MYSHOPIFY_DOMAIN", "")
+SHOPIFY_ACCESS_TOKEN  = os.getenv("SHOPIFY_ACCESS_TOKEN") or os.getenv("SHOPIFY_ADMIN_TOKEN", "")
 REMOVE_BG_API_KEY     = os.getenv("REMOVE_BG_API_KEY", "")
 MODEL_PROVIDER        = os.getenv("MODEL_PROVIDER", "openai")
 

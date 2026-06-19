@@ -1,0 +1,162 @@
+{
+  "_meta": {
+    "name": "BKS Member Marketing System",
+    "version": "1.0",
+    "created": "2026-06-17",
+    "description": "Metal tier loyalty system, personal shopper rules, marketing activation logic for bakabo.club members"
+  },
+
+  "metal_tiers": {
+    "lead": {
+      "label": "Lead",
+      "symbol": "◎",
+      "color": "#8c8c8c",
+      "color_name": "cool grey",
+      "order_threshold": 0,
+      "order_max": 0,
+      "benefits": [
+        "Wishlist & favorites",
+        "BKS newsletter access",
+        "Basic account area"
+      ],
+      "ai_persona": "friendly introductory",
+      "tryon_access": false,
+      "early_drop_access": false,
+      "customization_access": false,
+      "marketing_nudge": "1 purchase unlocks Iron tier and size history"
+    },
+    "iron": {
+      "label": "Iron",
+      "symbol": "⬡",
+      "color": "#607080",
+      "color_name": "steel blue",
+      "order_threshold": 1,
+      "order_max": 2,
+      "benefits": [
+        "All Lead benefits",
+        "Size & fit history",
+        "Basic AI recommendations",
+        "Order tracking"
+      ],
+      "ai_persona": "helpful size advisor",
+      "tryon_access": false,
+      "early_drop_access": false,
+      "customization_access": false,
+      "marketing_nudge": "Reach Brass (3 purchases) to unlock AI Personal Shopper and early collection previews"
+    },
+    "brass": {
+      "label": "Brass",
+      "symbol": "◈",
+      "color": "#d4a030",
+      "color_name": "amber gold",
+      "order_threshold": 3,
+      "order_max": 5,
+      "benefits": [
+        "All Iron benefits",
+        "AI Personal Shopper — active",
+        "Early collection previews (+48h)",
+        "Mobile Try-On Camerino",
+        "Collection affinity profile"
+      ],
+      "ai_persona": "personal shopper with collection context",
+      "tryon_access": true,
+      "early_drop_access": false,
+      "customization_access": true,
+      "marketing_nudge": "Reach Silver (6 purchases) for curated drops and full archive access"
+    },
+    "silver": {
+      "label": "Silver",
+      "symbol": "◇",
+      "color": "#b0b8c4",
+      "color_name": "cool silver",
+      "order_threshold": 6,
+      "order_max": 10,
+      "benefits": [
+        "All Brass benefits",
+        "Curated drops (+24h early access)",
+        "Full BKS Archive",
+        "Advanced customization requests",
+        "Dedicated AI recommendations"
+      ],
+      "ai_persona": "dedicated personal stylist with full history context",
+      "tryon_access": true,
+      "early_drop_access": true,
+      "customization_access": true,
+      "marketing_nudge": "Reach Gold (11+ purchases) for VIP white-glove service and private drops"
+    },
+    "gold": {
+      "label": "Gold",
+      "symbol": "✦",
+      "color": "#c8a820",
+      "color_name": "deep gold",
+      "order_threshold": 11,
+      "order_max": null,
+      "benefits": [
+        "All Silver benefits",
+        "VIP private drops — exclusive",
+        "White-glove curation service",
+        "Priority responses",
+        "Co-creation invitations"
+      ],
+      "ai_persona": "VIP curator — direct and personal, treats customer as insider",
+      "tryon_access": true,
+      "early_drop_access": true,
+      "customization_access": true,
+      "marketing_nudge": null
+    }
+  },
+
+  "personal_shopper_rules": {
+    "context_injection": {
+      "always_include": ["tier_label", "order_count", "wishlist_handles"],
+      "brass_and_above": ["top_collections", "inferred_season", "last_3_products"],
+      "silver_and_above": ["full_order_history_summary", "preferred_product_types"],
+      "gold": ["curated_next_drop", "private_notes"]
+    },
+    "recommendation_logic": [
+      "If customer has bought from 1 collection, recommend a compatible second collection based on armocromia",
+      "If customer has outerwear, suggest swim/resort of same collection next",
+      "If customer has swim, suggest accessories (bags, towels) of same collection",
+      "If customer wishlist has items from a collection they haven't bought, prioritize that collection",
+      "Never recommend a product the customer already owns (check by product type + collection)"
+    ],
+    "ai_tone_by_tier": {
+      "lead": "Welcome and informative. Explain BKS concept and collections.",
+      "iron": "Helpful. Focus on sizing and fit. Acknowledge their first purchase.",
+      "brass": "Personal. Reference their purchases. Suggest next logical piece. Use 'your BKS palette' language.",
+      "silver": "Stylist mode. Talk about building a BKS wardrobe. Reference their affinity collections by name.",
+      "gold": "VIP curator. Direct, insider tone. Preview upcoming drops. Address by first name."
+    }
+  },
+
+  "collection_affinity_map": {
+    "bks-hours":   { "season": "Summer/Autumn", "compatible": ["bks-glyph", "bks-marker"], "palette": "warm neutral", "product_focus": "outerwear, travel, sneakers" },
+    "bks-glyph":   { "season": "Spring/Autumn", "compatible": ["bks-hours", "bks-token"],  "palette": "amber gold",   "product_focus": "outerwear, tees, sneakers, accessories" },
+    "bks-marker":  { "season": "Autumn",         "compatible": ["bks-hours", "bks-flag"],   "palette": "burnt orange", "product_focus": "windbreakers, shorts, sneakers, bags" },
+    "bks-riviera": { "season": "Spring",         "compatible": ["bks-pulse", "bks-origin"], "palette": "teal",         "product_focus": "swimwear, dresses, flip flops, travel" },
+    "bks-pulse":   { "season": "Summer",         "compatible": ["bks-riviera", "bks-token"],"palette": "soft violet",  "product_focus": "jackets, hoodies, sneakers, active" },
+    "bks-token":   { "season": "Winter",         "compatible": ["bks-glyph", "bks-pulse"],  "palette": "deep purple",  "product_focus": "sneakers, lounge, bags" },
+    "bks-flag":    { "season": "Winter",         "compatible": ["bks-marker", "bks-origin"],"palette": "red",          "product_focus": "puffer, windbreaker, shorts, backpacks" },
+    "bks-origin":  { "season": "Spring/Summer",  "compatible": ["bks-riviera", "bks-flag"], "palette": "organic green","product_focus": "swimwear, hoodies, resort pieces" }
+  },
+
+  "armocromia_to_collections": {
+    "Spring_warm_bright":  ["bks-riviera", "bks-glyph", "bks-origin"],
+    "Summer_cool_soft":    ["bks-pulse", "bks-hours"],
+    "Autumn_warm_muted":   ["bks-marker", "bks-hours", "bks-glyph"],
+    "Winter_cool_bright":  ["bks-token", "bks-flag", "bks-pulse"]
+  },
+
+  "marketing_triggers": {
+    "first_purchase": "Welcome to Iron tier. Size history now active. 2 more to Brass.",
+    "brass_unlock": "You reached Brass. AI Personal Shopper and Camerino Try-On are now active.",
+    "silver_unlock": "Silver tier reached. Curated drops and full archive are yours.",
+    "gold_unlock": "You reached BKS Gold. You are now a VIP member.",
+    "wishlist_nudge": "You have {n} items in your wishlist from {collection}. New {product_type} just dropped.",
+    "cart_abandon_brass": "Your BKS Personal Shopper noticed you left {product}. Need help with sizing or styling?",
+    "tier_progress": "{n} more purchase{s} to {next_tier}."
+  },
+
+  "site_language": "en",
+  "note": "All customer-facing text must be in English. Italian only in internal tools and admin notes."
+}

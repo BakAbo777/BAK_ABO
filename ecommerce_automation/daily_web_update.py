@@ -9,6 +9,10 @@ from typing import Any
 import requests
 
 
+BAKABO_STORE_DOMAIN = "bakabo.club"
+BKS_TM04_THEME_ID = "202392961362"
+BKS_GTM_CONTAINER = "GTM-PF5Z85KS"
+
 REPORT_FILE = Path("output/daily_web_update.json")
 SHEET_FILE = Path("output/daily_web_update_sources.csv")
 
@@ -25,7 +29,7 @@ def _now() -> str:
 
 
 def sources(settings: Any) -> list[dict[str, str]]:
-    store = settings.shopify_public_domain or "bakabo.club"
+    store = settings.shopify_public_domain or BAKABO_STORE_DOMAIN
     return [
         {"name": "Storefront", "kind": "live_site", "url": f"https://{store}", "purpose": "Homepage availability and trust baseline."},
         {"name": "Sitemap", "kind": "live_site", "url": f"https://{store}/sitemap.xml", "purpose": "Product/page discoverability for Google."},
@@ -53,7 +57,7 @@ def check_source(source: dict[str, str], *, live: bool) -> dict[str, Any]:
         row["status"] = "pass" if 200 <= response.status_code < 400 else "needs_fix"
         text = response.text[:200000] if "text" in response.headers.get("content-type", "") else ""
         if source["kind"] == "live_site":
-            row["gtm_present"] = "GTM-PF5Z85KS" in text
+            row["gtm_present"] = BKS_GTM_CONTAINER in text
             row["ga4_present"] = "G-" in text or "googletagmanager" in text
         if source["kind"] == "trust_page":
             row["trust_text_present"] = len(text.strip()) > 500
@@ -106,6 +110,8 @@ def run(settings: Any, snapshot: dict[str, Any], *, live: bool = False) -> dict[
             "merchant_first_action": google.get("summary", {}).get("first_action", ""),
             "attribute_issues": feed.get("attribute_issues", 0),
             "country_needs_config": feed.get("country_needs_config", 0),
+            "store": BAKABO_STORE_DOMAIN,
+            "trust_gate": "trust_foundation",
         },
         "sources": rows,
         "next_action": next_action,

@@ -1,0 +1,397 @@
+{% comment %}
+  BKS ABOUT — brand story page
+  Used for both "About BakAbo" (brand) and "About BKS Studio" (studio/process)
+  Hero: optional full-bleed image + accent overlay, or plain paper bg
+  Content: Bebas Neue headline + DM Sans copy + pull quote + team/crew grid
+{% endcomment %}
+
+{%- assign accent = section.settings.accent_color | default: '#0a0a0a' -%}
+{%- if section.settings.text_on_dark -%}
+  {%- assign fg = '#fafaf7' -%}
+{%- else -%}
+  {%- assign fg = '#0a0a0a' -%}
+{%- endif -%}
+
+<style>
+  /* ── HERO ──────────────────────────────────────────── */
+  #bks-about-{{ section.id }} .bks-ab__hero {
+    position: relative;
+    width: 100%;
+    min-height: {{ section.settings.hero_height | default: 520 }}px;
+    background: {{ accent }};
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  #bks-about-{{ section.id }} .bks-ab__hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: {{ section.settings.image_position | default: 'center center' }};
+    mix-blend-mode: {{ section.settings.blend_mode | default: 'luminosity' }};
+    opacity: {{ section.settings.image_opacity | default: 6 | divided_by: 10.0 }};
+  }
+  #bks-about-{{ section.id }} .bks-ab__hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, {{ accent }}ee 0%, {{ accent }}44 50%, transparent 100%);
+    pointer-events: none;
+  }
+  #bks-about-{{ section.id }} .bks-ab__hero-copy {
+    position: relative;
+    z-index: 2;
+    padding: clamp(32px, 5vw, 72px);
+    color: {{ fg }};
+    max-width: 860px;
+  }
+  #bks-about-{{ section.id }} .bks-ab__overline {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin: 0 0 10px;
+  }
+  #bks-about-{{ section.id }} .bks-ab__headline {
+    font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
+    font-size: clamp(3.2rem, 8vw, 7.5rem);
+    line-height: 0.88;
+    margin: 0 0 20px;
+    color: {{ fg }};
+  }
+  #bks-about-{{ section.id }} .bks-ab__tagline {
+    font-family: var(--bks-font-body, 'DM Sans', sans-serif);
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    opacity: 0.85;
+    margin: 0;
+    max-width: 52ch;
+    line-height: 1.55;
+  }
+  /* ── ACCENT BAND ───────────────────────────────────── */
+  #bks-about-{{ section.id }} .bks-ab__band {
+    display: flex;
+    gap: 3px;
+    height: 4px;
+    width: 100%;
+  }
+  #bks-about-{{ section.id }} .bks-ab__band span { flex: 1; display: block; }
+  /* ── BODY CONTENT ──────────────────────────────────── */
+  #bks-about-{{ section.id }} .bks-ab__body {
+    background: var(--bks-paper, #fafaf7);
+    padding: clamp(48px, 8vw, 96px) clamp(20px, 5vw, 80px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(32px, 5vw, 80px);
+    align-items: start;
+  }
+  #bks-about-{{ section.id }} .bks-ab__body-full {
+    grid-column: 1 / -1;
+  }
+  #bks-about-{{ section.id }} .bks-ab__section-label {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: {{ accent }};
+    margin: 0 0 10px;
+  }
+  #bks-about-{{ section.id }} .bks-ab__copy-title {
+    font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    line-height: 1;
+    color: var(--bks-ink, #0a0a0a);
+    margin: 0 0 16px;
+  }
+  #bks-about-{{ section.id }} .bks-ab__copy p {
+    font-family: var(--bks-font-body, 'DM Sans', sans-serif);
+    font-size: 0.97rem;
+    line-height: 1.7;
+    color: rgba(10,10,10,0.72);
+    margin: 0 0 1em;
+  }
+  #bks-about-{{ section.id }} .bks-ab__copy p:last-child { margin-bottom: 0; }
+  /* ── PULL QUOTE ────────────────────────────────────── */
+  #bks-about-{{ section.id }} .bks-ab__quote-wrap {
+    background: {{ accent }};
+    padding: clamp(32px, 5vw, 64px);
+    position: relative;
+    overflow: hidden;
+    grid-column: 1 / -1;
+  }
+  #bks-about-{{ section.id }} .bks-ab__quote-letter {
+    position: absolute;
+    top: -0.18em;
+    right: -0.05em;
+    font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
+    font-size: clamp(10rem, 22vw, 22rem);
+    line-height: 1;
+    color: {{ fg }};
+    opacity: 0.06;
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+  }
+  #bks-about-{{ section.id }} .bks-ab__quote {
+    position: relative;
+    z-index: 1;
+    font-family: var(--bks-font-body, 'DM Sans', sans-serif);
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.45;
+    color: {{ fg }};
+    max-width: 38ch;
+    margin: 0 0 16px;
+  }
+  #bks-about-{{ section.id }} .bks-ab__quote-attr {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: {{ fg }};
+    opacity: 0.65;
+  }
+  /* ── NUMBERS / STATS ───────────────────────────────── */
+  #bks-about-{{ section.id }} .bks-ab__stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px;
+    background: rgba(10,10,10,0.08);
+    border: 1px solid rgba(10,10,10,0.08);
+    grid-column: 1 / -1;
+    margin-top: 8px;
+  }
+  #bks-about-{{ section.id }} .bks-ab__stat {
+    background: var(--bks-paper, #fafaf7);
+    padding: 24px 20px;
+  }
+  #bks-about-{{ section.id }} .bks-ab__stat-num {
+    font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
+    font-size: 2.8rem;
+    line-height: 1;
+    color: {{ accent }};
+    display: block;
+  }
+  #bks-about-{{ section.id }} .bks-ab__stat-label {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.5);
+    margin-top: 4px;
+    display: block;
+  }
+  @media (max-width: 768px) {
+    #bks-about-{{ section.id }} .bks-ab__body {
+      grid-template-columns: 1fr;
+    }
+    #bks-about-{{ section.id }} .bks-ab__quote-wrap,
+    #bks-about-{{ section.id }} .bks-ab__stats { grid-column: 1; }
+  }
+</style>
+
+<article id="bks-about-{{ section.id }}">
+
+  {%- comment -%} ── HERO ────────────────────────────────── {%- endcomment -%}
+  <div class="bks-ab__hero">
+    {%- if section.settings.hero_image != blank -%}
+      {{
+        section.settings.hero_image
+        | image_url: width: 1800
+        | image_tag:
+          class: 'bks-ab__hero-img',
+          loading: 'eager',
+          alt: section.settings.hero_image.alt | default: section.settings.headline
+      }}
+    {%- endif -%}
+    <div class="bks-ab__hero-copy">
+      <p class="bks-ab__overline">{{ section.settings.overline | default: 'BKS Studio' }}</p>
+      <h1 class="bks-ab__headline">{{ section.settings.headline | default: 'About BakAbo' }}</h1>
+      {%- if section.settings.tagline != blank -%}
+        <p class="bks-ab__tagline">{{ section.settings.tagline }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} ── 8-COLLECTION ACCENT BAND ─────────── {%- endcomment -%}
+  <div class="bks-ab__band" aria-hidden="true">
+    <span style="background:#c8c4be"></span>
+    <span style="background:#489808"></span>
+    <span style="background:#d4a030"></span>
+    <span style="background:#c04418"></span>
+    <span style="background:#0ca898"></span>
+    <span style="background:#8888cc"></span>
+    <span style="background:#9828d8"></span>
+    <span style="background:#c82020"></span>
+  </div>
+
+  {%- comment -%} ── BODY ────────────────────────────────── {%- endcomment -%}
+  <div class="bks-ab__body">
+
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+
+      {%- when 'text_column' -%}
+        <div {{ block.shopify_attributes }}>
+          {%- if block.settings.label != blank -%}
+            <p class="bks-ab__section-label">{{ block.settings.label }}</p>
+          {%- endif -%}
+          {%- if block.settings.title != blank -%}
+            <h2 class="bks-ab__copy-title">{{ block.settings.title }}</h2>
+          {%- endif -%}
+          <div class="bks-ab__copy">{{ block.settings.content }}</div>
+        </div>
+
+      {%- when 'pull_quote' -%}
+        <div class="bks-ab__quote-wrap" {{ block.shopify_attributes }}>
+          {%- if block.settings.letter != blank -%}
+            <span class="bks-ab__quote-letter" aria-hidden="true">{{ block.settings.letter }}</span>
+          {%- endif -%}
+          <blockquote class="bks-ab__quote">{{ block.settings.quote }}</blockquote>
+          {%- if block.settings.attribution != blank -%}
+            <cite class="bks-ab__quote-attr">— {{ block.settings.attribution }}</cite>
+          {%- endif -%}
+        </div>
+
+      {%- when 'stat' -%}
+        <div class="bks-ab__stats" {{ block.shopify_attributes }}>
+          {%- assign stat_pairs = block.settings.stats_data | split: ',' -%}
+          {%- for pair in stat_pairs -%}
+            {%- assign parts = pair | split: ':' -%}
+            {%- if parts.size >= 2 -%}
+              <div class="bks-ab__stat">
+                <span class="bks-ab__stat-num">{{ parts[0] | strip }}</span>
+                <span class="bks-ab__stat-label">{{ parts[1] | strip }}</span>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+      {%- endcase -%}
+    {%- endfor -%}
+
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "BKS About",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "overline", "label": "Sopratitolo" },
+    { "type": "text", "id": "headline", "label": "Titolo principale", "default": "About BakAbo" },
+    { "type": "text", "id": "tagline", "label": "Tagline hero" },
+    { "type": "image_picker", "id": "hero_image", "label": "Immagine hero" },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Posizione immagine",
+      "options": [
+        { "value": "center center", "label": "Centro" },
+        { "value": "top center", "label": "Alto" },
+        { "value": "center left", "label": "Sinistra" },
+        { "value": "center right", "label": "Destra" }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "select",
+      "id": "blend_mode",
+      "label": "Blend mode immagine",
+      "options": [
+        { "value": "normal", "label": "Normale" },
+        { "value": "luminosity", "label": "Luminosity (B&W)" },
+        { "value": "multiply", "label": "Multiply" },
+        { "value": "screen", "label": "Screen" }
+      ],
+      "default": "luminosity"
+    },
+    { "type": "range", "id": "image_opacity", "min": 1, "max": 10, "step": 1, "label": "Opacità immagine (×10)", "default": 6, "info": "6 = 60%, 10 = 100%" },
+    { "type": "range", "id": "hero_height", "min": 300, "max": 700, "step": 20, "label": "Altezza hero (px)", "default": 520 },
+    { "type": "color", "id": "accent_color", "label": "Colore accent", "default": "#0a0a0a" },
+    { "type": "checkbox", "id": "text_on_dark", "label": "Testo chiaro su sfondo scuro", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "text_column",
+      "name": "Colonna testo",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label sezione" },
+        { "type": "text", "id": "title", "label": "Titolo" },
+        { "type": "richtext", "id": "content", "label": "Contenuto" }
+      ]
+    },
+    {
+      "type": "pull_quote",
+      "name": "Pull quote",
+      "settings": [
+        { "type": "text", "id": "letter", "label": "Lettera decorativa", "default": "A" },
+        { "type": "textarea", "id": "quote", "label": "Citazione" },
+        { "type": "text", "id": "attribution", "label": "Attribuzione" }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Statistiche / numeri",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "stats_data",
+          "label": "Dati statistici (formato: Numero:Label, ...)",
+          "default": "12.7K:NFT artwork, 8:Collezioni, 2019:Anno fondazione, 100%:Print-on-demand"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BKS About — BakAbo",
+      "settings": {
+        "overline": "bakabo.club",
+        "headline": "About BakAbo",
+        "tagline": "Un atelier AI-art dove moda, tecnologia e identità visiva si incontrano.",
+        "accent_color": "#0a0a0a",
+        "text_on_dark": true,
+        "hero_height": 520
+      },
+      "blocks": [
+        {
+          "type": "text_column",
+          "settings": {
+            "label": "Origine",
+            "title": "Nata dall'arte digitale",
+            "content": "<p>BakAbo nasce dall'archivio di Roberto Picchioni: oltre 12.700 NFT e 2.400 AI artwork che formano il DNA visivo del brand. Ogni collezione è un capitolo di questa enciclopedia visuale.</p><p>Il nome unisce <em>Baka</em> (fool, giullare — chi sfida il senso comune) con l'idea di <em>abolire</em> il fast fashion: moda lenta, consapevole, con un'identità forte.</p>"
+          }
+        },
+        {
+          "type": "text_column",
+          "settings": {
+            "label": "Modello",
+            "title": "Print-on-demand, zero spreco",
+            "content": "<p>Nessun magazzino. Nessuna sovrapproduzione. Ogni capo viene stampato e spedito solo quando viene ordinato — eliminando gli sprechi del modello fast fashion tradizionale.</p><p>La qualità è garantita da Printify, uno dei provider print-on-demand più affidabili in Europa.</p>"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "stats_data": "12.7K:NFT artwork, 8:Collezioni, 2019:Anno fondazione, 100%:Print-on-demand"
+          }
+        },
+        {
+          "type": "pull_quote",
+          "settings": {
+            "letter": "B",
+            "quote": "L'intelligenza artificiale non sostituisce l'arte — la trasforma in qualcosa che non avremmo mai immaginato.",
+            "attribution": "Roberto Picchioni, BKS Studio"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

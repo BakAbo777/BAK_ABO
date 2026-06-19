@@ -317,7 +317,7 @@ def payload(settings: Any, services: dict[str, Any], references: Any, *, live: b
     if printify_client.configured:
         try:
             shop_id = printify_client.resolve_shop_id(settings.printify_shop_title)
-            printify_products = printify_client.iter_products(shop_id)
+            printify_products = printify_client.iter_products(shop_id, visible_only=True)
         except Exception as exc:  # noqa: BLE001
             errors.append(f"printify:{type(exc).__name__}:{exc}")
     else:

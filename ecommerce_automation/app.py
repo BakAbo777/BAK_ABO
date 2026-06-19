@@ -32,6 +32,7 @@ from ecommerce_automation.agent_os import payload as agent_os_payload
 from ecommerce_automation.agent_routine import payload as agent_routine_payload
 from ecommerce_automation.always_on_agent import payload as always_on_payload
 from ecommerce_automation.canva_connectors import payload as canva_connectors_payload
+from ecommerce_automation.catalog_db import payload as catalog_db_payload
 from ecommerce_automation.catalog_live_sync import payload as catalog_live_sync_payload
 from ecommerce_automation.communications import payload as communications_payload
 from ecommerce_automation.daily_web_update import payload as daily_web_update_payload, run as run_daily_web_update
@@ -45,6 +46,7 @@ from ecommerce_automation.marketing_logic_scout import payload as marketing_logi
 from ecommerce_automation.market_sense import payload as market_sense_payload
 from ecommerce_automation.master_actions import payload as master_actions_payload, verify as verify_master_action
 from ecommerce_automation.master_agent import AGENT_MODES, AGENT_PROFILE, reply as agent_reply
+from ecommerce_automation.member_tryon import handle_submission as member_tryon_submit, payload as member_tryon_payload
 from ecommerce_automation.network_monitor import payload as network_monitor_payload
 from ecommerce_automation.legal_guardrails import payload as legal_guardrails_payload
 from ecommerce_automation.official_inbox import payload as official_inbox_payload
@@ -66,9 +68,21 @@ from bks_assets import active_catalog_csv
 
 def build_services() -> dict[str, Any]:
     return {
-        "amazon": AmazonClient(settings.amazon_sp_api_client_id),
+        "amazon": AmazonClient(
+            seller_id=settings.amazon_seller_id,
+            sp_api_client_id=settings.amazon_sp_api_client_id,
+            merch_email=settings.amazon_merch_email,
+            merch_tier=settings.amazon_merch_tier,
+        ),
         "make": MakeWebhookHandler(settings.make_webhook_url, settings.make_webhook_secret),
-        "openai": OpenAIService(settings.openai_api_key),
+        "openai": OpenAIService(
+            api_key=settings.openai_api_key,
+            project_id=settings.openai_project_id,
+            organization_id=settings.openai_organization_id,
+            chatgpt_project_url=settings.openai_chatgpt_project_url,
+            vector_store_id=settings.openai_vector_store_id,
+            default_model=settings.openai_default_model,
+        ),
         "printify": PrintifyClient(settings.printify_api_token, settings.printify_shop_id),
         "shopify": ShopifyClient(settings.shopify_store, settings.shopify_admin_token, settings.shopify_api_version),
     }
@@ -117,6 +131,7 @@ def local_port_open(port: int, host: str = "127.0.0.1") -> bool:
 def create_app() -> Flask:
     app = Flask(__name__)
     app.config["SECRET_KEY"] = settings.secret_key
+    app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024
     logger = configure_logging(settings.package_dir / "logs")
     state = StateManager(settings.database_path)
     ledger = RunLedger(settings.database_path)
@@ -316,6 +331,8 @@ def create_app() -> Flask:
         payments_data = payments_payload(settings)
         network_data = network_monitor_payload(settings)
         catalog_sync_data = catalog_live_sync_payload(settings, build_services(), references, live=False)
+        catalog_db_data = catalog_db_payload(settings)
+        member_tryon_data = member_tryon_payload(settings)
         product_names_data = product_name_audit_payload(settings)
         official_inbox_data = official_inbox_payload(settings)
         theme_assistant_data = theme_ai_assistant_payload(settings)
@@ -453,6 +470,8 @@ def create_app() -> Flask:
             "payments": payments_data,
             "network": network_data,
             "catalog_sync": catalog_sync_data,
+            "catalog": catalog_db_data,
+            "member_tryon": member_tryon_data,
             "product_names": product_names_data,
             "official_inbox": official_inbox_data,
             "social_campaigns": social_campaigns_data,
@@ -564,9 +583,11 @@ def create_app() -> Flask:
         if settings.bks_assistant_public_token and token != settings.bks_assistant_public_token:
             return jsonify({"error": "unauthorized"}), 401
         payload = request.get_json(silent=True) or {}
-        message = str(payload.get("message", "")).strip()
+        message      = str(payload.get("message", "")).strip()
+        page_url     = str(payload.get("page_url", ""))
+        product_title= str(payload.get("product_title", ""))
         rows = knowledge.latest(limit=25)
-        answer = theme_customer_reply(message, rows, settings)
+        answer = theme_customer_reply(message, rows, settings, page_url=page_url, product_title=product_title)
         knowledge.add(
             area="customer_assistant",
             title=message[:120] or "customer assistant",
@@ -582,6 +603,25 @@ def create_app() -> Flask:
         )
         state.record_event("customer_assistant.chat", payload={"message": message[:120], "safe": answer.get("safe")})
         return jsonify(answer)
+
+    @app.post("/apps/bks-tryon")
+    def api_member_tryon_submit():
+        photo = request.files.get("photo")
+        form = {
+            "item": request.form.get("item", ""),
+            "cart": request.form.get("cart", ""),
+            "customer_id": request.form.get("customer_id", ""),
+            "customer_email": request.form.get("customer_email", ""),
+            "source": request.form.get("source", ""),
+        }
+        result, status_code = member_tryon_submit(photo, form)
+        state.record_event("member_tryon.submit", payload={"status": result.get("status") or result.get("error", ""), "request_id": result.get("request_id", "")})
+        realtime.publish("member_tryon.submit", {"request_id": result.get("request_id", ""), "status": result.get("status", "")})
+        return jsonify(result), status_code
+
+    @app.get("/api/member-tryon")
+    def api_member_tryon_status():
+        return jsonify(member_tryon_payload(settings))
 
     @app.get("/api/theme-optimizer")
     def api_theme_optimizer():
@@ -671,6 +711,8 @@ def create_app() -> Flask:
             "payments": payments_payload(settings),
             "network": network_monitor_payload(settings),
             "catalog_sync": catalog_live_sync_payload(settings, build_services(), references, live=False),
+            "catalog": catalog_db_payload(settings),
+            "member_tryon": member_tryon_payload(settings),
             "product_names": product_name_audit_payload(settings),
             "official_inbox": official_inbox_payload(settings),
             "sales_channels": sales_channels_payload(settings),

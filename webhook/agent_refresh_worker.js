@@ -28,9 +28,10 @@ async function fetchShopify(env, path) {
 }
 
 async function buildCatalogSnapshot(env) {
-  const [prodData, collData] = await Promise.all([
+  const [prodData, customCollData, smartCollData] = await Promise.all([
     fetchShopify(env, `/products.json?limit=${MAX_PRODUCTS}&fields=id,title,handle,status,variants,tags,product_type`),
     fetchShopify(env, `/custom_collections.json?limit=${MAX_COLLECTIONS}&fields=id,title,handle`),
+    fetchShopify(env, `/smart_collections.json?limit=${MAX_COLLECTIONS}&fields=id,title,handle`),
   ]);
 
   const products = (prodData.products || []).filter(p => p.status === 'active').map(p => ({
@@ -48,14 +49,16 @@ async function buildCatalogSnapshot(env) {
     })),
   }));
 
-  const collections = (collData.custom_collections || []).map(c => ({
-    id:     c.id,
-    title:  c.title,
-    handle: c.handle,
-  }));
+  const seen = new Set();
+  const collections = [
+    ...(customCollData.custom_collections || []),
+    ...(smartCollData.smart_collections   || []),
+  ]
+    .filter(c => { if (seen.has(c.handle)) return false; seen.add(c.handle); return true; })
+    .map(c => ({ id: c.id, title: c.title, handle: c.handle }));
 
   return {
-    updated_at:  new Date().toISOString(),
+    updated_at:    new Date().toISOString(),
     product_count: products.length,
     products,
     collections,
@@ -68,7 +71,7 @@ export default {
     if (request.method === 'GET') {
       try {
         const snapshot = await buildCatalogSnapshot(env);
-        await env.BKS_AGENT_KV.put('catalog_snapshot', JSON.stringify(snapshot), {
+        await env.BKS_AGENT_KV.put('system:catalog_snapshot', JSON.stringify(snapshot), {
           expirationTtl: 90000, // ~25h, refreshed daily
         });
         return new Response(
@@ -87,7 +90,7 @@ export default {
     ctx.waitUntil((async () => {
       try {
         const snapshot = await buildCatalogSnapshot(env);
-        await env.BKS_AGENT_KV.put('catalog_snapshot', JSON.stringify(snapshot), {
+        await env.BKS_AGENT_KV.put('system:catalog_snapshot', JSON.stringify(snapshot), {
           expirationTtl: 90000,
         });
         console.log(`[BKS Agent Refresh] OK — ${snapshot.product_count} prodotti @ ${snapshot.updated_at}`);

@@ -3,9 +3,11 @@
  *
  * Receives Shopify `orders/paid` webhook → upgrades customer tier tag.
  *
- * Tier logic:
- *   orders_count == 1  → remove bks-subscriber, add bks-drop
- *   orders_count >= 2  → remove bks-subscriber + bks-drop, add bks-archive
+ * Metal Tier logic (orders_count thresholds):
+ *   1–2   → bks-tier-iron
+ *   3–5   → bks-tier-brass
+ *   6–10  → bks-tier-silver
+ *   11+   → bks-tier-gold
  *
  * Env vars (Cloudflare dashboard → Worker → Settings → Variables):
  *   SHOPIFY_DOMAIN      = 11628e-2.myshopify.com
@@ -14,7 +16,7 @@
  *   SHOPIFY_HMAC_SECRET = (webhook secret from Shopify)
  */
 
-const BKS_TIERS = ['bks-subscriber', 'bks-drop', 'bks-archive'];
+const BKS_TIERS = ['bks-tier-lead', 'bks-tier-iron', 'bks-tier-brass', 'bks-tier-silver', 'bks-tier-gold'];
 
 async function verifyHmac(request, secret) {
   const hmacHeader = request.headers.get('X-Shopify-Hmac-Sha256');
@@ -55,12 +57,14 @@ function computeNewTags(existingTagsStr, ordersCount) {
     .map(t => t.trim())
     .filter(t => t && !BKS_TIERS.includes(t));
 
-  if (ordersCount >= 2) {
-    tags.push('bks-archive');
-  } else if (ordersCount === 1) {
-    tags.push('bks-drop');
+  if (ordersCount >= 11) {
+    tags.push('bks-tier-gold');
+  } else if (ordersCount >= 6) {
+    tags.push('bks-tier-silver');
+  } else if (ordersCount >= 3) {
+    tags.push('bks-tier-brass');
   } else {
-    tags.push('bks-subscriber');
+    tags.push('bks-tier-iron'); // 1-2 orders
   }
 
   return tags.join(', ');

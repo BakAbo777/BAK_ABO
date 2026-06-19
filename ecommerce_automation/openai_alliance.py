@@ -5,8 +5,13 @@ from pathlib import Path
 from typing import Any
 
 
+BAKABO_STORE_DOMAIN = "bakabo.club"
+BKS_TM04_THEME_ID = "202392961362"
+BAKABO_CREW_EMAIL = "crew@bakabo.club"
+
 TOOLSET_CSV = Path("output/openai_alliance_matrix.csv")
-PROTOCOL_DOC = Path("docs/bakabo-openai-alliance_SKILL.md")
+SKILL_DOC = Path("BKS_SKILL/skills/bakabo-openai-alliance/SKILL.md")
+PROTOCOL_DOC = Path("docs/bakabo-openai-alliance_SKILL.md")  # legacy
 
 
 CAPABILITIES: tuple[dict[str, str], ...] = (
@@ -16,6 +21,7 @@ CAPABILITIES: tuple[dict[str, str], ...] = (
         "use": "Founder-level project room for BKS memory, prompts, decisions and cross-tool coordination.",
         "env": "OPENAI_CHATGPT_PROJECT_URL",
         "agent_rule": "Use as an allied workspace; do not expose private project URLs in public repo files.",
+        "trust_gate": "trust_foundation",
     },
     {
         "capability": "OpenAI API",
@@ -23,6 +29,7 @@ CAPABILITIES: tuple[dict[str, str], ...] = (
         "use": "Draft, classify, summarize, plan, write product/social copy and operate the Master assistant.",
         "env": "OPENAI_API_KEY;OPENAI_PROJECT_ID",
         "agent_rule": "Use project-scoped credentials when available; keep high-risk actions behind approval.",
+        "trust_gate": "trust_foundation",
     },
     {
         "capability": "Knowledge / Vector Memory",
@@ -30,6 +37,7 @@ CAPABILITIES: tuple[dict[str, str], ...] = (
         "use": "Ground customer assistant, official inbox replies, policy answers and product knowledge.",
         "env": "OPENAI_VECTOR_STORE_ID",
         "agent_rule": "Answer from stored BKS evidence; if evidence is missing, say so and route to human review.",
+        "trust_gate": "trust_foundation",
     },
     {
         "capability": "Realtime Voice",
@@ -37,6 +45,7 @@ CAPABILITIES: tuple[dict[str, str], ...] = (
         "use": "Future low-latency voice layer for the Master or customer assistant.",
         "env": "OPENAI_REALTIME_ENABLED",
         "agent_rule": "Enable only after consent, logging and customer safety rules are ready.",
+        "trust_gate": "campaign_layer",
     },
     {
         "capability": "Images / Creative Prompts",
@@ -44,6 +53,7 @@ CAPABILITIES: tuple[dict[str, str], ...] = (
         "use": "Generate or improve prompts for product shots, collection hero images and campaign visuals.",
         "env": "OPENAI_API_KEY",
         "agent_rule": "Never invent finished product photography; label AI drafts and verify against real product data.",
+        "trust_gate": "collection_identity",
     },
     {
         "capability": "Safety / Transparency",
@@ -51,6 +61,7 @@ CAPABILITIES: tuple[dict[str, str], ...] = (
         "use": "Check copy for misleading claims, unsupported urgency and policy-sensitive language.",
         "env": "OPENAI_API_KEY",
         "agent_rule": "Use as a preflight assistant, not as legal approval or Google appeal authority.",
+        "trust_gate": "trust_foundation",
     },
 )
 
@@ -60,21 +71,25 @@ WORKFLOWS: tuple[dict[str, str], ...] = (
         "workflow": "Master Next Action",
         "sequence": "Read dashboard snapshot -> detect blockers -> propose one action -> verify result -> write memory.",
         "output": "Operational recommendation such as: fix DMARC first, remove emoji titles, verify Merchant trust page.",
+        "trust_gate": "trust_foundation",
     },
     {
         "workflow": "Customer Assistant",
         "sequence": "Read BKS knowledge -> answer with disclosure -> cite policy/source link -> hand off on risk.",
         "output": "Safe multilingual support reply inside Shopify theme.",
+        "trust_gate": "conversion_support",
     },
     {
         "workflow": "Creative Production",
         "sequence": "Collection brief -> script/copy/prompt -> Canva/HyperFrames/HeyGen handoff -> review metadata.",
         "output": "Avatar scripts, social captions, design briefs and motion storyboards.",
+        "trust_gate": "collection_identity",
     },
     {
         "workflow": "Official Inbox",
         "sequence": "Classify incoming email -> draft reply -> check legal/payment/privacy risk -> request approval.",
-        "output": "Crew@bakabo.club customer/support response draft.",
+        "output": "crew@bakabo.club customer/support response draft.",
+        "trust_gate": "trust_foundation",
     },
 )
 
@@ -133,7 +148,8 @@ def rows(settings: Any) -> list[dict[str, str]]:
                 **row,
                 "status": _status(settings, row["env"]),
                 "configured": f"{configured}/{len(envs)}",
-                "autonomy": "draft_only" if row["area"] != "Trust gate" else "preflight_only",
+                "autonomy": "preflight_only" if row["area"] == "Trust gate" else "draft_only",
+                "trust_gate": row.get("trust_gate", "trust_foundation"),
             }
         )
     return result
@@ -142,7 +158,7 @@ def rows(settings: Any) -> list[dict[str, str]]:
 def write_sheet(settings: Any, data: list[dict[str, str]]) -> str:
     path = settings.root_dir / TOOLSET_CSV
     path.parent.mkdir(parents=True, exist_ok=True)
-    fieldnames = ["capability", "area", "status", "configured", "autonomy", "env", "use", "agent_rule"]
+    fieldnames = ["capability", "area", "status", "configured", "autonomy", "trust_gate", "env", "use", "agent_rule"]
     with path.open("w", newline="", encoding="utf-8-sig") as handle:
         writer = csv.DictWriter(handle, fieldnames=fieldnames)
         writer.writeheader()
@@ -151,12 +167,16 @@ def write_sheet(settings: Any, data: list[dict[str, str]]) -> str:
 
 
 def write_protocol(settings: Any) -> str:
-    path = settings.root_dir / PROTOCOL_DOC
-    path.parent.mkdir(parents=True, exist_ok=True)
+    skill_path = settings.root_dir / SKILL_DOC
+    skill_path.parent.mkdir(parents=True, exist_ok=True)
     lines = [
         "---",
         "name: bakabo-openai-alliance",
         "description: OpenAI alliance operating skill for BakAbo/BKS. Use when structuring OpenAI, ChatGPT Projects, OpenAI API, knowledge memory, realtime voice, image/copy generation, safety preflight, customer assistant, or agent workflows inside the BKS Master.",
+        "metadata:",
+        "  type: skill",
+        "  trust_gate: trust_foundation",
+        f"  store: {BAKABO_STORE_DOMAIN}",
         "---",
         "",
         "# BakAbo / BKS OpenAI Alliance",
@@ -173,6 +193,7 @@ def write_protocol(settings: Any) -> str:
             [
                 f"### {capability['capability']}",
                 f"- Area: {capability['area']}",
+                f"- Trust gate: `{capability['trust_gate']}`",
                 f"- Use: {capability['use']}",
                 f"- Env: `{capability['env']}`",
                 f"- Agent rule: {capability['agent_rule']}",
@@ -184,6 +205,7 @@ def write_protocol(settings: Any) -> str:
         lines.extend(
             [
                 f"### {workflow['workflow']}",
+                f"- Trust gate: `{workflow['trust_gate']}`",
                 f"- Sequence: {workflow['sequence']}",
                 f"- Output: {workflow['output']}",
                 "",
@@ -192,8 +214,13 @@ def write_protocol(settings: Any) -> str:
     lines.extend(["## Guardrails", ""])
     lines.extend(f"- {item}" for item in GUARDRAILS)
     lines.append("")
-    path.write_text("\n".join(lines), encoding="utf-8")
-    return _relative(settings.root_dir, path)
+    content = "\n".join(lines)
+    skill_path.write_text(content, encoding="utf-8")
+    # legacy copy
+    legacy_path = settings.root_dir / PROTOCOL_DOC
+    legacy_path.parent.mkdir(parents=True, exist_ok=True)
+    legacy_path.write_text(content, encoding="utf-8")
+    return _relative(settings.root_dir, skill_path)
 
 
 def payload(settings: Any) -> dict[str, Any]:
@@ -210,7 +237,8 @@ def payload(settings: Any) -> dict[str, Any]:
             "project_link": "configured" if project_ready else "env_pending",
             "default_model": getattr(settings, "openai_default_model", "") or "project_default",
             "sheet": sheet,
-            "protocol": protocol,
+            "skill": protocol,
+            "trust_gate": "trust_foundation",
         },
         "capabilities": data,
         "workflows": list(WORKFLOWS),

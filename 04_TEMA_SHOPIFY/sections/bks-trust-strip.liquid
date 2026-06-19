@@ -5,23 +5,130 @@
 <section class="bks-trust-strip" aria-label="Shopping information">
   <div class="bks-trust-strip__inner">
     <div class="bks-trust-strip__item">
-      <strong>{{ section.settings.item_1_title | default: 'Made to order' | escape }}</strong>
-      <span>{{ section.settings.item_1_copy | default: 'Products are produced after purchase to avoid overstock.' | escape }}</span>
+      <span class="bks-trust-strip__icon" aria-hidden="true">◎</span>
+      <strong class="bks-trust-strip__title">{{ section.settings.item_1_title | default: 'Made to order' | escape }}</strong>
+      <span class="bks-trust-strip__copy">{{ section.settings.item_1_copy | default: 'Products are produced after purchase to avoid overstock.' | escape }}</span>
     </div>
     <div class="bks-trust-strip__item">
-      <strong>{{ section.settings.item_2_title | default: 'Clear delivery' | escape }}</strong>
-      <span>{{ section.settings.item_2_copy | default: 'Shipping costs and delivery estimates are shown before checkout.' | escape }}</span>
+      <span class="bks-trust-strip__icon" aria-hidden="true">→</span>
+      <strong class="bks-trust-strip__title">{{ section.settings.item_2_title | default: 'Clear delivery' | escape }}</strong>
+      <span class="bks-trust-strip__copy">{{ section.settings.item_2_copy | default: 'Shipping costs and delivery estimates are shown before checkout.' | escape }}</span>
     </div>
     <div class="bks-trust-strip__item">
-      <strong>{{ section.settings.item_3_title | default: 'Returns policy' | escape }}</strong>
-      <span>{{ section.settings.item_3_copy | default: 'Return and refund terms are available from the footer.' | escape }}</span>
+      <span class="bks-trust-strip__icon" aria-hidden="true">↩</span>
+      <strong class="bks-trust-strip__title">{{ section.settings.item_3_title | default: 'Returns policy' | escape }}</strong>
+      <span class="bks-trust-strip__copy">{{ section.settings.item_3_copy | default: 'Return and refund terms are available from the footer.' | escape }}</span>
     </div>
     <div class="bks-trust-strip__item">
-      <strong>{{ section.settings.item_4_title | default: 'BKS Studio' | escape }}</strong>
-      <span>{{ section.settings.item_4_copy | default: 'Original AI-generated visual collections curated by BakAbo.' | escape }}</span>
+      <span class="bks-trust-strip__icon" aria-hidden="true">▲</span>
+      <strong class="bks-trust-strip__title">{{ section.settings.item_4_title | default: 'BKS Studio' | escape }}</strong>
+      <span class="bks-trust-strip__copy">{{ section.settings.item_4_copy | default: 'Original AI-generated visual collections curated by BakAbo.' | escape }}</span>
     </div>
   </div>
 </section>
+
+<style>
+  .bks-trust-strip {
+    --bks-trust-accent: var(--bks-active-accent, #2f6f6b);
+    border-top: 1px solid rgba(10,10,10,0.08);
+    border-bottom: 1px solid rgba(10,10,10,0.08);
+    background: #fafaf7;
+  }
+
+  .bks-trust-strip__inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .bks-trust-strip__item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 20px 24px;
+    border-right: 1px solid rgba(10,10,10,0.07);
+    position: relative;
+    transition: background 0.18s ease;
+  }
+
+  .bks-trust-strip__item:last-child {
+    border-right: none;
+  }
+
+  .bks-trust-strip__item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--bks-trust-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.22s cubic-bezier(0.22,1,0.36,1);
+  }
+
+  .bks-trust-strip__item:hover::before {
+    transform: scaleX(1);
+  }
+
+  .bks-trust-strip__icon {
+    font-size: 0.95rem;
+    color: var(--bks-trust-accent);
+    line-height: 1;
+    font-family: 'DM Mono', 'Courier New', monospace;
+    margin-bottom: 2px;
+  }
+
+  .bks-trust-strip__title {
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: #0A0A0A;
+    line-height: 1.3;
+  }
+
+  .bks-trust-strip__copy {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: rgba(10,10,10,0.60);
+    font-weight: 400;
+  }
+
+  @media (max-width: 768px) {
+    .bks-trust-strip__inner {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .bks-trust-strip__item:nth-child(2) {
+      border-right: none;
+    }
+    .bks-trust-strip__item:nth-child(3),
+    .bks-trust-strip__item:nth-child(4) {
+      border-top: 1px solid rgba(10,10,10,0.07);
+    }
+    .bks-trust-strip__item:nth-child(4) {
+      border-right: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .bks-trust-strip__inner {
+      grid-template-columns: 1fr;
+    }
+    .bks-trust-strip__item {
+      border-right: none;
+      border-bottom: 1px solid rgba(10,10,10,0.07);
+    }
+    .bks-trust-strip__item:last-child {
+      border-bottom: none;
+    }
+    .bks-trust-strip__item:nth-child(3),
+    .bks-trust-strip__item:nth-child(4) {
+      border-top: none;
+    }
+  }
+</style>
 
 {% schema %}
 {

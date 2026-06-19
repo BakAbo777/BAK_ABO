@@ -1,7 +1,7 @@
 {{ 'bks-future.css' | asset_url | stylesheet_tag }}
 
 {% liquid
-  assign handles_string = section.settings.collection_handles | default: 'bks-folklore,bks-glyph,bks-marker,bks-riviera,bks-pulse,bks-token,bks-flag,bks-hours'
+  assign handles_string = section.settings.collection_handles | default: 'bks-origin,bks-glyph,bks-marker,bks-riviera,bks-pulse,bks-token,bks-flag,bks-hours'
   assign collection_handles = handles_string | split: ','
   assign collection_count = collection_handles | size
 %}
@@ -214,8 +214,8 @@
   }
 
   /* Colori identitari per collezione — ogni mondo ha il suo tono */
-  #shopify-section-{{ section.id }} [data-handle="bks-folklore"] .bks-collection-card__overlay { background: rgba(82,54,32,0.82); }
-  #shopify-section-{{ section.id }} [data-handle="bks-folklore"] .bks-collection-card__overlay-count { color: #D4A96A; }
+  #shopify-section-{{ section.id }} [data-handle="bks-origin"] .bks-collection-card__overlay { background: rgba(82,54,32,0.82); }
+  #shopify-section-{{ section.id }} [data-handle="bks-origin"] .bks-collection-card__overlay-count { color: #D4A96A; }
   #shopify-section-{{ section.id }} [data-handle="bks-glyph"]    .bks-collection-card__overlay { background: rgba(20,20,20,0.88); }
   #shopify-section-{{ section.id }} [data-handle="bks-glyph"]    .bks-collection-card__overlay-count { color: #E8E8E4; }
   #shopify-section-{{ section.id }} [data-handle="bks-marker"]   .bks-collection-card__overlay { background: rgba(28,48,28,0.84); }
@@ -230,6 +230,47 @@
   #shopify-section-{{ section.id }} [data-handle="bks-flag"]     .bks-collection-card__overlay-count { color: #C97AB8; }
   #shopify-section-{{ section.id }} [data-handle="bks-hours"]    .bks-collection-card__overlay { background: rgba(10,10,10,0.90); }
   #shopify-section-{{ section.id }} [data-handle="bks-hours"]    .bks-collection-card__overlay-count { color: #C9B79C; }
+
+  /* Per-collection: hover border glow · rotating border · img shadow · connected state */
+  #shopify-section-{{ section.id }} [data-handle="bks-origin"]:hover .bks-collection-card__inner   { border-color:rgba(212,169,106,.5);box-shadow:0 16px 56px rgba(0,0,0,.5),0 0 40px rgba(212,169,106,.22),inset 0 0 20px rgba(250,250,247,.05); }
+  #shopify-section-{{ section.id }} [data-handle="bks-origin"]:hover img                            { filter:drop-shadow(0 12px 24px rgba(212,169,106,.45)); }
+  #shopify-section-{{ section.id }} [data-handle="bks-origin"] .bks-collection-card__inner::before  { background:conic-gradient(from 0deg,transparent 0%,#D4A96A 25%,transparent 50%); }
+  #shopify-section-{{ section.id }} [data-handle="bks-origin"].connected .bks-collection-card__inner{ background:rgba(212,169,106,.15);border-color:rgba(212,169,106,.5);box-shadow:0 0 0 3px rgba(212,169,106,.3),0 12px 48px rgba(0,0,0,.4),0 0 60px rgba(212,169,106,.3); }
+
+  #shopify-section-{{ section.id }} [data-handle="bks-glyph"]:hover .bks-collection-card__inner    { border-color:rgba(232,232,228,.5);box-shadow:0 16px 56px rgba(0,0,0,.5),0 0 40px rgba(232,232,228,.22),inset 0 0 20px rgba(250,250,247,.05); }
+  #shopify-section-{{ section.id }} [data-handle="bks-glyph"]:hover img                             { filter:drop-shadow(0 12px 24px rgba(232,232,228,.45)); }
+  #shopify-section-{{ section.id }} [data-handle="bks-glyph"] .bks-collection-card__inner::before   { background:conic-gradient(from 0deg,transparent 0%,#E8E8E4 25%,transparent 50%); }
+  #shopify-section-{{ section.id }} [data-handle="bks-glyph"].connected .bks-collection-card__inner { background:rgba(232,232,228,.15);border-color:rgba(232,232,228,.5);box-shadow:0 0 0 3px rgba(232,232,228,.3),0 12px 48px rgba(0,0,0,.4),0 0 60px rgba(232,232,228,.3); }
+
+  #shopify-section-{{ section.id }} [data-handle="bks-marker"]:hover .bks-collection-card__inner   { border-color:rgba(125,191,114,.5);box-shadow:0 16px 56px rgba(0,0,0,.5),0 0 40px rgba(125,191,114,.22),inset 0 0 20px rgba(250,250,247,.05); }
+  #shopify-section-{{ section.id }} [data-handle="bks-marker"]:hover img                            { filter:drop-shadow(0 12px 24px rgba(125,191,114,.45)); }
+  #shopify-section-{{ section.id }} [data-handle="bks-marker"] .bks-collection-card__inner::before  { background:conic-gradient(from 0deg,transparent 0%,#7DBF72 25%,transparent 50%); }
+  #shopify-section-{{ section.id }} [data-handle="bks-marker"].connected .bks-collection-card__inner{ background:rgba(125,191,114,.15);border-color:rgba(125,191,114,.5);box-shadow:0 0 0 3px rgba(125,191,114,.3),0 12px 48px rgba(0,0,0,.4),0 0 60px rgba(125,191,114,.3); }
+
+  #shopify-section-{{ section.id }} [data-handle="bks-riviera"]:hover .bks-collection-card__inner  { border-color:rgba(126,179,212,.5);box-shadow:0 16px 56px rgba(0,0,0,.5),0 0 40px rgba(126,179,212,.22),inset 0 0 20px rgba(250,250,247,.05); }
+  #shopify-section-{{ section.id }} [data-handle="bks-riviera"]:hover img                           { filter:drop-shadow(0 12px 24px rgba(126,179,212,.45)); }
+  #shopify-section-{{ section.id }} [data-handle="bks-riviera"] .bks-collection-card__inner::before { background:conic-gradient(from 0deg,transparent 0%,#7EB3D4 25%,transparent 50%); }
+  #shopify-section-{{ section.id }} [data-handle="bks-riviera"].connected .bks-collection-card__inner{ background:rgba(126,179,212,.15);border-color:rgba(126,179,212,.5);box-shadow:0 0 0 3px rgba(126,179,212,.3),0 12px 48px rgba(0,0,0,.4),0 0 60px rgba(126,179,212,.3); }
+
+  #shopify-section-{{ section.id }} [data-handle="bks-pulse"]:hover .bks-collection-card__inner    { border-color:rgba(224,92,92,.5);box-shadow:0 16px 56px rgba(0,0,0,.5),0 0 40px rgba(224,92,92,.22),inset 0 0 20px rgba(250,250,247,.05); }
+  #shopify-section-{{ section.id }} [data-handle="bks-pulse"]:hover img                             { filter:drop-shadow(0 12px 24px rgba(224,92,92,.45)); }
+  #shopify-section-{{ section.id }} [data-handle="bks-pulse"] .bks-collection-card__inner::before   { background:conic-gradient(from 0deg,transparent 0%,#E05C5C 25%,transparent 50%); }
+  #shopify-section-{{ section.id }} [data-handle="bks-pulse"].connected .bks-collection-card__inner { background:rgba(224,92,92,.15);border-color:rgba(224,92,92,.5);box-shadow:0 0 0 3px rgba(224,92,92,.3),0 12px 48px rgba(0,0,0,.4),0 0 60px rgba(224,92,92,.3); }
+
+  #shopify-section-{{ section.id }} [data-handle="bks-token"]:hover .bks-collection-card__inner    { border-color:rgba(240,200,74,.5);box-shadow:0 16px 56px rgba(0,0,0,.5),0 0 40px rgba(240,200,74,.22),inset 0 0 20px rgba(250,250,247,.05); }
+  #shopify-section-{{ section.id }} [data-handle="bks-token"]:hover img                             { filter:drop-shadow(0 12px 24px rgba(240,200,74,.45)); }
+  #shopify-section-{{ section.id }} [data-handle="bks-token"] .bks-collection-card__inner::before   { background:conic-gradient(from 0deg,transparent 0%,#F0C84A 25%,transparent 50%); }
+  #shopify-section-{{ section.id }} [data-handle="bks-token"].connected .bks-collection-card__inner { background:rgba(240,200,74,.15);border-color:rgba(240,200,74,.5);box-shadow:0 0 0 3px rgba(240,200,74,.3),0 12px 48px rgba(0,0,0,.4),0 0 60px rgba(240,200,74,.3); }
+
+  #shopify-section-{{ section.id }} [data-handle="bks-flag"]:hover .bks-collection-card__inner     { border-color:rgba(201,122,184,.5);box-shadow:0 16px 56px rgba(0,0,0,.5),0 0 40px rgba(201,122,184,.22),inset 0 0 20px rgba(250,250,247,.05); }
+  #shopify-section-{{ section.id }} [data-handle="bks-flag"]:hover img                              { filter:drop-shadow(0 12px 24px rgba(201,122,184,.45)); }
+  #shopify-section-{{ section.id }} [data-handle="bks-flag"] .bks-collection-card__inner::before    { background:conic-gradient(from 0deg,transparent 0%,#C97AB8 25%,transparent 50%); }
+  #shopify-section-{{ section.id }} [data-handle="bks-flag"].connected .bks-collection-card__inner  { background:rgba(201,122,184,.15);border-color:rgba(201,122,184,.5);box-shadow:0 0 0 3px rgba(201,122,184,.3),0 12px 48px rgba(0,0,0,.4),0 0 60px rgba(201,122,184,.3); }
+
+  #shopify-section-{{ section.id }} [data-handle="bks-hours"]:hover .bks-collection-card__inner    { border-color:rgba(201,183,156,.5);box-shadow:0 16px 56px rgba(0,0,0,.5),0 0 40px rgba(201,183,156,.22),inset 0 0 20px rgba(250,250,247,.05); }
+  #shopify-section-{{ section.id }} [data-handle="bks-hours"]:hover img                             { filter:drop-shadow(0 12px 24px rgba(201,183,156,.45)); }
+  #shopify-section-{{ section.id }} [data-handle="bks-hours"] .bks-collection-card__inner::before   { background:conic-gradient(from 0deg,transparent 0%,#C9B79C 25%,transparent 50%); }
+  #shopify-section-{{ section.id }} [data-handle="bks-hours"].connected .bks-collection-card__inner { background:rgba(201,183,156,.15);border-color:rgba(201,183,156,.5);box-shadow:0 0 0 3px rgba(201,183,156,.3),0 12px 48px rgba(0,0,0,.4),0 0 60px rgba(201,183,156,.3); }
 
   #shopify-section-{{ section.id }} .bks-impact__copy {
     max-width: 56ch;
@@ -1291,7 +1332,7 @@
     { "type": "text", "id": "primary_label", "label": "Primary label", "default": "Shop BKS" },
     { "type": "text", "id": "secondary_link", "label": "Secondary link", "default": "/collections" },
     { "type": "text", "id": "secondary_label", "label": "Secondary label", "default": "Explore series" },
-    { "type": "text", "id": "collection_handles", "label": "Collection handles (comma-separated)", "default": "bks-folklore,bks-glyph,bks-marker,bks-riviera,bks-pulse,bks-token,bks-flag,bks-hours" }
+    { "type": "text", "id": "collection_handles", "label": "Collection handles (comma-separated)", "default": "bks-origin,bks-glyph,bks-marker,bks-riviera,bks-pulse,bks-token,bks-flag,bks-hours" }
   ],
   "presets": [{ "name": "BKS hero impact" }]
 }

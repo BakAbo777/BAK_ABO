@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "bks_policy": {
+      "type": "bks-policy",
+      "settings": {}
+    }
+  },
+  "order": ["bks_policy"]
+}

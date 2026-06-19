@@ -1,0 +1,565 @@
+{% comment %}
+  BKS HOME MAGAZINE — editorial home section
+  Layout: Copertina · Sommario · Spread editoriale per ogni collezione · Scontornati · Pull-quote
+  Background: #fafaf7 paper — no dark hero, no video
+{% endcomment %}
+
+{%- liquid
+  assign accent_hours   = '#c8c4be'
+  assign accent_origin  = '#489808'
+  assign accent_glyph   = '#d4a030'
+  assign accent_marker  = '#c04418'
+  assign accent_riviera = '#0ca898'
+  assign accent_pulse   = '#8888cc'
+  assign accent_token   = '#9828d8'
+  assign accent_flag    = '#c82020'
+-%}
+
+<style>
+  /* ── DESIGN TOKENS ──────────────────────────────────────────── */
+  #shopify-section-{{ section.id }} {
+    --paper: #fafaf7;
+    --bone:  #efeae0;
+    --ink:   #0a0a0a;
+    --sand:  #c9b79c;
+    --muted: #5a5a5a;
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  /* ── COPERTINA ──────────────────────────────────────────────── */
+  .bks-mag-cover {
+    position: relative;
+    min-height: min(100svh, 860px);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: clamp(32px,5vw,64px) clamp(20px,4vw,56px);
+    background: var(--paper);
+    overflow: hidden;
+  }
+  .bks-mag-cover__overline {
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 32px;
+  }
+  .bks-mag-cover__center {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .bks-mag-cover__headline {
+    font-family: var(--bks-font-display,'Bebas Neue',sans-serif);
+    font-size: clamp(6rem,18vw,18rem);
+    line-height: 0.88;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: -0.01em;
+    max-width: 14ch;
+  }
+  .bks-mag-cover__tagline {
+    position: absolute;
+    right: clamp(20px,4vw,56px);
+    bottom: clamp(100px,12vw,160px);
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+  /* 8-accent band */
+  .bks-mag-accent-band {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 40px;
+  }
+  .bks-mag-accent-band span {
+    flex: 1;
+    height: 3px;
+    display: block;
+  }
+  /* Cover image */
+  .bks-mag-cover__image {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 46%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .bks-mag-cover__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .bks-mag-cover__image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--paper) 0%, transparent 35%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* ── SOMMARIO ───────────────────────────────────────────────── */
+  .bks-mag-sommario {
+    padding: clamp(48px,7vw,96px) clamp(20px,4vw,56px);
+    background: var(--bone);
+    border-top: 1px solid rgba(10,10,10,0.08);
+    border-bottom: 1px solid rgba(10,10,10,0.08);
+  }
+  .bks-mag-sommario__label {
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 32px;
+  }
+  .bks-mag-sommario__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0;
+  }
+  .bks-mag-sommario__item {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(10,10,10,0.09);
+    text-decoration: none;
+    color: var(--ink);
+    transition: opacity 0.2s;
+    padding-right: 32px;
+  }
+  .bks-mag-sommario__item:hover { opacity: 0.65; }
+  .bks-mag-sommario__num {
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.65rem;
+    color: var(--muted);
+    min-width: 24px;
+    flex-shrink: 0;
+  }
+  .bks-mag-sommario__bar {
+    width: 28px;
+    height: 2px;
+    flex-shrink: 0;
+    margin-bottom: 2px;
+  }
+  .bks-mag-sommario__name {
+    font-family: var(--bks-font-display,'Bebas Neue',sans-serif);
+    font-size: 1.8rem;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    flex: 1;
+  }
+  .bks-mag-sommario__tagline {
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* ── EDITORIAL SPREAD ───────────────────────────────────────── */
+  .bks-mag-spread {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    min-height: clamp(380px, 55vw, 600px);
+    border-bottom: 1px solid rgba(10,10,10,0.08);
+    background: var(--paper);
+  }
+  .bks-mag-spread:nth-child(even) { direction: rtl; }
+  .bks-mag-spread:nth-child(even) > * { direction: ltr; }
+  .bks-mag-spread__copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(36px,5vw,72px) clamp(24px,4vw,64px);
+    border-right: 1px solid rgba(10,10,10,0.08);
+  }
+  .bks-mag-spread:nth-child(even) .bks-mag-spread__copy {
+    border-right: none;
+    border-left: 1px solid rgba(10,10,10,0.08);
+  }
+  .bks-mag-spread__accent {
+    width: 36px;
+    height: 3px;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .bks-mag-spread__num {
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 10px;
+  }
+  .bks-mag-spread__title {
+    font-family: var(--bks-font-display,'Bebas Neue',sans-serif);
+    font-size: clamp(2.8rem,5vw,5rem);
+    line-height: 0.92;
+    margin: 0 0 16px;
+    color: var(--ink);
+  }
+  .bks-mag-spread__tagline {
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 16px;
+  }
+  .bks-mag-spread__desc {
+    font-family: var(--bks-font-body,'DM Sans',sans-serif);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #444;
+    max-width: 42ch;
+    margin: 0 0 24px;
+  }
+  .bks-mag-spread__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+    width: fit-content;
+    transition: opacity 0.2s;
+  }
+  .bks-mag-spread__cta:hover { opacity: 0.55; }
+  .bks-mag-spread__image {
+    overflow: hidden;
+    position: relative;
+  }
+  .bks-mag-spread__image img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .bks-mag-spread:hover .bks-mag-spread__image img { transform: scale(1.03); }
+
+  /* ── PULL QUOTE ─────────────────────────────────────────────── */
+  .bks-mag-pullquote {
+    padding: clamp(64px,9vw,120px) clamp(20px,4vw,56px);
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .bks-mag-pullquote__letter {
+    font-family: var(--bks-font-display,'Bebas Neue',sans-serif);
+    font-size: clamp(12rem,28vw,28rem);
+    line-height: 1;
+    color: rgba(250,250,247,0.04);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    user-select: none;
+  }
+  .bks-mag-pullquote__text {
+    font-family: var(--bks-font-body,'DM Sans',sans-serif);
+    font-style: italic;
+    font-size: clamp(1.3rem,3vw,2.2rem);
+    line-height: 1.4;
+    max-width: 22em;
+    margin: 0 auto 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .bks-mag-pullquote__attr {
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── RESPONSIVE ─────────────────────────────────────────────── */
+  @media (max-width: 860px) {
+    .bks-mag-cover__image { display: none; }
+    .bks-mag-spread { grid-template-columns: 1fr; }
+    .bks-mag-spread:nth-child(even) { direction: ltr; }
+    .bks-mag-spread__image { min-height: 260px; }
+    .bks-mag-spread__copy { border-right: none !important; border-left: none !important; }
+    .bks-mag-sommario__grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 540px) {
+    .bks-mag-sommario__grid { grid-template-columns: 1fr; }
+    .bks-mag-cover__headline { font-size: clamp(5rem,22vw,8rem); }
+  }
+</style>
+
+{%- comment -%} ── COPERTINA ─────────────────────────────────── {%- endcomment -%}
+<div class="bks-mag-cover">
+  <div>
+    <p class="bks-mag-cover__overline">BKS Studio — AI-Art Atelier · Designed in Italy · On demand worldwide</p>
+    <div class="bks-mag-accent-band">
+      <span style="background:{{ accent_hours }}"></span>
+      <span style="background:{{ accent_origin }}"></span>
+      <span style="background:{{ accent_glyph }}"></span>
+      <span style="background:{{ accent_marker }}"></span>
+      <span style="background:{{ accent_riviera }}"></span>
+      <span style="background:{{ accent_pulse }}"></span>
+      <span style="background:{{ accent_token }}"></span>
+      <span style="background:{{ accent_flag }}"></span>
+    </div>
+  </div>
+  <div class="bks-mag-cover__center">
+    <h1 class="bks-mag-cover__headline">{{ section.settings.headline | default: 'Eight<br>collections.<br>One<br>studio.' }}</h1>
+  </div>
+  <div class="bks-mag-accent-band" style="margin-bottom:0; margin-top: 40px;">
+    <span style="background:{{ accent_hours }}"></span>
+    <span style="background:{{ accent_origin }}"></span>
+    <span style="background:{{ accent_glyph }}"></span>
+    <span style="background:{{ accent_marker }}"></span>
+    <span style="background:{{ accent_riviera }}"></span>
+    <span style="background:{{ accent_pulse }}"></span>
+    <span style="background:{{ accent_token }}"></span>
+    <span style="background:{{ accent_flag }}"></span>
+  </div>
+  <p class="bks-mag-cover__tagline">AI-generated all-over print · made after every order</p>
+  {%- if section.settings.cover_image != blank -%}
+    <div class="bks-mag-cover__image">
+      <img
+        src="{{ section.settings.cover_image | image_url: width: 1000 }}"
+        alt="{{ section.settings.cover_image.alt | default: 'BKS Studio' | escape }}"
+        loading="eager"
+        fetchpriority="high"
+        width="{{ section.settings.cover_image.width }}"
+        height="{{ section.settings.cover_image.height }}"
+      >
+    </div>
+  {%- endif -%}
+</div>
+
+{%- comment -%} ── SOMMARIO ──────────────────────────────────── {%- endcomment -%}
+<div class="bks-mag-sommario">
+  <p class="bks-mag-sommario__label">Collections — Vol. 2026</p>
+  <div class="bks-mag-sommario__grid">
+    {%- assign sommario_cols = 'hours,origin,glyph,marker,riviera,pulse,token,flag' | split: ',' -%}
+    {%- assign sommario_names = 'BKS Hours,BKS Origin,BKS Glyph,BKS Marker,BKS Riviera,BKS Pulse,BKS Token,BKS Flag' | split: ',' -%}
+    {%- assign sommario_tags  = 'Measured urban stillness,Narrative warmth,Constructed signs,Gesture and motion,Coastal geometry,Optical movement,Digital objects,Graphic fields' | split: ',' -%}
+    {%- assign sommario_colors = '#c8c4be,#489808,#d4a030,#c04418,#0ca898,#8888cc,#9828d8,#c82020' | split: ',' -%}
+    {%- for handle in sommario_cols -%}
+      {%- assign idx = forloop.index0 -%}
+      <a href="/collections/bks-{{ handle }}" class="bks-mag-sommario__item">
+        <span class="bks-mag-sommario__num">0{{ forloop.index }}</span>
+        <span class="bks-mag-sommario__bar" style="background:{{ sommario_colors[idx] }}"></span>
+        <span class="bks-mag-sommario__name">{{ sommario_names[idx] }}</span>
+        <span class="bks-mag-sommario__tagline">{{ sommario_tags[idx] }}</span>
+      </a>
+    {%- endfor -%}
+  </div>
+</div>
+
+{%- comment -%} ── EDITORIAL SPREADS per ogni collezione ──────── {%- endcomment -%}
+{%- for block in section.blocks -%}
+  {%- if block.type == 'spread' -%}
+    <div class="bks-mag-spread" {{ block.shopify_attributes }}>
+      <div class="bks-mag-spread__copy">
+        <span class="bks-mag-spread__accent" style="background:{{ block.settings.accent_color | default: '#C9B79C' }}"></span>
+        <p class="bks-mag-spread__num">{{ block.settings.collection_num | default: '—' }}</p>
+        <h2 class="bks-mag-spread__title">{{ block.settings.title }}</h2>
+        {%- if block.settings.tagline != blank -%}
+          <p class="bks-mag-spread__tagline">{{ block.settings.tagline }}</p>
+        {%- endif -%}
+        {%- if block.settings.description != blank -%}
+          <p class="bks-mag-spread__desc">{{ block.settings.description }}</p>
+        {%- endif -%}
+        <a href="{{ block.settings.url | default: '/collections' }}" class="bks-mag-spread__cta">
+          Shop the collection
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </div>
+      <div class="bks-mag-spread__image">
+        {%- if block.settings.image != blank -%}
+          <img
+            src="{{ block.settings.image | image_url: width: 1200 }}"
+            alt="{{ block.settings.title | escape }}"
+            loading="lazy"
+            width="{{ block.settings.image.width }}"
+            height="{{ block.settings.image.height }}"
+          >
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+{%- endfor -%}
+
+{%- comment -%} ── PULL QUOTE ────────────────────────────────── {%- endcomment -%}
+{%- if section.settings.show_pullquote -%}
+<div class="bks-mag-pullquote">
+  <span class="bks-mag-pullquote__letter" aria-hidden="true">{{ section.settings.pullquote_letter | default: 'W' }}</span>
+  <blockquote class="bks-mag-pullquote__text">{{ section.settings.pullquote_text | default: 'Wearable images — made after every order, designed by AI, built from your screen to your wardrobe.' }}</blockquote>
+  <p class="bks-mag-pullquote__attr">{{ section.settings.pullquote_attr | default: 'BKS Studio · AI-Art Atelier' }}</p>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BKS Home Magazine",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Cover headline",
+      "default": "Eight collections. One studio."
+    },
+    {
+      "type": "image_picker",
+      "id": "cover_image",
+      "label": "Cover editorial image",
+      "info": "Appears on the right side of the cover. 3:4 or 2:3 ratio recommended."
+    },
+    {
+      "type": "header",
+      "content": "Pull quote"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pullquote",
+      "label": "Show pull quote",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "pullquote_letter",
+      "label": "Background letter",
+      "default": "W"
+    },
+    {
+      "type": "textarea",
+      "id": "pullquote_text",
+      "label": "Quote text",
+      "default": "Wearable images — made after every order, designed by AI, built from your screen to your wardrobe."
+    },
+    {
+      "type": "text",
+      "id": "pullquote_attr",
+      "label": "Attribution",
+      "default": "BKS Studio · AI-Art Atelier"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "spread",
+      "name": "Editorial spread",
+      "settings": [
+        {
+          "type": "text",
+          "id": "collection_num",
+          "label": "Number",
+          "placeholder": "01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Collection name",
+          "placeholder": "BKS Hours"
+        },
+        {
+          "type": "text",
+          "id": "tagline",
+          "label": "Tagline",
+          "placeholder": "Measured urban stillness"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "info": "2-3 lines max"
+        },
+        {
+          "type": "color",
+          "id": "accent_color",
+          "label": "Accent color",
+          "default": "#C9B79C"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Editorial photo"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link to collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BKS Home Magazine",
+      "blocks": [
+        {
+          "type": "spread",
+          "settings": {
+            "collection_num": "01",
+            "title": "BKS Hours",
+            "tagline": "Measured urban stillness",
+            "description": "Architectural B&W photography, underground textures, monochrome compositions. The city as still life — printed on demand.",
+            "accent_color": "#c8c4be",
+            "url": "/collections/bks-hours"
+          }
+        },
+        {
+          "type": "spread",
+          "settings": {
+            "collection_num": "02",
+            "title": "BKS Origin",
+            "tagline": "Narrative warmth",
+            "description": "Organic textures, folk motifs and artisan gesture. Earth tones, botanical structure, hand-crafted marks scaled to wearable surface.",
+            "accent_color": "#489808",
+            "url": "/collections/bks-origin"
+          }
+        },
+        {
+          "type": "spread",
+          "settings": {
+            "collection_num": "03",
+            "title": "BKS Glyph",
+            "tagline": "Constructed signs",
+            "description": "Basquiat-adjacent energy — raw text as texture, skull geometry, Neo-Expressionist graphic fields. Mark-making as wearable statement.",
+            "accent_color": "#d4a030",
+            "url": "/collections/bks-glyph"
+          }
+        },
+        {
+          "type": "spread",
+          "settings": {
+            "collection_num": "04",
+            "title": "BKS Riviera",
+            "tagline": "Coastal geometry",
+            "description": "Underwater light, Mediterranean chromatics, coastal abstraction. Swimwear and resort built for open water.",
+            "accent_color": "#0ca898",
+            "url": "/collections/bks-riviera"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

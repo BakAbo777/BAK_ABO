@@ -1,0 +1,146 @@
+/* BKS dynamic collection/menu UX — generated 16JUN2026 */
+html {
+  --bks-active-accent: var(--bks-dune, #C9B79C);
+  --bks-active-foreground: #0A0A0A;
+  --bks-header-background: #ffffff;
+  --bks-header-foreground: #0A0A0A;
+  --bks-header-border: #e8e8e8;
+  --bks-header-accent-bar: transparent;
+}
+
+.bks-gh {
+  background: var(--bks-header-background, #ffffff) !important;
+  color: var(--bks-header-foreground, #0A0A0A) !important;
+  /* 3px per-collection accent bar — bottom of header, no layout impact */
+  box-shadow: 0 3px 0 0 var(--bks-header-accent-bar, transparent) !important;
+  border-bottom: none !important;
+}
+.bks-gh.bks-gh--scrolled {
+  background: color-mix(in srgb, var(--bks-header-background, #ffffff) 94%, transparent) !important;
+}
+.bks-gh__nav a,
+.bks-gh__actions a,
+.bks-gh__actions button,
+.bks-gh__back {
+  color: var(--bks-header-foreground, #0A0A0A) !important;
+}
+.bks-gh__logo img {
+  filter: none;
+}
+.bks-gh[data-bks-context="collection"] .bks-gh__logo img,
+.bks-gh[data-bks-context="product"] .bks-gh__logo img,
+html[data-bks-collection-context="true"] .bks-gh__logo img {
+  filter: grayscale(1) contrast(1.2);
+}
+.bks-gh__dd-panel {
+  border-color: color-mix(in srgb, var(--bks-active-accent, #C9B79C) 55%, #E8E8E8) !important;
+}
+.bks-gh__dd-panel::before {
+  content: "";
+  display: block;
+  height: 4px;
+  background: var(--bks-active-accent, #C9B79C);
+}
+.bks-gh__dd-panel a:hover,
+.bks-gh__dd-panel a:focus-visible {
+  background: var(--bks-active-accent, #0A0A0A) !important;
+  color: var(--bks-active-foreground, #FAFAF7) !important;
+}
+.bks-gh__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  margin-right: clamp(10px, 1.4vw, 18px);
+  padding: 0 10px 0 0;
+  border: 0;
+  border-right: 1px solid color-mix(in srgb, currentColor 24%, transparent);
+  background: transparent;
+  font-family: var(--bks-font-mono, 'DM Mono', monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.9;
+}
+.bks-gh__back svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.bks-gh__back:hover,
+.bks-gh__back:focus-visible { opacity: 1; }
+.bks-gh__drawer-panel {
+  border-right: 4px solid var(--bks-active-accent, #C9B79C);
+}
+.bks-gh__drawer-nav a[aria-current="page"] {
+  color: var(--bks-active-accent, #C9B79C);
+}
+.bks-cart-count {
+  background: var(--bks-header-foreground, #0A0A0A) !important;
+  color: var(--bks-header-background, #FFFFFF) !important;
+}
+html[data-bks-locale-detected="true"] .bks-gh localization-form,
+html[data-bks-locale-detected="true"] .bks-gh .localization-form,
+html[data-bks-locale-detected="true"] .bks-gh form[action*="/localization"],
+html[data-bks-locale-detected="true"] .announcement-bar localization-form,
+html[data-bks-locale-detected="true"] .announcement-bar .localization-form,
+html[data-bks-locale-detected="true"] .announcement-bar form[action*="/localization"],
+[data-bks-locale-hidden="true"] {
+  display: none !important;
+}
+@media screen and (max-width: 768px) {
+  .bks-gh__back span { display: none; }
+  .bks-gh__back { margin-right: 8px; padding-right: 8px; min-height: 36px; }
+}
+@supports not (color: color-mix(in srgb, #000 50%, #fff)) {
+  .bks-gh.bks-gh--scrolled { background: var(--bks-header-background, #ffffff) !important; }
+  .bks-gh__dd-panel { border-color: #e8e8e8 !important; }
+}
+
+/* ── NUCLEAR LOCALIZATION KILL — single-market IT store ──────── */
+localization-form,
+country-localization,
+language-localization,
+.localization-form,
+.bks-lang-form,
+.disclosure__button[aria-controls*="localization"],
+.disclosure__list-wrapper[id*="localization"],
+form[action="/localization"],
+[data-bks-locale-hidden] { display: none !important; }
+
+/* ── PRE-FOOTER SECTION (NORMATIVA) — blend with dark footer ─── */
+/* Targets any shopify-section immediately before the footer section */
+.shopify-section:has(+ .shopify-section footer.footer) {
+  background: #0a0a0a !important;
+  border-top: none !important;
+}
+.shopify-section:has(+ .shopify-section footer.footer) *:not(script):not(style) {
+  color: #fafaf7 !important;
+}
+.shopify-section:has(+ .shopify-section footer.footer) a,
+.shopify-section:has(+ .shopify-section footer.footer) button {
+  border-color: rgba(250,250,247,0.2) !important;
+  background: rgba(250,250,247,0.06) !important;
+  color: #fafaf7 !important;
+}
+.shopify-section:has(+ .shopify-section footer.footer) a:hover,
+.shopify-section:has(+ .shopify-section footer.footer) button:hover {
+  background: rgba(250,250,247,0.12) !important;
+}
+/* Fallback for browsers without :has() — JS adds .bks-pre-footer class */
+.bks-pre-footer { background: #0a0a0a !important; }
+.bks-pre-footer *:not(script):not(style) { color: #fafaf7 !important; }
+.bks-pre-footer a, .bks-pre-footer button {
+  border-color: rgba(250,250,247,0.2) !important;
+  background: rgba(250,250,247,0.06) !important;
+}
+.bks-pre-footer a:hover, .bks-pre-footer button:hover {
+  background: rgba(250,250,247,0.12) !important;
+}

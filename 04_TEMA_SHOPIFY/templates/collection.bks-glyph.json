@@ -1,0 +1,197 @@
+{
+  "sections": {
+    "bks_hero": {
+      "type": "bks-collection-hero",
+      "settings": {
+        "accent_color": "#d4a030",
+        "tagline": "Constructed signs",
+        "description": "BKS Glyph is built from mark, symbol and constructed letterform. Basquiat-adjacent energy — raw text as texture, skull geometry, Neo-Expressionist graphic fields.",
+        "min_height": 440,
+        "show_cta": true,
+        "hero_image": "shopify://shop_images/bks-glyph-editorial.png"
+      }
+    },
+    "bks_signal": {
+      "type": "bks-collection-signal",
+      "blocks": {
+        "p1": {
+          "type": "subnav_link",
+          "settings": {
+            "label": "Puffer Jackets",
+            "link": "/collections/puffer-jacket"
+          }
+        },
+        "p2": {
+          "type": "subnav_link",
+          "settings": {
+            "label": "Windbreakers",
+            "link": "/collections/windbreaker"
+          }
+        },
+        "p3": {
+          "type": "subnav_link",
+          "settings": {
+            "label": "Womens Tees",
+            "link": "/collections/womens-tee"
+          }
+        },
+        "p4": {
+          "type": "subnav_link",
+          "settings": {
+            "label": "Athletic Shorts",
+            "link": "/collections/athletic-shorts"
+          }
+        },
+        "p5": {
+          "type": "subnav_link",
+          "settings": {
+            "label": "Sneakers",
+            "link": "/collections/sneakers"
+          }
+        },
+        "p6": {
+          "type": "subnav_link",
+          "settings": {
+            "label": "Backpacks",
+            "link": "/collections/backpack"
+          }
+        },
+        "p7": {
+          "type": "subnav_link",
+          "settings": {
+            "label": "Travel Bags",
+            "link": "/collections/travel-bag"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5",
+        "p6",
+        "p7"
+      ],
+      "settings": {}
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid-bks",
+      "settings": {
+        "products_per_page": 36,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "background-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "drawer",
+        "enable_sorting": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "bks_cindex": {
+      "type": "bks-collections-index",
+      "blocks": {
+        "c1": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Hours",
+            "tagline": "Measured urban stillness",
+            "collection_handle": "bks-hours",
+            "link": ""
+          }
+        },
+        "c2": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Glyph",
+            "tagline": "Constructed signs",
+            "collection_handle": "bks-glyph",
+            "link": ""
+          }
+        },
+        "c3": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Marker",
+            "tagline": "Gesture and motion",
+            "collection_handle": "bks-marker",
+            "link": ""
+          }
+        },
+        "c4": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Riviera",
+            "tagline": "Coastal geometry",
+            "collection_handle": "bks-riviera",
+            "link": ""
+          }
+        },
+        "c5": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Pulse",
+            "tagline": "Optical movement",
+            "collection_handle": "bks-pulse",
+            "link": ""
+          }
+        },
+        "c6": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Token",
+            "tagline": "Digital objects",
+            "collection_handle": "bks-token",
+            "link": ""
+          }
+        },
+        "c7": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Flag",
+            "tagline": "Graphic fields",
+            "collection_handle": "bks-flag",
+            "link": ""
+          }
+        },
+        "c8": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Origin",
+            "tagline": "Narrative warmth",
+            "collection_handle": "bks-origin",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8"
+      ],
+      "settings": {
+        "heading": "Collections",
+        "subheading": "Eight permanent visual worlds. Apparel, swim and accessories share the same graphic language inside each one.",
+        "scheme": "light"
+      }
+    }
+  },
+  "order": [
+    "bks_hero",
+    "bks_signal",
+    "product-grid",
+    "bks_cindex"
+  ]
+}

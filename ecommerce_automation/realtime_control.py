@@ -7,6 +7,9 @@ from pathlib import Path
 from typing import Any
 
 
+BAKABO_STORE_DOMAIN = "bakabo.club"
+BKS_TM04_THEME_ID = "202392961362"
+
 STATUS_FILE = Path("output/realtime_control_status.json")
 TIMELINE_FILE = Path("output/realtime_processing_timeline.csv")
 
@@ -146,6 +149,8 @@ def payload(settings: Any, phases: list[dict[str, Any]], live_events: list[dict[
             "updated_at": _now(),
             "next_action": next_action.get("title", "Agente pronto"),
             "current_event": latest["type"],
+            "store": BAKABO_STORE_DOMAIN,
+            "trust_gate": "trust_foundation",
         },
         "stages": stages,
         "latest_event": latest,

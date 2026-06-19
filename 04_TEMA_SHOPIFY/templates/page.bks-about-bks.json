@@ -1,0 +1,50 @@
+{
+  "sections": {
+    "bks_about": {
+      "type": "bks-about",
+      "blocks": {
+        "studio": {
+          "type": "text_column",
+          "settings": {
+            "label": "Lo Studio",
+            "title": "AI come strumento creativo",
+            "content": "<p>BKS Studio è il laboratorio creativo dietro BakAbo. Ogni artwork nasce da un processo ibrido: ideazione umana, generazione AI, curation manuale. Il risultato è una moda che non esisterebbe senza la tecnologia.</p><p>Usiamo Stable Diffusion, Midjourney e strumenti proprietari per trasformare concetti visivi in pattern, texture e composizioni che diventano grafiche da indossare.</p>"
+          }
+        },
+        "process": {
+          "type": "text_column",
+          "settings": {
+            "label": "Processo",
+            "title": "Dall'artwork al capo",
+            "content": "<p>01. Concept — ogni collezione nasce da una ricerca visiva: archivi storici, architettura, cultura underground.</p><p>02. Generazione — il concept viene tradotto in prompt e iterato fino all'artwork finale.</p><p>03. Curation — selezione manuale tra migliaia di varianti. Solo le migliori diventano prodotto.</p><p>04. Print — applicazione su tessuto, controllo qualità, stampa on-demand via Printify.</p>"
+          }
+        },
+        "stats": {
+          "type": "stat",
+          "settings": {
+            "stats_data": "2.4K:AI artworks prodotti, 8:Collezioni attive, 48:Audit qualità PASS, 0:Pezzi in magazzino"
+          }
+        },
+        "quote": {
+          "type": "pull_quote",
+          "settings": {
+            "letter": "S",
+            "quote": "Ogni capo è un pezzo di un archivio visivo unico — non esiste nessun altro che abbia questo guardaroba.",
+            "attribution": "BKS Studio Crew"
+          }
+        }
+      },
+      "block_order": ["studio", "process", "stats", "quote"],
+      "settings": {
+        "overline": "BKS Studio",
+        "headline": "About BKS Studio",
+        "tagline": "Il laboratorio AI-art che progetta le collezioni BakAbo.",
+        "accent_color": "#9828d8",
+        "text_on_dark": true,
+        "hero_height": 480,
+        "hero_image": "shopify://shop_images/bks-ai-founder.png"
+      }
+    }
+  },
+  "order": ["bks_about"]
+}

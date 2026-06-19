@@ -1,0 +1,454 @@
+{
+  "_meta": {
+    "version": "2.2",
+    "last_updated": "2026-06-19",
+    "source": "COST_TABLE da bks_agent_dashboard.py (fonte autoritativa) + Printify API shipping sync",
+    "note": "base_cost = costo reale Printify da COST_TABLE verificato. shipping_EU/US = da Printify API sync. Tutti i prezzi in USD.",
+    "alignment_verified": "2026-06-19 v2.2 — prezzi aggiornati: One-Piece Swimsuit tutti $55 (17 prodotti), Cozy Slipper $55 (US 50.1% EU 46.2%), Flip Flop $49 (US 59.8% EU 40.8%)"
+  },
+
+  "brand_positioning": {
+    "tier": "contemporary_premium",
+    "competitors": [
+      { "brand": "Études Studio", "price_range_eur": "80-220", "positioning": "paris_conceptual" },
+      { "brand": "Daily Paper", "price_range_eur": "60-180", "positioning": "amsterdam_streetwear" },
+      { "brand": "Drôle de Monsieur", "price_range_eur": "100-280", "positioning": "paris_graphic_irony" }
+    ],
+    "bks_position": "AOP premium con estetica da studio grafico — sopra streetwear, sotto luxury",
+    "price_corridor": "40–150 EUR (40 flip flop → 145 puffer jacket)"
+  },
+
+  "margin_rules": {
+    "golden_rule": "MAI pubblicare senza calcolare il margine. Un prodotto bello con margine sbagliato va in DRAFT.",
+    "tiers": {
+      "minimum_absolute":  { "pct": 45, "action": "pubblicabile solo con motivazione esplicita" },
+      "standard_target":   { "pct_min": 55, "pct_max": 65, "action": "target normale per tutti i prodotti" },
+      "premium":           { "pct_min": 65, "pct_max": 75, "action": "goal per prodotti hero e limited" },
+      "below_threshold":   { "pct": 40, "action": "DRAFT automatico — non pubblicare" }
+    },
+    "formula": {
+      "description": "Calcolo margine netto dopo Shopify fees",
+      "steps": [
+        "1. net_revenue = retail_usd * 0.971 - 0.30   (Shopify Basic: 2.9% + $0.30)",
+        "2. total_cost  = base_cost_printify + shipping_cost_to_customer_country",
+        "3. margin_pct  = (net_revenue - total_cost) / net_revenue * 100",
+        "4. Se margin_pct < 40% → DRAFT immediato"
+      ],
+      "example_puffer": {
+        "retail_usd": 122.38,
+        "shopify_fee": 3.55,
+        "net_revenue": 118.83,
+        "base_cost_usd": 46.00,
+        "shipping_EU": 8.40,
+        "total_cost": 54.40,
+        "margin_pct": 54.2,
+        "note": "Margine OK (54%) ma sotto target 55-65%. Puntare a $129 (prossimo APPROVED_PRICE)"
+      },
+      "shopify_fees_by_plan": {
+        "basic": { "pct": 2.9, "fixed": 0.30 },
+        "shopify": { "pct": 2.6, "fixed": 0.30 },
+        "advanced": { "pct": 2.4, "fixed": 0.30 }
+      }
+    }
+  },
+
+  "cost_structure": {
+    "_note": "base_cost = stima da Printify dashboard. Aggiornare ad ogni cambio provider o blueprint.",
+    "categories": [
+      {
+        "key": "587_1",
+        "name": "Flip Flop",
+        "blueprint_id": 587,
+        "print_provider_id": 1,
+        "base_cost_usd": 13.00,
+        "shipping_EU_usd": 14.99,
+        "shipping_US_usd": 5.99,
+        "retail_current_avg": 49.00,
+        "retail_min": 49.00,
+        "retail_max": 49.00,
+        "margin_EU_pct_at_avg": 40.8,
+        "margin_US_pct_at_avg": 59.8,
+        "alerts": ["RISOLTO 2026-06-19: repriced $45→$49. EU margin 35.5%→40.8% (sopra soglia 40%). US margin 59.8%."]
+      },
+      {
+        "key": "276_10",
+        "name": "Racerback Dress",
+        "blueprint_id": 276,
+        "print_provider_id": 10,
+        "base_cost_usd": 24.00,
+        "shipping_EU_usd": 11.99,
+        "shipping_US_usd": 6.29,
+        "retail_current_avg": 46.77,
+        "retail_min": 33.13,
+        "retail_max": 47.92,
+        "alerts": []
+      },
+      {
+        "key": "279_10",
+        "name": "Women Cut&Sew Tee",
+        "blueprint_id": 279,
+        "print_provider_id": 10,
+        "base_cost_usd": 19.00,
+        "shipping_EU_usd": 11.99,
+        "shipping_US_usd": 5.69,
+        "retail_current_avg": 45.06,
+        "retail_min": 32.59,
+        "retail_max": 51.14,
+        "alerts": []
+      },
+      {
+        "key": "360_14",
+        "name": "One-Piece Swimsuit",
+        "blueprint_id": 360,
+        "print_provider_id": 14,
+        "base_cost_usd": 21.00,
+        "shipping_EU_usd": 3.60,
+        "shipping_US_usd": 5.69,
+        "retail_current_avg": 55.00,
+        "retail_min": 55.00,
+        "retail_max": 55.00,
+        "margin_US_pct": 49.7,
+        "margin_EU_pct": 53.7,
+        "alerts": ["RISOLTO 2026-06-19: tutti e 17 swimsuit repriced a $55 (base $21 + ship US $5.69 = $26.69, net $53.10). Margine US 49.7%, EU 53.7%."]
+      },
+      {
+        "key": "589_83",
+        "name": "Swim Trunks",
+        "blueprint_id": 589,
+        "print_provider_id": 83,
+        "base_cost_usd": 17.00,
+        "shipping_EU_usd": 11.29,
+        "shipping_US_usd": 19.99,
+        "retail_current_avg": 59.28,
+        "retail_min": 39.05,
+        "retail_max": 59.58,
+        "alerts": ["shipping US $19.99 è elevata — assicurare margine min 55% al retail medio"]
+      },
+      {
+        "key": "1084_83",
+        "name": "Athletic Long Shorts",
+        "blueprint_id": 1084,
+        "print_provider_id": 83,
+        "base_cost_usd": 17.00,
+        "shipping_EU_usd": 17.59,
+        "shipping_US_usd": 19.99,
+        "retail_current_avg": 53.77,
+        "retail_min": 41.73,
+        "retail_max": 62.80,
+        "alerts": [
+          "CRITICO: shipping EU $17.59 anomala su base $17 — margine EU a $53.77 = 34% (DRAFT)",
+          "Retail approvato minimo: $65 → margine EU ~46%, target $69 → ~50%",
+          "Shipping US $19.99 critica — considerare cambio provider (PP83)"
+        ]
+      },
+      {
+        "key": "1095_90",
+        "name": "Cozy Slipper",
+        "blueprint_id": 1095,
+        "print_provider_id": 90,
+        "base_cost_usd": 15.00,
+        "shipping_EU_usd": 13.59,
+        "shipping_US_usd": 11.49,
+        "retail_current_avg": 55.00,
+        "retail_min": 55.00,
+        "retail_max": 55.00,
+        "alerts": [
+          "RISOLTO 2026-06-19: repriced $32.20→$55. US 50.1%, EU 46.2%. Entrambi sopra soglia 40%."
+        ]
+      },
+      {
+        "key": "372_10",
+        "name": "Duffel Bag",
+        "blueprint_id": 372,
+        "print_provider_id": 10,
+        "base_cost_usd": 36.00,
+        "shipping_EU_usd": 7.19,
+        "shipping_US_usd": 10.09,
+        "retail_current_avg": 80.41,
+        "retail_min": 75.14,
+        "retail_max": 101.28,
+        "alerts": []
+      },
+      {
+        "key": "291_14",
+        "name": "Sneakers (AOP)",
+        "blueprint_id": 291,
+        "print_provider_id": 14,
+        "base_cost_usd": 22.00,
+        "shipping_EU_usd": 8.40,
+        "shipping_US_usd": 8.40,
+        "retail_current_avg": 77.33,
+        "retail_min": 69.78,
+        "retail_max": 83.74,
+        "alerts": ["Margine EU a retail $77.33: 59.4% — OK. Min retail $69.78: 55% — OK. Target $89 per 65%+"]
+      },
+      {
+        "key": "1006_10",
+        "name": "Beach Towel",
+        "blueprint_id": 1006,
+        "print_provider_id": 10,
+        "base_cost_usd": 28.00,
+        "shipping_EU_usd": 14.79,
+        "shipping_US_usd": 8.99,
+        "retail_current_avg": 72.84,
+        "retail_min": 71.34,
+        "retail_max": 87.86,
+        "alerts": []
+      },
+      {
+        "key": "413_10",
+        "name": "Backpack",
+        "blueprint_id": 413,
+        "print_provider_id": 10,
+        "base_cost_usd": 26.00,
+        "shipping_EU_usd": 9.19,
+        "shipping_US_usd": 8.79,
+        "retail_current_avg": 72.26,
+        "retail_min": 70.32,
+        "retail_max": 86.60,
+        "alerts": ["Attenzione ritaglio immagine — necessario rimovere sfondo su backpack (vedi transparent flag)"]
+      },
+      {
+        "key": "739_10",
+        "name": "Lounge Pants",
+        "blueprint_id": 739,
+        "print_provider_id": 10,
+        "base_cost_usd": 19.00,
+        "shipping_EU_usd": 11.99,
+        "shipping_US_usd": 6.29,
+        "retail_current_avg": 75.40,
+        "retail_min": 65.28,
+        "retail_max": 89.82,
+        "alerts": []
+      },
+      {
+        "key": "924_14",
+        "name": "Hawaiian Shirt",
+        "blueprint_id": 924,
+        "print_provider_id": 14,
+        "base_cost_usd": 24.00,
+        "shipping_EU_usd": 3.60,
+        "shipping_US_usd": 5.69,
+        "retail_current_avg": 80.03,
+        "retail_min": 50.00,
+        "retail_max": 82.44,
+        "alerts": ["Retail minimo $50 è a rischio margine — consigliato minimo $65"]
+      },
+      {
+        "key": "1626_99",
+        "name": "Woven Blanket",
+        "blueprint_id": 1626,
+        "print_provider_id": 99,
+        "base_cost_usd": 38.00,
+        "shipping_EU_usd": 19.99,
+        "shipping_US_usd": 9.99,
+        "retail_current_avg": 47.10,
+        "retail_min": 47.10,
+        "retail_max": 47.10,
+        "alerts": [
+          "ALERT: retail $47.10 con shipping EU $19.99 porta il margine EU a circa 0%",
+          "Prezzo EU consigliato: min $90-95 USD"
+        ]
+      },
+      {
+        "key": "450_10",
+        "name": "Pullover Hoodie",
+        "blueprint_id": 450,
+        "print_provider_id": 10,
+        "base_cost_usd": 28.00,
+        "shipping_EU_usd": 15.99,
+        "shipping_US_usd": 8.59,
+        "retail_current_avg": 107.00,
+        "retail_min": 90.14,
+        "retail_max": 133.68,
+        "alerts": []
+      },
+      {
+        "key": "888_14",
+        "name": "Travel Bag / Duffle (AOP)",
+        "blueprint_id": 888,
+        "print_provider_id": 14,
+        "base_cost_usd": 36.00,
+        "shipping_EU_usd": 8.40,
+        "shipping_US_usd": 8.40,
+        "retail_current_avg": 108.42,
+        "retail_min": 108.41,
+        "retail_max": 108.82,
+        "alerts": []
+      },
+      {
+        "key": "1397_10",
+        "name": "Windbreaker Jacket",
+        "blueprint_id": 1397,
+        "print_provider_id": 10,
+        "base_cost_usd": 33.00,
+        "shipping_EU_usd": 14.99,
+        "shipping_US_usd": 8.29,
+        "retail_current_avg": 124.25,
+        "retail_min": 111.50,
+        "retail_max": 135.68,
+        "alerts": []
+      },
+      {
+        "key": "1391_14",
+        "name": "Women Puffer Jacket (AOP)",
+        "blueprint_id": 1391,
+        "print_provider_id": 14,
+        "base_cost_usd": 46.00,
+        "shipping_EU_usd": 8.40,
+        "shipping_US_usd": 9.99,
+        "retail_current_avg": 107.24,
+        "retail_min": 107.24,
+        "retail_max": 107.24,
+        "alerts": []
+      },
+      {
+        "key": "934_14",
+        "name": "AOP Puffer Jacket",
+        "blueprint_id": 934,
+        "print_provider_id": 14,
+        "base_cost_usd": 46.00,
+        "shipping_EU_usd": 8.40,
+        "shipping_US_usd": 9.99,
+        "retail_current_avg": 122.38,
+        "retail_min": 122.38,
+        "retail_max": 122.38,
+        "alerts": ["Margine EU = 54.2% con base $46 + ship $8.40 — OK ma sotto target 55-65%. Portare a $129 (APPROVED)"]
+      }
+    ]
+  },
+
+  "price_ladder": {
+    "_note": "Valori da APPROVED_PRICES BKS. min/target/max = prezzi approvati (35,39,45,49,55,59,65,69,75,79,85,89,95,99,105,109,115,119,125,129,135,139). EUR ≈ USD (stessa cifra). Aggiornato v2.0.",
+    "approved_prices_usd": [35,39,45,49,55,59,65,69,75,79,85,89,95,99,105,109,115,119,125,129,135,139],
+    "categories": [
+      { "name": "Cozy Slipper",         "min": 35,  "target": 45,  "max": 55,  "note": "URGENTE: attuale $32.20 → DRAFT. Riprezzare a $45 minimo" },
+      { "name": "Flip Flop",            "min": 35,  "target": 45,  "max": 55,  "note": "Solo US/CA — EU shipping $14.99 rende margine negativo sotto $45" },
+      { "name": "Women Cut&Sew Tee",    "min": 45,  "target": 55,  "max": 65  },
+      { "name": "Racerback Dress",       "min": 55,  "target": 65,  "max": 75  },
+      { "name": "One-Piece Swimsuit",    "min": 55,  "target": 65,  "max": 75  },
+      { "name": "Swim Trunks",           "min": 45,  "target": 55,  "max": 65  },
+      { "name": "Athletic Long Shorts",  "min": 69,  "target": 75,  "max": 85,  "note": "RISOLTO 2026-06-19: repriced $65→$69 (11 prodotti, 87 varianti). US 48.4%, EU 44.9%" },
+      { "name": "Lounge Pants",          "min": 55,  "target": 65,  "max": 75  },
+      { "name": "Hawaiian Shirt",        "min": 65,  "target": 75,  "max": 85  },
+      { "name": "Backpack",              "min": 75,  "target": 85,  "max": 95  },
+      { "name": "Duffel Bag",            "min": 85,  "target": 99,  "max": 115 },
+      { "name": "Beach Towel",           "min": 75,  "target": 89,  "max": 109 },
+      { "name": "Sneakers (AOP)",        "min": 75,  "target": 89,  "max": 105 },
+      { "name": "Woven Blanket",         "min": 95,  "target": 109, "max": 129, "note": "Shipping EU $19.99 — min $95 dà margine EU ~45%" },
+      { "name": "Pullover Hoodie",       "min": 65,  "target": 75,  "max": 85  },
+      { "name": "Travel Bag (AOP)",      "min": 85,  "target": 99,  "max": 115 },
+      { "name": "Windbreaker Jacket",    "min": 95,  "target": 109, "max": 125 },
+      { "name": "Women Puffer Jacket",   "min": 109, "target": 125, "max": 139 },
+      { "name": "AOP Puffer Jacket",     "min": 109, "target": 129, "max": 139, "note": "Attuale $122.38 OK. Puntare a $129 (APPROVED)" }
+    ]
+  },
+
+  "business_check_4q": {
+    "description": "Layer economico obbligatorio prima di ogni pubblicazione. Da applicare DOPO lo scoring estetico.",
+    "questions": [
+      {
+        "id": "Q1",
+        "question": "Il margine netto (dopo Printify + shipping + Shopify fee) è ≥ 45%?",
+        "pass": "Sì → continua",
+        "fail": "No → DRAFT. Aumenta prezzo o cambia provider",
+        "formula": "(retail * 0.971 - 0.30 - base_cost - shipping) / (retail * 0.971 - 0.30) * 100 ≥ 45"
+      },
+      {
+        "id": "Q2",
+        "question": "Il prezzo è nel corridor della price ladder per questa categoria?",
+        "pass": "Sì → continua",
+        "fail": "No → riposiziona. Mai sotto min_eur della categoria"
+      },
+      {
+        "id": "Q3",
+        "question": "Il costo di spedizione verso IT/EU è < 25% del prezzo retail?",
+        "pass": "Sì → continua",
+        "fail": "No → valuta spedizione gratuita absorbita oppure surcharge esplicita"
+      },
+      {
+        "id": "Q4",
+        "question": "Per un drop: gli ordini di break-even sono raggiungibili in 30 giorni con la fan base attuale?",
+        "pass": "Sì → pubblica",
+        "fail": "No → considera bundle, limited edition con prezzo più alto, oppure rimanda il drop"
+      }
+    ]
+  },
+
+  "break_even_per_drop": {
+    "formula": "orders_needed = fixed_costs_drop / avg_margin_per_order",
+    "fixed_costs_drop": {
+      "creative_direction": 0,
+      "mockup_generation": 0,
+      "shopify_plan_monthly": 32,
+      "printify_plan_monthly": 0,
+      "google_ads_test": 50,
+      "total_estimate_usd": 82
+    },
+    "examples": [
+      { "product": "Puffer Jacket", "retail": 142, "margin_pct": 38, "margin_usd": 54, "orders_for_82usd": 2 },
+      { "product": "Hoodie",        "retail": 118, "margin_pct": 55, "margin_usd": 65, "orders_for_82usd": 2 },
+      { "product": "Flip Flop EU",  "retail": 38,  "margin_pct": 22, "margin_usd": 8,  "orders_for_82usd": 11 }
+    ],
+    "note": "Break-even rapidissimo su prodotti premium (2-3 ordini). Flip Flop EU non si autofinanzia facilmente."
+  },
+
+  "critical_alerts": [
+    {
+      "severity": "CRITICAL",
+      "product": "Cozy Slipper (BP:1095 PP:90)",
+      "issue": "Retail $32.20 → margine EU 7.7%, US 14.5% (base $15 + ship $13.59/$11.49). Entrambi sotto soglia 40%.",
+      "action": "DRAFT immediato. Riprezzare a $45 (APPROVED) → margine EU ~36%, US ~47%. Target $55.",
+      "calc": "net=$30.97 | EU cost=$28.59 | margin=7.7%"
+    },
+    {
+      "severity": "CRITICAL",
+      "product": "Flip Flop (BP:587 PP:1)",
+      "issue": "Retail $19.70 → margine EU NEGATIVO: base $13 + ship EU $14.99 = $27.99 > net $18.83",
+      "action": "Disabilitare vendita EU o riprezzare a min $45 (APPROVED). Solo US/CA a $35+.",
+      "calc": "net=$18.83 | EU cost=$27.99 | margin=-48%"
+    },
+    {
+      "severity": "CRITICAL",
+      "product": "Woven Blanket (BP:1626 PP:99)",
+      "issue": "Retail $47.10 → margine EU NEGATIVO: base $38 + ship EU $19.99 = $57.99 > net $45.44",
+      "action": "DRAFT immediato. Riprezzare a min $95 (APPROVED) → margine EU ~37%, target $109 → ~45%.",
+      "calc": "net=$45.44 | EU cost=$57.99 | margin=-27.6%"
+    },
+    {
+      "severity": "HIGH",
+      "product": "Athletic Long Shorts (BP:1084 PP:83)",
+      "issue": "RISOLTO 2026-06-19: repriced $65→$69. US 48.4%, EU 44.9% (sopra soglia 40% — pubblicabili)",
+      "action": "Completato. Prossimo step: portare a $75 per EU 50%+ se il mercato lo permette.",
+      "calc": "net=$66.96 | EU cost=$34.59 | margin=48.4% (US)"
+    },
+    {
+      "severity": "CRITICAL",
+      "product": "One-Piece Swimsuit (BP:360 PP:14) — 8 prodotti attivati 2026-06-19",
+      "issue": "Retail avg $40.16 → margine US 31.2% (base $21 + ship $5.69 = $26.69, net $38.79). Sotto soglia DRAFT 40%. 8 prodotti ora ACTIVE in collection:riviera.",
+      "action": "Riprezzare a min $55 (APPROVED) → margine EU=53.8%, US=48.6%. Target $65. Aggiornare Shopify prezzi urgente.",
+      "calc": "net@$40.16=$38.79 | US cost=$26.69 | margin=31.2% — DRAFT threshold"
+    },
+    {
+      "severity": "MEDIUM",
+      "product": "AOP Puffer Jacket (BP:934 PP:14)",
+      "issue": "Retail $122.38 → margine EU 54.2% (base $46 + ship $8.40). Sotto target 55-65%.",
+      "action": "Alzare a $129 (prossimo APPROVED) → margine EU ~57.6%. Nessun DRAFT necessario.",
+      "calc": "net=$118.83 | EU cost=$54.40 | margin=54.2%"
+    }
+  ],
+
+  "auto_update": {
+    "refresh_source": "Printify API /catalog/blueprints + /shops/{id}/products",
+    "refresh_frequency": "ogni 24h via catalog_engine.py background thread",
+    "manual_trigger": "POST /api/shipping/refresh",
+    "sync_targets": ["Shopify metafields", "Google Merchant Center feed", "AI Index JSON"],
+    "next_action": [
+      "1. Aprire Printify dashboard → Products → ogni categoria → verificare base cost reale",
+      "2. Aggiornare base_cost_usd in questo file per ogni categoria",
+      "3. Ri-runnare POST /api/shipping/refresh per ricalcolo margini",
+      "4. Portare in DRAFT prodotti con margine < 40%",
+      "5. Aggiornare prezzi su Shopify con il price ladder sopra"
+    ]
+  }
+}

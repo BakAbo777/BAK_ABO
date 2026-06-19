@@ -1,0 +1,439 @@
+/* BKS TM04 — Responsive + Contrast System
+   Armocromista pass: enforces WCAG AA on every BKS page type.
+   Load after base theme CSS in layout/theme.liquid:
+     {{ 'bks-responsive.css' | asset_url | stylesheet_tag }}
+   ─────────────────────────────────────────────────────────── */
+
+/* ══════════════════════════════════════════════════════════
+   1. MOBILE / TABLET — Product page readability patch
+   Target: product descriptions, variant selectors, size tables.
+   ══════════════════════════════════════════════════════════ */
+
+@media screen and (max-width: 989px) {
+  .product,
+  .product__media-wrapper,
+  .product__info-wrapper,
+  .product__info-container,
+  .product__description,
+  .product__description.rte,
+  .rte,
+  .bks-product-system,
+  .bks-product-meta,
+  .bks-size-guide,
+  .bks-care-notes,
+  .shopify-section {
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .product__info-wrapper,
+  .product__info-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .product__title,
+  .product__title h1,
+  .price,
+  .product-form,
+  .product__tax,
+  .product__inventory,
+  .product__pickup-availabilities,
+  .product__description,
+  .product__description.rte,
+  .rte,
+  .bks-product-system,
+  .bks-product-meta,
+  .bks-size-guide,
+  .bks-care-notes {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .product__description,
+  .product__description.rte,
+  .rte {
+    font-size: clamp(15px, 4vw, 17px);
+    line-height: 1.55;
+  }
+
+  .product__description p,
+  .product__description li,
+  .rte p,
+  .rte li {
+    margin-bottom: 0.85rem;
+  }
+
+  .product__description table,
+  .rte table,
+  .bks-size-guide table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .product-form__input,
+  .product-form__input fieldset,
+  .product-form__input .select,
+  .product-form__input select,
+  variant-selects,
+  variant-radios {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .product-form__input label,
+  .product-form__input input + label,
+  .product-form__input .form__label {
+    min-height: 44px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   1b. TEMPLATE-PRODUCT — scoped full-coverage mobile patch
+       Handles: description, tables, variant picker, made-to-order,
+       GPSR/legal blocks, BKS Product System, reviews, AI widget.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Global card white background ─────────────────────────────────── */
+/* Home featured sections and product page related-products use Dawn defaults */
+.template-index .card-wrapper,
+.template-product .card-wrapper,
+.template-collection .card-wrapper {
+  background: #fff;
+}
+
+.template-product {
+  overflow-x: hidden;
+}
+
+/* Guard html element too so scrollWidth check passes */
+html:has(body.template-product) {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+@media screen and (max-width: 749px) {
+  /* Horizontal overflow guard */
+  .template-product main,
+  .template-product .shopify-section {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Variant picker — size/color buttons wrap on mobile */
+  .template-product .product-form__input,
+  .template-product .product-form__input fieldset,
+  variant-selects .product-form__input,
+  variant-radios .product-form__input {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-width: 100%;
+  }
+  .template-product .product-form__input input[type="radio"] + label,
+  .template-product .product-form__input label,
+  .template-product .product-form__input .swatch-label {
+    min-height: 44px;
+    min-width: 44px;
+    max-width: 100%;
+    padding: 8px 12px;
+    white-space: normal;
+    word-break: break-word;
+    text-align: center;
+    flex-shrink: 1;
+  }
+
+  /* Quantity + Add to cart */
+  .template-product .product-form__quantity,
+  .template-product .product-form__submit {
+    width: 100%;
+  }
+  .template-product .product-form__buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Long description blocks */
+  .template-product .product__description,
+  .template-product .product__description.rte {
+    font-size: clamp(15px, 4.2vw, 17px);
+    line-height: 1.62;
+    word-break: normal;
+    overflow-wrap: anywhere;
+  }
+
+  /* Specs / made-to-order / GPSR / care */
+  .template-product .bks-made-to-order,
+  .template-product .bks-product-specs,
+  .template-product .bks-gpsr-block,
+  .template-product .bks-care-notes,
+  .template-product .bks-trust-bullets,
+  .template-product [class*="bks-legal"] {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+  }
+
+  /* Size guide table scrolls horizontally */
+  .template-product .bks-size-guide,
+  .template-product .product__description table,
+  .template-product .rte table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+  }
+  .template-product .bks-size-guide td,
+  .template-product .bks-size-guide th {
+    white-space: nowrap;
+    min-width: 60px;
+  }
+
+  /* Reviews section */
+  .template-product .shopify-product-reviews,
+  .template-product .spr-review,
+  .template-product [id*="shopify-product-reviews"] {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* BKS AI widget */
+  .template-product .bks-ai-widget,
+  .template-product #bks-ai-assistant {
+    width: 100%;
+    max-width: 100%;
+    right: 0;
+    left: 0;
+    box-sizing: border-box;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  /* Tablet — same guards, slightly relaxed */
+  .template-product .product-form__input fieldset {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .template-product .product-form__buttons {
+    flex-wrap: wrap;
+  }
+  .template-product .bks-size-guide,
+  .template-product .product__description table,
+  .template-product .rte table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+  }
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   2. BKS SECTION TOKENS — Dark / Light context classes
+   ══════════════════════════════════════════════════════════ */
+
+.bks-section--dark {
+  color-scheme: dark;
+  --bks-bg: #0A0A0A;
+  --bks-text: #FAFAF7;
+  --bks-muted: rgba(250, 250, 247, 0.72);
+  background: var(--bks-bg);
+  color: var(--bks-text);
+}
+
+.bks-section--light {
+  --bks-bg: #FAFAF7;
+  --bks-text: #0A0A0A;
+  --bks-muted: rgba(10, 10, 10, 0.68);
+  background: var(--bks-bg);
+  color: var(--bks-text);
+}
+
+.bks-section--dark a,
+.bks-section--dark .button--secondary {
+  color: var(--bks-text);
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   3. ARMOCROMISTA PASS — Contrast enforcement per page type
+
+   Palette BKS TM04:
+     Light neutral  #FAFAF7  (salt)
+     Dark neutral   #0A0A0A  (onyx)
+     Hours accent   #c8c4be  — LIGHT: text on it must be #0A0A0A
+     Glyph accent   #d4a030  — AMBER: text on it must be #0A0A0A
+     Marker accent  #c04418  — TERRACOTTA: text on it must be #FAFAF7
+     Riviera accent #0ca898  — TEAL: text on it must be #0A0A0A
+     Pulse accent   #8888cc  — PERIWINKLE: text on it must be #0A0A0A
+     Token accent   #9828d8  — VIOLET: text on it must be #FAFAF7
+     Flag accent    #c82020  — RED: text on it must be #FAFAF7
+     Origin accent  #489808  — GREEN: text on it must be #FAFAF7
+
+   Rule: accent colors appear as DECORATION (border, dot, chip, glow).
+   For small text (kicker, label, caption) use neutral text on neutral bg.
+   ══════════════════════════════════════════════════════════ */
+
+/* 3a. Dark hero sections — force light text on ALL descendants */
+.bks-collection-signal,
+.bks-impact,
+.bks-timed-offer,
+.bks-planet-orbit,
+[class*="bks-hero--dark"] {
+  color: #FAFAF7;
+}
+
+.bks-collection-signal p,
+.bks-collection-signal h1,
+.bks-collection-signal h2,
+.bks-collection-signal h3,
+.bks-collection-signal span,
+.bks-collection-signal a,
+.bks-impact p,
+.bks-impact h1,
+.bks-impact h2,
+.bks-impact span {
+  color: inherit;
+}
+
+/* 3b. Product system section — gradient ends dark; panels are light */
+.bks-product-system {
+  color: #0A0A0A;
+}
+
+.bks-product-system__copy,
+.bks-product-system__panel {
+  color: #0A0A0A;
+}
+
+.bks-product-system__intro {
+  color: #343434;
+}
+
+.bks-product-system__note {
+  color: #3a3a3a;
+}
+
+/* kicker and label: neutral dark (fixes Hours accent #c8c4be invisible text) */
+.bks-product-system__kicker {
+  color: #5a5450 !important;
+}
+
+.bks-product-system__label {
+  color: #0A0A0A !important;
+}
+
+/* Table header: ensure dark text regardless of accent tint */
+.bks-product-system th {
+  color: #0A0A0A;
+}
+
+/* Darken accent borders on white panels (Hours #c8c4be = 1.7:1 raw, Glyph #d4a030 = 2.4:1 raw)
+   color-mix 60% accent + 40% dark → Hours 4.3:1, Glyph 5.0:1, all others higher */
+.bks-product-system__kicker {
+  border-bottom-color: color-mix(in srgb, var(--bks-product-accent, #c9b79c) 60%, #0A0A0A) !important;
+}
+.bks-product-system__label {
+  border-left-color: color-mix(in srgb, var(--bks-product-accent, #c9b79c) 60%, #0A0A0A) !important;
+}
+
+/* 3c. Collections index — light scheme (default) */
+.bks-cindex {
+  background: #FAFAF7;
+  color: #0A0A0A;
+}
+
+.bks-cindex__sub,
+.bks-cindex__tagline,
+.bks-cindex__products {
+  color: #4a4a46;
+}
+
+.bks-cindex--dark .bks-cindex__sub,
+.bks-cindex--dark .bks-cindex__tagline,
+.bks-cindex--dark .bks-cindex__products {
+  color: #c8c4bc;
+}
+
+/* 3d. Member dashboard — dark editorial */
+.bks-member-wrap,
+.bks-member-wrap *:not(.bks-member-cta):not(input):not(button):not(select) {
+  color: inherit;
+}
+
+.bks-member-wrap p,
+.bks-member-wrap span,
+.bks-member-wrap li,
+.bks-member-wrap td,
+.bks-member-wrap label {
+  color: var(--bks-text, #f0ece4);
+}
+
+/* Ensure inputs/selects in dark context are readable */
+.bks-member-wrap input,
+.bks-member-wrap select,
+.bks-member-wrap textarea {
+  background: #1e1e1e;
+  color: #f0ece4;
+  border-color: rgba(255,255,255,0.12);
+}
+
+/* 3e. Related products section — background-2 (#efeae0) with dark text */
+.shopify-section .related-products,
+[data-section-type="related-products"] {
+  color: #0A0A0A;
+}
+
+/* 3f. Footer (accent-1 = #0A0A0A bg) — force light text */
+.footer .footer__content,
+.footer__heading,
+.footer__menu a,
+.footer__newsletter-label,
+.footer__copyright p {
+  color: #FAFAF7;
+}
+
+/* 3g. Timed offer banner */
+.bks-timed-offer {
+  color: #FAFAF7;
+}
+
+.bks-timed-offer__kicker { color: #bfcfca; }
+.bks-timed-offer__copy   { color: #e7e0d6; }
+
+
+/* ══════════════════════════════════════════════════════════
+   4. TIER BADGE — Metal tier color system
+   ══════════════════════════════════════════════════════════ */
+
+:root {
+  --bks-tier-lead:   #8c8c8c;
+  --bks-tier-iron:   #607080;
+  --bks-tier-brass:  #d4a030;
+  --bks-tier-silver: #b0b8c4;
+  --bks-tier-gold:   #c8a820;
+}
+
+.bks-tier-badge--lead   { background: rgba(140,140,140,.14); color: var(--bks-tier-lead);   border: 1px solid rgba(140,140,140,.30); }
+.bks-tier-badge--iron   { background: rgba(96,112,128,.14);  color: var(--bks-tier-iron);   border: 1px solid rgba(96,112,128,.30); }
+.bks-tier-badge--brass  { background: rgba(212,160,48,.14);  color: var(--bks-tier-brass);  border: 1px solid rgba(212,160,48,.30); }
+.bks-tier-badge--silver { background: rgba(176,184,196,.14); color: var(--bks-tier-silver); border: 1px solid rgba(176,184,196,.30); }
+.bks-tier-badge--gold   { background: rgba(200,168,32,.14);  color: var(--bks-tier-gold);   border: 1px solid rgba(200,168,32,.30); }

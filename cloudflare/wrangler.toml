@@ -1,0 +1,22 @@
+name = "bks-agent"
+main = "bks-ai-worker.js"
+account_id = "e796d289f744035eee2641e853d8a5af"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Cron: ogni giorno alle 12:00 CET (10:00 UTC) — catalog refresh + agent evaluation
+[triggers]
+crons = ["0 10 * * *"]
+
+# KV Namespace — verrà popolato da `wrangler kv namespace create BKS_AGENT_KV`
+# Sostituire l'id dopo averlo creato con: wrangler kv namespace create "BKS_AGENT_KV"
+[[kv_namespaces]]
+binding = "BKS_AGENT_KV"
+id = "8f6b1e4accae47949b2960735d270a3a"
+
+# Secrets (NON inserire qui — usare `wrangler secret put`):
+# OPENAI_API_KEY       → wrangler secret put OPENAI_API_KEY
+# SHOPIFY_DOMAIN       → wrangler secret put SHOPIFY_DOMAIN
+# SHOPIFY_TOKEN        → wrangler secret put SHOPIFY_TOKEN
+# SHOPIFY_API_VERSION  → wrangler secret put SHOPIFY_API_VERSION
+# BKS_AI_TOKEN         → wrangler secret put BKS_AI_TOKEN  (opzionale, per CORS auth)

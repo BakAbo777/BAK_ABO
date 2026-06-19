@@ -1,0 +1,50 @@
+{
+  "sections": {
+    "bks_about": {
+      "type": "bks-about",
+      "blocks": {
+        "origin": {
+          "type": "text_column",
+          "settings": {
+            "label": "Origine",
+            "title": "Nata dall'arte digitale",
+            "content": "<p>BakAbo nasce dall'archivio di Roberto Picchioni: oltre 12.700 NFT e 2.400 AI artwork che formano il DNA visivo del brand. Ogni collezione è un capitolo di questa enciclopedia visuale.</p><p>Il nome unisce <em>Baka</em> (fool, giullare — chi sfida il senso comune) con l'idea di <em>abolire</em> il fast fashion: moda lenta, consapevole, con un'identità forte.</p>"
+          }
+        },
+        "model": {
+          "type": "text_column",
+          "settings": {
+            "label": "Modello",
+            "title": "Print-on-demand, zero spreco",
+            "content": "<p>Nessun magazzino. Nessuna sovrapproduzione. Ogni capo viene stampato e spedito solo quando viene ordinato — eliminando gli sprechi del modello fast fashion tradizionale.</p><p>La qualità è garantita da Printify, uno dei provider print-on-demand più affidabili in Europa.</p>"
+          }
+        },
+        "stats": {
+          "type": "stat",
+          "settings": {
+            "stats_data": "12.7K:NFT artwork, 8:Collezioni, 2019:Anno fondazione, 100%:Print-on-demand"
+          }
+        },
+        "quote": {
+          "type": "pull_quote",
+          "settings": {
+            "letter": "B",
+            "quote": "L'intelligenza artificiale non sostituisce l'arte — la trasforma in qualcosa che non avremmo mai immaginato.",
+            "attribution": "Roberto Picchioni, BKS Studio"
+          }
+        }
+      },
+      "block_order": ["origin", "model", "stats", "quote"],
+      "settings": {
+        "overline": "bakabo.club",
+        "headline": "About BakAbo",
+        "tagline": "Un atelier AI-art dove moda, tecnologia e identità visiva si incontrano.",
+        "accent_color": "#0a0a0a",
+        "text_on_dark": true,
+        "hero_height": 520,
+        "hero_image": "shopify://shop_images/bks-founder-4x5.jpg"
+      }
+    }
+  },
+  "order": ["bks_about"]
+}

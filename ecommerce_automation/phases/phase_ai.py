@@ -25,6 +25,7 @@ def run(context: dict[str, Any]) -> dict[str, Any]:
             "status": "active",
             "progress": 85,
             "message": "Image Factory is online and OpenAI is configured. Shooting Generator can run.",
+            "trust_gate": "collection_identity",
             "metrics": {
                 "openai": openai_service.health(),
                 "image_factory_online": True,
@@ -39,6 +40,7 @@ def run(context: dict[str, Any]) -> dict[str, Any]:
         "message": "OpenAI key configured; generation workflow can run from Image Factory."
         if openai_service.configured
         else "Add OPENAI_API_KEY before AI image/video tasks.",
+        "trust_gate": "collection_identity",
         "metrics": {
             "openai": openai_service.health(),
             "image_factory_online": image_factory_online,

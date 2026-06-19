@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "wishlist": {
+      "type": "bks-wishlist",
+      "settings": {
+        "eyebrow": "BKS Members",
+        "title": "Wishlist",
+        "show_cta": true,
+        "cta_label": "Explore the catalog",
+        "cta_url": "/collections/all"
+      }
+    }
+  },
+  "order": ["wishlist"]
+}

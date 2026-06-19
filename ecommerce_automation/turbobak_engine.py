@@ -6,6 +6,9 @@ from pathlib import Path
 from typing import Any
 
 
+BAKABO_STORE_DOMAIN = "bakabo.club"
+BKS_TM04_THEME_ID = "202392961362"
+
 SKIP_DIRS = {".venv", "__pycache__", ".git", ".qodo"}
 PATTERN_FILE = Path("output/turbobak_reuse_patterns.csv")
 
@@ -191,6 +194,8 @@ def write_index(settings: Any) -> dict[str, Any]:
     data["summary"]["index"] = path.relative_to(settings.root_dir).as_posix()
     data["summary"]["patterns"] = pattern_path.relative_to(settings.root_dir).as_posix()
     data["summary"]["reuse_patterns"] = len(data["reuse_patterns"])
+    data["summary"]["store"] = BAKABO_STORE_DOMAIN
+    data["summary"]["trust_gate"] = "trust_foundation"
     return data
 
 

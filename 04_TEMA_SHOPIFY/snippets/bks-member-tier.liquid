@@ -1,28 +1,35 @@
 {%- comment -%}
-  BKS Member Tier Detection
-  Sets: bks_tier (none/subscriber/drop/archive), bks_tier_label, bks_tier_rank
-  Usage: {% render 'bks-member-tier' %}  — call once, then use variables
+  BKS Member Tier Detection — metal tier system
+  Sets: bks_tier (lead/iron/brass/silver/gold), bks_tier_label, bks_tier_rank
+  Detection: customer.orders_count
+    lead:   0 orders
+    iron:   1-2 orders
+    brass:  3-5 orders
+    silver: 6-9 orders
+    gold:   10+ orders
 {%- endcomment -%}
 
-{%- assign bks_tier       = "none" -%}
+{%- assign bks_tier       = "lead" -%}
 {%- assign bks_tier_label = "" -%}
 {%- assign bks_tier_rank  = 0 -%}
 
 {%- if customer -%}
-  {%- for tag in customer.tags -%}
-    {%- if tag == "bks-archive" -%}
-      {%- assign bks_tier       = "archive" -%}
-      {%- assign bks_tier_label = "BKS Archive" -%}
-      {%- assign bks_tier_rank  = 3 -%}
-      {%- break -%}
-    {%- elsif tag == "bks-drop" and bks_tier_rank < 2 -%}
-      {%- assign bks_tier       = "drop" -%}
-      {%- assign bks_tier_label = "BKS Drop" -%}
-      {%- assign bks_tier_rank  = 2 -%}
-    {%- elsif tag == "bks-subscriber" and bks_tier_rank < 1 -%}
-      {%- assign bks_tier       = "subscriber" -%}
-      {%- assign bks_tier_label = "BKS Subscriber" -%}
-      {%- assign bks_tier_rank  = 1 -%}
-    {%- endif -%}
-  {%- endfor -%}
+  {%- assign bks_orders = customer.orders_count | default: 0 -%}
+  {%- if bks_orders >= 10 -%}
+    {%- assign bks_tier       = "gold" -%}
+    {%- assign bks_tier_label = "BKS Gold" -%}
+    {%- assign bks_tier_rank  = 4 -%}
+  {%- elsif bks_orders >= 6 -%}
+    {%- assign bks_tier       = "silver" -%}
+    {%- assign bks_tier_label = "BKS Silver" -%}
+    {%- assign bks_tier_rank  = 3 -%}
+  {%- elsif bks_orders >= 3 -%}
+    {%- assign bks_tier       = "brass" -%}
+    {%- assign bks_tier_label = "BKS Brass" -%}
+    {%- assign bks_tier_rank  = 2 -%}
+  {%- elsif bks_orders >= 1 -%}
+    {%- assign bks_tier       = "iron" -%}
+    {%- assign bks_tier_label = "BKS Iron" -%}
+    {%- assign bks_tier_rank  = 1 -%}
+  {%- endif -%}
 {%- endif -%}

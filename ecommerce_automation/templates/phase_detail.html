@@ -1,14 +1,274 @@
 {% extends "base.html" %}
 {% block content %}
-  <section class="intro">
-    <div>
-      <p class="eyebrow">Fase {{ phase_id }}</p>
-      <h1>Dettaglio fase</h1>
-    </div>
-    <button class="button" data-run-phase="{{ phase_id }}">Run phase</button>
-  </section>
-  <section class="panel">
-    <pre id="phase-detail" data-phase-id="{{ phase_id }}">Loading...</pre>
-  </section>
-{% endblock %}
 
+<style>
+  .phase-strip {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 22px;
+  }
+  .phase-pip {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; border-radius: 6px;
+    border: 1.5px solid var(--line);
+    font-size: 12px; font-weight: 700; letter-spacing: .04em;
+    color: var(--ink); text-decoration: none; transition: .12s ease;
+  }
+  .phase-pip:hover { border-color: var(--accent); color: var(--accent); }
+  .phase-pip.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .phase-pip.done   { border-color: var(--accent); color: var(--accent); }
+  .phase-pip.running { border-color: var(--warning); color: var(--warning); animation: bks-pip-pulse 1s ease infinite; }
+  @keyframes bks-pip-pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  .phase-title-row {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 18px; flex-wrap: wrap; margin-bottom: 28px;
+  }
+  .phase-title-row h1 {
+    font-size: clamp(22px, 3vw, 32px); font-weight: 700;
+    letter-spacing: -.02em; margin-bottom: 6px;
+  }
+  .phase-objective { color: var(--accent); font-size: 14px; line-height: 1.5; max-width: 540px; }
+
+  .phase-status-badge {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .1em;
+    padding: 4px 10px; border-radius: 4px;
+    background: var(--line); color: var(--ink); margin-top: 8px;
+  }
+  .phase-status-badge.ok     { background: #e8f5ef; color: var(--accent); }
+  .phase-status-badge.err    { background: #f7e8e6; color: var(--danger); }
+  .phase-status-badge.active { background: #fef6e8; color: var(--warning); }
+
+  .phase-position-bar {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 26px; font-size: 12px; color: var(--accent);
+  }
+  .phase-position-track {
+    flex: 1; height: 4px; background: var(--line); border-radius: 999px; overflow: hidden;
+  }
+  .phase-position-fill { height: 100%; background: var(--accent); border-radius: inherit; }
+
+  .phase-detail-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px; margin-top: 12px;
+  }
+  .phase-detail-card {
+    background: #fff; border: 1px solid var(--line); border-radius: 6px;
+    padding: 16px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .phase-detail-card .card-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .1em; color: #9a9490;
+  }
+  .phase-detail-card .card-value {
+    font-size: 14px; line-height: 1.45; word-break: break-word; color: var(--ink);
+  }
+  .phase-detail-card .card-value.mono {
+    font-family: var(--bks-font-mono); font-size: 12.5px; color: var(--accent);
+  }
+
+  .phase-output-pre {
+    font-family: var(--bks-font-mono); font-size: 12px; line-height: 1.6;
+    background: #111; color: #c8c4be; border-radius: 6px; padding: 18px;
+    overflow: auto; max-height: 460px; white-space: pre; border: 1px solid #2a2a2a;
+  }
+
+  .algo-strip { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+  .algo-pill {
+    font-size: 12px; font-weight: 600; letter-spacing: .04em;
+    padding: 6px 12px; border-radius: 4px;
+    border: 1px solid var(--line); background: #fff; color: #5f5a52;
+  }
+  .algo-pill.ok   { border-color: var(--accent); color: var(--accent); }
+  .algo-pill.warn { border-color: var(--warning); color: var(--warning); }
+
+  details.raw-json summary {
+    cursor: pointer; font-size: 12px; color: #9a9490;
+    user-select: none; padding: 6px 0;
+  }
+  details.raw-json summary:hover { color: var(--ink); }
+  details.raw-json { margin-top: 14px; }
+</style>
+
+<!-- ── Phase navigation strip ─────────────────────────────────── -->
+<section class="intro" style="padding-bottom:0">
+  <nav class="phase-strip" aria-label="Fasi">
+    {% for i in range(1, 11) %}{% set pid = '%02d' | format(i) %}
+    <a href="/phase/{{ pid }}"
+       class="phase-pip {% if pid == phase_id %}active{% endif %}"
+       title="Fase {{ pid }}">{{ pid }}</a>
+    {% endfor %}
+  </nav>
+
+  <div class="phase-position-bar">
+    <span>Fase {{ phase_id }} / 10</span>
+    <div class="phase-position-track">
+      <div class="phase-position-fill" id="phase-pos-fill"></div>
+    </div>
+    <span id="phase-pos-pct">—</span>
+  </div>
+
+  <div class="phase-title-row">
+    <div>
+      <p class="eyebrow">BKS Studio · Fase {{ phase_id }}</p>
+      <h1 id="phase-name">Fase {{ phase_id }}</h1>
+      <p class="phase-objective" id="phase-objective"></p>
+      <span class="phase-status-badge" id="phase-status-badge">—</span>
+    </div>
+    <div class="button-row">
+      <a href="/" class="button secondary">← Dashboard</a>
+      {% if phase_id | int > 1 %}
+      <a href="/phase/{{ '%02d' | format(phase_id | int - 1) }}" class="button secondary">◀ {{ '%02d' | format(phase_id | int - 1) }}</a>
+      {% endif %}
+      <button class="button" data-run-phase="{{ phase_id }}">▶ Run {{ phase_id }}</button>
+      {% if phase_id | int < 10 %}
+      <a href="/phase/{{ '%02d' | format(phase_id | int + 1) }}" class="button secondary">{{ '%02d' | format(phase_id | int + 1) }} ▶</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- ── BKS Algorithm status ───────────────────────────────────── -->
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <h2>BKS Algorithm</h2>
+      <p class="panel-subtitle">Scoring prodotti · salute collezioni · gate pubblicazione.</p>
+    </div>
+    <a href="http://localhost:8501/BKS_Algorithm" target="_blank" class="button secondary" style="font-size:12px">
+      Apri Control Center ↗
+    </a>
+  </div>
+  <div class="algo-strip" id="algo-strip">
+    <span class="algo-pill">Caricamento…</span>
+  </div>
+</section>
+
+<!-- ── Phase metadata ─────────────────────────────────────────── -->
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <h2>Metadati fase</h2>
+      <p class="panel-subtitle">Obiettivo · stato · output · comando · guida.</p>
+    </div>
+    <button class="button secondary" onclick="loadPhaseDetail()">Refresh</button>
+  </div>
+  <div class="phase-detail-grid" id="phase-meta-grid">
+    <div class="phase-detail-card"><div class="card-label">Stato</div><div class="card-value">Caricamento…</div></div>
+  </div>
+</section>
+
+<!-- ── Phase output ───────────────────────────────────────────── -->
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <h2>Output fase</h2>
+      <p class="panel-subtitle">Payload corrente · messaggio · artifacts generati.</p>
+    </div>
+  </div>
+  <div class="phase-detail-grid" id="phase-output-cards"></div>
+  <details class="raw-json">
+    <summary>↓ Raw JSON</summary>
+    <pre class="phase-output-pre" id="phase-detail" data-phase-id="{{ phase_id }}">Caricamento…</pre>
+  </details>
+</section>
+
+<script>
+const _PHASE_ID = "{{ phase_id }}";
+
+async function loadAlgoStrip() {
+  try {
+    const data = await fetch("/api/health").then(r => r.json());
+    const algo = (data?.always_on || {}).algorithm || data?.algorithm || {};
+    const strip = document.getElementById("algo-strip");
+    if (!Object.keys(algo).length) {
+      strip.innerHTML = '<span class="algo-pill">Dati non disponibili</span>';
+      return;
+    }
+    const ok = algo.status === "ok";
+    strip.innerHTML = [
+      `<span class="algo-pill ok">◎ ${algo.total_products ?? "—"} prodotti</span>`,
+      `<span class="algo-pill ok">Score medio: ${algo.avg_score ?? "—"}</span>`,
+      `<span class="algo-pill ok">P3 ready: ${algo.p3_ready ?? "—"}</span>`,
+      algo.p0_critical > 0
+        ? `<span class="algo-pill warn">⚠ P0 critical: ${algo.p0_critical}</span>`
+        : `<span class="algo-pill ok">P0 critical: 0 ✓</span>`,
+      ...(algo.collections_critical || []).map(c =>
+        `<span class="algo-pill warn">⚠ ${c} vuota</span>`),
+    ].join("");
+  } catch {
+    document.getElementById("algo-strip").innerHTML =
+      '<span class="algo-pill">Agente non disponibile</span>';
+  }
+}
+
+async function loadPhaseDetail() {
+  const raw = document.getElementById("phase-detail");
+  try {
+    const phase = await fetch(`/api/phases/${_PHASE_ID}`).then(r => r.json());
+
+    /* Header */
+    document.getElementById("phase-name").textContent =
+      phase.name || phase.nome || `Fase ${_PHASE_ID}`;
+    document.getElementById("phase-objective").textContent =
+      phase.obiettivo || phase.objective || "";
+
+    /* Status badge */
+    const badge = document.getElementById("phase-status-badge");
+    const st = (phase.status || phase.stato || "").toLowerCase();
+    badge.textContent = st || "—";
+    badge.className = "phase-status-badge " + (
+      ["complete","pronto","ok","pass","ready"].includes(st) ? "ok" :
+      ["running","attention","review","partial"].includes(st) ? "active" :
+      ["error","err","blocked","failed"].includes(st) ? "err" : "");
+
+    /* Meta grid */
+    const metaFields = [
+      ["Nome",       phase.name || phase.nome],
+      ["Obiettivo",  phase.obiettivo || phase.objective],
+      ["Stato",      phase.status || phase.stato],
+      ["Output",     phase.output],
+      ["Comando",    phase.comando],
+      ["Guida",      phase.guida],
+      ["Messaggio",  phase.message || phase.messaggio],
+      ["Fase ID",    phase.fase || phase.phase_id],
+    ].filter(([, v]) => v);
+
+    document.getElementById("phase-meta-grid").innerHTML = metaFields.map(([label, value]) => `
+      <div class="phase-detail-card">
+        <div class="card-label">${label}</div>
+        <div class="card-value ${["Comando","Guida","Output"].includes(label) ? "mono" : ""}">${value}</div>
+      </div>`).join("");
+
+    /* Output cards */
+    const outDiv = document.getElementById("phase-output-cards");
+    const summary = phase.summary || phase.payload || {};
+    const entries = Object.entries(summary);
+    if (entries.length) {
+      outDiv.innerHTML = entries.slice(0, 12).map(([k, v]) => {
+        const disp = typeof v === "object" ? JSON.stringify(v) : String(v);
+        return `
+          <div class="phase-detail-card">
+            <div class="card-label">${k}</div>
+            <div class="card-value mono">${disp.length > 140 ? disp.slice(0, 140) + "…" : disp}</div>
+          </div>`;
+      }).join("");
+    }
+
+    /* Raw fallback */
+    raw.textContent = JSON.stringify(phase, null, 2);
+
+  } catch (err) {
+    raw.textContent = "Errore: " + err.message;
+  }
+}
+
+(async function() {
+  const fill = document.getElementById("phase-pos-fill");
+  const n = parseInt(_PHASE_ID, 10);
+  if (fill) fill.style.width = n * 10 + "%";
+  const pct = document.getElementById("phase-pos-pct");
+  if (pct) pct.textContent = n * 10 + "%";
+  await Promise.all([loadPhaseDetail(), loadAlgoStrip()]);
+})();
+</script>
+
+{% endblock %}

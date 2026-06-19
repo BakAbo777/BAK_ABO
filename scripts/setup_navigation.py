@@ -110,7 +110,7 @@ MAIN_ITEMS = [
         {"title": "All products",  "url": f"{STORE}/collections/all"},
     ]},
     {"title": "Collections", "url": f"{STORE}/collections", "items": [
-        {"title": "Folklore",        "url": f"{STORE}/collections/bks-folklore"},
+        {"title": "Origin",          "url": f"{STORE}/collections/bks-origin"},
         {"title": "Glyph",           "url": f"{STORE}/collections/bks-glyph"},
         {"title": "Marker",          "url": f"{STORE}/collections/bks-marker"},
         {"title": "Riviera",         "url": f"{STORE}/collections/bks-riviera"},
@@ -120,9 +120,11 @@ MAIN_ITEMS = [
         {"title": "Hours",           "url": f"{STORE}/collections/bks-hours"},
         {"title": "All collections", "url": f"{STORE}/collections"},
     ]},
-    {"title": "Man",   "url": f"{STORE}/collections/sneakers"},
-    {"title": "Woman", "url": f"{STORE}/collections/one-piece-swimsuit"},
-    {"title": "About", "url": f"{STORE}/pages/about-bakabo"},
+    {"title": "Man",         "url": f"{STORE}/pages/bks-men"},
+    {"title": "Woman",       "url": f"{STORE}/pages/bks-woman"},
+    {"title": "BKS Members", "url": f"{STORE}/account"},
+    {"title": "AI Studio",   "url": f"{STORE}/pages/bks-ai-assistant"},
+    {"title": "About",       "url": f"{STORE}/pages/about-bakabo"},
 ]
 
 # Footer: sovrascrive il menu "footer" esistente (handle=footer)

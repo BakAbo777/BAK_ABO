@@ -78,7 +78,9 @@ class PrintifyClient:
     def list_products(self, shop_id: str, page: int = 1, limit: int = 50) -> dict[str, Any]:
         return self.request("GET", f"/shops/{shop_id}/products.json", params={"page": page, "limit": limit})
 
-    def iter_products(self, shop_id: str, *, max_pages: int = 40, limit: int = 50) -> list[dict[str, Any]]:
+    def iter_products(
+        self, shop_id: str, *, max_pages: int = 40, limit: int = 50, visible_only: bool = False
+    ) -> list[dict[str, Any]]:
         products: list[dict[str, Any]] = []
         for page in range(1, max(1, max_pages) + 1):
             data = self.list_products(shop_id, page=page, limit=limit)
@@ -90,6 +92,8 @@ class PrintifyClient:
             last_page = int(data.get("last_page", page) or page) if isinstance(data, dict) else page
             if page >= last_page:
                 break
+        if visible_only:
+            products = [p for p in products if p.get("visible")]
         return products
 
     def create_product(self, shop_id: str, payload: dict[str, Any]) -> dict[str, Any]:

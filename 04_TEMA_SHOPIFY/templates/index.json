@@ -1,0 +1,132 @@
+{
+  "sections": {
+    "bks_video_hero": {
+      "type": "bks-home-video-canvas",
+      "settings": {
+        "height": 95,
+        "headline": "Designed by AI.",
+        "cta_url": "/collections/all",
+        "cta_label": "Shop all collections"
+      }
+    },
+    "bks_magazine": {
+      "type": "bks-home-magazine",
+      "blocks": {
+        "spread_1": {
+          "type": "spread",
+          "settings": {
+            "collection_num": "01",
+            "title": "BKS Hours",
+            "tagline": "Measured urban stillness",
+            "description": "Architectural B&W photography and underground textures rendered in ink on cotton.",
+            "accent_color": "#c8c4be",
+            "url": "/collections/bks-hours",
+            "image": "shopify://shop_images/bks-hours-editorial.png"
+          }
+        },
+        "spread_2": {
+          "type": "spread",
+          "settings": {
+            "collection_num": "02",
+            "title": "BKS Origin",
+            "tagline": "Where it all began",
+            "description": "The founding collection. Raw nature, organic forms, and the green of new growth.",
+            "accent_color": "#489808",
+            "url": "/collections/bks-origin",
+            "image": "shopify://shop_images/bks-origin-editorial.png"
+          }
+        },
+        "spread_3": {
+          "type": "spread",
+          "settings": {
+            "collection_num": "03",
+            "title": "BKS Glyph",
+            "tagline": "Ancient marks, future fabric",
+            "description": "Symbols, scripts and ideographs from lost civilizations, translated into wearable art.",
+            "accent_color": "#d4a030",
+            "url": "/collections/bks-glyph",
+            "image": "shopify://shop_images/bks-glyph-editorial.png"
+          }
+        },
+        "spread_4": {
+          "type": "spread",
+          "settings": {
+            "collection_num": "04",
+            "title": "BKS Marker",
+            "tagline": "Urban codes, street grammar",
+            "description": "Typography and signal from the city surface — the language of the street printed on premium cotton.",
+            "accent_color": "#c04418",
+            "url": "/collections/bks-marker",
+            "image": "shopify://shop_images/bks-marker-editorial.png"
+          }
+        },
+        "spread_5": {
+          "type": "spread",
+          "settings": {
+            "collection_num": "05",
+            "title": "BKS Riviera",
+            "tagline": "Coast, light, velocity",
+            "description": "Mediterranean heat and motion. Teal waves and the geometry of speed.",
+            "accent_color": "#0ca898",
+            "url": "/collections/bks-riviera",
+            "image": "shopify://shop_images/bks-riviera-editorial.png"
+          }
+        },
+        "spread_6": {
+          "type": "spread",
+          "settings": {
+            "collection_num": "06",
+            "title": "BKS Pulse",
+            "tagline": "Frequencies",
+            "description": "Synth-wave patterns and energy fields from the electronic frontier — wearable sound.",
+            "accent_color": "#8888cc",
+            "url": "/collections/bks-pulse",
+            "image": "shopify://shop_images/bks-pulse-editorial.png"
+          }
+        },
+        "spread_7": {
+          "type": "spread",
+          "settings": {
+            "collection_num": "07",
+            "title": "BKS Token",
+            "tagline": "Digital artifacts",
+            "description": "Blockchain aesthetics, pixel folklore and the cryptographic imagination — art-on-chain meets fabric.",
+            "accent_color": "#9828d8",
+            "url": "/collections/bks-token",
+            "image": "shopify://shop_images/bks-token-puffer.png"
+          }
+        },
+        "spread_8": {
+          "type": "spread",
+          "settings": {
+            "collection_num": "08",
+            "title": "BKS Flag",
+            "tagline": "Manifesto",
+            "description": "Bold statements, political geometry and the iconography of resistance. Wear your position.",
+            "accent_color": "#c82020",
+            "url": "/collections/bks-flag",
+            "image": "shopify://shop_images/bks-flag-editorial.png"
+          }
+        }
+      },
+      "block_order": ["spread_1","spread_2","spread_3","spread_4","spread_5","spread_6","spread_7","spread_8"],
+      "settings": {
+        "cover_image": "shopify://shop_images/bks-magazine-cover.png",
+        "headline": "Eight worlds. One wardrobe.",
+        "show_pullquote": true,
+        "pullquote_letter": "B",
+        "pullquote_text": "L'intelligenza artificiale non sostituisce l'arte — la trasforma in qualcosa che non avremmo mai immaginato.",
+        "pullquote_attr": "Roberto Picchioni, BKS Studio"
+      }
+    },
+    "bks_reviews": {
+      "type": "bks-store-reviews",
+      "settings": {}
+    },
+    "bks_trust": {
+      "type": "bks-trust-strip",
+      "settings": {}
+    }
+  },
+  "order": ["bks_video_hero","bks_magazine","bks_reviews","bks_trust"]
+}

@@ -1,14 +1,10 @@
 # Fase 03 — Metafields e Metaobjects
 
-Obiettivo: creare/verificare definizioni BKS, metaobject e popolamento prodotti.
+Aggiornato 17 Giugno 2026.
 
-Launcher:
+Obiettivo: definizioni metafield BKS, metaobject `bks_collection`, popolamento prodotti.
 
-```bat
-03_START_METAFIELDS_RUNNER.bat
-```
-
-Ordine script:
+## Script (launcher rimosso)
 
 ```bat
 python tools\create_metafields.py
@@ -16,21 +12,39 @@ python tools\create_metaobjects.py
 python tools\populate_metafields.py --resume
 ```
 
-Nota: le definizioni Shopify native in namespace `shopify.*` possono restituire `access_denied`; non blocca i metafield BKS già creati.
+Nota: namespace `shopify.*` può restituire `access_denied` — non blocca i metafield BKS.
+
+## Output
+
+```text
+output/metafield_definitions_log.csv
+output/metaobjects_log.csv
+output/populate_metafields_log.csv
+```
 
 ## Metaobject `bks_collection`
 
-Campi minimi per la collection hero e la griglia editoriale:
-
 | Campo | Tipo Shopify | Uso nel tema |
-|---|---|---|
-| `name` | Single line text | Titolo editoriale della collezione |
+| --- | --- | --- |
+| `name` | Single line text | Titolo editoriale collezione |
 | `tagline` | Single line text | Descrizione breve nella hero |
 | `description` | Multi-line text | Descrizione editoriale principale |
-| `series` | Single line text | Registro/serie BKS |
-| `color_hex` | Color | Accento cromatico della collection signal |
-| `shopify_handle` | Single line text | Collegamento alla collezione Shopify |
-| `hero_image` | File reference | Immagine preview sopra il titolo |
-| `hero_video` | URL | Video preview/spot sopra il titolo |
+| `series` | Single line text | Registro interno BKS |
+| `color_hex` | Color | Accento collection signal CSS |
+| `shopify_handle` | Single line text | Collegamento alla collection Shopify |
+| `hero_image` | File reference | Immagine hero sopra il titolo |
+| `hero_video` | URL | Video preview (CDN Shopify URL) |
 
-Il tema mantiene fallback compatibili ai campi legacy `editorial_description`, `image` e `video`, ma i campi ufficiali BKS sono `hero_image` e `hero_video`.
+Campi ufficiali: `hero_image` e `hero_video`. Il tema mantiene fallback a `editorial_description`, `image`, `video` per compatibilità legacy.
+
+## Metafield pagine custom
+
+| Namespace | Key | Tipo | Pagine |
+| --- | --- | --- | --- |
+| `custom` | `special_abilities_text` | `list.single_line_text_field` | Tutte le pagine BKS |
+| `custom` | `visual_strength` | `single_line_text_field` | — |
+| `custom` | `hero_use` | `single_line_text_field` | — |
+| `custom` | `design_code` | `single_line_text_field` | — |
+| `custom` | `product_mood` | `single_line_text_field` | — |
+| `global` | `title_tag` | `string` | SEO title |
+| `global` | `description_tag` | `string` | SEO description |

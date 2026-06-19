@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "collections_hub": {
+      "type": "bks-collections-hub",
+      "settings": {
+        "headline": "The Collections",
+        "subtitle": "Eight visual systems. Designed for print-on-demand outerwear, swim, footwear and accessories.",
+        "bg_color": "#FAFAF7",
+        "dark_mode": false
+      }
+    }
+  },
+  "order": ["collections_hub"]
+}

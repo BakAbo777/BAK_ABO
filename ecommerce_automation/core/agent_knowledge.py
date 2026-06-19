@@ -103,7 +103,7 @@ def _entries_from_snapshot(snapshot: dict[str, Any]) -> list[dict[str, Any]]:
     entries: list[dict[str, Any]] = []
     for key in (
         "google",
-        "trust",
+        "trust_contract",   # was "trust" — snapshot key is trust_contract
         "marketing_logic",
         "market",
         "payments",
@@ -120,6 +120,12 @@ def _entries_from_snapshot(snapshot: dict[str, Any]) -> list[dict[str, Any]]:
         "photo_studio",
         "theme_assistant",
         "dialogic",
+        "catalog_sync",
+        "canva",
+        "hyperframes",
+        "skills",
+        "openai_alliance",
+        "sales_channels",
     ):
         data = snapshot.get(key, {})
         summary = data.get("summary", {}) if isinstance(data, dict) else {}

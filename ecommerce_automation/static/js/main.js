@@ -30,7 +30,7 @@ function connectionState(configured) {
     };
   }
   const status = configured.status || (configured.configured ? "configured" : "missing");
-  const connected = Boolean(configured.configured) && !["offline", "missing", "missing_key", "needs_config", "error", "suspended", "limited", "needs_review"].includes(status);
+  const connected = Boolean(configured.configured) && !["offline", "missing", "missing_key", "missing_api_key", "missing_webhook_url", "not_configured", "needs_config", "error", "suspended", "limited", "needs_review"].includes(status);
   const details = Object.entries(configured)
     .filter(([key]) => !["configured", "status"].includes(key))
     .map(([key, value]) => `${key}: ${typeof value === "object" ? JSON.stringify(value) : value}`)

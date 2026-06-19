@@ -12,7 +12,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from bks_assets import active_catalog_csv, relative_to_base, save_active_assets  # noqa: E402
+from bks_assets import active_catalog_csv, active_catalog_db, relative_to_base, save_active_assets  # noqa: E402
+from ecommerce_automation.catalog_db import export_csv_for_shopify, migrate_rows  # noqa: E402
 
 
 COLLECTION_TO_SERIES = {
@@ -255,7 +256,11 @@ def enrich(input_path: Path, output_path: Path, report_path: Path) -> tuple[int,
         if not reader.fieldnames:
             raise ValueError(f"CSV senza header: {input_path}")
         fieldnames = reader.fieldnames
-        rows = list(reader)
+        # Righe con tag HTML nell'Handle sono frammenti del blocco di compliance
+        # GPSR (Printify) finiti fuori posto per virgolette CSV perse a monte,
+        # non prodotti reali: scartarle evita sia righe spazzatura in output
+        # sia il crash di DictWriter sui campi extra che generano.
+        rows = [row for row in reader if "<" not in (row.get("Handle") or "")]
 
     product_titles: dict[str, str] = {}
     for row in rows:
@@ -373,11 +378,11 @@ def enrich(input_path: Path, output_path: Path, report_path: Path) -> tuple[int,
             )
         output_rows.append(fixed)
 
+    db_path = active_catalog_db()
+    migrate_rows(output_rows, fieldnames, db_path, source=input_path.name)
+    save_active_assets(catalog_db=db_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    with output_path.open("w", encoding="utf-8-sig", newline="") as dest:
-        writer = csv.DictWriter(dest, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(output_rows)
+    export_csv_for_shopify(db_path, output_path)
 
     report_path.parent.mkdir(parents=True, exist_ok=True)
     with report_path.open("w", encoding="utf-8-sig", newline="") as report:

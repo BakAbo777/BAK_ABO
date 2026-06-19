@@ -28,8 +28,8 @@ def find_latest_csv() -> Path | None:
 def main() -> None:
     latest = find_latest_csv()
     if latest is None:
-        print("ERRORE: Nessun CSV trovato in archivio/, collezioni_csv/, input/")
-        sys.exit(1)
+        print("ATTENZIONE: Nessun CSV trovato in archivio/, collezioni_csv/, input/")
+        sys.exit(2)  # codice 2 = no CSV (gestito dal bat con messaggio friendly)
 
     print(f"CSV trovato: {latest}")
 

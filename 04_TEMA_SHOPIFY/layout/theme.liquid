@@ -46,12 +46,22 @@
         "name": "BKS Studio",
         "alternateName": "BakAbo",
         "url": "{{ request.origin }}",
-        "brand": {
-          "@type": "Brand",
-          "name": "BakAbo"
+        "logo": "{{ request.origin }}/cdn/shop/files/bakabo-logo.png",
+        "email": "crew@bakabo.club",
+        "brand": { "@type": "Brand", "name": "BakAbo" },
+        "sameAs": [
+          "https://www.instagram.com/bakabo.club",
+          "https://www.facebook.com/bakabo.club"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "email": "crew@bakabo.club",
+          "availableLanguage": ["Italian", "English"]
         }
       }
     </script>
+    {%- render 'bks-json-ld' -%}
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
@@ -315,10 +325,14 @@
       --bks-mocha:   #443C3C;
     }
   </style>
+  {{ 'bks-dynamic-theme.css' | asset_url | stylesheet_tag }}
   {{ 'bks-commerce-light.css' | asset_url | stylesheet_tag }}
   {{ 'bks-theme-effects.css' | asset_url | stylesheet_tag }}
+  {{ 'bks-responsive.css' | asset_url | stylesheet_tag }}
+  {{ 'bks-cart.css' | asset_url | stylesheet_tag }}
+  {%- render 'bks-ai-context' -%}
 </head>
-  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+  <body class="gradient template-{{ template.name | replace: ' ', '-' | downcase }}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     {%- comment -%} Judge.me floating popup widget {%- endcomment -%}
     {%- render 'judgeme-widgets', widget_type: 'popup_widget' -%}
     <!-- Google Tag Manager (noscript) -->
@@ -391,7 +405,10 @@
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
     <!-- GA4 e Google Ads gestiti via GTM-PF5Z85KS per evitare doppio firing -->
-  
+    <script src="{{ 'bks-dynamic-ux.js' | asset_url }}" defer="defer"></script>
+    {{ 'bks-member.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'bks-member.js' | asset_url }}" defer="defer"></script>
   {%- section 'bks-ai-assistant' -%}
+  {%- render 'bks-gdpr-banner' -%}
 </body>
 </html>

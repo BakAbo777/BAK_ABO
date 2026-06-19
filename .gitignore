@@ -1,6 +1,7 @@
 .env
 .env.*
 !.env.example
+.streamlit/secrets.toml
 
 __pycache__/
 *.py[cod]
@@ -31,6 +32,17 @@ Video_Avatar/
 BAKABO_IMAGE_FACTORY_v1.1/output/
 BAKABO_IMAGE_FACTORY_v1.1/runs/
 BAKABO_IMAGE_FACTORY_v1.1/temp/
+
+# Generated theme merges
+04_TEMA_SHOPIFY/_merged_tm04/
+
+# User session data
+members_tryon/
+tryon_engine/
+
+# Backup archives and error logs
+BACKUP_ZIP/
+_err.txt
 
 *.zip
 *.msi

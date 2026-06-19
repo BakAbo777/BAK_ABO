@@ -6,6 +6,9 @@ from pathlib import Path
 from typing import Any
 
 
+BAKABO_STORE_DOMAIN = "bakabo.club"
+BKS_TM04_THEME_ID = "202392961362"
+
 GOALS_FILE = Path("output/weekly_minimum_goals.csv")
 
 
@@ -62,9 +65,9 @@ GOAL_SPECS: tuple[dict[str, str], ...] = (
     {
         "id": "weekly_theme",
         "area": "Theme",
-        "minimum": "Theme patch reviewed for readability and trust.",
+        "minimum": "TM04 live theme reviewed: trust strip, editorial grid, Metal tier, timed offer.",
         "verify_from": "theme.summary",
-        "target": "LIGHT_TRUST_TIMER_READY zip generated",
+        "target": "TM04 live on bakabo.club — status ready",
     },
     {
         "id": "weekly_market",
@@ -191,6 +194,8 @@ def payload(settings: Any, snapshot: dict[str, Any]) -> dict[str, Any]:
             "pass": sum(1 for row in rows if row["status"] == "pass"),
             "needs_attention": sum(1 for row in rows if row["status"] != "pass"),
             "sheet": _relative(settings.root_dir, path),
+            "store": BAKABO_STORE_DOMAIN,
+            "trust_gate": "trust_foundation",
         },
         "rows": rows,
     }

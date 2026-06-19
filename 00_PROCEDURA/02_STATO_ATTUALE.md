@@ -1,10 +1,8 @@
-# Stato Attuale
+# Stato Attuale — BKS Studio / bakabo.club
 
-Aggiornato: 2026-06-09
+Aggiornato: 2026-06-17
 
 ## Domini Shopify
-
-Da screenshot Shopify Admin:
 
 | Dominio | Stato |
 |---|---|
@@ -14,82 +12,109 @@ Da screenshot Shopify Admin:
 | `www.bakabo.club` | Connected |
 | `account.bakabo.club` | Customer Account Primary, Connected |
 
-## Analytics / Tag Manager
+## Tema live
 
-Da screenshot Google:
+| Campo | Valore |
+|---|---|
+| ID | `202392961362` |
+| Nome | BKS TM04 MEMBER TIER + SHOPPER 17JUN2026 |
+| Ruolo | main (pubblicato) |
+| Sorgente locale | `04_TEMA_SHOPIFY/_merged_tm04/` |
+| Script deploy | `scripts/deploy_theme_section.py` |
+| GTM | `GTM-PF5Z85KS` (live nel tema) |
+| Lingua | Inglese unico (`locales/it.json` sovrascritto) |
+
+## Stato sito live (17 Giugno 2026)
+
+- Tutte le 8 collezioni editorial rispondono `200`
+- Tutte le 18 collection product type attive e raggiungibili
+- GTM `GTM-PF5Z85KS` live e attivo
+- Area member live con metal tier system (Lead/Iron/Brass/Silver/Gold)
+- Try-On Camerino accessibile da mobile (Brass+)
+- BKS Shopping Guide live: `bakabo.club/pages/bks-shopping-guide`
+- Help FAQ live in inglese: `bakabo.club/pages/help-faq`
+- Selettore lingua rimosso (MutationObserver attivo nell'header)
+
+## Catalogo
+
+| Campo | Valore |
+|---|---|
+| CSV attivo | `collezioni_csv/collezione 12_06_2026_SHOPIFY_IMPORT_READY_SEO_TAGS_READY.csv` |
+| DB SQLite | `collezioni_csv/bks_catalog.db` |
+| Prodotti live | ~189 (8 collezioni × product type) |
+| Fonte di verità | DB SQLite — CSV è export derivato |
+
+## Analytics / Tag Manager
 
 | Elemento | Valore |
 |---|---|
 | Account Analytics | `Roberto Picchioni architetto` |
 | Account ID | `252970033` |
-| Proprietà selezionata | `bakabo-9a8c5` |
-| Property ID visibile | `483501489` |
-| Container GTM | `www.bakabo.club` |
-| Container ID | `GTM-PF5Z85KS` |
-| Tipo container | Web |
-
-Snapshot Analytics visibile:
-
-| Metrica | Valore |
-|---|---:|
-| Utenti attivi ultimi 7 giorni | 89 |
-| Sessioni ultimi 7 giorni | 97 |
-| Visualizzazioni ultimi 7 giorni | 200 |
-| Conteggio eventi ultimi 7 giorni | 453 |
+| Property | `bakabo-9a8c5` — ID `483501489` |
+| GTM Container | `GTM-PF5Z85KS` — `www.bakabo.club` |
 
 ## Google Merchant Center
-
-Da screenshot Merchant Center Next:
 
 | Elemento | Valore |
 |---|---|
 | Account | `bakabo.club` |
 | Merchant Center ID | `5295165689` |
-| Dati inventario locale mancanti | 68,3K prodotti, 95,1% |
-| Pagina prodotto non disponibile | 8,39K prodotti, 11,7% |
-| Esempio aggiuntivo | `Taglia mancante` su un prodotto campione |
 
-Interpretazione: molte segnalazioni sono tracce di prodotti eliminati dalla collezione ma non ancora reindicizzati da Google. Dopo publish pulito, controllare feed/sitemap e richiedere nuovo controllo del sito da Merchant Center.
+Stato: feed e sitemap da riverificare dopo i deploy di giugno. Richiedere nuovo controllo sito da Merchant Center. Vedi task pendenti in `project_bks_pending.md`.
 
-## Nota Live Sito
+## 8 Collezioni permanenti (stato 17/06)
 
-Il crawl pubblico del 2026-06-09 mostra che il live pubblicato non è ancora allineato al tema locale V20:
+| Collezione | Handle | Colore | Stato |
+| --- | --- | --- | --- |
+| BKS Hours | `bks-hours` | `#c8c4be` | Live |
+| BKS Glyph | `bks-glyph` | `#d4a030` | Live |
+| BKS Marker | `bks-marker` | `#c04418` | Live |
+| BKS Riviera | `bks-riviera` | `#0ca898` | Live |
+| BKS Pulse | `bks-pulse` | `#8888cc` | Live |
+| BKS Token | `bks-token` | `#9828d8` | Live |
+| BKS Flag | `bks-flag` | `#c82020` | Live |
+| BKS Origin | `bks-origin` | `#489808` | Live (ex Folklore, rinominato 16/06) |
 
-- Home e collection editoriali rispondono `200`.
-- GTM live ancora `GTM-M4ND7QL`; il tema locale pronto usa `GTM-PF5Z85KS`.
-- Le collection prodotto/navigazione nuove (`swimwear`, `outerwear`, `sneakers`, `puffer-jacket`, `windbreaker`, `backpack`) sono ancora `404` live.
-- Alcune pagine/policy hanno restituito `429 Verifying your connection` durante il crawl automatico; verificare da browser dopo publish.
+## Member Area — Metal Tier System
 
-Il tema locale V20 è stato aggiornato, ma va caricato/pubblicato per sostituire il live.
+| Tier | Simbolo | Acquisti | Accesso chiave |
+| --- | --- | --- | --- |
+| Lead | ◎ | 0 | Wishlist, newsletter |
+| Iron | ⬡ | 1–2 | Size history, raccomandazioni base |
+| Brass | ◈ | 3–5 | AI Personal Shopper, Try-On Camerino |
+| Silver | ◇ | 6–10 | Drop anticipati +24h, Archive completo |
+| Gold | ✦ | 11+ | VIP private drops, white-glove curation |
 
-## Tema Locale Corrente
+Tier rilevato automaticamente da `customer.orders_count` — nessun tag manuale.
+Skill: `BKS_SKILL/members/bks-member-marketing.json`
 
-```text
-output/BKS_V20_TEXTS_COLOR_READY.zip
-```
+## Pagine live custom
 
-Contiene:
-
-- `GTM-PF5Z85KS` come GTM unico nel tema.
-- Google Fonts Bebas Neue, DM Sans, DM Mono.
-- token CSS BKS estesi.
-- EU Representative nel footer.
-- rimozione `bks.series` dalla UI cliente.
-- template pagina puliti per About, FAQ, policy.
-- media wrappers transparent-friendly.
+| Pagina | Handle | Template |
+| --- | --- | --- |
+| Member Area | `bks-members` | `page.bks-members` |
+| AI Assistant | `bks-ai-assistant` | `page.bks-ai-assistant` |
+| Shopping Guide | `bks-shopping-guide` | `page.bks-shopping-guide` |
+| Help FAQ | `help-faq` | `page.help-faq` |
+| Custom Request | `bks-custom` | `page.bks-custom` |
 
 ## OpenAI Immagini
 
-Il cruscotto `02_START_COLLECTIONS_DASHBOARD.bat` include il tab `05 Immagini AI`:
+```bat
+python tools\generate_openai_image.py --prompt-file output\openai_image_prompts\bks-hours.txt --name bks-hours-hero --size 1024x1536 --quality medium
+```
 
-- prompt base per ogni collection;
-- prompt modificabile;
-- salvataggio in `output/openai_image_prompts/`;
-- generazione opzionale con `OPENAI_API_KEY`;
-- output in `output/openai_images/`.
+Output: `output/openai_images/`
+Prompt salvati: `output/openai_image_prompts/`
 
-## Sorgenti Skill
+## Skill AI attive
 
-- `docs/bakabo-web-experience_SKILL.md`
-- `docs/bakabo-armocromia_SKILL.md`
-- `docs/BKS_V20_AUDIT.md`
+```text
+BKS_SKILL/skills/          15 skill di dominio
+BKS_SKILL/members/         bks-member-marketing.json (metal tier, personal shopper)
+BKS_SKILL/business/        bakabo-business.json
+BKS_SKILL/size_guides/     man.json, woman.json
+BKS_SKILL/theme/           bks-tm04-theme-skill.md
+docs/                      skill referenziate dall'agente Python
+ecommerce_automation/      theme_ai_assistant.py (system prompt AI)
+```

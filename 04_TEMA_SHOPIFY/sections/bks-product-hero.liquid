@@ -1,0 +1,361 @@
+{% comment %}
+  BKS PRODUCT HERO — accent-color hero per pagina prodotto
+  Auto-rileva il colore della collezione BKS da product.collections
+  Override manuale via color picker nel theme editor
+  Layout: testo sinistra / immagine prodotto destra (con fondo accent — il bianco del prodotto ritagliato prende il colore della pagina)
+{% endcomment %}
+
+{%- liquid
+  assign accent_color = section.settings.accent_color | default: '#C9B79C'
+  assign override_set = false
+  if section.settings.accent_color != '#C9B79C' and section.settings.accent_color != blank
+    assign override_set = true
+  endif
+
+  unless override_set
+    for coll in product.collections
+      assign ch = coll.handle
+      if ch == 'bks-hours'
+        assign accent_color = '#c8c4be'
+        break
+      elsif ch == 'bks-origin'
+        assign accent_color = '#489808'
+        break
+      elsif ch == 'bks-glyph'
+        assign accent_color = '#d4a030'
+        break
+      elsif ch == 'bks-marker'
+        assign accent_color = '#c04418'
+        break
+      elsif ch == 'bks-riviera'
+        assign accent_color = '#0ca898'
+        break
+      elsif ch == 'bks-pulse'
+        assign accent_color = '#8888cc'
+        break
+      elsif ch == 'bks-token'
+        assign accent_color = '#9828d8'
+        break
+      elsif ch == 'bks-flag'
+        assign accent_color = '#c82020'
+        break
+      endif
+    endfor
+  endunless
+
+  assign text_on_dark = section.settings.text_on_dark
+  assign hero_image   = section.settings.hero_image | default: product.featured_image
+  assign collection_name = ''
+  for coll in product.collections
+    if coll.handle contains 'bks-'
+      assign collection_name = coll.title
+      break
+    endif
+  endfor
+-%}
+
+<style>
+  #bks-ph-{{ section.id }} {
+    --bks-ph-accent: {{ accent_color }};
+    --bks-ph-text:   {% if text_on_dark %}#fafaf7{% else %}#0a0a0a{% endif %};
+    --bks-ph-muted:  {% if text_on_dark %}rgba(250,250,247,0.65){% else %}rgba(10,10,10,0.5){% endif %};
+    background: var(--bks-ph-accent);
+    position: relative;
+    overflow: hidden;
+  }
+  /* Grain texture */
+  #bks-ph-{{ section.id }}::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.3'/%3E%3C/svg%3E");
+    opacity: 0.06;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    z-index: 1;
+  }
+  #bks-ph-{{ section.id }} .bks-ph__inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: {{ section.settings.min_height | default: 460 }}px;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 clamp(16px, 3vw, 48px);
+  }
+  /* Copy column */
+  #bks-ph-{{ section.id }} .bks-ph__copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(40px, 6vw, 80px) clamp(24px, 3vw, 56px) clamp(40px, 6vw, 80px) 0;
+    color: var(--bks-ph-text);
+  }
+  #bks-ph-{{ section.id }} .bks-ph__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bks-ph-muted);
+    margin-bottom: 14px;
+  }
+  #bks-ph-{{ section.id }} .bks-ph__badge::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--bks-ph-text);
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+  #bks-ph-{{ section.id }} .bks-ph__title {
+    font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
+    font-size: clamp(3.2rem, 7vw, 7rem);
+    line-height: 0.9;
+    letter-spacing: 0.01em;
+    color: var(--bks-ph-text);
+    margin: 0 0 18px;
+  }
+  #bks-ph-{{ section.id }} .bks-ph__type {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--bks-ph-muted);
+    margin: 0 0 20px;
+  }
+  #bks-ph-{{ section.id }} .bks-ph__rule {
+    width: 40px;
+    height: 3px;
+    background: {% if text_on_dark %}rgba(250,250,247,0.35){% else %}rgba(0,0,0,0.22){% endif %};
+    display: block;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+  }
+  #bks-ph-{{ section.id }} .bks-ph__desc {
+    font-family: var(--bks-font-body, 'DM Sans', sans-serif);
+    font-size: clamp(0.88rem, 1.1vw, 1rem);
+    line-height: 1.68;
+    color: var(--bks-ph-muted);
+    max-width: 46ch;
+    margin: 0 0 28px;
+  }
+  #bks-ph-{{ section.id }} .bks-ph__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--bks-ph-text);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+    width: fit-content;
+    transition: opacity 0.2s;
+  }
+  #bks-ph-{{ section.id }} .bks-ph__link:hover { opacity: 0.6; }
+  /* Image column — product on accent bg (white-bg cutout effect) */
+  #bks-ph-{{ section.id }} .bks-ph__image-col {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: visible;
+  }
+  #bks-ph-{{ section.id }} .bks-ph__img {
+    width: 100%;
+    max-width: 520px;
+    height: {{ section.settings.min_height | default: 460 }}px;
+    object-fit: contain;
+    object-position: center bottom;
+    display: block;
+    /* No filter — white-bg product images show as "floating on color" */
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.18));
+  }
+  /* 3px accent bars top + bottom */
+  #bks-ph-{{ section.id }} .bks-ph__bar-top,
+  #bks-ph-{{ section.id }} .bks-ph__bar-bottom {
+    position: absolute;
+    left: 0; right: 0;
+    height: 3px;
+    display: flex;
+    gap: 3px;
+    z-index: 3;
+  }
+  #bks-ph-{{ section.id }} .bks-ph__bar-top  { top: 0; }
+  #bks-ph-{{ section.id }} .bks-ph__bar-bottom { bottom: 0; }
+  #bks-ph-{{ section.id }} .bks-ph__bar-top span,
+  #bks-ph-{{ section.id }} .bks-ph__bar-bottom span { flex: 1; display: block; }
+
+  @media (max-width: 900px) {
+    #bks-ph-{{ section.id }} .bks-ph__inner {
+      grid-template-columns: 1fr;
+    }
+    #bks-ph-{{ section.id }} .bks-ph__image-col {
+      min-height: 280px;
+      order: -1;
+    }
+    #bks-ph-{{ section.id }} .bks-ph__img {
+      height: 280px;
+      max-width: 100%;
+    }
+    #bks-ph-{{ section.id }} .bks-ph__copy {
+      padding: 28px 0 40px;
+    }
+    #bks-ph-{{ section.id }} .bks-ph__title {
+      font-size: clamp(2.8rem, 12vw, 5rem);
+    }
+  }
+</style>
+
+<div id="bks-ph-{{ section.id }}" class="bks-product-hero">
+
+  {%- comment -%} 8-colour accent bar top {%- endcomment -%}
+  <div class="bks-ph__bar-top" aria-hidden="true">
+    <span style="background:#c8c4be"></span>
+    <span style="background:#489808"></span>
+    <span style="background:#d4a030"></span>
+    <span style="background:#c04418"></span>
+    <span style="background:#0ca898"></span>
+    <span style="background:#8888cc"></span>
+    <span style="background:#9828d8"></span>
+    <span style="background:#c82020"></span>
+  </div>
+
+  <div class="bks-ph__inner">
+
+    {%- comment -%} COPY {%- endcomment -%}
+    <div class="bks-ph__copy">
+
+      {%- if collection_name != '' -%}
+        <p class="bks-ph__badge">
+          BKS Studio
+          <span style="opacity:0.35;margin:0 4px">·</span>
+          {{ collection_name }}
+        </p>
+      {%- else -%}
+        <p class="bks-ph__badge">BKS Studio — AI-Art Atelier</p>
+      {%- endif -%}
+
+      <h1 class="bks-ph__title">{{ product.title }}</h1>
+
+      {%- if product.type != blank -%}
+        <p class="bks-ph__type">{{ product.type }}</p>
+      {%- endif -%}
+
+      <span class="bks-ph__rule"></span>
+
+      {%- assign editorial = section.settings.editorial_text -%}
+      {%- if editorial != blank -%}
+        <p class="bks-ph__desc">{{ editorial }}</p>
+      {%- elsif product.description != blank -%}
+        <p class="bks-ph__desc">{{ product.description | strip_html | truncate: 220 }}</p>
+      {%- endif -%}
+
+      {%- if collection_name != '' -%}
+        {%- assign coll_url = '' -%}
+        {%- for coll in product.collections -%}
+          {%- if coll.handle contains 'bks-' -%}
+            {%- assign coll_url = coll.url -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if coll_url != '' -%}
+          <a href="{{ coll_url }}" class="bks-ph__link">
+            {{ collection_name }} collection
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
+          </a>
+        {%- endif -%}
+      {%- endif -%}
+
+    </div>
+
+    {%- comment -%} PRODUCT IMAGE on accent background {%- endcomment -%}
+    <div class="bks-ph__image-col">
+      {%- if hero_image != blank -%}
+        <img
+          class="bks-ph__img"
+          src="{{ hero_image | image_url: width: 900 }}"
+          alt="{{ product.title | escape }}"
+          width="{{ hero_image.width }}"
+          height="{{ hero_image.height }}"
+          loading="eager"
+          fetchpriority="high"
+        >
+      {%- endif -%}
+    </div>
+
+  </div>
+
+  {%- comment -%} 8-colour accent bar bottom {%- endcomment -%}
+  <div class="bks-ph__bar-bottom" aria-hidden="true">
+    <span style="background:#c8c4be"></span>
+    <span style="background:#489808"></span>
+    <span style="background:#d4a030"></span>
+    <span style="background:#c04418"></span>
+    <span style="background:#0ca898"></span>
+    <span style="background:#8888cc"></span>
+    <span style="background:#9828d8"></span>
+    <span style="background:#c82020"></span>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "BKS Product Hero",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Colore accent (override auto)",
+      "default": "#C9B79C",
+      "info": "Auto-rilevato dalla collezione BKS. Cambia solo per override manuale. Hours #c8c4be · Origin #489808 · Glyph #d4a030 · Marker #c04418 · Riviera #0ca898 · Pulse #8888cc · Token #9828d8 · Flag #c82020"
+    },
+    {
+      "type": "checkbox",
+      "id": "text_on_dark",
+      "label": "Testo chiaro (su sfondo scuro)",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Immagine hero (override)",
+      "info": "Default: immagine principale del prodotto"
+    },
+    {
+      "type": "textarea",
+      "id": "editorial_text",
+      "label": "Testo editoriale",
+      "info": "Override della descrizione prodotto per il hero. Max 3 righe."
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 300,
+      "max": 680,
+      "step": 20,
+      "unit": "px",
+      "label": "Altezza minima sezione",
+      "default": 460
+    }
+  ],
+  "presets": [
+    {
+      "name": "BKS Product Hero"
+    }
+  ]
+}
+{% endschema %}

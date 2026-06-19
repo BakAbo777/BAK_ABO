@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BKS Studio — Magazine Editorial Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,700&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --paper: #fafaf7;
+  --bone:  #efeae0;
+  --ink:   #0a0a0a;
+  --sand:  #c9b79c;
+  --muted: rgba(10,10,10,0.48);
+  --F: 'Bebas Neue', sans-serif;
+  --B: 'DM Sans', sans-serif;
+  --M: 'DM Mono', monospace;
+}
+body { background: var(--paper); font-family: var(--B); overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+img { display: block; width: 100%; object-fit: cover; }
+
+/* ── HEADER ── */
+.H {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 99;
+  height: 58px; display: flex; align-items: center;
+  padding: 0 clamp(16px,4vw,72px);
+  background: rgba(10,10,10,0.82); backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(250,250,247,0.07);
+  justify-content: space-between;
+}
+.H__logo { font-family: var(--M); font-size: 0.68rem; letter-spacing: 0.22em; color: var(--paper); font-weight: 600; }
+.H__logo em { color: var(--sand); font-style: normal; }
+.H__nav { display: flex; gap: 28px; }
+.H__nav a { font-family: var(--M); font-size: 0.80rem; letter-spacing: 0.10em; color: rgba(250,250,247,0.52); text-transform: uppercase; }
+.H__nav a:hover { color: var(--paper); }
+.H__right { display: flex; gap: 20px; }
+.H__right a { font-family: var(--M); font-size: 0.72rem; letter-spacing: 0.10em; color: rgba(250,250,247,0.45); text-transform: uppercase; }
+
+/* ── 1. COPERTINA — Magazine Cover ── */
+.cover {
+  position: relative; width: 100%; min-height: 100vh;
+  background: #0a0a0a; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding-bottom: 0;
+}
+.cover__photo {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(10,10,10,0.10) 0%, rgba(10,10,10,0.08) 30%, rgba(10,10,10,0.85) 75%, #0a0a0a 100%),
+    linear-gradient(to right, rgba(10,10,10,0.72) 0%, rgba(10,10,10,0.05) 55%),
+    /* Editorial image placeholder — replace with actual product image */
+    repeating-linear-gradient(
+      45deg,
+      #141210 0, #141210 2px,
+      #0a0a0a 2px, #0a0a0a 40px
+    );
+  opacity: 1;
+}
+.cover__photo-img {
+  position: absolute; inset: 0;
+  background: url('https://cdn.shopify.com/s/files/1/0793/6898/2562/files/bks-marker-windbreaker-graphic-source-4x5-bks-marker-windbreaker-graphic-gallery-1.jpg') 60% 30% / cover no-repeat;
+  opacity: 0.55;
+  mix-blend-mode: luminosity;
+}
+/* Grain */
+.cover::after {
+  content:''; position: absolute; inset: -50%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity: 0.055; pointer-events: none; z-index: 1;
+}
+/* Masthead — rivista header */
+.cover__mast {
+  position: absolute; top: 72px; left: clamp(16px,4vw,72px); right: clamp(16px,4vw,72px);
+  display: flex; justify-content: space-between; align-items: flex-start; z-index: 3;
+}
+.cover__mast-l { display: flex; flex-direction: column; gap: 4px; }
+.cover__mast-title { font-family: var(--M); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.28em; color: rgba(250,250,247,0.52); text-transform: uppercase; }
+.cover__mast-issue { font-family: var(--M); font-size: 0.60rem; letter-spacing: 0.14em; color: rgba(250,250,247,0.28); }
+.cover__mast-bar { width: 1px; height: 80px; background: rgba(250,250,247,0.12); align-self: center; }
+.cover__mast-r { font-family: var(--M); font-size: 0.60rem; letter-spacing: 0.14em; color: rgba(250,250,247,0.28); text-align: right; line-height: 1.8; }
+
+/* Main headline */
+.cover__body { position: relative; z-index: 3; padding: 0 clamp(16px,4vw,72px) 0; }
+.cover__kicker {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+}
+.cover__kicker::before { content:''; display:block; width:28px; height:2px; background: var(--sand); }
+.cover__kicker span { font-family: var(--M); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.30em; color: var(--sand); text-transform: uppercase; }
+.cover__title {
+  font-family: var(--F);
+  font-size: clamp(5rem,16vw,17rem);
+  line-height: 0.83;
+  color: var(--paper);
+  letter-spacing: -0.01em;
+  margin-bottom: 0;
+}
+.cover__title .line2 { display: block; color: var(--sand); }
+
+/* Cover bottom band — 8 collections as magazine contents */
+.cover__band {
+  position: relative; z-index: 3;
+  margin-top: 36px;
+  border-top: 1px solid rgba(250,250,247,0.10);
+  display: grid; grid-template-columns: repeat(8,1fr);
+}
+.cover__band-item {
+  padding: 18px 0; text-align: center;
+  border-right: 1px solid rgba(250,250,247,0.06);
+  position: relative;
+}
+.cover__band-item:last-child { border-right: none; }
+.cover__band-n { display: block; font-family: var(--M); font-size: 0.55rem; letter-spacing: 0.16em; color: rgba(250,250,247,0.28); margin-bottom: 4px; }
+.cover__band-name { font-family: var(--F); font-size: 1.1rem; letter-spacing: 0.02em; color: rgba(250,250,247,0.72); }
+.cover__band-accent { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; }
+.c-hours   .cover__band-accent { background:#c8c4be; }
+.c-origin  .cover__band-accent { background:#489808; }
+.c-glyph   .cover__band-accent { background:#d4a030; }
+.c-marker  .cover__band-accent { background:#c04418; }
+.c-riviera .cover__band-accent { background:#0ca898; }
+.c-pulse   .cover__band-accent { background:#8888cc; }
+.c-token   .cover__band-accent { background:#9828d8; }
+.c-flag    .cover__band-accent { background:#c82020; }
+
+/* ── 2. SPREAD EDITORIALE — Asymmetric editorial opening ── */
+.spread {
+  display: grid; grid-template-columns: 5fr 7fr;
+  min-height: 80vh; background: var(--paper);
+}
+@media(max-width:768px){ .spread { grid-template-columns: 1fr; } }
+.spread__left {
+  padding: clamp(48px,7vw,96px) clamp(24px,4vw,72px);
+  display: flex; flex-direction: column; justify-content: space-between;
+  border-right: 1px solid rgba(10,10,10,0.08);
+}
+.spread__right {
+  background: var(--bone);
+  position: relative; overflow: hidden;
+  min-height: 500px;
+}
+.spread__right-img {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg,
+    #1a1008 0%, #2a1f10 25%, #3a2a18 50%, #2a1f10 75%, #1a1008 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.spread__right-img::after {
+  content: '[IMMAGINE EDITORIALE]';
+  font-family: var(--M); font-size: 0.62rem; letter-spacing: 0.14em;
+  color: rgba(250,250,247,0.2); text-transform: uppercase;
+}
+.spread__kicker {
+  font-family: var(--M); font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.28em; color: var(--sand); text-transform: uppercase;
+  display: flex; align-items: center; gap: 10px; margin-bottom: 32px;
+}
+.spread__kicker::before { content:''; display:block; width:20px; height:2px; background:currentColor; }
+.spread__headline {
+  font-family: var(--F);
+  font-size: clamp(3.8rem,7vw,8.5rem);
+  line-height: 0.88; color: var(--ink); letter-spacing: -0.01em;
+  margin-bottom: 32px;
+}
+.spread__body {
+  font-size: 1rem; line-height: 1.72; color: var(--muted);
+  max-width: 36ch; margin-bottom: 40px;
+}
+.spread__stats {
+  display: flex; gap: 40px;
+  padding-top: 24px; border-top: 1px solid rgba(10,10,10,0.10);
+}
+.spread__stat strong { font-family: var(--F); font-size: 3.5rem; color: var(--ink); display: block; line-height: 1; }
+.spread__stat span { font-family: var(--M); font-size: 0.62rem; letter-spacing: 0.14em; color: var(--muted); text-transform: uppercase; }
+/* Issue annotation right panel */
+.spread__right-caption {
+  position: absolute; bottom: 32px; left: 32px;
+  font-family: var(--M); font-size: 0.60rem; letter-spacing: 0.14em;
+  color: rgba(250,250,247,0.4); text-transform: uppercase; line-height: 1.8;
+}
+
+/* ── 3. SOMMARIO — Magazine Contents / Collections Index ── */
+.sommario { background: var(--ink); padding: clamp(56px,8vw,100px) clamp(16px,4vw,72px); }
+.sommario__head {
+  display: grid; grid-template-columns: 1fr auto;
+  align-items: baseline; padding-bottom: 20px;
+  border-bottom: 1px solid rgba(250,250,247,0.08); margin-bottom: 0;
+}
+.sommario__label { font-family: var(--F); font-size: clamp(3rem,7vw,7rem); color: var(--paper); }
+.sommario__sub { font-family: var(--M); font-size: 0.65rem; letter-spacing: 0.16em; color: rgba(250,250,247,0.3); text-transform: uppercase; }
+/* Row list — editorial contents page */
+.sommario__list { }
+.sommario__row {
+  display: grid; grid-template-columns: 48px 1fr auto;
+  gap: 24px; align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(250,250,247,0.06);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.sommario__row:hover { background: rgba(250,250,247,0.02); }
+.sommario__row-n { font-family: var(--F); font-size: 2.2rem; line-height: 1; color: rgba(250,250,247,0.18); }
+.sommario__row-body { }
+.sommario__row-name { font-family: var(--F); font-size: clamp(1.8rem,4vw,3.8rem); color: var(--paper); line-height: 1; margin-bottom: 4px; }
+.sommario__row-tag { font-family: var(--M); font-size: 0.62rem; letter-spacing: 0.16em; color: rgba(250,250,247,0.32); text-transform: uppercase; }
+.sommario__row-arrow { font-family: var(--M); font-size: 0.65rem; letter-spacing: 0.10em; color: rgba(250,250,247,0.28); text-transform: uppercase; }
+.sommario__row-bar {
+  display: inline-block; width: 28px; height: 3px; vertical-align: middle; margin-right: 10px; border-radius: 0;
+}
+
+/* ── 4. CATALOGO SCONTORNATI — Cutout Products ── */
+.catalog { background: var(--bone); padding: clamp(56px,8vw,100px) clamp(16px,4vw,72px); }
+.catalog__head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 48px; padding-bottom: 16px;
+  border-bottom: 1px solid rgba(10,10,10,0.10);
+}
+.catalog__title { font-family: var(--F); font-size: clamp(2.8rem,6vw,6.5rem); color: var(--ink); }
+.catalog__meta { font-family: var(--M); font-size: 0.65rem; letter-spacing: 0.14em; color: var(--muted); text-transform: uppercase; }
+/* Asymmetric product grid — like the lookbook spread */
+.catalog__spread {
+  display: grid;
+  grid-template-columns: 3fr 2fr 2fr;
+  grid-template-rows: auto auto;
+  gap: 2px;
+}
+@media(max-width:768px){ .catalog__spread { grid-template-columns: 1fr 1fr; } }
+.catalog__item {
+  background: var(--paper);
+  position: relative; overflow: hidden;
+  padding: 28px 20px 20px;
+  display: flex; flex-direction: column; align-items: center;
+}
+.catalog__item--feature { grid-row: span 2; }
+.catalog__item-label {
+  font-family: var(--M); font-size: 0.58rem; font-weight: 600;
+  letter-spacing: 0.20em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 16px; align-self: flex-start;
+}
+.catalog__item-label span { color: var(--sand); }
+.catalog__item-num {
+  position: absolute; top: 12px; right: 14px;
+  font-family: var(--F); font-size: 2.2rem; color: rgba(10,10,10,0.06);
+  line-height: 1;
+}
+/* Cutout product silhouette (CSS art — replace with real PNG) */
+.catalog__silhouette {
+  width: 100%; flex: 1; display: flex; align-items: center; justify-content: center;
+  min-height: 200px; position: relative;
+}
+.catalog__silhouette-shape {
+  width: 60%; padding-bottom: 100%;
+  background: linear-gradient(160deg, #2a1f10, #1a1208);
+  clip-path: polygon(30% 0%,70% 0%,85% 5%,90% 20%,88% 40%,80% 55%,78% 75%,70% 82%,72% 100%,28% 100%,30% 82%,22% 75%,20% 55%,12% 40%,10% 20%,15% 5%);
+  opacity: 0.12;
+}
+.catalog__item-info {
+  align-self: flex-start; width: 100%; margin-top: 16px;
+  padding-top: 14px; border-top: 1px solid rgba(10,10,10,0.08);
+}
+.catalog__item-coll { font-family: var(--M); font-size: 0.58rem; font-weight: 600; letter-spacing: 0.20em; text-transform: uppercase; color: var(--sand); margin-bottom: 5px; }
+.catalog__item-name { font-family: var(--B); font-size: 0.84rem; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+.catalog__item-price { font-family: var(--M); font-size: 0.84rem; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+/* ── 5. PULL QUOTE — Giant editorial quote ── */
+.pullquote {
+  background: var(--paper);
+  padding: clamp(60px,10vw,130px) clamp(16px,4vw,72px);
+  position: relative; overflow: hidden;
+}
+.pullquote__letter {
+  position: absolute; top: -0.15em; left: -0.02em;
+  font-family: var(--F); font-size: clamp(10rem,28vw,30rem);
+  line-height: 1; color: var(--bone); pointer-events: none; user-select: none;
+  z-index: 0;
+}
+.pullquote__content { position: relative; z-index: 1; max-width: 860px; }
+.pullquote__kicker { font-family: var(--M); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--sand); margin-bottom: 28px; display: flex; align-items: center; gap: 12px; }
+.pullquote__kicker::before { content:''; display:block; width:24px; height:2px; background: currentColor; }
+.pullquote__text {
+  font-family: var(--B); font-style: italic; font-size: clamp(1.5rem,3.5vw,3rem);
+  font-weight: 700; line-height: 1.22; color: var(--ink);
+  border-left: 3px solid var(--sand); padding-left: 28px;
+  margin-bottom: 32px;
+}
+.pullquote__attr { font-family: var(--M); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding-left: 31px; }
+
+/* ── 6. FEATURED DROP — Asymmetric editorial product ── */
+.drop {
+  background: var(--ink);
+  display: grid; grid-template-columns: 6fr 6fr;
+  min-height: 75vh;
+}
+@media(max-width:768px){ .drop { grid-template-columns: 1fr; } }
+.drop__img {
+  background:
+    linear-gradient(160deg, #1f1208 0%, #c04418 60%, #8a2a0a 100%);
+  min-height: 400px; position: relative; display: flex; align-items: flex-end; padding: 32px;
+}
+.drop__img::before {
+  content:'[PRODUCT FULL BLEED]'; font-family: var(--M); font-size: 0.60rem;
+  letter-spacing: 0.14em; color: rgba(250,250,247,0.15); text-transform: uppercase;
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+}
+.drop__img-caption { position: relative; font-family: var(--M); font-size: 0.60rem; letter-spacing: 0.14em; color: rgba(250,250,247,0.38); text-transform: uppercase; }
+.drop__content {
+  padding: clamp(40px,6vw,80px);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.drop__kicker { font-family: var(--M); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.28em; color: #c04418; text-transform: uppercase; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+.drop__kicker::before { content:''; display: block; width: 24px; height: 2px; background: currentColor; }
+.drop__title { font-family: var(--F); font-size: clamp(3rem,6vw,7rem); color: var(--paper); line-height: 0.88; margin-bottom: 24px; }
+.drop__desc { font-size: 0.9rem; line-height: 1.70; color: rgba(250,250,247,0.55); max-width: 40ch; margin-bottom: 36px; }
+.drop__cta { display: inline-block; font-family: var(--M); font-size: 0.70rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; padding: 14px 28px; background: var(--paper); color: var(--ink); }
+.drop__cta:hover { opacity: 0.88; }
+
+/* ── 7. TRUST + FOOTER ── */
+.trust {
+  background: var(--ink); padding: 24px clamp(16px,4vw,72px);
+  display: flex; gap: 32px; flex-wrap: wrap; align-items: center;
+  border-top: 1px solid rgba(250,250,247,0.06);
+}
+.trust__item { font-family: var(--M); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(250,250,247,0.32); display: flex; align-items: center; gap: 8px; }
+.trust__item::before { content:'—'; color: var(--sand); }
+
+.footer-bks {
+  background: var(--ink); padding: clamp(52px,7vw,80px) clamp(16px,4vw,72px) 32px;
+  border-top: 1px solid rgba(250,250,247,0.06);
+  display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: clamp(24px,4vw,56px);
+}
+@media(max-width:900px){ .footer-bks { grid-template-columns: 1fr 1fr; } }
+.footer-bks__brand { }
+.footer-bks__logo { font-family: var(--M); font-size: 0.72rem; letter-spacing: 0.24em; font-weight: 600; color: var(--paper); margin-bottom: 14px; }
+.footer-bks__logo em { color: var(--sand); font-style: normal; }
+.footer-bks__tagline { font-family: var(--M); font-size: 0.62rem; letter-spacing: 0.10em; text-transform: uppercase; color: rgba(250,250,247,0.30); line-height: 1.7; margin-bottom: 20px; }
+.footer-bks__desc { font-size: 0.80rem; line-height: 1.62; color: rgba(250,250,247,0.40); }
+.footer-bks__col-h { font-family: var(--M); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.20em; text-transform: uppercase; color: rgba(250,250,247,0.38); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid rgba(250,250,247,0.07); }
+.footer-bks__links { list-style: none; }
+.footer-bks__links li { margin-bottom: 9px; }
+.footer-bks__links a { font-size: 0.80rem; color: rgba(250,250,247,0.46); }
+.footer-bks__links a:hover { color: var(--paper); }
+.footer-bks__bottom {
+  grid-column: 1/-1; padding-top: 24px; margin-top: 16px;
+  border-top: 1px solid rgba(250,250,247,0.06);
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  font-family: var(--M); font-size: 0.60rem; letter-spacing: 0.10em; text-transform: uppercase; color: rgba(250,250,247,0.22);
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="H">
+  <div class="H__logo">BKS <em>Studio</em></div>
+  <nav class="H__nav">
+    <a href="#">Collections</a>
+    <a href="#">New In</a>
+    <a href="#">Members</a>
+    <a href="#">Studio</a>
+  </nav>
+  <div class="H__right">
+    <a href="#">Search</a>
+    <a href="#">Account</a>
+    <a href="#">Cart</a>
+  </div>
+</header>
+
+<!-- 1. COPERTINA — Magazine Cover -->
+<section class="cover">
+  <div class="cover__photo"><div class="cover__photo-img"></div></div>
+
+  <div class="cover__mast">
+    <div class="cover__mast-l">
+      <span class="cover__mast-title">BKS Studio · Wearable Art</span>
+      <span class="cover__mast-issue">Vol. 04 — Summer 2026 · 8 Collections</span>
+    </div>
+    <div class="cover__mast-bar"></div>
+    <div class="cover__mast-r">
+      bakabo.club<br>
+      Print-on-Demand<br>
+      Made in Italy
+    </div>
+  </div>
+
+  <div class="cover__body">
+    <div class="cover__kicker"><span>Summer 2026 — Season Active</span></div>
+    <h1 class="cover__title">
+      WEARABLE
+      <span class="line2">ART.</span>
+    </h1>
+  </div>
+
+  <!-- 8 collections band — come sommario in copertina -->
+  <div class="cover__band">
+    <a href="/collections/bks-hours"   class="cover__band-item c-hours">  <span class="cover__band-n">01</span><span class="cover__band-name">HOURS</span>  <span class="cover__band-accent"></span></a>
+    <a href="/collections/bks-origin"  class="cover__band-item c-origin"> <span class="cover__band-n">02</span><span class="cover__band-name">ORIGIN</span> <span class="cover__band-accent"></span></a>
+    <a href="/collections/bks-glyph"   class="cover__band-item c-glyph">  <span class="cover__band-n">03</span><span class="cover__band-name">GLYPH</span>  <span class="cover__band-accent"></span></a>
+    <a href="/collections/bks-marker"  class="cover__band-item c-marker"> <span class="cover__band-n">04</span><span class="cover__band-name">MARKER</span> <span class="cover__band-accent"></span></a>
+    <a href="/collections/bks-riviera" class="cover__band-item c-riviera"><span class="cover__band-n">05</span><span class="cover__band-name">RIVIERA</span><span class="cover__band-accent"></span></a>
+    <a href="/collections/bks-pulse"   class="cover__band-item c-pulse">  <span class="cover__band-n">06</span><span class="cover__band-name">PULSE</span>  <span class="cover__band-accent"></span></a>
+    <a href="/collections/bks-token"   class="cover__band-item c-token">  <span class="cover__band-n">07</span><span class="cover__band-name">TOKEN</span>  <span class="cover__band-accent"></span></a>
+    <a href="/collections/bks-flag"    class="cover__band-item c-flag">   <span class="cover__band-n">08</span><span class="cover__band-name">FLAG</span>   <span class="cover__band-accent"></span></a>
+  </div>
+</section>
+
+<!-- 2. SPREAD EDITORIALE — Asimmetrico come GQ/Elle opening spread -->
+<section class="spread">
+  <div class="spread__left">
+    <div>
+      <div class="spread__kicker">Sistema Editoriale BKS</div>
+      <h2 class="spread__headline">ART<br>MADE<br>WEAR<br>ABLE</h2>
+      <p class="spread__body">
+        Ogni pezzo nel catalogo BKS nasce come artwork — sistemi grafici sviluppati da Roberto Picchioni su otto mondi visivi distinti. Il capo è il medium. La stampa è il messaggio.
+      </p>
+    </div>
+    <div class="spread__stats">
+      <div class="spread__stat"><strong>203</strong><span>Prodotti attivi</span></div>
+      <div class="spread__stat"><strong>8</strong><span>Collezioni</span></div>
+      <div class="spread__stat"><strong>POD</strong><span>Made to order</span></div>
+    </div>
+  </div>
+  <div class="spread__right">
+    <div class="spread__right-img"></div>
+    <div class="spread__right-caption">
+      BKS Marker — Gesture System<br>
+      All-over print windbreaker<br>
+      Made after your order · Worldwide
+    </div>
+  </div>
+</section>
+
+<!-- 3. SOMMARIO — Collections Index (contenuto di rivista) -->
+<section class="sommario">
+  <div class="sommario__head">
+    <h2 class="sommario__label">LE COLLEZIONI</h2>
+    <span class="sommario__sub">8 Worlds · Season 2026</span>
+  </div>
+  <div class="sommario__list">
+
+    <a href="/collections/bks-hours" class="sommario__row">
+      <span class="sommario__row-n">01</span>
+      <div class="sommario__row-body">
+        <div class="sommario__row-name"><span class="sommario__row-bar" style="background:#c8c4be"></span>BKS HOURS</div>
+        <div class="sommario__row-tag">Technical Layers · Monochrome · Architecture</div>
+      </div>
+      <span class="sommario__row-arrow">Shop →</span>
+    </a>
+
+    <a href="/collections/bks-origin" class="sommario__row">
+      <span class="sommario__row-n">02</span>
+      <div class="sommario__row-body">
+        <div class="sommario__row-name"><span class="sommario__row-bar" style="background:#489808"></span>BKS ORIGIN</div>
+        <div class="sommario__row-tag">Resort Silhouettes · Organic · Tactile</div>
+      </div>
+      <span class="sommario__row-arrow">Shop →</span>
+    </a>
+
+    <a href="/collections/bks-glyph" class="sommario__row">
+      <span class="sommario__row-n">03</span>
+      <div class="sommario__row-body">
+        <div class="sommario__row-name"><span class="sommario__row-bar" style="background:#d4a030"></span>BKS GLYPH</div>
+        <div class="sommario__row-tag">Signs & Marks · Amber Gold · Basquiat Influenced</div>
+      </div>
+      <span class="sommario__row-arrow">Shop →</span>
+    </a>
+
+    <a href="/collections/bks-marker" class="sommario__row">
+      <span class="sommario__row-n">04</span>
+      <div class="sommario__row-body">
+        <div class="sommario__row-name"><span class="sommario__row-bar" style="background:#c04418"></span>BKS MARKER</div>
+        <div class="sommario__row-tag">Brush Marks · Urban Gesture · Terracotta</div>
+      </div>
+      <span class="sommario__row-arrow">Shop →</span>
+    </a>
+
+    <a href="/collections/bks-riviera" class="sommario__row">
+      <span class="sommario__row-n">05</span>
+      <div class="sommario__row-body">
+        <div class="sommario__row-name"><span class="sommario__row-bar" style="background:#0ca898"></span>BKS RIVIERA</div>
+        <div class="sommario__row-tag">Coastal System · Resort · Teal</div>
+      </div>
+      <span class="sommario__row-arrow">Shop →</span>
+    </a>
+
+    <a href="/collections/bks-pulse" class="sommario__row">
+      <span class="sommario__row-n">06</span>
+      <div class="sommario__row-body">
+        <div class="sommario__row-name"><span class="sommario__row-bar" style="background:#8888cc"></span>BKS PULSE</div>
+        <div class="sommario__row-tag">Digital Surface · Violet · Electronic</div>
+      </div>
+      <span class="sommario__row-arrow">Shop →</span>
+    </a>
+
+    <a href="/collections/bks-token" class="sommario__row">
+      <span class="sommario__row-n">07</span>
+      <div class="sommario__row-body">
+        <div class="sommario__row-name"><span class="sommario__row-bar" style="background:#9828d8"></span>BKS TOKEN</div>
+        <div class="sommario__row-tag">Digital References · Metaphysical · Purple</div>
+      </div>
+      <span class="sommario__row-arrow">Shop →</span>
+    </a>
+
+    <a href="/collections/bks-flag" class="sommario__row">
+      <span class="sommario__row-n">08</span>
+      <div class="sommario__row-body">
+        <div class="sommario__row-name"><span class="sommario__row-bar" style="background:#c82020"></span>BKS FLAG</div>
+        <div class="sommario__row-tag">Graphic Blocks · Heraldic · Bold Red</div>
+      </div>
+      <span class="sommario__row-arrow">Shop →</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- 4. CATALOGO SCONTORNATI — Prodotti su paper, come lookbook aperto -->
+<section class="catalog">
+  <div class="catalog__head">
+    <h2 class="catalog__title">CATALOGO</h2>
+    <span class="catalog__meta">[NEW IN.] · Season 2026</span>
+  </div>
+  <div class="catalog__spread">
+
+    <!-- Feature card (grande) -->
+    <div class="catalog__item catalog__item--feature">
+      <div class="catalog__item-label"><span>[MARKER.]</span> — Windbreakers</div>
+      <div class="catalog__item-num">01</div>
+      <div class="catalog__silhouette"><div class="catalog__silhouette-shape"></div></div>
+      <div class="catalog__item-info">
+        <div class="catalog__item-coll">BKS Marker</div>
+        <div class="catalog__item-name">Marker Windbreaker — Gesture System</div>
+        <div class="catalog__item-price">€ 129.00</div>
+      </div>
+    </div>
+
+    <div class="catalog__item">
+      <div class="catalog__item-label"><span>[GLYPH.]</span> — Hoodies</div>
+      <div class="catalog__item-num">02</div>
+      <div class="catalog__silhouette" style="min-height:160px"><div class="catalog__silhouette-shape" style="clip-path:polygon(20% 0%,80% 0%,90% 12%,85% 35%,80% 55%,75% 80%,70% 100%,30% 100%,25% 80%,20% 55%,15% 35%,10% 12%)"></div></div>
+      <div class="catalog__item-info">
+        <div class="catalog__item-coll">BKS Glyph</div>
+        <div class="catalog__item-name">Glyph Hoodie Oversized</div>
+        <div class="catalog__item-price">€ 89.00</div>
+      </div>
+    </div>
+
+    <div class="catalog__item">
+      <div class="catalog__item-label"><span>[HOURS.]</span> — Sneakers</div>
+      <div class="catalog__item-num">03</div>
+      <div class="catalog__silhouette" style="min-height:160px"><div class="catalog__silhouette-shape" style="clip-path:polygon(5% 45%,25% 30%,55% 25%,80% 28%,95% 38%,90% 60%,70% 68%,40% 72%,10% 70%,2% 58%);width:80%;padding-bottom:40%"></div></div>
+      <div class="catalog__item-info">
+        <div class="catalog__item-coll">BKS Hours</div>
+        <div class="catalog__item-name">Hours Sneakers Low</div>
+        <div class="catalog__item-price">€ 149.00</div>
+      </div>
+    </div>
+
+    <div class="catalog__item">
+      <div class="catalog__item-label"><span>[RIVIERA.]</span> — Bags</div>
+      <div class="catalog__item-num">04</div>
+      <div class="catalog__silhouette" style="min-height:140px"><div class="catalog__silhouette-shape" style="clip-path:polygon(15% 0%,85% 0%,90% 10%,92% 100%,8% 100%,10% 10%);width:55%;padding-bottom:60%"></div></div>
+      <div class="catalog__item-info">
+        <div class="catalog__item-coll">BKS Riviera</div>
+        <div class="catalog__item-name">Riviera Tote — Coastal</div>
+        <div class="catalog__item-price">€ 59.00</div>
+      </div>
+    </div>
+
+    <div class="catalog__item">
+      <div class="catalog__item-label"><span>[TOKEN.]</span> — Bags</div>
+      <div class="catalog__item-num">05</div>
+      <div class="catalog__silhouette" style="min-height:140px"><div class="catalog__silhouette-shape" style="clip-path:polygon(20% 0%,80% 0%,90% 5%,92% 95%,8% 95%,10% 5%);width:50%;padding-bottom:65%"></div></div>
+      <div class="catalog__item-info">
+        <div class="catalog__item-coll">BKS Token</div>
+        <div class="catalog__item-name">Token Backpack — Digital</div>
+        <div class="catalog__item-price">€ 79.00</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 5. PULL QUOTE — Citazione editoriale con lettera gigante -->
+<section class="pullquote">
+  <div class="pullquote__letter">W</div>
+  <div class="pullquote__content">
+    <div class="pullquote__kicker">BKS Philosophy · Art First</div>
+    <p class="pullquote__text">
+      "Un capo BKS non è un prodotto con una stampa — è un'opera d'arte che per caso si può indossare."
+    </p>
+    <div class="pullquote__attr">Roberto Picchioni — BKS Studio, Firenze</div>
+  </div>
+</section>
+
+<!-- 6. FEATURED DROP — come pagina prodotto in rivista -->
+<section class="drop">
+  <div class="drop__img">
+    <div class="drop__img-caption">BKS Marker · Brush Mark System · All-over</div>
+  </div>
+  <div class="drop__content">
+    <div class="drop__kicker">04 · BKS Marker — New Drop</div>
+    <h2 class="drop__title">THE<br>GESTURE<br>DROP.</h2>
+    <p class="drop__desc">Pennellate rapide, segni urbani. Il sistema Marker traduce il gesto espressivo in superficie tecnica. Windbreaker, hoodie, sneaker — un mondo grafico completo.</p>
+    <a href="/collections/bks-marker" class="drop__cta">Shop BKS Marker</a>
+  </div>
+</section>
+
+<!-- 7. TRUST -->
+<div class="trust">
+  <span class="trust__item">Print-on-Demand · No Stock</span>
+  <span class="trust__item">Worldwide Shipping 7–21 Days</span>
+  <span class="trust__item">30-Day Returns</span>
+  <span class="trust__item">GPSR EU Compliant</span>
+  <span class="trust__item">crew@bakabo.club</span>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer-bks">
+  <div class="footer-bks__brand">
+    <div class="footer-bks__logo">BKS <em>Studio</em></div>
+    <div class="footer-bks__tagline">AI-Art Atelier · Designed in Italy<br>Print-on-Demand · Worldwide</div>
+    <p class="footer-bks__desc">Otto collezioni editoriali. Grafica AI applicata a capi premium, prodotti su ordinazione tramite Printify.</p>
+  </div>
+  <div>
+    <div class="footer-bks__col-h">Collections</div>
+    <ul class="footer-bks__links">
+      <li><a href="#">BKS Hours</a></li><li><a href="#">BKS Origin</a></li>
+      <li><a href="#">BKS Glyph</a></li><li><a href="#">BKS Marker</a></li>
+      <li><a href="#">BKS Riviera</a></li><li><a href="#">BKS Pulse</a></li>
+      <li><a href="#">BKS Token</a></li><li><a href="#">BKS Flag</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-bks__col-h">Studio</div>
+    <ul class="footer-bks__links">
+      <li><a href="#">About BKS</a></li><li><a href="#">Members</a></li>
+      <li><a href="#">AI Assistant</a></li><li><a href="#">Custom Request</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-bks__col-h">Support</div>
+    <ul class="footer-bks__links">
+      <li><a href="#">Shipping</a></li><li><a href="#">Returns</a></li>
+      <li><a href="#">Contact</a></li><li><a href="#">crew@bakabo.club</a></li>
+    </ul>
+  </div>
+  <div class="footer-bks__bottom">
+    <span>© 2026 BKS Studio / bakabo.club — Roberto Picchioni · P.IVA 00774100556</span>
+    <span>Powered by Shopify · GPSR EU · Made to Order</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -16,5 +16,6 @@ def run(context: dict[str, Any]) -> dict[str, Any]:
         "progress": progress,
         "message": f"Skill registry updated. Active {summary['active']}, missing referenced {summary['missing']}.",
         "external_ref": summary["registry"],
+        "trust_gate": "trust_foundation",
         "metrics": summary,
     }

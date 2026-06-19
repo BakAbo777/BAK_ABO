@@ -1,0 +1,459 @@
+{% comment %}
+  BKS WEEKLY EDITORIAL — Masthead magazine periodico
+  Appare in cima alla home page o su pagine magazine dedicate
+  Vol./Issue configurabili via schema settings
+{% endcomment %}
+
+{%- liquid
+  assign vol  = section.settings.volume  | default: 1
+  assign iss  = section.settings.issue   | default: 1
+  assign month_names = 'Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec' | split: ','
+  assign month_idx = 'now' | date: '%-m' | minus: 1
+  assign month_label = month_names[month_idx]
+  assign year_label  = 'now' | date: '%Y'
+  assign date_str    = month_label | append: ' ' | append: year_label
+-%}
+
+<style>
+  /* ── BKS EDITORIAL ───────────────────────────────────────── */
+  #shopify-section-{{ section.id }} {
+    --ink:   #0a0a0a;
+    --paper: #fafaf7;
+    --bone:  #e8e2d8;
+    --muted: rgba(250,250,247,0.42);
+    --gold:  #c8a96e;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: inherit;
+  }
+
+  .bks-ed__wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── MASTHEAD ── */
+  .bks-ed__masthead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 28px 0 18px;
+    border-bottom: 1px solid rgba(250,250,247,0.12);
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .bks-ed__title {
+    font-family: 'Bebas Neue', var(--font-heading-family, sans-serif);
+    font-size: clamp(36px, 6vw, 72px);
+    letter-spacing: 0.08em;
+    line-height: 0.9;
+    margin: 0;
+    color: var(--paper);
+    text-transform: uppercase;
+  }
+
+  .bks-ed__title span {
+    display: block;
+    font-size: 0.38em;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    font-family: 'DM Mono', var(--font-body-family, monospace);
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .bks-ed__issue-meta {
+    text-align: right;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    line-height: 1.7;
+    text-transform: uppercase;
+  }
+
+  .bks-ed__issue-meta strong {
+    display: block;
+    color: var(--paper);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── BODY (cover story + featured) ── */
+  .bks-ed__body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 40px 0;
+    border-bottom: 1px solid rgba(250,250,247,0.08);
+  }
+
+  @media (max-width: 749px) {
+    .bks-ed__body { grid-template-columns: 1fr; }
+  }
+
+  /* ── LEFT: cover story ── */
+  .bks-ed__cover {
+    padding-right: 40px;
+    border-right: 1px solid rgba(250,250,247,0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 749px) {
+    .bks-ed__cover { padding-right: 0; border-right: 0; border-bottom: 1px solid rgba(250,250,247,0.08); padding-bottom: 32px; margin-bottom: 32px; }
+  }
+
+  .bks-ed__cover-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 12px;
+  }
+
+  .bks-ed__cover-headline {
+    font-family: 'Bebas Neue', var(--font-heading-family, sans-serif);
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.0;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--paper);
+    margin: 0 0 20px;
+  }
+
+  .bks-ed__cover-deck {
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(250,250,247,0.7);
+    margin: 0 0 28px;
+    max-width: 38ch;
+  }
+
+  .bks-ed__cover-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 2px;
+    transition: opacity 0.2s;
+    align-self: flex-start;
+  }
+  .bks-ed__cover-cta:hover { opacity: 0.7; }
+
+  /* ── RIGHT: featured products grid ── */
+  .bks-ed__featured {
+    padding-left: 40px;
+  }
+
+  @media (max-width: 749px) {
+    .bks-ed__featured { padding-left: 0; }
+  }
+
+  .bks-ed__featured-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 16px;
+  }
+
+  .bks-ed__products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .bks-ed__prod-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bks-ed__prod-img {
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    width: 100%;
+    display: block;
+    background: #1a1a1a;
+    transition: transform 0.4s ease;
+  }
+
+  .bks-ed__prod-card:hover .bks-ed__prod-img { transform: scale(1.04); }
+
+  .bks-ed__prod-info {
+    padding: 8px 0 0;
+  }
+
+  .bks-ed__prod-title {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.04em;
+    color: rgba(250,250,247,0.7);
+    line-height: 1.3;
+    margin: 0 0 2px;
+  }
+
+  .bks-ed__prod-price {
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    color: var(--gold);
+    margin: 0;
+  }
+
+  /* ── IN THIS ISSUE strip ── */
+  .bks-ed__strip {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 14px 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .bks-ed__strip::-webkit-scrollbar { display: none; }
+
+  .bks-ed__strip-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    margin-right: 24px;
+    flex-shrink: 0;
+  }
+
+  .bks-ed__strip-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 20px 0 0;
+    text-decoration: none;
+    color: var(--paper);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    flex-shrink: 0;
+  }
+  .bks-ed__strip-item:hover { opacity: 1; }
+
+  .bks-ed__strip-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+</style>
+
+<article class="bks-editorial" role="complementary" aria-label="BKS Magazine Issue {{ vol }}-{{ iss }}">
+  <div class="bks-ed__wrap">
+
+    {%- comment -%} ── MASTHEAD ── {%- endcomment -%}
+    <header class="bks-ed__masthead">
+      <h2 class="bks-ed__title">
+        <span>Bakabo Studio</span>
+        Magazine
+      </h2>
+      <div class="bks-ed__issue-meta">
+        <strong>Vol. {{ vol }} · No. {{ iss | prepend: '0' | slice: -2, 2 }}</strong>
+        {{ date_str }}
+        <br>{{ section.settings.tagline | default: 'Design in motion' }}
+      </div>
+    </header>
+
+    {%- comment -%} ── BODY ── {%- endcomment -%}
+    <div class="bks-ed__body">
+
+      {%- comment -%} LEFT: cover story {%- endcomment -%}
+      <div class="bks-ed__cover">
+        <div>
+          <p class="bks-ed__cover-eyebrow">Cover Story</p>
+          <h3 class="bks-ed__cover-headline">
+            {{- section.settings.cover_title | default: 'Geometry as the new luxury' -}}
+          </h3>
+          <p class="bks-ed__cover-deck">
+            {{- section.settings.cover_deck | default: 'This season BKS Studio explores the intersection of mathematical precision and streetwear. Eight collections. One language.' -}}
+          </p>
+        </div>
+        {%- if section.settings.cover_collection != blank -%}
+          {%- assign cov_col = collections[section.settings.cover_collection] -%}
+          {%- if cov_col -%}
+            <a href="{{ cov_col.url }}" class="bks-ed__cover-cta">
+              Explore {{ cov_col.title }}
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} RIGHT: featured products {%- endcomment -%}
+      <div class="bks-ed__featured">
+        <p class="bks-ed__featured-label">Featured this issue</p>
+        <div class="bks-ed__products">
+          {%- for i in (1..3) -%}
+            {%- assign prod_key = 'featured_product_' | append: i -%}
+            {%- assign fp = section.settings[prod_key] -%}
+            {%- if fp != blank -%}
+              {%- assign featured = all_products[fp] -%}
+              {%- if featured != blank -%}
+                <a href="{{ featured.url }}" class="bks-ed__prod-card">
+                  {%- if featured.featured_image -%}
+                    <img
+                      src="{{ featured.featured_image | image_url: width: 400 }}"
+                      alt="{{ featured.featured_image.alt | escape }}"
+                      class="bks-ed__prod-img"
+                      loading="lazy"
+                      width="400"
+                      height="533"
+                    >
+                  {%- else -%}
+                    <div class="bks-ed__prod-img" style="display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:11px;color:rgba(250,250,247,0.2);">BKS</div>
+                  {%- endif -%}
+                  <div class="bks-ed__prod-info">
+                    <p class="bks-ed__prod-title">{{ featured.title | truncate: 40 }}</p>
+                    <p class="bks-ed__prod-price">{{ featured.price | money }}</p>
+                  </div>
+                </a>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+    </div>
+
+    {%- comment -%} ── IN THIS ISSUE strip ── {%- endcomment -%}
+    {%- if section.settings.show_strip -%}
+      <nav class="bks-ed__strip" aria-label="Collections in this issue">
+        <span class="bks-ed__strip-label">In this issue</span>
+        {%- assign strip_collections = 'bks-hours,bks-glyph,bks-marker,bks-riviera,bks-pulse,bks-token,bks-flag,bks-origin' | split: ',' -%}
+        {%- assign strip_accents = '#c8c4be,#d4a030,#c04418,#0ca898,#8888cc,#9828d8,#c82020,#489808' | split: ',' -%}
+        {%- assign strip_labels = 'Hours,Glyph,Marker,Riviera,Pulse,Token,Flag,Origin' | split: ',' -%}
+        {%- for col_handle in strip_collections -%}
+          {%- assign col_obj = collections[col_handle] -%}
+          {%- if col_obj -%}
+            <a href="{{ col_obj.url }}" class="bks-ed__strip-item">
+              <span class="bks-ed__strip-dot" style="background:{{ strip_accents[forloop.index0] }}"></span>
+              {{ strip_labels[forloop.index0] }}
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
+
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "BKS Weekly Editorial",
+  "tag": "section",
+  "class": "bks-weekly-editorial-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Issue"
+    },
+    {
+      "type": "number",
+      "id": "volume",
+      "label": "Volume number",
+      "default": 1
+    },
+    {
+      "type": "number",
+      "id": "issue",
+      "label": "Issue number",
+      "default": 1
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Design in motion"
+    },
+    {
+      "type": "header",
+      "content": "Cover story"
+    },
+    {
+      "type": "text",
+      "id": "cover_title",
+      "label": "Cover story headline",
+      "default": "Geometry as the new luxury"
+    },
+    {
+      "type": "textarea",
+      "id": "cover_deck",
+      "label": "Cover story deck",
+      "default": "This season BKS Studio explores the intersection of mathematical precision and streetwear. Eight collections. One language."
+    },
+    {
+      "type": "collection",
+      "id": "cover_collection",
+      "label": "Cover collection link"
+    },
+    {
+      "type": "header",
+      "content": "Featured products (up to 3)"
+    },
+    {
+      "type": "product",
+      "id": "featured_product_1",
+      "label": "Product 1"
+    },
+    {
+      "type": "product",
+      "id": "featured_product_2",
+      "label": "Product 2"
+    },
+    {
+      "type": "product",
+      "id": "featured_product_3",
+      "label": "Product 3"
+    },
+    {
+      "type": "header",
+      "content": "Collections strip"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_strip",
+      "label": "Show 'In this issue' collections strip",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "BKS Weekly Editorial",
+      "settings": {
+        "volume": 1,
+        "issue": 1,
+        "tagline": "Design in motion",
+        "cover_title": "Geometry as the new luxury",
+        "cover_deck": "This season BKS Studio explores the intersection of mathematical precision and streetwear. Eight collections. One language.",
+        "show_strip": true
+      }
+    }
+  ]
+}
+{% endschema %}

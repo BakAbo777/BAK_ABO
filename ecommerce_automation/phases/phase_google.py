@@ -10,6 +10,7 @@ def run(context: dict[str, Any]) -> dict[str, Any]:
         "status": "ready" if audit.exists() else "pending",
         "progress": 80 if audit.exists() else 35,
         "message": "Live audit file found." if audit.exists() else "Run tools/audit_live_site.py after deploy.",
+        "trust_gate": "merchant_appeal",
         "metrics": {"audit_file": str(audit), "exists": audit.exists()},
     }
 

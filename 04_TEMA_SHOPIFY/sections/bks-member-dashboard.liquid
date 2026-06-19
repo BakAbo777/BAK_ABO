@@ -1,152 +1,294 @@
 {{ 'bks-member.css' | asset_url | stylesheet_tag }}
+{{ 'bks-tryon.css' | asset_url | stylesheet_tag }}
 
-{%- render 'bks-member-tier' -%}
+<style>
+  body { background: #0c0c0c !important; }
+  #MainContent,
+  .content-for-layout { padding-top: 0 !important; padding-bottom: 0 !important; }
+  .shopify-section { margin-top: 0 !important; margin-bottom: 0 !important; }
+  .page-width { max-width: none !important; padding: 0 !important; margin: 0 !important; }
+  footer.footer, .footer { background: #0c0c0c !important; border-top: 1px solid rgba(255,255,255,0.06) !important; }
+</style>
 
-{%- comment -%} Referral code: customer ID encoded as base36-style string {%- endcomment -%}
+{%- comment -%} ── GATE — show login card if not authenticated ── {%- endcomment -%}
+{%- unless customer -%}
+<div class="bks-member-gate">
+  <div class="bks-member-gate__wrap">
+    <p class="bks-member-gate__eyebrow">Members</p>
+    <h1 class="bks-member-gate__title">BKS Members</h1>
+    <p class="bks-member-gate__sub">Sign in to manage orders, wishlist and the virtual fitting room.</p>
+    <div class="bks-member-gate__actions">
+      <a href="{{ routes.account_login_url }}" class="bks-btn-gold">Sign in</a>
+      <a href="{{ routes.account_register_url }}" class="bks-btn-ghost">Create account</a>
+    </div>
+    <div class="bks-member-gate__benefits">
+      <div class="bks-member-gate__benefit">
+        <span class="bks-member-gate__benefit-icon">◯</span>
+        <span class="bks-member-gate__benefit-label">Wishlist</span>
+      </div>
+      <div class="bks-member-gate__benefit">
+        <span class="bks-member-gate__benefit-icon">◱</span>
+        <span class="bks-member-gate__benefit-label">Virtual Try-On</span>
+      </div>
+      <div class="bks-member-gate__benefit">
+        <span class="bks-member-gate__benefit-icon">→</span>
+        <span class="bks-member-gate__benefit-label">Early Access</span>
+      </div>
+    </div>
+    <p class="bks-member-gate__note">
+      By creating an account you accept the <a href="{{ routes.root_url }}policies/terms-of-service">Terms</a>
+      and <a href="{{ routes.root_url }}policies/privacy-policy">Privacy Policy</a>.
+    </p>
+  </div>
+</div>
+<style>
+.bks-member-gate {
+  min-height: 100vh;
+  background: #0c0c0c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(40px,8vh,100px) 20px;
+  font-family: var(--bks-font-text,"DM Sans",sans-serif);
+}
+.bks-member-gate__wrap {
+  width: 100%;
+  max-width: 440px;
+  text-align: center;
+}
+.bks-member-gate__eyebrow {
+  font-family: var(--bks-font-mono,"DM Mono",monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8a8480;
+  margin: 0 0 12px;
+}
+.bks-member-gate__title {
+  font-family: var(--bks-font-display,"Bebas Neue",sans-serif);
+  font-size: clamp(2.4rem,7vw,3.8rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: #f0ece4;
+  margin: 0 0 14px;
+}
+.bks-member-gate__sub {
+  font-size: 0.88rem;
+  color: #8a8480;
+  margin: 0 0 36px;
+  line-height: 1.6;
+}
+.bks-member-gate__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.bks-member-gate__benefits {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  padding: 24px 0;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  margin-bottom: 20px;
+}
+.bks-member-gate__benefit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.bks-member-gate__benefit-icon {
+  font-size: 1.1rem;
+  color: #c8a96e;
+  line-height: 1;
+}
+.bks-member-gate__benefit-label {
+  font-family: var(--bks-font-mono,"DM Mono",monospace);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a8480;
+}
+.bks-member-gate__note {
+  font-size: 0.72rem;
+  color: #6a6460;
+  line-height: 1.5;
+}
+.bks-member-gate__note a { color: #8a8480; text-decoration: underline; }
+</style>
+{%- endunless -%}
+
+{%- if customer -%}
+
+{%- comment -%} ── Metal Tier detection via orders_count ── {%- endcomment -%}
+{%- liquid
+  assign _oc = customer.orders_count | default: 0
+  if _oc >= 11
+    assign bks_metal_tier   = 'gold'
+    assign bks_metal_label  = 'Gold Member'
+    assign bks_metal_symbol = '✦'
+    assign bks_metal_color  = '#d4a030'
+    assign bks_metal_rank   = 4
+  elsif _oc >= 6
+    assign bks_metal_tier   = 'silver'
+    assign bks_metal_label  = 'Silver Member'
+    assign bks_metal_symbol = '◇'
+    assign bks_metal_color  = '#b0b0c8'
+    assign bks_metal_rank   = 3
+  elsif _oc >= 3
+    assign bks_metal_tier   = 'brass'
+    assign bks_metal_label  = 'Brass Member'
+    assign bks_metal_symbol = '◈'
+    assign bks_metal_color  = '#c8a96e'
+    assign bks_metal_rank   = 2
+  elsif _oc >= 1
+    assign bks_metal_tier   = 'iron'
+    assign bks_metal_label  = 'Iron Member'
+    assign bks_metal_symbol = '⬡'
+    assign bks_metal_color  = '#8a8a8a'
+    assign bks_metal_rank   = 1
+  else
+    assign bks_metal_tier   = 'lead'
+    assign bks_metal_label  = 'Lead Member'
+    assign bks_metal_symbol = '○'
+    assign bks_metal_color  = '#7a7a7a'
+    assign bks_metal_rank   = 0
+  endif
+  assign bks_initials      = customer.first_name | slice: 0, 1 | upcase
+  assign bks_last_initial  = customer.last_name  | slice: 0, 1 | upcase
+  assign bks_initials      = bks_initials | append: bks_last_initial
+-%}
+
 {%- assign bks_ref_code = customer.id -%}
 {%- assign bks_ref_url  = shop.url | append: "?ref=" | append: bks_ref_code -%}
-
-{%- comment -%} Most recent order for MTO tracker {%- endcomment -%}
 {%- assign bks_latest_order = customer.orders | first -%}
 
 <div class="bks-member-wrap">
 
   {%- comment -%} ── Hero ── {%- endcomment -%}
   <div class="bks-member-hero">
-    <div>
-      <h1 class="bks-member-greeting">
-        Ciao, <span>{{ customer.first_name }}</span>
-      </h1>
-      <p class="bks-member-meta">{{ customer.email }}</p>
+    <div class="bks-member-hero__left">
+      <div class="bks-member-avatar"
+           data-tier="{{ bks_metal_tier }}"
+           style="--bks-avatar-ring:{{ bks_metal_color }}"
+           title="{{ bks_metal_label }}">
+        <div class="bks-member-avatar__inner">{{ bks_initials }}</div>
+      </div>
+      <div>
+        <h1 class="bks-member-greeting">
+          Hello, <span>{{ customer.first_name }}</span>
+        </h1>
+        <p class="bks-member-meta">{{ customer.email }}</p>
+      </div>
     </div>
     <div class="bks-member-actions">
-      {%- if bks_tier != "none" -%}
-        <span class="bks-tier-badge bks-tier-badge--{{ bks_tier }}">
-          <span class="bks-tier-dot"></span>
-          {{ bks_tier_label }}
-        </span>
-      {%- endif -%}
+      <span class="bks-tier-badge bks-tier-badge--{{ bks_metal_tier }}">
+        <span class="bks-tier-dot"></span>
+        {{ bks_metal_symbol }} {{ bks_metal_label }}
+      </span>
       <a href="{{ routes.account_logout_url }}" class="bks-logout-link">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/>
         </svg>
-        Esci
+        Sign out
       </a>
     </div>
   </div>
 
   {%- comment -%} ── Tabs ── {%- endcomment -%}
   <nav class="bks-member-tabs">
-    <button class="bks-tab-btn" data-tab="orders">Ordini</button>
+    <button class="bks-tab-btn" data-tab="orders">Orders</button>
     <button class="bks-tab-btn" data-tab="wishlist">Wishlist</button>
     <button class="bks-tab-btn" data-tab="early-access">Early Access</button>
     <button class="bks-tab-btn" data-tab="referral">Referral</button>
     <button class="bks-tab-btn" data-tab="customize">Customize</button>
-    {%- if bks_tier == "archive" -%}
-      <button class="bks-tab-btn" data-tab="archive">BKS Archive</button>
+    <button class="bks-tab-btn" data-tab="camerino">Try-On</button>
+    {%- if bks_metal_rank >= 3 -%}
+      <button class="bks-tab-btn" data-tab="archive">Archive</button>
     {%- else -%}
-      <button class="bks-tab-btn" data-tab="archive" title="Disponibile con BKS Archive">
-        Archive <span class="bks-tab-lock">🔒</span>
+      <button class="bks-tab-btn" data-tab="archive" title="Unlocks at Silver (6+ orders)">
+        Archive <span class="bks-tab-lock">◌</span>
       </button>
     {%- endif -%}
     <button class="bks-tab-btn" data-tab="account">Account</button>
   </nav>
 
   {%- comment -%} ══════════════════════════════════════════
-      TAB: Ordini
+      TAB: Orders
   ══════════════════════════════════════════ {%- endcomment -%}
   <div id="bks-panel-orders" class="bks-member-panel">
 
-    {%- comment -%} MTO tracker for bks-drop+ {%- endcomment -%}
-    {%- if bks_tier_rank >= 2 and bks_latest_order -%}
+    {%- if bks_metal_rank >= 2 and bks_latest_order -%}
       {%- render 'bks-member-tracker', order: bks_latest_order -%}
     {%- endif -%}
 
-    <p class="bks-section-title">Storico ordini</p>
+    <p class="bks-section-title">Order history</p>
 
-    {%- paginate customer.orders by 20 -%}
-      {%- if customer.orders.size > 0 -%}
-        <table class="bks-orders-table" role="table">
-          <thead>
+    {%- if customer.orders.size > 0 -%}
+      <table class="bks-orders-table" role="table">
+        <thead>
+          <tr>
+            <th>Order</th>
+            <th>Date</th>
+            <th>Payment</th>
+            <th>Shipping</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for order in customer.orders limit: 20 -%}
+            {%- assign pay_class = "bks-status-pill--" | append: order.financial_status -%}
+            {%- assign ful_class = "bks-status-pill--" | append: order.fulfillment_status -%}
             <tr>
-              <th>Ordine</th>
-              <th>Data</th>
-              <th>Pagamento</th>
-              <th>Spedizione</th>
-              <th>Totale</th>
+              <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
+              <td>{{ order.created_at | time_tag: format: 'date' }}</td>
+              <td><span class="bks-status-pill {{ pay_class }}">{{ order.financial_status_label }}</span></td>
+              <td><span class="bks-status-pill {{ ful_class }}">{{ order.fulfillment_status_label }}</span></td>
+              <td>{{ order.total_net_amount | money_with_currency }}</td>
             </tr>
-          </thead>
-          <tbody>
-            {%- for order in customer.orders -%}
-              {%- assign pay_class = "bks-status-pill--" | append: order.financial_status -%}
-              {%- assign ful_class = "bks-status-pill--" | append: order.fulfillment_status -%}
-              <tr>
-                <td>
-                  <a href="{{ order.customer_url }}">{{ order.name }}</a>
-                </td>
-                <td>{{ order.created_at | time_tag: format: 'date' }}</td>
-                <td>
-                  <span class="bks-status-pill {{ pay_class }}">
-                    {{ order.financial_status_label }}
-                  </span>
-                </td>
-                <td>
-                  <span class="bks-status-pill {{ ful_class }}">
-                    {{ order.fulfillment_status_label }}
-                  </span>
-                </td>
-                <td>{{ order.total_net_amount | money_with_currency }}</td>
-              </tr>
-            {%- endfor -%}
-          </tbody>
-        </table>
+          {%- endfor -%}
+        </tbody>
+      </table>
 
-        {%- comment -%} CTA recensione 7 giorni post-consegna (bks-drop+) {%- endcomment -%}
-        {%- if bks_tier_rank >= 2 and bks_latest_order.fulfillment_status == "fulfilled" -%}
-          {%- assign fulfilled_days = bks_latest_order.created_at | date: "%s" | plus: 604800 -%}
-          {%- assign now_ts = "now" | date: "%s" | plus: 0 -%}
-          {%- if now_ts >= fulfilled_days -%}
-            <div style="margin-top:24px;padding:20px 24px;background:var(--bks-surface);border:1px solid var(--bks-border);border-radius:3px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-              <div>
-                <p style="margin:0 0 4px;font-size:13px;font-weight:500;">Come sta il tuo {{ bks_latest_order.line_items.first.title | split: " " | slice: 0, 3 | join: " " }}?</p>
-                <p style="margin:0;font-size:12px;color:var(--bks-muted);">Lascia una recensione — aiuta la community BKS.</p>
-              </div>
-              <a href="{{ bks_latest_order.customer_url }}#reviews" class="bks-btn-gold" style="font-size:11px;">
-                Scrivi recensione
-              </a>
+      {%- if bks_metal_rank >= 2 and bks_latest_order.fulfillment_status == "fulfilled" -%}
+        {%- assign fulfilled_days = bks_latest_order.created_at | date: "%s" | plus: 604800 -%}
+        {%- assign now_ts = "now" | date: "%s" | plus: 0 -%}
+        {%- if now_ts >= fulfilled_days -%}
+          <div style="margin-top:24px;padding:20px 24px;background:var(--bks-surface);border:1px solid var(--bks-border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+            <div>
+              <p style="margin:0 0 4px;font-size:13px;font-weight:500;">How is your {{ bks_latest_order.line_items.first.title | split: " " | slice: 0, 3 | join: " " }}?</p>
+              <p style="margin:0;font-size:12px;color:var(--bks-muted);">Leave a review — it helps the BKS community.</p>
             </div>
-          {%- endif -%}
+            <a href="{{ bks_latest_order.customer_url }}#reviews" class="bks-btn-gold" style="font-size:11px;">Write a review</a>
+          </div>
         {%- endif -%}
-
-      {%- else -%}
-        <div class="bks-empty-state">
-          <p>Nessun ordine ancora.</p>
-          <a href="/collections/all" class="bks-btn-ghost" style="margin-top:16px;">Scopri i prodotti</a>
-        </div>
       {%- endif -%}
 
-      {%- if paginate.pages > 1 -%}
-        <nav style="margin-top:24px;display:flex;gap:8px;align-items:center;">
-          {%- if paginate.previous -%}
-            <a href="{{ paginate.previous.url }}" class="bks-btn-ghost" style="padding:7px 14px;">← Precedente</a>
-          {%- endif -%}
-          {%- if paginate.next -%}
-            <a href="{{ paginate.next.url }}" class="bks-btn-ghost" style="padding:7px 14px;">Successivo →</a>
-          {%- endif -%}
-        </nav>
-      {%- endif -%}
-    {%- endpaginate -%}
+    {%- else -%}
+      <div class="bks-empty-state">
+        <p>No orders yet.</p>
+        <a href="/collections/all" class="bks-btn-ghost" style="margin-top:16px;">Explore products</a>
+      </div>
+    {%- endif -%}
+
+    {%- if customer.orders.size > 20 -%}
+      <p style="margin-top:16px;font-size:12px;color:var(--bks-muted);text-align:center;">
+        Showing last 20 orders.
+        <a href="{{ routes.account_url }}" style="color:inherit;text-decoration:underline;">View all in account</a>
+      </p>
+    {%- endif -%}
   </div>
 
   {%- comment -%} ══════════════════════════════════════════
       TAB: Wishlist
   ══════════════════════════════════════════ {%- endcomment -%}
   <div id="bks-panel-wishlist" class="bks-member-panel">
-    <p class="bks-section-title">La tua wishlist</p>
+    <p class="bks-section-title">Your wishlist</p>
     <div id="bks-wishlist-container">
-      <div class="bks-empty-state" style="color:var(--bks-muted);font-size:13px;">
-        Caricamento...
-      </div>
+      <div class="bks-empty-state" style="color:var(--bks-muted);font-size:13px;">Loading...</div>
     </div>
   </div>
 
@@ -156,93 +298,55 @@
   <div id="bks-panel-early-access" class="bks-member-panel">
     <p class="bks-section-title">Early Access</p>
 
-    {%- if bks_tier_rank >= 1 -%}
-      {%- comment -%}
-        Edit the fields below to update the teaser for each drop.
-        Set drop_live to true once the collection is public.
-      {%- endcomment -%}
-
-      {%- assign drop_title    = section.settings.drop_title -%}
-      {%- assign drop_date     = section.settings.drop_date -%}
-      {%- assign drop_teaser   = section.settings.drop_teaser -%}
-      {%- assign drop_live     = section.settings.drop_live -%}
-      {%- assign drop_url      = section.settings.drop_url -%}
+    {%- if bks_metal_rank >= 1 -%}
+      {%- assign drop_title  = section.settings.drop_title -%}
+      {%- assign drop_date   = section.settings.drop_date -%}
+      {%- assign drop_teaser = section.settings.drop_teaser -%}
+      {%- assign drop_live   = section.settings.drop_live -%}
+      {%- assign drop_url    = section.settings.drop_url -%}
 
       {%- if drop_title != blank -%}
         <div class="bks-early-access-card">
           <div style="flex:1;min-width:220px;">
             <p class="bks-early-access-label">
-              {%- if bks_tier_rank >= 3 -%}+24h Anteprima esclusiva{%- else -%}Prossimo drop{%- endif -%}
+              {%- if bks_metal_rank >= 3 -%}+24h exclusive preview{%- else -%}Next drop{%- endif -%}
             </p>
             <h2 class="bks-early-access-title">{{ drop_title }}</h2>
             <p class="bks-early-access-date">
-              Drop pubblico: <strong>{{ drop_date }}</strong>
-              {%- if bks_tier_rank >= 3 -%}
-                — Tu accedi <strong>24h prima</strong>
-              {%- endif -%}
+              Public drop: <strong>{{ drop_date }}</strong>
+              {%- if bks_metal_rank >= 3 -%} — you get access <strong>24h earlier</strong>{%- endif -%}
             </p>
-
             {%- if drop_teaser != blank -%}
               <p style="font-size:13px;color:var(--bks-muted);line-height:1.6;margin:0 0 20px;">{{ drop_teaser }}</p>
             {%- endif -%}
-
             {%- if drop_live -%}
-              <a href="{{ drop_url | default: '/collections/new-arrivals' }}" class="bks-btn-gold">
-                Vai alla collezione →
-              </a>
+              <a href="{{ drop_url | default: '/collections/new-arrivals' }}" class="bks-btn-gold">Go to collection →</a>
             {%- else -%}
               {%- if drop_date != blank -%}
                 <div class="bks-countdown" id="bks-countdown" data-target="{{ drop_date }}">
-                  <div class="bks-countdown-block">
-                    <span class="bks-countdown-num bks-countdown-d">--</span>
-                    <span class="bks-countdown-unit">giorni</span>
-                  </div>
-                  <div class="bks-countdown-block">
-                    <span class="bks-countdown-num bks-countdown-h">--</span>
-                    <span class="bks-countdown-unit">ore</span>
-                  </div>
-                  <div class="bks-countdown-block">
-                    <span class="bks-countdown-num bks-countdown-m">--</span>
-                    <span class="bks-countdown-unit">min</span>
-                  </div>
-                  <div class="bks-countdown-block">
-                    <span class="bks-countdown-num bks-countdown-s">--</span>
-                    <span class="bks-countdown-unit">sec</span>
-                  </div>
+                  <div class="bks-countdown-block"><span class="bks-countdown-num bks-countdown-d">--</span><span class="bks-countdown-unit">days</span></div>
+                  <div class="bks-countdown-block"><span class="bks-countdown-num bks-countdown-h">--</span><span class="bks-countdown-unit">hrs</span></div>
+                  <div class="bks-countdown-block"><span class="bks-countdown-num bks-countdown-m">--</span><span class="bks-countdown-unit">min</span></div>
+                  <div class="bks-countdown-block"><span class="bks-countdown-num bks-countdown-s">--</span><span class="bks-countdown-unit">sec</span></div>
                 </div>
               {%- endif -%}
-              <p class="bks-early-access-teaser-label" style="margin-top:16px;">
-                Notificheremo via email al lancio.
-              </p>
+              <p class="bks-early-access-teaser-label" style="margin-top:16px;">We'll notify you by email at launch.</p>
             {%- endif -%}
           </div>
-
           {%- if section.settings.drop_image -%}
-            <img
-              class="bks-early-access-image"
-              src="{{ section.settings.drop_image | image_url: width: 400 }}"
-              alt="{{ drop_title }}"
-              loading="lazy"
-            >
+            <img class="bks-early-access-image" src="{{ section.settings.drop_image | image_url: width: 400 }}" alt="{{ drop_title }}" loading="lazy">
           {%- endif -%}
         </div>
       {%- else -%}
-        <div class="bks-empty-state">
-          <p>Nessun drop in arrivo annunciato.<br>Controlla di nuovo presto.</p>
-        </div>
+        <div class="bks-empty-state"><p>No upcoming drop announced yet.<br>Check back soon.</p></div>
       {%- endif -%}
 
     {%- else -%}
       <div class="bks-upgrade-card">
-        <div class="bks-upgrade-icon">📭</div>
-        <h3 class="bks-upgrade-title">Early Access riservato ai member</h3>
-        <p class="bks-upgrade-text">
-          Crea un account e iscriviti alla newsletter per diventare BKS Subscriber e accedere ai drop in anteprima.
-        </p>
-        <span class="bks-upgrade-badge">
-          <span class="bks-tier-dot"></span>
-          BKS Subscriber
-        </span>
+        <div class="bks-upgrade-icon">→</div>
+        <h3 class="bks-upgrade-title">Early Access is for members</h3>
+        <p class="bks-upgrade-text">Place your first order to become an Iron Member and get early access to upcoming drops.</p>
+        <span class="bks-upgrade-badge"><span class="bks-tier-dot"></span>⬡ Iron Member — 1+ orders</span>
       </div>
     {%- endif -%}
   </div>
@@ -251,63 +355,39 @@
       TAB: Referral
   ══════════════════════════════════════════ {%- endcomment -%}
   <div id="bks-panel-referral" class="bks-member-panel">
-    <p class="bks-section-title">Programma referral</p>
+    <p class="bks-section-title">Referral program</p>
 
-    {%- if bks_tier_rank >= 1 -%}
+    {%- if bks_metal_rank >= 1 -%}
       <div class="bks-referral-card">
-        <h2 class="bks-referral-heading">Porta un amico, guadagnate entrambi</h2>
+        <h2 class="bks-referral-heading">Refer a friend, both earn</h2>
         <p class="bks-referral-sub">
-          Ogni persona che acquista tramite il tuo link riceve <strong style="color:var(--bks-text);">€10 di sconto</strong> sul primo ordine.<br>
-          Tu ricevi <strong style="color:var(--bks-gold);">€10 di credito</strong> sul tuo account BKS.
+          Every person who orders via your link gets <strong style="color:var(--bks-text);">€10 off</strong> their first order.<br>
+          You get <strong style="color:var(--bks-gold);">€10 store credit</strong>.
         </p>
-
         <div class="bks-referral-link-row">
-          <input
-            id="bks-referral-url"
-            class="bks-referral-input"
-            type="text"
-            readonly
-            value="{{ bks_ref_url }}"
-          >
-          <button id="bks-referral-copy" class="bks-referral-copy-btn">Copia link</button>
+          <input id="bks-referral-url" class="bks-referral-input" type="text" readonly value="{{ bks_ref_url }}">
+          <button id="bks-referral-copy" class="bks-referral-copy-btn">Copy link</button>
         </div>
-
         <div class="bks-referral-stats">
-          <div>
-            <span class="bks-referral-stat-val">—</span>
-            <span class="bks-referral-stat-label">Inviti inviati</span>
-          </div>
-          <div>
-            <span class="bks-referral-stat-val">—</span>
-            <span class="bks-referral-stat-label">Acquisti completati</span>
-          </div>
-          <div>
-            <span class="bks-referral-stat-val">€0</span>
-            <span class="bks-referral-stat-label">Crediti guadagnati</span>
-          </div>
+          <div><span class="bks-referral-stat-val">—</span><span class="bks-referral-stat-label">Invites sent</span></div>
+          <div><span class="bks-referral-stat-val">—</span><span class="bks-referral-stat-label">Completed orders</span></div>
+          <div><span class="bks-referral-stat-val">€0</span><span class="bks-referral-stat-label">Credits earned</span></div>
         </div>
-
         <div class="bks-referral-how">
-          <p class="bks-referral-how-title">Come funziona</p>
+          <p class="bks-referral-how-title">How it works</p>
           <ol>
-            <li>Copia il tuo link personale e condividilo</li>
-            <li>Il tuo amico arriva su bakabo.club con €10 di sconto automatico</li>
-            <li>Dopo il suo primo ordine ricevi €10 di credito via email</li>
+            <li>Copy your personal link and share it</li>
+            <li>Your friend arrives on bakabo.club with €10 off automatically</li>
+            <li>After their first order you receive €10 store credit by email</li>
           </ol>
         </div>
       </div>
-
     {%- else -%}
       <div class="bks-upgrade-card">
-        <div class="bks-upgrade-icon">🔗</div>
-        <h3 class="bks-upgrade-title">Referral disponibile per i member</h3>
-        <p class="bks-upgrade-text">
-          Diventa BKS Subscriber per ottenere il tuo link referral personale.
-        </p>
-        <span class="bks-upgrade-badge">
-          <span class="bks-tier-dot"></span>
-          BKS Subscriber
-        </span>
+        <div class="bks-upgrade-icon">◌</div>
+        <h3 class="bks-upgrade-title">Referral for members only</h3>
+        <p class="bks-upgrade-text">Place your first order to unlock your personal referral link.</p>
+        <span class="bks-upgrade-badge"><span class="bks-tier-dot"></span>⬡ Iron Member — 1+ orders</span>
       </div>
     {%- endif -%}
   </div>
@@ -318,23 +398,22 @@
   <div id="bks-panel-customize" class="bks-member-panel">
     <p class="bks-section-title">Garment customization</p>
 
-    <div class="bks-cz-tier-banner bks-cz-tier-banner--{{ bks_tier | default: 'none' }}">
-      <span class="bks-cz-tier-icon">
-        {%- if bks_tier == "archive" -%}✦{%- elsif bks_tier == "drop" -%}◈{%- elsif bks_tier == "subscriber" -%}◇{%- else -%}○{%- endif -%}
-      </span>
+    <div class="bks-cz-tier-banner bks-cz-tier-banner--{{ bks_metal_tier }}">
+      <span class="bks-cz-tier-icon">{{ bks_metal_symbol }}</span>
       <div>
         <p class="bks-cz-tier-name">
-          {%- if bks_tier == "archive" -%}BKS Archive — Full customization
-          {%- elsif bks_tier == "drop" -%}BKS Drop — Advanced customization
-          {%- elsif bks_tier == "subscriber" -%}BKS Subscriber — Base customization
-          {%- else -%}Open request — become a member for priority access
+          {%- if bks_metal_rank >= 4 -%}Gold — Full customization
+          {%- elsif bks_metal_rank >= 3 -%}Silver — Full customization
+          {%- elsif bks_metal_rank >= 2 -%}Brass — Advanced customization
+          {%- elsif bks_metal_rank >= 1 -%}Iron — Base customization
+          {%- else -%}Lead — Open request
           {%- endif -%}
         </p>
         <p class="bks-cz-tier-desc">
-          {%- if bks_tier == "archive" -%}All options unlocked: palette, text, graphic placement, custom sizing and full compositions.
-          {%- elsif bks_tier == "drop" -%}Palette, text, graphic placement and non-standard sizing available.
-          {%- elsif bks_tier == "subscriber" -%}Palette variation and text / monogram requests available.
-          {%- else -%}Send a customization request. Upgrade to BKS Subscriber for faster turnaround.
+          {%- if bks_metal_rank >= 3 -%}All options unlocked: palette, text, graphic placement, custom sizing and full compositions.
+          {%- elsif bks_metal_rank >= 2 -%}Palette, text, graphic placement and non-standard sizing available.
+          {%- elsif bks_metal_rank >= 1 -%}Palette variation and text / monogram requests available.
+          {%- else -%}Send a customization request. Place your first order for faster turnaround.
           {%- endif -%}
         </p>
       </div>
@@ -346,8 +425,8 @@
       <p class="bks-cz-form-title">New request</p>
 
       <form id="bks-cz-form"
-            data-tier="{{ bks_tier | default: 'none' }}"
-            data-tier-rank="{{ bks_tier_rank | default: 0 }}"
+            data-tier="{{ bks_metal_tier }}"
+            data-tier-rank="{{ bks_metal_rank }}"
             data-customer-name="{{ customer.name | escape }}"
             data-customer-email="{{ customer.email | escape }}">
 
@@ -356,7 +435,7 @@
             <label class="bks-cz-label" for="bks-cz-collection">Collection</label>
             <select id="bks-cz-collection" class="bks-cz-select" required>
               <option value="">— Select —</option>
-              <option value="BKS Folklore">Folklore</option>
+              <option value="BKS Origin">Origin</option>
               <option value="BKS Glyph">Glyph</option>
               <option value="BKS Marker">Marker</option>
               <option value="BKS Riviera">Riviera</option>
@@ -372,19 +451,18 @@
             <select id="bks-cz-product" class="bks-cz-select" required>
               <option value="">— Select —</option>
               <option value="Pullover Hoodie">Pullover Hoodie</option>
+              <option value="Puffer Jacket">Puffer Jacket</option>
               <option value="Windbreaker">Windbreaker</option>
               <option value="T-Shirt">T-Shirt</option>
               <option value="Lounge Pants">Lounge Pants</option>
               <option value="Athletic Shorts">Athletic Shorts</option>
               <option value="Swim Trunks">Swim Trunks</option>
               <option value="One-Piece Swimsuit">One-Piece Swimsuit</option>
-              <option value="Puffer Jacket">Puffer Jacket</option>
               <option value="Racerback Dress">Racerback Dress</option>
               <option value="Sneakers">Sneakers</option>
               <option value="Backpack">Backpack</option>
               <option value="Travel Bag">Travel Bag</option>
               <option value="Flip Flop">Flip Flop</option>
-              <option value="Cozy Slipper">Cozy Slipper</option>
               <option value="Other">Other</option>
             </select>
           </div>
@@ -408,44 +486,44 @@
 
             <label class="bks-cz-type-card">
               <input type="radio" name="bks-cz-type" value="palette" required>
-              <span class="bks-cz-type-icon">🎨</span>
+              <span class="bks-cz-type-icon">◐</span>
               <span class="bks-cz-type-name">Color palette</span>
               <span class="bks-cz-type-desc">Tonal variation of the pattern</span>
             </label>
 
             <label class="bks-cz-type-card">
               <input type="radio" name="bks-cz-type" value="text">
-              <span class="bks-cz-type-icon">✍</span>
+              <span class="bks-cz-type-icon">◁</span>
               <span class="bks-cz-type-name">Text / Monogram</span>
               <span class="bks-cz-type-desc">Add initials or custom text</span>
             </label>
 
-            <label class="bks-cz-type-card{%- if bks_tier_rank < 2 %} bks-cz-type-locked{%- endif -%}">
-              <input type="radio" name="bks-cz-type" value="placement"{% if bks_tier_rank < 2 %} disabled{% endif %}>
+            <label class="bks-cz-type-card{%- if bks_metal_rank < 2 %} bks-cz-type-locked{%- endif -%}">
+              <input type="radio" name="bks-cz-type" value="placement"{% if bks_metal_rank < 2 %} disabled{% endif %}>
               <span class="bks-cz-type-icon">◱</span>
               <span class="bks-cz-type-name">Graphic placement</span>
-              <span class="bks-cz-type-desc">Drop+ · Reposition the pattern</span>
+              <span class="bks-cz-type-desc">Brass+ · Reposition the pattern</span>
             </label>
 
-            <label class="bks-cz-type-card{%- if bks_tier_rank < 2 %} bks-cz-type-locked{%- endif -%}">
-              <input type="radio" name="bks-cz-type" value="sizing"{% if bks_tier_rank < 2 %} disabled{% endif %}>
-              <span class="bks-cz-type-icon">📐</span>
+            <label class="bks-cz-type-card{%- if bks_metal_rank < 2 %} bks-cz-type-locked{%- endif -%}">
+              <input type="radio" name="bks-cz-type" value="sizing"{% if bks_metal_rank < 2 %} disabled{% endif %}>
+              <span class="bks-cz-type-icon">◫</span>
               <span class="bks-cz-type-name">Non-standard sizing</span>
-              <span class="bks-cz-type-desc">Drop+ · Custom measurements</span>
+              <span class="bks-cz-type-desc">Brass+ · Custom measurements</span>
             </label>
 
-            <label class="bks-cz-type-card{%- if bks_tier_rank < 3 %} bks-cz-type-locked{%- endif -%}">
-              <input type="radio" name="bks-cz-type" value="composition"{% if bks_tier_rank < 3 %} disabled{% endif %}>
-              <span class="bks-cz-type-icon">⧉</span>
+            <label class="bks-cz-type-card{%- if bks_metal_rank < 3 %} bks-cz-type-locked{%- endif -%}">
+              <input type="radio" name="bks-cz-type" value="composition"{% if bks_metal_rank < 3 %} disabled{% endif %}>
+              <span class="bks-cz-type-icon">⊞</span>
               <span class="bks-cz-type-name">Composition</span>
-              <span class="bks-cz-type-desc">Archive · Pattern on different garment</span>
+              <span class="bks-cz-type-desc">Silver+ · Pattern on different garment</span>
             </label>
 
-            <label class="bks-cz-type-card{%- if bks_tier_rank < 3 %} bks-cz-type-locked{%- endif -%}">
-              <input type="radio" name="bks-cz-type" value="full"{% if bks_tier_rank < 3 %} disabled{% endif %}>
+            <label class="bks-cz-type-card{%- if bks_metal_rank < 3 %} bks-cz-type-locked{%- endif -%}">
+              <input type="radio" name="bks-cz-type" value="full"{% if bks_metal_rank < 3 %} disabled{% endif %}>
               <span class="bks-cz-type-icon">✦</span>
               <span class="bks-cz-type-name">Full custom</span>
-              <span class="bks-cz-type-desc">Archive · Entirely new concept</span>
+              <span class="bks-cz-type-desc">Silver+ · Entirely new concept</span>
             </label>
 
           </div>
@@ -454,7 +532,7 @@
         <div class="bks-cz-field" style="margin-top:24px;">
           <label class="bks-cz-label" for="bks-cz-desc">Request description <span class="bks-cz-req">*</span></label>
           <textarea id="bks-cz-desc" class="bks-cz-textarea" rows="4"
-                    placeholder="Describe the customization you'd like. The more detail you provide, the more accurate our response will be."
+                    placeholder="Describe the customization you'd like. The more detail, the more accurate our response."
                     required minlength="20"></textarea>
           <span class="bks-cz-char-count"><span id="bks-cz-desc-count">0</span> / 500</span>
         </div>
@@ -481,39 +559,211 @@
   </div>
 
   {%- comment -%} ══════════════════════════════════════════
+      TAB: Try-On — BAKABO_TRYON_REALTIME_ENGINE_v0_2
+  ══════════════════════════════════════════ {%- endcomment -%}
+  <div id="bks-panel-camerino" class="bks-member-panel">
+
+    <section class="bks-camerino" data-bks-camerino>
+      <div class="bks-camerino__head">
+        <div>
+          <h2 class="bks-camerino__title">BKS Try-On</h2>
+          <p class="bks-camerino__subtitle">Upload your photo, choose a garment from your wishlist and see how it looks on you.</p>
+        </div>
+      </div>
+
+      <div class="bks-camerino__steps">
+        <div class="bks-camerino__step is-active" data-bks-step="0">00 · Photo</div>
+        <div class="bks-camerino__step" data-bks-step="1">01 · Garment</div>
+        <div class="bks-camerino__step" data-bks-step="2">02 · Preview</div>
+      </div>
+
+      <div class="bks-photo-guide">
+        <p class="bks-section-title" style="margin:0 0 16px">Photo guide</p>
+        <div class="bks-photo-guide__grid">
+          <div class="bks-photo-guide__rule"><span class="bks-photo-guide__icon">↕</span><strong>Full body</strong><span>Head to toe, standing, arms slightly away from body.</span></div>
+          <div class="bks-photo-guide__rule"><span class="bks-photo-guide__icon">◎</span><strong>Frontal</strong><span>Look straight into the camera. 0° angle, no 3/4 turn.</span></div>
+          <div class="bks-photo-guide__rule"><span class="bks-photo-guide__icon">◻</span><strong>Neutral background</strong><span>White, beige or light grey wall. No doors, frames or clutter behind you.</span></div>
+          <div class="bks-photo-guide__rule"><span class="bks-photo-guide__icon">◑</span><strong>Front light</strong><span>Window or natural light facing you. Avoid backlighting and harsh shadows on the face.</span></div>
+          <div class="bks-photo-guide__rule"><span class="bks-photo-guide__icon">▭</span><strong>Fitted clothes</strong><span>Wear something simple and fitted (t-shirt, leggings) — the BKS garment will be overlaid.</span></div>
+          <div class="bks-photo-guide__rule"><span class="bks-photo-guide__icon">⊡</span><strong>Portrait format</strong><span>Vertical photo, minimum 800×1200 px. JPG or PNG, max 12 MB.</span></div>
+        </div>
+        <div class="bks-photo-guide__example">
+          <svg viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Correct pose: full body frontal">
+            <rect width="120" height="200" rx="4" fill="#efeae0"/>
+            <circle cx="60" cy="32" r="14" stroke="#0a0a0a" stroke-width="1.5"/>
+            <line x1="60" y1="46" x2="60" y2="120" stroke="#0a0a0a" stroke-width="1.5"/>
+            <line x1="60" y1="68" x2="34" y2="96" stroke="#0a0a0a" stroke-width="1.5"/>
+            <line x1="60" y1="68" x2="86" y2="96" stroke="#0a0a0a" stroke-width="1.5"/>
+            <line x1="60" y1="120" x2="42" y2="172" stroke="#0a0a0a" stroke-width="1.5"/>
+            <line x1="60" y1="120" x2="78" y2="172" stroke="#0a0a0a" stroke-width="1.5"/>
+            <line x1="14" y1="18" x2="14" y2="182" stroke="#c9b79c" stroke-width="1"/>
+            <line x1="10" y1="18" x2="18" y2="18" stroke="#c9b79c" stroke-width="1"/>
+            <line x1="10" y1="182" x2="18" y2="182" stroke="#c9b79c" stroke-width="1"/>
+            <text x="60" y="194" text-anchor="middle" font-size="8" fill="#9a9a9a" font-family="monospace">full body · frontal</text>
+          </svg>
+          <p class="bks-photo-guide__caption">✓ &nbsp;Full body · arms open · neutral background · front light</p>
+        </div>
+      </div>
+
+      <div class="bks-privacy-notice">
+        <span class="bks-privacy-notice__icon">⊙</span>
+        <p><strong>Your photo stays in your browser.</strong> Try-on is processed locally: no image is uploaded to BKS servers or third parties. If you use "Send to crew", we'll receive your photo for manual processing — your consent will be requested at that point.</p>
+      </div>
+
+      <div class="bks-camerino__upload-zone" id="bks-upload-zone">
+        <input type="file" id="bks-photo-input" accept="image/jpeg,image/png,image/webp,image/heic" style="display:none" aria-label="Upload your photo">
+        <label for="bks-photo-input" class="bks-upload-label" id="bks-upload-label">
+          <span class="bks-upload-label__icon">↑</span>
+          <strong>Upload your photo</strong>
+          <span>JPG · PNG · WEBP · max 12 MB</span>
+        </label>
+        <div class="bks-upload-preview" id="bks-upload-preview" style="display:none">
+          <img id="bks-uploaded-img" alt="Your photo">
+          <button class="bks-upload-remove" id="bks-upload-remove" aria-label="Remove photo">✕</button>
+        </div>
+      </div>
+      <div id="bks-photo-feedback" class="bks-photo-error" role="alert"></div>
+      <div id="bks-photo-ok" class="bks-photo-ok" role="status"></div>
+
+      <div class="bks-camerino__grid" id="bks-camerino-grid" style="display:none">
+        <div class="bks-camerino__panel">
+          <p class="bks-section-title" style="margin:0 0 12px">Garment from wishlist</p>
+          <div class="bks-wishlist" data-bks-wishlist id="bks-camerino-wishlist">
+            <div style="color:#b8b2a6;font-size:13px;">Loading wishlist...</div>
+          </div>
+          <div class="bks-actions" style="margin-top:20px">
+            <label class="bks-consent-row" id="bks-consent-row">
+              <input type="checkbox" id="bks-consent-check">
+              <span>I consent to sending my photo to the BKS crew for manual try-on processing (GDPR art. 6.1.a)</span>
+            </label>
+            <button class="bks-btn bks-btn--ghost" id="bks-crew-btn" disabled>Send to BKS crew</button>
+          </div>
+        </div>
+        <div class="bks-preview" data-bks-preview>
+          <canvas id="bks-tryon-canvas" style="width:100%;height:100%;display:block;"></canvas>
+          <div class="bks-preview__status"><div data-bks-status>Choose a garment from your wishlist.</div></div>
+        </div>
+      </div>
+
+    </section>
+
+    <style>
+      .bks-photo-guide { background:#f5f0e8;border:1px solid rgba(10,10,10,0.08);padding:clamp(20px,3vw,32px);margin-bottom:28px; }
+      .bks-photo-guide__grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:24px; }
+      .bks-photo-guide__rule { display:flex;flex-direction:column;gap:4px;padding:14px;background:#fafaf7;border-left:2px solid #c9b79c; }
+      .bks-photo-guide__icon { font-size:1.1rem;color:#c9b79c;line-height:1;margin-bottom:4px; }
+      .bks-photo-guide__rule strong { font-family:var(--bks-font-mono,'DM Mono',monospace);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:#0a0a0a; }
+      .bks-photo-guide__rule span { font-size:0.8rem;color:#5a5a5a;line-height:1.5; }
+      .bks-photo-guide__example { display:flex;align-items:center;gap:20px;padding-top:16px;border-top:1px solid rgba(10,10,10,0.08); }
+      .bks-photo-guide__example svg { width:80px;flex-shrink:0; }
+      .bks-photo-guide__caption { font-family:var(--bks-font-mono,'DM Mono',monospace);font-size:0.72rem;color:#5a5a5a;letter-spacing:0.06em;line-height:1.6; }
+      .bks-camerino__upload-zone { margin-bottom:24px; }
+      .bks-upload-label { display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:40px 24px;border:2px dashed rgba(10,10,10,0.2);cursor:pointer;text-align:center;transition:border-color 0.2s,background 0.2s;background:#fafaf7; }
+      .bks-upload-label:hover { border-color:#0a0a0a;background:#f0ebe0; }
+      .bks-upload-label__icon { font-size:2rem;color:#c9b79c;line-height:1; }
+      .bks-upload-label strong { font-family:var(--bks-font-mono,'DM Mono',monospace);font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;color:#0a0a0a; }
+      .bks-upload-label span { font-size:0.72rem;color:#9a9a9a;font-family:var(--bks-font-mono,'DM Mono',monospace);letter-spacing:0.06em; }
+      .bks-upload-preview { position:relative;max-width:280px;margin:0 auto; }
+      .bks-upload-preview img { width:100%;display:block;border:1px solid rgba(10,10,10,0.12); }
+      .bks-upload-remove { position:absolute;top:8px;right:8px;background:rgba(10,10,10,0.75);color:#fafaf7;border:none;width:28px;height:28px;cursor:pointer;font-size:0.8rem;display:flex;align-items:center;justify-content:center; }
+      .bks-privacy-notice { display:flex;gap:12px;align-items:flex-start;background:#f0ebe0;border-left:3px solid #c9b79c;padding:14px 16px;margin-bottom:20px;font-size:0.8rem;line-height:1.55;color:#3d3d3d; }
+      .bks-privacy-notice__icon { font-size:1rem;flex-shrink:0;margin-top:1px; }
+      .bks-privacy-notice strong { color:#0a0a0a; }
+      .bks-consent-row { display:flex;gap:10px;align-items:flex-start;font-size:0.75rem;color:#5a5a5a;line-height:1.5;margin-bottom:12px;cursor:pointer; }
+      .bks-consent-row input { flex-shrink:0;margin-top:2px; }
+      .bks-photo-error { display:none;background:#fef0ee;border-left:3px solid #c04418;padding:10px 14px;font-size:0.78rem;color:#c04418;margin-top:8px;font-family:var(--bks-font-mono,'DM Mono',monospace); }
+      .bks-photo-ok { display:none;background:#eef8ee;border-left:3px solid #489808;padding:10px 14px;font-size:0.78rem;color:#2d6006;margin-top:8px;font-family:var(--bks-font-mono,'DM Mono',monospace); }
+    </style>
+
+    <script>
+    (function() {
+      var MAX_BYTES=12*1024*1024, MIN_W=600, MIN_H=900;
+      var ALLOWED=['image/jpeg','image/png','image/webp','image/heic','image/heif'];
+      var input=document.getElementById('bks-photo-input');
+      var labelEl=document.getElementById('bks-upload-label');
+      var previewBox=document.getElementById('bks-upload-preview');
+      var img=document.getElementById('bks-uploaded-img');
+      var removeBtn=document.getElementById('bks-upload-remove');
+      var grid=document.getElementById('bks-camerino-grid');
+      var errBox=document.getElementById('bks-photo-feedback');
+      var okBox=document.getElementById('bks-photo-ok');
+      var consentChk=document.getElementById('bks-consent-check');
+      var crewBtn=document.getElementById('bks-crew-btn');
+      if (!input) return;
+      function showErr(m){errBox.textContent='✗ '+m;errBox.style.display='block';okBox.style.display='none';}
+      function showOk(m){okBox.textContent='✓ '+m;okBox.style.display='block';errBox.style.display='none';}
+      function clearFeedback(){errBox.style.display=okBox.style.display='none';}
+      function validateAndLoad(file){
+        clearFeedback();
+        if(ALLOWED.indexOf(file.type)===-1&&!file.name.match(/\.(heic|heif)$/i)){showErr('Unsupported format. Use JPG, PNG or WEBP.');return;}
+        if(file.size>MAX_BYTES){showErr('File too large ('+(file.size/1024/1024).toFixed(1)+' MB). Maximum 12 MB.');return;}
+        var url=URL.createObjectURL(file);
+        var tmp=new Image();
+        tmp.onload=function(){
+          var w=tmp.naturalWidth,h=tmp.naturalHeight;
+          URL.revokeObjectURL(url);
+          if(w<MIN_W||h<MIN_H){showErr('Photo too small ('+w+'×'+h+'px). Minimum 600×900 px — full body portrait.');return;}
+          if(w>h){showErr('Horizontal photo. Rotate your phone and shoot in portrait (vertical) mode.');return;}
+          var displayUrl=URL.createObjectURL(file);
+          img.src=displayUrl;
+          labelEl.style.display='none';previewBox.style.display='block';grid.style.display='grid';
+          showOk('Photo valid ('+w+'×'+h+'px). Choose a garment from your wishlist.');
+          document.querySelectorAll('.bks-camerino__step').forEach(function(s,i){s.classList.toggle('is-active',i===1);});
+        };
+        tmp.onerror=function(){showErr('Cannot read file. Try a different format.');};
+        tmp.src=url;
+      }
+      input.addEventListener('change',function(){if(input.files[0])validateAndLoad(input.files[0]);});
+      removeBtn.addEventListener('click',function(){
+        input.value='';img.src='';previewBox.style.display='none';labelEl.style.display='flex';grid.style.display='none';
+        clearFeedback();if(consentChk)consentChk.checked=false;if(crewBtn)crewBtn.disabled=true;
+        document.querySelectorAll('.bks-camerino__step').forEach(function(s,i){s.classList.toggle('is-active',i===0);});
+      });
+      if(consentChk&&crewBtn){consentChk.addEventListener('change',function(){crewBtn.disabled=!consentChk.checked;});}
+      var zone=document.getElementById('bks-upload-zone');
+      zone.addEventListener('dragover',function(e){e.preventDefault();labelEl.style.borderColor='#0a0a0a';});
+      zone.addEventListener('dragleave',function(){labelEl.style.borderColor='';});
+      zone.addEventListener('drop',function(e){
+        e.preventDefault();labelEl.style.borderColor='';
+        var f=e.dataTransfer.files[0];
+        if(f&&f.type.startsWith('image/')){
+          try{var dt=new DataTransfer();dt.items.add(f);input.files=dt.files;}catch(x){}
+          validateAndLoad(f);
+        }
+      });
+    })();
+    </script>
+
+  </div>
+
+  {%- comment -%} ══════════════════════════════════════════
       TAB: Archive
   ══════════════════════════════════════════ {%- endcomment -%}
   <div id="bks-panel-archive" class="bks-member-panel">
 
-    {%- if bks_tier == "archive" -%}
+    {%- if bks_metal_rank >= 3 -%}
       {%- render 'bks-member-archive' -%}
 
-    {%- elsif bks_tier_rank >= 2 -%}
+    {%- elsif bks_metal_rank >= 1 -%}
       <div class="bks-upgrade-card">
-        <div class="bks-upgrade-icon">🗄</div>
+        <div class="bks-upgrade-icon">◫</div>
         <h3 class="bks-upgrade-title">BKS Studio Archive</h3>
         <p class="bks-upgrade-text">
-          Hai {{ customer.orders_count }} ordine{% if customer.orders_count != 1 %}i{% endif %}.
-          Con il secondo ordine sblocchi l'accesso all'archivio esclusivo — prompt library, pattern scartati, process notes, wallpaper AI.
+          You have {{ customer.orders_count }} order{% if customer.orders_count != 1 %}s{% endif %}.
+          Reach Silver (6+ orders) to unlock the exclusive archive — AI prompt library, rejected patterns, process notes, wallpapers.
         </p>
-        <span class="bks-upgrade-badge">
-          <span class="bks-tier-dot"></span>
-          BKS Archive — 2+ ordini
-        </span>
+        <span class="bks-upgrade-badge"><span class="bks-tier-dot"></span>◇ Silver Member — 6+ orders</span>
       </div>
 
     {%- else -%}
       <div class="bks-upgrade-card">
-        <div class="bks-upgrade-icon">🗄</div>
+        <div class="bks-upgrade-icon">◫</div>
         <h3 class="bks-upgrade-title">BKS Studio Archive</h3>
         <p class="bks-upgrade-text">
-          La pagina più esclusiva del brand. Accesso riservato ai clienti con 2+ ordini.<br>
-          Contiene il processo creativo reale: prompt AI, pattern scartati, wallpaper in alta risoluzione.
+          The most exclusive section of the brand. Unlocks at Silver (6+ orders).<br>
+          Contains the real creative process: AI prompts, rejected patterns, high-resolution wallpapers.
         </p>
-        <span class="bks-upgrade-badge">
-          <span class="bks-tier-dot"></span>
-          BKS Archive — 2+ ordini
-        </span>
+        <span class="bks-upgrade-badge"><span class="bks-tier-dot"></span>◇ Silver Member — 6+ orders</span>
       </div>
     {%- endif -%}
   </div>
@@ -522,108 +772,63 @@
       TAB: Account
   ══════════════════════════════════════════ {%- endcomment -%}
   <div id="bks-panel-account" class="bks-member-panel">
-    <p class="bks-section-title">Dettagli account</p>
+    <p class="bks-section-title">Account details</p>
 
     <div class="bks-account-details">
       <div class="bks-account-card">
-        <h3>Indirizzo predefinito</h3>
+        <h3>Default address</h3>
         {%- if customer.default_address -%}
           <address>{{ customer.default_address | format_address }}</address>
         {%- else -%}
-          <p style="color:var(--bks-muted);font-size:13px;">Nessun indirizzo salvato.</p>
+          <p style="color:var(--bks-muted);font-size:13px;">No address saved.</p>
         {%- endif -%}
-        <a href="{{ routes.account_addresses_url }}">
-          Gestisci indirizzi ({{ customer.addresses_count }})
-        </a>
+        <a href="{{ routes.account_addresses_url }}">Manage addresses ({{ customer.addresses_count }})</a>
       </div>
 
       <div class="bks-account-card">
-        <h3>Profilo</h3>
+        <h3>Profile</h3>
         <address>
           {{ customer.name }}<br>
           {{ customer.email }}<br>
-          {%- if bks_tier != "none" -%}
-            <span class="bks-tier-badge bks-tier-badge--{{ bks_tier }}" style="margin-top:12px;display:inline-flex;">
-              <span class="bks-tier-dot"></span>{{ bks_tier_label }}
-            </span>
-          {%- endif -%}
+          <span class="bks-tier-badge bks-tier-badge--{{ bks_metal_tier }}" style="margin-top:12px;display:inline-flex;">
+            <span class="bks-tier-dot"></span>{{ bks_metal_symbol }} {{ bks_metal_label }}
+          </span>
         </address>
-        <a href="mailto:info@bakabo.club">Contatta supporto</a>
+        <a href="mailto:crew@bakabo.club">Contact support</a>
       </div>
     </div>
   </div>
 
 </div>
 
+<script>
+window.BKS_TRYON = {
+  apiBase: "{{ section.settings.tryon_api_base | default: 'http://127.0.0.1:8010/api' }}",
+  customerId: "{{ customer.id }}",
+  customerEmail: "{{ customer.email | escape }}"
+};
+</script>
 <script src="{{ 'bks-member.js' | asset_url }}" defer></script>
+<script src="{{ 'bks-tryon.js' | asset_url }}" defer></script>
+
+{%- endif -%}
 
 {% schema %}
 {
   "name": "BKS Member Dashboard",
   "settings": [
-    {
-      "type": "header",
-      "content": "Early Access — prossimo drop"
-    },
-    {
-      "type": "text",
-      "id": "drop_title",
-      "label": "Titolo del drop",
-      "placeholder": "BKS Glyph — Estate 2026"
-    },
-    {
-      "type": "text",
-      "id": "drop_date",
-      "label": "Data drop (ISO 8601)",
-      "placeholder": "2026-07-10T10:00:00+02:00",
-      "info": "Formato: YYYY-MM-DDTHH:MM:SS+02:00"
-    },
-    {
-      "type": "textarea",
-      "id": "drop_teaser",
-      "label": "Teaser (breve descrizione)",
-      "placeholder": "Una nuova interpretazione del pattern Glyph, con tessuti tecnici riciclati."
-    },
-    {
-      "type": "image_picker",
-      "id": "drop_image",
-      "label": "Immagine teaser (blurred preview)"
-    },
-    {
-      "type": "checkbox",
-      "id": "drop_live",
-      "label": "Drop è live?",
-      "default": false
-    },
-    {
-      "type": "url",
-      "id": "drop_url",
-      "label": "URL collezione (quando live)"
-    },
-    {
-      "type": "header",
-      "content": "Spaziatura"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding top",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding bottom",
-      "default": 0
-    }
+    { "type": "header", "content": "Early Access — next drop" },
+    { "type": "text", "id": "drop_title", "label": "Drop title", "placeholder": "BKS Glyph — Summer 2026" },
+    { "type": "text", "id": "drop_date", "label": "Drop date (ISO 8601)", "placeholder": "2026-07-10T10:00:00+02:00", "info": "Format: YYYY-MM-DDTHH:MM:SS+02:00" },
+    { "type": "textarea", "id": "drop_teaser", "label": "Teaser (short description)", "placeholder": "A new interpretation of the Glyph pattern, in recycled technical fabrics." },
+    { "type": "image_picker", "id": "drop_image", "label": "Teaser image (blurred preview)" },
+    { "type": "checkbox", "id": "drop_live", "label": "Drop is live?", "default": false },
+    { "type": "url", "id": "drop_url", "label": "Collection URL (when live)" },
+    { "type": "header", "content": "Try-On — API" },
+    { "type": "text", "id": "tryon_api_base", "label": "API Base URL (try-on engine)", "default": "http://127.0.0.1:8010/api", "info": "Local: http://127.0.0.1:8010/api — Production: https://ai.bakabo.club/api" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding top", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding bottom", "default": 0 }
   ]
 }
 {% endschema %}

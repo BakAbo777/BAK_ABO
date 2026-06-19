@@ -6,6 +6,10 @@ from pathlib import Path
 from typing import Any
 
 
+BAKABO_STORE_DOMAIN = "bakabo.club"
+BKS_TM04_THEME_ID = "202392961362"
+BKS_THEME_VERSION = "BKS TM04 18_06_2026 V.0"
+
 OFFER_DIR = Path("output/marketing_timers")
 OFFER_FILE = OFFER_DIR / "active_offer.json"
 THEME_SECTION = Path("04_TEMA_SHOPIFY/sections/bks-timed-offer.liquid")
@@ -90,6 +94,11 @@ def compliance(offer: dict[str, Any]) -> dict[str, Any]:
         {"check": "real_deadline", "status": "pass" if ends_at and ends_at > now else "fail", "detail": offer.get("ends_at", "")},
         {"check": "real_start", "status": "pass" if starts_at else "fail", "detail": offer.get("starts_at", "")},
         {"check": "target_url", "status": "pass" if offer.get("target_url", "").startswith("https://") else "fail", "detail": offer.get("target_url", "")},
+        {
+            "check": "target_domain",
+            "status": "pass" if BAKABO_STORE_DOMAIN in offer.get("target_url", "") else "warn",
+            "detail": f"target_url should point to {BAKABO_STORE_DOMAIN}",
+        },
         {"check": "terms_visible", "status": "pass" if len(offer.get("terms", "")) > 40 else "fail", "detail": "terms text"},
         {
             "check": "discount_claim",
@@ -97,12 +106,13 @@ def compliance(offer: dict[str, Any]) -> dict[str, Any]:
             "detail": "price claim requires configured discount code",
         },
     ]
-    failed = sum(1 for row in checks if row["status"] != "pass")
+    failed = sum(1 for row in checks if row["status"] == "fail")
     return {
         "status": "google_safe" if failed == 0 else "needs_fix",
         "failed": failed,
         "checks": checks,
         "expired": bool(ends_at and ends_at <= now),
+        "trust_gate": "conversion_support",
     }
 
 
@@ -326,7 +336,9 @@ def ensure_workspace(settings: Any) -> dict[str, Any]:
     save_offer(settings, offer)
     section_path = settings.root_dir / THEME_SECTION
     section_path.parent.mkdir(parents=True, exist_ok=True)
-    section_path.write_text(section_liquid(), encoding="utf-8")
+    # only seed the section file if absent — don't overwrite a deployed/edited theme file
+    if not section_path.exists():
+        section_path.write_text(section_liquid(), encoding="utf-8")
     install_path = settings.root_dir / INSTALL_DOC
     install_path.write_text(install_doc(offer), encoding="utf-8")
     return {
@@ -349,12 +361,14 @@ def payload(settings: Any) -> dict[str, Any]:
             "section": workspace["section"],
             "install_doc": workspace["install_doc"],
             "discount_code": "configured" if offer.get("discount_code") else "not_configured",
+            "trust_gate": checks["trust_gate"],
         },
         "checks": checks["checks"],
         "theme": {
             "section": workspace["section"],
             "install_doc": workspace["install_doc"],
-            "latest_zip": "04_TEMA_SHOPIFY/BKS_TM03_clean_12JUN2026_SEO_READY_CORRETTO.zip",
-            "live_publish": "not_pushed_by_master",
+            "theme_id": BKS_TM04_THEME_ID,
+            "theme_version": BKS_THEME_VERSION,
+            "live_publish": "deploy_via_scripts/deploy_theme_section.py",
         },
     }

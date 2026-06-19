@@ -1,13 +1,28 @@
 import streamlit as st
 
-from streamlit_master import build_master_snapshot, render_agent_console, render_master_actions, render_progression_panel
+from streamlit_master import (
+    build_master_snapshot,
+    inject_bks_theme,
+    render_agent_console,
+    render_agent_routine,
+    render_master_actions,
+    render_progression_panel,
+)
 
 
-st.set_page_config(page_title="BKS - Agente", page_icon="BKS", layout="wide")
-st.title("Agente e Progressione")
-st.caption("Q&A ampia, avanzamento visibile e prima azione consigliata.")
+st.set_page_config(page_title="BKS — Agente", page_icon="◎", layout="wide")
+inject_bks_theme()
+st.title("Agente ◎ Progressione")
+st.caption("Routine operativa, Q&A, avanzamento fasi, prossima azione.")
 
 snapshot = build_master_snapshot()
-render_progression_panel(snapshot)
-render_agent_console(snapshot)
-render_master_actions(snapshot)
+
+tabs = st.tabs(["Routine", "Progressione", "Q&A", "Azioni"])
+with tabs[0]:
+    render_agent_routine(snapshot)
+with tabs[1]:
+    render_progression_panel(snapshot)
+with tabs[2]:
+    render_agent_console(snapshot)
+with tabs[3]:
+    render_master_actions(snapshot)

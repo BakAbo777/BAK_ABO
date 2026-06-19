@@ -7,8 +7,10 @@ from typing import Any
 
 PHOTO_SHEET = Path("output/photo_studio_pipeline.csv")
 THEME_PROGRESSIONS = Path("output/theme_progression_matrix.csv")
-PHOTO_SKILL = Path("docs/bakabo-photo-studio_SKILL.md")
+PHOTO_SKILL = Path("BKS_SKILL/skills/bakabo-photo-studio/SKILL.md")
 WORLD_MODEL_SHEET = Path("output/world_model_context_matrix.csv")
+
+TM04_THEME_ID = "202392961362"
 
 
 SHOT_TYPES: tuple[dict[str, str], ...] = (
@@ -17,61 +19,69 @@ SHOT_TYPES: tuple[dict[str, str], ...] = (
         "format": "1:1 JPG 2000x2000",
         "purpose": "Primary Shopify PDP image and product card thumbnail.",
         "requirements": "Exact mockup reference, clean background, no props, print fully visible.",
+        "agent_next": "Match exact Printify mockup. Apply collection accent as subtle gradient overlay only outside the product area. Upload as media[0].",
     },
     {
         "shot": "02 back product",
         "format": "1:1 JPG 2000x2000",
         "purpose": "Back view for PDP gallery and product truth.",
         "requirements": "Use only when back mockup exists or is provided; never invent a back print.",
+        "agent_next": "Generate only if back mockup file is present. Never composite a back from a front. Upload as media[1] after front.",
     },
     {
         "shot": "04 editorial front",
         "format": "4:5 JPG 1600x2000",
         "purpose": "Second PDP image, desktop hover and collection mood.",
         "requirements": "Still-life or on-model based on collection, exact product from reference, no text/logo overlay.",
+        "agent_next": "Set surface and light from COLLECTION_DIRECTIONS for the matching collection. Match accent hex for ambient fill. Upload as media[2].",
     },
     {
         "shot": "06 detail fabric",
         "format": "1:1 JPG 1500x1500",
         "purpose": "Texture, print detail, finish and quality reassurance.",
         "requirements": "Close-up from real/reference print; no invented pattern or color shift.",
+        "agent_next": "Crop from real or reference print at maximum resolution. No color grading that shifts hue. Upload as media[3].",
     },
     {
         "shot": "07 hero banner",
         "format": "16:7 JPG 2400x1050",
         "purpose": "Collection page, homepage band and campaign hero.",
-        "requirements": "Generous negative space for theme text; product reality remains visible.",
+        "requirements": "Generous negative space (left 40%) for TM04 collection signal text. Product visible on right.",
+        "agent_next": "Use TM04 accent gradient as background band. Leave left third clear for bks-collection-signal text overlay. Upload to collection metafield hero_image.",
     },
     {
         "shot": "08 lifestyle front",
         "format": "4:5 and 9:16",
         "purpose": "Social proof, social campaign and PDP context.",
-        "requirements": "Adult model only when approved; no celebrity resemblance; product still inspectable.",
+        "requirements": "Adult model only when approved; no celebrity resemblance; product inspectable. Only after first order fulfillments.",
+        "agent_next": "Check commercial-strategy drop timing: lifestyle assets unlock at Conversion Support stage. Generate 9:16 for Meta/social and 4:5 for PDP. Apply world model rules for target market.",
     },
     {
         "shot": "12 packaging",
         "format": "1:1",
         "purpose": "Support trust, shipping and unboxing expectations.",
-        "requirements": "Show packaging only if it represents real delivery experience.",
+        "requirements": "Show only real Printify/BKS delivery packaging. Activate after first orders confirmed.",
+        "agent_next": "Use real unboxing photo if available. Otherwise defer until first delivery is documented. Trust stage: Conversion Support.",
     },
     {
         "shot": "Review prompt asset",
         "format": "9:16",
         "purpose": "Post-purchase email/social prompt for honest reviews.",
-        "requirements": "Transparent: ask for real feedback, never incentivize deceptive reviews.",
+        "requirements": "Transparent ask for real experience. Never incentivize deceptive reviews.",
+        "agent_next": "Generate after delivery window (order shipped + 7 days). Include 1 product image from order + tier progress CTA. Follow REVIEW_GUARDS exactly.",
     },
 )
 
 
 COLLECTION_DIRECTIONS: tuple[dict[str, str], ...] = (
-    {"collection": "Hours", "surface": "dark raw concrete", "light": "hard lateral single source", "mood": "urban, contemplative"},
-    {"collection": "Glyph", "surface": "matte black plane", "light": "flat studio ring light", "mood": "graphic, coded"},
-    {"collection": "Marker", "surface": "rough paper / iron", "light": "hard lateral with sharp shadow", "mood": "gestural, urban"},
-    {"collection": "Riviera", "surface": "travertine / linen", "light": "golden hour from right", "mood": "resort, mediterranean"},
-    {"collection": "Pulse", "surface": "dark plane / tiles", "light": "front ring light", "mood": "optical, kinetic"},
-    {"collection": "Token", "surface": "reflective surface / plexiglass", "light": "low-key neon accent", "mood": "arcade, digital"},
-    {"collection": "Flag", "surface": "white studio", "light": "flat uniform light", "mood": "pop, graphic"},
-    {"collection": "Folklore", "surface": "light stone / linen / earth", "light": "soft overcast", "mood": "narrative, naive"},
+    {"collection": "Hours", "handle": "bks-hours", "accent": "#c8c4be", "surface": "dark raw concrete", "light": "hard lateral single source", "mood": "urban, contemplative"},
+    {"collection": "Glyph", "handle": "bks-glyph", "accent": "#d4a030", "surface": "matte black plane", "light": "flat studio ring light", "mood": "graphic, coded"},
+    {"collection": "Marker", "handle": "bks-marker", "accent": "#c04418", "surface": "rough paper / iron", "light": "hard lateral with sharp shadow", "mood": "gestural, urban"},
+    {"collection": "Riviera", "handle": "bks-riviera", "accent": "#0ca898", "surface": "travertine / linen", "light": "golden hour from right", "mood": "resort, mediterranean"},
+    {"collection": "Pulse", "handle": "bks-pulse", "accent": "#8888cc", "surface": "dark plane / tiles", "light": "front ring light", "mood": "optical, kinetic"},
+    {"collection": "Token", "handle": "bks-token", "accent": "#9828d8", "surface": "reflective surface / plexiglass", "light": "low-key neon accent", "mood": "arcade, digital"},
+    {"collection": "Flag", "handle": "bks-flag", "accent": "#c82020", "surface": "white studio", "light": "flat uniform light", "mood": "pop, graphic"},
+    {"collection": "Origin", "handle": "bks-origin", "accent": "#489808", "surface": "light stone / linen / earth", "light": "soft overcast", "mood": "narrative, naive"},
 )
 
 
@@ -204,6 +214,9 @@ def _relative(root_dir: Path, path: Path) -> str:
 
 def _read_catalog_sample(settings: Any) -> tuple[int, int]:
     candidates = [
+        settings.root_dir / "output" / "live_shopify_products.csv",
+        settings.root_dir / "collezioni_csv" / "collezione 12_06_2026_SHOPIFY_IMPORT_READY_SEO_TAGS_READY.csv",
+        settings.root_dir / "collezioni_csv" / "collezione 12_06_2026_SHOPIFY_IMPORT_READY.csv",
         settings.root_dir / "output" / "products_export_updated.csv",
         settings.root_dir / "input" / "products_export_updated.csv",
     ]
@@ -212,7 +225,7 @@ def _read_catalog_sample(settings: Any) -> tuple[int, int]:
             try:
                 lines = path.read_text(encoding="utf-8-sig", errors="ignore").splitlines()
             except OSError:
-                return 0, 0
+                continue
             product_rows = max(0, len([line for line in lines[1:] if line.split(",", 1)[0].strip()]))
             image_mentions = sum(1 for line in lines[1:] if "http" in line.lower() and any(ext in line.lower() for ext in (".jpg", ".png", ".webp")))
             return product_rows, image_mentions
@@ -221,13 +234,18 @@ def _read_catalog_sample(settings: Any) -> tuple[int, int]:
 
 def photo_rows(settings: Any, snapshot: dict[str, Any]) -> list[dict[str, str]]:
     products, image_mentions = _read_catalog_sample(settings)
-    theme_status = snapshot.get("theme", {}).get("summary", {}).get("status", "")
+    theme_summary = snapshot.get("theme", {}).get("summary", {})
+    theme_id = theme_summary.get("theme_id", "")
+    theme_status = "tm04_live" if theme_id == TM04_THEME_ID else (theme_summary.get("status", "") or "unknown")
     google_status = snapshot.get("google", {}).get("summary", {}).get("status", "")
     result: list[dict[str, str]] = []
     for shot in SHOT_TYPES:
-        if shot["shot"] in {"01 front product", "04 editorial front", "06 detail fabric", "07 hero banner"}:
+        name = shot["shot"]
+        if name in {"01 front product", "04 editorial front", "06 detail fabric", "07 hero banner"}:
             priority = "P0"
-        elif google_status == "suspended" and shot["shot"] == "08 lifestyle front":
+        elif name == "08 lifestyle front":
+            priority = "P2" if google_status != "suspended" else "P1"
+        elif name in {"12 packaging", "02 back product"}:
             priority = "P1"
         else:
             priority = "P2"
@@ -238,14 +256,13 @@ def photo_rows(settings: Any, snapshot: dict[str, Any]) -> list[dict[str, str]]:
                 "status": "ready_to_plan" if products else "waiting_for_shopify_products",
                 "catalog_products": str(products),
                 "image_mentions": str(image_mentions),
-                "theme_dependency": theme_status or "unknown",
-                "agent_next": "Use uploaded mockups only, generate prompts by slot, QA visual truth, then map images to Shopify media.",
+                "theme_dependency": theme_status,
             }
         )
     return result
 
 
-def write_outputs(settings: Any, photos: list[dict[str, str]]) -> tuple[str, str, str]:
+def write_outputs(settings: Any, photos: list[dict[str, str]]) -> tuple[str, str, str, str]:
     photo_path = settings.root_dir / PHOTO_SHEET
     photo_path.parent.mkdir(parents=True, exist_ok=True)
     photo_fields = ["shot", "priority", "status", "format", "purpose", "requirements", "catalog_products", "image_mentions", "theme_dependency", "agent_next"]
@@ -267,37 +284,41 @@ def write_outputs(settings: Any, photos: list[dict[str, str]]) -> tuple[str, str
     lines = [
         "# bakabo-photo-studio",
         "",
-        "Skill for product photography, collection imagery, theme composition and review enablement after Shopify products are created.",
+        "Photography and image production skill for BKS Studio / bakabo.club.",
+        "Covers product shots, collection heroes, editorial direction, global market adaptation and review enablement.",
+        "Activated after Shopify products are published. Images must match product reality — never invented.",
         "",
         "## Workflow",
         "",
-        "1. Detect published/realized Shopify products.",
-        "2. Build shot list by product and collection.",
-        "3. Produce hero, detail, scale, lifestyle and packaging images.",
-        "4. Map images to product media, collection hero, theme bands and social formats.",
-        "5. Verify truthfulness: image must show the product reality and not create misleading expectations.",
-        "6. Activate review request flow only after delivery/customer experience.",
-        "7. Save winning image/theme combinations to Knowledge DB.",
+        "1. Detect published Shopify products (live_shopify_products.csv or active collezioni_csv).",
+        "2. Build shot list per product, keyed to collection identity and TM04 accent color.",
+        "3. Produce P0 shots first: front product, editorial front, detail fabric, hero banner.",
+        "4. Map images to Shopify product media, collection hero metafield, TM04 theme bands.",
+        "5. Visual truth check: every image must show the real product; no invented pattern, color or logo.",
+        "6. P1/P2 shots (lifestyle, packaging, review asset) activate by commercial-strategy stage.",
+        "7. Save high-performing image+theme combinations to Knowledge DB for future drops.",
         "",
-        "## Theme progression",
+        "## TM04 integration",
+        "",
+        f"Active theme ID: {TM04_THEME_ID}. Hero banners must leave left 40% clear for bks-collection-signal text.",
+        "Use collection accent color for gradient overlays. Background: #0A0A0A (dark) or #FAFAF7 (paper).",
+        "",
+        "## Theme progression (commercial strategy gate)",
         "",
     ]
-    lines.extend(f"- {row['stage']}: {row['theme_use']} / images: {row['image_need']}." for row in THEME_STAGES)
+    lines.extend(f"- **{row['stage']}**: {row['theme_use']} / images needed: {row['image_need']}. When: {row['when']}" for row in THEME_STAGES)
     lines.extend(["", "## Collection directions", ""])
-    lines.extend(f"- {row['collection']}: {row['surface']}; {row['light']}; {row['mood']}." for row in COLLECTION_DIRECTIONS)
-    lines.extend(["", "## Adam and Eve world model system", ""])
     lines.extend(
-        f"- {row['market']}: {row['model_direction']} Weather: {row['weather_logic']} Guardrail: {row['guardrail']}"
+        f"- **{row['collection']}** (`{row['handle']}`, accent `{row['accent']}`): {row['surface']}; {row['light']}; mood: {row['mood']}."
+        for row in COLLECTION_DIRECTIONS
+    )
+    lines.extend(["", "## Global Market System", ""])
+    lines.extend(
+        f"- **{row['market']}** ({row['language']}): {row['model_direction']} Weather: {row['weather_logic']} Guardrail: {row['guardrail']}"
         for row in WORLD_MODEL_CONTEXTS
     )
-    lines.extend(
-        [
-            "",
-            "## Review guardrails",
-            "",
-        ]
-    )
-    lines.extend(f"- {row['guard']}: {row['meaning']}" for row in REVIEW_GUARDS)
+    lines.extend(["", "## Review guardrails", ""])
+    lines.extend(f"- **{row['guard']}**: {row['meaning']} Agent rule: {row['agent_rule']}" for row in REVIEW_GUARDS)
     skill_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     world_path = settings.root_dir / WORLD_MODEL_SHEET

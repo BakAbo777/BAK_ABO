@@ -1,12 +1,15 @@
 """BKS Studio — Shopify Admin API client."""
 import requests
+import urllib3
 import base64
 import csv
 import io
 from pathlib import Path
 from config.settings import SHOPIFY_STORE, SHOPIFY_ACCESS_TOKEN
 
-BASE    = f"https://{SHOPIFY_STORE}/admin/api/2024-01"
+urllib3.disable_warnings()
+
+BASE    = f"https://{SHOPIFY_STORE}/admin/api/2025-01"
 HEADERS = {
     "X-Shopify-Access-Token": SHOPIFY_ACCESS_TOKEN,
     "Content-Type":           "application/json",
@@ -14,19 +17,19 @@ HEADERS = {
 
 
 def _get(path: str, params: dict = None) -> dict:
-    r = requests.get(f"{BASE}{path}", headers=HEADERS, params=params, timeout=30)
+    r = requests.get(f"{BASE}{path}", headers=HEADERS, params=params, timeout=30, verify=False)
     r.raise_for_status()
     return r.json()
 
 
 def _post(path: str, payload: dict) -> dict:
-    r = requests.post(f"{BASE}{path}", headers=HEADERS, json=payload, timeout=60)
+    r = requests.post(f"{BASE}{path}", headers=HEADERS, json=payload, timeout=60, verify=False)
     r.raise_for_status()
     return r.json()
 
 
 def _put(path: str, payload: dict) -> dict:
-    r = requests.put(f"{BASE}{path}", headers=HEADERS, json=payload, timeout=60)
+    r = requests.put(f"{BASE}{path}", headers=HEADERS, json=payload, timeout=60, verify=False)
     r.raise_for_status()
     return r.json()
 

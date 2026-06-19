@@ -34,7 +34,7 @@ const BKS_COLLECTIONS = `
 
 7. BKS FLAG — Pop-collage. Campi astratti, colore codificato, blocchi grafici. Composizioni da piani colore, superfici stencil, bandiere inventate. Energia Dada. Colore: viola/magenta #C97AB8. Tag: collection:flag.
 
-8. BKS FOLKLORE — Collezione figurativa. Mondi immaginari, storie disegnate, memoria inventata. Animali da favola, archetipi da giardino, illustrazione flat. Mai preso in prestito. Colore: dune #C9B79C. Tag: collection:folklore.
+8. BKS ORIGIN — Collezione figurativa. Mondi immaginari, storie disegnate, memoria inventata. Animali da favola, archetipi da giardino, illustrazione flat. Mai preso in prestito. Colore: dune #C9B79C. Tag: collection:origin.
 `;
 
 const BKS_PRODUCTS = `
@@ -62,11 +62,13 @@ POLICY CHIAVE:
 `;
 
 const BKS_TIERS = `
-SISTEMA TIER BKS:
-- none: nessun acquisto. Per accedere al tier: completa il primo ordine.
-- subscriber: primo acquisto. Accesso anticipato ai drop, wishlist riservata.
-- drop: membro attivo. Drop exclusives, MTO tracker, archivio collezioni precedenti.
-- archive: massimo accesso. Prompt library, pattern rifiutati, early access assoluto, personalizzazione prioritaria.
+SISTEMA TIER BKS — METAL:
+- Lead (0 ordini): accesso base. Wishlist, newsletter. Primo ordine per salire a Iron.
+- Iron (1–2 ordini): storico taglie attivo, AI recommendations base.
+- Brass (3–5 ordini): AI Personal Shopper attivo, Try-On Camerino, accesso drop +48h.
+- Silver (6–10 ordini): archivio completo BKS, drop curati +24h, personalizzazione avanzata.
+- Gold (11+ ordini): VIP. Drop privati, curazione white-glove, inviti co-creation.
+Tag Shopify: bks-tier-lead / bks-tier-iron / bks-tier-brass / bks-tier-silver / bks-tier-gold
 `;
 
 async function callOpenAI(env, systemPrompt, messages) {
@@ -189,13 +191,15 @@ Tier cliente: ${customerProfile?.tier ?? 'none'}`;
 export async function tierAgent({ message, customerProfile, env }) {
   const tier = customerProfile?.tier ?? 'none';
   const info = {
-    none:       'Non sei ancora un membro BKS. Completa il tuo primo acquisto su bakabo.club per accedere al tier Subscriber e sbloccare accesso anticipato ai drop.',
-    subscriber: 'Sei BKS Subscriber — accesso anticipato ai drop, wishlist riservata. Tier successivo: Drop (acquisto ricorrente).',
-    drop:       'Sei BKS Drop Member — drop exclusives, MTO tracker in tempo reale e archivio collezioni precedenti. Tier successivo: Archive.',
-    archive:    'Sei BKS Archive — massimo accesso: prompt library, pattern rifiutati, early access assoluto, personalizzazione testo prioritaria (+€15 standard).',
+    lead:   'Non sei ancora un membro BKS attivo. Completa il tuo primo acquisto su bakabo.club per salire a Iron e sbloccare storico taglie e AI recommendations.',
+    iron:   'Sei BKS Iron — storico taglie attivo, AI recommendations base. Ancora 1–2 acquisti per sbloccare Brass e il Personal Shopper.',
+    brass:  'Sei BKS Brass — AI Personal Shopper attivo, Try-On Camerino sbloccato, accesso ai drop con 48h di anticipo.',
+    silver: 'Sei BKS Silver — archivio completo BKS, drop curati con 24h di anticipo, personalizzazione avanzata.',
+    gold:   'Sei BKS Gold — massimo accesso: drop privati, curazione white-glove, inviti co-creation. Roberto ti scrive personalmente prima dei drop.',
   };
+  const normTier = tier?.replace('bks-tier-', '') ?? 'lead';
   return {
-    reply:    info[tier] || info.none,
+    reply:    info[normTier] ?? info.lead,
     resolved: true,
     escalate: false,
     sentiment: 'neutral',

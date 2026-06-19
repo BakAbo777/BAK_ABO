@@ -12,5 +12,6 @@ def run(context: dict[str, Any]) -> dict[str, Any]:
         "status": "ready" if make_ready else "needs_config",
         "progress": 80 if make_ready else 40,
         "message": "Social queue can trigger Make." if make_ready else "Configure MAKE_WEBHOOK_URL for social automation.",
+        "trust_gate": "campaign_layer",
         "metrics": {"social_queue": str(queue), "queue_exists": queue.exists(), "make": make.health_snapshot()},
     }

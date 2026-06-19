@@ -1,0 +1,631 @@
+{
+  "version": "BKS_TM04_AI_CONTROL_16JUN2026_MEMBERS_TRYON",
+  "purpose": "Single source of truth for internal AI agents managing the BakAbo/BKS Shopify theme.",
+  "local_ai_sources": {
+    "brand_root": "I:\\BAK ABO",
+    "database_root": "I:\\BKS database",
+    "recommended_theme_workdir": "I:\\BAK ABO\\shopify_theme\\BKS_TM04",
+    "recommended_control_copy": "I:\\BKS database\\theme_control\\bks-ai-control-map.json"
+  },
+  "shopify_theme_contract": {
+    "do_not_break": [
+      "layout/theme.liquid",
+      "snippets/bakabo-header.liquid",
+      "snippets/bks-ai-context.liquid",
+      "assets/bks-dynamic-ux.js"
+    ],
+    "ai_edit_priority": [
+      "assets/bks-ai-control-map.json",
+      "templates/page.bks-*.json",
+      "templates/collection.bks-*.json",
+      "templates/product.*.json",
+      "sections/bks-product-type-guide.liquid",
+      "sections/bks-product-system.liquid",
+      "sections/bks-dedicated-collection-page.liquid",
+      "sections/main-collection-product-grid.liquid",
+      "sections/bks-product-grid.liquid",
+      "sections/bks-members-entry.liquid",
+      "sections/bks-member-dashboard.liquid",
+      "assets/bks-member.css",
+      "assets/bks-member.js",
+      "templates/customers/account.json",
+      "templates/page.bks-members.json",
+      "assets/bks-tryon.css",
+      "assets/bks-tryon.js"
+    ],
+    "collection_color_rule": "Every collection page, product page and menu context must expose --bks-active-accent and --bks-active-foreground.",
+    "language_selector_rule": "After browser/store locale is detected, localization controls are hidden outside the footer to avoid visual interference.",
+    "navigation_rule": "Main header contains a Back control with history fallback and collection/product-aware fallback URL.",
+    "product_grid_rule": "Product grids must inherit the active reference colour from the collection/product-type context and use the BKS editorial product view, not a default catalogue grid.",
+    "product_grid_files": [
+      "sections/main-collection-product-grid.liquid",
+      "sections/bks-product-grid.liquid",
+      "snippets/bks-ai-context.liquid"
+    ],
+    "members_rule": "Members is a first-class system: public entry page, account dashboard, wishlist/customization/referral/archive, and hidden enableable member blocks in product-type/collection landing pages.",
+    "legacy_cleanup_rule": "Old catalogue-style collection-list/BKS panel templates are not used in visible page order; legacy content is either removed or kept disabled only when preserving Shopify page content.",
+    "member_tryon_rule": "Mobile Try-On is a theme-level bridge only: it reads /cart.js, captures or uploads a phone photo, requires explicit consent, and posts the selected cart item + photo to a Shopify App Proxy/internal AI endpoint. Final AI rendering must be handled outside the theme."
+  },
+  "collections": {
+    "bks-hours": {
+      "title": "BKS Hours",
+      "accent": "#c8c4be",
+      "foreground": "#0A0A0A",
+      "series": "measured urban stillness",
+      "route": "/collections/bks-hours",
+      "page_template": "page.bks-hours",
+      "collection_template": "collection.bks-hours",
+      "products": [
+        "Puffer Jackets",
+        "Windbreakers",
+        "Pullover Hoodies",
+        "Lounge Pants",
+        "Sneakers",
+        "Backpacks",
+        "Travel Bags"
+      ],
+      "product_routes": [
+        "/collections/puffer-jacket",
+        "/collections/windbreaker",
+        "/collections/pullover-hoodie",
+        "/collections/lounge-pants",
+        "/collections/sneakers",
+        "/collections/backpack",
+        "/collections/travel-bag"
+      ]
+    },
+    "bks-origin": {
+      "title": "BKS Origin",
+      "accent": "#489808",
+      "foreground": "#FAFAF7",
+      "series": "invented narrative marks",
+      "route": "/collections/bks-origin",
+      "page_template": "page.bks-origin",
+      "collection_template": "collection.bks-origin",
+      "products": [
+        "Pullover Hoodies",
+        "Swimwear",
+        "One-Piece Swimsuits",
+        "Racerback Dresses",
+        "Flip Flops",
+        "Backpacks"
+      ],
+      "product_routes": [
+        "/collections/pullover-hoodie",
+        "/collections/swimwear",
+        "/collections/one-piece-swimsuit",
+        "/collections/racerback-dress",
+        "/collections/flip-flop",
+        "/collections/backpack"
+      ]
+    },
+    "bks-glyph": {
+      "title": "BKS Glyph",
+      "accent": "#d4a030",
+      "foreground": "#0A0A0A",
+      "series": "constructed signs",
+      "route": "/collections/bks-glyph",
+      "page_template": "page.bks-glyph",
+      "collection_template": "collection.bks-glyph",
+      "products": [
+        "Puffer Jackets",
+        "Windbreakers",
+        "Athletic Shorts",
+        "Sneakers",
+        "Backpacks",
+        "Travel Bags"
+      ],
+      "product_routes": [
+        "/collections/puffer-jacket",
+        "/collections/windbreaker",
+        "/collections/athletic-shorts",
+        "/collections/sneakers",
+        "/collections/backpack",
+        "/collections/travel-bag"
+      ]
+    },
+    "bks-marker": {
+      "title": "BKS Marker",
+      "accent": "#c04418",
+      "foreground": "#FAFAF7",
+      "series": "gesture and motion",
+      "route": "/collections/bks-marker",
+      "page_template": "page.bks-marker",
+      "collection_template": "collection.bks-marker",
+      "products": [
+        "Windbreakers",
+        "Pullover Hoodies",
+        "Athletic Shorts",
+        "Sneakers",
+        "Flip Flops",
+        "Backpacks"
+      ],
+      "product_routes": [
+        "/collections/windbreaker",
+        "/collections/pullover-hoodie",
+        "/collections/athletic-shorts",
+        "/collections/sneakers",
+        "/collections/flip-flop",
+        "/collections/backpack"
+      ]
+    },
+    "bks-riviera": {
+      "title": "BKS Riviera",
+      "accent": "#0ca898",
+      "foreground": "#0A0A0A",
+      "series": "coastal geometry",
+      "route": "/collections/bks-riviera",
+      "page_template": "page.bks-riviera",
+      "collection_template": "collection.bks-riviera",
+      "products": [
+        "Swimwear",
+        "One-Piece Swimsuits",
+        "Racerback Dresses",
+        "Lounge Pants",
+        "Flip Flops",
+        "Travel Bags",
+        "Backpacks"
+      ],
+      "product_routes": [
+        "/collections/swimwear",
+        "/collections/one-piece-swimsuit",
+        "/collections/racerback-dress",
+        "/collections/lounge-pants",
+        "/collections/flip-flop",
+        "/collections/travel-bag",
+        "/collections/backpack"
+      ]
+    },
+    "bks-pulse": {
+      "title": "BKS Pulse",
+      "accent": "#8888cc",
+      "foreground": "#0A0A0A",
+      "series": "optical movement",
+      "route": "/collections/bks-pulse",
+      "page_template": "page.bks-pulse",
+      "collection_template": "collection.bks-pulse",
+      "products": [
+        "Puffer Jackets",
+        "Windbreakers",
+        "Pullover Hoodies",
+        "Athletic Shorts",
+        "Sneakers",
+        "Backpacks"
+      ],
+      "product_routes": [
+        "/collections/puffer-jacket",
+        "/collections/windbreaker",
+        "/collections/pullover-hoodie",
+        "/collections/athletic-shorts",
+        "/collections/sneakers",
+        "/collections/backpack"
+      ]
+    },
+    "bks-token": {
+      "title": "BKS Token",
+      "accent": "#9828d8",
+      "foreground": "#FAFAF7",
+      "series": "digital objects",
+      "route": "/collections/bks-token",
+      "page_template": "page.bks-token",
+      "collection_template": "collection.bks-token",
+      "products": [
+        "Sneakers",
+        "Pullover Hoodies",
+        "Lounge Pants",
+        "Backpacks",
+        "Travel Bags"
+      ],
+      "product_routes": [
+        "/collections/sneakers",
+        "/collections/pullover-hoodie",
+        "/collections/lounge-pants",
+        "/collections/backpack",
+        "/collections/travel-bag"
+      ]
+    },
+    "bks-flag": {
+      "title": "BKS Flag",
+      "accent": "#c82020",
+      "foreground": "#FAFAF7",
+      "series": "graphic fields",
+      "route": "/collections/bks-flag",
+      "page_template": "page.bks-flag",
+      "collection_template": "collection.bks-flag",
+      "products": [
+        "Puffer Jackets",
+        "Windbreakers",
+        "Athletic Shorts",
+        "Swimwear",
+        "Sneakers",
+        "Flip Flops",
+        "Backpacks"
+      ],
+      "product_routes": [
+        "/collections/puffer-jacket",
+        "/collections/windbreaker",
+        "/collections/athletic-shorts",
+        "/collections/swimwear",
+        "/collections/sneakers",
+        "/collections/flip-flop",
+        "/collections/backpack"
+      ]
+    }
+  },
+  "product_types": {
+    "puffer-jacket": {
+      "title": "Puffer Jackets",
+      "template": "product.puffer-jacket",
+      "page_template": "page.bks-puffer-jacket",
+      "guide_key": "puffer_jackets",
+      "route": "/collections/puffer-jacket"
+    },
+    "windbreaker": {
+      "title": "Windbreakers",
+      "template": "product.windbreaker",
+      "page_template": "page.bks-windbreaker",
+      "guide_key": "windbreakers",
+      "route": "/collections/windbreaker"
+    },
+    "pullover-hoodie": {
+      "title": "Pullover Hoodies",
+      "template": "product.pullover-hoodie",
+      "page_template": "page.bks-pullover-hoodie",
+      "guide_key": "pullover_hoodies",
+      "route": "/collections/pullover-hoodie"
+    },
+    "lounge-pants": {
+      "title": "Lounge Pants",
+      "template": "product.lounge-pants",
+      "page_template": "page.bks-lounge-pants",
+      "guide_key": "lounge_pants",
+      "route": "/collections/lounge-pants"
+    },
+    "sneakers": {
+      "title": "Sneakers",
+      "template": "product.sneakers",
+      "page_template": "page.bks-sneakers",
+      "guide_key": "sneakers",
+      "route": "/collections/sneakers"
+    },
+    "backpack": {
+      "title": "Backpacks",
+      "template": "product.backpack",
+      "page_template": "page.bks-backpack",
+      "guide_key": "backpacks",
+      "route": "/collections/backpack"
+    },
+    "travel-bag": {
+      "title": "Travel Bags",
+      "template": "product.travel-bag",
+      "page_template": "page.bks-travel-bag",
+      "guide_key": "travel_bags",
+      "route": "/collections/travel-bag"
+    },
+    "swimwear": {
+      "title": "Swimwear",
+      "template": "product.swimwear",
+      "page_template": "page.bks-swimwear",
+      "guide_key": "swimwear",
+      "route": "/collections/swimwear"
+    },
+    "flip-flop": {
+      "title": "Flip Flops",
+      "template": "product.flip-flop",
+      "page_template": "page.bks-flip-flop",
+      "guide_key": "flip_flops",
+      "route": "/collections/flip-flop"
+    },
+    "athletic-shorts": {
+      "title": "Athletic Shorts",
+      "template": "product.athletic-shorts",
+      "page_template": "page.bks-athletic-shorts",
+      "guide_key": "athletic_shorts",
+      "route": "/collections/athletic-shorts"
+    },
+    "one-piece-swimsuit": {
+      "title": "One-Piece Swimsuits",
+      "template": "product.one-piece-swimsuit",
+      "page_template": "page.bks-one-piece-swimsuit",
+      "guide_key": "one_piece_swimsuits",
+      "route": "/collections/one-piece-swimsuit"
+    },
+    "racerback-dress": {
+      "title": "Racerback Dresses",
+      "template": "product.racerback-dress",
+      "page_template": "page.bks-racerback-dress",
+      "guide_key": "racerback_dresses",
+      "route": "/collections/racerback-dress"
+    }
+  },
+  "ai_routes": {
+    "collection_pages": {
+      "bks-hours": "page.bks-hours",
+      "bks-origin": "page.bks-origin",
+      "bks-glyph": "page.bks-glyph",
+      "bks-marker": "page.bks-marker",
+      "bks-riviera": "page.bks-riviera",
+      "bks-pulse": "page.bks-pulse",
+      "bks-token": "page.bks-token",
+      "bks-flag": "page.bks-flag"
+    },
+    "collection_templates": {
+      "bks-hours": "collection.bks-hours",
+      "bks-origin": "collection.bks-origin",
+      "bks-glyph": "collection.bks-glyph",
+      "bks-marker": "collection.bks-marker",
+      "bks-riviera": "collection.bks-riviera",
+      "bks-pulse": "collection.bks-pulse",
+      "bks-token": "collection.bks-token",
+      "bks-flag": "collection.bks-flag"
+    },
+    "product_templates": {
+      "puffer-jacket": "product.puffer-jacket",
+      "windbreaker": "product.windbreaker",
+      "pullover-hoodie": "product.pullover-hoodie",
+      "lounge-pants": "product.lounge-pants",
+      "sneakers": "product.sneakers",
+      "backpack": "product.backpack",
+      "travel-bag": "product.travel-bag",
+      "swimwear": "product.swimwear",
+      "flip-flop": "product.flip-flop",
+      "athletic-shorts": "product.athletic-shorts",
+      "one-piece-swimsuit": "product.one-piece-swimsuit",
+      "racerback-dress": "product.racerback-dress"
+    },
+    "product_type_pages": {
+      "puffer-jacket": "page.bks-puffer-jacket",
+      "windbreaker": "page.bks-windbreaker",
+      "pullover-hoodie": "page.bks-pullover-hoodie",
+      "lounge-pants": "page.bks-lounge-pants",
+      "sneakers": "page.bks-sneakers",
+      "backpack": "page.bks-backpack",
+      "travel-bag": "page.bks-travel-bag",
+      "swimwear": "page.bks-swimwear",
+      "flip-flop": "page.bks-flip-flop",
+      "athletic-shorts": "page.bks-athletic-shorts",
+      "one-piece-swimsuit": "page.bks-one-piece-swimsuit",
+      "racerback-dress": "page.bks-racerback-dress"
+    }
+  },
+  "maintenance_notes": [
+    "Use collection handles, not visible titles, as stable identifiers.",
+    "When adding a collection, add it to this map, bks-ai-context.liquid and bks-dedicated-collection-page.liquid.",
+    "When adding a product type, add a template, a guide key and a collection route.",
+    "Keep size/care tables in bks-product-type-guide.liquid and bks-product-system.liquid aligned."
+  ],
+  "product_grid_design_system": {
+    "version": "BKS_EDITORIAL_GRID_16JUN2026",
+    "layout": "asymmetric editorial sequence / shop-by-surface",
+    "behaviour": [
+      "Inherit active collection or product-type accent colour.",
+      "Use editorial intro panel before the grid.",
+      "Use asymmetric desktop cards instead of equal catalogue tiles.",
+      "Use mobile-first two-column layout with every fifth card full width.",
+      "Keep filters and sorting available but visually subordinated."
+    ],
+    "collection_palette_source": "snippets/bks-ai-context.liquid and sections/main-collection-product-grid.liquid",
+    "product_type_palette": {
+      "puffer-jacket": {
+        "accent": "#c8c4be",
+        "foreground": "#0A0A0A"
+      },
+      "windbreaker": {
+        "accent": "#0ca898",
+        "foreground": "#0A0A0A"
+      },
+      "pullover-hoodie": {
+        "accent": "#8888cc",
+        "foreground": "#0A0A0A"
+      },
+      "lounge-pants": {
+        "accent": "#9828d8",
+        "foreground": "#FAFAF7"
+      },
+      "sneakers": {
+        "accent": "#d4a030",
+        "foreground": "#0A0A0A"
+      },
+      "backpack": {
+        "accent": "#489808",
+        "foreground": "#FAFAF7"
+      },
+      "travel-bag": {
+        "accent": "#c8c4be",
+        "foreground": "#0A0A0A"
+      },
+      "swimwear": {
+        "accent": "#0ca898",
+        "foreground": "#0A0A0A"
+      },
+      "flip-flop": {
+        "accent": "#c04418",
+        "foreground": "#FAFAF7"
+      },
+      "athletic-shorts": {
+        "accent": "#c82020",
+        "foreground": "#FAFAF7"
+      },
+      "one-piece-swimsuit": {
+        "accent": "#9828d8",
+        "foreground": "#FAFAF7"
+      },
+      "racerback-dress": {
+        "accent": "#d4a030",
+        "foreground": "#0A0A0A"
+      }
+    }
+  },
+  "featured_collection_system": {
+    "version": "BKS_FEATURED_COLLECTION_SYSTEM_16JUN2026",
+    "file": "sections/featured-collection.liquid",
+    "purpose": "Convert Shopify featured collection blocks from catalogue sliders into BKS editorial product sequences.",
+    "rules": [
+      "Use bks_featured_system=true when a featured collection appears on homepage or landing pages.",
+      "Inherit colour from selected BKS collection or product-type handle.",
+      "Avoid stacked default catalogue blocks on the homepage; use one strong featured collection after the product-type hub.",
+      "Use asymmetric cards, editorial heading, accent CTA, and made-to-order visual rhythm."
+    ],
+    "homepage_contract": {
+      "template": "templates/index.json",
+      "preferred_order": [
+        "hero",
+        "ticker",
+        "product_type_hub",
+        "featured_collection",
+        "editorial_matrix",
+        "collections_index",
+        "studio_method",
+        "trust",
+        "newsletter"
+      ],
+      "removed_from_visible_order": [
+        "bks_swimwear_grid",
+        "bks_apparel_grid",
+        "bks_impact"
+      ],
+      "reason": "Reduce catalogue repetition and keep the first page clear, scalable and commercial."
+    }
+  },
+  "members_system": {
+    "public_page_template": "page.bks-members",
+    "customer_dashboard_template": "templates/customers/account.json",
+    "sections": [
+      "sections/bks-members-entry.liquid",
+      "sections/bks-member-dashboard.liquid"
+    ],
+    "assets": [
+      "assets/bks-member.css",
+      "assets/bks-member.js"
+    ],
+    "snippets": [
+      "snippets/bks-member-tracker.liquid",
+      "snippets/bks-member-archive.liquid"
+    ],
+    "tiers": {
+      "bks-subscriber": "wishlist + member notes + early updates",
+      "bks-drop": "early access + order tracker + advanced customization",
+      "bks-archive": "archive material + full customization routes"
+    },
+    "local_ai_sources": {
+      "brand_root": "I:\\BAK ABO",
+      "database_root": "I:\\BKS database"
+    }
+  },
+  "template_cleanup_16jun2026": {
+    "removed_from_homepage": [
+      "bks-impact-home",
+      "hidden swimwear/apparel legacy featured blocks"
+    ],
+    "converted_pages": [
+      "page.bks-men",
+      "page.bks-woman",
+      "page.bks-shoes",
+      "page.bks-graphic-sneakers",
+      "page.bks-tribal-signals"
+    ],
+    "old_sections_deleted": [
+      "bakabo-collection-list",
+      "bks-collection-list-v2",
+      "bks-accessories-panel",
+      "bks-outerwear-collection",
+      "bks-sneakers-panel",
+      "bks-puffer-jacket",
+      "bks-size-guide",
+      "bks-hawaiian-size",
+      "bks-universal-size-guide",
+      "bks_collection_grid",
+      "Banner_Accessories",
+      "bks-impact-home"
+    ]
+  },
+  "member_tryon_system": {
+    "purpose": "Allow members to try on garments currently in cart using a phone photo, with optional uploaded or preset set backgrounds.",
+    "public_entry": "sections/bks-members-entry.liquid",
+    "account_dashboard": "sections/bks-member-dashboard.liquid",
+    "assets": [
+      "assets/bks-tryon.css",
+      "assets/bks-tryon.js"
+    ],
+    "template": "templates/customers/account.json",
+    "default_endpoint": "/apps/bks-tryon",
+    "extension_hook": "#bks-tryon-app-extension-root[data-bks-extension-hook='member-tryon']",
+    "browser_flow": [
+      "Fetch /cart.js",
+      "Select cart garment",
+      "Capture/upload image/* with capture=user",
+      "Optionally choose a preset set background or upload a custom background image",
+      "Require consent",
+      "Post FormData to endpoint or dispatch bks:tryon:submit custom event"
+    ],
+    "required_backend": [
+      "Shopify App Proxy or same-origin endpoint",
+      "Image processing / virtual try-on AI",
+      "Optional background compositing or scene replacement logic",
+      "Privacy retention/deletion policy",
+      "Return JSON with image_url or preview_url"
+    ],
+    "event_contract": {
+      "event": "bks:tryon:submit",
+      "cancelable": true,
+      "detail": [
+        "root",
+        "endpoint",
+        "cart",
+        "item",
+        "imageFile",
+        "background",
+        "customerId",
+        "customerEmail"
+      ]
+    },
+    "local_ai_targets": {
+      "brand_root": "I:\\BAK ABO\\members_tryon",
+      "database_root": "I:\\BKS database\\members_tryon",
+      "generated_previews": "I:\\BKS database\\members_tryon\\previews",
+      "logs": "I:\\BKS database\\members_tryon\\logs"
+    },
+    "background_options": {
+      "theme_settings": [
+        "tryon_bg_preset_1",
+        "tryon_bg_preset_2",
+        "tryon_bg_preset_3",
+        "tryon_bg_preset_4"
+      ],
+      "accepted_upload": "image/*",
+      "payload_fields": [
+        "background_mode",
+        "background_photo",
+        "background_preset_id",
+        "background_preset_label",
+        "background_preset_image"
+      ]
+    },
+    "mobile_ux_system": {
+      "purpose": "Touch-first guided Try-On experience inside BKS Members.",
+      "steps": [
+        "1 garment from cart",
+        "2 phone photo",
+        "3 set background",
+        "4 review and generate preview"
+      ],
+      "key_ui_files": [
+        "sections/bks-member-dashboard.liquid",
+        "assets/bks-tryon.css",
+        "assets/bks-tryon.js"
+      ],
+      "mobile_behaviour": [
+        "single active step on screens <= 900px",
+        "sticky progress bar",
+        "sticky final action area",
+        "large touch targets",
+        "review summary before submitting",
+        "loading spinner while endpoint processes"
+      ],
+      "desktop_behaviour": [
+        "all panels visible with sticky progress tracker",
+        "same state and endpoint payload"
+      ]
+    }
+  }
+}

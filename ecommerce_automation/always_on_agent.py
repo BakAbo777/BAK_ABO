@@ -38,6 +38,9 @@ DRIVE_ITEMS: tuple[dict[str, str], ...] = (
     {"artifact": "Shopify live products", "path": "output/live_shopify_products.csv", "drive_type": "sheet", "purpose": "Products fetched directly from Shopify Admin API."},
     {"artifact": "Printify live products", "path": "output/live_printify_products.csv", "drive_type": "sheet", "purpose": "Products fetched directly from Printify API."},
     {"artifact": "Catalog platform diff", "path": "output/catalog_platform_diff.csv", "drive_type": "sheet", "purpose": "Product mapping/status differences between Shopify and Printify."},
+    # --- BKS Algorithm ---
+    {"artifact": "BKS Algorithm scores", "path": "output/bks_algorithm_scores.csv", "drive_type": "sheet", "purpose": "Multi-factor product scoring: SEO/images/data/collection/brand — P0 critical through P3 ready."},
+    {"artifact": "BKS SQLite database", "path": "output/bks_database.sqlite", "drive_type": "json/file", "purpose": "Unified SQLite — 53 tables from all output CSVs/JSONs; queryable via bks_db.query()."},
 )
 
 
@@ -50,6 +53,27 @@ def _relative(root_dir: Path, path: Path) -> str:
 
 def _now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+def _algorithm_summary(root_dir: Path) -> dict:
+    try:
+        import sys
+        sys.path.insert(0, str(root_dir))
+        from ecommerce_automation.bks_algorithm import BKSAlgorithm
+        algo = BKSAlgorithm()
+        s = algo.summary()
+        health = algo.collection_health()
+        critical = [h.handle for h in health if h.status in ("critical", "empty")]
+        return {
+            "total_products": s.get("total", 0),
+            "avg_score": s.get("avg_score", 0),
+            "p3_ready": s.get("ready", 0),
+            "p0_critical": s.get("critical", 0),
+            "collections_critical": critical,
+            "status": "attention" if (s.get("critical", 0) > 0 or critical) else "ok",
+        }
+    except Exception as exc:
+        return {"status": "unavailable", "error": str(exc)}
 
 
 def _drive_manifest(settings: Any) -> tuple[list[dict[str, str]], str]:
@@ -78,12 +102,17 @@ def _drive_manifest(settings: Any) -> tuple[list[dict[str, str]], str]:
 
 def payload(settings: Any, snapshot: dict[str, Any]) -> dict[str, Any]:
     drive_rows, drive_manifest = _drive_manifest(settings)
+    algo = _algorithm_summary(settings.root_dir)
     actions = snapshot.get("actions", {})
     trust = snapshot.get("trust", {})
     daily = snapshot.get("daily", {})
     weekly = snapshot.get("weekly", {})
     next_action = actions.get("next_action", {})
-    blockers = int(trust.get("summary", {}).get("needs_fix", 0)) + int(actions.get("summary", {}).get("blocked", 0))
+    blockers = (
+        int(trust.get("summary", {}).get("needs_fix", 0))
+        + int(actions.get("summary", {}).get("blocked", 0))
+        + (1 if algo.get("p0_critical", 0) > 0 else 0)
+    )
     drive_ready = sum(1 for row in drive_rows if row["drive_status"] == "ready_to_sync")
     report = {
         "summary": {
@@ -99,10 +128,12 @@ def payload(settings: Any, snapshot: dict[str, Any]) -> dict[str, Any]:
             "drive_manifest": drive_manifest,
             "updated_at": _now(),
         },
+        "algorithm": algo,
         "loops": [
             {"loop": "Daily web update", "cadence": "daily 12:00", "status": "active", "approval": "none for read checks"},
             {"loop": "Google trust gate", "cadence": "every dashboard refresh", "status": "active", "approval": "required before appeal"},
             {"loop": "Weekly minimum goals", "cadence": "weekly", "status": "active", "approval": "none for checks"},
+            {"loop": "BKS Algorithm scoring", "cadence": "on catalog update + on demand", "status": "active", "approval": "none for read; required before publish gate"},
             {"loop": "Theme/offer patching", "cadence": "on demand", "status": "prepared", "approval": "required before publish"},
             {"loop": "Customer messaging", "cadence": "on opt-in", "status": "guarded", "approval": "human handoff required"},
             {"loop": "Official inbox crew@bakabo.club", "cadence": "continuous when IMAP configured", "status": "prepared", "approval": "human review for risky replies"},
@@ -119,6 +150,7 @@ def payload(settings: Any, snapshot: dict[str, Any]) -> dict[str, Any]:
         "guardrails": [
             "Monitor always; write only when approved or low-risk local artifact.",
             "Google trust gate blocks growth actions when red.",
+            "BKS Algorithm P0 critical products block pre-publish gate.",
             "Drive mirror is a copy of memory/report artifacts, not the only source of truth.",
             "Customer-facing messages require consent and human escalation path.",
         ],

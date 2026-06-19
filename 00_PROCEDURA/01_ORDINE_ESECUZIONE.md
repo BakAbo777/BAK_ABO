@@ -1,82 +1,80 @@
-# Ordine Esecuzione
+# Ordine Esecuzione — BKS Studio
 
-## Control Plane — ECAMP
+Aggiornato 17 Giugno 2026. Architettura: Streamlit unificato (porta 8501) + ecommerce_automation agent (porta 8600).
 
-Launcher:
+---
+
+## Entry point unico
+
+```bat
+00_START_BKS_MASTER.bat
+```
+
+Menu interattivo ANSI: avvia, monitora e killa tutti i servizi.
+
+---
+
+## Control Plane — Ecommerce Agent
 
 ```bat
 python -m ecommerce_automation.app
 ```
 
-Dashboard:
-
-```text
-http://127.0.0.1:8600
-```
+Dashboard: `http://127.0.0.1:8600`
 
 Uso:
 
-- controllare health Make, Printify, Shopify, OpenAI e Amazon;
-- avviare fasi operative con run ledger;
-- leggere eventi e ultimi run;
-- coordinare i launcher esistenti senza riscriverli subito.
+- health check Make, Printify, Shopify, OpenAI, Amazon, Telegram;
+- agente AI BKS con snapshot completo (catalog, sales_channels, marketing);
+- run ledger e log eventi;
+- social hub e AI assistant API (`/api/theme-ai-assistant`).
+
+---
 
 ## Fase 01 — Catalogo
-
-Launcher:
 
 ```bat
 01_START_CATALOG_ENGINE.bat
 ```
 
-Uso:
+App Streamlit: `http://localhost:8501` → pagina `06_Catalogo`
 
-- correggere CSV prodotto;
-- generare export prodotto;
-- verificare SEO prodotto;
-- preparare immagini/prodotti.
+Operazioni chiave:
+
+```bat
+python tools\enrich_shopify_catalog.py
+```
 
 Output attivi:
 
-- `BKS_COLLEZIONE_26_v6.csv`
-- `output/products_export_updated.csv`
-- `output/seo_report.csv`
-- `output/bakabo_export_package.zip`
+- `collezioni_csv/bks_catalog.db` — DB SQLite (fonte di verità)
+- `collezioni_csv/collezione 12_06_2026_SHOPIFY_IMPORT_READY_SEO_TAGS_READY.csv` — export Shopify
+- `output/bks_ai_index.json` — indice prodotti per AI
+
+---
 
 ## Fase 02 — Collezioni
 
-Launcher:
+Script diretti (launcher legacy rimosso):
 
 ```bat
-02_START_COLLECTIONS_DASHBOARD.bat
+python tools\create_collections.py --dry-run
+python tools\create_collections.py --upsert
+python tools\export_collection_plan.py
 ```
 
-Uso:
+Output:
 
-- verificare collection live Shopify;
-- creare o aggiornare le 16 collection mancanti;
-- controllare template assignment;
-- controllare audit metafield legacy collection;
-- generare prompt immagini collection;
-- aprire monitoraggio Analytics/Merchant Center dopo il deploy.
-
-Output attivi:
-
-- `output/bks_collection_plan_v20.csv`
-- `output/bks_collection_template_assignment_v20.csv`
-- `output/bks_collection_template_exclusions_v20.csv`
 - `output/bks_collection_payloads_v20.json`
-- `output/bks_collection_image_prompts_v20.md`
+- `output/bks_collection_plan_v20.csv`
+
+Stato: 8 collezioni editorial + 18 product type — tutte live e raggiungibili `200`.
+
+---
 
 ## Fase 03 — Metafields e Metaobjects
 
-Launcher:
-
-```bat
-03_START_METAFIELDS_RUNNER.bat
-```
-
-Ordine script:
+Script diretti (launcher legacy rimosso):
 
 ```bat
 python tools\create_metafields.py
@@ -90,65 +88,81 @@ Output:
 - `output/metaobjects_log.csv`
 - `output/populate_metafields_log.csv`
 
+---
+
 ## Fase 04 — Tema Shopify
 
-Tema attivo:
+Tema live: `202392961362` — "BKS TM04 MEMBER TIER + SHOPPER 17JUN2026"
+Sorgente locale: `04_TEMA_SHOPIFY/_merged_tm04/`
 
-```text
-output/BKS_V20_TEXTS_COLOR_READY.zip
+Deploy file singolo o lista:
+
+```bat
+python scripts\deploy_theme_section.py
 ```
 
-Controlli:
+Deploy push tema completo (nuovo tema draft):
 
-- template editoriali BKS presenti;
-- template prodotto `product.bks-men` e `product.bks-woman` allineati;
-- pagine `page.about`, `page.help-faq`, `page.policy`;
-- footer con EU Representative;
-- GTM unico;
-- contrasto testi leggibile;
-- media prodotto trasparent-friendly.
+```bat
+python scripts\push_draft_theme.py
+python scripts\retry_draft_theme.py
+```
+
+Checklist tema:
+
+- 8 collezioni editorial con accent color CSS per collezione
+- Tutti i template `page.bks-*`, `collection.bks-*`, `product.*` allineati
+- Metal tier member area live (`bks-member-dashboard.liquid`)
+- Smart account dropdown con tier dot (`bakabo-header.liquid`)
+- AI assistant top-right con member context injection
+- BKS Shopping Guide live (`page.bks-shopping-guide`)
+- Help FAQ in inglese (`page.help-faq`)
+- Lingua inglese unica (`locales/it.json` sovrascritto)
+- Locale selector rimosso (MutationObserver in header)
+- GTM `GTM-PF5Z85KS` attivo
+- Footer dark `#0A0A0A` (color_scheme: accent-1)
+
+---
 
 ## Fase 05 — Testi e Policy
 
-Cartella:
+Cartella: `05_TESTI_POLICY/`
 
-```text
-output/site_texts_v1/
+```bat
+python scripts\publish_policies.py
 ```
 
-Usa preferibilmente i file `_reviewed.html`.
+Referenced da `ecommerce_automation/legal_guardrails.py`.
+
+---
 
 ## Fase 06 — Domini, Analytics e Link
 
 Controlli:
 
-- dominio primario e alias collegati;
-- customer account domain collegato;
-- GTM installato nel tema;
-- GA4 attivo;
-- Merchant Center senza residui critici dopo reindicizzazione;
-- pagine policy/FAQ/About/Contact raggiungibili;
-- collection e product link principali senza 404.
+- domini `bakabo.club`, `www.bakabo.club`, `account.bakabo.club` — tutti Connected
+- GTM `GTM-PF5Z85KS` attivo nel tema live
+- GA4 property `483501489` attiva
+- Google Merchant Center: richiedere ricontrollo feed/sitemap dopo deploy
+- Tutte le pagine policy/FAQ/About/Contact raggiungibili `200`
+- Collection e product link senza `404`
 
-Nel cruscotto:
+Audit:
 
 ```bat
-02_START_COLLECTIONS_DASHBOARD.bat
+python tools\audit_live_site.py
+python scripts\check_live_titles.py
+python scripts\check_market_prices.py
 ```
 
-Aprire il tab `06 Analytics`.
+---
 
-Nota Merchant Center: se Google segnala pagine prodotto non disponibili per prodotti eliminati, trattare il dato come residuo di indicizzazione/feed. Prima pulire feed/sitemap, poi richiedere nuovo controllo a Google.
+## Fase 07 — Deploy e post-publish
 
-## Fase 07 — Deploy
-
-Prima del publish:
-
-1. Caricare tema zip.
-2. Controllare Theme Editor.
-3. Assegnare template collection/prodotto.
-4. Inserire policy in Shopify Settings -> Policies.
-5. Lanciare audit link live.
-6. Controllare tab `06 Analytics`.
-7. Richiedere ricontrollo Merchant Center se necessario.
-8. Fare ordine test.
+1. Pushare sezioni aggiornate: `python scripts\deploy_theme_section.py`
+2. Verificare nel Theme Editor (`/admin/themes/202392961362/editor`)
+3. Controllare template assignment pagine da Shopify Admin → Pages
+4. Lanciare audit link live: `python tools\audit_live_site.py`
+5. Richiedere ricontrollo Merchant Center se necessario
+6. Fare ordine test end-to-end
+7. Aggiornare `00_PROCEDURA/02_STATO_ATTUALE.md`

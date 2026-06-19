@@ -1,0 +1,20 @@
+{
+  "collection": "woman",
+  "unit": "cm",
+  "note": "Misure indicative — verificare con i blueprint Printify per ogni prodotto specifico.",
+  "sizes": {
+    "XS": { "chest": "78-83", "waist": "60-65", "hip": "86-91" },
+    "S":  { "chest": "83-88", "waist": "65-70", "hip": "91-96" },
+    "M":  { "chest": "88-93", "waist": "70-75", "hip": "96-101" },
+    "L":  { "chest": "93-98", "waist": "75-80", "hip": "101-106" },
+    "XL": { "chest": "98-103", "waist": "80-85", "hip": "106-111" },
+    "2XL": { "chest": "103-108", "waist": "85-90", "hip": "111-116" }
+  },
+  "product_notes": {
+    "puffer-jacket": "Taglio oversize. Misurare il petto e scegliere la taglia indicata.",
+    "windbreaker": "Taglio rilassato. Misura standard.",
+    "hoodie": "Fit relaxed. Misurare il petto a riposo.",
+    "leggings": "Misurare il girovita naturale e il bacino. Stretch 4-way.",
+    "sports-bra": "Misurare il busto sopra il seno. Non include supporto ferretto."
+  }
+}

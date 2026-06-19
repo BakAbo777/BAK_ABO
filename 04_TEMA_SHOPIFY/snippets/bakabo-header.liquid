@@ -1,0 +1,586 @@
+{%- if customer -%}
+  {%- liquid
+    assign _oc = customer.orders_count | default: 0
+    if _oc >= 11
+      assign bks_tier = 'gold'
+      assign bks_tier_color = '#d4a030'
+    elsif _oc >= 6
+      assign bks_tier = 'silver'
+      assign bks_tier_color = '#b0b0c8'
+    elsif _oc >= 3
+      assign bks_tier = 'brass'
+      assign bks_tier_color = '#c8a96e'
+    elsif _oc >= 1
+      assign bks_tier = 'iron'
+      assign bks_tier_color = '#8a8a8a'
+    else
+      assign bks_tier = 'lead'
+      assign bks_tier_color = '#7a7a7a'
+    endif
+  -%}
+{%- endif -%}
+{% comment %}
+  BAKABO GLOBAL HEADER — BKS V21 BASE
+  Presente su tutte le pagine via layout/theme.liquid
+  Nav: CATALOG · COLLECTIONS · ABOUT | logo | SEARCH · CART
+  Mobile: hamburger + drawer overlay
+{% endcomment %}
+
+<style>
+  /* ── HEADER RESET ───────────────────────────────────────── */
+  .bks-gh {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 900;
+    background: #fafaf7 !important;
+    border-bottom: 1px solid rgba(10,10,10,0.08) !important;
+    transition: transform 0.3s ease, background 0.3s ease;
+    /* override any color-scheme or collection-accent that bleeds into header */
+    color: #0a0a0a !important;
+  }
+  .bks-gh.bks-gh--scrolled {
+    background: rgba(250,250,247,0.96) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  /* language selector hidden — single market store */
+  .bks-lang-form,
+  localization-form,
+  .localization-form,
+  .disclosure { display: none !important; }
+  .bks-gh.bks-gh--hidden {
+    transform: translateY(-100%);
+  }
+  .bks-gh__inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 clamp(16px,3vw,48px);
+    height: 64px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 16px;
+  }
+  /* ── LEFT NAV ───────────────────────────────────────────── */
+  .bks-gh__nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(16px,2.5vw,36px);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .bks-gh__nav a {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: #0a0a0a;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .bks-gh__nav a:hover { color: #666; }
+  /* ── LOGO ───────────────────────────────────────────────── */
+  .bks-gh__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .bks-gh__logo a {
+    display: block;
+    line-height: 0;
+  }
+  .bks-gh__logo img {
+    height: 40px;
+    width: auto;
+    display: block;
+  }
+  /* ── RIGHT ACTIONS ──────────────────────────────────────── */
+  .bks-gh__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: clamp(8px,1.5vw,20px);
+  }
+  .bks-gh__actions a,
+  .bks-gh__actions button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #0a0a0a;
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+    padding: 0;
+  }
+  .bks-gh__actions a:hover,
+  .bks-gh__actions button:hover { color: #666; }
+  /* ── LANGUAGE SELECTOR ──────────────────────────────────── */
+  .bks-lang-form { display: flex; align-items: center; }
+  .bks-lang-select {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    background: transparent;
+    border: 1px solid rgba(10,10,10,0.16);
+    border-radius: 3px;
+    padding: 4px 6px;
+    color: #0a0a0a;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    min-width: 36px;
+    text-align: center;
+  }
+  .bks-lang-select:focus {
+    outline: none;
+    border-color: var(--bks-active-accent, #c8c4be);
+  }
+  .bks-lang-select:hover { border-color: rgba(10,10,10,0.4); }
+  .bks-gh__actions svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  /* ── CART BUBBLE ────────────────────────────────────────── */
+  .bks-cart-count {
+    position: absolute;
+    top: 4px;
+    right: 2px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 3px;
+    background: #0a0a0a;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0;
+    border-radius: 99px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    transition: transform 0.2s;
+  }
+  .bks-cart-count[data-count="0"] { display: none; }
+  /* ── HAMBURGER (mobile only) ────────────────────────────── */
+  .bks-gh__hamburger {
+    display: none;
+  }
+  /* ── MOBILE DRAWER ──────────────────────────────────────── */
+  .bks-gh__drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    pointer-events: none;
+  }
+  .bks-gh__drawer-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0);
+    transition: background 0.3s ease;
+  }
+  .bks-gh__drawer-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: min(320px, 85vw);
+    height: 100%;
+    background: #ffffff;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    gap: 8px;
+    overflow-y: auto;
+  }
+  .bks-gh__drawer.is-open { pointer-events: all; }
+  .bks-gh__drawer.is-open .bks-gh__drawer-overlay { background: rgba(0,0,0,0.5); }
+  .bks-gh__drawer.is-open .bks-gh__drawer-panel { transform: translateX(0); }
+  .bks-gh__drawer-close {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: #0a0a0a;
+    margin-bottom: 16px;
+  }
+  .bks-gh__drawer-close svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+  .bks-gh__drawer-nav a {
+    display: block;
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #0a0a0a;
+    text-decoration: none;
+  }
+  .bks-gh__drawer-nav a:hover { color: #666; }
+  .bks-gh__drawer-sub {
+    padding-left: 18px;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    opacity: 0.72;
+  }
+  @media (max-width: 420px) {
+    .bks-gh__drawer-panel { width: min(92vw, 360px); padding: 22px 20px 32px; }
+    .bks-gh__inner { height: 60px; padding: 0 14px; gap: 10px; }
+    .bks-gh__logo img { height: 34px; }
+    .bks-gh__actions a, .bks-gh__actions button { width: 36px; height: 36px; }
+  }
+  /* ── RESPONSIVE ─────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .bks-gh__nav { display: none; }
+    .bks-gh__hamburger { display: flex; }
+    .bks-gh__inner {
+      grid-template-columns: auto 1fr auto;
+    }
+    .bks-gh__logo { justify-content: center; }
+  }
+  /* ── MEMBER RING — cerchio oro ──────────────────────────── */
+  @keyframes bks-ring-pulse {
+    0%, 100% { opacity: 0.8; transform: scale(1); }
+    50%       { opacity: 1;   transform: scale(1.06); }
+  }
+  @keyframes bks-ring-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  @keyframes bks-arrival {
+    0%   { opacity: 0; }
+    18%  { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  .bks-member-halo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+  .bks-member-halo::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border-radius: 50%;
+    border: 1.5px solid var(--bks-member-ring, #d4a030);
+    animation: bks-ring-pulse 2.8s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .bks-member-halo::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    border-top-color: var(--bks-member-ring, #d4a030);
+    border-right-color: var(--bks-member-ring, #d4a030);
+    animation: bks-ring-spin 4s linear infinite;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .bks-member-halo[data-tier="gold"]::before {
+    border-width: 2px;
+    box-shadow: 0 0 10px rgba(212,160,48,0.45);
+    animation-duration: 2s;
+  }
+  .bks-member-halo[data-tier="gold"]::after {
+    opacity: 1;
+    animation-duration: 2.5s;
+  }
+  .bks-member-arrival {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: 0;
+    animation: bks-arrival 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bks-member-halo::before,
+    .bks-member-halo::after { animation: none; }
+    .bks-member-arrival { display: none; }
+  }
+</style>
+
+<header class="bks-gh" id="bks-global-header" role="banner">
+  <div class="bks-gh__inner">
+
+    {%- comment -%} LEFT: primary nav (desktop) + hamburger (mobile) {%- endcomment -%}
+    <div style="display:flex;align-items:center;">
+      <button class="bks-gh__hamburger bks-gh__actions" id="bks-menu-toggle" aria-label="Open menu" aria-expanded="false"
+              style="justify-content:flex-start;width:auto;">
+        <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <nav class="bks-gh__nav" aria-label="Main navigation">
+        {%- liquid
+          assign main_menu = linklists['main-menu-1']
+          if main_menu.links.size == 0
+            assign main_menu = linklists['main-menu']
+          endif
+        -%}
+        {%- if main_menu.links.size > 0 -%}
+          {%- for link in main_menu.links -%}
+            {%- if link.links.size > 0 -%}
+              <div class="bks-gh__dd">
+                <a href="{{ link.url }}" aria-haspopup="true"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+                <div class="bks-gh__dd-panel" role="menu" aria-label="{{ link.title | escape }}">
+                  {%- for child in link.links -%}
+                    <a role="menuitem" href="{{ child.url }}"{% if child.current %} aria-current="page"{% endif %}>
+                      {{- child.title | escape -}}
+                      {%- if child.links.size > 0 -%}
+                        <span>
+                          {%- for grand in child.links -%}
+                            {{- grand.title | escape -}}{%- unless forloop.last %} · {% endunless -%}
+                          {%- endfor -%}
+                        </span>
+                      {%- endif -%}
+                    </a>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- else -%}
+              <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- comment -%} Fallback: menu admin vuoto o assente {%- endcomment -%}
+          <a href="/collections/all">Catalog</a>
+          <div class="bks-gh__dd">
+            <a href="/collections" aria-haspopup="true">Collections</a>
+            <div class="bks-gh__dd-panel" role="menu" aria-label="BKS collections">
+              <a role="menuitem" href="/collections/bks-hours">Hours<span>Time as Graphic Language</span></a>
+              <a role="menuitem" href="/collections/bks-origin">Origin<span>Roots, Marks, Present Form</span></a>
+              <a role="menuitem" href="/collections/bks-glyph">Glyph<span>Symbols and Signs</span></a>
+              <a role="menuitem" href="/collections/bks-marker">Marker<span>Urban Gestures</span></a>
+              <a role="menuitem" href="/collections/bks-riviera">Riviera<span>Mediterranean Geometry</span></a>
+              <a role="menuitem" href="/collections/bks-pulse">Pulse<span>Digital Motion</span></a>
+              <a role="menuitem" href="/collections/bks-token">Token<span>Encoded Identity</span></a>
+              <a role="menuitem" href="/collections/bks-flag">Flag<span>Global Signals</span></a>
+            </div>
+          </div>
+          <a href="/pages/about-bakabo-1">About</a>
+          <a href="/pages/contatti">Contatti</a>
+        {%- endif -%}
+      </nav>
+    </div>
+
+    <style>
+      .bks-gh__dd { position: relative; display: flex; align-items: center; }
+      .bks-gh__dd-panel {
+        position: absolute;
+        top: 100%;
+        left: -16px;
+        min-width: 320px;
+        padding: 8px 0;
+        background: #ffffff;
+        border: 1px solid #e8e8e8;
+        border-top: none;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-4px);
+        transition: opacity 200ms ease-out, transform 200ms ease-out, visibility 200ms;
+        z-index: 950;
+      }
+      .bks-gh__dd:hover .bks-gh__dd-panel,
+      .bks-gh__dd:focus-within .bks-gh__dd-panel {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      .bks-gh__dd-panel a {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 10px 16px;
+        font-family: var(--bks-font-mono, 'DM Mono', monospace);
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: #0a0a0a;
+      }
+      .bks-gh__dd-panel a span {
+        font-size: 0.62rem;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        text-transform: none;
+        color: #9a9a9a;
+        text-align: right;
+      }
+      .bks-gh__dd-panel a:hover,
+      .bks-gh__dd-panel a:focus-visible {
+        background: #0a0a0a;
+        color: #fafaf7;
+      }
+      .bks-gh__dd-panel a:hover span,
+      .bks-gh__dd-panel a:focus-visible span { color: #efeae0; }
+      @media (prefers-reduced-motion: reduce) {
+        .bks-gh__dd-panel { transition: none; }
+      }
+      @media screen and (max-width: 989px) {
+        .bks-gh__dd-panel { display: none; }
+      }
+    </style>
+
+    {%- comment -%} CENTER: logo {%- endcomment -%}
+    <div class="bks-gh__logo">
+      <a href="{{ routes.root_url }}" aria-label="BAKABO — home">
+        <img
+          src="{{ 'bakabo-logo-official.png' | asset_url }}"
+          alt="BAKABO"
+          loading="eager"
+          width="160"
+          height="44"
+          style="height:40px;width:auto;"
+        >
+      </a>
+    </div>
+
+    {%- comment -%} RIGHT: language + search + cart {%- endcomment -%}
+    <div class="bks-gh__actions">
+      {%- if localization.available_languages.size > 1 -%}
+      <form action="/localization" method="POST" class="bks-lang-form">
+        <input type="hidden" name="return_to" value="{{ request.path }}">
+        <select name="locale_code" aria-label="Language" onchange="this.form.submit()" class="bks-lang-select">
+          {%- for lang in localization.available_languages -%}
+            <option value="{{ lang.iso_code }}"
+              {%- if lang.iso_code == localization.language.iso_code %} selected{%- endif -%}>
+              {{ lang.iso_code | upcase }}
+            </option>
+          {%- endfor -%}
+        </select>
+      </form>
+      {%- endif -%}
+      <a href="{{ routes.search_url }}" aria-label="Search catalog">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </a>
+      {%- if customer -%}
+      <div class="bks-member-halo" data-tier="{{ bks_tier }}" style="--bks-member-ring:{{ bks_tier_color }}" title="{{ customer.first_name }} · {{ bks_tier | capitalize }} Member">
+        <a href="{{ routes.account_url }}" aria-label="Il tuo account — {{ bks_tier | capitalize }} Member">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 22c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+        </a>
+      </div>
+      {%- else -%}
+      <a href="{{ routes.account_url }}" aria-label="Account">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 22c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+      </a>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" aria-label="Open cart" style="position:relative;">
+        <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="bks-cart-count" id="bks-cart-bubble" data-count="{{ cart.item_count }}">
+          {{- cart.item_count -}}
+        </span>
+      </a>
+    </div>
+
+  </div>
+</header>
+
+{%- if customer -%}
+<div class="bks-member-arrival" aria-hidden="true"
+     style="background:radial-gradient(ellipse at 88% 2%,{{ bks_tier_color }}33 0%,transparent 58%)"></div>
+{%- endif -%}
+
+{%- comment -%} MOBILE DRAWER {%- endcomment -%}
+<div class="bks-gh__drawer" id="bks-nav-drawer" aria-hidden="true">
+  <div class="bks-gh__drawer-overlay" id="bks-drawer-overlay"></div>
+  <div class="bks-gh__drawer-panel" role="dialog" aria-modal="true" aria-label="Main menu">
+    <button class="bks-gh__drawer-close" id="bks-drawer-close" aria-label="Close menu">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <nav class="bks-gh__drawer-nav">
+      {%- liquid
+        assign main_menu = linklists['main-menu-1']
+        if main_menu.links.size == 0
+          assign main_menu = linklists['main-menu']
+        endif
+      -%}
+      {%- if main_menu.links.size > 0 -%}
+        {%- for link in main_menu.links -%}
+          <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+          {%- for child in link.links -%}
+            <a class="bks-gh__drawer-sub" href="{{ child.url }}">{{ child.title | escape }}</a>
+          {%- endfor -%}
+        {%- endfor -%}
+      {%- else -%}
+        <a href="/">Home</a>
+        <a href="/collections/all">Catalog</a>
+        <a href="/collections/bks-hours">BKS Hours</a>
+        <a href="/collections/bks-glyph">BKS Glyph</a>
+        <a href="/collections/bks-marker">BKS Marker</a>
+        <a href="/collections/bks-riviera">BKS Riviera</a>
+        <a href="/collections/bks-pulse">BKS Pulse</a>
+        <a href="/collections/bks-token">BKS Token</a>
+        <a href="/collections/bks-flag">BKS Flag</a>
+        <a href="/collections/bks-origin">BKS Origin</a>
+        <a href="/pages/about-bakabo-1">About BakAbo</a>
+        <a href="/pages/contatti">Contatti</a>
+      {%- endif -%}
+      <a href="{{ routes.search_url }}">Search</a>
+      <a href="{{ routes.cart_url }}">Cart ({{ cart.item_count }})</a>
+    </nav>
+  </div>
+</div>
+
+<script>
+(function() {
+  var header  = document.getElementById('bks-global-header');
+  var drawer  = document.getElementById('bks-nav-drawer');
+  var toggle  = document.getElementById('bks-menu-toggle');
+  var close   = document.getElementById('bks-drawer-close');
+  var overlay = document.getElementById('bks-drawer-overlay');
+  var lastY   = 0;
+  var ticking = false;
+
+  // Scroll behaviour: always visible, only frosted-glass on scroll
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        var y = window.scrollY;
+        if (y > 80) { header.classList.add('bks-gh--scrolled'); }
+        else { header.classList.remove('bks-gh--scrolled'); }
+        // never hide header — always stays active during scroll
+        header.classList.remove('bks-gh--hidden');
+        lastY = y;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Drawer open/close
+  function openDrawer() {
+    header.classList.remove('bks-gh--hidden');
+    drawer.classList.add('is-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer() {
+    drawer.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden', 'true');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  if (toggle)  toggle.addEventListener('click', openDrawer);
+  if (close)   close.addEventListener('click', closeDrawer);
+  if (overlay) overlay.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeDrawer();
+  });
+})();
+</script>

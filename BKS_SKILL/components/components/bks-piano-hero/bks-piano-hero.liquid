@@ -1,0 +1,430 @@
+{%- comment -%}
+  BKS Studio — Piano Hero Section
+  File: sections/bks-piano-hero.liquid
+  Version: 1.0 — Giugno 2026
+  Dipendenze: assets/bks-piano-hero.css · assets/bks-piano-hero.js
+  Note: richiede file audio per ogni collezione in assets/
+        (BKS-Concept-Ambient-001.mp3 … 008.mp3)
+        o URL esterni configurabili dallo schema.
+{%- endcomment -%}
+
+<div
+  id="shopify-section-{{ section.id }}"
+  class="bks-piano-hero"
+  data-section-id="{{ section.id }}"
+  style="height:{{ section.settings.height }}px"
+>
+  <canvas id="bks-piano-canvas" aria-label="BKS Studio — Esplora le 8 collezioni sul pianoforte"></canvas>
+
+  {%- comment -%} Collection reveal overlay {%- endcomment -%}
+  <div id="bks-coll-screen" aria-live="polite" aria-atomic="true">
+
+    <div id="bks-model-panel">
+      <div id="bks-model-bg"></div>
+      <div id="bks-mannequin" aria-hidden="true">
+        <div id="bks-mq-head">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.28)" stroke-width="1.2"/>
+            <circle cx="12" cy="10" r="4" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+          </svg>
+        </div>
+        <div id="bks-mq-body"><div id="bks-mq-body-fill"></div></div>
+        <div id="bks-mq-legs">
+          <div class="bks-mq-leg"><div class="bks-mq-leg-fill" id="bks-leg-l"></div></div>
+          <div class="bks-mq-leg"><div class="bks-mq-leg-fill" id="bks-leg-r"></div></div>
+        </div>
+      </div>
+      <div id="bks-arm-info">
+        <div id="bks-arm-season">Stagione</div>
+        <div id="bks-arm-desc"></div>
+      </div>
+    </div>
+
+    <div id="bks-coll-info">
+      <div id="bks-coll-divider" aria-hidden="true"></div>
+      <div class="bks-coll-eyebrow">BKS Studio · Collezione</div>
+      <h2 id="bks-coll-name">Hours</h2>
+      <div id="bks-coll-note">Do · 261 Hz</div>
+      <p id="bks-coll-quote"></p>
+      <div id="bks-coll-pills"></div>
+      <a id="bks-coll-cta" href="#" class="bks-cta-link">
+        Esplora la collezione
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M2 8h12M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  {%- comment -%} Audio elements — one per collection {%- endcomment -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'collection' -%}
+      <audio
+        id="bks-audio-{{ forloop.index0 }}"
+        preload="none"
+        loop
+        aria-hidden="true"
+      >
+        {%- if block.settings.audio_url != blank -%}
+          <source src="{{ block.settings.audio_url }}" type="audio/mpeg">
+        {%- elsif block.settings.audio_file != blank -%}
+          <source src="{{ block.settings.audio_file | asset_url }}" type="audio/mpeg">
+        {%- endif -%}
+      </audio>
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- comment -%} Music indicator {%- endcomment -%}
+  <div id="bks-music-ind" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
+  </div>
+
+  {%- comment -%} Back button {%- endcomment -%}
+  <button
+    id="bks-back-btn"
+    type="button"
+    aria-label="Torna al pianoforte"
+    onclick="BKSPiano.closeCollection()"
+  >
+    ↑ Torna al piano
+  </button>
+
+  {%- comment -%} Hint {%- endcomment -%}
+  <div id="bks-hint" aria-hidden="true">
+    {{ section.settings.hint_text | escape }}
+  </div>
+
+  {%- comment -%} Volume control {%- endcomment -%}
+  {%- if section.settings.show_volume -%}
+  <div id="bks-vol-wrap">
+    <label for="bks-vol-sl" class="bks-vol-label">volume</label>
+    <input
+      type="range" min="0" max="100" value="70" step="1"
+      id="bks-vol-sl"
+      oninput="BKSPiano.setVolume(this.value/100)"
+      aria-label="Volume audio collezione"
+    >
+  </div>
+  {%- endif -%}
+</div>
+
+{%- comment -%} Collection data — passed to JS as JSON {%- endcomment -%}
+<script id="bks-piano-data" type="application/json">
+{
+  "collections": [
+    {%- for block in section.blocks -%}
+    {%- if block.type == 'collection' -%}
+    {
+      "name": {{ block.settings.name | json }},
+      "note": {{ block.settings.note | json }},
+      "freq": {{ block.settings.freq }},
+      "white": {{ block.settings.white_key }},
+      "color": {{ block.settings.color | json }},
+      "url": {{ block.settings.collection_url | json }},
+      "quote": {{ block.settings.quote | json }},
+      "products": {{ block.settings.products | json }},
+      "arm_season": {{ block.settings.arm_season | json }},
+      "arm_desc": {{ block.settings.arm_desc | json }},
+      "gradient": {{ block.settings.bg_gradient | json }},
+      "audio_index": {{ forloop.index0 }},
+      "pattern": {{ block.settings.pattern | json }},
+      "bpm": {{ block.settings.bpm }},
+      "decay": {{ block.settings.decay }}
+    }{% unless forloop.last %},{% endunless %}
+    {%- endif -%}
+    {%- endfor -%}
+  ],
+  "fallboard_label": {{ section.settings.fallboard_label | json }},
+  "use_webaudio_fallback": {{ section.settings.use_webaudio_fallback | json }}
+}
+</script>
+
+{{ 'bks-piano-hero.css' | asset_url | stylesheet_tag }}
+{{ 'bks-piano-hero.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "BKS Piano Hero",
+  "tag": "section",
+  "class": "bks-piano-hero-section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "height",
+      "label": "Altezza sezione (px)",
+      "min": 480,
+      "max": 900,
+      "step": 20,
+      "default": 680
+    },
+    {
+      "type": "text",
+      "id": "fallboard_label",
+      "label": "Testo sul fallboard",
+      "default": "BAK | ABO"
+    },
+    {
+      "type": "text",
+      "id": "hint_text",
+      "label": "Testo hint",
+      "default": "Clicca un tasto per entrare nella collezione"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_volume",
+      "label": "Mostra controllo volume",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "use_webaudio_fallback",
+      "label": "Usa Web Audio se nessun file audio",
+      "default": true,
+      "info": "Genera note sintetizzate se i file MP3 non sono caricati."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collezione",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nome collezione",
+          "default": "Hours"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Nota musicale",
+          "default": "Do",
+          "info": "Es: Do · Re♭ · Re · Mi♭ · Mi · Fa · Sol♭ · Sol"
+        },
+        {
+          "type": "number",
+          "id": "freq",
+          "label": "Frequenza (Hz)",
+          "default": 261
+        },
+        {
+          "type": "checkbox",
+          "id": "white_key",
+          "label": "Tasto bianco",
+          "default": true,
+          "info": "Deseleziona per tasto nero."
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Colore collezione",
+          "default": "#c0bcb6"
+        },
+        {
+          "type": "url",
+          "id": "collection_url",
+          "label": "URL collezione Shopify"
+        },
+        {
+          "type": "text",
+          "id": "quote",
+          "label": "Citazione editoriale",
+          "default": "Una nota, poi il silenzio."
+        },
+        {
+          "type": "text",
+          "id": "products",
+          "label": "Prodotti (separati da virgola)",
+          "default": "Sneakers, Backpack",
+          "info": "Es: Sneakers, Backpack, Duffle"
+        },
+        {
+          "type": "text",
+          "id": "arm_season",
+          "label": "Stagione armocromica",
+          "default": "Stagione Inverno"
+        },
+        {
+          "type": "text",
+          "id": "arm_desc",
+          "label": "Descrizione modello",
+          "default": "Contrasto massimo · Pelle porcellanata o ebano"
+        },
+        {
+          "type": "text",
+          "id": "bg_gradient",
+          "label": "Gradiente sfondo pannello",
+          "default": "radial-gradient(ellipse at 30% 60%, #3a3a4a 0%, #0d0d14 65%)",
+          "info": "CSS gradient per il pannello modello."
+        },
+        {
+          "type": "url",
+          "id": "audio_url",
+          "label": "URL audio esterno (MP3)",
+          "info": "URL diretto al file MP3 su CDN o storage esterno."
+        },
+        {
+          "type": "text",
+          "id": "audio_file",
+          "label": "File audio (nome in assets/)",
+          "default": "BKS-Concept-Ambient-001.mp3",
+          "info": "Nome del file caricato in Theme → Assets."
+        },
+        {
+          "type": "text",
+          "id": "pattern",
+          "label": "Pattern note (JSON array)",
+          "default": "[0,null,null,null,7,null,null,null,null,null,5,null,null,null,null,null]",
+          "info": "Array di 16 step: numero = semitono dalla root, null = silenzio."
+        },
+        {
+          "type": "range",
+          "id": "bpm",
+          "label": "BPM (fallback Web Audio)",
+          "min": 28,
+          "max": 60,
+          "step": 2,
+          "default": 36
+        },
+        {
+          "type": "range",
+          "id": "decay",
+          "label": "Decay note (sec)",
+          "min": 2,
+          "max": 7,
+          "step": 0.5,
+          "default": 4
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BKS Piano Hero",
+      "blocks": [
+        {
+          "type": "collection",
+          "settings": {
+            "name": "Hours", "note": "Do", "freq": 261, "white_key": true,
+            "color": "#c0bcb6",
+            "quote": "Una nota, poi il silenzio. Come Miles Davis in una stanza vuota.",
+            "products": "Sneakers, Backpack, Duffle",
+            "arm_season": "Stagione Inverno",
+            "arm_desc": "Contrasto massimo · Pelle porcellanata o ebano",
+            "bg_gradient": "radial-gradient(ellipse at 30% 60%, #3a3a4a 0%, #0d0d14 65%)",
+            "audio_file": "BKS-Concept-Ambient-001.mp3",
+            "pattern": "[0,null,null,null,7,null,null,null,null,null,5,null,null,null,null,null]",
+            "bpm": 36, "decay": 4.5
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "name": "Glyph", "note": "Re♭", "freq": 277, "white_key": false,
+            "color": "#d4a030",
+            "quote": "Accordi densi, risoluzione lenta. Come leggere un alfabeto sconosciuto che capisci lo stesso.",
+            "products": "Sneakers, Duffle, Bag",
+            "arm_season": "Stagione Autunno",
+            "arm_desc": "Toni caldi bronzo · Capelli scuri caldi",
+            "bg_gradient": "radial-gradient(ellipse at 30% 60%, #4a3000 0%, #120a00 65%)",
+            "audio_file": "BKS-Concept-Ambient-002.mp3",
+            "pattern": "[0,null,null,4,null,null,7,null,null,11,null,null,4,null,null,null]",
+            "bpm": 42, "decay": 3.8
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "name": "Marker", "note": "Re", "freq": 293, "white_key": true,
+            "color": "#b03c14",
+            "quote": "Blues urbano. Note sbagliate al posto giusto.",
+            "products": "Sneakers, Backpack",
+            "arm_season": "Stagione Autunno",
+            "arm_desc": "Terracotta medio · Capelli castano scuro",
+            "bg_gradient": "radial-gradient(ellipse at 30% 60%, #3a1000 0%, #120200 65%)",
+            "audio_file": "BKS-Concept-Ambient-003.mp3",
+            "pattern": "[0,null,3,null,null,null,7,null,3,null,null,null,10,null,null,null]",
+            "bpm": 44, "decay": 3.0
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "name": "Riviera", "note": "Mi♭", "freq": 311, "white_key": false,
+            "color": "#0ca898",
+            "quote": "Pentatonica solare. Silenzio che sa di acqua.",
+            "products": "Sneakers, Duffle, Bag",
+            "arm_season": "Stagione Primavera",
+            "arm_desc": "Luminoso dorato · Capelli biondi ramati",
+            "bg_gradient": "radial-gradient(ellipse at 30% 60%, #003a38 0%, #001214 65%)",
+            "audio_file": "BKS-Concept-Ambient-004.mp3",
+            "pattern": "[0,4,null,null,7,null,null,null,9,null,null,null,7,null,4,null]",
+            "bpm": 40, "decay": 4.5
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "name": "Pulse", "note": "Mi", "freq": 329, "white_key": true,
+            "color": "#7878bc",
+            "quote": "Tre note. Sempre le stesse. Cambiano solo per come le ascolti.",
+            "products": "Sneakers, Backpack",
+            "arm_season": "Stagione Inverno",
+            "arm_desc": "Freddo contrastato · Platino o nero assoluto",
+            "bg_gradient": "radial-gradient(ellipse at 30% 60%, #181830 0%, #080810 65%)",
+            "audio_file": "BKS-Concept-Ambient-005.mp3",
+            "pattern": "[0,null,null,null,null,null,null,null,7,null,null,null,null,null,null,null]",
+            "bpm": 34, "decay": 5.5
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "name": "Token", "note": "Fa", "freq": 349, "white_key": true,
+            "color": "#8818c0",
+            "quote": "Elettrico e vuoto. Ryuichi Sakamoto che programma il silenzio tra i pixel.",
+            "products": "Sneakers, Bag",
+            "arm_season": "Stagione Inverno",
+            "arm_desc": "Saturazione alta · Ebano o porcellana",
+            "bg_gradient": "radial-gradient(ellipse at 30% 60%, #280040 0%, #0a0014 65%)",
+            "audio_file": "BKS-Concept-Ambient-006.mp3",
+            "pattern": "[0,null,5,null,null,null,10,null,null,null,7,null,null,null,null,null]",
+            "bpm": 46, "decay": 2.8
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "name": "Flag", "note": "Sol♭", "freq": 369, "white_key": false,
+            "color": "#c01818",
+            "quote": "Una dissonanza per frase. Mai risolta del tutto.",
+            "products": "Sneakers, Backpack",
+            "arm_season": "Stagione Inverno",
+            "arm_desc": "Contrasto estremo · Nessuna via di mezzo",
+            "bg_gradient": "radial-gradient(ellipse at 30% 60%, #3a0000 0%, #120000 65%)",
+            "audio_file": "BKS-Concept-Ambient-007.mp3",
+            "pattern": "[0,null,null,6,null,null,null,null,10,null,null,null,6,null,null,null]",
+            "bpm": 44, "decay": 3.5
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "name": "Folklore", "note": "Sol", "freq": 392, "white_key": true,
+            "color": "#489808",
+            "quote": "Melodia che ricordi senza averla mai sentita.",
+            "products": "Sneakers, Duffle, Backpack",
+            "arm_season": "Stagione Autunno",
+            "arm_desc": "Caldo naturale · Capelli castano caldo",
+            "bg_gradient": "radial-gradient(ellipse at 30% 60%, #102800 0%, #030e00 65%)",
+            "audio_file": "BKS-Concept-Ambient-008.mp3",
+            "pattern": "[0,null,4,null,null,7,null,null,null,null,4,null,null,0,null,null]",
+            "bpm": 36, "decay": 4.8
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

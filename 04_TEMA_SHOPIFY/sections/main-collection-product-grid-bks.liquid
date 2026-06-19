@@ -17,6 +17,7 @@
 
 {%- style -%}
   .section-{{ section.id }}-padding {
+    --bks-cg-accent: var(--bks-active-accent, #2f6f6b);
     background: #FAFAF7;
     color: #0A0A0A;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
@@ -55,25 +56,35 @@
     row-gap: 44px;
   }
 
+  .section-{{ section.id }}-padding .card-wrapper {
+    background: #fff;
+    border-radius: 0;
+  }
+
   .section-{{ section.id }}-padding .card,
-  .section-{{ section.id }}-padding .card__inner,
+  .section-{{ section.id }}-padding .card__inner {
+    background: #fff;
+  }
+
   .section-{{ section.id }}-padding .card__media,
   .section-{{ section.id }}-padding .card__content {
     background: transparent;
   }
 
   .section-{{ section.id }}-padding .card__inner {
-    border: 1px solid rgba(10, 10, 10, 0.08);
+    border: 1px solid rgba(10, 10, 10, 0.12);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
   }
 
   .section-{{ section.id }}-padding .card__heading,
   .section-{{ section.id }}-padding .card__heading a,
   .section-{{ section.id }}-padding .card-product__title {
     color: #0A0A0A;
-    font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
-    font-size: 18px;
-    letter-spacing: 0;
-    line-height: 1.18;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.32;
     text-transform: uppercase;
   }
 
@@ -223,6 +234,128 @@
     .section-{{ section.id }}-padding .card-information > * {
       font-size: 14px;
     }
+  }
+
+  /* ── BKS newspaper lift ────────────────────────────────── */
+
+  .section-{{ section.id }}-padding .card__inner {
+    position: relative;
+    transition: transform 0.26s cubic-bezier(0.22,1,0.36,1),
+                box-shadow 0.26s ease;
+  }
+
+  .section-{{ section.id }}-padding .card__inner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--bks-cg-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.24s cubic-bezier(0.22,1,0.36,1);
+    z-index: 2;
+  }
+
+  .section-{{ section.id }}-padding .grid__item:hover .card__inner {
+    box-shadow: 0 10px 32px rgba(10,10,10,0.09), 0 2px 8px rgba(10,10,10,0.05);
+    transform: translateY(-6px);
+  }
+
+  .section-{{ section.id }}-padding .grid__item:hover .card__inner::before {
+    transform: scaleX(1);
+  }
+
+  /* ── Made to order label (CSS-only, no snippet edit) ──── */
+
+  .section-{{ section.id }}-padding .card-information::after {
+    color: var(--bks-cg-accent);
+    content: '◎ Made to order';
+    display: block;
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    margin-top: 5px;
+    text-transform: uppercase;
+  }
+
+  /* ── Pagination accent ─────────────────────────────────── */
+
+  .section-{{ section.id }}-padding .pagination__item--current {
+    background: var(--bks-cg-accent);
+    border-color: var(--bks-cg-accent);
+    color: #fafaf7;
+  }
+
+  .section-{{ section.id }}-padding .pagination__item:hover {
+    background: var(--bks-cg-accent);
+    border-color: var(--bks-cg-accent);
+    color: #fafaf7;
+  }
+
+  /* ── BADGES — fix nero-su-nero ────────────────────────── */
+
+  /* Reset qualsiasi badge Dawn */
+  .section-{{ section.id }}-padding .badge,
+  .section-{{ section.id }}-padding .card__badge .badge {
+    border-radius: 0;
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.58rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    line-height: 1;
+    border: none;
+  }
+
+  /* NEW — ink su carta */
+  .section-{{ section.id }}-padding .badge--default,
+  .section-{{ section.id }}-padding .card__badge .badge--default {
+    background: #0a0a0a;
+    color: #fafaf7;
+  }
+
+  /* SALE — accent color */
+  .section-{{ section.id }}-padding .badge--sale,
+  .section-{{ section.id }}-padding .card__badge .badge--sale {
+    background: var(--bks-cg-accent);
+    color: #fafaf7;
+  }
+
+  /* SOLD OUT — carta, testo muted */
+  .section-{{ section.id }}-padding .badge--sold-out,
+  .section-{{ section.id }}-padding .card__badge .badge--sold-out {
+    background: #fafaf7;
+    color: #0a0a0a;
+    box-shadow: inset 0 0 0 1px rgba(10,10,10,0.18);
+  }
+
+  /* Posizione badge: angolo in alto a sinistra, sopra l'immagine */
+  .section-{{ section.id }}-padding .card__badge {
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 10px 0 10px;
+    align-items: flex-start;
+  }
+
+  /* ── Facet active state ────────────────────────────────── */
+
+  .section-{{ section.id }}-padding .facet-checkbox:checked + .facet-checkbox__text,
+  .section-{{ section.id }}-padding .facets__summary[aria-expanded="true"] {
+    color: var(--bks-cg-accent);
+  }
+
+  .section-{{ section.id }}-padding .facet-checkbox input:checked ~ svg {
+    color: var(--bks-cg-accent);
+  }
+
+  .section-{{ section.id }}-padding .active-facets__button:hover,
+  .section-{{ section.id }}-padding .active-facets__button-inner:hover {
+    color: var(--bks-cg-accent);
   }
 {%- endstyle -%}
 

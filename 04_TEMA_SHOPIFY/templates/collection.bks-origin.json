@@ -1,0 +1,79 @@
+{
+  "sections": {
+    "bks_hero": {
+      "type": "bks-collection-hero",
+      "settings": {
+        "accent_color": "#489808",
+        "tagline": "Narrative warmth",
+        "description": "BKS Origin draws from organic textures, folk motifs and artisan gesture. All-over patterns built from the ground up — earth tones, botanical structure, hand-crafted marks.",
+        "min_height": 440,
+        "show_cta": true,
+        "hero_image": "shopify://shop_images/bks-origin-editorial.png"
+      }
+    },
+    "bks_signal": {
+      "type": "bks-collection-signal",
+      "settings": {},
+      "blocks": {
+        "apparel": {
+          "type": "subnav_link",
+          "settings": {
+            "label": "Apparel",
+            "link": ""
+          }
+        },
+        "swim": {
+          "type": "subnav_link",
+          "settings": {
+            "label": "Swim",
+            "link": ""
+          }
+        },
+        "accessories": {
+          "type": "subnav_link",
+          "settings": {
+            "label": "Accessories",
+            "link": ""
+          }
+        },
+        "editorial": {
+          "type": "subnav_link",
+          "settings": {
+            "label": "Editorial",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "apparel",
+        "swim",
+        "accessories",
+        "editorial"
+      ]
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid-bks",
+      "settings": {
+        "products_per_page": 36,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "drawer",
+        "enable_sorting": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "bks_hero",
+    "bks_signal",
+    "product-grid"
+  ]
+}

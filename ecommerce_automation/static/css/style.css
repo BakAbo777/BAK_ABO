@@ -5,6 +5,12 @@
   --accent: #2f6f6b;
   --warning: #a66f1f;
   --danger: #9c3328;
+  /* BKS Metal tier colors — used by member dashboard and CRM */
+  --tier-lead:   #7a7a7a;
+  --tier-iron:   #8a8a8a;
+  --tier-brass:  #c8a96e;
+  --tier-silver: #b0b0c8;
+  --tier-gold:   #d4a030;
   --bks-font-display: "BKS Display", "Segoe UI", Arial, Helvetica, sans-serif;
   --bks-font-text: "BKS Text", "Segoe UI", Arial, Helvetica, sans-serif;
   --bks-font-mono: "BKS Mono", Consolas, "Liberation Mono", monospace;
@@ -342,7 +348,9 @@ h2 {
 .status-shopify_controlled,
 .status-ready_manual,
 .status-synced,
-.status-matched {
+.status-matched,
+.status-tm04_live,
+.status-render_ready {
   color: var(--accent);
 }
 
@@ -384,7 +392,8 @@ h2 {
 .status-connector_available,
 .status-env_pending,
 .status-project_ready,
-.status-draft_render_with_approval {
+.status-draft_render_with_approval,
+.status-key_ready {
   color: var(--warning);
 }
 
@@ -392,6 +401,8 @@ h2 {
 .status-needs-config,
 .status-missing,
 .status-missing_config,
+.status-missing_api_key,
+.status-not_configured,
 .status-needs_config,
 .status-fail,
 .status-error,

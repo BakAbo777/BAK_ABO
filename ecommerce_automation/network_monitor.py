@@ -19,6 +19,7 @@ ENDPOINT_FILE = Path("output/network_endpoint_matrix.csv")
 SUFFIX_FILE = Path("output/network_data_suffix_matrix.csv")
 REPORT_FILE = Path("output/network_monitor_report.json")
 DOC_FILE = Path("docs/BKS_NETWORK_MONITOR.md")
+BAKABO_STORE_DOMAIN = "bakabo.club"
 
 
 TRACKING_SUFFIXES: tuple[dict[str, str], ...] = (
@@ -68,7 +69,7 @@ def _primary_domain(settings: Any) -> str:
     email = str(getattr(settings, "official_inbox_email", "") or getattr(settings, "support_email", ""))
     if "@" in email:
         return email.split("@", 1)[1].lower()
-    return "bakabo.club"
+    return BAKABO_STORE_DOMAIN
 
 
 def _selectors(settings: Any) -> list[str]:
@@ -226,8 +227,13 @@ def _smtp_tls_status(settings: Any, live: bool) -> tuple[str, str]:
                 context = ssl.create_default_context()
                 with context.wrap_socket(sock, server_hostname=host):
                     pass
+            elif port == 587:
+                import smtplib  # noqa: PLC0415
+                with smtplib.SMTP(host, port, timeout=6) as smtp:
+                    smtp.ehlo()
+                    smtp.starttls(context=ssl.create_default_context())
         elapsed = int((time.perf_counter() - started) * 1000)
-        return "pass", f"{host}:{port} reachable in {elapsed} ms"
+        return "pass", f"{host}:{port} TLS verified in {elapsed} ms"
     except OSError as exc:
         return "needs_fix", f"{host}:{port} failed: {type(exc).__name__}: {exc}"
 

@@ -32,5 +32,6 @@ def run(context: dict[str, Any]) -> dict[str, Any]:
         "progress": summary["progress"],
         "message": message,
         "external_ref": summary["workspace"],
+        "trust_gate": "collection_identity",
         "metrics": summary,
     }

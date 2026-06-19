@@ -31,8 +31,10 @@ FILES = [
     ("sections/bks-ai-assistant.liquid",            "sections/bks-ai-assistant.liquid"),
     ("sections/bks-collection-signal.liquid",       "sections/bks-collection-signal.liquid"),
     ("sections/bks-timed-offer.liquid",             "sections/bks-timed-offer.liquid"),
-    ("sections/bks-trust-strip.liquid",             "sections/bks-trust-strip.liquid"),
-    ("sections/bks-product-editorial-care.liquid",  "sections/bks-product-editorial-care.liquid"),
+    ("sections/bks-trust-strip.liquid",                        "sections/bks-trust-strip.liquid"),
+    ("sections/bks-product-editorial-care.liquid",             "sections/bks-product-editorial-care.liquid"),
+    ("sections/main-collection-product-grid-bks.liquid",       "sections/main-collection-product-grid-bks.liquid"),
+    ("sections/bks-accessories-panel.liquid",                  "sections/bks-accessories-panel.liquid"),
     # Assets globali
     ("assets/bks-commerce-light.css",              "assets/bks-commerce-light.css"),
     # Assets piano hero
@@ -41,6 +43,8 @@ FILES = [
     # Assets member area
     ("assets/bks-member.css",                      "assets/bks-member.css"),
     ("assets/bks-member.js",                       "assets/bks-member.js"),
+    ("assets/bks-tryon.css",                       "assets/bks-tryon.css"),
+    ("assets/bks-tryon.js",                        "assets/bks-tryon.js"),
     # Snippet
     ("snippets/bks-gcr-badge.liquid",              "snippets/bks-gcr-badge.liquid"),
     ("snippets/bks-gcr-survey.liquid",             "snippets/bks-gcr-survey.liquid"),
@@ -53,6 +57,120 @@ FILES = [
     # Custom request page
     ("sections/bks-custom-request.liquid",              "sections/bks-custom-request.liquid"),
     ("templates/page.bks-custom.json",                  "templates/page.bks-custom.json"),
+    # BKS AI Assistant page
+    ("templates/page.bks-ai-assistant.json",            "templates/page.bks-ai-assistant.json"),
+    # BKS Members login page
+    ("sections/bks-members-login.liquid",               "sections/bks-members-login.liquid"),
+    ("templates/page.bks-members.json",                 "templates/page.bks-members.json"),
+    # Footer (language selector hidden, white text fix)
+    ("sections/footer.liquid",                             "sections/footer.liquid"),
+    # Collection editorial hero — accent-color bg, same logic as home
+    ("sections/bks-collection-hero.liquid",                "sections/bks-collection-hero.liquid"),
+    # Home: canvas video hero (4 avatar videos, no audio) + magazine editorial
+    ("sections/bks-home-video-canvas.liquid",              "sections/bks-home-video-canvas.liquid"),
+    ("sections/bks-home-magazine.liquid",                  "sections/bks-home-magazine.liquid"),
+    # Header snippet (nav update: reads main-menu-1)
+    ("snippets/bakabo-header.liquid",                   "snippets/bakabo-header.liquid"),
+    # AI Assistant global embed
+    ("snippets/bks-ai-assistant-embed.liquid",          "snippets/bks-ai-assistant-embed.liquid"),
+    # AI context injector (feeds bks-dynamic-ux.js)
+    ("snippets/bks-ai-context.liquid",                  "snippets/bks-ai-context.liquid"),
+    # Global layout
+    ("layout/theme.liquid",                             "layout/theme.liquid"),
+    # Dynamic header UX
+    ("assets/bks-dynamic-theme.css",                   "assets/bks-dynamic-theme.css"),
+    ("assets/bks-dynamic-ux.js",                       "assets/bks-dynamic-ux.js"),
+    # Responsive + contrast system + mobile product patch v2 (2026-06-18)
+    ("assets/bks-responsive.css",                      "assets/bks-responsive.css"),
+    # AI control map — member tryon system + local AI targets (2026-06-18)
+    ("assets/bks-ai-control-map.json",                 "assets/bks-ai-control-map.json"),
+    # Theme effects layer (bks-theme-effects.css — fixes 404 console error)
+    ("assets/bks-theme-effects.css",                   "assets/bks-theme-effects.css"),
+    # Collection grid — card visibility + typographer pass (2026-06-18)
+    ("sections/main-collection-product-grid-bks.liquid","sections/main-collection-product-grid-bks.liquid"),
+    # Collections hub page (2026-06-18)
+    ("sections/bks-collections-hub.liquid",            "sections/bks-collections-hub.liquid"),
+    ("templates/page.bks-collections.json",            "templates/page.bks-collections.json"),
+    # Default collection template + all 8 BKS collection templates → main-collection-product-grid-bks
+    ("templates/collection.json",                      "templates/collection.json"),
+    ("templates/collection.bks-origin.json",           "templates/collection.bks-origin.json"),
+    ("templates/collection.bks-hours.json",            "templates/collection.bks-hours.json"),
+    ("templates/collection.bks-glyph.json",            "templates/collection.bks-glyph.json"),
+    ("templates/collection.bks-marker.json",           "templates/collection.bks-marker.json"),
+    ("templates/collection.bks-riviera.json",          "templates/collection.bks-riviera.json"),
+    ("templates/collection.bks-pulse.json",            "templates/collection.bks-pulse.json"),
+    ("templates/collection.bks-token.json",            "templates/collection.bks-token.json"),
+    ("templates/collection.bks-flag.json",             "templates/collection.bks-flag.json"),
+    # Heart buttons on all pages — member wishlist (2026-06-18)
+    ("assets/bks-member.js",                           "assets/bks-member.js"),
+    ("assets/bks-member.css",                          "assets/bks-member.css"),
+    # FAQ page — accordion, category filter, GDPR-safe try-on answer
+    ("sections/bks-faq.liquid",                        "sections/bks-faq.liquid"),
+    ("templates/page.bks-faq.json",                    "templates/page.bks-faq.json"),
+    # About pages — hero + text columns + pull quote + stats
+    ("sections/bks-about.liquid",                      "sections/bks-about.liquid"),
+    ("templates/page.bks-about-bakabo.json",           "templates/page.bks-about-bakabo.json"),
+    ("templates/page.bks-about-bks.json",              "templates/page.bks-about-bks.json"),
+    # Member dashboard — photo validation + GDPR consent (2026-06-19)
+    ("sections/bks-member-dashboard.liquid",           "sections/bks-member-dashboard.liquid"),
+    # Header accent bar per-collection (3px bottom bar, no full bg change)
+    ("assets/bks-dynamic-ux.js",                       "assets/bks-dynamic-ux.js"),
+    ("assets/bks-dynamic-theme.css",                   "assets/bks-dynamic-theme.css"),
+    # Home page template — wires video canvas + magazine + reviews + trust-strip
+    ("templates/index.json",                           "templates/index.json"),
+    # FAQ — added JSON-LD schema for Google FAQ rich results
+    ("sections/bks-faq.liquid",                        "sections/bks-faq.liquid"),
+    # Product hero — accent-color hero, auto-rilevamento collezione, img su fondo colorato
+    ("sections/bks-product-hero.liquid",               "sections/bks-product-hero.liquid"),
+    ("templates/product.bks.json",                     "templates/product.bks.json"),
+    # DEFAULT product template — BKS hero per tutti i prodotti (2026-06-19)
+    ("templates/product.json",                         "templates/product.json"),
+    # Contact page — form + info bicolonna (2026-06-19)
+    ("sections/bks-contact.liquid",                    "sections/bks-contact.liquid"),
+    ("templates/page.bks-contact.json",                "templates/page.bks-contact.json"),
+    # Policy template — privacy, terms, resi, spedizioni (2026-06-19)
+    ("sections/bks-policy.liquid",                     "sections/bks-policy.liquid"),
+    ("templates/policy.liquid",                        "templates/policy.liquid"),
+    # Home magazine — tutti 8 collezioni (2026-06-19)
+    ("templates/index.json",                           "templates/index.json"),
+    # Product-type collection templates — BKS hero per sneakers, backpack, etc. (2026-06-19)
+    ("templates/collection.sneakers.json",             "templates/collection.sneakers.json"),
+    ("templates/collection.puffer-jacket.json",        "templates/collection.puffer-jacket.json"),
+    ("templates/collection.windbreaker.json",          "templates/collection.windbreaker.json"),
+    ("templates/collection.pullover-hoodie.json",      "templates/collection.pullover-hoodie.json"),
+    ("templates/collection.swim-trunks.json",          "templates/collection.swim-trunks.json"),
+    ("templates/collection.swimwear.json",             "templates/collection.swimwear.json"),
+    ("templates/collection.flip-flop.json",            "templates/collection.flip-flop.json"),
+    ("templates/collection.athletic-shorts.json",      "templates/collection.athletic-shorts.json"),
+    ("templates/collection.lounge-pants.json",         "templates/collection.lounge-pants.json"),
+    ("templates/collection.backpack.json",             "templates/collection.backpack.json"),
+    ("templates/collection.travel-bag.json",           "templates/collection.travel-bag.json"),
+    ("templates/collection.one-piece-swimsuit.json",   "templates/collection.one-piece-swimsuit.json"),
+    ("templates/collection.racerback-dress.json",      "templates/collection.racerback-dress.json"),
+    # V9: GDPR cookie banner + anatomy-fixed BKS Token templates (19_06_2026)
+    ("snippets/bks-gdpr-banner.liquid",                "snippets/bks-gdpr-banner.liquid"),
+    ("layout/theme.liquid",                            "layout/theme.liquid"),
+    ("templates/collection.bks-token.json",            "templates/collection.bks-token.json"),
+    ("templates/index.json",                           "templates/index.json"),
+    # V10: Google Shopping XML feed (19_06_2026)
+    ("templates/page.bks-google-feed.liquid",          "templates/page.bks-google-feed.liquid"),
+    # V11: JSON-LD structured data — Product/WebSite/ItemList + Organization expanded (19_06_2026)
+    ("snippets/bks-json-ld.liquid",                    "snippets/bks-json-ld.liquid"),
+    # V12: BKS Cart Drawer — ink bg, gold CTA, Bebas/DM Mono typography (19_06_2026)
+    ("assets/bks-cart.css",                            "assets/bks-cart.css"),
+    ("layout/theme.liquid",                            "layout/theme.liquid"),
+    # V13: Fix heart buttons — listener moved to injectHeartButtons, no duplicate listeners (19_06_2026)
+    ("assets/bks-member.js",                           "assets/bks-member.js"),
+    # V14: Wishlist toast + account badge — feedback visivo su ogni pagina (19_06_2026)
+    ("assets/bks-member.js",                           "assets/bks-member.js"),
+    ("assets/bks-member.css",                          "assets/bks-member.css"),
+    # V15: BKS Weekly Editorial — masthead magazine periodico Vol./Issue (19_06_2026)
+    ("sections/bks-weekly-editorial.liquid",           "sections/bks-weekly-editorial.liquid"),
+    # V16: Pricing fix — swimsuits $55, slippers $55, flip flops $49 (no theme file changes)
+    # V17: Printify image sync (28 uploads), pricing Athletic Shorts $69, naming schema 142 products
+    # V18: SESSION_CHANGES compacted, wishlist standalone page, Athletic Shorts $65→$69
+    ("sections/bks-wishlist.liquid",                  "sections/bks-wishlist.liquid"),
+    ("templates/page.bks-wishlist.json",              "templates/page.bks-wishlist.json"),
 ]
 
 

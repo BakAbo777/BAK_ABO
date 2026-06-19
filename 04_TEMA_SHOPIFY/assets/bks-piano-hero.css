@@ -295,6 +295,214 @@
 }
 #bks-vol-sl { width: 80px; accent-color: rgba(255,255,255,0.5); }
 
+/* ════════════════════════════════════════════════════════
+   EDITORIAL / NEWSPAPER MODE
+   Triggered by JS adding .bks-paper to .bks-piano-hero
+   ════════════════════════════════════════════════════════ */
+
+.bks-piano-hero.bks-paper #bks-coll-screen {
+  background: #fafaf7;
+}
+.bks-piano-hero.bks-paper #bks-model-bg {
+  opacity: 0.12;
+  mix-blend-mode: multiply;
+}
+.bks-piano-hero.bks-paper #bks-model-panel {
+  border-right: 0.5px solid rgba(20,14,6,0.08);
+}
+.bks-piano-hero.bks-paper .bks-coll-eyebrow {
+  color: rgba(20,14,6,0.38);
+}
+.bks-piano-hero.bks-paper #bks-coll-name {
+  color: #0A0A0A;
+}
+.bks-piano-hero.bks-paper #bks-coll-note,
+.bks-piano-hero.bks-paper #bks-coll-quote {
+  color: rgba(20,14,6,0.52);
+}
+.bks-piano-hero.bks-paper .bks-prod-pill {
+  border-color: rgba(20,14,6,0.18);
+  color: rgba(20,14,6,0.52);
+}
+.bks-piano-hero.bks-paper .bks-cta-link {
+  color: rgba(20,14,6,0.45);
+}
+.bks-piano-hero.bks-paper .bks-cta-link:hover {
+  color: rgba(20,14,6,0.88);
+}
+.bks-piano-hero.bks-paper #bks-hint,
+.bks-piano-hero.bks-paper #bks-back-btn {
+  color: rgba(20,14,6,0.30);
+}
+.bks-piano-hero.bks-paper #bks-back-btn:hover {
+  color: rgba(20,14,6,0.80);
+}
+.bks-piano-hero.bks-paper #bks-arm-season {
+  color: rgba(20,14,6,0.38);
+}
+.bks-piano-hero.bks-paper #bks-arm-desc {
+  color: rgba(20,14,6,0.26);
+}
+.bks-piano-hero.bks-paper #bks-coll-divider {
+  background: rgba(20,14,6,0.07);
+}
+.bks-piano-hero.bks-paper #bks-mq-head {
+  border-color: rgba(20,14,6,0.20);
+}
+.bks-piano-hero.bks-paper #bks-mq-body {
+  border-color: rgba(20,14,6,0.16);
+}
+.bks-piano-hero.bks-paper .bks-mq-leg {
+  border-color: rgba(20,14,6,0.14);
+}
+
+/* ── Editorial panel — enhanced newspaper layout ── */
+
+/* Slide-up entry animation (editorial mode only) */
+.bks-piano-hero.bks-paper #bks-coll-screen {
+  transform: translateY(18px);
+  transition: opacity 0.52s ease, transform 0.52s cubic-bezier(0.22,1,0.36,1);
+}
+.bks-piano-hero.bks-paper #bks-coll-screen.bks-show {
+  transform: translateY(0);
+  box-shadow:
+    0 6px 48px rgba(20,14,6,0.10),
+    0 1px 8px  rgba(20,14,6,0.06),
+    inset 0 0 0 0.5px rgba(20,14,6,0.08);
+}
+
+/* Left panel — newsprint ruling overlay */
+.bks-piano-hero.bks-paper #bks-model-panel {
+  position: relative;
+  overflow: hidden;
+}
+.bks-piano-hero.bks-paper #bks-model-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px, transparent 11px,
+    rgba(20,14,6,0.022) 11px, rgba(20,14,6,0.022) 12px
+  );
+}
+
+/* Decorative collection initial — watermark */
+.bks-piano-hero.bks-paper #bks-model-panel::before {
+  content: var(--bks-coll-initial, '');
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(100px, 18vw, 180px);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  color: rgba(20,14,6,0.055);
+  font-family: var(--font-heading-family, Georgia, serif);
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+}
+
+/* Mannequin — multiply blend for ink-wash feel */
+.bks-piano-hero.bks-paper #bks-mannequin {
+  opacity: 0.62;
+  mix-blend-mode: multiply;
+  position: relative;
+  z-index: 2;
+}
+.bks-piano-hero.bks-paper #bks-mq-body-fill,
+.bks-piano-hero.bks-paper .bks-mq-leg-fill {
+  opacity: 0.72;
+}
+.bks-piano-hero.bks-paper #bks-arm-info {
+  position: relative;
+  z-index: 2;
+}
+
+/* Right panel — newspaper article typography */
+.bks-piano-hero.bks-paper .bks-coll-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(20,14,6,0.34);
+  margin: 0;
+}
+.bks-piano-hero.bks-paper #bks-coll-note {
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: rgba(20,14,6,0.42);
+  margin: 0 0 2px;
+  text-transform: uppercase;
+}
+.bks-piano-hero.bks-paper #bks-coll-name {
+  font-size: clamp(26px, 4.4vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.018em;
+  line-height: 0.93;
+  color: #0A0A0A;
+  border-top: 1.5px solid #0A0A0A;
+  padding-top: 10px;
+  margin: 6px 0 14px;
+}
+/* Pull-quote with accent left border */
+.bks-piano-hero.bks-paper #bks-coll-quote {
+  font-style: italic;
+  font-size: 11px;
+  line-height: 1.72;
+  color: rgba(20,14,6,0.58);
+  border-left: 2px solid currentColor;
+  padding-left: 14px;
+  margin: 0 0 22px;
+  border-color: var(--bks-coll-accent, rgba(20,14,6,0.30));
+}
+/* Classification pills — square, newspaper tag style */
+.bks-piano-hero.bks-paper #bks-coll-pills {
+  margin-bottom: 24px;
+}
+.bks-piano-hero.bks-paper .bks-prod-pill {
+  border-radius: 0;
+  border: 0.5px solid rgba(20,14,6,0.26);
+  color: rgba(20,14,6,0.52);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  padding: 3px 9px;
+}
+/* CTA — underline link newspaper style */
+.bks-piano-hero.bks-paper .bks-cta-link {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 0.5px;
+  color: rgba(20,14,6,0.42);
+}
+.bks-piano-hero.bks-paper .bks-cta-link:hover {
+  color: var(--bks-coll-accent, #0A0A0A);
+  text-decoration-color: var(--bks-coll-accent, #0A0A0A);
+}
+.bks-piano-hero.bks-paper .bks-cta-link svg {
+  display: none;
+}
+/* Back button — editorial */
+.bks-piano-hero.bks-paper #bks-back-btn {
+  color: rgba(20,14,6,0.28);
+}
+.bks-piano-hero.bks-paper #bks-back-btn:hover {
+  color: rgba(20,14,6,0.80);
+}
+/* Volume / music indicator — ink */
+.bks-piano-hero.bks-paper .bks-vol-label,
+.bks-piano-hero.bks-paper #bks-hint {
+  color: rgba(20,14,6,0.28);
+}
+.bks-piano-hero.bks-paper #bks-music-ind span {
+  background: rgba(20,14,6,0.40) !important;
+}
+
 /* ── Responsive ── */
 @media screen and (max-width: 640px) {
   #bks-coll-screen { flex-direction: column; }

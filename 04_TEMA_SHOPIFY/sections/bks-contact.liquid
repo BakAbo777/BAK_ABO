@@ -1,0 +1,401 @@
+{% comment %} BKS Contact — form + info bicolonna {% endcomment %}
+
+{%- assign sid = section.id -%}
+
+<style>
+  #bks-ct-{{ sid }} {
+    --bks-ct-paper: #fafaf7;
+    --bks-ct-ink:   #0a0a0a;
+    --bks-ct-bone:  #efeae0;
+    --bks-ct-sand:  #c9b79c;
+    --bks-ct-line:  #e0d8cc;
+    background: var(--bks-ct-paper);
+    color: var(--bks-ct-ink);
+  }
+
+  #bks-ct-{{ sid }} .bks-ct__bar {
+    height: 3px;
+    display: flex;
+    gap: 3px;
+    width: 100%;
+  }
+  #bks-ct-{{ sid }} .bks-ct__bar span { flex: 1; display: block; }
+
+  #bks-ct-{{ sid }} .bks-ct__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: clamp(56px, 8vw, 96px) clamp(16px, 4vw, 56px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 80px);
+  }
+
+  /* ── Left: info ───────────────── */
+  #bks-ct-{{ sid }} .bks-ct__info {}
+
+  #bks-ct-{{ sid }} .bks-ct__kicker {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bks-ct-sand);
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  #bks-ct-{{ sid }} .bks-ct__title {
+    font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
+    font-size: clamp(3.2rem, 7vw, 6rem);
+    line-height: 0.9;
+    letter-spacing: 0.01em;
+    color: var(--bks-ct-ink);
+    margin: 0 0 28px;
+  }
+
+  #bks-ct-{{ sid }} .bks-ct__lead {
+    font-family: var(--bks-font-body, 'DM Sans', sans-serif);
+    font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+    line-height: 1.65;
+    color: rgba(10,10,10,0.65);
+    margin: 0 0 40px;
+    max-width: 42ch;
+  }
+
+  #bks-ct-{{ sid }} .bks-ct__row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  #bks-ct-{{ sid }} .bks-ct__icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bks-ct-bone);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  #bks-ct-{{ sid }} .bks-ct__icon svg { display: block; }
+
+  #bks-ct-{{ sid }} .bks-ct__label {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.45);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  #bks-ct-{{ sid }} .bks-ct__value {
+    font-family: var(--bks-font-body, 'DM Sans', sans-serif);
+    font-size: 0.9rem;
+    color: var(--bks-ct-ink);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  #bks-ct-{{ sid }} .bks-ct__value:hover { opacity: 0.55; }
+
+  #bks-ct-{{ sid }} .bks-ct__divider {
+    border: none;
+    border-top: 1px solid var(--bks-ct-line);
+    margin: 32px 0;
+  }
+
+  #bks-ct-{{ sid }} .bks-ct__links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #bks-ct-{{ sid }} .bks-ct__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--bks-ct-ink);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    width: fit-content;
+    padding-bottom: 1px;
+    transition: border-color 0.2s, opacity 0.2s;
+  }
+  #bks-ct-{{ sid }} .bks-ct__link:hover {
+    border-bottom-color: var(--bks-ct-sand);
+    opacity: 0.75;
+  }
+
+  /* ── Right: form ─────────────── */
+  #bks-ct-{{ sid }} .bks-ct__form-wrap {
+    background: var(--bks-ct-bone);
+    border-radius: 2px;
+    padding: clamp(28px, 4vw, 48px);
+  }
+
+  #bks-ct-{{ sid }} .bks-ct__form-title {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.5);
+    margin: 0 0 28px;
+  }
+
+  #bks-ct-{{ sid }} .bks-ct__success {
+    background: #f0faf0;
+    border: 1px solid #8bc34a;
+    border-radius: 2px;
+    padding: 18px 22px;
+    font-family: var(--bks-font-body, 'DM Sans', sans-serif);
+    font-size: 0.9rem;
+    color: #2e5c14;
+    margin-bottom: 20px;
+  }
+
+  #bks-ct-{{ sid }} .bks-ct__field {
+    margin-bottom: 18px;
+  }
+
+  #bks-ct-{{ sid }} .bks-ct__field label {
+    display: block;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.5);
+    margin-bottom: 6px;
+  }
+
+  #bks-ct-{{ sid }} .bks-ct__field input,
+  #bks-ct-{{ sid }} .bks-ct__field select,
+  #bks-ct-{{ sid }} .bks-ct__field textarea {
+    width: 100%;
+    font-family: var(--bks-font-body, 'DM Sans', sans-serif);
+    font-size: 0.9rem;
+    color: var(--bks-ct-ink);
+    background: var(--bks-ct-paper);
+    border: 1px solid var(--bks-ct-line);
+    border-radius: 2px;
+    padding: 11px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+  }
+  #bks-ct-{{ sid }} .bks-ct__field input:focus,
+  #bks-ct-{{ sid }} .bks-ct__field select:focus,
+  #bks-ct-{{ sid }} .bks-ct__field textarea:focus {
+    border-color: var(--bks-ct-sand);
+  }
+  #bks-ct-{{ sid }} .bks-ct__field textarea { resize: vertical; min-height: 130px; }
+
+  #bks-ct-{{ sid }} .bks-ct__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bks-ct-paper);
+    background: var(--bks-ct-ink);
+    border: none;
+    border-radius: 2px;
+    padding: 13px 32px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    width: 100%;
+    margin-top: 8px;
+  }
+  #bks-ct-{{ sid }} .bks-ct__submit:hover { opacity: 0.75; }
+
+  @media (max-width: 860px) {
+    #bks-ct-{{ sid }} .bks-ct__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div id="bks-ct-{{ sid }}">
+
+  <div class="bks-ct__bar" aria-hidden="true">
+    <span style="background:#c8c4be"></span>
+    <span style="background:#489808"></span>
+    <span style="background:#d4a030"></span>
+    <span style="background:#c04418"></span>
+    <span style="background:#0ca898"></span>
+    <span style="background:#8888cc"></span>
+    <span style="background:#9828d8"></span>
+    <span style="background:#c82020"></span>
+  </div>
+
+  <div class="bks-ct__inner">
+
+    <!-- ── INFO ── -->
+    <div class="bks-ct__info">
+      <span class="bks-ct__kicker">{{ section.settings.kicker | default: 'BKS Studio — Contatti' }}</span>
+      <h1 class="bks-ct__title">{{ section.settings.title | default: 'Parliamoci.' }}</h1>
+      <p class="bks-ct__lead">{{ section.settings.lead | default: "Il nostro crew è a disposizione. Scrivici per ordini personalizzati, collaborazioni, press o semplici domande." }}</p>
+
+      <div class="bks-ct__row">
+        <div class="bks-ct__icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div>
+          <span class="bks-ct__label">Email</span>
+          <a href="mailto:{{ section.settings.email | default: 'crew@bakabo.club' }}" class="bks-ct__value">{{ section.settings.email | default: 'crew@bakabo.club' }}</a>
+        </div>
+      </div>
+
+      {%- if section.settings.instagram != blank -%}
+      <div class="bks-ct__row">
+        <div class="bks-ct__icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="#0a0a0a" stroke="none"/></svg>
+        </div>
+        <div>
+          <span class="bks-ct__label">Instagram</span>
+          <a href="{{ section.settings.instagram }}" class="bks-ct__value" target="_blank" rel="noopener">@bakabo.club</a>
+        </div>
+      </div>
+      {%- endif -%}
+
+      {%- if section.settings.youtube != blank -%}
+      <div class="bks-ct__row">
+        <div class="bks-ct__icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42C1 8.14 1 12 1 12s0 3.86.46 5.58a2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96C23 15.86 23 12 23 12s0-3.86-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#0a0a0a" stroke="none"/></svg>
+        </div>
+        <div>
+          <span class="bks-ct__label">YouTube</span>
+          <a href="{{ section.settings.youtube }}" class="bks-ct__value" target="_blank" rel="noopener">BKS Studio</a>
+        </div>
+      </div>
+      {%- endif -%}
+
+      <hr class="bks-ct__divider">
+
+      <div class="bks-ct__links">
+        <a href="/pages/custom-request" class="bks-ct__link">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          Custom Request — ordine personalizzato
+        </a>
+        <a href="/pages/domande-frequenti" class="bks-ct__link">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          Domande Frequenti (FAQ)
+        </a>
+        <a href="/pages/about-bakabo-1" class="bks-ct__link">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          Chi siamo — About BakAbo
+        </a>
+      </div>
+    </div>
+
+    <!-- ── FORM ── -->
+    <div class="bks-ct__form-wrap">
+      <p class="bks-ct__form-title">Inviaci un messaggio</p>
+
+      {%- form 'contact' -%}
+
+        {%- if form.posted_successfully -%}
+          <div class="bks-ct__success" role="alert">
+            Messaggio ricevuto — ti risponderemo entro 48 ore. Grazie!
+          </div>
+        {%- else -%}
+
+          {{ form.errors | default_errors }}
+
+          <div class="bks-ct__field">
+            <label for="bks-ct-name-{{ sid }}">Nome</label>
+            <input type="text" id="bks-ct-name-{{ sid }}" name="contact[name]" autocomplete="name" value="{{ form.name }}" required>
+          </div>
+
+          <div class="bks-ct__field">
+            <label for="bks-ct-email-{{ sid }}">Email *</label>
+            <input type="email" id="bks-ct-email-{{ sid }}" name="contact[email]" autocomplete="email" value="{{ form.email }}" required>
+          </div>
+
+          <div class="bks-ct__field">
+            <label for="bks-ct-subject-{{ sid }}">Argomento</label>
+            <select id="bks-ct-subject-{{ sid }}" name="contact[Argomento]">
+              <option value="Informazioni generali">Informazioni generali</option>
+              <option value="Ordine personalizzato">Ordine personalizzato</option>
+              <option value="Reso / rimborso">Reso / rimborso</option>
+              <option value="Spedizione">Spedizione</option>
+              <option value="Collaborazione / Press">Collaborazione / Press</option>
+              <option value="Membership BakAbo">Membership BakAbo</option>
+              <option value="Altro">Altro</option>
+            </select>
+          </div>
+
+          <div class="bks-ct__field">
+            <label for="bks-ct-msg-{{ sid }}">Messaggio *</label>
+            <textarea id="bks-ct-msg-{{ sid }}" name="contact[body]" required>{{ form.body }}</textarea>
+          </div>
+
+          <button type="submit" class="bks-ct__submit">
+            Invia messaggio
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </button>
+
+        {%- endif -%}
+
+      {%- endform -%}
+    </div>
+
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "BKS Contact",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker (sopra titolo)",
+      "default": "BKS Studio — Contatti"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo",
+      "default": "Parliamoci."
+    },
+    {
+      "type": "textarea",
+      "id": "lead",
+      "label": "Testo introduttivo",
+      "default": "Il nostro crew è a disposizione. Scrivici per ordini personalizzati, collaborazioni, press o semplici domande."
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email contatto",
+      "default": "crew@bakabo.club"
+    },
+    {
+      "type": "url",
+      "id": "instagram",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "youtube",
+      "label": "YouTube URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "BKS Contact"
+    }
+  ]
+}
+{% endschema %}

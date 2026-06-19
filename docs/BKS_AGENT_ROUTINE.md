@@ -9,14 +9,16 @@ Use local data first, batch read-only API calls, estimate cost before metered wo
 ## Steps
 
 1. Refresh local truth - automatic - free_local - none.
-2. Check Google trust gate - automatic_read - free_low - none for checks; human for appeal.
-3. Check network trust gate - automatic_read - free_low - none for checks; human for DNS/email infrastructure changes.
-4. Monitor official inbox - read_and_draft - low - required before send for risky cases.
-5. Evaluate customer/social signals - automatic_read - low_medium - none for read; required for retarget/send/ad spend.
-6. Prepare next action - automatic - free_local - depends on action risk.
-7. Generate assets/copy - draft_automatic - medium_controlled - required before public use.
-8. Publish or send - supervised_write - variable - explicit human approval.
-9. Verify result and learn - automatic_read - low - none unless rollback/publish needed.
+2. Check master actions progress - automatic_read - free_local - none for read; human to mark verified actions as pass in memory.
+3. Check Google trust gate - automatic_read - free_low - none for checks; human for Merchant appeal.
+4. Check network trust gate - automatic_read - free_low - none for checks; human for DNS/email infrastructure changes.
+5. Verify member area and theme - automatic_read - free_low - none for read; human to publish theme if draft.
+6. Monitor official inbox - read_and_draft - low - required before send for risky cases.
+7. Evaluate customer/social signals - automatic_read - low_medium - none for read; required for retarget/send/ad spend.
+8. Prepare next action - automatic - free_local - depends on action risk (see dialogic_agent rules).
+9. Generate assets/copy - draft_automatic - medium_controlled - required before public use.
+10. Publish or send - supervised_write - variable - explicit human approval; blocked if master_actions has P0 blockers.
+11. Verify result and learn - automatic_read - low - none unless rollback/publish needed.
 
 ## Cost guards
 

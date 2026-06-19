@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "bks_faq": {
+      "type": "bks-faq",
+      "blocks": {
+        "b1": { "type": "faq_item", "settings": { "category": "Prodotti", "question": "Come vengono realizzati i prodotti BKS?", "answer": "Ogni capo nasce da artwork generati con intelligenza artificiale dalla crew BKS. I prodotti sono realizzati in print-on-demand da Printify e spediti direttamente a casa tua." } },
+        "b2": { "type": "faq_item", "settings": { "category": "Prodotti", "question": "I prodotti sono sostenibili?", "answer": "Sì. Il modello on-demand elimina le rimanenze di magazzino. Stampato e spedito solo quando ordini — nessuno spreco di produzione." } },
+        "b3": { "type": "faq_item", "settings": { "category": "Spedizioni", "question": "Quanto tempo ci vuole per la spedizione?", "answer": "Produzione: 3-5 giorni lavorativi. Spedizione: 4-8 giorni (Europa). Riceverai email di tracking non appena il pacco viene affidato al corriere." } },
+        "b4": { "type": "faq_item", "settings": { "category": "Spedizioni", "question": "Spedite in tutta Europa?", "answer": "Sì, spediamo in tutta Europa. I costi di spedizione vengono calcolati al checkout in base al paese di destinazione." } },
+        "b5": { "type": "faq_item", "settings": { "category": "Resi", "question": "Posso restituire un prodotto?", "answer": "Accettiamo resi entro 14 giorni dalla ricezione per prodotti difettosi o errori di stampa. I prodotti personalizzati (Try-On, custom request) non sono rimborsabili salvo difetto di produzione." } },
+        "b6": { "type": "faq_item", "settings": { "category": "Ordini", "question": "Posso modificare o annullare un ordine?", "answer": "Gli ordini possono essere annullati entro 12 ore dall'acquisto scrivendo alla crew. Dopo l'avvio della produzione non è possibile modificare l'ordine." } },
+        "b7": { "type": "faq_item", "settings": { "category": "Members", "question": "Come funziona la BKS Membership?", "answer": "La membership BKS è gratuita e ti dà accesso al Camerino (Try-On virtuale), alla wishlist, alle anteprime collezione e alle offerte riservate. Più acquisti, più sali di livello: da Lead a Gold." } },
+        "b8": { "type": "faq_item", "settings": { "category": "Try-On", "question": "Il Try-On AI è privato?", "answer": "Sì. L'anteprima del Camerino è elaborata interamente nel tuo browser — nessuna foto viene inviata a server BKS o terze parti. Se usi 'Invia alla crew' per una prova manuale, ti chiediamo il consenso esplicito GDPR prima dell'invio." } },
+        "b9": { "type": "faq_item", "settings": { "category": "Pagamenti", "question": "Quali metodi di pagamento accettate?", "answer": "Accettiamo carte di credito/debito (Visa, Mastercard, Amex), PayPal e tutti i wallet digitali supportati da Shopify Payments (Apple Pay, Google Pay)." } }
+      },
+      "block_order": ["b1","b2","b3","b4","b5","b6","b7","b8","b9"],
+      "settings": {
+        "overline": "BKS Studio",
+        "title": "Domande Frequenti",
+        "subtitle": "Tutto quello che devi sapere sui prodotti, spedizioni e membership BKS.",
+        "show_cta": true,
+        "cta_text": "Non hai trovato risposta? Contatta la crew BKS.",
+        "cta_label": "Scrivi alla crew"
+      }
+    }
+  },
+  "order": ["bks_faq"]
+}

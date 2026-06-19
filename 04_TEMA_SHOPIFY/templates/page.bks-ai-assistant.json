@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "bks-ai-assistant": {
+      "type": "bks-ai-assistant",
+      "settings": {}
+    }
+  },
+  "order": ["bks-ai-assistant"]
+}

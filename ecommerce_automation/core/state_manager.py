@@ -7,6 +7,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+BAKABO_STORE_DOMAIN = "bakabo.club"
+BKS_TM04_THEME_ID = "202392961362"
+
 
 @dataclass(frozen=True)
 class PhaseSpec:
@@ -27,7 +30,7 @@ PHASE_SPECS: tuple[PhaseSpec, ...] = (
     PhaseSpec("07", "Social & marketplaces", "Prepare social payloads and trigger Make scenarios for cross-posting.", "phase_social", ("Make", "Meta", "TikTok", "Etsy")),
     PhaseSpec("08", "Amazon configuration", "Prepare Amazon SP-API listing workflow and FBM/FBA decisions.", "phase_amazon", ("Amazon",)),
     PhaseSpec("09", "Avatar production", "Produce BKS collection avatar videos: scripts, 9:16 images, HeyGen exports, and metadata.", "phase_avatar", ("HeyGen", "Social")),
-    PhaseSpec("10", "Project skill registry", "Index Claude/Codex project-management skills and expose them in the Master panel.", "phase_skills", ("Docs", "Project Management")),
+    PhaseSpec("10", "Project skill registry", "Index BKS resident skills from BKS_SKILL/skills/ and expose them in the Master panel.", "phase_skills", ("Docs", "Project Management")),
 )
 
 

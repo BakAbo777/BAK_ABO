@@ -11,6 +11,13 @@
   --bks-gold-light: #e8d5a8;
   --bks-blue: #4a9eff;
   --bks-amber: #e8a020;
+  /* Metal tier palette */
+  --bks-tier-lead:   #7a7a7a;
+  --bks-tier-iron:   #8a8a8a;
+  --bks-tier-brass:  #c8a96e;
+  --bks-tier-silver: #b0b0c8;
+  --bks-tier-gold:   #d4a030;
+  /* legacy aliases — kept for backward compat */
   --bks-tier-subscriber: #4a9eff;
   --bks-tier-drop: #e8a020;
   --bks-tier-archive: #c8a96e;
@@ -72,23 +79,16 @@
   text-transform: uppercase;
 }
 
-.bks-tier-badge--subscriber {
-  background: rgba(74,158,255,0.12);
-  color: var(--bks-tier-subscriber);
-  border: 1px solid rgba(74,158,255,0.25);
-}
-
-.bks-tier-badge--drop {
-  background: rgba(232,160,32,0.12);
-  color: var(--bks-tier-drop);
-  border: 1px solid rgba(232,160,32,0.3);
-}
-
-.bks-tier-badge--archive {
-  background: rgba(200,169,110,0.12);
-  color: var(--bks-tier-archive);
-  border: 1px solid rgba(200,169,110,0.3);
-}
+/* Metal tier badges */
+.bks-tier-badge--lead   { background: rgba(122,122,122,0.10); color: var(--bks-tier-lead);   border: 1px solid rgba(122,122,122,0.22); }
+.bks-tier-badge--iron   { background: rgba(138,138,138,0.10); color: var(--bks-tier-iron);   border: 1px solid rgba(138,138,138,0.22); }
+.bks-tier-badge--brass  { background: rgba(200,169,110,0.12); color: var(--bks-tier-brass);  border: 1px solid rgba(200,169,110,0.28); }
+.bks-tier-badge--silver { background: rgba(176,176,200,0.12); color: var(--bks-tier-silver); border: 1px solid rgba(176,176,200,0.28); }
+.bks-tier-badge--gold   { background: rgba(212,160,48,0.12);  color: var(--bks-tier-gold);   border: 1px solid rgba(212,160,48,0.30); }
+/* legacy aliases */
+.bks-tier-badge--subscriber { background: rgba(74,158,255,0.12); color: var(--bks-tier-subscriber); border: 1px solid rgba(74,158,255,0.25); }
+.bks-tier-badge--drop       { background: rgba(232,160,32,0.12); color: var(--bks-tier-drop);       border: 1px solid rgba(232,160,32,0.3);  }
+.bks-tier-badge--archive    { background: rgba(200,169,110,0.12); color: var(--bks-tier-archive);   border: 1px solid rgba(200,169,110,0.3); }
 
 .bks-tier-dot {
   width: 6px;
@@ -410,6 +410,64 @@
 
 .bks-heart-btn .bks-heart-icon { fill: none; stroke: #fff; stroke-width: 1.5; }
 .bks-heart-btn.wishlisted .bks-heart-icon { fill: #e74c3c; stroke: #e74c3c; }
+
+/* ── Wishlist toast ── */
+.bks-wl-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #111;
+  color: #f0ece4;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+  padding: 11px 20px;
+  font-size: 13px;
+  font-family: var(--bks-font-mono, 'DM Mono', monospace);
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s, transform 0.22s;
+  z-index: 9999;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+}
+
+.bks-wl-toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.bks-wl-toast a {
+  color: var(--bks-gold, #c8a96e);
+  text-decoration: none;
+}
+.bks-wl-toast a:hover { text-decoration: underline; }
+
+/* ── Wishlist badge on account icon ── */
+.bks-wl-badge {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #e74c3c;
+  color: #fff;
+  font-size: 10px;
+  font-family: var(--bks-font-mono, 'DM Mono', monospace);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  pointer-events: none;
+}
 
 /* ── Early Access ── */
 .bks-early-access-card {
@@ -836,6 +894,81 @@
   font-size: 14px;
 }
 
+/* ── Member Avatar Ring ── */
+@keyframes bks-avatar-pulse {
+  0%, 100% { opacity: 0.75; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.04); }
+}
+@keyframes bks-avatar-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.bks-member-avatar {
+  position: relative;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+}
+.bks-member-avatar__inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--bks-surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: var(--bks-text);
+  position: relative;
+  z-index: 1;
+  user-select: none;
+}
+.bks-member-avatar::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  border: 1.5px solid var(--bks-avatar-ring, var(--bks-gold));
+  animation: bks-avatar-pulse 2.8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+.bks-member-avatar::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  border-top-color: var(--bks-avatar-ring, var(--bks-gold));
+  border-right-color: var(--bks-avatar-ring, var(--bks-gold));
+  animation: bks-avatar-spin 4s linear infinite;
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 2;
+}
+.bks-member-avatar[data-tier="gold"]::before {
+  border-width: 2px;
+  inset: 2px;
+  box-shadow: 0 0 14px rgba(212,160,48,0.5);
+  animation-duration: 2s;
+}
+.bks-member-avatar[data-tier="gold"]::after {
+  border-width: 2px;
+  opacity: 1;
+  animation-duration: 2.4s;
+}
+.bks-member-hero__left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bks-member-avatar::before,
+  .bks-member-avatar::after { animation: none; }
+}
+
 /* ── Logout link ── */
 .bks-logout-link {
   font-size: 12px;
@@ -851,15 +984,26 @@
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .bks-member-hero { padding: 32px 20px 24px; }
-  .bks-member-tabs { padding: 0 16px; }
-  .bks-member-panel { padding: 28px 20px; }
-  .bks-tracker-step-label { font-size: 11px; }
+  .bks-member-hero { padding: 24px 16px 20px; }
+  .bks-member-hero__left { gap: 14px; }
+  .bks-member-avatar { width: 52px; height: 52px; }
+  .bks-member-avatar__inner { font-size: 18px; }
+  .bks-member-greeting { font-size: clamp(18px, 5vw, 26px); margin: 0 0 5px; }
+  .bks-member-actions { flex-wrap: wrap; gap: 10px; }
+  .bks-member-tabs { padding: 0 12px; }
+  .bks-tab-btn { padding: 14px 14px; font-size: 12px; }
+  .bks-member-panel { padding: 20px 16px; }
+  .bks-tracker-step-label { font-size: 10px; }
   .bks-account-details { grid-template-columns: 1fr; }
   .bks-referral-link-row { flex-direction: column; }
   .bks-early-access-card { flex-direction: column-reverse; }
   .bks-early-access-image { width: 100%; }
   .bks-wishlist-grid { grid-template-columns: repeat(2, 1fr); }
+  /* Camerino mobile */
+  .bks-camerino__grid { grid-template-columns: 1fr; }
+  .bks-camerino__how { flex-direction: column; gap: 12px; }
+  .bks-camerino__how-step { padding: 16px; }
+  .bks-camerino__upload-zone { padding: 24px 16px; }
 }
 
 /* ── Customize panel ── */
@@ -1067,4 +1211,174 @@
   .bks-cz-type-grid { grid-template-columns: 1fr 1fr; }
   .bks-cz-form-wrap { padding: 20px; }
   .bks-cz-actions { flex-direction: column; align-items: flex-start; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PER-COLLECTION COLOR SYSTEM — Member Panel
+   Mirrors bks-impact-home collection accent palette
+══════════════════════════════════════════════════════════════ */
+:root {
+  --bks-col-origin:  #C8B59A;
+  --bks-col-glyph:   #9BB5CC;
+  --bks-col-marker:  #E2A86B;
+  --bks-col-riviera: #7EB3D4;
+  --bks-col-pulse:   #D4A030;
+  --bks-col-token:   #B8C89A;
+  --bks-col-flag:    #CC9999;
+  --bks-col-hours:   #A8A8C8;
+}
+
+/* Collection accent injection via data-collection attribute */
+.bks-wishlist-card[data-collection="origin"]  { --col: var(--bks-col-origin);  --col-dim: rgba(200,181,154,.22); }
+.bks-wishlist-card[data-collection="glyph"]   { --col: var(--bks-col-glyph);   --col-dim: rgba(155,181,204,.22); }
+.bks-wishlist-card[data-collection="marker"]  { --col: var(--bks-col-marker);  --col-dim: rgba(226,168,107,.22); }
+.bks-wishlist-card[data-collection="riviera"] { --col: var(--bks-col-riviera); --col-dim: rgba(126,179,212,.22); }
+.bks-wishlist-card[data-collection="pulse"]   { --col: var(--bks-col-pulse);   --col-dim: rgba(212,160,48,.22); }
+.bks-wishlist-card[data-collection="token"]   { --col: var(--bks-col-token);   --col-dim: rgba(184,200,154,.22); }
+.bks-wishlist-card[data-collection="flag"]    { --col: var(--bks-col-flag);    --col-dim: rgba(204,153,153,.22); }
+.bks-wishlist-card[data-collection="hours"]   { --col: var(--bks-col-hours);   --col-dim: rgba(168,168,200,.22); }
+
+/* ── Redesigned wishlist grid — editorial portrait ── */
+.bks-wishlist-grid {
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px 14px;
+}
+
+.bks-wishlist-card {
+  background: var(--bks-surface);
+  border: 1px solid var(--bks-border);
+  border-top: 2px solid var(--col-dim, var(--bks-border));
+  border-radius: 0;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--bks-text);
+  transition: border-color 0.22s, box-shadow 0.22s;
+}
+
+.bks-wishlist-card:hover {
+  border-top-color: var(--col, var(--bks-gold));
+  box-shadow: 0 10px 44px rgba(0,0,0,.5), 0 0 0 1px var(--col-dim, var(--bks-border));
+}
+
+.bks-wishlist-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Portrait image — editorial look */
+.bks-wishlist-card-img {
+  aspect-ratio: 3 / 4;
+  width: 100%;
+  object-fit: cover;
+  background: var(--bks-surface-2);
+  display: block;
+}
+
+.bks-wishlist-card-img-placeholder {
+  aspect-ratio: 3 / 4;
+  background: var(--bks-surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bks-muted);
+  font-size: 11px;
+  letter-spacing: .12em;
+}
+
+/* Card info with collection label */
+.bks-wishlist-card-info {
+  padding: 14px 14px 12px;
+}
+
+.bks-wishlist-card-cat {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--col, var(--bks-muted));
+  margin: 0 0 5px;
+  line-height: 1;
+}
+
+.bks-wishlist-card-title {
+  font-size: 13px;
+  font-weight: 500;
+  margin: 0 0 4px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.bks-wishlist-card-price {
+  font-size: 12px;
+  color: var(--bks-muted);
+  margin: 0;
+}
+
+.bks-wishlist-card-remove {
+  display: block;
+  padding: 8px 14px;
+  font-size: 11px;
+  letter-spacing: .06em;
+  color: var(--bks-muted);
+  background: none;
+  border: none;
+  border-top: 1px solid var(--bks-border);
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.18s, background 0.18s;
+}
+
+.bks-wishlist-card-remove:hover { color: #f87171; background: rgba(248,113,113,.04); }
+
+/* ── Mood system — panel assumes collection's colour on product select/hover ── */
+.bks-member-wrap {
+  --bks-mood: var(--bks-gold);
+  transition: background 0.6s ease;
+}
+
+/* Ambient hero glow shifts with mood */
+.bks-member-hero {
+  position: relative;
+  overflow: hidden;
+}
+.bks-member-hero::after {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -5%;
+  width: 55%;
+  height: 200%;
+  background: radial-gradient(ellipse at center, var(--bks-mood) 0%, transparent 65%);
+  opacity: 0.06;
+  pointer-events: none;
+  transition: opacity 0.5s, background 0.5s;
+}
+.bks-member-wrap[data-mood] .bks-member-hero::after { opacity: 0.1; }
+
+/* Tab active indicator shifts with mood */
+.bks-tab-btn.active { color: var(--bks-text); border-bottom-color: var(--bks-mood); }
+
+/* Greeting name colour follows mood */
+.bks-member-greeting span { color: var(--bks-mood); transition: color 0.4s; }
+
+/* Wishlist share, referral copy, btn-ghost hover follow mood */
+.bks-wishlist-share:hover,
+.bks-referral-copy-btn { background: var(--bks-mood, var(--bks-gold)); }
+.bks-btn-ghost:hover { border-color: var(--bks-mood); color: var(--bks-mood); }
+.bks-btn-gold { background: var(--bks-mood, var(--bks-gold)); }
+
+/* Camerino accent follows mood automatically via CSS var cascade */
+[data-bks-camerino] { --bks-accent: var(--bks-mood, #c9b79c); }
+.bks-camerino__step.is-active { border-color: var(--bks-mood, var(--bks-accent)); }
+[data-bks-generate]:not(:disabled),
+[data-bks-crew]:not(:disabled) { background: var(--bks-mood, var(--bks-text)); }
+
+/* ── Member panel max-width lift for editorial layout ── */
+.bks-member-panel { max-width: 1280px; }
+
+@media (max-width: 768px) {
+  .bks-wishlist-grid { grid-template-columns: repeat(2, 1fr); gap: 10px 8px; }
+  .bks-wishlist-card-img, .bks-wishlist-card-img-placeholder { aspect-ratio: 1 / 1; }
 }

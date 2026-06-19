@@ -1,2 +1,0 @@
-severity,issue_class,subject,issue_type,scan_performed_on,status,insight,detection_method,risk,recommended_action
-Low,Review unwanted AI crawlers with AI Labyrinth,bakabo.club,Configuration suggestion,2026-06-14T13:08:18.798672Z,Active,,,,"Enable AI Labyrinth. "

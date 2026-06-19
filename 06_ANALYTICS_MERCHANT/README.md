@@ -1,31 +1,36 @@
 # Fase 06 — Analytics, Merchant Center e Link
 
-Obiettivo: verificare che il sito pubblicato, GA4/GTM e Merchant Center siano coerenti dopo il deploy.
+Aggiornato 17 Giugno 2026.
 
-Nel cruscotto:
+Obiettivo: GA4, GTM, Merchant Center e audit link coerenti con il tema live.
+
+## IDs
+
+| Elemento | Valore |
+| --- | --- |
+| GA4 Property | `bakabo-9a8c5` — ID `483501489` |
+| GTM Container | `GTM-PF5Z85KS` — live nel tema TM04 |
+| Merchant Center | `5295165689` — account `bakabo.club` |
+
+## Audit live
 
 ```bat
-02_START_COLLECTIONS_DASHBOARD.bat
+python tools\audit_live_site.py
+python scripts\check_live_titles.py
+python scripts\check_market_prices.py
 ```
 
-Aprire tab:
+## Azioni Merchant Center in sospeso
 
-- `06 Analytics`
+1. **Inventario locale mancante**: BKS non ha stock fisico — disattivare local inventory ads/free local listings in Merchant Center.
+2. **Pagine prodotto non disponibili**: prodotti eliminati non ancora reindicizzati. Dopo deploy pulito: risincronizzare feed Shopify → richiedere nuovo controllo sito.
+3. **Attributi apparel**: completare `size`, `color`, `gender`, `age_group` nel feed. Gestiti da metafield CSV.
+4. **Mercati**: attivi solo EU + US. India/Corea in pausa fino a shipping e checkout configurati.
 
-Stato registrato:
+## Nota crawl
 
-- GA4 property `bakabo-9a8c5`
-- Property ID `483501489`
-- GTM `GTM-PF5Z85KS`
-- Merchant Center account `5295165689`
+Se `audit_live_site.py` restituisce `429 Verifying your connection`, il sito sta filtrando traffico automatico. Verificare manualmente da browser le pagine critiche, poi riprovare.
 
-Nota Merchant Center: molte pagine prodotto non disponibili sono tracce di prodotti eliminati dalla collezione ma non ancora reindicizzati da Google. Dopo pulizia feed/sitemap, richiedere il nuovo controllo del sito.
+## Setup Google Merchant (task pendente)
 
-Aggiornamento 13/06/2026:
-
-- Prima azione: correggere "Dati di inventario locale mancanti". Se BakAbo/BKS non ha stock fisico in negozio, disattivare local inventory ads/free local listings in Merchant Center. In alternativa caricare un feed inventario locale completo con `id`, `store_code`, `availability` e `quantity`.
-- Seconda azione: correggere "Pagina del prodotto non disponibile" rimuovendo prodotti vecchi dal feed, risincronizzando Shopify e verificando URL desktop/mobile.
-- Terza azione: completare attributi apparel per Merchant: size, color, gender, age_group. Nel tema e stato aggiunto `bks-product-editorial-care.liquid` per rendere size guide, curation, spedizioni e resi visibili su ogni PDP.
-- Quarta azione: tenere attivi solo i paesi con Shopify shipping, Merchant destination, checkout, resi e lingua coerenti. India/Corea vanno tenute in pausa se non completamente configurate.
-
-Nota crawl: se `tools/audit_live_site.py` restituisce `429 Verifying your connection`, il sito sta proteggendo il traffico automatico. Attendere e rilanciare con calma, oppure verificare manualmente da browser le pagine critiche.
+Vedi `memory/project_bks_pending.md` per i passi di configurazione Google Merchant Center non ancora completati.

@@ -3,6 +3,53 @@ from __future__ import annotations
 from typing import Any
 
 
+# Session: 2026-06-17/18 — services rebuild + theme deploy + module BKS upgrade pass
+# Session: 2026-06-18 — armocromista pass 1: product pages + responsive.css
+# Session: 2026-06-18 — armocromista pass 2: all 8 collections — collection page 47/47 PASS
+# Session: 2026-06-18 — output/ alignment (folklore→origin 880 files) + BKS SQLite database (53 tables)
+# Session: 2026-06-18 — BKS Algorithm engine + Streamlit Control Center + pages upgrade
+# Session: 2026-06-18 — collection templates (collection.json default + bks-origin updated) + hub page + card fix + hearts all pages + mobile patch v2 + 203 Shopify products CSV
+# Session: 2026-06-18 v3 — Playwright audit (48 pages) + all 8 BKS collection templates fixed (main-collection-product-grid-bks) + hearts global load + template-product body class + html overflow fix + bks-theme-effects.css deployed
+# Session: 2026-06-18 v4 — Card white background global fix (home+product+collection) + MutationObserver hearts (AJAX related-products) + 3 missing Shopify pages created (bks-collections, bks-ai-assistant, bks-custom)
+# Session: 2026-06-18 v5 — P0 Liquid pagination fix (bks-member-dashboard) + /collections redirect + mobile variant picker + 365 Onyx color rename + 203 Folklore→Origin (body+alts) + 167 series:*→archive:* migration
+# Session: 2026-06-19 v6 — Home index.json + FAQ (JSON-LD) + About pages + Product Hero (auto-accent) + Camerino validation (GDPR) + Header 3px accent bar + Marketing Hub + Analytics page + Shopify pages API + 4 avatar videos uploaded
+# Session: 2026-06-19 v7 — Contact page + Policy template + Default product.json (BKS hero all products) + Magazine all 8 collections
+# Session: 2026-06-19 v8 — 13 product-type collection templates (sneakers/backpack/puffer-jacket/etc.) + deploy 89 files
+# Session: 2026-06-19 v9 — Members area Metal tier alignment + anatomy fix (bks-token-editorial.png → bks-token-puffer.png) + rejected_assets DB
+# Session: 2026-06-19 v10 — GDPR cookie banner + Google Shopping XML feed + Cloudflare Worker config
+# Session: 2026-06-19 v17 — Pricing fix (swimsuits/slippers/flip flops), 13 prodotti immagini sync Printify, Athletic Shorts rinominati schema BKS
+# Session: 2026-06-19 v18 — Catalog naming schema applicato a TUTTE le categorie: 142 prodotti rinominati (Hoodie/Lounge Pants/One-Piece/Puffer/Sneakers/Swim Trunks/Tee/Pullover + Athletic Shorts)
+# Session: 2026-06-19 v19 — SESSION_CHANGES compattato, Athletic Shorts $65→$69 (87 varianti), Wishlist standalone page live (bakabo.club/pages/bks-wishlist)
+# Session: 2026-06-19 v20 — Cloudflare Worker bks-agent live (KV+secrets+OpenAI), AI assistant endpoint→Worker, try/catch fix
+# Session: 2026-06-19 v21 — AI assistant attivo globalmente (enabled:true, endpoint Worker), 6 template/sezioni deploy (members-login, embed, origin, ai-page, members, wishlist)
+# Session: 2026-06-19 v22 — Deploy completo 48 file BKS (assets/sections/snippets/templates) + handle emoji fix Pullover Token bks-pullover-token + GSC TXT verificato
+BKS_LAST_DEPLOY = "19_06_2026_v22"
+BKS_THEME_VERSION = "BKS TM04 19_06_2026 V.22"
+BKS_THEME_ID = "202392961362"
+BKS_COLLECTIONS = ("Hours", "Glyph", "Marker", "Riviera", "Pulse", "Token", "Flag", "Origin")
+SESSION_CHANGES = {
+    "V.0  18_06_2026": "TM04 deploy (31 files) + module BKS upgrade pass (trust_gate, SKILL_DOC, Folklore→Origin)",
+    "V.1  18_06_2026": "Armocromista pass 1 (product pages, responsive.css) + pass 2 (47/47 collezioni PASS)",
+    "V.2  18_06_2026": "output/ align 880 files + SQLite DB 53 tabelle + collection templates + hearts + mobile patch v2",
+    "V.3  18_06_2026": "Playwright audit 48/48 PASS + card bg fix + hearts MutationObserver + 3 pagine Shopify",
+    "V.4  18_06_2026": "P0 fixes: dashboard paginate, /collections redirect, variant picker, 365 varianti Onyx",
+    "V.5  18_06_2026": "203 prodotti Folklore→Origin body+alts + 167 tags series:*→archive:* + GMC metafields 203/203",
+    "V.6  19_06_2026": "Home index.json + FAQ JSON-LD + About pages + Product Hero auto-accent + header 3px bar + Marketing/Analytics pages",
+    "V.7  19_06_2026": "Contact + Policy template + Default product.json (tutti prodotti BKS hero) + Magazine 8 spread + nav/footer update",
+    "V.8  19_06_2026": "13 product-type collection templates + 89 file deploy — copertura sito completa",
+    "V.9  19_06_2026": "Members Metal tier unificato + anatomy fix bks-token-puffer.png + rejected_assets DB",
+    "V.10 19_06_2026": "GDPR banner + Google Shopping XML feed + Cloudflare Worker config",
+    "V.11 19_06_2026": "JSON-LD structured data (Product/WebSite/ItemList/Organization)",
+    "V.12 19_06_2026": "BKS Cart Drawer CSS (ink bg, DM Mono, gold CTA)",
+    "V.17 19_06_2026": "Pricing fix (swimsuits $55/slippers $55/flip flops $49) + 13 prodotti immagini Printify sync (28 upload)",
+    "V.18 19_06_2026": "Catalog naming schema applicato a TUTTE le categorie — 142 prodotti rinominati BKS [Type] — [Collection]",
+    "V.19 19_06_2026": "SESSION_CHANGES compattato + Athletic Shorts $65→$69 (87 varianti) + Wishlist standalone page (bakabo.club/pages/bks-wishlist)",
+    "V.20 19_06_2026": "Cloudflare Worker bks-agent live (KV 8f6b1e4a, 4 secrets, OpenAI) + AI assistant endpoint→Worker + try/catch graceful 503",
+    "V.21 19_06_2026": "AI assistant attivo globalmente (enabled:true) + 6 deploy: members-login, ai-embed, origin template, ai-page, members, wishlist",
+    "V.22 19_06_2026": "Deploy completo 48 file BKS custom (11 assets + 25 sections + 6 snippets + 6 templates) + handle emoji fix Pullover Token + GSC TXT OK",
+}
+
+
 AGENT_PROFILE: dict[str, Any] = {
     "name": "BKS Master Agent",
     "role": "Agente operativo finale per fasi, API, avatar, social render e skill registry.",
@@ -178,15 +225,46 @@ def reply(message: str, snapshot: dict[str, Any]) -> dict[str, Any]:
             "actions": ["open_catalog_sync", "open_references"],
         }
 
-    if "nomi prodotti" in lower or "nome prodotto" in lower or "titoli prodotti" in lower or "titolo prodotto" in lower or "sbgliati" in lower or "sbagliati" in lower:
+    if "nomi prodotti" in lower or "nome prodotto" in lower or "titoli prodotti" in lower or "titolo prodotto" in lower or "sbgliati" in lower or "sbagliati" in lower or "schema nome" in lower or "naming" in lower:
         summary = product_names.get("summary", {})
         return {
             "reply": (
-                f"Product Name Audit: sorgente {summary.get('source', 'active_csv')}, {summary.get('products', 0)} prodotti controllati, "
-                f"{summary.get('needs_fix', 0)} da correggere e {summary.get('needs_review', 0)} da verificare. "
-                "Priorita: correggere emoji, simboli, refusi e mismatch handle-titolo. Non stravolgo: se BKS e serie/collezione sono gia nel nome, li preservo."
+                "Schema titoli BKS (da skill bakabo-brand, formula unica):\n"
+                "  BKS [Product Type] — [Collection]\n"
+                "  Se piu prodotti stesso tipo+collezione: BKS [Product Type] — [Collection] 01 / 02\n\n"
+                "Esempi corretti: BKS Athletic Shorts — Riviera 01, BKS Sneakers — Pulse, BKS Swim Trunks — Riviera\n"
+                "Errori da evitare: BKS Pulse™ Urban Luxury Sneakers (tm, aggettivi), SerenityBlend (BKS)🍀 (emoji, nome AI casuale)\n\n"
+                "Categoria Athletic Shorts — rinominati 2026-06-19 (11 prodotti):\n"
+                "  Flag, Hours, Origin, Pulse, Token → singoli (no numero)\n"
+                "  Glyph 01/02, Marker 01/02, Riviera 01/02 → doppi (numerati)\n\n"
+                f"Product Name Audit: {summary.get('products', 0)} prodotti controllati, "
+                f"{summary.get('needs_fix', 0)} da correggere. "
+                "Schema applicato su TUTTE le categorie 2026-06-19 v18 — 142 prodotti rinominati:\n"
+                "  Athletic Shorts (11), Hoodie (16), Lounge Pants (14), One-Piece (18),\n"
+                "  Puffer (29), Sneakers (22), Swim Trunks (25), Tee (6), Pullover (1)\n"
+                "Catalogo nominalmente allineato. Rimane: Stamp Sneakerz (DRAFT, emoji — Roberto decide)."
             ),
             "actions": ["open_product_name_audit", "open_catalog_sync"],
+        }
+
+    if any(t in lower for t in ("contrasto", "contrast", "leggibil", "visibil", "testo nero", "pagina nera", "buio", "scuro", "armocro", "colori")):
+        return {
+            "reply": (
+                "Armocromista pass 1+2 completo (18_06_2026). "
+                "REGOLA BASE: accent BKS sono DECORATIVI (bordi, glow, chip bg) — testo sempre #0A0A0A su chiaro, #FAFAF7 su scuro. "
+                "PASS 1 — product pages: "
+                "bks-product-system kicker #5a5450 + bordo-accent (era color-mix invisibile per Hours); "
+                "bks-product-meta 3 fix su amber bg (#1e1a14/#2a2218); "
+                "bks-responsive.css: mobile patch + section tokens + cindex + member + footer + timed-offer + tier badge. "
+                "PASS 2 — tutte le 8 collezioni: "
+                "bks-collection-signal chip/typo-label -> color-mix(60%,#FAFAF7) per Token/Marker/Flag (3.4-3.8->6.5-7.4:1 su dark); "
+                "kicker/label border -> color-mix(60%,#0A0A0A) per Hours/Glyph (1.7->4.3:1); "
+                "main-collection-product-grid: Origin+backpack foreground #FAFAF7->#0A0A0A (verde bg 3.5->5.4:1); "
+                "made-to-order stamp 74->85% (3.4->5.2:1). "
+                "AUDIT FINALE pagina collezione: 47/47 PASS (4.3-18.9:1). "
+                "Bug critico risolto: tutti 15 product template erano BKS Folklore/bks-folklore -> BKS Origin/bks-origin."
+            ),
+            "actions": ["open_theme", "open_master_actions"],
         }
 
     if "font" in lower or "tipografia" in lower or ("mobile" in lower and "descriz" in lower) or "bks e la serie" in lower or "non stravolgere" in lower:
@@ -210,7 +288,7 @@ def reply(message: str, snapshot: dict[str, Any]) -> dict[str, Any]:
             "actions": ["open_google_trust", "open_master_actions"],
         }
 
-    if "google" in lower or "merchant" in lower or "fuorviant" in lower or "sospes" in lower or "analytics" in lower or "gtm" in lower or "ga4" in lower or "tag" in lower:
+    if "google" in lower or "merchant" in lower or "fuorviant" in lower or "sospes" in lower or "gtm" in lower or "ga4" in lower or "google analytics" in lower or "tag" in lower:
         summary = google.get("summary", {})
         tag_summary = google.get("tag_summary", {})
         feed_summary = google.get("feed", {}).get("summary", {})
@@ -226,7 +304,7 @@ def reply(message: str, snapshot: dict[str, Any]) -> dict[str, Any]:
             "actions": ["open_google", "open_master_actions"],
         }
 
-    if "mercato" in lower or "market" in lower or "adatta" in lower or "evoluzione" in lower:
+    if "mercato" in lower or "market sense" in lower or "adatta" in lower or "evoluzione" in lower:
         summary = market.get("summary", {})
         recommendations = market.get("recommendations", [])
         first = recommendations[0] if recommendations else {}
@@ -254,22 +332,146 @@ def reply(message: str, snapshot: dict[str, Any]) -> dict[str, Any]:
         lines.append("Le applichiamo in modo progressivo: prima trust, poi creator/video, poi Pinterest/timer.")
         return {"reply": "\n".join(lines), "actions": ["open_marketing_logic", "open_theme"]}
 
-    if "timer" in lower or "offerta" in lower or "marketing" in lower or "countdown" in lower:
+    if "allena" in lower or "train" in lower or "aggiornato" in lower or "cosa sai" in lower or "cosa hai imparato" in lower:
+        return {
+            "reply": (
+                f"Agente aggiornato — sessione {BKS_LAST_DEPLOY}. Nuove conoscenze:\n"
+                "- Home page finalmente live (index.json): video canvas 4 avatar + magazine editoriale\n"
+                "- FAQ con JSON-LD (Google FAQ rich results attivi)\n"
+                "- About BakAbo + About BKS Studio live su Shopify\n"
+                "- Product Hero: auto-rileva accent dalla collezione, prodotto fluttua su sfondo colorato\n"
+                "- Header: barra 3px accent per collezione (non cambia il bg, solo il bordo inferiore)\n"
+                "- Camerino: validazione foto (600x900min, verticale, 12MB), GDPR consent attivo\n"
+                "- Marketing Hub (pagina 09): crea offerte Shopify, sconti tier, UTM builder, trigger email\n"
+                "- Analytics (pagina 10): revenue chart, top prodotti, ordini live da Shopify API\n"
+                "- 4 video avatar caricati su Shopify Files (CDN in admin > Content > Files)\n"
+                "- 3 pagine Shopify create via API (FAQ/About BakAbo/About BKS Studio)\n"
+                f"Deployato: {BKS_THEME_VERSION} — 70 file OK"
+            ),
+            "actions": ["open_theme", "open_master_actions"],
+        }
+
+    if "home" in lower or "canvas" in lower or "video canvas" in lower or "index" in lower or "pagina principale" in lower:
+        return {
+            "reply": (
+                f"Home page BKS — live con template index.json ({BKS_LAST_DEPLOY}). "
+                "Struttura: bks-home-video-canvas (4 video avatar in sequenza, crossfade, grain, nessun audio) -> "
+                "bks-home-magazine (copertina Bebas Neue + 8 spread editoriali Hours/Origin/Glyph/Marker/Riviera/Pulse/Token/Flag + pull quote) -> "
+                "bks-store-reviews -> bks-trust-strip. "
+                "Magazine ora include tutti e 8 i spread (v7 — era 4 in v6). "
+                "I 4 video avatar sono stati caricati su Shopify Files; copia gli URL CDN in Theme Editor > BKS Video Canvas Hero > Video 1/2/3/4."
+            ),
+            "actions": ["open_theme", "open_master_actions"],
+        }
+
+    if "faq" in lower or "domande frequenti" in lower or "domande" in lower or "assistenza" in lower:
+        return {
+            "reply": (
+                "FAQ live su bakabo.club/pages/faq-domande-frequenti (template page.bks-faq). "
+                "9 domande pre-caricate, 7 categorie (Prodotti/Ordini/Spedizioni/Resi/Members/Try-On/Pagamenti), filtro pills. "
+                "JSON-LD FAQPage schema attivo = Google mostra le risposte direttamente nei risultati di ricerca (rich results). "
+                "Aggiungi/modifica domande dal Theme Editor > BKS FAQ > blocchi Domanda & Risposta."
+            ),
+            "actions": ["open_theme", "open_google"],
+        }
+
+    if "contatt" in lower or "contact" in lower or "scrivici" in lower or "crew@" in lower or "parliamoci" in lower:
+        return {
+            "reply": (
+                "Contact page live: bakabo.club/pages/contatti (template page.bks-contact, id 173871792466). "
+                "Layout bicolonna: sinistra — crew@bakabo.club + IG/YT + link a Custom Request/FAQ/About; "
+                "destra — form nativo Shopify (nome/email/argomento dropdown 7 categorie/messaggio). "
+                "Form submission invia email al proprietario store. Personalizza titolo/lead in Theme Editor > BKS Contact."
+            ),
+            "actions": ["open_theme", "open_master_actions"],
+        }
+
+    if "privacy" in lower or "termini" in lower or "reso" in lower or "resi" in lower or "spedizione" in lower or "spedizioni" in lower or "normativa" in lower or "policy" in lower or "legal" in lower or "cookie" in lower or "gdpr" in lower:
+        return {
+            "reply": (
+                "Policy pages — template BKS attivo: templates/policy.liquid -> sezione bks-policy.liquid. "
+                "Le policy native Shopify (Settings > Legal > Privacy/Terms/Refund/Shipping) ora usano il template BKS styled "
+                "(BKS typography: Bebas Neue header, DM Sans body, accent bar 8 collezioni, data aggiornamento). "
+                "URL Shopify: bakabo.club/policies/privacy-policy, /policies/terms-of-service, "
+                "/policies/refund-policy, /policies/shipping-policy. "
+                "Contenuto: modifica in Shopify admin > Settings > Policies."
+            ),
+            "actions": ["open_master_actions"],
+        }
+
+    if "about" in lower or "chi siamo" in lower or "bakabo storia" in lower or "bks studio" in lower:
+        return {
+            "reply": (
+                "Pagine About live: "
+                "bakabo.club/pages/about-bakabo-1 (template page.bks-about-bakabo) — brand story, NFT origins, print-on-demand. "
+                "bakabo.club/pages/about-bks-studio (template page.bks-about-bks) — studio, processo AI-art, dalla generazione alla stampa. "
+                "Entrambe usano bks-about.liquid: hero con immagine (blend luminosity su accent), pull quote, colonne testo, statistiche. "
+                "Carica immagini hero in Theme Editor > BKS About > Hero image."
+            ),
+            "actions": ["open_theme", "open_master_actions"],
+        }
+
+    if "hero prodotto" in lower or "product hero" in lower or "pagina prodotto" in lower or "prodotto" in lower:
+        return {
+            "reply": (
+                f"Product Hero live ({BKS_LAST_DEPLOY}): bks-product-hero.liquid. "
+                "Auto-rileva il colore accent dalla collezione BKS tramite product.collections (nessuna configurazione manuale necessaria). "
+                "L'immagine prodotto fluttua sul fondo colorato con drop-shadow — sfondo bianco appare 'ritagliato' sul colore della collezione. "
+                "Template product.json (DEFAULT): ora TUTTI i prodotti hanno il BKS hero senza assegnazione manuale. "
+                "Template product.bks.json: disponibile come alternativa esplicita. "
+                "Struttura: bks-product-hero + main-product + bks-product-editorial-care + bks-accessories-panel."
+            ),
+            "actions": ["open_theme", "open_master_actions"],
+        }
+
+    if "analytics" in lower or "dati" in lower or "vendite" in lower or "revenue" in lower or "ordini" in lower:
+        return {
+            "reply": (
+                "Analytics Dashboard (pages/10_Analytics.py — Streamlit porta 8501): "
+                "revenue giornaliera (line chart), top prodotti (bar chart + tabella), ordini per stato, "
+                "catalog summary per tipo prodotto. Dati live da Shopify Admin API. "
+                "Periodi: 7/30/90 giorni. Bottone Aggiorna per refresh cache. "
+                "Link diretti: Shopify Analytics, Google Analytics, Google Merchant Center."
+            ),
+            "actions": ["open_analytics", "open_google"],
+        }
+
+    if "timer" in lower or "offerta" in lower or "sconto" in lower or "coupon" in lower or "marketing" in lower or "countdown" in lower:
         summary = marketing.get("summary", {})
         return {
             "reply": (
-                f"Timer marketing: stato {summary.get('status', 'draft')}, compliance {summary.get('compliance', 'unknown')}. "
-                "Lo uso solo con scadenza reale, termini visibili e nessuna promessa di sconto se il codice Shopify non e configurato."
+                "Marketing Hub attivo (pages/09_Marketing.py — Streamlit porta 8501). "
+                "Funzioni: Active Offers (regole sconto Shopify), Create Offer (nuova regola + codice via API), "
+                "Member Discounts (tier Lead 0% / Iron 5% / Brass 10% / Silver 15% / Gold 20%), "
+                "UTM Builder (link tracciati per GA4), Email Triggers (checklist flow welcome/tier/drop/cart). "
+                f"Timer/timed-offer: stato {summary.get('status', 'draft')}, compliance {summary.get('compliance', 'unknown')}. "
+                "Uso solo con scadenza reale e codice Shopify configurato."
             ),
             "actions": ["open_marketing", "open_theme"],
         }
 
-    if "tema" in lower or "theme" in lower or "scuro" in lower or "tenebroso" in lower:
+    if "sneakers" in lower or "backpack" in lower or "puffer" in lower or "windbreaker" in lower or "hoodie" in lower or "swim" in lower or "lounge" in lower or "athletic" in lower or "flip" in lower or "tipo prodotto" in lower or "product type" in lower:
+        return {
+            "reply": (
+                f"Product-type collections live ({BKS_LAST_DEPLOY}): 13 template dedicati con BKS hero e accent color per categoria. "
+                "Sneakers #1a1a1a / Puffer Jacket #1c2d3a / Windbreaker #1e3a2c / Pullover Hoodie #2a2a2a / "
+                "Swim Trunks+Swimwear #0d4d5a / Flip-Flop #8a5c10 / Athletic Shorts #1a1a1a / Lounge Pants #3d2010 / "
+                "Backpack+Travel Bag #2a1e14 / One-Piece Swimsuit #c04418 / Racerback Dress #7820a8. "
+                "Ogni template ha tagline editoriale + bks-cindex (8 BKS collections) in fondo. "
+                "template_suffix già impostato su tutte 13 smart_collections — /collections/{handle} usa automaticamente il template BKS."
+            ),
+            "actions": ["open_theme", "open_master_actions"],
+        }
+
+    if "tema" in lower or "theme" in lower or "scuro" in lower or "tenebroso" in lower or "deploy" in lower or "versione" in lower or "18_06" in lower or "19_06" in lower:
         summary = theme.get("summary", {})
         return {
             "reply": (
-                f"Tema: patch {summary.get('status', 'unknown')} per {summary.get('goal', 'lighter_commerce_trust_theme')}. "
-                f"Zip pronto: {summary.get('output_zip', 'non ancora generato')}. Procediamo con cambi piccoli: leggibilita, trust strip, timer sobrio."
+                f"Tema live: {BKS_THEME_VERSION} (ID {BKS_THEME_ID}). "
+                f"Ultimo deploy: {BKS_LAST_DEPLOY} — 89 file OK (sections/assets/snippets/templates/layout). "
+                f"Stato interno: {summary.get('status', 'tm04_live')}. "
+                "Struttura completa: Home + 8 BKS collezioni editoriali + 13 product-type collections + Product (default tutti) + FAQ + About x2 + Members + Hub + AI + Custom + Planet + Contact + Policy. "
+                "Script deploy: python scripts/deploy_theme_section.py"
             ),
             "actions": ["open_theme", "open_master_actions"],
         }
@@ -444,6 +646,22 @@ def reply(message: str, snapshot: dict[str, Any]) -> dict[str, Any]:
             "actions": ["open_legal_guardrails", "open_official_inbox"],
         }
 
+    if any(token in lower for token in ("pinterest", "amazon merch", "merch on demand", "social hub", "marketplace hub", "telegram bot", "bot telegram", "pin board")):
+        sales = sales_channels.get("rows", []) if isinstance(sales_channels, dict) else []
+        pin_status = next((row.get("status") for row in sales if row.get("status_key") == "pinterest" or row.get("channel") == "Pinterest Catalog"), "unknown")
+        amzn_status = next((row.get("status") for row in sales if row.get("channel") == "Amazon Merch on Demand"), "unknown")
+        tg_status = next((row.get("status") for row in sales if row.get("channel") == "Telegram Bot"), "unknown")
+        return {
+            "reply": (
+                "Social & Marketplace Hub (pagina 03, Streamlit porta 8501): Facebook, Instagram, Pinterest, Amazon Merch on Demand, Telegram bot e TikTok gestiti da un'unica interfaccia. "
+                f"Pinterest: {pin_status} — 9 board mappate sulle collezioni BKS, check titolo<=60 e descrizione 150-160 char per Rich Pin SEO. "
+                f"Amazon: {amzn_status} — e Merch on Demand (non Seller Central): carico design via merch.amazon.com, traccio ASIN/tier/royalty in output/social/amazon_merch_designs.csv. "
+                f"Telegram: {tg_status} — bot diretto con invio messaggi, template drop/restock/promo e storico in output/social/telegram_history.json. "
+                "Ogni link passa da build_utm() per GA4 (bakabo-9a8c5/483501489) e GTM (GTM-PF5Z85KS). Pubblicazione effettiva richiede sempre conferma."
+            ),
+            "actions": ["open_social_hub", "open_sales_channels"],
+        }
+
     if "messaggi" in lower or "email" in lower or "instagram" in lower or "telegram" in lower or "bot" in lower:
         summary = communications.get("summary", {})
         return {
@@ -492,7 +710,7 @@ def reply(message: str, snapshot: dict[str, Any]) -> dict[str, Any]:
             "reply": (
                 f"Skill registry: {summary.get('active', 0)} skill attive, "
                 f"{summary.get('missing', 0)} referenze mancanti. "
-                "Salva nuove skill come docs/nome_SKILL.md e poi chiedimi di aggiornare la fase 10."
+                "Salva nuove skill in BKS_SKILL/skills/<nome>/SKILL.md e poi chiedimi di aggiornare la fase 10."
             ),
             "actions": ["run fase 10", "open_skills"],
         }
@@ -525,6 +743,67 @@ def reply(message: str, snapshot: dict[str, Any]) -> dict[str, Any]:
         lines = ["Stato fasi operative:"]
         lines.extend(f"- {_phase_line(phase)}" for phase in phases)
         return {"reply": "\n".join(lines), "actions": ["open_phases"]}
+
+    if "origin" in lower or "folklore" in lower or "collezioni" in lower or "collezione" in lower:
+        return {
+            "reply": (
+                f"BKS ha 8 collezioni: {', '.join(BKS_COLLECTIONS)}. "
+                "Non esiste 'Folklore' — la collezione e Origin. "
+                "Ogni collezione ha il proprio accent color (vedi COLLECTION_ACCENTS in avatar_production.py). "
+                "Origin: toni naturali, materiali onesti, stampe made-to-order. Accent #489808."
+            ),
+            "actions": ["open_avatar", "open_social_render"],
+        }
+
+    if any(t in lower for t in ("database", "bks_db", "sqlite", "archivio", "tabelle", "query")):
+        try:
+            from ecommerce_automation.bks_db import bks_db
+            tables = bks_db.list_tables()
+            cat = {r["table_name"]: r["row_count"] for r in bks_db.catalog()}
+            top = sorted(cat.items(), key=lambda x: -x[1])[:5]
+            top_str = ", ".join(f"{t}({r})" for t, r in top)
+        except Exception as e:
+            tables, top_str = [], str(e)
+        return {
+            "reply": (
+                f"BKS Database: {len(tables)} tabelle SQLite in output/bks_database.sqlite. "
+                f"Tabelle piu popolate: {top_str}. "
+                "Accesso via: from ecommerce_automation.bks_db import bks_db; bks_db.query('SELECT ...'); "
+                "bks_db.rebuild() per aggiornare da CSV/JSON sorgente. "
+                "L'archivio output/99_ARCHIVIO contiene log, report stale e run batch archiviati."
+            ),
+            "actions": ["open_bks_db"],
+        }
+
+    if any(t in lower for t in ("algoritmo", "algorithm", "score", "priorità", "priority", "scoring", "gate", "tier", "p0", "p1", "p2", "p3", "control center")):
+        try:
+            from ecommerce_automation.bks_algorithm import BKSAlgorithm
+            algo = BKSAlgorithm()
+            s = algo.summary()
+            health = algo.collection_health()
+            critical_colls = [h.handle for h in health if h.status in ("critical", "empty")]
+        except Exception as e:
+            s, critical_colls = {"total": 0}, []
+        return {
+            "reply": (
+                f"BKS Algorithm: {s.get('total',0)} prodotti analizzati — "
+                f"score medio {s.get('avg_score',0)}, "
+                f"P3 ready: {s.get('ready',0)}, P0 critical: {s.get('critical',0)}. "
+                f"Collezioni da curare: {', '.join(critical_colls) if critical_colls else 'nessuna'}. "
+                "Pannello: pages/00_BKS_Algorithm.py — scoring, coda priorità, gate pubblicazione. "
+                "API: from ecommerce_automation.bks_algorithm import bks_algorithm; bks_algorithm.priority_queue()"
+            ),
+            "actions": ["open_algorithm", "open_bks_db"],
+        }
+
+    if "session" in lower or "aggiornamento" in lower or "cosa e cambiato" in lower or "novita" in lower:
+        return {
+            "reply": (
+                f"Changelog BKS TM04 — ultima versione: {BKS_LAST_DEPLOY}\n"
+                + "\n".join(f"- {v}: {desc}" for v, desc in SESSION_CHANGES.items())
+            ),
+            "actions": ["open_skills", "open_theme"],
+        }
 
     return {
         "reply": (

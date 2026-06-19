@@ -1,0 +1,89 @@
+{
+  "sections": {
+    "bks_product_hero": {
+      "type": "bks-product-hero",
+      "settings": {
+        "text_on_dark": true,
+        "min_height": 460
+      }
+    },
+    "main_product": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description",
+        "share"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "media_size": "medium",
+        "media_position": "left",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked"
+      }
+    },
+    "bks_editorial_care": {
+      "type": "bks-product-editorial-care",
+      "settings": {}
+    },
+    "bks_accessories": {
+      "type": "bks-accessories-panel",
+      "settings": {}
+    }
+  },
+  "order": [
+    "bks_product_hero",
+    "main_product",
+    "bks_editorial_care",
+    "bks_accessories"
+  ]
+}

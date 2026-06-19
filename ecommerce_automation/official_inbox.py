@@ -6,8 +6,13 @@ from pathlib import Path
 from typing import Any
 
 
+BAKABO_STORE_DOMAIN = "bakabo.club"
+BKS_TM04_THEME_ID = "202392961362"
+BAKABO_CREW_EMAIL = "crew@bakabo.club"
+
 INBOX_SHEET = Path("output/official_inbox_matrix.csv")
-PROTOCOL_DOC = Path("docs/bakabo-official-inbox_SKILL.md")
+SKILL_DOC = Path("BKS_SKILL/skills/bakabo-official-inbox/SKILL.md")
+PROTOCOL_DOC = Path("docs/bakabo-official-inbox_SKILL.md")  # legacy
 
 
 CATEGORY_RULES: tuple[dict[str, str], ...] = (
@@ -17,6 +22,7 @@ CATEGORY_RULES: tuple[dict[str, str], ...] = (
         "agent_action": "Prepare a factual draft using official policies and order data if connected.",
         "approval": "human_review_before_send",
         "sla": "same business day",
+        "trust_gate": "trust_foundation",
     },
     {
         "category": "merchant_google",
@@ -24,6 +30,7 @@ CATEGORY_RULES: tuple[dict[str, str], ...] = (
         "agent_action": "Route to Google Trust Contract and preserve evidence for appeal.",
         "approval": "human_review_before_appeal",
         "sla": "priority",
+        "trust_gate": "merchant_appeal",
     },
     {
         "category": "privacy_unsubscribe",
@@ -31,6 +38,7 @@ CATEGORY_RULES: tuple[dict[str, str], ...] = (
         "agent_action": "Respect opt-out, avoid marketing, route privacy requests to human owner.",
         "approval": "human_review_required",
         "sla": "priority",
+        "trust_gate": "trust_foundation",
     },
     {
         "category": "complaint_risk",
@@ -38,6 +46,7 @@ CATEGORY_RULES: tuple[dict[str, str], ...] = (
         "agent_action": "Escalate, draft calm answer, record issue in Knowledge DB.",
         "approval": "human_review_required",
         "sla": "priority",
+        "trust_gate": "trust_foundation",
     },
     {
         "category": "sales_interest",
@@ -45,6 +54,7 @@ CATEGORY_RULES: tuple[dict[str, str], ...] = (
         "agent_action": "Answer transparently, link product/policy pages, suggest next best collection.",
         "approval": "draft_or_supervised_send",
         "sla": "same business day",
+        "trust_gate": "conversion_support",
     },
     {
         "category": "partnership_press",
@@ -52,6 +62,7 @@ CATEGORY_RULES: tuple[dict[str, str], ...] = (
         "agent_action": "Prepare brand-safe partnership reply and require founder review.",
         "approval": "human_review_required",
         "sla": "48h",
+        "trust_gate": "campaign_layer",
     },
 )
 
@@ -137,7 +148,7 @@ def status_rows(settings: Any) -> list[dict[str, str]]:
 def write_sheet(settings: Any, rows: list[dict[str, str]]) -> str:
     path = settings.root_dir / INBOX_SHEET
     path.parent.mkdir(parents=True, exist_ok=True)
-    fieldnames = ["type", "name", "status", "signals", "agent_action", "approval", "sla", "source", "next_action", "value"]
+    fieldnames = ["type", "name", "status", "signals", "agent_action", "approval", "sla", "trust_gate", "source", "next_action", "value"]
     with path.open("w", newline="", encoding="utf-8-sig") as handle:
         writer = csv.DictWriter(handle, fieldnames=fieldnames)
         writer.writeheader()
@@ -147,12 +158,21 @@ def write_sheet(settings: Any, rows: list[dict[str, str]]) -> str:
 
 
 def write_protocol(settings: Any) -> str:
-    path = settings.root_dir / PROTOCOL_DOC
-    path.parent.mkdir(parents=True, exist_ok=True)
+    skill_path = settings.root_dir / SKILL_DOC
+    skill_path.parent.mkdir(parents=True, exist_ok=True)
     lines = [
-        "# bakabo-official-inbox",
+        "---",
+        "name: bakabo-official-inbox",
+        "description: Supervise crew@bakabo.club communications — triage, draft, compliance, escalation.",
+        "metadata:",
+        "  type: skill",
+        "  trust_gate: trust_foundation",
+        "  store: bakabo.club",
+        "---",
         "",
-        "Official skill for supervising `crew@bakabo.club` communications.",
+        f"# bakabo-official-inbox — {BAKABO_CREW_EMAIL}",
+        "",
+        f"Official skill for supervising `{BAKABO_CREW_EMAIL}` communications.",
         "",
         "## Mission",
         "",
@@ -178,12 +198,17 @@ def write_protocol(settings: Any) -> str:
         "",
         "## Sources",
         "",
-        "- FTC CAN-SPAM guidance: https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business",
-        "- EDPB GDPR consent guidance: https://www.edpb.europa.eu/our-work-tools/our-documents/guidelines/guidelines-052020-consent-under-regulation-2016679_en",
-        "- Google Merchant misrepresentation policy: https://support.google.com/merchants/answer/6150127?hl=it",
+        "- [FTC CAN-SPAM compliance guide](https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business)",
+        "- [EDPB GDPR consent guidelines](https://www.edpb.europa.eu/our-work-tools/our-documents/guidelines/guidelines-052020-consent-under-regulation-2016679_en)",
+        "- [Google Merchant misrepresentation policy](https://support.google.com/merchants/answer/6150127?hl=it)",
     ]
-    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    return _relative(settings.root_dir, path)
+    content = "\n".join(lines) + "\n"
+    skill_path.write_text(content, encoding="utf-8")
+    # legacy copy
+    legacy_path = settings.root_dir / PROTOCOL_DOC
+    legacy_path.parent.mkdir(parents=True, exist_ok=True)
+    legacy_path.write_text(content, encoding="utf-8")
+    return _relative(settings.root_dir, skill_path)
 
 
 def classify_subject(text: str) -> dict[str, str]:
@@ -196,12 +221,14 @@ def classify_subject(text: str) -> dict[str, str]:
                 "agent_action": spec["agent_action"],
                 "approval": spec["approval"],
                 "sla": spec["sla"],
+                "trust_gate": spec["trust_gate"],
             }
     return {
         "category": "general",
         "agent_action": "Prepare factual reply from Knowledge DB and official pages.",
         "approval": "draft_or_supervised_send",
         "sla": "same business day",
+        "trust_gate": "trust_foundation",
     }
 
 
@@ -222,7 +249,8 @@ def payload(settings: Any) -> dict[str, Any]:
             "tracking_mode": settings.official_email_tracking_consent_mode,
             "status": "ready_for_drafts" if settings.official_inbox_email else "missing_email",
             "sheet": sheet,
-            "protocol": protocol,
+            "skill": protocol,
+            "trust_gate": "trust_foundation",
             "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         },
         "status_rows": status,

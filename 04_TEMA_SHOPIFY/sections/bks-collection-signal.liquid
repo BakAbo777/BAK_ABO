@@ -1,321 +1,418 @@
 {{ 'bks-future.css' | asset_url | stylesheet_tag }}
 
-{% liquid
+{%- liquid
   assign meta = shop.metaobjects.bks_collection[collection.handle]
-  assign accent = meta.color_hex.value | default: '#C9B79C'
-  assign description = meta.tagline.value | default: meta.description.value | default: meta.editorial_description.value | default: collection.description | strip_html
-  assign hero_image = meta.hero_image.value | default: meta.image.value
-  assign hero_video = meta.hero_video.value | default: meta.video.value
-  assign hero_alt = meta.name.value | default: collection.title
-%}
+
+  assign fallback_accent = '#c8c4be'
+  assign fallback_series = 'visual system'
+  assign fallback_copy = 'AI-generated visual language. Printed on demand across apparel, swim, footwear and accessories.'
+  assign fallback_typologies = ''
+
+  case collection.handle
+    when 'bks-hours'
+      assign fallback_accent = '#c8c4be'
+      assign fallback_series = 'measured urban stillness'
+      assign fallback_copy = 'Warm neutral fields and measured graphic rhythm. A visual system for outerwear, travel pieces and quiet technical layers.'
+      assign fallback_typologies = 'Puffer Jackets::/collections/puffer-jacket|Windbreakers::/collections/windbreaker|Pullover Hoodies::/collections/pullover-hoodie|Lounge Pants::/collections/lounge-pants|Sneakers::/collections/sneakers|Backpacks::/collections/backpack|Travel Bags::/collections/travel-bag'
+    when 'bks-origin'
+      assign fallback_accent = '#489808'
+      assign fallback_series = 'invented narrative marks'
+      assign fallback_copy = 'Invented narrative marks translated into a contemporary BKS pattern language. Soft, tactile and graphic across resort silhouettes and daily pieces.'
+      assign fallback_typologies = 'Pullover Hoodies::/collections/pullover-hoodie|Womens Tees::/collections/womens-tee|Swim Trunks::/collections/swim-trunks|One-Piece Swimsuits::/collections/one-piece-swimsuit|Racerback Dresses::/collections/racerback-dress|Flip Flops::/collections/flip-flop|Backpacks::/collections/backpack'
+    when 'bks-glyph'
+      assign fallback_accent = '#d4a030'
+      assign fallback_series = 'constructed signs'
+      assign fallback_copy = 'A monochrome-adjacent system of signs, symbols and constructed marks. Built for clean product silhouettes and graphic accessories.'
+      assign fallback_typologies = 'Puffer Jackets::/collections/puffer-jacket|Windbreakers::/collections/windbreaker|Womens Tees::/collections/womens-tee|Athletic Shorts::/collections/athletic-shorts|Sneakers::/collections/sneakers|Backpacks::/collections/backpack|Travel Bags::/collections/travel-bag'
+    when 'bks-marker'
+      assign fallback_accent = '#c04418'
+      assign fallback_series = 'gesture and motion'
+      assign fallback_copy = 'Brush marks, fast gestures and urban movement. A sharper BKS language for street-facing outerwear, shoes and compact accessories.'
+      assign fallback_typologies = 'Windbreakers::/collections/windbreaker|Pullover Hoodies::/collections/pullover-hoodie|Athletic Shorts::/collections/athletic-shorts|Sneakers::/collections/sneakers|Flip Flops::/collections/flip-flop|Backpacks::/collections/backpack'
+    when 'bks-riviera'
+      assign fallback_accent = '#0ca898'
+      assign fallback_series = 'coastal geometry'
+      assign fallback_copy = 'Coastal geometry, deep blues and resort rhythm. The summer system for swimwear, dresses, sandals and travel pieces.'
+      assign fallback_typologies = 'Swimwear::/collections/swimwear|Swim Trunks::/collections/swim-trunks|One-Piece Swimsuits::/collections/one-piece-swimsuit|Racerback Dresses::/collections/racerback-dress|Lounge Pants::/collections/lounge-pants|Flip Flops::/collections/flip-flop|Travel Bags::/collections/travel-bag|Backpacks::/collections/backpack'
+    when 'bks-pulse'
+      assign fallback_accent = '#8888cc'
+      assign fallback_series = 'optical movement'
+      assign fallback_copy = 'Optical movement and digital pressure translated into wearable surface. Designed for active layers, jackets and technical accessories.'
+      assign fallback_typologies = 'Puffer Jackets::/collections/puffer-jacket|Windbreakers::/collections/windbreaker|Pullover Hoodies::/collections/pullover-hoodie|Athletic Shorts::/collections/athletic-shorts|Sneakers::/collections/sneakers|Womens Tees::/collections/womens-tee|Backpacks::/collections/backpack'
+    when 'bks-token'
+      assign fallback_accent = '#9828d8'
+      assign fallback_series = 'digital objects'
+      assign fallback_copy = 'Encoded signs and compact digital references. A precise system for footwear, lounge pieces and accessories.'
+      assign fallback_typologies = 'Sneakers::/collections/sneakers|Pullover Hoodies::/collections/pullover-hoodie|Womens Tees::/collections/womens-tee|Lounge Pants::/collections/lounge-pants|Cozy Slippers::/collections/cozy-slipper|Backpacks::/collections/backpack|Travel Bags::/collections/travel-bag'
+    when 'bks-flag'
+      assign fallback_accent = '#c82020'
+      assign fallback_series = 'graphic fields'
+      assign fallback_copy = 'Flag structures, civic signs and graphic blocks. A direct BKS system for outerwear, sport pieces and travel accessories.'
+      assign fallback_typologies = 'Puffer Jackets::/collections/puffer-jacket|Windbreakers::/collections/windbreaker|Athletic Shorts::/collections/athletic-shorts|Swim Trunks::/collections/swim-trunks|Sneakers::/collections/sneakers|Flip Flops::/collections/flip-flop|Backpacks::/collections/backpack'
+    when 'puffer-jacket'
+      assign fallback_series = 'product type'
+      assign fallback_copy = 'BKS printed outerwear. Collection graphics applied to a padded silhouette.'
+    when 'windbreaker'
+      assign fallback_series = 'product type'
+      assign fallback_copy = 'Technical light outerwear with BKS all-over and placement graphics.'
+    when 'sneakers'
+      assign fallback_series = 'product type'
+      assign fallback_copy = 'Graphic footwear designed around BKS visual systems.'
+    when 'swimwear'
+      assign fallback_series = 'product type'
+      assign fallback_copy = 'Resort swim pieces printed on demand with BKS collection graphics.'
+  endcase
+
+  assign accent = meta.color_hex.value | default: fallback_accent
+  assign series = meta.series.value | default: fallback_series
+  assign description = meta.tagline.value | default: meta.description.value | default: collection.description | strip_html | default: fallback_copy
+  assign display_title = meta.name.value | default: collection.title
+
+  assign cover_img = section.settings.cover_image
+  if cover_img == blank
+    assign cover_img = collection.image
+  endif
+  if cover_img == blank and collection.products.first
+    assign cover_img = collection.products.first.featured_image
+  endif
+-%}
 
 <style>
-  #shopify-section-{{ section.id }} .bks-collection-signal {
-    background: #0A0A0A;
-    color: #FAFAF7;
-    padding: 0;
-  }
-
-  #shopify-section-{{ section.id }} .bks-collection-signal__hero {
-    background: #0A0A0A;
-    margin-bottom: 56px;
-    overflow: hidden;
+  #shopify-section-{{ section.id }} .bks-cover {
     position: relative;
     width: 100%;
-  }
-
-  #shopify-section-{{ section.id }} .bks-collection-signal__hero img,
-  #shopify-section-{{ section.id }} .bks-collection-signal__hero video {
-    aspect-ratio: 16 / 9;
-    display: block;
-    height: auto;
-    object-fit: cover;
-    width: 100%;
-  }
-
-  #shopify-section-{{ section.id }} .bks-collection-signal__content {
-    padding: 72px 0 48px;
-  }
-
-  #shopify-section-{{ section.id }} .bks-collection-signal__inner {
-    align-items: end;
-    display: grid;
-    gap: 48px;
-    grid-template-columns: minmax(0, 1fr) minmax(200px, 0.36fr);
-    margin: 0 auto;
-    width: min(1440px, calc(100% - 32px));
-  }
-
-  #shopify-section-{{ section.id }} .bks-signal-tag {
-    align-items: center;
-    color: #FAFAF7;
-    display: inline-flex;
-    flex-wrap: wrap;
-    font-family: var(--bks-font-mono, 'DM Mono', monospace);
-    font-size: 12px;
-    gap: 10px;
-    letter-spacing: 0;
-    margin-bottom: 16px;
-    text-transform: uppercase;
-  }
-
-  #shopify-section-{{ section.id }} .bks-signal-tag span {
-    align-items: center;
-    background: rgba(10, 10, 10, 0.48);
-    border: 1px solid rgba(250, 250, 247, 0.28);
-    border-radius: 999px;
-    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.24);
-    color: #FAFAF7;
-    display: inline-flex;
-    font-weight: 800;
-    min-height: 34px;
-    padding: 8px 12px;
-  }
-
-  #shopify-section-{{ section.id }} .bks-signal-tag span:first-child {
-    border-color: var(--bks-accent, #C9B79C);
-  }
-
-  #shopify-section-{{ section.id }} .bks-signal-tag span:last-child {
-    background: #FAFAF7;
-    border-color: #FAFAF7;
-    color: #0A0A0A;
-  }
-
-  #shopify-section-{{ section.id }} .bks-collection-signal h1 {
-    color: #FAFAF7;
-    font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
-    font-size: clamp(48px, 6.5vw, 88px);
-    letter-spacing: 0;
-    line-height: 0.9;
-    margin: 0 0 20px;
-    text-transform: uppercase;
-  }
-
-  #shopify-section-{{ section.id }} .bks-collection-signal__copy {
-    color: rgba(250, 250, 247, 0.72);
-    font-family: var(--bks-font-body, 'DM Sans', sans-serif);
-    font-size: 17px;
-    line-height: 1.65;
-    margin: 0;
-    max-width: 56ch;
-  }
-
-  #shopify-section-{{ section.id }} .bks-collection-signal__panel {
-    align-self: end;
-    padding-bottom: 4px;
-  }
-
-  #shopify-section-{{ section.id }} .bks-collection-signal__panel dl {
+    min-height: min(88vh, 780px);
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    margin: 0;
+    justify-content: flex-end;
+    background: #0a0a0a;
   }
 
-  #shopify-section-{{ section.id }} .bks-collection-signal__panel dt {
-    color: rgba(250, 250, 247, 0.68);
-    font-family: var(--bks-font-mono, 'DM Mono', monospace);
-    font-size: 11px;
-    letter-spacing: 0;
-    margin-bottom: 2px;
+  #shopify-section-{{ section.id }} .bks-cover__image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  #shopify-section-{{ section.id }} .bks-cover__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .bks-cover__image-none {
+    width: 100%;
+    height: 100%;
+    background:
+      repeating-linear-gradient(
+        -45deg,
+        rgba(250,250,247,0.025) 0, rgba(250,250,247,0.025) 1px,
+        transparent 1px, transparent 28px
+      ),
+      radial-gradient(ellipse at 60% 40%, color-mix(in srgb, var(--bks-accent) 14%, transparent) 0%, transparent 55%),
+      #0a0a0a;
+  }
+
+  #shopify-section-{{ section.id }} .bks-cover__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      to bottom,
+      rgba(10,10,10,0.18) 0%,
+      rgba(10,10,10,0.06) 30%,
+      rgba(10,10,10,0.42) 60%,
+      rgba(10,10,10,0.88) 90%,
+      rgba(10,10,10,0.96) 100%
+    );
+  }
+
+  #shopify-section-{{ section.id }} .bks-cover__masthead {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: clamp(14px,2.5vw,22px) clamp(20px,4vw,56px);
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.64rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
+    color: rgba(250,250,247,0.72);
   }
 
-  #shopify-section-{{ section.id }} .bks-collection-signal__panel dd {
-    color: #FAFAF7;
-    font-family: var(--bks-font-body, 'DM Sans', sans-serif);
-    font-size: 16px;
+  #shopify-section-{{ section.id }} .bks-cover__masthead-brand {
+    color: #fafaf7;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .bks-cover__masthead-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-cover__masthead-meta span {
+    opacity: 0.6;
+  }
+
+  #shopify-section-{{ section.id }} .bks-cover__body {
+    position: relative;
+    z-index: 2;
+    padding: clamp(20px,4vw,48px) clamp(20px,4vw,56px);
+  }
+
+  #shopify-section-{{ section.id }} .bks-cover__kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.64rem;
+    letter-spacing: 0.20em;
+    text-transform: uppercase;
+    color: rgba(250,250,247,0.62);
+  }
+
+  #shopify-section-{{ section.id }} .bks-cover__kicker::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 2px;
+    background: var(--bks-accent, #c9b79c);
+    flex-shrink: 0;
+  }
+
+  #shopify-section-{{ section.id }} .bks-cover__title {
+    margin: 0 0 16px;
+    font-family: var(--bks-font-display,'Bebas Neue',sans-serif);
+    font-size: clamp(4.8rem,12vw,13rem);
+    line-height: 0.86;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: #fafaf7;
+    max-width: 14ch;
+  }
+
+  #shopify-section-{{ section.id }} .bks-cover__rule {
+    width: min(480px, 100%);
+    height: 1px;
+    background: rgba(250,250,247,0.22);
+    margin-bottom: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-cover__bottom {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(20px,4vw,48px);
+    flex-wrap: wrap;
+  }
+
+  #shopify-section-{{ section.id }} .bks-cover__copy {
+    flex: 1 1 240px;
     margin: 0;
+    font-family: var(--bks-font-body,'DM Sans',sans-serif);
+    font-size: clamp(0.86rem,1vw,0.98rem);
+    line-height: 1.62;
+    color: rgba(250,250,247,0.78);
+    max-width: 52ch;
   }
 
-  #shopify-section-{{ section.id }} .bks-collection-signal__accent {
-    background: var(--bks-accent, #C9B79C);
-    box-shadow: 0 0 36px var(--bks-accent, #C9B79C);
-    height: 6px;
-    margin-top: 48px;
+  {%- if section.blocks.size > 0 or fallback_typologies != blank -%}
+  #shopify-section-{{ section.id }} .bks-cover__nav {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
   }
 
-  #shopify-section-{{ section.id }} .bks-collection-signal__subnav {
+  #shopify-section-{{ section.id }} .bks-cover__nav-label {
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(250,250,247,0.38);
+    margin-bottom: 4px;
+    text-align: right;
+  }
+
+  #shopify-section-{{ section.id }} .bks-cover__nav-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 0 32px;
-    margin: 0 auto;
-    padding-top: 12px;
-    width: min(1440px, calc(100% - 32px));
+    justify-content: flex-end;
+    gap: 5px;
+    max-width: 320px;
   }
 
-  #shopify-section-{{ section.id }} .bks-collection-signal__subnav a {
-    align-items: center;
-    color: #FAFAF7;
+  #shopify-section-{{ section.id }} .bks-cover__nav-links a {
     display: inline-flex;
-    font-family: var(--bks-font-mono, 'DM Mono', monospace);
-    font-size: 12px;
-    letter-spacing: 0;
-    min-height: 44px;
-    padding: 10px 0;
-    position: relative;
-    text-decoration: none;
+    align-items: center;
+    height: 24px;
+    padding: 0 9px;
+    border: 1px solid rgba(250,250,247,0.18);
+    border-radius: 2px;
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.60rem;
+    letter-spacing: 0.10em;
     text-transform: uppercase;
+    text-decoration: none;
+    color: rgba(250,250,247,0.68);
+    white-space: nowrap;
+    transition: border-color 150ms, color 150ms;
   }
 
-  #shopify-section-{{ section.id }} .bks-collection-signal__subnav a::after {
-    background: var(--bks-accent, #C9B79C);
-    bottom: 6px;
-    content: "";
-    height: 1px;
-    left: 0;
+  #shopify-section-{{ section.id }} .bks-cover__nav-links a:hover {
+    border-color: #c9b79c;
+    color: #fafaf7;
+  }
+  {%- endif -%}
+
+  #shopify-section-{{ section.id }} .bks-cover__accent-bar {
     position: absolute;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 200ms ease-out;
-    width: 100%;
-  }
-
-  #shopify-section-{{ section.id }} .bks-collection-signal__subnav a:hover::after,
-  #shopify-section-{{ section.id }} .bks-collection-signal__subnav a:focus-visible::after {
-    transform: scaleX(1);
-  }
-
-  #shopify-section-{{ section.id }} .bks-collection-signal__subnav a:focus-visible {
-    outline: 1px solid #FAFAF7;
-    outline-offset: 4px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, var(--bks-accent, #c9b79c) 30%, var(--bks-accent, #c9b79c) 70%, transparent 100%);
+    z-index: 3;
   }
 
   @media screen and (max-width: 749px) {
-    #shopify-section-{{ section.id }} .bks-collection-signal__hero {
-      margin-bottom: 32px;
+    #shopify-section-{{ section.id }} .bks-cover {
+      min-height: min(92vh, 640px);
     }
-
-    #shopify-section-{{ section.id }} .bks-collection-signal__content {
-      padding: 48px 0 36px;
+    #shopify-section-{{ section.id }} .bks-cover__masthead-meta {
+      display: none;
     }
-
-    #shopify-section-{{ section.id }} .bks-collection-signal__inner {
-      gap: 28px;
-      grid-template-columns: 1fr;
+    #shopify-section-{{ section.id }} .bks-cover__nav {
+      align-items: flex-start;
     }
-
-    #shopify-section-{{ section.id }} .bks-collection-signal h1 {
-      font-size: 44px;
-      line-height: 0.94;
-    }
-
-    #shopify-section-{{ section.id }} .bks-collection-signal__copy {
-      font-size: 15px;
-      line-height: 1.62;
-    }
-
-    #shopify-section-{{ section.id }} .bks-collection-signal__panel dl {
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 12px 24px;
+    #shopify-section-{{ section.id }} .bks-cover__nav-links {
+      justify-content: flex-start;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    #shopify-section-{{ section.id }} .bks-collection-signal__subnav a::after {
-      transition: none;
-    }
+    #shopify-section-{{ section.id }} .bks-cover__nav-links a { transition: none; }
   }
 </style>
 
-<section class="bks-collection-signal" style="--bks-accent: {{ accent }};" id="bks-signal-{{ section.id }}">
-  {%- if hero_image != blank or hero_video != blank -%}
-    <div class="bks-collection-signal__hero">
-      {%- if hero_video != blank -%}
-        <video controls {% if hero_image != blank %}poster="{{ hero_image | image_url: width: 1600 }}"{% endif %}>
-          <source src="{{ hero_video | escape }}" type="video/mp4">
-          Your browser does not support HTML5 video.
-        </video>
-      {%- elsif hero_image != blank -%}
-        <img
-          src="{{ hero_image | image_url: width: 1600 }}"
-          alt="{{ hero_alt | escape }}"
-          width="1600"
-          height="900"
-          loading="lazy">
-      {%- endif -%}
-    </div>
-  {%- endif -%}
-
-  <div class="bks-collection-signal__content">
-    <div class="bks-collection-signal__inner">
-      <div>
-        <div class="bks-signal-tag" aria-label="BakAbo container and BKS Studio creator">
-          <span>BakAbo container</span>
-          <span>Creator: BKS Studio</span>
-        </div>
-        <h1>{{ meta.name.value | default: collection.title }}</h1>
-        {% if description != blank %}
-          <p class="bks-collection-signal__copy">{{ description }}</p>
-        {% endif %}
-      </div>
-      <aside class="bks-collection-signal__panel">
-        <dl>
-          <div>
-            <dt>Pieces in collection</dt>
-            <dd>{{ collection.products_count }}</dd>
-          </div>
-          <div>
-            <dt>Production</dt>
-            <dd>Made to order</dd>
-          </div>
-          <div>
-            <dt>Container</dt>
-            <dd>BAK|ABO</dd>
-          </div>
-          <div>
-            <dt>Creator</dt>
-            <dd>BKS Studio</dd>
-          </div>
-        </dl>
-      </aside>
-    </div>
-    <div class="bks-collection-signal__accent"></div>
+<section
+  class="bks-cover"
+  style="--bks-accent: {{ accent }};"
+  id="bks-signal-{{ section.id }}"
+  aria-label="{{ display_title | escape }} — BKS Studio"
+>
+  <div class="bks-cover__image" aria-hidden="true">
+    {%- if cover_img != blank -%}
+      <img
+        src="{{ cover_img | image_url: width: 1600 }}"
+        srcset="{{ cover_img | image_url: width: 800 }} 800w, {{ cover_img | image_url: width: 1200 }} 1200w, {{ cover_img | image_url: width: 1600 }} 1600w"
+        sizes="100vw"
+        alt=""
+        loading="eager"
+        fetchpriority="high"
+        width="{{ cover_img.width }}"
+        height="{{ cover_img.height }}"
+      >
+    {%- else -%}
+      <div class="bks-cover__image-none"></div>
+    {%- endif -%}
   </div>
 
-  {%- if section.blocks.size > 0 -%}
-    <nav class="bks-collection-signal__subnav" aria-label="{{ collection.title | escape }} categories">
-      {%- for block in section.blocks -%}
-        {%- liquid
-          assign target = block.settings.link
-          if target == blank
-            assign target = collection.url
-          endif
-        -%}
-        <a href="{{ target }}" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</a>
-      {%- endfor -%}
-    </nav>
-  {%- endif -%}
+  <div class="bks-cover__overlay" aria-hidden="true"></div>
+
+  <div class="bks-cover__masthead">
+    <span class="bks-cover__masthead-brand">BKS Studio</span>
+    <div class="bks-cover__masthead-meta">
+      <span>{{ series | escape }}</span>
+      <span>{{ collection.products_count }} pieces</span>
+      <span>Printed on demand</span>
+    </div>
+  </div>
+
+  <div class="bks-cover__body">
+    {%- if series != blank -%}
+      <p class="bks-cover__kicker">{{ series | escape }}</p>
+    {%- endif -%}
+
+    <h1 class="bks-cover__title">{{ display_title | escape }}</h1>
+
+    <div class="bks-cover__rule"></div>
+
+    <div class="bks-cover__bottom">
+      {%- if description != blank -%}
+        <p class="bks-cover__copy">{{ description | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 or fallback_typologies != blank -%}
+        <nav class="bks-cover__nav" aria-label="{{ display_title | escape }} categories">
+          <span class="bks-cover__nav-label">Shop by type</span>
+          <div class="bks-cover__nav-links">
+            {%- if section.blocks.size > 0 -%}
+              {%- for block in section.blocks -%}
+                {%- liquid
+                  assign target = block.settings.link
+                  if target == blank
+                    assign target = collection.url
+                  endif
+                -%}
+                <a href="{{ target }}" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</a>
+              {%- endfor -%}
+            {%- else -%}
+              {%- assign items = fallback_typologies | split: '|' -%}
+              {%- for item in items -%}
+                {%- assign pair = item | split: '::' -%}
+                <a href="{{ pair[1] | default: collection.url }}">{{ pair[0] | escape }}</a>
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+        </nav>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="bks-cover__accent-bar" aria-hidden="true"></div>
 </section>
 
 {% schema %}
 {
   "name": "BKS collection signal",
   "enabled_on": { "templates": ["collection"] },
-  "settings": [],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "cover_image",
+      "label": "Cover image",
+      "info": "Collection cover — full bleed. If empty: uses Shopify collection image, then first product image."
+    }
+  ],
   "blocks": [
     {
       "type": "subnav_link",
-      "name": "Subnav link",
+      "name": "Product type",
       "settings": [
-        { "type": "text", "id": "label", "label": "Label", "default": "Apparel" },
-        { "type": "url", "id": "link", "label": "Link", "info": "Vuoto = link alla collezione stessa." }
+        { "type": "text", "id": "label", "label": "Label", "default": "Puffer Jackets" },
+        { "type": "url", "id": "link", "label": "Link", "info": "Empty = link to this collection." }
       ]
     }
   ],
-  "max_blocks": 6,
-  "presets": [
-    {
-      "name": "BKS collection signal",
-      "blocks": [
-        { "type": "subnav_link", "settings": { "label": "Apparel" } },
-        { "type": "subnav_link", "settings": { "label": "Swim" } },
-        { "type": "subnav_link", "settings": { "label": "Accessories" } },
-        { "type": "subnav_link", "settings": { "label": "Editorial" } }
-      ]
-    }
-  ]
+  "max_blocks": 16,
+  "presets": [{
+    "name": "BKS collection signal",
+    "blocks": [
+      { "type": "subnav_link", "settings": { "label": "Puffer Jackets" } },
+      { "type": "subnav_link", "settings": { "label": "Windbreakers" } },
+      { "type": "subnav_link", "settings": { "label": "Sneakers" } },
+      { "type": "subnav_link", "settings": { "label": "Backpacks" } }
+    ]
+  }]
 }
 {% endschema %}

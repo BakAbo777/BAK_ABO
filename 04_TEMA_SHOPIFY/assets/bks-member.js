@@ -48,24 +48,34 @@
     return list.includes(handle);
   }
 
-  /* Heart buttons on product cards */
+  /* Sync wishlist visual state on all existing heart buttons (no new listeners) */
   function initHeartButtons() {
     document.querySelectorAll('.bks-heart-btn').forEach(btn => {
       const handle = btn.dataset.handle;
       if (!handle) return;
-      if (wlHas(handle)) btn.classList.add('wishlisted');
-      btn.addEventListener('click', e => {
-        e.preventDefault();
-        e.stopPropagation();
-        const added = wlToggle(handle);
-        btn.classList.toggle('wishlisted', added);
-        btn.title = added ? 'Rimuovi da wishlist' : 'Aggiungi a wishlist';
-        renderWishlistPanel();
-      });
+      btn.classList.toggle('wishlisted', wlHas(handle));
     });
   }
 
   /* Render wishlist panel from localStorage via AJAX product JSON */
+  const BKS_COLLECTIONS = {
+    origin:  { label: 'BKS Origin',  color: '#C8B59A' },
+    glyph:   { label: 'BKS Glyph',   color: '#9BB5CC' },
+    marker:  { label: 'BKS Marker',  color: '#E2A86B' },
+    riviera: { label: 'BKS Riviera', color: '#7EB3D4' },
+    pulse:   { label: 'BKS Pulse',   color: '#D4A030' },
+    token:   { label: 'BKS Token',   color: '#B8C89A' },
+    flag:    { label: 'BKS Flag',    color: '#CC9999' },
+    hours:   { label: 'BKS Hours',   color: '#A8A8C8' }
+  };
+
+  function detectCollection(handle) {
+    for (const key of Object.keys(BKS_COLLECTIONS)) {
+      if (handle === 'bks-' + key || handle.startsWith('bks-' + key + '-')) return key;
+    }
+    return null;
+  }
+
   async function renderWishlistPanel() {
     const container = document.getElementById('bks-wishlist-container');
     if (!container) return;
@@ -98,25 +108,38 @@
         const prod = await res.json();
         const img  = prod.featured_image || '';
         const price = prod.price_min ? (prod.price_min / 100).toFixed(2) + ' €' : '';
+        const col   = detectCollection(handle);
+        const colMeta = col ? BKS_COLLECTIONS[col] : null;
+
         const card = document.createElement('div');
         card.className = 'bks-wishlist-card';
+        if (col) card.dataset.collection = col;
+
         card.innerHTML = `
-          <a href="/products/${handle}" style="display:block;text-decoration:none;color:inherit;">
+          <a href="/products/${handle}" class="bks-wishlist-card-link">
             ${img
               ? `<img class="bks-wishlist-card-img" src="${img}" alt="${prod.title}" loading="lazy">`
               : `<div class="bks-wishlist-card-img-placeholder">BKS</div>`}
             <div class="bks-wishlist-card-info">
+              ${colMeta ? `<p class="bks-wishlist-card-cat">${colMeta.label}</p>` : ''}
               <p class="bks-wishlist-card-title">${prod.title}</p>
               <p class="bks-wishlist-card-price">${price}</p>
             </div>
           </a>
           <button class="bks-wishlist-card-remove" data-remove="${handle}">Rimuovi</button>`;
+
         card.querySelector('[data-remove]').addEventListener('click', () => {
           wlToggle(handle);
           document.querySelectorAll(`.bks-heart-btn[data-handle="${handle}"]`)
             .forEach(b => b.classList.remove('wishlisted'));
           renderWishlistPanel();
         });
+
+        if (col) {
+          card.addEventListener('mouseenter', () => setMood(col));
+          card.addEventListener('mouseleave', () => setMood(null));
+        }
+
         grid.appendChild(card);
       } catch (e) {}
     }
@@ -320,7 +343,7 @@
 
       } catch {
         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Send request'; }
-        alert('Send error. Please retry or contact us at info@bakabo.club');
+        alert('Send error. Please retry or contact us at crew@bakabo.club');
       }
     });
 
@@ -335,15 +358,145 @@
     }
   }
 
+  /* ── Camerino Virtuale — popola wishlist per bks-tryon.js ── */
+  function initCamerino() {
+    const container = document.getElementById('bks-camerino-wishlist');
+    if (!container) return;
+
+    async function renderCamerinoItems() {
+      const handles = wlLoad();
+      if (!handles.length) {
+        container.innerHTML = '<div style="color:#b8b2a6;font-size:13px;padding:8px 0;">Aggiungi prodotti alla wishlist per usare il camerino.<br><a href="/collections/all" style="display:inline-block;margin-top:10px;font-size:12px;text-decoration:underline;color:#b8b2a6;">Esplora</a></div>';
+        return;
+      }
+      container.innerHTML = '';
+      for (const handle of handles) {
+        try {
+          const res  = await fetch('/products/' + handle + '.js');
+          const prod = await res.json();
+          const img  = prod.featured_image || '';
+          const col  = detectCollection(handle);
+          const colMeta = col ? BKS_COLLECTIONS[col] : null;
+          const btn  = document.createElement('button');
+          btn.className             = 'bks-wishlist__item';
+          btn.dataset.productId     = String(prod.id || handle);
+          btn.dataset.productHandle = handle;
+          btn.dataset.productTitle  = prod.title;
+          btn.dataset.productImage  = img;
+          if (col) { btn.dataset.collection = col; btn.dataset.mood = colMeta.color; }
+          btn.innerHTML = img
+            ? `<img class="bks-wishlist__thumb" src="${img}" alt="${prod.title}" loading="lazy"><span>${prod.title}</span>`
+            : `<div class="bks-wishlist__thumb" style="background:#333;display:flex;align-items:center;justify-content:center;font-size:10px;color:#888">IMG</div><span>${prod.title}</span>`;
+          container.appendChild(btn);
+        } catch (e) {}
+      }
+    }
+
+    renderCamerinoItems();
+  }
+
+  /* ── Inject heart buttons into any product card on any page ── */
+  function injectHeartButtons() {
+    const CARD_SELECTORS = [
+      '.grid__item',
+      '.product-card-wrapper',
+      '.product-recommendations .card-wrapper',
+      '.related-products .card-wrapper',
+      '[data-product-card]',
+      '.featured-collection .card-wrapper',
+      '.bks-product-pop',
+    ];
+    document.querySelectorAll(CARD_SELECTORS.join(',')).forEach(item => {
+      if (item.querySelector('.bks-heart-btn')) return;
+      const link = item.querySelector('a[href*="/products/"]');
+      if (!link) return;
+      const match = link.href.match(/\/products\/([^/?#]+)/);
+      if (!match) return;
+      const handle = match[1];
+      const wrapper = item.querySelector('.card__inner') || item.querySelector('.card') || item;
+      wrapper.style.position = 'relative';
+      const btn = document.createElement('button');
+      btn.className = 'bks-heart-btn';
+      btn.dataset.handle = handle;
+      btn.title = wlHas(handle) ? 'Rimuovi da wishlist' : 'Aggiungi a wishlist';
+      btn.setAttribute('aria-label', 'Aggiungi a wishlist');
+      if (wlHas(handle)) btn.classList.add('wishlisted');
+      btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="bks-heart-icon"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`;
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        const added = wlToggle(handle);
+        btn.classList.toggle('wishlisted', added);
+        btn.title = added ? 'Rimuovi da wishlist' : 'Aggiungi a wishlist';
+        showWishlistToast(added);
+        updateWishlistBadge();
+        renderWishlistPanel();
+      });
+      wrapper.appendChild(btn);
+    });
+  }
+
+  /* ── Wishlist toast ── */
+  function showWishlistToast(added) {
+    let toast = document.getElementById('bks-wl-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'bks-wl-toast';
+      document.body.appendChild(toast);
+    }
+    clearTimeout(toast._bksTimer);
+    toast.className = 'bks-wl-toast' + (added ? ' bks-wl-toast--added' : ' bks-wl-toast--removed');
+    toast.innerHTML = added
+      ? `<svg width="13" height="13" viewBox="0 0 24 24" fill="#e74c3c" stroke="#e74c3c" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Saved to wishlist &nbsp;<a href="/account#wishlist">View →</a>`
+      : `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Removed from wishlist`;
+    toast.classList.add('bks-wl-toast--visible');
+    toast._bksTimer = setTimeout(() => toast.classList.remove('bks-wl-toast--visible'), 2800);
+  }
+
+  /* ── Wishlist badge on account icon ── */
+  function updateWishlistBadge() {
+    const count = wlLoad().length;
+    let badge = document.getElementById('bks-wl-badge');
+    if (!badge) {
+      const accountLink = document.querySelector('a[href*="/account"], .bks-member-halo a');
+      if (!accountLink) return;
+      const wrap = accountLink.closest('a, .bks-member-halo') || accountLink;
+      wrap.style.position = 'relative';
+      badge = document.createElement('span');
+      badge.id = 'bks-wl-badge';
+      badge.className = 'bks-wl-badge';
+      wrap.appendChild(badge);
+    }
+    badge.textContent = count;
+    badge.style.display = count > 0 ? '' : 'none';
+  }
+
   /* ── Boot ── */
   function init() {
     importSharedWishlist();
     initTabs();
+    injectHeartButtons();
     initHeartButtons();
     renderWishlistPanel();
+    updateWishlistBadge();
     initReferralCopy();
     initCountdown();
     initCustomizeForm();
+    initCamerino();
+    startHeartObserver();
+  }
+
+  /* Re-inject hearts when AJAX sections load new product cards */
+  function startHeartObserver() {
+    let debounce;
+    const observer = new MutationObserver(() => {
+      clearTimeout(debounce);
+      debounce = setTimeout(() => {
+        injectHeartButtons();
+        initHeartButtons();
+      }, 300);
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
   }
 
   if (document.readyState === 'loading') {
@@ -353,5 +506,19 @@
   }
 
   /* Expose wishlist API for theme use */
-  window.BKSMember = { wlToggle, wlHas, wlLoad, renderWishlistPanel };
+  /* ── Mood system — panel assumes the selected collection's colour ── */
+  function setMood(colKey) {
+    const wrap = document.querySelector('.bks-member-wrap');
+    if (!wrap) return;
+    const color = colKey && BKS_COLLECTIONS[colKey] ? BKS_COLLECTIONS[colKey].color : null;
+    if (color) {
+      wrap.style.setProperty('--bks-mood', color);
+      wrap.dataset.mood = colKey;
+    } else {
+      wrap.style.removeProperty('--bks-mood');
+      delete wrap.dataset.mood;
+    }
+  }
+
+  window.BKSMember = { wlToggle, wlHas, wlLoad, renderWishlistPanel, setMood, BKS_COLLECTIONS, detectCollection };
 })();

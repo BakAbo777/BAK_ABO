@@ -1,0 +1,133 @@
+{% layout none %}
+{% assign feed_title = 'BKS Studio — bakabo.club' %}
+{% assign feed_link  = 'https://bakabo.club' %}
+{% assign feed_desc  = 'BKS Studio wearable art. All-over print, made to order on bakabo.club.' %}
+{%- comment -%}
+  Google Merchant Center — RSS 2.0 / Google Shopping XML product feed.
+  URL live: /pages/google-shopping-feed
+  Aggiornato ad ogni visita — dati prodotto live da Shopify.
+{%- endcomment -%}
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+  <channel>
+    <title>{{ feed_title | xml_escape }}</title>
+    <link>{{ feed_link }}</link>
+    <description>{{ feed_desc | xml_escape }}</description>
+    {%- paginate collections.all.products by 250 -%}
+    {%- for product in collections.all.products -%}
+      {%- if product.available == false -%}{%- continue -%}{%- endif -%}
+      {%- assign base_variant = product.variants | sort: 'price' | first -%}
+      {%- assign product_url  = shop.url | append: product.url -%}
+      {%- assign image_url    = '' -%}
+      {%- if product.featured_image -%}
+        {%- assign image_url = product.featured_image | image_url: width: 800 -%}
+        {%- assign image_url = 'https:' | append: image_url -%}
+      {%- endif -%}
+      {%- comment -%} Map product_type to Google category {%- endcomment -%}
+      {%- assign gcat = '5322' -%}
+      {%- if product.type contains 'Sneaker' or product.type contains 'sneaker' -%}
+        {%- assign gcat = '187' -%}
+      {%- elsif product.type contains 'Backpack' or product.type contains 'backpack' -%}
+        {%- assign gcat = '6552' -%}
+      {%- elsif product.type contains 'Hoodie' or product.type contains 'hoodie' or product.type contains 'Pullover' -%}
+        {%- assign gcat = '212' -%}
+      {%- elsif product.type contains 'Jacket' or product.type contains 'jacket' or product.type contains 'Puffer' -%}
+        {%- assign gcat = '5344' -%}
+      {%- elsif product.type contains 'Swim' or product.type contains 'swim' -%}
+        {%- assign gcat = '1831' -%}
+      {%- elsif product.type contains 'Dress' or product.type contains 'dress' -%}
+        {%- assign gcat = '2271' -%}
+      {%- elsif product.type contains 'Pant' or product.type contains 'pant' or product.type contains 'Lounge' -%}
+        {%- assign gcat = '207' -%}
+      {%- elsif product.type contains 'Short' or product.type contains 'short' -%}
+        {%- assign gcat = '209' -%}
+      {%- elsif product.type contains 'Bag' or product.type contains 'bag' -%}
+        {%- assign gcat = '6556' -%}
+      {%- elsif product.type contains 'Windbreaker' or product.type contains 'windbreaker' -%}
+        {%- assign gcat = '5344' -%}
+      {%- elsif product.type contains 'Slipper' or product.type contains 'Flip' or product.type contains 'flip' -%}
+        {%- assign gcat = '1933' -%}
+      {%- elsif product.type contains 'Tee' or product.type contains 'tee' or product.type contains 'shirt' -%}
+        {%- assign gcat = '212' -%}
+      {%- endif -%}
+      {%- for variant in product.variants -%}
+        {%- if variant.available == false -%}{%- continue -%}{%- endif -%}
+        {%- assign variant_url = product_url | append: '?variant=' | append: variant.id -%}
+        {%- assign variant_image = '' -%}
+        {%- if variant.image -%}
+          {%- assign variant_image = variant.image | image_url: width: 800 -%}
+          {%- assign variant_image = 'https:' | append: variant_image -%}
+        {%- elsif image_url != '' -%}
+          {%- assign variant_image = image_url -%}
+        {%- endif -%}
+    <item>
+      <g:id>{{ variant.id | xml_escape }}</g:id>
+      <g:item_group_id>{{ product.id | xml_escape }}</g:item_group_id>
+      <title>{{ product.title | xml_escape }}{% unless variant.title == 'Default Title' %} — {{ variant.title | xml_escape }}{% endunless %}</title>
+      <description>{{ product.description | strip_html | truncatewords: 150 | xml_escape }}</description>
+      <link>{{ variant_url | xml_escape }}</link>
+      {%- if variant_image != '' -%}
+      <g:image_link>{{ variant_image | xml_escape }}</g:image_link>
+      {%- endif -%}
+      {%- assign additional_images = product.images | slice: 1, 9 -%}
+      {%- for img in additional_images limit: 9 -%}
+        {%- assign ai_url = 'https:' | append: img.src | image_url: width: 800 -%}
+      <g:additional_image_link>{{ ai_url | xml_escape }}</g:additional_image_link>
+      {%- endfor -%}
+      <g:availability>in_stock</g:availability>
+      <g:price>{{ variant.price | money_without_currency | remove: ',' }} EUR</g:price>
+      {%- if variant.compare_at_price > variant.price -%}
+      <g:sale_price>{{ variant.price | money_without_currency | remove: ',' }} EUR</g:sale_price>
+      {%- endif -%}
+      <g:brand>BKS Studio</g:brand>
+      <g:condition>new</g:condition>
+      <g:google_product_category>{{ gcat }}</g:google_product_category>
+      <g:product_type>{{ product.type | xml_escape }}</g:product_type>
+      <g:identifier_exists>false</g:identifier_exists>
+      {%- unless variant.title == 'Default Title' -%}
+        {%- assign option_parts = variant.title | split: ' / ' -%}
+        {%- for part in option_parts -%}
+          {%- assign opt_index = forloop.index0 -%}
+          {%- assign opt_name  = product.options[opt_index] | downcase -%}
+          {%- if opt_name contains 'size' -%}
+      <g:size>{{ part | xml_escape }}</g:size>
+          {%- elsif opt_name contains 'color' or opt_name contains 'colour' or opt_name contains 'colore' -%}
+      <g:color>{{ part | xml_escape }}</g:color>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endunless -%}
+      <g:shipping>
+        <g:country>IT</g:country>
+        <g:service>Standard</g:service>
+        <g:price>6.90 EUR</g:price>
+        <g:min_handling_days>7</g:min_handling_days>
+        <g:max_handling_days>14</g:max_handling_days>
+        <g:min_transit_days>3</g:min_transit_days>
+        <g:max_transit_days>5</g:max_transit_days>
+      </g:shipping>
+      <g:shipping>
+        <g:country>DE</g:country>
+        <g:service>Standard</g:service>
+        <g:price>8.90 EUR</g:price>
+        <g:min_handling_days>7</g:min_handling_days>
+        <g:max_handling_days>14</g:max_handling_days>
+        <g:min_transit_days>5</g:min_transit_days>
+        <g:max_transit_days>10</g:max_transit_days>
+      </g:shipping>
+      <g:shipping>
+        <g:country>FR</g:country>
+        <g:service>Standard</g:service>
+        <g:price>8.90 EUR</g:price>
+        <g:min_handling_days>7</g:min_handling_days>
+        <g:max_handling_days>14</g:max_handling_days>
+        <g:min_transit_days>5</g:min_transit_days>
+        <g:max_transit_days>10</g:max_transit_days>
+      </g:shipping>
+      <g:custom_label_0>{{ product.tags | split: ' ' | first | xml_escape }}</g:custom_label_0>
+      <g:custom_label_1>made-to-order</g:custom_label_1>
+    </item>
+      {%- endfor -%}
+    {%- endfor -%}
+    {%- endpaginate -%}
+  </channel>
+</rss>

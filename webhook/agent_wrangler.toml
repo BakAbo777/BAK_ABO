@@ -1,6 +1,6 @@
 name = "bks-agent-refresh"
 main = "agent_refresh_worker.js"
-compatibility_date = "2024-01-01"
+compatibility_date = "2024-11-01"
 workers_dev = true
 
 # Cron: ogni giorno alle 10:00 UTC = 12:00 CET (12:00 CEST d'estate)

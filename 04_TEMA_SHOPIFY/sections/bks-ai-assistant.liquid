@@ -12,6 +12,19 @@
   data-endpoint="{{ section.settings.api_endpoint | escape }}"
   data-token="{{ section.settings.public_token | escape }}"
   data-product-title="{% if product %}{{ product.title | escape }}{% endif %}"
+  {%- if customer -%}
+  {%- assign ai_order_count = customer.orders_count | default: 0 -%}
+  {%- assign ai_tier = "lead" -%}
+  {%- if ai_order_count >= 11 -%}{%- assign ai_tier = "gold" -%}
+  {%- elsif ai_order_count >= 6 -%}{%- assign ai_tier = "silver" -%}
+  {%- elsif ai_order_count >= 3 -%}{%- assign ai_tier = "brass" -%}
+  {%- elsif ai_order_count >= 1 -%}{%- assign ai_tier = "iron" -%}
+  {%- endif -%}
+  data-customer-id="{{ customer.id | escape }}"
+  data-member-name="{{ customer.first_name | escape }}"
+  data-customer-tier="{{ ai_tier }}"
+  data-member-orders="{{ ai_order_count }}"
+  {%- endif -%}
   aria-label="{{ section.settings.title | default: 'BKS AI Assistant' | escape }}"
 >
   <button class="bks-ai-assistant__button" type="button" data-bks-ai-toggle aria-expanded="false">
@@ -42,10 +55,11 @@
     --bks-ai-paper: #ffffff;
     --bks-ai-muted: #5f5a52;
     --bks-ai-line: #ded8cd;
-    --bks-ai-accent: #2f6f6b;
-    --bks-font-display: 'Bebas Neue', 'Arial Narrow', Arial, sans-serif;
-    --bks-font-text: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-    bottom: 18px;
+    --bks-ai-accent: var(--bks-active-accent, #2f6f6b);
+    --bks-font-display: "BKS Display", var(--font-heading-family, "Segoe UI", Arial, sans-serif);
+    --bks-font-text: "BKS Text", var(--font-body-family, "Segoe UI", Arial, sans-serif);
+    top: 68px;
+    bottom: auto;
     font-family: var(--bks-font-text);
     font-size: 14px;
     line-height: 1.5;
@@ -61,13 +75,18 @@
     font: inherit;
     font-weight: 700;
     line-height: 1.2;
-    min-height: 44px;
-    padding: 12px 15px;
+    min-height: 40px;
+    padding: 9px 14px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 0 0 3px 3px;
   }
   .bks-ai-assistant__panel {
     background: var(--bks-ai-paper);
     border: 1px solid var(--bks-ai-line);
-    bottom: 54px;
+    top: 46px;
+    bottom: auto;
     box-shadow: 0 18px 48px rgba(17, 17, 17, .18);
     color: var(--bks-ai-ink);
     display: grid;
@@ -169,11 +188,11 @@
   }
   @media (max-width: 760px) {
     .bks-ai-assistant {
-      bottom: 12px;
-      right: 12px;
+      top: 60px;
+      right: 8px;
     }
     .bks-ai-assistant__panel {
-      bottom: 50px;
+      top: 44px;
       max-height: calc(100vh - 80px);
       width: calc(100vw - 24px);
     }
@@ -231,6 +250,8 @@
         },
         body: JSON.stringify({
           message: message,
+          customer_id: root.dataset.customerId || 'anonymous',
+          customer_tier: root.dataset.customerTier || '',
           page_url: window.location.href,
           product_title: root.dataset.productTitle || ''
         })
@@ -253,9 +274,9 @@
 {
   "name": "BKS AI assistant",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Enable assistant", "default": false },
-    { "type": "text", "id": "api_endpoint", "label": "Public API endpoint", "default": "https://bks-agent.bakabo.workers.dev", "info": "Worker URL — update before enabling" },
-    { "type": "text", "id": "public_token", "label": "Public routing token", "default": "bks-assistant", "info": "Optional auth token" },
+    { "type": "checkbox", "id": "enabled", "label": "Enable assistant", "default": true },
+    { "type": "text", "id": "api_endpoint", "label": "Public API endpoint", "default": "https://bks-agent.bakabo.workers.dev/chat" },
+    { "type": "text", "id": "public_token", "label": "Public routing token", "default": "bks-public" },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Ask BKS" },
     { "type": "text", "id": "title", "label": "Panel title", "default": "BKS AI Assistant" },
     { "type": "textarea", "id": "disclosure", "label": "AI disclosure", "default": "AI assistant: answers from verified BKS data and official store policies." },

@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "bks-member-dashboard": {
+      "type": "bks-member-dashboard",
+      "settings": {}
+    }
+  },
+  "order": ["bks-member-dashboard"]
+}

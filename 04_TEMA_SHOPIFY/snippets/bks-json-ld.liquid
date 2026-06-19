@@ -1,0 +1,101 @@
+{%- comment -%} BKS JSON-LD Structured Data — emitted once per page type {%- endcomment -%}
+
+{%- liquid
+  assign is_product    = false
+  assign is_home       = false
+  assign is_collection = false
+  if request.page_type == 'product'
+    assign is_product = true
+  elsif request.page_type == 'index'
+    assign is_home = true
+  elsif request.page_type == 'collection'
+    assign is_collection = true
+  endif
+-%}
+
+{%- comment -%} ── PRODUCT ─────────────────────────────────────────────── {%- endcomment -%}
+{%- if is_product -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "description": {{ product.description | strip_html | truncatewords: 200 | json }},
+  "url": "{{ shop.url }}{{ product.url }}",
+  "brand": {
+    "@type": "Brand",
+    "name": "BKS Studio"
+  },
+  "category": {{ product.type | json }},
+  {%- if product.featured_image -%}
+  "image": [
+    "https:{{ product.featured_image | image_url: width: 1200 }}"
+    {%- for img in product.images offset: 1 limit: 4 -%}
+    , "https:{{ img | image_url: width: 1200 }}"
+    {%- endfor -%}
+  ],
+  {%- endif -%}
+  "offers": [
+    {%- for variant in product.variants -%}
+    {
+      "@type": "Offer",
+      "priceCurrency": {{ cart.currency.iso_code | json }},
+      "price": {{ variant.price | money_without_currency | remove: ',' }},
+      "availability": "{% if variant.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+      "url": "{{ shop.url }}{{ product.url }}?variant={{ variant.id }}",
+      "seller": {
+        "@type": "Organization",
+        "name": "BakAbo"
+      }
+      {%- if variant.sku != blank -%}
+      ,"sku": {{ variant.sku | json }}
+      {%- endif -%}
+    }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}
+
+{%- comment -%} ── HOME — WebSite SearchAction ──────────────────────────── {%- endcomment -%}
+{%- if is_home -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ shop.name | json }},
+  "url": "{{ request.origin }}",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "{{ request.origin }}/search?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+{%- endif -%}
+
+{%- comment -%} ── COLLECTION — ItemList ────────────────────────────────── {%- endcomment -%}
+{%- if is_collection -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": {{ collection.title | json }},
+  "url": "{{ request.origin }}{{ collection.url }}",
+  "numberOfItems": {{ collection.products_count }},
+  "itemListElement": [
+    {%- for p in collection.products limit: 20 -%}
+    {
+      "@type": "ListItem",
+      "position": {{ forloop.index }},
+      "url": "{{ request.origin }}{{ p.url }}",
+      "name": {{ p.title | json }}
+    }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}

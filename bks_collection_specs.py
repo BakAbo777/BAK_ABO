@@ -153,13 +153,13 @@ EDITORIAL_COLLECTIONS: tuple[CollectionSpec, ...] = (
     ),
     CollectionSpec(
         "Editoriali",
-        "BKS Folklore",
-        "bks-folklore",
-        "<p>Imaginary worlds, drawn stories, invented memory. BKS Folklore is the figurative collection — AI-generated narrative prints built from private mythology, fable animals, garden archetypes, and flat-drawn illustration. Wholly invented, never borrowed.</p>",
-        (tag_rule("collection:folklore"),),
-        "BKS Folklore Collection — Figurative AI-Art",
-        "BKS Folklore: figurative AI-art prints on all-over garments. Invented narrative, fable animals, flat-drawn illustration. Made to order at bakabo.club.",
-        "collection.bks-folklore",
+        "BKS Origin",
+        "bks-origin",
+        "<p>Imaginary worlds, drawn stories, invented memory. BKS Origin is the figurative collection — AI-generated narrative prints built from private mythology, fable animals, garden archetypes, and flat-drawn illustration. Wholly invented, never borrowed.</p>",
+        (tag_rule("collection:origin"),),
+        "BKS Origin Collection — Figurative AI-Art",
+        "BKS Origin: figurative AI-art prints on all-over garments. Invented narrative, fable animals, flat-drawn illustration. Made to order at bakabo.club.",
+        "collection.bks-origin",
         "bks-editorial-template",
     ),
 )
@@ -327,6 +327,15 @@ PRODUCT_TYPE_COLLECTIONS: tuple[CollectionSpec, ...] = (
         "BKS Women's Tee — AI-Art All-Over Print",
         "BKS Studio all-over print women's cut-and-sew tees from eight collections. AI-generated patterns on fitted silhouette. Made to order at bakabo.club.",
     ),
+    CollectionSpec(
+        "Tipo prodotto",
+        "Camp Shirt",
+        "camp-shirt",
+        "<p>All-over print camp shirts from all eight BKS collections. AI-generated graphic fields on a relaxed short-sleeve silhouette, made to order.</p>",
+        (tag_rule("type:camp-shirt"),),
+        "BKS Camp Shirts — AI-Art All-Over Print",
+        "BKS Studio all-over print camp shirts from eight collections. AI-generated patterns on relaxed short-sleeve silhouette. Made to order at bakabo.club.",
+    ),
 )
 
 
@@ -348,6 +357,7 @@ MISSING_COLLECTION_HANDLES: frozenset[str] = frozenset(
         "flip-flop",
         "cozy-slipper",
         "womens-tee",
+        "camp-shirt",
         "swimwear",
         "outerwear",
     }

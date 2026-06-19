@@ -15,7 +15,7 @@
 {% endcomment %}
 
 {% liquid
-  assign handles_string = section.settings.collection_handles | default: 'bks-hours,bks-glyph,bks-marker,bks-riviera,bks-pulse,bks-token,bks-flag,bks-folklore'
+  assign handles_string = section.settings.collection_handles | default: 'bks-hours,bks-glyph,bks-marker,bks-riviera,bks-pulse,bks-token,bks-flag,bks-origin'
   assign collection_handles = handles_string | split: ','
   assign collection_count = 0
 
@@ -1565,7 +1565,7 @@
       "type": "text",
       "id": "collection_handles",
       "label": "Collection handles, comma-separated",
-      "default": "bks-hours,bks-glyph,bks-marker,bks-riviera,bks-pulse,bks-token,bks-flag,bks-folklore"
+      "default": "bks-hours,bks-glyph,bks-marker,bks-riviera,bks-pulse,bks-token,bks-flag,bks-origin"
     },
     {
       "type": "checkbox",

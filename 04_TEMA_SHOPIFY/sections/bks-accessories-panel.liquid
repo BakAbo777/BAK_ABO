@@ -1,0 +1,313 @@
+{%- assign sid = section.id -%}
+
+<style>
+  #shopify-section-{{ sid }} .bks-acc {
+    --bks-acc-accent: var(--bks-active-accent, #2f6f6b);
+    background: #fafaf7;
+    padding: 64px 24px;
+  }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ sid }} .bks-acc { padding: 96px 80px; }
+  }
+
+  #shopify-section-{{ sid }} .bks-acc__inner {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ sid }} .bks-acc__head {
+    margin-bottom: 32px;
+  }
+
+  #shopify-section-{{ sid }} .bks-acc__kicker {
+    color: var(--bks-acc-accent);
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    margin: 0 0 8px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ sid }} .bks-acc__title {
+    color: #0a0a0a;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  /* ── Filter bar ───────────────────────────────────────── */
+
+  #shopify-section-{{ sid }} .bks-acc__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    margin: 0 0 48px;
+    padding: 0;
+  }
+
+  #shopify-section-{{ sid }} .bks-acc__filter {
+    appearance: none;
+    background: transparent;
+    border: 1px solid rgba(10,10,10,0.25);
+    border-radius: 0;
+    color: #0a0a0a;
+    cursor: pointer;
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    min-height: 40px;
+    padding: 0 18px;
+    text-transform: uppercase;
+    transition: background 180ms ease-out, color 180ms ease-out, border-color 180ms ease-out;
+  }
+
+  #shopify-section-{{ sid }} .bks-acc__filter:hover,
+  #shopify-section-{{ sid }} .bks-acc__filter:focus-visible {
+    background: var(--bks-acc-accent);
+    border-color: var(--bks-acc-accent);
+    color: #fafaf7;
+  }
+
+  #shopify-section-{{ sid }} .bks-acc__filter:focus-visible {
+    outline: 1px solid var(--bks-acc-accent);
+    outline-offset: 3px;
+  }
+
+  #shopify-section-{{ sid }} .bks-acc__filter[aria-pressed="true"] {
+    background: var(--bks-acc-accent);
+    border-color: var(--bks-acc-accent);
+    color: #fafaf7;
+  }
+
+  /* ── Grid ─────────────────────────────────────────────── */
+
+  #shopify-section-{{ sid }} .bks-acc__grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 768px) {
+    #shopify-section-{{ sid }} .bks-acc__grid {
+      gap: 24px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* ── Card newspaper lift ──────────────────────────────── */
+
+  #shopify-section-{{ sid }} .bks-acc__card {
+    color: #0a0a0a;
+    display: block;
+    position: relative;
+    text-decoration: none;
+    transition: transform 0.26s cubic-bezier(0.22,1,0.36,1),
+                box-shadow 0.26s ease;
+  }
+
+  #shopify-section-{{ sid }} .bks-acc__card::before {
+    background: var(--bks-acc-accent);
+    content: '';
+    height: 2px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.24s cubic-bezier(0.22,1,0.36,1);
+    z-index: 2;
+  }
+
+  #shopify-section-{{ sid }} .bks-acc__card:hover {
+    box-shadow: 0 10px 32px rgba(10,10,10,0.09), 0 2px 8px rgba(10,10,10,0.05);
+    transform: translateY(-6px);
+  }
+
+  #shopify-section-{{ sid }} .bks-acc__card:hover::before {
+    transform: scaleX(1);
+  }
+
+  #shopify-section-{{ sid }} .bks-acc__card.is-hidden {
+    display: none;
+  }
+
+  #shopify-section-{{ sid }} .bks-acc__media {
+    aspect-ratio: 4 / 5;
+    background: #efeae0;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ sid }} .bks-acc__media img {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.26s ease;
+    width: 100%;
+  }
+
+  #shopify-section-{{ sid }} .bks-acc__card:hover .bks-acc__media img {
+    transform: scale(1.02);
+  }
+
+  #shopify-section-{{ sid }} .bks-acc__meta {
+    padding-top: 14px;
+  }
+
+  #shopify-section-{{ sid }} .bks-acc__cat {
+    color: var(--bks-acc-accent);
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    margin: 0 0 4px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ sid }} .bks-acc__name {
+    color: #0a0a0a;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ sid }} .bks-acc * { transition: none !important; }
+  }
+</style>
+
+<div class="bks-acc" data-bks-acc>
+  <div class="bks-acc__inner">
+
+    <header class="bks-acc__head">
+      {%- if section.settings.kicker != blank -%}
+        <p class="bks-acc__kicker">{{ section.settings.kicker | escape }}</p>
+      {%- endif -%}
+      <h2 class="bks-acc__title">{{ section.settings.title | default: 'Accessories' | escape }}</h2>
+    </header>
+
+    {%- assign cats = '' -%}
+    {%- for block in section.blocks -%}
+      {%- assign c = block.settings.category | strip -%}
+      {%- if c != blank -%}
+        {%- assign probe = '|' | append: c | append: '|' -%}
+        {%- assign haystack = '|' | append: cats | append: '|' -%}
+        {%- unless haystack contains probe -%}
+          {%- if cats == blank -%}
+            {%- assign cats = c -%}
+          {%- else -%}
+            {%- assign cats = cats | append: '|' | append: c -%}
+          {%- endif -%}
+        {%- endunless -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- assign cat_list = cats | split: '|' -%}
+
+    {%- if cat_list.size > 1 -%}
+      <ul class="bks-acc__filters" role="group" aria-label="Filter by category">
+        <li>
+          <button type="button" class="bks-acc__filter" data-bks-filter="all" aria-pressed="true">
+            {{ section.settings.all_label | default: 'All' | escape }}
+          </button>
+        </li>
+        {%- for c in cat_list -%}
+          <li>
+            <button type="button" class="bks-acc__filter" data-bks-filter="{{ c | handleize }}" aria-pressed="false">
+              {{ c | escape }}
+            </button>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    <div class="bks-acc__grid">
+      {%- for block in section.blocks -%}
+        {%- assign cat = block.settings.category | strip -%}
+        <a
+          class="bks-acc__card"
+          href="{{ block.settings.link | default: '#' }}"
+          data-bks-cat="{{ cat | handleize }}"
+          {{ block.shopify_attributes }}
+        >
+          <div class="bks-acc__media">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 900 | image_tag:
+                loading: 'lazy',
+                widths: '450, 700, 900',
+                alt: block.settings.name | escape
+              }}
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'bks-acc__placeholder' }}
+            {%- endif -%}
+          </div>
+          <div class="bks-acc__meta">
+            {%- if cat != blank -%}
+              <p class="bks-acc__cat">{{ cat | escape }}</p>
+            {%- endif -%}
+            <p class="bks-acc__name">{{ block.settings.name | default: 'Untitled' | escape }}</p>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.querySelector('#shopify-section-{{ sid }} [data-bks-acc]');
+    if (!root) return;
+    var buttons = root.querySelectorAll('[data-bks-filter]');
+    var cards   = root.querySelectorAll('[data-bks-cat]');
+    if (!buttons.length) return;
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var f = btn.getAttribute('data-bks-filter');
+        buttons.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+        cards.forEach(function (card) {
+          card.classList.toggle('is-hidden', f !== 'all' && card.getAttribute('data-bks-cat') !== f);
+        });
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "BKS Accessories Panel",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "BKS Studio" },
+    { "type": "text", "id": "title",  "label": "Title",  "default": "Accessories" },
+    { "type": "text", "id": "all_label", "label": "Filter 'all' label", "default": "All" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Accessory",
+      "settings": [
+        { "type": "image_picker", "id": "image",    "label": "Image" },
+        { "type": "text",         "id": "name",     "label": "Name",     "default": "BKS Accessory" },
+        { "type": "text",         "id": "category", "label": "Category", "info": "E.g. Backpacks, Duffle Bags, Travel Gear. Same label = same filter." },
+        { "type": "url",          "id": "link",     "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BKS Accessories Panel",
+      "blocks": [
+        { "type": "item", "settings": { "category": "Backpacks" } },
+        { "type": "item", "settings": { "category": "Duffle Bags" } },
+        { "type": "item", "settings": { "category": "Travel Gear" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

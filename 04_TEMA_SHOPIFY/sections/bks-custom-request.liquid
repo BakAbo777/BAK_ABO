@@ -1,21 +1,30 @@
 {% comment %}
   BKS Custom Request — /pages/bks-custom
-  Accesso: tag bks-drop o bks-archive
-  Pattern mix: solo bks-archive
+  Access: Iron tier and above (1+ orders)
+  Pattern mix: Silver tier and above (6+ orders)
 {% endcomment %}
 
 {% liquid
   assign has_access = false
-  assign is_archive = false
+  assign is_premium = false
+  assign bks_tier = 'lead'
   if customer
-    for tag in customer.tags
-      if tag == 'bks-drop' or tag == 'bks-archive'
-        assign has_access = true
-      endif
-      if tag == 'bks-archive'
-        assign is_archive = true
-      endif
-    endfor
+    assign bks_orders = customer.orders_count | default: 0
+    if bks_orders >= 10
+      assign bks_tier = 'gold'
+    elsif bks_orders >= 6
+      assign bks_tier = 'silver'
+    elsif bks_orders >= 3
+      assign bks_tier = 'brass'
+    elsif bks_orders >= 1
+      assign bks_tier = 'iron'
+    endif
+    if bks_tier == 'iron' or bks_tier == 'brass' or bks_tier == 'silver' or bks_tier == 'gold'
+      assign has_access = true
+    endif
+    if bks_tier == 'silver' or bks_tier == 'gold'
+      assign is_premium = true
+    endif
   endif
 %}
 
@@ -433,10 +442,10 @@
       <p class="bks-cr-eyebrow">BKS Studio — Member Area</p>
       <h1 class="bks-cr-title">Custom Request</h1>
       <p class="bks-cr-copy">
-        Ogni pezzo BKS è prodotto su ordinazione.<br>
-        Alcuni clienti possono richiedere una variante personalizzata —
-        palette diversa, iniziali, combinazione di pattern.
-        <em>◈ Questo non è un configuratore. È una richiesta diretta allo studio.</em>
+        Every BKS piece is made to order.<br>
+        Select members can request a custom variant —
+        different palette, initials, pattern combination.
+        <em>◈ This is not a configurator. It is a direct request to the studio.</em>
       </p>
     </div>
 
@@ -446,80 +455,80 @@
         <form id="bks-cr-form"
               data-customer-name="{{ customer.name | escape }}"
               data-customer-email="{{ customer.email | escape }}"
-              data-is-archive="{{ is_archive }}">
+              data-is-premium="{{ is_premium }}">
 
-          <!-- BLOCCO 1 — Prodotto -->
+          <!-- BLOCK 1 — Product -->
           <div class="bks-cr-block">
             <p class="bks-cr-block-num">01 /</p>
-            <h2 class="bks-cr-block-title">Quale prodotto?</h2>
+            <h2 class="bks-cr-block-title">Which product?</h2>
             <div class="bks-cr-field">
-              <label class="bks-cr-label" for="bks-cr-product-url">URL prodotto <span class="req">*</span></label>
+              <label class="bks-cr-label" for="bks-cr-product-url">Product URL <span class="req">*</span></label>
               <input class="bks-cr-input" type="url" id="bks-cr-product-url"
                      placeholder="https://bakabo.club/products/..."
                      autocomplete="off">
-              <p class="bks-cr-hint">Vai alla pagina prodotto e incolla l'URL completo.</p>
+              <p class="bks-cr-hint">Go to the product page and paste the full URL.</p>
             </div>
           </div>
 
-          <!-- BLOCCO 2 — Tipo personalizzazione -->
+          <!-- BLOCK 2 — Customisation type -->
           <div class="bks-cr-block">
             <p class="bks-cr-block-num">02 /</p>
-            <h2 class="bks-cr-block-title">Tipo di personalizzazione</h2>
+            <h2 class="bks-cr-block-title">Customisation type</h2>
             <div class="bks-cr-type-grid">
 
               <label class="bks-cr-type-card">
                 <input type="radio" name="bks-cr-type" value="swap_palette">
                 <div class="bks-cr-type-body">
                   <p class="bks-cr-type-name">Swap palette</p>
-                  <p class="bks-cr-type-desc">Variazione cromatica del pattern su questo prodotto</p>
+                  <p class="bks-cr-type-desc">Colour palette variation on this product's pattern</p>
                 </div>
-                <span class="bks-cr-type-tier">Drop+</span>
+                <span class="bks-cr-type-tier">Iron+</span>
               </label>
 
               <label class="bks-cr-type-card">
                 <input type="radio" name="bks-cr-type" value="text_monogram">
                 <div class="bks-cr-type-body">
-                  <p class="bks-cr-type-name">Iniziali / testo</p>
-                  <p class="bks-cr-type-desc">Aggiungi iniziali o una parola su area designata</p>
+                  <p class="bks-cr-type-name">Initials / text</p>
+                  <p class="bks-cr-type-desc">Add initials or a word to a designated area</p>
                 </div>
-                <span class="bks-cr-type-tier">Drop+</span>
+                <span class="bks-cr-type-tier">Iron+</span>
               </label>
 
-              <label class="bks-cr-type-card{% unless is_archive %} bks-cr-type-card--locked{% endunless %}">
+              <label class="bks-cr-type-card{% unless is_premium %} bks-cr-type-card--locked{% endunless %}">
                 <input type="radio" name="bks-cr-type" value="pattern_mix"
-                       {% unless is_archive %}disabled{% endunless %}>
+                       {% unless is_premium %}disabled{% endunless %}>
                 <div class="bks-cr-type-body">
                   <p class="bks-cr-type-name">Pattern mix</p>
-                  <p class="bks-cr-type-desc">Combina due pattern della stessa collection</p>
-                  {% unless is_archive %}
+                  <p class="bks-cr-type-desc">Combine two patterns from the same collection</p>
+                  {% unless is_premium %}
                     <p class="bks-cr-type-unlock">
-                      Disponibile da BKS Archive. <a href="/collections">Scopri come accedere →</a>
+                      Available from BKS Silver tier. <a href="/pages/bks-members">Learn more →</a>
                     </p>
                   {% endunless %}
                 </div>
-                <span class="bks-cr-type-tier">Archive</span>
+                <span class="bks-cr-type-tier">Silver+</span>
               </label>
 
             </div>
           </div>
 
-          <!-- BLOCCO 3 — Dettagli -->
+          <!-- BLOCK 3 — Details -->
           <div class="bks-cr-block">
             <p class="bks-cr-block-num">03 /</p>
-            <h2 class="bks-cr-block-title">Dettagli richiesta</h2>
+            <h2 class="bks-cr-block-title">Request details</h2>
 
             <div class="bks-cr-field">
-              <label class="bks-cr-label" for="bks-cr-desc">Descrivi la tua richiesta <span class="req">*</span></label>
+              <label class="bks-cr-label" for="bks-cr-desc">Describe your request <span class="req">*</span></label>
               <textarea class="bks-cr-textarea" id="bks-cr-desc"
-                        placeholder="Descrivi nel dettaglio cosa vuoi personalizzare..."></textarea>
+                        placeholder="Describe in detail what you'd like to customise..."></textarea>
               <p class="bks-cr-char-count"><span id="bks-cr-count">0</span>/300</p>
             </div>
 
             <div class="bks-cr-row">
               <div class="bks-cr-field">
-                <label class="bks-cr-label" for="bks-cr-size">Taglia <span class="req">*</span></label>
+                <label class="bks-cr-label" for="bks-cr-size">Size <span class="req">*</span></label>
                 <select class="bks-cr-select" id="bks-cr-size">
-                  <option value="">— seleziona —</option>
+                  <option value="">— select —</option>
                   <option value="XS">XS</option>
                   <option value="S">S</option>
                   <option value="M">M</option>
@@ -527,69 +536,69 @@
                   <option value="XL">XL</option>
                   <option value="XXL">XXL</option>
                   <option value="XXXL">XXXL</option>
-                  <option value="Personalizzata">Personalizzata</option>
+                  <option value="Custom">Custom</option>
                 </select>
               </div>
               <div class="bks-cr-field">
-                <label class="bks-cr-label" for="bks-cr-qty">Quantità <span class="req">*</span></label>
+                <label class="bks-cr-label" for="bks-cr-qty">Quantity <span class="req">*</span></label>
                 <select class="bks-cr-select" id="bks-cr-qty">
-                  <option value="1">1 pezzo</option>
-                  <option value="2">2 pezzi</option>
-                  <option value="3">3 pezzi</option>
+                  <option value="1">1 piece</option>
+                  <option value="2">2 pieces</option>
+                  <option value="3">3 pieces</option>
                 </select>
               </div>
             </div>
           </div>
 
-          <!-- BLOCCO 4 — Processo -->
+          <!-- BLOCK 4 — Process -->
           <div class="bks-cr-block">
             <div class="bks-cr-process">
-              <p class="bks-cr-process-label">◈ Come funziona</p>
+              <p class="bks-cr-process-label">◈ How it works</p>
               <ol class="bks-cr-steps">
-                <li>Invii la richiesta. Lo studio la valuta entro 3 giorni lavorativi.</li>
-                <li>Ricevi un'anteprima del pattern modificato via email.</li>
-                <li>Confermi. Il prodotto entra in produzione come ordine MTO standard.</li>
-                <li>Tempi di produzione invariati rispetto al catalogo.</li>
+                <li>Submit your request. The studio reviews it within 3 business days.</li>
+                <li>You receive a preview of the modified pattern by email.</li>
+                <li>Confirm. The piece enters production as a standard MTO order.</li>
+                <li>Production times are identical to the standard catalogue.</li>
               </ol>
               <p class="bks-cr-process-note">
-                Non tutte le richieste sono realizzabili. Il parere dello studio è definitivo.
-                Nessun pagamento anticipato — il pricing viene definito via email dopo valutazione.
+                Not all requests can be fulfilled. The studio's decision is final.
+                No advance payment — pricing is agreed by email after review.
               </p>
             </div>
           </div>
 
-          <!-- BLOCCO 5 — Invio -->
+          <!-- BLOCK 5 — Submit -->
           <div class="bks-cr-block">
             <p class="bks-cr-block-num">05 /</p>
-            <h2 class="bks-cr-block-title">Invia richiesta</h2>
-            <p class="bks-cr-email-note">Riceverai conferma all'indirizzo: {{ customer.email }}</p>
+            <h2 class="bks-cr-block-title">Send request</h2>
+            <p class="bks-cr-email-note">Confirmation will be sent to: {{ customer.email }}</p>
             <div class="bks-cr-error" id="bks-cr-error"></div>
-            <button class="bks-cr-btn" type="submit" id="bks-cr-submit">Invia richiesta</button>
+            <button class="bks-cr-btn" type="submit" id="bks-cr-submit">Send request</button>
           </div>
 
         </form>
 
         <div id="bks-cr-success" class="bks-cr-success" hidden>
           <div class="bks-cr-success-icon">✓</div>
-          <h2 class="bks-cr-success-title">Richiesta inviata</h2>
+          <h2 class="bks-cr-success-title">Request sent</h2>
           <p class="bks-cr-success-copy">
-            La tua richiesta è stata ricevuta dallo studio.<br>
-            Riceverai una risposta entro 3 giorni lavorativi all'indirizzo<br>
+            Your request has been received by the studio.<br>
+            You will receive a reply within 3 business days at<br>
             <strong>{{ customer.email }}</strong>
           </p>
-          <button class="bks-cr-success-back" id="bks-cr-new">Invia un'altra richiesta</button>
+          <button class="bks-cr-success-back" id="bks-cr-new">Submit another request</button>
         </div>
 
       {% else %}
         <div class="bks-cr-denied">
-          <p>Questa sezione è riservata ai clienti BKS Drop e BKS Archive.</p>
-          <a href="/account">Vai al tuo account</a>
+          <p>This section is reserved for BKS Iron tier members and above.</p>
+          <a href="/account">Go to your account</a>
         </div>
       {% endif %}
     {% else %}
       <div class="bks-cr-denied">
-        <p>Accedi al tuo account per continuare.</p>
-        <a href="/account/login?return_url=/pages/bks-custom">Accedi</a>
+        <p>Sign in to your account to continue.</p>
+        <a href="/account/login?return_url=/pages/bks-custom">Sign in</a>
       </div>
     {% endif %}
 
@@ -609,7 +618,7 @@
 
   const TYPE_LABELS = {
     swap_palette:  'Swap palette',
-    text_monogram: 'Iniziali / testo',
+    text_monogram: 'Initials / text',
     pattern_mix:   'Pattern mix'
   };
 
@@ -648,10 +657,10 @@
     const size       = form.querySelector('#bks-cr-size').value;
     const qty        = form.querySelector('#bks-cr-qty').value;
 
-    if (!productUrl) { showError('Incolla l\'URL del prodotto.'); return; }
-    if (!typeRadio)  { showError('Seleziona un tipo di personalizzazione.'); return; }
-    if (desc.length < 20) { showError('Descrivi la richiesta (minimo 20 caratteri).'); return; }
-    if (!size) { showError('Seleziona la taglia.'); return; }
+    if (!productUrl) { showError('Paste the product URL.'); return; }
+    if (!typeRadio)  { showError('Select a customisation type.'); return; }
+    if (desc.length < 20) { showError('Describe your request (minimum 20 characters).'); return; }
+    if (!size) { showError('Select a size.'); return; }
 
     const name     = form.dataset.customerName  || '';
     const email    = form.dataset.customerEmail || '';
@@ -660,18 +669,18 @@
     const body = [
       'BKS STUDIO — CUSTOM REQUEST',
       '───────────────────────────',
-      'Cliente: ' + name + ' <' + email + '>',
-      'Prodotto: ' + productUrl,
-      'Tipo: ' + typeLabel,
-      'Taglia: ' + size,
-      'Quantità: ' + qty,
+      'Member: ' + name + ' <' + email + '>',
+      'Product: ' + productUrl,
+      'Type: ' + typeLabel,
+      'Size: ' + size,
+      'Quantity: ' + qty,
       '───────────────────────────',
-      'Richiesta:',
+      'Request:',
       desc
     ].join('\n');
 
     submit.disabled = true;
-    submit.textContent = 'Invio in corso…';
+    submit.textContent = 'Sending…';
 
     try {
       const params = new URLSearchParams({
@@ -693,8 +702,8 @@
 
     } catch (err) {
       submit.disabled = false;
-      submit.textContent = 'Invia richiesta';
-      showError('Errore di invio. Riprova o scrivi a crew@bakabo.club');
+      submit.textContent = 'Send request';
+      showError('Send error. Try again or write to crew@bakabo.club');
     }
   });
 
@@ -705,7 +714,7 @@
       form.hidden = false;
       if (success) success.hidden = true;
       submit.disabled = false;
-      submit.textContent = 'Invia richiesta';
+      submit.textContent = 'Send request';
     });
   }
 })();
