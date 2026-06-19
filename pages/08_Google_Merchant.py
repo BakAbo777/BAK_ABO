@@ -111,42 +111,102 @@ st.dataframe(pd.DataFrame(issues), use_container_width=True, hide_index=True)
 
 st.divider()
 
-# ── Manual actions ──────────────────────────────────────────────────────────────
-st.subheader("Azioni manuali richieste (UI)")
+# ── Local Inventory Feed ────────────────────────────────────────────────────────
+st.subheader("Local Inventory Feed")
 
-col_a, col_b = st.columns(2)
+_LOCAL_INV_OUTPUT = ROOT / "output" / "google_local_inventory_feed.tsv"
+_LOCAL_INV_SUMMARY = ROOT / "output" / "google_local_inventory_summary.json"
 
-with col_a:
-    st.warning("**Local Inventory** — Fix in Google Business Profile (non Shopify)")
+_local_tab, _biz_tab, _korea_tab = st.tabs(["Feed Generator", "Business Profile Fix", "Korea Fix"])
+
+with _local_tab:
     st.markdown("""
-Shopify local inventory sync è già **OFF** ✅
-
-Il problema è la sede fisica registrata in Google Business Profile:
-**"Sede — Via Monte Vettore 1"**
-
-1. Apri: `business.google.com`
-2. Seleziona **Sede**
-3. Modifica → **Tipo di attività** → cambia in **"Area di servizio"**
-4. Salva
-
-Google smette di aspettarsi dati inventario fisico → errore sparisce.
+**Causa dell'errore**: Google Business Profile ha una sede fisica (Via Monte Vettore 1, Terni)
+→ GMC si aspetta un Local Inventory Feed per quella sede.
+**BKS è online-only/POD** → il feed marca tutto `out_of_stock` per eliminare l'errore.
 """)
 
-with col_b:
-    st.warning("**Corea del Sud** — Rimuovi mercato da GMC")
+    col_gen, col_status = st.columns([2, 1])
+    with col_gen:
+        store_code = st.text_input(
+            "Store code (da Google Business Profile)",
+            value="BKS_TERNI",
+            help="Trovalo in: business.google.com → Profilo → Codice negozio",
+        )
+
+    with col_status:
+        if _LOCAL_INV_OUTPUT.exists():
+            import json as _json
+            _s = _json.loads(_LOCAL_INV_SUMMARY.read_text(encoding="utf-8")) if _LOCAL_INV_SUMMARY.exists() else {}
+            st.metric("Feed", f"{_s.get('total_rows', '?')} righe")
+            st.caption(_s.get("generated_at", "")[:16].replace("T", " "))
+        else:
+            st.metric("Feed", "Non generato")
+
+    if st.button("⬇ Genera Local Inventory Feed", use_container_width=True, type="primary"):
+        with st.spinner("Fetching prodotti Shopify e generando TSV..."):
+            result = subprocess.run(
+                [sys.executable,
+                 str(ROOT / "scripts" / "generate_local_inventory_feed.py"),
+                 "--store-code", store_code],
+                capture_output=True, text=True, cwd=str(ROOT),
+                env={**__import__("os").environ, "PYTHONUTF8": "1"},
+            )
+        if result.returncode == 0:
+            st.success("Feed generato.")
+            st.text(result.stdout[-600:] if result.stdout else "")
+        else:
+            st.error("Errore generazione feed")
+            st.text(result.stderr[:500])
+
+    if _LOCAL_INV_OUTPUT.exists():
+        with open(_LOCAL_INV_OUTPUT, "rb") as _f:
+            st.download_button(
+                "⬇ Scarica google_local_inventory_feed.tsv",
+                data=_f,
+                file_name="google_local_inventory_feed.tsv",
+                mime="text/tab-separated-values",
+                use_container_width=True,
+            )
+        st.markdown("""
+**Come caricare su GMC:**
+1. [merchants.google.com](https://merchants.google.com) → Contenuto → Feed → `+`
+2. Tipo: **Inventario locale dei prodotti**
+3. Nome: `bks-local-inventory`
+4. Carica il file TSV scaricato sopra
+5. Attendi crawl Google (24–72h) — errore scomparirà
+""")
+
+with _biz_tab:
+    st.info("Alternativa rapida: cambia Business Profile da Sede fisica → Area di servizio. Google smette di aspettarsi inventory fisico.")
     st.markdown("""
-1. Apri: `merchants.google.com` → Impostazioni → Paesi target
-2. Trova **South Korea (KR)**
-3. Rimuovi / disabilita
+**Passi:**
+1. Apri [business.google.com](https://business.google.com)
+2. Seleziona la sede **BKS Studio / Via Monte Vettore 1, Terni**
+3. Modifica profilo → **Tipo di attività**
+4. Cambia in **"Area di servizio"** (non Sede fisica)
+5. Imposta area: **Italia** (o Terni + raggio)
+6. Salva
 
-Oppure: `Shopify → Google & YouTube → Settings → Markets → Remove Corea`.
+✅ Shopify local inventory sync è già **OFF** — nessuna azione Shopify richiesta.
+""")
 
-Questo elimina i 24 prodotti con "Korean business registration mancante".
+with _korea_tab:
+    st.warning("24 prodotti bloccati per mancanza di registrazione commerciale coreana.")
+    st.markdown("""
+**Fix:**
+1. [merchants.google.com](https://merchants.google.com) → Impostazioni → Paesi target
+2. Trova **South Korea (KR)** → Rimuovi / disabilita
+3. Oppure: Shopify → Google & YouTube → Settings → Markets → Remove Korea
+
+Rimuovere la Corea elimina completamente i 24 prodotti flaggati.
 """)
 
 st.divider()
 
-# ── Run scripts ─────────────────────────────────────────────────────────────────
+st.divider()
+
+# ── Run scripts ──────────────────────────────────────────────────────────────────
 st.subheader("Automazione")
 
 col1, col2, col3 = st.columns(3)
