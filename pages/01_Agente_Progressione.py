@@ -8,9 +8,11 @@ from streamlit_master import (
     render_master_actions,
     render_progression_panel,
 )
+import bks_nav
 
 
 st.set_page_config(page_title="BKS — Agente", page_icon="◎", layout="wide")
+bks_nav.render("agente")
 inject_bks_theme()
 st.title("Agente ◎ Progressione")
 st.caption("Routine operativa, Q&A, avanzamento fasi, prossima azione.")

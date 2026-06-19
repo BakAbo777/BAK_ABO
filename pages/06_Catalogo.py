@@ -16,7 +16,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
 sys.path.insert(0, str(BASE_DIR / "BKS_SKILL" / "tools"))
 
+import bks_nav
+
 st.set_page_config(page_title="BKS Catalog", page_icon="📦", layout="wide")
+bks_nav.render("catalogo")
 
 st.markdown("""
 <style>

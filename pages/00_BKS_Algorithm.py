@@ -12,12 +12,15 @@ import streamlit as st
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
 
+import bks_nav
+
 st.set_page_config(
     page_title="BKS ◎ Algorithm",
     page_icon="◎",
     layout="wide",
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="expanded",
 )
+bks_nav.render("algorithm")
 
 # ── BKS CSS ────────────────────────────────────────────────────────────────────
 st.markdown("""

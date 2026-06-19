@@ -12,13 +12,16 @@ import streamlit as st
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+import bks_nav
+
+st.set_page_config(page_title="Google Merchant · BKS", page_icon="🛒", layout="wide")
+bks_nav.render("merchant")
+
 try:
     from streamlit_master import inject_bks_theme
     inject_bks_theme()
 except Exception:
     pass
-
-st.set_page_config(page_title="Google Merchant · BKS", page_icon="🛒", layout="wide")
 
 # ── Header ─────────────────────────────────────────────────────────────────────
 st.title("Google Merchant Center")

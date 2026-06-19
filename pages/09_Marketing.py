@@ -14,10 +14,13 @@ from urllib.parse import urlencode
 import requests
 import streamlit as st
 
-st.set_page_config(page_title="BKS Marketing", page_icon="◈", layout="wide")
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
+
+import bks_nav
+
+st.set_page_config(page_title="BKS Marketing", page_icon="◈", layout="wide")
+bks_nav.render("marketing")
 MARKETING_DIR = BASE_DIR / "output" / "marketing"
 MARKETING_DIR.mkdir(parents=True, exist_ok=True)
 

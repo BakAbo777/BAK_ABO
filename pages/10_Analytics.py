@@ -14,10 +14,13 @@ import pandas as pd
 import requests
 import streamlit as st
 
-st.set_page_config(page_title="BKS Analytics", page_icon="◉", layout="wide")
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
+
+import bks_nav
+
+st.set_page_config(page_title="BKS Analytics", page_icon="◉", layout="wide")
+bks_nav.render("analytics")
 
 BKS_COLLECTIONS = {
     "bks-hours": ("BKS Hours", "#c8c4be"),

@@ -7,9 +7,13 @@ from pathlib import Path
 
 import streamlit as st
 
-st.set_page_config(page_title="BKS Image Factory", page_icon="🎨", layout="wide")
-
 BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(BASE_DIR))
+
+import bks_nav
+
+st.set_page_config(page_title="BKS Image Factory", page_icon="🎨", layout="wide")
+bks_nav.render("factory")
 FACTORY_DIR = BASE_DIR / "BAKABO_IMAGE_FACTORY_v1.1"
 FACTORY_APP = FACTORY_DIR / "app.py"
 FACTORY_PORT = 8502

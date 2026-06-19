@@ -20,6 +20,7 @@ from ecommerce_automation.member_tryon import (
     pending_count,
 )
 from streamlit_master import inject_bks_theme, port_open
+import bks_nav
 
 
 TRYON_PORT = 8010
@@ -91,6 +92,7 @@ def _pending_files() -> list[dict]:
 # ── page ──────────────────────────────────────────────────────────────────────
 
 st.set_page_config(page_title="BKS — Camerino", page_icon="◎", layout="wide")
+bks_nav.render("camerino")
 inject_bks_theme()
 
 from typing import Any  # noqa: E402 — after set_page_config
