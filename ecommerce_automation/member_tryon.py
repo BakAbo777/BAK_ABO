@@ -38,7 +38,7 @@ def _safe_fragment(value: str) -> str:
 def _hash_email(email: str) -> str:
     email = (email or "").strip().lower()
     if not email:
-        return ""dd
+        return ""
     return hashlib.sha256(email.encode("utf-8")).hexdigest()[:16]
 
 
