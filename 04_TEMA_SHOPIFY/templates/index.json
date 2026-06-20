@@ -9,6 +9,162 @@
         "cta_label": "Shop all collections"
       }
     },
+    "bks_piano_hero": {
+      "type": "bks-piano-hero",
+      "blocks": {
+        "piano_hours": {
+          "type": "collection",
+          "settings": {
+            "name": "Hours",
+            "note": "Do",
+            "freq": 260,
+            "white": true,
+            "color": "#c8c4be",
+            "url": "/collections/bks-hours",
+            "quote": "Urban contemplation, painterly register, hyperrealist surface.",
+            "products": "Puffer Jacket, Sneakers, Hoodie",
+            "arm_season": "Winter",
+            "arm_desc": "Deep tones, warm neutrals. Dune, slate grey, antique ivory.",
+            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/bks-hours-piano.png?v=1781988131",
+            "bpm": 36,
+            "decay": 4
+          }
+        },
+        "piano_glyph": {
+          "type": "collection",
+          "settings": {
+            "name": "Glyph",
+            "note": "Re♭",
+            "freq": 280,
+            "white": false,
+            "color": "#d4a030",
+            "url": "/collections/bks-glyph",
+            "quote": "Symbol, code, sign — a proprietary visual alphabet.",
+            "products": "Puffer Jacket, Hoodie, Windbreaker",
+            "arm_season": "Summer",
+            "arm_desc": "Gold, amber, graphite, ink.",
+            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/bks-glyph-piano.png?v=1781988137",
+            "bpm": 40,
+            "decay": 4
+          }
+        },
+        "piano_marker": {
+          "type": "collection",
+          "settings": {
+            "name": "Marker",
+            "note": "Re",
+            "freq": 290,
+            "white": true,
+            "color": "#c04418",
+            "url": "/collections/bks-marker",
+            "quote": "The brush, the wall, the mark left behind.",
+            "products": "Puffer Jacket, Athletic Shorts, Swim Trunks",
+            "arm_season": "Spring",
+            "arm_desc": "Terracotta, industrial red, raw paper cream.",
+            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/bks-marker-piano.png?v=1781988143",
+            "bpm": 44,
+            "decay": 3
+          }
+        },
+        "piano_riviera": {
+          "type": "collection",
+          "settings": {
+            "name": "Riviera",
+            "note": "Mi♭",
+            "freq": 310,
+            "white": false,
+            "color": "#0ca898",
+            "url": "/collections/bks-riviera",
+            "quote": "Salt, sun, terracotta, deep blue.",
+            "products": "Swim Trunks, Swimwear, Windbreaker",
+            "arm_season": "Summer",
+            "arm_desc": "Mediterranean teal, coral, salt white.",
+            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/bks-riviera-piano.png?v=1781988150",
+            "bpm": 36,
+            "decay": 5
+          }
+        },
+        "piano_pulse": {
+          "type": "collection",
+          "settings": {
+            "name": "Pulse",
+            "note": "Mi",
+            "freq": 330,
+            "white": true,
+            "color": "#8888cc",
+            "url": "/collections/bks-pulse",
+            "quote": "Rhythm, vibration, visual motion.",
+            "products": "Puffer Jacket, Athletic Shorts, Sneakers",
+            "arm_season": "All seasons",
+            "arm_desc": "Lavender, optical blue, kinetic white.",
+            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/bks-pulse-piano.png?v=1781988156",
+            "bpm": 52,
+            "decay": 3
+          }
+        },
+        "piano_token": {
+          "type": "collection",
+          "settings": {
+            "name": "Token",
+            "note": "Fa",
+            "freq": 350,
+            "white": true,
+            "color": "#9828d8",
+            "url": "/collections/bks-token",
+            "quote": "Pixel, game, digital field — each piece a collectible.",
+            "products": "Puffer Jacket, Sneakers, Windbreaker",
+            "arm_season": "Autumn",
+            "arm_desc": "Electric violet, arcade green, pixel gold.",
+            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/bks-token-piano.png?v=1781988162",
+            "bpm": 48,
+            "decay": 4
+          }
+        },
+        "piano_flag": {
+          "type": "collection",
+          "settings": {
+            "name": "Flag",
+            "note": "Sol♭",
+            "freq": 370,
+            "white": false,
+            "color": "#c82020",
+            "url": "/collections/bks-flag",
+            "quote": "Abstract fields, coded colour, graphic blocks.",
+            "products": "Puffer Jacket, Sneakers, Hoodie",
+            "arm_season": "Spring",
+            "arm_desc": "Flag red, Dada magenta, stencil yellow.",
+            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/bks-flag-piano.png?v=1781988168",
+            "bpm": 38,
+            "decay": 5
+          }
+        },
+        "piano_origin": {
+          "type": "collection",
+          "settings": {
+            "name": "Origin",
+            "note": "Sol",
+            "freq": 390,
+            "white": true,
+            "color": "#489808",
+            "url": "/collections/bks-origin",
+            "quote": "Imaginary worlds, drawn stories, invented memory.",
+            "products": "Puffer Jacket, Hoodie, Sneakers",
+            "arm_season": "Spring/Summer",
+            "arm_desc": "Leaf green, warm stone, natural linen.",
+            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/bks-origin-piano.png?v=1781988175",
+            "bpm": 42,
+            "decay": 5
+          }
+        }
+      },
+      "block_order": ["piano_hours","piano_glyph","piano_marker","piano_riviera","piano_pulse","piano_token","piano_flag","piano_origin"],
+      "settings": {
+        "height": 620,
+        "fallboard_label": "BAK | ABO",
+        "hint_text": "Press a key to explore",
+        "back_label": "Back to piano"
+      }
+    },
     "bks_magazine": {
       "type": "bks-home-magazine",
       "blocks": {
@@ -128,5 +284,5 @@
       "settings": {}
     }
   },
-  "order": ["bks_video_hero","bks_magazine","bks_reviews","bks_trust"]
+  "order": ["bks_video_hero","bks_piano_hero","bks_magazine","bks_reviews","bks_trust"]
 }
