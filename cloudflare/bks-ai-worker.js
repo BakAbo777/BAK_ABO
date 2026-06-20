@@ -84,8 +84,10 @@ BKS Studio — wearable art, on demand. Venduto su bakabo.club (BakAbo container
 Modello: made-to-order, stampa edge-to-edge AOP (All Over Print). Produzione 7-14 giorni, spedizione 3-5 giorni.
 Fornitore principale: Printify. Nessun magazzino fisico — ogni pezzo è prodotto all'ordine.
 
-SISTEMA BKS (aggiornato 20/06/2026):
-- Tema live: TM04 v20/06/2026 (id 202392961362) — 20 file deployati, 8 sezioni attive
+SISTEMA BKS (aggiornato 20/06/2026 v2):
+- Tema live: TM04 v20/06/2026 (id 202392961362) — 22 file deployati
+- Homepage: Video Hero → Piano Hero → Magazine → Reviews → Trust Strip
+- Piano Hero: tastiera interattiva 8 tasti, ogni tasto = 1 collezione con artwork 1024×1024
 - Try-On Camerino: disponibile per tier Brass+ alla pagina /pages/bks-members
 - Members Area: /pages/bks-members — dashboard tier, wishlist, Try-On, accesso anticipato drop
 - AI Assistant embed: attivo su product pages + section dedicata

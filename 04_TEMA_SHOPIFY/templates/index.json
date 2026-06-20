@@ -9,6 +9,17 @@
         "cta_label": "Shop all collections"
       }
     },
+    "bks_editorial": {
+      "type": "bks-weekly-editorial",
+      "settings": {
+        "volume": 1,
+        "issue": 6,
+        "tagline": "Summer Edition 2026",
+        "cover_title": "Summer Catalog 2026 — Eight Collections. One Wardrobe.",
+        "cover_deck": "674 pieces designed by AI. Made to order, shipped worldwide. Each piece a unique expression of the BKS visual language across 8 editorial collections.",
+        "show_strip": true
+      }
+    },
     "bks_piano_hero": {
       "type": "bks-piano-hero",
       "blocks": {
@@ -284,5 +295,5 @@
       "settings": {}
     }
   },
-  "order": ["bks_video_hero","bks_piano_hero","bks_magazine","bks_reviews","bks_trust"]
+  "order": ["bks_video_hero","bks_editorial","bks_piano_hero","bks_magazine","bks_reviews","bks_trust"]
 }
