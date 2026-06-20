@@ -222,11 +222,13 @@ if !errorlevel! neq 0 (
 )
 
 echo.
-echo  %GRN%Master Panel avviato su http://127.0.0.1:8600%RST%
+echo  %GRN%Master Panel avviato su http://0.0.0.0:8600%RST%
+echo  %DIM%  Local:  http://127.0.0.1:8600%RST%
+echo  %DIM%  Tablet: http://192.168.1.103:8600%RST%
 echo  %DIM%Premi CTRL+C per fermare.%RST%
 echo.
 start /b "" cmd /c "timeout /t 2 /nobreak >nul && start http://127.0.0.1:8600"
-python -m streamlit run streamlit_master.py --server.port 8600 --server.address 127.0.0.1
+python -m streamlit run streamlit_master.py --server.port 8600 --server.address 0.0.0.0
 
 echo.
 echo  %DIM%Master fermato.%RST%

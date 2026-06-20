@@ -437,3 +437,38 @@ html:has(body.template-product) {
 .bks-tier-badge--brass  { background: rgba(212,160,48,.14);  color: var(--bks-tier-brass);  border: 1px solid rgba(212,160,48,.30); }
 .bks-tier-badge--silver { background: rgba(176,184,196,.14); color: var(--bks-tier-silver); border: 1px solid rgba(176,184,196,.30); }
 .bks-tier-badge--gold   { background: rgba(200,168,32,.14);  color: var(--bks-tier-gold);   border: 1px solid rgba(200,168,32,.30); }
+
+
+/* ══════════════════════════════════════════════════════════
+   5. MOBILE VARIANT PICKER — Roberto patch 20/06/2026
+   Ensures label wrap, line-height, and all tables scroll.
+   ══════════════════════════════════════════════════════════ */
+
+@media screen and (max-width: 749px) {
+  .template-product .product-form__input {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    width: 100%;
+  }
+  .template-product .product-form__input input[type="radio"] + label {
+    min-width: 44px;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.2;
+    padding: .75rem .9rem;
+  }
+  .template-product .product__description,
+  .template-product .rte,
+  .template-product .product__info-container {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .template-product table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

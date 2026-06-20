@@ -1,10 +1,17 @@
 /**
  * BKS Multi-Agent Worker — bks-agent.bakabo.workers.dev
- * QUESTO FILE è la sorgente di verità del Worker Cloudflare.
+ * SORGENTE DI VERITÀ — v20/06/2026
  * Per aggiornare: copia il contenuto nell'editor Cloudflare → Deploy.
  *
  * KV binding richiesto: BKS_AGENT_KV
  * Secrets: OPENAI_API_KEY, SHOPIFY_DOMAIN, SHOPIFY_TOKEN, SHOPIFY_API_VERSION
+ *
+ * Aggiornamenti 20/06/2026:
+ *   - Tier Metal: Lead/Iron/Brass/Silver/Gold (da subscriber/drop/archive)
+ *   - Agente Try-On Camerino (intent "tryon") — tier Brass+ required
+ *   - Personalizzazione: tier Brass/Silver/Gold (era Subscriber/Drop/Archive)
+ *   - BKS_BRAND: sistema completo, app 12 configurate, tema TM04 v20/06/2026
+ *   - Greeting aggiornato con menzione Try-On + tier Metal
  */
 
 var __defProp = Object.defineProperty;
@@ -76,48 +83,57 @@ var BKS_BRAND = `
 BKS Studio — wearable art, on demand. Venduto su bakabo.club (BakAbo container).
 Modello: made-to-order, stampa edge-to-edge AOP (All Over Print). Produzione 7-14 giorni, spedizione 3-5 giorni.
 Fornitore principale: Printify. Nessun magazzino fisico — ogni pezzo è prodotto all'ordine.
+
+SISTEMA BKS (aggiornato 20/06/2026):
+- Tema live: TM04 v20/06/2026 (id 202392961362) — 20 file deployati, 8 sezioni attive
+- Try-On Camerino: disponibile per tier Brass+ alla pagina /pages/bks-members
+- Members Area: /pages/bks-members — dashboard tier, wishlist, Try-On, accesso anticipato drop
+- AI Assistant embed: attivo su product pages + section dedicata
+- App attive: Search & Discovery (5 filtri, 19 sinonimi), Flow (9 workflow), Essential Announcer,
+  Selecty (EN/IT), Judge.me Reviews, Messaging (email automation)
+- Contatto: crew@bakabo.club
 `;
 
 var BKS_COLLECTIONS = `
-8 COLLEZIONI EDITORIALI BKS STUDIO:
+8 COLLEZIONI EDITORIALI BKS STUDIO (catalogo verificato 2026-06-20):
 
-1. BKS HOURS — Contemplazione urbana, registro iperrealista. AI-art in stile pittura iperrealista: luci città, silenzio interiore, vita quotidiana. Colore identitario: ambra #D4A96A. Tag: collection:hours.
+1. BKS HOURS #c8c4be — Contemplazione urbana, registro iperrealista. AI-art pittura iperrealista: luci città, silenzio interiore, vita quotidiana. Prodotti: puffer, sneakers, swim trunks, travel bag, hoodie, lounge pants, athletic shorts, racerback dress, tee. Tag: collection:hours.
 
-2. BKS GLYPH — DNA grafico del brand. Alfabeto visivo proprietario: simboli astratti, frammenti a mano, geroglifici inventati. Non decorazione, ma sistema codificato. Colore: bianco freddo #E8E8E4. Tag: collection:glyph.
+2. BKS GLYPH #d4a030 — DNA grafico del brand. Alfabeto visivo proprietario: simboli astratti, frammenti a mano, geroglifici inventati. Collezione molto ampia. Prodotti: puffer, swim trunks, swimwear, backpack, hoodie, travel bag, lounge pants, windbreaker, racerback dress, sneakers, athletic shorts. Tag: collection:glyph.
 
-3. BKS MARKER — Grafica urbana gestuale. Pennello, muro, segno. Energia street drawing: drip, stroke, color block, segni applicati a mano. Colore: verde organico #7DBF72. Tag: collection:marker.
+3. BKS MARKER #c04418 — Grafica urbana gestuale. Pennello, muro, segno: drip, stroke, color block. Prodotti: puffer, travel bag, swim trunks, racerback dress, lounge pants, hoodie, swimwear, sneakers, athletic shorts, windbreaker, tee. Tag: collection:marker.
 
-4. BKS RIVIERA — Resort mediterraneo permanente. Energia costiera: sale, sole, terracotta, blu profondo. Swimwear, camicie, accessori. Colore: azzurro oceano #7EB3D4. Tag: collection:riviera.
+4. BKS RIVIERA #0ca898 — Resort mediterraneo permanente. Sale, sole, terracotta, blu profondo. Prodotti: puffer, swimwear, swim trunks, racerback dress, travel bag, sneakers, athletic shorts, windbreaker. Tag: collection:riviera.
 
-5. BKS PULSE — Collezione ottica. Ritmo, vibrazione, moto visivo. Ripetizione geometrica, campi cinetici, griglie modulari. Colore: rosso intenso #E05C5C. Tag: collection:pulse.
+5. BKS PULSE #8888cc — Collezione ottica. Ritmo, vibrazione, moto visivo. Ripetizione geometrica, campi cinetici. Prodotti: puffer, racerback dress, swim trunks, swimwear, sneakers, flip flops, travel bag, hoodie, windbreaker, lounge pants, athletic shorts. Tag: collection:pulse.
 
-6. BKS TOKEN — Collezione arcade. Pixel, game, campo digitale. Low-bit visual language, colore elettronico kaleidoscopico. Ogni pezzo è un oggetto collezionabile. Colore: oro saturno #F0C84A. Tag: collection:token.
+6. BKS TOKEN #9828d8 — Collezione arcade. Pixel, game, campo digitale. Low-bit visual language, colore elettronico. Prodotti: puffer, sneakers, windbreaker, swim trunks, racerback dress, athletic shorts. Tag: collection:token.
 
-7. BKS FLAG — Pop-collage. Campi astratti, colore codificato, blocchi grafici. Composizioni da piani colore, superfici stencil, bandiere inventate. Energia Dada. Colore: viola/magenta #C97AB8. Tag: collection:flag.
+7. BKS FLAG #c82020 — Pop-collage. Campi astratti, colore codificato, blocchi grafici. Energia Dada. Prodotti: puffer, racerback dress, hoodie, sneakers, swim trunks, windbreaker, flip flops, travel bag, lounge pants, athletic shorts. Tag: collection:flag.
 
-8. BKS ORIGIN (ex Folklore) — Collezione figurativa. Mondi immaginari, storie disegnate, memoria inventata. Animali da favola, archetipi da giardino, illustrazione flat. Mai preso in prestito. Colore: dune #C9B79C. Tag: collection:origin.
+8. BKS ORIGIN #489808 — COLLEZIONE PIÙ AMPIA (33 prodotti, serie naif). Mondi immaginari, storie disegnate, memoria inventata. Illustrazione flat, figure organiche. Prodotti: puffer(9), hoodie(5), sneakers(5), swim trunks(3), racerback dress(3), lounge pants(3), windbreaker(2), swimwear, travel bag, athletic shorts. Tag: collection:origin.
 `;
 
 var BKS_PRODUCTS = `
 TIPI PRODOTTO ATTIVI:
 - Sneakers (all-over print, graphic low-top)
 - Swim Trunks (quick-dry, edge-to-edge)
-- One-Piece Swimsuit
-- Puffer Jacket (quilted outerwear)
+- Swimwear / One-Piece Swimsuit
+- Puffer Jacket (AOP quilted outerwear)
 - Windbreaker (technical shell)
 - Athletic Shorts (long cut)
 - Lounge Pants
 - Pullover Hoodie
 - Racerback Dress
-- Travel Bag (duffel impermeabile)
-- Backpack (13L multi-compartment)
+- Travel Bag (impermeabile)
+- Backpack (multi-compartment)
 - Flip Flop
-- Cozy Slipper
-- Women's Tee (cut-and-sew)
+- T-Shirt
 
 POLICY CHIAVE:
 - Resi: 30 giorni dalla consegna
-- Personalizzazione testo: disponibile per tier Subscriber/Drop/Archive. Costo +€15.
+- Personalizzazione testo: disponibile per tier Brass/Silver/Gold. Costo +€15.
+- Try-On Camerino virtuale: disponibile per tier Brass+ (3+ ordini)
 - EU Representative: presente
 - Nessun GTIN — made-to-order custom product
 - Contatto: crew@bakabo.club
@@ -179,12 +195,12 @@ __name(catalogAgent, "catalogAgent");
 
 async function customAgent({ message, customerProfile, history, catalog, env }) {
   const tier    = customerProfile?.tier ?? "none";
-  const allowed = ["subscriber", "drop", "archive"].includes(tier);
+  const allowed = ["brass", "silver", "gold"].includes(tier);
   if (!allowed) {
-    return {
-      reply: "La personalizzazione prodotti è disponibile per i clienti BKS registrati. Crea un account su bakabo.club per accedere.",
-      resolved: true, escalate: false, sentiment: "neutral",
-    };
+    const msg = tier === "none"
+      ? "La personalizzazione è disponibile per i membri BKS Brass e superiori. Crea un account e completa almeno 3 ordini per sbloccare questo servizio."
+      : `La personalizzazione richiede il tier Brass (3+ ordini). Il tuo tier attuale è ${tier.charAt(0).toUpperCase() + tier.slice(1)}. Continua a ordinare per salire di livello!`;
+    return { reply: msg, resolved: true, escalate: false, sentiment: "neutral" };
   }
   const system = `Sei il BKS Customization Agent.
 Gestisci richieste di personalizzazione prodotti BKS: testo su fronte, retro o manica.
@@ -221,17 +237,35 @@ __name(supportAgent, "supportAgent");
 async function tierAgent({ message, customerProfile, env }) {
   const tier = customerProfile?.tier ?? "none";
   const info = {
-    none:       "Non sei ancora un membro BKS. Completa il tuo primo acquisto su bakabo.club per accedere al tier Subscriber e sbloccare accesso anticipato ai drop.",
-    subscriber: "Sei BKS Subscriber — accesso anticipato ai drop, wishlist riservata. Tier successivo: Drop (acquisto ricorrente).",
-    drop:       "Sei BKS Drop Member — drop exclusives, MTO tracker in tempo reale e archivio collezioni precedenti. Tier successivo: Archive.",
-    archive:    "Sei BKS Archive — massimo accesso: prompt library, pattern rifiutati, early access assoluto, personalizzazione testo prioritaria (+€15 standard).",
+    none:   "Non sei ancora un membro BKS. Crea un account su bakabo.club — al primo acquisto diventi Lead ◎ e accedi alla wishlist e alla newsletter esclusiva.",
+    lead:   "Sei BKS Lead ◎ — benvenuto nel club. Hai accesso alla wishlist e alla newsletter. Completa 1-2 ordini per salire a Iron ⬡ e sbloccare le raccomandazioni AI personalizzate.",
+    iron:   "Sei BKS Iron ⬡ — storico taglie attivo, raccomandazioni AI di base. Prossimo tier: Brass ◈ (3+ ordini) — sblocchi il Try-On Camerino e l'accesso anticipato ai drop di 48h.",
+    brass:  "Sei BKS Brass ◈ — AI Personal Shopper attivo, Try-On Camerino disponibile (/pages/bks-members), accesso anticipato ai drop +48h. Prossimo tier: Silver ◇ (6+ ordini).",
+    silver: "Sei BKS Silver ◇ — drop curati con accesso +24h, archivio completo collezioni, personalizzazione testo avanzata (+€15). Prossimo tier: Gold ✦ (11+ ordini).",
+    gold:   "Sei BKS Gold ✦ — massimo accesso: drop VIP privati, curation white-glove, co-creazione con BKS Studio. Sei al vertice del sistema Metal.",
   };
   return { reply: info[tier] || info.none, resolved: true, escalate: false, sentiment: "neutral" };
 }
 __name(tierAgent, "tierAgent");
 
+async function tryonAgent({ message, customerProfile, env }) {
+  const tier = customerProfile?.tier ?? "none";
+  const eligible = ["brass", "silver", "gold"].includes(tier);
+  if (!eligible) {
+    const needed = tier === "none" || tier === "lead"
+      ? "Sblocca il Try-On Camerino completando 3 ordini su bakabo.club (tier Brass ◈)."
+      : "Tier Iron ⬡ non include ancora il Try-On. Completa 3 ordini totali per salire a Brass ◈ e accedere.";
+    return { reply: needed, resolved: true, escalate: false, sentiment: "neutral" };
+  }
+  return {
+    reply: `Il Try-On Camerino BKS è disponibile per il tuo tier ${tier.charAt(0).toUpperCase() + tier.slice(1)} ✦\n\nAccedi da: bakabo.club/pages/bks-members → tab Try-On.\nPuoi provare virtualmente tutti i capi attivi del catalogo BKS. Se hai bisogno di supporto: crew@bakabo.club`,
+    resolved: true, escalate: false, sentiment: "positive",
+  };
+}
+__name(tryonAgent, "tryonAgent");
+
 // ── evaluator.js ─────────────────────────────────────────────────────────────
-var AGENTS    = ["catalog", "custom", "support", "tier", "orchestrator"];
+var AGENTS    = ["catalog", "custom", "support", "tier", "tryon", "orchestrator"];
 var THRESHOLD = 60;
 
 function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
@@ -286,10 +320,11 @@ async function classifyIntent(env, message) {
       messages: [{
         role: "system",
         content: `Classifica il messaggio in UNO di questi intent (rispondi SOLO con il nome):
-catalog       → domande su prodotti, collezioni, prezzi, disponibilità
+catalog       → domande su prodotti, collezioni, prezzi, disponibilità, Try-On
 customization → richieste di personalizzazione, testo su capo, custom order
-support       → ordini, spedizioni, resi, rimborsi, problemi
-tier          → domande sul proprio tier/membership BKS
+support       → ordini, spedizioni, resi, rimborsi, problemi tecnici
+tier          → domande sul proprio tier/membership BKS, livello Metal, sblocchi
+tryon         → richiesta accesso Try-On Camerino, virtual fitting
 greeting      → saluti generici senza richiesta specifica`,
       }, { role: "user", content: message }],
     }),
@@ -304,7 +339,8 @@ async function route(intent, context) {
     case "catalog":       return catalogAgent(context);
     case "customization": return customAgent(context);
     case "tier":          return tierAgent(context);
-    case "greeting":      return { reply: "Ciao! Come posso aiutarti? Puoi chiedermi info su prodotti BKS, personalizzazioni, ordini o il tuo tier membership.", resolved: true, escalate: false, sentiment: "neutral" };
+    case "tryon":         return tryonAgent(context);
+    case "greeting":      return { reply: "Ciao! Sono l'assistente BKS. Posso aiutarti con prodotti, collezioni, il tuo tier Metal, il Try-On Camerino, personalizzazioni o ordini.", resolved: true, escalate: false, sentiment: "neutral" };
     default:              return supportAgent(context);
   }
 }

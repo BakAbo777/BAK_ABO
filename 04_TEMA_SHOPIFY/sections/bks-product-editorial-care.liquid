@@ -9,9 +9,11 @@
   assign bks_design = product.metafields.bks.design.value | default: product.title
   assign bks_series = product.metafields.bks.series.value | default: 'BKS Series'
   assign bks_drop = product.metafields.bks.drop.value | default: 'Current drop'
-  assign care_text = product.metafields.shopify['care-instructions'].value | default: section.settings.default_care
-  assign fallback_size = product.metafields.shopify.size.value | default: product.metafields.shopify['shoe-size'].value | default: product.metafields.shopify['accessory-size'].value
-  assign fallback_color = product.metafields.shopify['color-pattern'].value
+  comment shopify.* metafields are list.metaobject_reference — outputting .value causes MetaobjectListDrop
+  endcomment
+  assign care_text = section.settings.default_care
+  assign fallback_size = ''
+  assign fallback_color = ''
 %}
 
 {% assign size_values = '' %}

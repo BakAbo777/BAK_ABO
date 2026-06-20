@@ -59,9 +59,9 @@
     padding: 0 clamp(16px,3vw,48px);
     height: 64px;
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
-    gap: 16px;
+    gap: clamp(16px,2.5vw,40px);
   }
   /* ── LEFT NAV ───────────────────────────────────────────── */
   .bks-gh__nav {
@@ -86,7 +86,7 @@
   /* ── LOGO ───────────────────────────────────────────────── */
   .bks-gh__logo {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
   }
   .bks-gh__logo a {
@@ -244,8 +244,9 @@
     .bks-gh__hamburger { display: flex; }
     .bks-gh__inner {
       grid-template-columns: auto 1fr auto;
+      gap: 8px;
     }
-    .bks-gh__logo { justify-content: center; }
+    .bks-gh__logo { justify-content: flex-start; }
   }
   /* ── MEMBER RING — cerchio oro ──────────────────────────── */
   @keyframes bks-ring-pulse {
@@ -317,7 +318,21 @@
 <header class="bks-gh" id="bks-global-header" role="banner">
   <div class="bks-gh__inner">
 
-    {%- comment -%} LEFT: primary nav (desktop) + hamburger (mobile) {%- endcomment -%}
+    {%- comment -%} LEFT: logo {%- endcomment -%}
+    <div class="bks-gh__logo">
+      <a href="{{ routes.root_url }}" aria-label="BAKABO — home">
+        <img
+          src="{{ 'bakabo-logo-official.png' | asset_url }}"
+          alt="BAKABO"
+          loading="eager"
+          width="160"
+          height="44"
+          style="height:40px;width:auto;"
+        >
+      </a>
+    </div>
+
+    {%- comment -%} CENTER: primary nav (desktop) + hamburger (mobile) {%- endcomment -%}
     <div style="display:flex;align-items:center;">
       <button class="bks-gh__hamburger bks-gh__actions" id="bks-menu-toggle" aria-label="Open menu" aria-expanded="false"
               style="justify-content:flex-start;width:auto;">
@@ -435,20 +450,6 @@
         .bks-gh__dd-panel { display: none; }
       }
     </style>
-
-    {%- comment -%} CENTER: logo {%- endcomment -%}
-    <div class="bks-gh__logo">
-      <a href="{{ routes.root_url }}" aria-label="BAKABO — home">
-        <img
-          src="{{ 'bakabo-logo-official.png' | asset_url }}"
-          alt="BAKABO"
-          loading="eager"
-          width="160"
-          height="44"
-          style="height:40px;width:auto;"
-        >
-      </a>
-    </div>
 
     {%- comment -%} RIGHT: language + search + cart {%- endcomment -%}
     <div class="bks-gh__actions">

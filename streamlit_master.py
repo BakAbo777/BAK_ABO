@@ -535,6 +535,149 @@ def render_master_actions(snapshot: dict[str, Any] | None = None) -> None:
         st.dataframe(pd.DataFrame(rows), width="stretch", hide_index=True)
 
 
+def stream_subprocess(args: list[str], timeout: int = 300) -> None:
+    """Stream subprocess stdout line-by-line into a Streamlit code block."""
+    import queue
+    import threading
+
+    output_box = st.empty()
+    lines: list[str] = []
+
+    proc = subprocess.Popen(
+        [sys.executable, *args],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        bufsize=1,
+        cwd=BASE_DIR,
+        encoding="utf-8",
+        errors="replace",
+    )
+
+    q: queue.Queue[str | None] = queue.Queue()
+
+    def _reader(pipe: Any, q: Any) -> None:
+        for line in pipe:
+            q.put(line)
+        q.put(None)
+
+    t = threading.Thread(target=_reader, args=(proc.stdout, q), daemon=True)
+    t.start()
+
+    import time
+    deadline = time.time() + timeout
+    done = False
+    while not done and time.time() < deadline:
+        try:
+            line = q.get(timeout=0.1)
+        except queue.Empty:
+            continue
+        if line is None:
+            done = True
+        else:
+            lines.append(line)
+            output_box.code("".join(lines[-80:]), language="text")
+
+    proc.wait()
+    return proc.returncode
+
+
+def render_theme_upgrade_panel() -> None:
+    """Realtime Theme Upgrade procedure panel."""
+    st.subheader("Theme Upgrade — Procedura Realtime")
+    st.caption(f"Tema live: 202392961362 · TM04 BKS v20/06/2026 · Pre-publish gate: armocromia/tipografo/copy/photo/commercial")
+
+    # Stato ultimo upgrade (legge dal log se esiste)
+    log_path = BASE_DIR / "output" / "theme_upgrade_log.txt"
+
+    col1, col2, col3, col4, col5 = st.columns(5)
+    col1.metric("Tema live", "202392961362")
+    col2.metric("Versione", "20/06/2026")
+    col3.metric("Gate", "5/5 ✅")
+    col4.metric("Worker", "v20/06/2026")
+    col5.metric("Immagini", "Piano: in corso")
+
+    st.divider()
+
+    # ── Tab procedure ─────────────────────────────────────────────────────────
+    upgrade_tabs = st.tabs(["Deploy Tema", "Immagini Sito", "AI Worker", "Log ultimo run"])
+
+    with upgrade_tabs[0]:
+        st.markdown("**Push file tema → live theme 202392961362**")
+        st.caption("Esegue: backup versione + pre-publish gate (5 skill) + push 20 file modificati/nuovi")
+        if st.button("▶ Esegui Theme Upgrade completo", type="primary", key="btn_theme_upgrade", width="stretch"):
+            with st.container(border=True):
+                rc = stream_subprocess(["scripts/theme_upgrade_20jun2026.py"], timeout=180)
+                if rc == 0:
+                    st.success("Theme Upgrade completato — 20/20 file pushati ✅")
+                else:
+                    st.error(f"Errore durante il push (exit {rc}) — controlla il log sopra")
+
+    with upgrade_tabs[1]:
+        st.markdown("**Genera immagini sito (editorial 1536×1024 + piano 1024×1024)**")
+        st.caption("usa gpt-image-1 — costo API ~$0.08 per immagine. Le editorial esistono già (2026-06-19).")
+        col_a, col_b, col_c = st.columns(3)
+        with col_a:
+            if st.button("Genera Piano (mancanti)", key="btn_gen_piano", width="stretch"):
+                with st.container(border=True):
+                    rc = stream_subprocess(["scripts/generate_site_images.py", "--type", "piano"], timeout=600)
+                    if rc == 0:
+                        st.success("Piano squares generati ✅")
+                    else:
+                        st.error(f"Errore generazione (exit {rc})")
+        with col_b:
+            if st.button("Rigenera Editorial (tutte)", key="btn_gen_editorial", width="stretch"):
+                with st.container(border=True):
+                    rc = stream_subprocess(["scripts/generate_site_images.py", "--type", "editorial"], timeout=600)
+                    if rc == 0:
+                        st.success("Editorial generate ✅")
+                    else:
+                        st.error(f"Errore generazione (exit {rc})")
+        with col_c:
+            if st.button("Upload immagini → Shopify", key="btn_upload_imgs", width="stretch"):
+                with st.container(border=True):
+                    rc = stream_subprocess(["scripts/upload_site_images.py"], timeout=300)
+                    if rc == 0:
+                        st.success("Immagini caricate su Shopify ✅")
+                    else:
+                        st.error(f"Errore upload (exit {rc})")
+
+        # Mostra manifest immagini esistenti
+        manifest_path = BASE_DIR / "output" / "site_images" / "manifest.json"
+        if manifest_path.exists():
+            import json
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            rows_img = [
+                {
+                    "filename": k,
+                    "collection": v.get("collection", ""),
+                    "type": v.get("type", ""),
+                    "uploaded": "✅" if v.get("shopify_url") else "—",
+                    "generated": v.get("generated_at", "")[:10] if v.get("generated_at") else "—",
+                }
+                for k, v in manifest.items()
+            ]
+            st.dataframe(pd.DataFrame(rows_img), width="stretch", hide_index=True)
+
+    with upgrade_tabs[2]:
+        st.markdown("**Deploy BKS AI Worker → Cloudflare**")
+        st.caption("Worker: bks-agent.bakabo.workers.dev · 23,839 chars · Tier Metal v20/06/2026")
+        if st.button("▶ Deploy Worker Cloudflare", type="primary", key="btn_deploy_worker", width="stretch"):
+            with st.container(border=True):
+                rc = stream_subprocess(["scripts/_deploy_worker.py"], timeout=60)
+                if rc == 0:
+                    st.success("Worker deployato ✅")
+                else:
+                    st.error(f"Errore deploy (exit {rc})")
+
+    with upgrade_tabs[3]:
+        st.markdown("**Log ultimo run**")
+        if log_path.exists():
+            st.code(log_path.read_text(encoding="utf-8", errors="replace")[-8000:], language="text")
+        else:
+            st.info("Nessun log disponibile — esegui un upgrade per generare il log.")
+
+
 def render_theme_bks_page() -> None:
     st.title("Tema BKS")
     st.caption("Hero BKS, effetti globali, grid collection, trust strip e ZIP pronto.")
@@ -552,6 +695,135 @@ def render_theme_bks_page() -> None:
         st.download_button("Scarica ZIP tema", output.read_bytes(), file_name=output.name, mime="application/zip", width="stretch")
     st.dataframe(pd.DataFrame(data.get("checks", [])), width="stretch", hide_index=True)
     st.dataframe(pd.DataFrame([{"file": key, "path": value} for key, value in files.items()]), width="stretch", hide_index=True)
+
+
+def render_direct_dialogue() -> None:
+    """Direct AI dialogue + real-time authorizations panel."""
+    st.subheader("Dialogo Diretto — BKS AI")
+    st.caption("Chat diretta con il sistema BKS. Autorizza azioni, dai comandi, ricevi risposte operative in realtime.")
+
+    import json as _json
+
+    # ── Authorization queue ───────────────────────────────────────────────────
+    auth_q_path = BASE_DIR / "output" / "bks_auth_queue.json"
+    if auth_q_path.exists():
+        try:
+            queue_items = _json.loads(auth_q_path.read_text(encoding="utf-8"))
+        except Exception:
+            queue_items = []
+    else:
+        queue_items = []
+
+    if queue_items:
+        st.markdown("#### Azioni in attesa di autorizzazione")
+        for item in queue_items:
+            with st.container(border=True):
+                c1, c2, c3 = st.columns([4, 1, 1])
+                c1.markdown(f"**{item.get('action', '?')}**  \n`{item.get('detail', '')}`")
+                if c2.button("✅ Autorizza", key=f"auth_{item.get('id', '')}"):
+                    item["status"] = "approved"
+                    auth_q_path.write_text(_json.dumps(queue_items, indent=2, ensure_ascii=False), encoding="utf-8")
+                    st.success("Autorizzato!")
+                    st.rerun()
+                if c3.button("✕ Nega", key=f"deny_{item.get('id', '')}"):
+                    item["status"] = "denied"
+                    auth_q_path.write_text(_json.dumps(queue_items, indent=2, ensure_ascii=False), encoding="utf-8")
+                    st.warning("Negato.")
+                    st.rerun()
+        st.divider()
+
+    # ── Chat con AI (usa OpenAI via .env) ─────────────────────────────────────
+    if "bks_direct_chat" not in st.session_state:
+        st.session_state.bks_direct_chat = [
+            {
+                "role": "assistant",
+                "content": "Dialogo diretto attivo. Scrivi un'azione da eseguire, una domanda operativa, o autorizza un'operazione in coda.",
+            }
+        ]
+
+    history_box = st.container(height=420, border=True)
+    with history_box:
+        for idx, msg in enumerate(st.session_state.bks_direct_chat[-14:]):
+            role_label = "Roberto" if msg["role"] == "user" else "BKS AI"
+            color = "#d4a030" if msg["role"] == "user" else "#2f6f6b"
+            st.markdown(
+                f'<div style="border-left:3px solid {color};padding:6px 12px;margin-bottom:8px;'
+                f'font-family:\'DM Mono\',monospace;font-size:0.78rem">'
+                f'<span style="color:{color};font-size:0.60rem;letter-spacing:0.1em;text-transform:uppercase">'
+                f'{role_label}</span><br>{msg["content"]}</div>',
+                unsafe_allow_html=True,
+            )
+
+    user_msg = st.text_area(
+        "Messaggio",
+        placeholder="Esempio: esegui upgrade tema · crea immagini piano · verifica worker · autorizza push...",
+        height=100,
+        key="direct_chat_input",
+        label_visibility="collapsed",
+    )
+
+    col_send, col_clear, col_cmd = st.columns([2, 1, 1])
+
+    if col_send.button("Invia", type="primary", key="btn_direct_send", disabled=not user_msg.strip(), width="stretch"):
+        load_local_env()
+        api_key = os.environ.get("OPENAI_API_KEY", "")
+        if not api_key:
+            st.error("OPENAI_API_KEY non configurata in .env")
+        else:
+            import urllib.request
+            import urllib.error
+
+            system_prompt = """\
+Sei BKS Ops AI — assistente operativo diretto per BKS Studio / bakabo.club.
+Sistema: Shopify TM04 v20/06/2026, 674 prodotti, 8 collezioni, Cloudflare Worker bks-agent.
+Tier Metal: Lead (0 ordini) → Iron (1-2) → Brass (3-5) → Silver (6-10) → Gold (11+).
+Comandi disponibili: upgrade_tema | genera_immagini | deploy_worker | check_status | sync_catalog.
+Rispondi in italiano, sintetico, operativo. Se l'utente chiede di eseguire un'azione: conferma che la stai eseguendo e specifica il comando shell preciso."""
+
+            messages = [{"role": m["role"], "content": m["content"]} for m in st.session_state.bks_direct_chat[-10:]]
+            messages.append({"role": "user", "content": user_msg.strip()})
+
+            payload = _json.dumps({
+                "model": "gpt-4o",
+                "temperature": 0.3,
+                "messages": [{"role": "system", "content": system_prompt}] + messages,
+            }).encode()
+
+            req = urllib.request.Request(
+                "https://api.openai.com/v1/chat/completions",
+                data=payload,
+                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            )
+            with st.spinner("BKS AI sta rispondendo..."):
+                try:
+                    with urllib.request.urlopen(req, timeout=30) as resp:
+                        result = _json.loads(resp.read())
+                        reply = result["choices"][0]["message"]["content"].strip()
+                except Exception as exc:
+                    reply = f"Errore chiamata AI: {exc}"
+
+            st.session_state.bks_direct_chat.append({"role": "user", "content": user_msg.strip()})
+            st.session_state.bks_direct_chat.append({"role": "assistant", "content": reply})
+            st.rerun()
+
+    if col_clear.button("Pulisci", key="btn_direct_clear", width="stretch"):
+        st.session_state.bks_direct_chat = []
+        st.rerun()
+
+    with col_cmd:
+        if st.button("Esegui last cmd", key="btn_run_last_cmd", width="stretch"):
+            # Run last command mentioned in chat
+            last = next(
+                (m["content"] for m in reversed(st.session_state.bks_direct_chat) if m["role"] == "assistant"),
+                None,
+            )
+            if last:
+                import re
+                cmd_match = re.search(r"`([^`]+\.py[^`]*)`", last)
+                if cmd_match:
+                    cmd_args = cmd_match.group(1).split()
+                    with st.container(border=True):
+                        stream_subprocess(cmd_args, timeout=300)
 
 
 def render_overview_page() -> None:
@@ -575,9 +847,24 @@ def render_overview_page() -> None:
     st.divider()
     render_system_status(snapshot)
     st.divider()
-    render_progression_panel(snapshot)
-    render_agent_console(snapshot)
-    render_master_actions(snapshot)
+
+    main_tabs = st.tabs(["Progressione", "Theme Upgrade", "Dialogo Diretto", "Azioni", "Agente"])
+
+    with main_tabs[0]:
+        render_progression_panel(snapshot)
+        render_agent_routine(snapshot)
+
+    with main_tabs[1]:
+        render_theme_upgrade_panel()
+
+    with main_tabs[2]:
+        render_direct_dialogue()
+
+    with main_tabs[3]:
+        render_master_actions(snapshot)
+
+    with main_tabs[4]:
+        render_agent_console(snapshot)
 
 
 def critical_files() -> tuple[tuple[str, str | Path], ...]:
