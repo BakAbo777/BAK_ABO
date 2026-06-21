@@ -7,8 +7,8 @@ Modalità:
 import os, sys, time, requests, urllib3, argparse
 from pathlib import Path
 
-sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-urllib3.disable_warnings()
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # type: ignore
+urllib3.disable_warnings()  # type: ignore
 
 ROOT = Path(__file__).resolve().parent.parent
 for raw in (ROOT / ".env").read_text(encoding="utf-8").splitlines():

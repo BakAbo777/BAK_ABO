@@ -39,7 +39,7 @@ def _post(url: str, **kwargs) -> requests.Response:
         return requests.post(url, **kwargs, timeout=30)
     except requests.exceptions.SSLError:
         if not _ssl_warned:
-            urllib3.disable_warnings()
+            urllib3.disable_warnings()  # type: ignore
             _ssl_warned = True
         return requests.post(url, **kwargs, timeout=30, verify=False)
 
@@ -47,14 +47,14 @@ def _get(url: str, **kwargs) -> requests.Response:
     try:
         return requests.get(url, **kwargs, timeout=30)
     except requests.exceptions.SSLError:
-        urllib3.disable_warnings()
+        urllib3.disable_warnings()  # type: ignore
         return requests.get(url, **kwargs, timeout=30, verify=False)
 
 def _put(url: str, **kwargs) -> requests.Response:
     try:
         return requests.put(url, **kwargs, timeout=30)
     except requests.exceptions.SSLError:
-        urllib3.disable_warnings()
+        urllib3.disable_warnings()  # type: ignore
         return requests.put(url, **kwargs, timeout=30, verify=False)
 
 def gql(query: str, variables: dict) -> dict:

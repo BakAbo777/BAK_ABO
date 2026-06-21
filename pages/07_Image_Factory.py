@@ -1,8 +1,9 @@
 """BKS Studio — Image Factory Launcher
 Avvia la Image Factory come app Streamlit separata e fornisce link diretto.
+Include Printify Library sync e catalog image preparation.
 """
 from __future__ import annotations
-import sys, subprocess
+import json, sys, subprocess
 from pathlib import Path
 
 import streamlit as st
@@ -132,6 +133,156 @@ for i, (icon, name, desc) in enumerate(modules):
         status = "🟢" if exists else "⚪"
         st.markdown(f"{status} {icon} **{name}**")
         st.caption(desc)
+
+st.divider()
+
+# ── Printify Library ─────────────────────────────────────────────────────────
+st.subheader("Printify Library — Catalog Images")
+st.caption("Scarica texture, blueprint e mockup da Printify. Usa i mockup originali come immagini catalogo — nessuna modifica.")
+
+_pfy_tab_sync, _pfy_tab_ai, _pfy_tab_prepare, _pfy_tab_status = st.tabs(["Sync Library", "Generate AI", "Prepare (no AI)", "Status DB"])
+
+with _pfy_tab_sync:
+    st.markdown("""
+**Scarica da Printify:**
+- `textures/` — artwork caricati (designs applicati ai prodotti)
+- `mockups/` — immagini mockup originali per ogni prodotto
+- `blueprints` — modelli prodotto (brand, modello, dimensioni)
+""")
+    _sc1, _sc2, _sc3 = st.columns(3)
+    with _sc1:
+        _sync_skip_dl = st.checkbox("Solo catalogo (no download)", key="pfy_skip_dl")
+    with _sc2:
+        _sync_col = st.selectbox(
+            "Collezione", ["tutte", "bks-hours", "bks-glyph", "bks-marker", "bks-riviera",
+                           "bks-pulse", "bks-token", "bks-flag", "bks-origin"],
+            key="pfy_sync_col"
+        )
+    with _sc3:
+        _sync_mode = st.selectbox("Tipo sync", ["tutto", "solo upload/texture", "solo prodotti+blueprint"], key="pfy_sync_mode")
+
+    if st.button("⬇ Sync Printify Library", type="primary", use_container_width=True, key="pfy_sync"):
+        _cmd_sync = [sys.executable, str(BASE_DIR / "scripts" / "sync_printify_library.py")]
+        if _sync_skip_dl:
+            _cmd_sync.append("--skip-download")
+        if _sync_col != "tutte":
+            _cmd_sync += ["--collection", _sync_col]
+        if _sync_mode == "solo upload/texture":
+            _cmd_sync.append("--uploads-only")
+        elif _sync_mode == "solo prodotti+blueprint":
+            _cmd_sync.append("--products-only")
+        with st.spinner("Sync in corso…"):
+            _r = subprocess.run(_cmd_sync, capture_output=True, text=True, cwd=str(BASE_DIR),
+                                env={**__import__("os").environ, "PYTHONUTF8": "1"})
+        st.success("Completato.") if _r.returncode == 0 else st.error("Errore")
+        st.text(_r.stdout[-1000:] if _r.stdout else "")
+        if _r.stderr:
+            st.text(_r.stderr[-300:])
+
+with _pfy_tab_ai:
+    st.markdown("""
+**AI libera su:** inquadratura, ambientazione, luce, composizione, atmosfera
+**AI preserva:** tipo di oggetto · texture/artwork del prodotto · materiali · colori
+**Mai:** testo, loghi, label o typography sull'immagine
+""")
+    _ai1, _ai2, _ai3 = st.columns(3)
+    with _ai1:
+        _ai_col = st.selectbox(
+            "Collezione", ["tutte", "bks-hours", "bks-glyph", "bks-marker", "bks-riviera",
+                           "bks-pulse", "bks-token", "bks-flag", "bks-origin"],
+            key="ai_col"
+        )
+    with _ai2:
+        _ai_shots = st.selectbox("Shot per prodotto", [1, 2, 3, 4], index=1, key="ai_shots")
+    with _ai3:
+        _ai_force = st.checkbox("Rigenera esistenti", key="ai_force")
+        _ai_dry = st.checkbox("Dry run", key="ai_dry")
+
+    if st.button("🤖 Genera AI Catalog Images", type="primary", use_container_width=True, key="ai_gen"):
+        _cmd_ai = [sys.executable, str(BASE_DIR / "scripts" / "generate_catalog_images.py"),
+                   "--shots", str(_ai_shots)]
+        if _ai_col != "tutte":
+            _cmd_ai += ["--collection", _ai_col]
+        if _ai_force:
+            _cmd_ai.append("--force")
+        if _ai_dry:
+            _cmd_ai.append("--dry-run")
+        with st.spinner("Generazione AI in corso (gpt-image-1)…"):
+            _r_ai = subprocess.run(_cmd_ai, capture_output=True, text=True, cwd=str(BASE_DIR),
+                                   env={**__import__("os").environ, "PYTHONUTF8": "1"})
+        st.success("Completato.") if _r_ai.returncode == 0 else st.error("Errore")
+        st.text(_r_ai.stdout[-1200:] if _r_ai.stdout else "")
+        if _r_ai.stderr:
+            st.text(_r_ai.stderr[-300:])
+
+    # Show existing AI catalog images count
+    _ai_dir = BASE_DIR / "output" / "catalog_images"
+    if _ai_dir.exists():
+        _ai_count = sum(1 for _ in _ai_dir.rglob("*_ai_*.jpg"))
+        st.caption(f"Immagini AI generate: {_ai_count} file in output/catalog_images/")
+
+with _pfy_tab_prepare:
+    st.markdown("""
+Prepara le immagini catalogo dai mockup scaricati. **Nessuna modifica ai mockup originali.**
+Ridimensiona a 2000×2000 px max · JPEG 90% · salva in `output/catalog_images/`
+""")
+    _pc1, _pc2, _pc3 = st.columns(3)
+    with _pc1:
+        _prep_col = st.selectbox(
+            "Collezione", ["tutte", "bks-hours", "bks-glyph", "bks-marker", "bks-riviera",
+                           "bks-pulse", "bks-token", "bks-flag", "bks-origin"],
+            key="pfy_prep_col"
+        )
+    with _pc2:
+        _prep_upload = st.checkbox("Upload su Shopify", key="pfy_upload_shopify")
+    with _pc3:
+        _prep_dry = st.checkbox("Dry run", key="pfy_prep_dry")
+
+    if st.button("▶ Prepara Catalog Images", type="primary", use_container_width=True, key="pfy_prepare"):
+        _cmd_prep = [sys.executable, str(BASE_DIR / "scripts" / "prepare_catalog_images.py")]
+        if _prep_col != "tutte":
+            _cmd_prep += ["--collection", _prep_col]
+        if _prep_upload:
+            _cmd_prep.append("--upload-to-shopify")
+        if _prep_dry:
+            _cmd_prep.append("--dry-run")
+        with st.spinner("Preparazione in corso…"):
+            _r2 = subprocess.run(_cmd_prep, capture_output=True, text=True, cwd=str(BASE_DIR),
+                                 env={**__import__("os").environ, "PYTHONUTF8": "1"})
+        st.success("Completato.") if _r2.returncode == 0 else st.error("Errore")
+        st.text(_r2.stdout[-1000:] if _r2.stdout else "")
+
+with _pfy_tab_status:
+    try:
+        sys.path.insert(0, str(BASE_DIR))
+        from bks_assets import active_catalog_db
+        from ecommerce_automation import catalog_db as _cdb
+        _db_p = active_catalog_db()
+        _lib_s = _cdb.printify_library_summary(_db_p)
+        if _lib_s.get("ok"):
+            _lc1, _lc2, _lc3, _lc4 = st.columns(4)
+            _lc1.metric("Textures", _lib_s["uploads"], f"{_lib_s['uploads_downloaded']} scaricate")
+            _lc2.metric("Blueprints", _lib_s["blueprints"])
+            _lc3.metric("Prodotti", _lib_s["products"])
+            _lc4.metric("Con mockup", _lib_s["products_with_mockups"])
+            if _lib_s.get("by_collection"):
+                st.markdown("**Per collezione:**")
+                for _col, _cnt in _lib_s["by_collection"].items():
+                    st.text(f"  {_col}: {_cnt}")
+        else:
+            st.info("Libreria vuota — esegui Sync prima.")
+    except Exception as _e:
+        st.warning(f"DB non disponibile: {_e}")
+
+    _pfy_lib_dir = BASE_DIR / "output" / "printify_library"
+    if _pfy_lib_dir.exists():
+        _tex_count = len(list((_pfy_lib_dir / "textures").glob("*.*"))) if (_pfy_lib_dir / "textures").exists() else 0
+        _mok_count = sum(1 for _ in (_pfy_lib_dir / "mockups").rglob("*.jpg")) + \
+                     sum(1 for _ in (_pfy_lib_dir / "mockups").rglob("*.png")) \
+                     if (_pfy_lib_dir / "mockups").exists() else 0
+        st.caption(f"File su disco: {_tex_count} texture, {_mok_count} mockup")
+    else:
+        st.caption("Directory libreria non ancora creata.")
 
 st.divider()
 

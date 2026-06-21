@@ -16,7 +16,7 @@ TOKEN   = os.environ["SHOPIFY_ADMIN_TOKEN"]
 VERSION = os.environ.get("SHOPIFY_API_VERSION", "2025-01")
 BASE    = f"https://{DOMAIN}/admin/api/{VERSION}"
 HDR     = {"X-Shopify-Access-Token": TOKEN, "Content-Type": "application/json"}
-urllib3.disable_warnings()
+urllib3.disable_warnings()  # type: ignore
 
 THEME_DIR = ROOT / "04_TEMA_SHOPIFY"
 

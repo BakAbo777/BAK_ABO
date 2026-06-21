@@ -535,7 +535,7 @@ def render_master_actions(snapshot: dict[str, Any] | None = None) -> None:
         st.dataframe(pd.DataFrame(rows), width="stretch", hide_index=True)
 
 
-def stream_subprocess(args: list[str], timeout: int = 300) -> None:
+def stream_subprocess(args: list[str], timeout: int = 300) -> int | None:
     """Stream subprocess stdout line-by-line into a Streamlit code block."""
     import queue
     import threading
@@ -867,7 +867,7 @@ def render_overview_page() -> None:
         render_agent_console(snapshot)
 
 
-def critical_files() -> tuple[tuple[str, str | Path], ...]:
+def critical_files() -> tuple[tuple[str, str | Path | None], ...]:
     return (
         ("Catalogo attivo", active_catalog_csv()),
         ("Tema Shopify attivo", active_theme_zip()),
@@ -930,8 +930,8 @@ def read_live_audit() -> tuple[pd.DataFrame, dict[str, int]]:
         "ok": int(((statuses >= 200) & (statuses < 400)).sum()),
         "not_found": int((statuses == 404).sum()),
         "throttled": int((statuses == 429).sum()),
-        "expected_gtm": int((frame.get("expected_gtm", "") == "yes").sum()),
-        "legacy_gtm": int(frame.get("legacy_gtm", pd.Series(dtype=str)).astype(str).ne("").sum()),
+        "expected_gtm": int(frame["expected_gtm"].eq("yes").sum() if "expected_gtm" in frame.columns else 0),
+        "legacy_gtm": int(frame["legacy_gtm"].astype(str).ne("").sum() if "legacy_gtm" in frame.columns else 0),
     }
     return frame, summary
 
@@ -1111,7 +1111,7 @@ def render_asset_selectors() -> None:
             selected_theme = st.selectbox(
                 "Tema Shopify",
                 theme_options,
-                index=option_index(theme_options, current_theme),
+                index=option_index(theme_options, current_theme or theme_options[0]),
                 format_func=format_asset_option,
             )
             latest = latest_theme_zip()
@@ -1124,7 +1124,7 @@ def render_asset_selectors() -> None:
             selected_catalog = st.selectbox(
                 "Catalogo CSV",
                 catalog_options,
-                index=option_index(catalog_options, current_catalog),
+                index=option_index(catalog_options, current_catalog or catalog_options[0]),
                 format_func=format_asset_option,
             )
             latest = latest_catalog_csv()
@@ -1148,7 +1148,7 @@ def render_critical_files() -> None:
     st.dataframe(
         pd.DataFrame(
             [
-                {"nome": label, **file_info(relative)}
+                {"nome": label, **file_info(relative)} if relative is not None else {"nome": label, "file": "", "exists": False, "size_mb": "", "updated": ""}
                 for label, relative in critical_files()
             ]
         ),

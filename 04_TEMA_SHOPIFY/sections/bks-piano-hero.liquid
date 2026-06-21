@@ -11,6 +11,15 @@
   #shopify-section-{{ section.id }} .bks-piano-hero {
     height: {{ section.settings.height }}px;
   }
+  {%- if section.settings.background_image != blank or section.settings.background_image_url != blank -%}
+    {%- assign _bg_src = section.settings.background_image_url -%}
+    {%- if section.settings.background_image != blank -%}
+      {%- assign _bg_src = section.settings.background_image | image_url: width: 2400 -%}
+    {%- endif -%}
+    #shopify-section-{{ section.id }} .bks-piano-hero {
+      --bks-piano-bg: url('{{ _bg_src }}');
+    }
+  {%- endif -%}
 </style>
 
 <script id="bks-piano-data" type="application/json">
@@ -60,7 +69,12 @@
   </audio>
 {%- endfor -%}
 
-<div class="bks-piano-hero" data-section-id="{{ section.id }}">
+{%- assign _has_bg = false -%}
+{%- if section.settings.background_image != blank or section.settings.background_image_url != blank -%}
+  {%- assign _has_bg = true -%}
+{%- endif -%}
+
+<div class="bks-piano-hero" data-section-id="{{ section.id }}"{% if _has_bg %} data-bg="1" style="--bks-piano-bg: url('{% if section.settings.background_image != blank %}{{ section.settings.background_image | image_url: width: 2400 }}{% else %}{{ section.settings.background_image_url }}{% endif %}')"{% endif %}>
 
   <canvas id="bks-piano-canvas"
           aria-label="{{ 'BKS Studio — interactive keyboard: 8 collections as piano keys' | escape }}"
@@ -71,6 +85,10 @@
 
     <div id="bks-model-panel">
       <div id="bks-model-bg" aria-hidden="true"></div>
+      <div id="bks-panel-label" aria-hidden="true">
+        <div class="bks-pl-season"></div>
+        <div class="bks-pl-desc"></div>
+      </div>
 
       <div id="bks-mannequin" aria-hidden="true">
         <div id="bks-mq-head">
@@ -151,6 +169,22 @@
 {
   "name": "BKS Piano Hero",
   "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Section background image",
+      "info": "Upload a professional image (atelier, studio, piano closeup). A dark overlay is applied automatically."
+    },
+    {
+      "type": "text",
+      "id": "background_image_url",
+      "label": "Background image URL (CDN / R2)",
+      "info": "Alternative to the image picker: paste a direct HTTPS URL. Takes priority if background_image is also set."
+    },
     {
       "type": "header",
       "content": "Layout"

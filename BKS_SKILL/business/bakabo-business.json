@@ -1,10 +1,10 @@
 {
   "_meta": {
-    "version": "2.2",
-    "last_updated": "2026-06-19",
+    "version": "2.3",
+    "last_updated": "2026-06-20",
     "source": "COST_TABLE da bks_agent_dashboard.py (fonte autoritativa) + Printify API shipping sync",
     "note": "base_cost = costo reale Printify da COST_TABLE verificato. shipping_EU/US = da Printify API sync. Tutti i prezzi in USD.",
-    "alignment_verified": "2026-06-19 v2.2 — prezzi aggiornati: One-Piece Swimsuit tutti $55 (17 prodotti), Cozy Slipper $55 (US 50.1% EU 46.2%), Flip Flop $49 (US 59.8% EU 40.8%)"
+    "alignment_verified": "2026-06-20 v2.3 — tutti i puffer verificati $129 (29 prodotti, nessun repricing necessario). Woven Blanket non presente nel catalogo attivo. Cozy Slipper $55, Flip Flop $49, One-Piece $55: tutti OK. 202 prodotti attivi verificati."
   },
 
   "brand_positioning": {
@@ -310,10 +310,10 @@
         "base_cost_usd": 46.00,
         "shipping_EU_usd": 8.40,
         "shipping_US_usd": 9.99,
-        "retail_current_avg": 122.38,
-        "retail_min": 122.38,
-        "retail_max": 122.38,
-        "alerts": ["Margine EU = 54.2% con base $46 + ship $8.40 — OK ma sotto target 55-65%. Portare a $129 (APPROVED)"]
+        "retail_current_avg": 129.00,
+        "retail_min": 129.00,
+        "retail_max": 129.00,
+        "alerts": ["RISOLTO 2026-06-20: tutti 29 puffer a $129 (APPROVED). Margine EU = 57.6% con base $46 + ship $8.40. OK target 55-65%."]
       }
     ]
   },
@@ -322,7 +322,7 @@
     "_note": "Valori da APPROVED_PRICES BKS. min/target/max = prezzi approvati (35,39,45,49,55,59,65,69,75,79,85,89,95,99,105,109,115,119,125,129,135,139). EUR ≈ USD (stessa cifra). Aggiornato v2.0.",
     "approved_prices_usd": [35,39,45,49,55,59,65,69,75,79,85,89,95,99,105,109,115,119,125,129,135,139],
     "categories": [
-      { "name": "Cozy Slipper",         "min": 35,  "target": 45,  "max": 55,  "note": "URGENTE: attuale $32.20 → DRAFT. Riprezzare a $45 minimo" },
+      { "name": "Cozy Slipper",         "min": 35,  "target": 55,  "max": 55,  "note": "RISOLTO 2026-06-19: repriced $32.20→$55. EU 46.2%, US 50.1%." },
       { "name": "Flip Flop",            "min": 35,  "target": 45,  "max": 55,  "note": "Solo US/CA — EU shipping $14.99 rende margine negativo sotto $45" },
       { "name": "Women Cut&Sew Tee",    "min": 45,  "target": 55,  "max": 65  },
       { "name": "Racerback Dress",       "min": 55,  "target": 65,  "max": 75  },
@@ -395,46 +395,45 @@
 
   "critical_alerts": [
     {
-      "severity": "CRITICAL",
+      "severity": "RESOLVED",
+      "resolved_date": "2026-06-19",
       "product": "Cozy Slipper (BP:1095 PP:90)",
-      "issue": "Retail $32.20 → margine EU 7.7%, US 14.5% (base $15 + ship $13.59/$11.49). Entrambi sotto soglia 40%.",
-      "action": "DRAFT immediato. Riprezzare a $45 (APPROVED) → margine EU ~36%, US ~47%. Target $55.",
-      "calc": "net=$30.97 | EU cost=$28.59 | margin=7.7%"
+      "issue": "Retail $32.20 → margine EU 7.7%, US 14.5%. Entrambi sotto soglia 40%.",
+      "action": "RISOLTO: repriced $32.20→$55. US 50.1%, EU 46.2%. Verificato 2026-06-20."
     },
     {
-      "severity": "CRITICAL",
+      "severity": "RESOLVED",
+      "resolved_date": "2026-06-19",
       "product": "Flip Flop (BP:587 PP:1)",
-      "issue": "Retail $19.70 → margine EU NEGATIVO: base $13 + ship EU $14.99 = $27.99 > net $18.83",
-      "action": "Disabilitare vendita EU o riprezzare a min $45 (APPROVED). Solo US/CA a $35+.",
-      "calc": "net=$18.83 | EU cost=$27.99 | margin=-48%"
+      "issue": "Retail $19.70 → margine EU NEGATIVO.",
+      "action": "RISOLTO: repriced $19.70→$49. EU 40.8%, US 59.8%. Verificato 2026-06-20."
     },
     {
-      "severity": "CRITICAL",
+      "severity": "INFO",
       "product": "Woven Blanket (BP:1626 PP:99)",
-      "issue": "Retail $47.10 → margine EU NEGATIVO: base $38 + ship EU $19.99 = $57.99 > net $45.44",
-      "action": "DRAFT immediato. Riprezzare a min $95 (APPROVED) → margine EU ~37%, target $109 → ~45%.",
-      "calc": "net=$45.44 | EU cost=$57.99 | margin=-27.6%"
+      "issue": "Non presente nel catalogo Shopify attivo (202 prodotti verificati 2026-06-20).",
+      "action": "Nessuna azione richiesta — prodotto non pubblicato."
     },
     {
-      "severity": "HIGH",
+      "severity": "RESOLVED",
+      "resolved_date": "2026-06-19",
       "product": "Athletic Long Shorts (BP:1084 PP:83)",
-      "issue": "RISOLTO 2026-06-19: repriced $65→$69. US 48.4%, EU 44.9% (sopra soglia 40% — pubblicabili)",
-      "action": "Completato. Prossimo step: portare a $75 per EU 50%+ se il mercato lo permette.",
-      "calc": "net=$66.96 | EU cost=$34.59 | margin=48.4% (US)"
+      "issue": "Retail $65 → margine EU 34% (DRAFT threshold).",
+      "action": "RISOLTO: repriced $65→$69 (11 prodotti, 87 varianti). US 48.4%, EU 44.9%."
     },
     {
-      "severity": "CRITICAL",
-      "product": "One-Piece Swimsuit (BP:360 PP:14) — 8 prodotti attivati 2026-06-19",
-      "issue": "Retail avg $40.16 → margine US 31.2% (base $21 + ship $5.69 = $26.69, net $38.79). Sotto soglia DRAFT 40%. 8 prodotti ora ACTIVE in collection:riviera.",
-      "action": "Riprezzare a min $55 (APPROVED) → margine EU=53.8%, US=48.6%. Target $65. Aggiornare Shopify prezzi urgente.",
-      "calc": "net@$40.16=$38.79 | US cost=$26.69 | margin=31.2% — DRAFT threshold"
+      "severity": "RESOLVED",
+      "resolved_date": "2026-06-19",
+      "product": "One-Piece Swimsuit (BP:360 PP:14)",
+      "issue": "Retail avg $40.16 → margine US 31.2%. Sotto soglia DRAFT 40%.",
+      "action": "RISOLTO: 17 swimsuit repriced a $55. Margine EU 53.7%, US 49.7%."
     },
     {
-      "severity": "MEDIUM",
+      "severity": "RESOLVED",
+      "resolved_date": "2026-06-20",
       "product": "AOP Puffer Jacket (BP:934 PP:14)",
-      "issue": "Retail $122.38 → margine EU 54.2% (base $46 + ship $8.40). Sotto target 55-65%.",
-      "action": "Alzare a $129 (prossimo APPROVED) → margine EU ~57.6%. Nessun DRAFT necessario.",
-      "calc": "net=$118.83 | EU cost=$54.40 | margin=54.2%"
+      "issue": "Retail $122.38 → margine EU 54.2%. Sotto target 55-65%.",
+      "action": "RISOLTO: tutti 29 puffer verificati a $129. Margine EU ~57.6%."
     }
   ],
 

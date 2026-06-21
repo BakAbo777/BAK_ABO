@@ -8,7 +8,7 @@ from __future__ import annotations
 import os, sys, json, time, requests, urllib3
 from pathlib import Path
 
-urllib3.disable_warnings()
+urllib3.disable_warnings()  # type: ignore
 ROOT = Path(__file__).resolve().parent.parent
 for raw in (ROOT / ".env").read_text(encoding="utf-8").splitlines():
     line = raw.strip()

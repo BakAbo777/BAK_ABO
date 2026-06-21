@@ -4,8 +4,28 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  background: #080604;
+  background:
+    radial-gradient(ellipse 160% 90% at 50% 108%, #1c0e04 0%, #0d0905 38%, #080604 100%);
   display: block;
+}
+
+/* Section-level background image (set via theme editor → background_image_url) */
+.bks-piano-hero[data-bg] {
+  background-image: var(--bks-piano-bg, none);
+  background-size: cover;
+  background-position: center;
+}
+.bks-piano-hero[data-bg]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8,6,4,0.72) 0%, rgba(8,6,4,0.55) 50%, rgba(8,6,4,0.80) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+.bks-piano-hero[data-bg] #bks-piano-canvas,
+.bks-piano-hero[data-bg] #bks-coll-screen {
+  z-index: 1;
 }
 
 #bks-piano-canvas {
@@ -38,16 +58,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   position: relative;
-  padding: 32px 20px;
+  padding: 32px 20px 40px;
 }
 #bks-model-bg {
   position: absolute;
   inset: 0;
-  transition: background 0.8s ease;
+  transition: background 0.8s ease, background-image 0.8s ease;
+  background-size: cover;
+  background-position: center top;
+}
+/* Gradient overlay on artwork so text panel stays legible */
+#bks-model-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(8,6,4,0.10) 0%,
+    rgba(8,6,4,0.05) 40%,
+    rgba(8,6,4,0.55) 100%
+  );
+  pointer-events: none;
 }
 
+/* Mannequin wireframe — shown only when NO artwork (default) */
 #bks-mannequin {
   position: relative;
   z-index: 2;
@@ -55,7 +91,15 @@
   flex-direction: column;
   align-items: center;
   width: 140px;
+  transition: opacity 0.5s ease;
 }
+/* Hide wireframe when real artwork is loaded */
+#bks-model-panel.bks-has-art #bks-mannequin,
+#bks-model-panel.bks-has-art #bks-arm-info {
+  opacity: 0;
+  pointer-events: none;
+}
+
 #bks-mq-head {
   width: 44px;
   height: 44px;
@@ -98,6 +142,35 @@
   inset: 0;
   opacity: 0.28;
   transition: background 0.7s ease;
+}
+
+/* Collection label inside artwork panel (cinema mode + artwork) */
+#bks-model-panel.bks-has-art #bks-arm-info {
+  display: none;
+}
+#bks-panel-label {
+  display: none;
+  position: relative;
+  z-index: 3;
+  text-align: center;
+}
+#bks-model-panel.bks-has-art #bks-panel-label {
+  display: block;
+}
+#bks-panel-label .bks-pl-season {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.44);
+  font-family: var(--font-body-family, sans-serif);
+}
+#bks-panel-label .bks-pl-desc {
+  font-size: 9px;
+  color: rgba(255,255,255,0.28);
+  font-style: italic;
+  margin-top: 4px;
+  font-family: var(--font-body-family, sans-serif);
+  line-height: 1.5;
 }
 #bks-arm-info {
   position: relative;
@@ -501,6 +574,30 @@
 }
 .bks-piano-hero.bks-paper #bks-music-ind span {
   background: rgba(20,14,6,0.40) !important;
+}
+
+/* Panel label (season + desc) in artwork mode */
+#bks-panel-label {
+  text-align: center;
+  position: relative;
+  z-index: 3;
+  margin-top: auto;
+  padding-bottom: 6px;
+}
+#bks-panel-label .bks-pl-season {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.50);
+  font-family: var(--font-body-family, sans-serif);
+}
+#bks-panel-label .bks-pl-desc {
+  font-size: 9px;
+  color: rgba(255,255,255,0.30);
+  font-style: italic;
+  margin-top: 4px;
+  line-height: 1.5;
+  font-family: var(--font-body-family, sans-serif);
 }
 
 /* ── Responsive ── */

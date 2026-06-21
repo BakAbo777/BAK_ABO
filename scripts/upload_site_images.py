@@ -21,10 +21,12 @@ import os
 import sys
 import time
 from pathlib import Path
+import warnings
 import requests
 import urllib3
 
-urllib3.disable_warnings()
+urllib3.disable_warnings()  # type: ignore
+warnings.filterwarnings("ignore", message="Unverified HTTPS request")
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
@@ -109,11 +111,16 @@ def upload_to_stage(upload_url: str, params: list[dict], file_path: Path) -> Non
 
 
 def create_file(resource_url: str, filename: str) -> str:
-    """Create a Shopify File from the staged resource URL; return CDN URL."""
-    q = """
+    """Create a Shopify File, poll until READY, return CDN URL."""
+    q_create = """
     mutation fileCreate($files: [FileCreateInput!]!) {
       fileCreate(files: $files) {
-        files { url fileStatus }
+        files {
+          id
+          fileStatus
+          ... on MediaImage { image { url } }
+          ... on GenericFile { url }
+        }
         userErrors { field message }
       }
     }
@@ -125,12 +132,43 @@ def create_file(resource_url: str, filename: str) -> str:
             "contentType": "IMAGE",
         }]
     }
-    data = _gql(q, variables)
-    files = data["data"]["fileCreate"].get("files", [])
-    errors = data["data"]["fileCreate"].get("userErrors", [])
+    data = _gql(q_create, variables)
+    payload = data["data"]["fileCreate"]
+    errors = payload.get("userErrors", [])
     if errors:
         raise RuntimeError(f"fileCreate errors: {errors}")
-    return files[0]["url"] if files else ""
+    files = payload.get("files", [])
+    if not files:
+        return ""
+
+    file_id = files[0].get("id", "")
+    if not file_id:
+        return ""
+
+    # Poll until READY (Shopify processes files asynchronously)
+    q_poll = """
+    query getFile($id: ID!) {
+      node(id: $id) {
+        ... on MediaImage {
+          id fileStatus image { url }
+        }
+        ... on GenericFile {
+          id fileStatus url
+        }
+      }
+    }
+    """
+    for attempt in range(20):
+        time.sleep(3)
+        poll_data = _gql(q_poll, {"id": file_id})
+        node = poll_data["data"]["node"] or {}
+        status = node.get("fileStatus", "")
+        if status == "READY":
+            img = node.get("image") or {}
+            return img.get("url") or node.get("url") or ""
+        if status == "FAILED":
+            raise RuntimeError(f"File processing FAILED: {filename}")
+    raise RuntimeError(f"Timeout waiting for file READY: {filename}")
 
 
 def upload_file(file_path: Path) -> str:
@@ -144,25 +182,28 @@ def upload_file(file_path: Path) -> str:
 
 
 def update_collection_image(handle: str, cdn_url: str) -> bool:
-    """Set collection.image via REST API using the CDN URL."""
-    r = requests.get(f"{REST_BASE}/collections.json?handle={handle}",
-                     headers=HDR_REST, timeout=20, verify=False)
-    if not r.ok:
-        return False
-    cols = r.json().get("collections", [])
-    if not cols:
-        return False
-    col_id = cols[0]["id"]
-
-    payload = {"collection": {"id": col_id, "image": {"src": cdn_url}}}
-    r2 = requests.put(f"{REST_BASE}/collections/{col_id}.json",
-                      headers=HDR_REST, json=payload, timeout=20, verify=False)
-    return r2.ok
+    """Set collection.image for smart or custom collection."""
+    # Try smart collections first (BKS collections are smart)
+    for endpoint, key in [("smart_collections", "smart_collection"),
+                           ("custom_collections", "custom_collection")]:
+        r = requests.get(f"{REST_BASE}/{endpoint}.json?handle={handle}&limit=1",
+                         headers=HDR_REST, timeout=20, verify=False)
+        if not r.ok:
+            continue
+        items = r.json().get(endpoint, [])
+        if not items:
+            continue
+        col_id = items[0]["id"]
+        payload = {key: {"id": col_id, "image": {"src": cdn_url}}}
+        r2 = requests.put(f"{REST_BASE}/{endpoint}/{col_id}.json",
+                          headers=HDR_REST, json=payload, timeout=20, verify=False)
+        return r2.ok
+    return False
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Upload BKS site images to Shopify CDN")
-    parser.add_argument("--type", choices=["hero", "piano", "all"], default="all")
+    parser.add_argument("--type", choices=["hero", "piano", "editorial", "all"], default="all")
     parser.add_argument("--collection", default="")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--update-collection-images", action="store_true",
@@ -180,10 +221,12 @@ def main() -> None:
         sys.exit(1)
 
     type_filter = set()
-    if args.type in ("hero", "all"):
-        type_filter.add("hero_banner")
+    if args.type in ("hero", "editorial", "all"):
+        type_filter.add("editorial")
+        type_filter.add("hero_banner")  # legacy key compat
     if args.type in ("piano", "all"):
-        type_filter.add("piano_square")
+        type_filter.add("piano")
+        type_filter.add("piano_square")  # legacy key compat
 
     uploaded = 0
     skipped = 0
@@ -191,36 +234,34 @@ def main() -> None:
 
     _out(f"=== BKS Site Images Upload ({'DRY RUN' if args.dry_run else 'LIVE'}) ===\n")
 
-    for handle, entries in manifest.items():
-        if args.collection and handle != args.collection:
+    for filename, info in manifest.items():
+        img_type = info.get("type", "")
+        collection = info.get("collection", "")
+
+        if img_type not in type_filter and args.type != "all":
+            continue
+        if args.collection and collection != args.collection:
             continue
 
-        _out(f"── {handle} ──────────────────────────")
+        _out(f"── {filename} ({collection}) ──────────────────────────")
 
-        for type_key, info in entries.items():
-            if type_key not in type_filter:
-                continue
+        file_path = ROOT / info["local_path"]
+        existing_url = info.get("shopify_url", "")
 
-            file_path = ROOT / info["path"]
-            existing_url = info.get("shopify_url", "")
+        cdn_url = existing_url
 
-            if existing_url and not args.dry_run:
-                _out(f"  ✓ {type_key} already uploaded: {existing_url[:60]}...")
-                skipped += 1
-                continue
-
-            if not file_path.exists():
-                _out(f"  ✗ File not found: {info['path']}")
-                errors += 1
-                continue
-
-            _out(f"  → Uploading {type_key} ({file_path.name})...")
-
-            if args.dry_run:
-                _out(f"    [DRY] would upload {file_path.name}")
-                skipped += 1
-                continue
-
+        if existing_url and not args.dry_run:
+            _out(f"  ✓ already uploaded: {existing_url[:70]}...")
+            skipped += 1
+        elif not file_path.exists():
+            _out(f"  ✗ File not found: {info['local_path']}")
+            errors += 1
+            continue
+        elif args.dry_run:
+            _out(f"    [DRY] would upload {file_path.name}")
+            skipped += 1
+        else:
+            _out(f"  → Uploading {file_path.name} ({info.get('size','')})...")
             try:
                 cdn_url = upload_file(file_path)
                 info["shopify_url"] = cdn_url
@@ -229,15 +270,16 @@ def main() -> None:
                 )
                 _out(f"  ✓ {cdn_url[:80]}...")
                 uploaded += 1
-
-                if type_key == "hero_banner" and args.update_collection_images:
-                    ok = update_collection_image(handle, cdn_url)
-                    _out(f"  {'✓' if ok else '✗'} collection.image updated" if ok else "  ✗ collection.image update failed")
-
-                time.sleep(0.5)
             except Exception as exc:
                 _out(f"  ✗ Error: {exc}")
                 errors += 1
+                continue
+
+        if cdn_url and img_type == "editorial" and args.update_collection_images and collection != "home":
+            ok = update_collection_image(collection, cdn_url)
+            _out(f"  {'✓' if ok else '✗'} collection.image → {collection}")
+
+        time.sleep(0.5)
 
     _out(f"\n=== DONE === uploaded={uploaded} skipped={skipped} errors={errors}")
 

@@ -399,7 +399,8 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 2;
+  z-index: 20;
+  pointer-events: auto;
   transition: background 0.2s, transform 0.15s;
   padding: 0;
 }
@@ -1001,6 +1002,7 @@
   .bks-wishlist-grid { grid-template-columns: repeat(2, 1fr); }
   /* Camerino mobile */
   .bks-camerino__grid { grid-template-columns: 1fr; }
+  .bks-camerino__step { padding: 10px 14px; }
   .bks-camerino__how { flex-direction: column; gap: 12px; }
   .bks-camerino__how-step { padding: 16px; }
   .bks-camerino__upload-zone { padding: 24px 16px; }
@@ -1369,9 +1371,129 @@
 .bks-btn-ghost:hover { border-color: var(--bks-mood); color: var(--bks-mood); }
 .bks-btn-gold { background: var(--bks-mood, var(--bks-gold)); }
 
+/* ── Camerino / Try-On layout ── */
+.bks-camerino__head { margin-bottom: 24px; }
+.bks-camerino__title { font-size: clamp(20px,3vw,28px); font-weight: 400; letter-spacing: -0.02em; margin: 0 0 8px; }
+.bks-camerino__subtitle { font-size: 13px; color: var(--bks-muted); margin: 0; line-height: 1.6; }
+
+.bks-camerino__steps {
+  display: flex;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--bks-border);
+}
+.bks-camerino__step {
+  padding: 12px 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bks-muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.bks-camerino__step.is-active {
+  color: var(--bks-text);
+  border-bottom-color: var(--bks-mood, var(--bks-gold));
+}
+
+.bks-camerino__grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 28px;
+  margin-top: 28px;
+  align-items: start;
+}
+
+.bks-camerino__panel { /* left column */ }
+
+.bks-preview {
+  background: var(--bks-surface);
+  border: 1px solid var(--bks-border);
+  min-height: 420px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.bks-preview__status {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--bks-muted);
+  text-align: center;
+  padding: 24px;
+  pointer-events: none;
+}
+
+/* ── Camerino wishlist item list ── */
+.bks-wishlist { display: flex; flex-direction: column; }
+.bks-wishlist__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--bks-border);
+  cursor: pointer;
+  color: var(--bks-text);
+  text-align: left;
+  width: 100%;
+  transition: background 0.2s;
+  font-family: inherit;
+  font-size: 12px;
+}
+.bks-wishlist__item:first-child { border-top: 1px solid var(--bks-border); }
+.bks-wishlist__item:hover { background: var(--bks-surface); }
+.bks-wishlist__item.selected { background: rgba(200,169,110,0.08); }
+.bks-wishlist__item-img {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  background: var(--bks-surface-2);
+  flex-shrink: 0;
+}
+.bks-wishlist__item-title {
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Camerino action buttons ── */
+.bks-actions { display: flex; flex-direction: column; gap: 10px; }
+.bks-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.bks-btn--ghost {
+  background: none;
+  border: 1px solid var(--bks-border);
+  color: var(--bks-text);
+}
+.bks-btn--ghost:disabled { opacity: 0.4; cursor: not-allowed; }
+.bks-btn--ghost:not(:disabled):hover { border-color: var(--bks-gold); color: var(--bks-gold); }
+
 /* Camerino accent follows mood automatically via CSS var cascade */
 [data-bks-camerino] { --bks-accent: var(--bks-mood, #c9b79c); }
-.bks-camerino__step.is-active { border-color: var(--bks-mood, var(--bks-accent)); }
 [data-bks-generate]:not(:disabled),
 [data-bks-crew]:not(:disabled) { background: var(--bks-mood, var(--bks-text)); }
 

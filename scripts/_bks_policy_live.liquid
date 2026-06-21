@@ -1,0 +1,173 @@
+{% comment %} BKS Policy — privacy, terms, resi, spedizioni {% endcomment %}
+
+{%- assign sid = section.id -%}
+
+<style>
+  #bks-pl-{{ sid }} {
+    --bks-pl-paper: #fafaf7;
+    --bks-pl-ink:   #0a0a0a;
+    --bks-pl-bone:  #efeae0;
+    --bks-pl-sand:  #c9b79c;
+    --bks-pl-line:  #e0d8cc;
+    background: var(--bks-pl-paper);
+    color: var(--bks-pl-ink);
+  }
+
+  #bks-pl-{{ sid }} .bks-pl__bar {
+    height: 3px;
+    display: flex;
+    gap: 3px;
+  }
+  #bks-pl-{{ sid }} .bks-pl__bar span { flex: 1; display: block; }
+
+  #bks-pl-{{ sid }} .bks-pl__inner {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: clamp(48px, 7vw, 88px) clamp(16px, 4vw, 48px) clamp(64px, 10vw, 120px);
+  }
+
+  #bks-pl-{{ sid }} .bks-pl__kicker {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.58rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--bks-pl-sand);
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  #bks-pl-{{ sid }} .bks-pl__title {
+    font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    line-height: 0.9;
+    letter-spacing: 0.01em;
+    color: var(--bks-pl-ink);
+    margin: 0 0 18px;
+  }
+
+  #bks-pl-{{ sid }} .bks-pl__meta {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.4);
+    margin: 0 0 44px;
+    display: block;
+  }
+
+  #bks-pl-{{ sid }} .bks-pl__rule {
+    width: 40px;
+    height: 3px;
+    background: var(--bks-pl-sand);
+    display: block;
+    margin-bottom: 44px;
+  }
+
+  /* Richtext body */
+  #bks-pl-{{ sid }} .bks-pl__body {
+    font-family: var(--bks-font-body, 'DM Sans', sans-serif);
+    font-size: clamp(0.9rem, 1.05vw, 1rem);
+    line-height: 1.72;
+    color: var(--bks-pl-ink);
+  }
+  #bks-pl-{{ sid }} .bks-pl__body h2,
+  #bks-pl-{{ sid }} .bks-pl__body h3,
+  #bks-pl-{{ sid }} .bks-pl__body h4 {
+    font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
+    letter-spacing: 0.02em;
+    margin: 2em 0 0.6em;
+    color: var(--bks-pl-ink);
+  }
+  #bks-pl-{{ sid }} .bks-pl__body h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); }
+  #bks-pl-{{ sid }} .bks-pl__body h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); }
+  #bks-pl-{{ sid }} .bks-pl__body p { margin: 0 0 1.2em; }
+  #bks-pl-{{ sid }} .bks-pl__body ul,
+  #bks-pl-{{ sid }} .bks-pl__body ol {
+    padding-left: 1.5em;
+    margin: 0 0 1.2em;
+  }
+  #bks-pl-{{ sid }} .bks-pl__body li { margin-bottom: 0.4em; }
+  #bks-pl-{{ sid }} .bks-pl__body a {
+    color: var(--bks-pl-ink);
+    border-bottom: 1px solid var(--bks-pl-sand);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  #bks-pl-{{ sid }} .bks-pl__body a:hover { opacity: 0.55; }
+  #bks-pl-{{ sid }} .bks-pl__body strong { font-weight: 600; }
+  #bks-pl-{{ sid }} .bks-pl__body em { font-style: italic; }
+  #bks-pl-{{ sid }} .bks-pl__body hr {
+    border: none;
+    border-top: 1px solid var(--bks-pl-line);
+    margin: 2em 0;
+  }
+
+  /* Back link */
+  #bks-pl-{{ sid }} .bks-pl__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.45);
+    text-decoration: none;
+    margin-top: 48px;
+    display: block;
+    width: fit-content;
+    transition: opacity 0.2s;
+  }
+  #bks-pl-{{ sid }} .bks-pl__back:hover { opacity: 0.7; }
+</style>
+
+<div id="bks-pl-{{ sid }}">
+
+  <div class="bks-pl__bar" aria-hidden="true">
+    <span style="background:#c8c4be"></span>
+    <span style="background:#489808"></span>
+    <span style="background:#d4a030"></span>
+    <span style="background:#c04418"></span>
+    <span style="background:#0ca898"></span>
+    <span style="background:#8888cc"></span>
+    <span style="background:#9828d8"></span>
+    <span style="background:#c82020"></span>
+  </div>
+
+  <div class="bks-pl__inner">
+
+    <span class="bks-pl__kicker">BKS Studio — Policies</span>
+
+    <h1 class="bks-pl__title">{{ policy.title }}</h1>
+
+    {%- if policy.updated_at -%}
+      <span class="bks-pl__meta">Updated: {{ policy.updated_at | date: '%d/%m/%Y' }}</span>
+    {%- endif -%}
+
+    <span class="bks-pl__rule" aria-hidden="true"></span>
+
+    <div class="bks-pl__body">
+      {{ policy.body }}
+    </div>
+
+    <a href="javascript:history.back()" class="bks-pl__back">
+      ← Back to previous page
+    </a>
+
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "BKS Policy",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "BKS Policy"
+    }
+  ]
+}
+{% endschema %}

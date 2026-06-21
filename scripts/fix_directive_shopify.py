@@ -35,7 +35,7 @@ def gql(query: str, variables: dict) -> dict:
     try:
         r = requests.post(GQL_URL, json=payload, headers=HEADERS, timeout=30)
     except requests.exceptions.SSLError:
-        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)  # type: ignore
         r = requests.post(GQL_URL, json=payload, headers=HEADERS, timeout=30, verify=False)
     r.raise_for_status()
     return r.json()

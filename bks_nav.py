@@ -11,18 +11,18 @@ BASE_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(BASE_DIR))
 
 _PAGES = [
-    ("◎", "BKS Algorithm",     "BKS_Algorithm"),
-    ("◈", "Agente",             "Agente_Progressione"),
-    ("⊡", "Gestione",           "Gestione"),
-    ("◉", "Social",             "Social"),
-    ("◫", "Project Manager",    "Project_Manager"),
-    ("◧", "Tema BKS",           "Tema_BKS"),
-    ("▦", "Catalogo",           "Catalogo"),
-    ("◐", "Image Factory",      "Image_Factory"),
-    ("◑", "Camerino",           "Camerino"),
-    ("◒", "Google Merchant",    "Google_Merchant"),
-    ("◕", "Marketing",          "Marketing"),
-    ("◔", "Analytics",          "Analytics"),
+    ("◎", "BKS Algorithm",     "pages/00_BKS_Algorithm.py"),
+    ("◈", "Agente",             "pages/01_Agente_Progressione.py"),
+    ("⊡", "Gestione",           "pages/02_Gestione.py"),
+    ("◉", "Social",             "pages/03_Social.py"),
+    ("◫", "Project Manager",    "pages/04_Project_Manager.py"),
+    ("◧", "Tema BKS",           "pages/05_Tema_BKS.py"),
+    ("▦", "Catalogo",           "pages/06_Catalogo.py"),
+    ("◐", "Image Factory",      "pages/07_Image_Factory.py"),
+    ("◑", "Camerino",           "pages/08_Camerino.py"),
+    ("◒", "Google Merchant",    "pages/08_Google_Merchant.py"),
+    ("◕", "Marketing",          "pages/09_Marketing.py"),
+    ("◔", "Analytics",          "pages/10_Analytics.py"),
 ]
 
 _COLL_ACCENTS = {
@@ -67,15 +67,26 @@ def _load_data() -> dict[str, Any]:
 
 
 def render(active_page: str = "") -> None:
-    """Inject BKS sidebar: header + live progress indicators."""
+    """Inject BKS sidebar: header + nav + live progress indicators."""
     with st.sidebar:
-        # ── Wordmark ─────────────────────────────────────────────────────────
+        # ── Hide native Streamlit auto-generated nav (we render our own) ──────
+        st.markdown(
+            """<style>
+            [data-testid="stSidebarNav"],
+            [data-testid="stSidebarNavSeparator"] { display: none !important; }
+            /* Left-align all sidebar page_link items */
+            [data-testid="stSidebarNavLink"] { justify-content: flex-start !important; }
+            </style>""",
+            unsafe_allow_html=True,
+        )
+
+        # ── Wordmark / logo ───────────────────────────────────────────────────
         st.markdown(
             """
             <div style="
                 padding: 10px 0 10px;
                 border-bottom: 1px solid #c9b79c44;
-                margin-bottom: 14px;
+                margin-bottom: 10px;
                 text-align: left;
             ">
               <span style="
@@ -94,6 +105,21 @@ def render(active_page: str = "") -> None:
               ">bakabo.club</span>
             </div>
             """,
+            unsafe_allow_html=True,
+        )
+
+        # ── Navigation — icons on the left ───────────────────────────────────
+        pages_dir = BASE_DIR / "pages"
+        for icon, label, filepath in _PAGES:
+            full_path = BASE_DIR / filepath
+            if full_path.exists():
+                try:
+                    st.page_link(filepath, label=f"{icon}  {label}")
+                except Exception:
+                    pass  # graceful fallback if page_link fails
+
+        st.markdown(
+            '<hr style="border:none;border-top:1px solid #c9b79c33;margin:10px 0 10px;">',
             unsafe_allow_html=True,
         )
 
@@ -170,7 +196,3 @@ def render(active_page: str = "") -> None:
                     unsafe_allow_html=True,
                 )
 
-        st.markdown(
-            '<hr style="border:none;border-top:1px solid #c9b79c33;margin:14px 0 6px;">',
-            unsafe_allow_html=True,
-        )

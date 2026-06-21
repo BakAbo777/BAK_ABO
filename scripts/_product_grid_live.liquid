@@ -1,0 +1,615 @@
+{{ 'template-collection.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+
+{% if section.settings.image_shape == 'blob' %}
+  {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+{%- unless section.settings.quick_add == 'none' -%}
+  {{ 'quick-add.css' | asset_url | stylesheet_tag }}
+{%- endunless -%}
+
+{%- if section.settings.quick_add == 'standard' -%}
+  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    --bks-cg-accent: var(--bks-active-accent, #2f6f6b);
+    background: #FAFAF7;
+    color: #0A0A0A;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+      padding-top: {{ section.settings.padding_top }}px;
+    }
+  }
+
+  .section-{{ section.id }}-padding.gradient,
+  .section-{{ section.id }}-padding .gradient,
+  .section-{{ section.id }}-padding .color-background-1,
+  .section-{{ section.id }}-padding .color-background-2 {
+    background: #FAFAF7;
+    color: #0A0A0A;
+  }
+
+  .section-{{ section.id }}-padding .collection,
+  .section-{{ section.id }}-padding .page-width {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1440px;
+    width: min(100% - 32px, 1440px);
+  }
+
+  .section-{{ section.id }}-padding .facets-vertical.page-width {
+    gap: 40px;
+  }
+
+  .section-{{ section.id }}-padding .product-grid {
+    column-gap: 24px;
+    row-gap: 44px;
+  }
+
+  .section-{{ section.id }}-padding .card-wrapper {
+    background: #fff;
+    border-radius: 0;
+  }
+
+  .section-{{ section.id }}-padding .card,
+  .section-{{ section.id }}-padding .card__inner {
+    background: #fff;
+  }
+
+  .section-{{ section.id }}-padding .card__media,
+  .section-{{ section.id }}-padding .card__content {
+    background: transparent;
+  }
+
+  .section-{{ section.id }}-padding .card__inner {
+    border: 1px solid rgba(10, 10, 10, 0.12);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .section-{{ section.id }}-padding .card__heading,
+  .section-{{ section.id }}-padding .card__heading a,
+  .section-{{ section.id }}-padding .card-product__title {
+    color: #0A0A0A;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.32;
+    text-transform: uppercase;
+  }
+
+  .section-{{ section.id }}-padding .card__information {
+    padding-top: 14px;
+  }
+
+  .section-{{ section.id }}-padding .card-information,
+  .section-{{ section.id }}-padding .card-information > *,
+  .section-{{ section.id }}-padding .product-count__text {
+    color: #0A0A0A;
+    font-family: var(--bks-font-body, 'DM Sans', sans-serif);
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 1.45;
+  }
+
+  .section-{{ section.id }}-padding .price,
+  .section-{{ section.id }}-padding .price * {
+    color: #0A0A0A;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 14px;
+    letter-spacing: 0;
+  }
+
+  .section-{{ section.id }}-padding .facet-filters__label,
+  .section-{{ section.id }}-padding .facets__heading,
+  .section-{{ section.id }}-padding .facets__summary,
+  .section-{{ section.id }}-padding .mobile-facets__open,
+  .section-{{ section.id }}-padding .mobile-facets__heading {
+    color: #0A0A0A;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 12px;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .section-{{ section.id }}-padding .facets-wrapper {
+    border-right: 1px solid rgba(10, 10, 10, 0.1);
+    padding-right: 40px;
+  }
+
+  .section-{{ section.id }}-padding .facets__form,
+  .section-{{ section.id }}-padding .facet-filters,
+  .section-{{ section.id }}-padding .facets-container {
+    color: #0A0A0A;
+  }
+
+  .section-{{ section.id }}-padding .select,
+  .section-{{ section.id }}-padding .select__select,
+  .section-{{ section.id }}-padding .facet-checkbox,
+  .section-{{ section.id }}-padding .mobile-facets__inner {
+    background: #FAFAF7;
+    border-color: rgba(10, 10, 10, 0.18);
+    color: #0A0A0A;
+    font-family: var(--bks-font-body, 'DM Sans', sans-serif);
+  }
+
+  .section-{{ section.id }}-padding .card-information .caption-with-letter-spacing,
+  .section-{{ section.id }}-padding .card-product__vendor,
+  .section-{{ section.id }}-padding .card-product__rating,
+  .section-{{ section.id }}-padding .rating {
+    display: none;
+  }
+
+  .section-{{ section.id }}-padding .quick-add {
+    margin-top: 12px;
+  }
+
+  .section-{{ section.id }}-padding .quick-add__submit {
+    background: #0A0A0A;
+    border: 1px solid #0A0A0A;
+    color: #FAFAF7;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 12px;
+    letter-spacing: 0;
+    min-height: 44px;
+    text-transform: uppercase;
+    transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+  }
+
+  .section-{{ section.id }}-padding .quick-add__submit:hover {
+    background: #FAFAF7;
+    border-color: #0A0A0A;
+    color: #0A0A0A;
+  }
+
+  .section-{{ section.id }}-padding .pagination-wrapper {
+    margin-top: 72px;
+  }
+
+  .section-{{ section.id }}-padding .pagination__item {
+    color: #0A0A0A;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 14px;
+    letter-spacing: 0;
+  }
+
+  .section-{{ section.id }}-padding .pagination__item:hover {
+    background: #0A0A0A;
+    color: #FAFAF7;
+  }
+
+  .section-{{ section.id }}-padding .collection--empty {
+    padding: 96px 0;
+    text-align: center;
+  }
+
+  .section-{{ section.id }}-padding .collection--empty .title--primary {
+    color: #0A0A0A;
+    font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
+    font-size: 32px;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .section-{{ section.id }}-padding .loading-overlay {
+    background: transparent;
+  }
+
+  @media screen and (max-width: 989px) {
+    .section-{{ section.id }}-padding .facets-wrapper {
+      border-right: 0;
+      padding-right: 0;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .section-{{ section.id }}-padding .collection,
+    .section-{{ section.id }}-padding .page-width {
+      width: min(100% - 24px, 1440px);
+    }
+
+    .section-{{ section.id }}-padding .product-grid {
+      column-gap: 14px;
+      row-gap: 32px;
+    }
+
+    .section-{{ section.id }}-padding .card__heading,
+    .section-{{ section.id }}-padding .card__heading a,
+    .section-{{ section.id }}-padding .card-product__title {
+      font-size: 15px;
+      line-height: 1.2;
+    }
+
+    .section-{{ section.id }}-padding .card-information,
+    .section-{{ section.id }}-padding .card-information > * {
+      font-size: 14px;
+    }
+  }
+
+  /* ── BKS newspaper lift ────────────────────────────────── */
+
+  .section-{{ section.id }}-padding .card__inner {
+    position: relative;
+    transition: transform 0.26s cubic-bezier(0.22,1,0.36,1),
+                box-shadow 0.26s ease;
+  }
+
+  .section-{{ section.id }}-padding .card__inner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--bks-cg-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.24s cubic-bezier(0.22,1,0.36,1);
+    z-index: 2;
+  }
+
+  .section-{{ section.id }}-padding .grid__item:hover .card__inner {
+    box-shadow: 0 10px 32px rgba(10,10,10,0.09), 0 2px 8px rgba(10,10,10,0.05);
+    transform: translateY(-6px);
+  }
+
+  .section-{{ section.id }}-padding .grid__item:hover .card__inner::before {
+    transform: scaleX(1);
+  }
+
+  /* ── Made to order label (CSS-only, no snippet edit) ──── */
+
+  .section-{{ section.id }}-padding .card-information::after {
+    color: var(--bks-cg-accent);
+    content: '◎ Made to order';
+    display: block;
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    margin-top: 5px;
+    text-transform: uppercase;
+  }
+
+  /* ── Pagination accent ─────────────────────────────────── */
+
+  .section-{{ section.id }}-padding .pagination__item--current {
+    background: var(--bks-cg-accent);
+    border-color: var(--bks-cg-accent);
+    color: #fafaf7;
+  }
+
+  .section-{{ section.id }}-padding .pagination__item:hover {
+    background: var(--bks-cg-accent);
+    border-color: var(--bks-cg-accent);
+    color: #fafaf7;
+  }
+
+  /* ── BADGES — fix nero-su-nero ────────────────────────── */
+
+  /* Reset qualsiasi badge Dawn */
+  .section-{{ section.id }}-padding .badge,
+  .section-{{ section.id }}-padding .card__badge .badge {
+    border-radius: 0;
+    font-family: var(--bks-font-mono,'DM Mono',monospace);
+    font-size: 0.58rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    line-height: 1;
+    border: none;
+  }
+
+  /* NEW — ink su carta */
+  .section-{{ section.id }}-padding .badge--default,
+  .section-{{ section.id }}-padding .card__badge .badge--default {
+    background: #0a0a0a;
+    color: #fafaf7;
+  }
+
+  /* SALE — accent color */
+  .section-{{ section.id }}-padding .badge--sale,
+  .section-{{ section.id }}-padding .card__badge .badge--sale {
+    background: var(--bks-cg-accent);
+    color: #fafaf7;
+  }
+
+  /* SOLD OUT — carta, testo muted */
+  .section-{{ section.id }}-padding .badge--sold-out,
+  .section-{{ section.id }}-padding .card__badge .badge--sold-out {
+    background: #fafaf7;
+    color: #0a0a0a;
+    box-shadow: inset 0 0 0 1px rgba(10,10,10,0.18);
+  }
+
+  /* Posizione badge: angolo in alto a sinistra, sopra l'immagine */
+  .section-{{ section.id }}-padding .card__badge {
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 10px 0 10px;
+    align-items: flex-start;
+  }
+
+  /* ── Facet active state ────────────────────────────────── */
+
+  .section-{{ section.id }}-padding .facet-checkbox:checked + .facet-checkbox__text,
+  .section-{{ section.id }}-padding .facets__summary[aria-expanded="true"] {
+    color: var(--bks-cg-accent);
+  }
+
+  .section-{{ section.id }}-padding .facet-checkbox input:checked ~ svg {
+    color: var(--bks-cg-accent);
+  }
+
+  .section-{{ section.id }}-padding .active-facets__button:hover,
+  .section-{{ section.id }}-padding .active-facets__button-inner:hover {
+    color: var(--bks-cg-accent);
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding gradient">
+  {%- paginate collection.products by section.settings.products_per_page -%}
+    {%- if section.settings.enable_sorting and section.settings.filter_type == 'vertical' -%}
+      <facet-filters-form class="facets facets-vertical-sort page-width small-hide">
+        <form class="facets-vertical-form" id="FacetSortForm">
+          <div class="facet-filters sorting caption">
+            <div class="facet-filters__field">
+              <h2 class="facet-filters__label caption-large text-body">
+                <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
+              </h2>
+              <div class="select">
+                {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+                <select
+                  name="sort_by"
+                  class="facet-filters__sort select__select caption-large"
+                  id="SortBy"
+                  aria-describedby="a11y-refresh-page-message"
+                >
+                  {%- for option in collection.sort_options -%}
+                    <option
+                      value="{{ option.value | escape }}"
+                      {% if option.value == sort_by %}
+                        selected="selected"
+                      {% endif %}
+                    >
+                      {{ option.name | escape }}
+                    </option>
+                  {%- endfor -%}
+                </select>
+                <span class="svg-wrapper">
+                  {{- 'icon-caret.svg' | inline_asset_content -}}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-count-vertical light" role="status">
+            <h2 class="product-count__text text-body">
+              <span id="ProductCountDesktop">
+                {%- if collection.results_count -%}
+                  {{ 'templates.search.results_with_count' | t: terms: collection.terms, count: collection.results_count }}
+                {%- elsif collection.products_count == collection.all_products_count -%}
+                  {{ 'products.facets.product_count_simple' | t: count: collection.products_count }}
+                {%- else -%}
+                  {{ 'products.facets.product_count' | t: product_count: collection.products_count, count: collection.all_products_count }}
+                {%- endif -%}
+              </span>
+            </h2>
+            {%- render 'loading-spinner' -%}
+          </div>
+        </form>
+      </facet-filters-form>
+    {%- endif -%}
+
+    <div class="{% if section.settings.filter_type == 'vertical' %}facets-vertical page-width{% endif %}">
+      {{ 'component-facets.css' | asset_url | stylesheet_tag }}
+      <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
+      {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
+        <aside
+          aria-labelledby="verticalTitle"
+          class="facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
+          id="main-collection-filters"
+          data-id="{{ section.id }}"
+        >
+          {% render 'facets',
+            results: collection,
+            enable_filtering: section.settings.enable_filtering,
+            enable_sorting: section.settings.enable_sorting,
+            filter_type: section.settings.filter_type,
+            paginate: paginate
+          %}
+        </aside>
+      {%- endif -%}
+
+      <div class="product-grid-container" id="ProductGridContainer">
+        {%- if collection.products.size == 0 -%}
+          <div class="collection collection--empty" id="product-grid" data-id="{{ section.id }}">
+            <div class="loading-overlay"></div>
+            <div class="title-wrapper center">
+              <h2 class="title title--primary">
+                {{ 'sections.collection_template.empty' | t -}}
+                <br>
+                {{ 'sections.collection_template.use_fewer_filters_html' | t: link: collection.url, class: 'underlined-link link' }}
+              </h2>
+            </div>
+          </div>
+        {%- else -%}
+          <div class="collection">
+            <div class="loading-overlay"></div>
+            <ul
+              id="product-grid"
+              data-id="{{ section.id }}"
+              class="product-grid grid grid--{{ section.settings.columns_mobile }}-col-tablet-down grid--{{ section.settings.columns_desktop }}-col-desktop"
+            >
+              {% assign skip_card_product_styles = false %}
+              {%- for product in collection.products -%}
+                {% assign lazy_load = false %}
+                {%- if forloop.index > 2 -%}
+                  {%- assign lazy_load = true -%}
+                {%- endif -%}
+                <li class="grid__item">
+                  {% render 'card-product',
+                    card_product: product,
+                    media_aspect_ratio: section.settings.image_ratio,
+                    image_shape: section.settings.image_shape,
+                    show_secondary_image: section.settings.show_secondary_image,
+                    show_vendor: false,
+                    show_rating: false,
+                    lazy_load: lazy_load,
+                    skip_styles: skip_card_product_styles,
+                    quick_add: section.settings.quick_add,
+                    section_id: section.id
+                  %}
+                </li>
+                {%- assign skip_card_product_styles = true -%}
+              {%- endfor -%}
+            </ul>
+
+            {%- if paginate.pages > 1 -%}
+              {% render 'pagination', paginate: paginate, anchor: '' %}
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{
+  "name": "BKS Collection Grid",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 36,
+      "step": 4,
+      "default": 16,
+      "label": "Products per page"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Columns (desktop)"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "default": "2",
+      "label": "Columns (mobile)",
+      "options": [
+        { "value": "1", "label": "1 column" },
+        { "value": "2", "label": "2 columns" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        { "value": "adapt", "label": "Adapt" },
+        { "value": "portrait", "label": "Portrait" },
+        { "value": "square", "label": "Square" }
+      ],
+      "default": "square",
+      "label": "Image ratio"
+    },
+    {
+      "type": "select",
+      "id": "image_shape",
+      "options": [
+        { "value": "default", "label": "Default" },
+        { "value": "arch", "label": "Arch" },
+        { "value": "blob", "label": "Blob" },
+        { "value": "chevronleft", "label": "Chevron left" },
+        { "value": "chevronright", "label": "Chevron right" },
+        { "value": "diamond", "label": "Diamond" },
+        { "value": "parallelogram", "label": "Parallelogram" },
+        { "value": "round", "label": "Round" }
+      ],
+      "default": "default",
+      "label": "Image shape"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": true,
+      "label": "Show secondary image"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "default": true,
+      "label": "Enable filtering"
+    },
+    {
+      "type": "select",
+      "id": "filter_type",
+      "options": [
+        { "value": "horizontal", "label": "Horizontal" },
+        { "value": "vertical", "label": "Vertical" },
+        { "value": "drawer", "label": "Drawer" }
+      ],
+      "default": "drawer",
+      "label": "Filter type"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "default": true,
+      "label": "Enable sorting"
+    },
+    {
+      "type": "select",
+      "id": "quick_add",
+      "default": "none",
+      "label": "Quick add",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "standard", "label": "Standard" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 48
+    }
+  ]
+}
+{% endschema %}

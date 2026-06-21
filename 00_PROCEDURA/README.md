@@ -1,21 +1,21 @@
 # 00 PROCEDURA — BKS Studio / bakabo.club
 
-Indice operativo aggiornato al 17 Giugno 2026. Architettura migrata da Flask multi-processo a Streamlit unificato.
+Indice operativo aggiornato al 20 Giugno 2026. Architettura: Streamlit unificato + Try-On Engine + Master Panel.
 
 ## Launcher attivi
 
 | Launcher | Funzione | Porta |
-|---|---|---|
-| `00_START_BKS_MASTER.bat` | Menu interattivo — avvia/monitora tutti i servizi | — |
-| `01_START_CATALOG_ENGINE.bat` | Streamlit master app (tutte le pagine) | 8501 |
-| `05_START_TRYON_ENGINE.bat` | Try-On Camerino engine | — |
+| --- | --- | --- |
+| `00_START_BKS_MASTER.bat` | Menu interattivo — avvia/monitora tutti i servizi (v4.0, auto-kill porte) | — |
+| `01_START_CATALOG_ENGINE.bat` | BKS Studio — Streamlit master app (tutte le pagine) | 8501 |
+| `05_START_TRYON_ENGINE.bat` | Try-On AI Engine — camerino virtuale Brass+ | 8010 |
 
 Entry point unico: **`00_START_BKS_MASTER.bat`**
 
 ## Fasi operative
 
 | Fase | Cartella | Funzione |
-|---|---|---|
+| --- | --- | --- |
 | 01 | `01_CATALOGO/` | Pulizia CSV, SEO prodotto, immagini |
 | 02 | `02_COLLEZIONI/` | Sync collection, template assignment |
 | 03 | `03_METAFIELDS_METAOBJECTS/` | Metafield, metaobject BKS |
@@ -27,7 +27,7 @@ Entry point unico: **`00_START_BKS_MASTER.bat`**
 ## Pagine Streamlit (porta 8501)
 
 | Pagina | File | Funzione |
-|---|---|---|
+| --- | --- | --- |
 | Home | `streamlit_master.py` | Overview sistema, metriche live |
 | Agente | `pages/01_Agente_Progressione.py` | AI agent BKS |
 | Gestione | `pages/02_Gestione.py` | Store management |
@@ -67,7 +67,7 @@ DB SQLite: `collezioni_csv/bks_catalog.db` — fonte di verità primaria. CSV è
 
 ## Tema Shopify attivo
 
-- **ID:** `202392961362` — "BKS TM04 MEMBER TIER + SHOPPER 17JUN2026"
+- **ID:** `202392961362` — "BKS TM04 20_06_2026 V.22"
 - **Sorgente locale:** `04_TEMA_SHOPIFY/_merged_tm04/`
 - **Script deploy:** `scripts/deploy_theme_section.py`
 

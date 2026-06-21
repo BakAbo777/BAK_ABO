@@ -750,15 +750,23 @@
       pianoEl.style.setProperty('--bks-coll-accent', col.color);
     }
 
-    // Model panel background — Canva artwork or gradient fallback
+    // Model panel background — editorial artwork or gradient fallback
+    const modelPanel = document.getElementById('bks-model-panel');
+    const panelLabel = document.getElementById('bks-panel-label');
     if (col.image_url) {
       modelBg.style.backgroundImage    = 'url(' + col.image_url + ')';
       modelBg.style.backgroundSize     = 'cover';
-      modelBg.style.backgroundPosition = 'center';
+      modelBg.style.backgroundPosition = 'center top';
       modelBg.style.background         = '';
+      if (modelPanel) modelPanel.classList.add('bks-has-art');
+      if (panelLabel) {
+        panelLabel.querySelector('.bks-pl-season').textContent = col.arm_season || '';
+        panelLabel.querySelector('.bks-pl-desc').textContent   = col.arm_desc   || '';
+      }
     } else {
       modelBg.style.backgroundImage = 'none';
       modelBg.style.background      = col.gradient || 'rgba(0,0,0,0.8)';
+      if (modelPanel) modelPanel.classList.remove('bks-has-art');
     }
 
     mqBodyFill.style.background = col.color;

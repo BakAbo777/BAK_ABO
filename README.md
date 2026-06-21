@@ -1,73 +1,62 @@
-# BakAbo / BKS Programma Operativo
+# BakAbo / BKS — Programma Operativo
 
-Cartella riorganizzata per procedura. Parti da:
+Cartella progetto: `I:\BAK ABO`
+
+Documenti procedurali:
 
 - `00_PROCEDURA/README.md`
 - `00_PROCEDURA/01_ORDINE_ESECUZIONE.md`
 - `00_PROCEDURA/02_STATO_ATTUALE.md`
 
+## Avvio Sistema
+
 Launcher principale:
 
-1. `Start_Master.bat`
+```bat
+00_START_BKS_MASTER.bat
+```
 
-Nuovo control plane ECAMP / BKS Master:
+Menu interattivo ANSI v4.0: avvia, monitora e gestisce tutti i servizi.
+Opzioni: `[1]` Studio · `[2]` Try-On · `[3]` Master Panel · `[A]` tutto
+Auto-kill porte conflittuali incluso.
 
-1. `Start_Master.bat`
-2. Oppure: `.venv_dashboard\Scripts\python.exe -m streamlit run streamlit_master.py --server.port 8600`
-3. Apri `http://127.0.0.1:8600`
-4. Specifica tecnica: `docs/ECAMP_CONTROL_PLANE.md`
+Launcher tecnici (richiamabili anche dal master):
 
-Launcher tecnici richiamabili anche dal master:
+- `01_START_CATALOG_ENGINE.bat` — Streamlit Studio su porta 8501
+- `05_START_TRYON_ENGINE.bat` — Try-On AI Engine su porta 8010
 
-1. `01_START_CATALOG_ENGINE.bat`
-2. `02_START_COLLECTIONS_DASHBOARD.bat`
-3. `03_START_METAFIELDS_RUNNER.bat`
+## Porte Attive
 
-Il master apre `http://127.0.0.1:8600` con Streamlit multipagina: Overview,
-Agente/Progressione, Gestione, Social, Project Manager e Tema BKS. La vecchia
-dashboard Flask resta disponibile con `python -m ecommerce_automation.app` per
-endpoint/API e fallback tecnico.
+| Porta | Servizio | URL |
+| ----- | -------- | --- |
+| 8501 | BKS Studio (Streamlit) | <http://localhost:8501> |
+| 8010 | Try-On AI Engine | <http://127.0.0.1:8010> |
+| 8600 | Master Panel | <http://127.0.0.1:8600> |
 
-## BKS Master Agent
+## Stato Sistema (20 Giugno 2026)
 
-La dashboard Flask e' il control plane unico del progetto. L'agente e'
-conversazionale: legge i dati locali, mostra la progressione in real time,
-propone una sola prossima azione e registra l'esito nella Knowledge DB.
+- Tema live: `BKS TM04 20_06_2026 V.22` — id `202392961362`
+- Backup tema: id `202600382802`
+- Homepage: Video Hero → Weekly Editorial → Piano Hero → Magazine → Reviews → Trust
+- Catalogo: 202 prodotti, 8 collezioni, 674 pezzi
+- Members: Metal Tier (Lead / Iron / Brass / Silver / Gold)
+- Try-On: attivo tier Brass+ (3+ ordini)
+- AI Worker: `bks-agent.bakabo.workers.dev` (Cloudflare, v20/06/2026)
 
-Moduli principali:
+## File Attivi Principali
 
-- Real-Time Control: progressione visibile con grafici leggeri.
-- Catalog Sync Shopify / Printify: scarica prodotti via API, genera CSV live,
-  aggiorna `external_references` e segnala differenze di mapping/stato.
-- Network Trust Monitor: DNS, MX, SPF, DKIM, DMARC, DSN/bounce, endpoint HTTPS
-  e suffissi dati.
-- Google Merchant & Trust Contract: recupero sospensione e prove di fiducia.
-- Growth CRM & Member Area: segmenti clienti, PDP clarity, welcome flow,
-  recensioni e member area senza over-engineering.
-- Photo Studio: workflow immagini prodotto fedele ai mockup reali.
-- Agent Routine & Cost Guard: usa prima dati locali, poi API leggere, poi
-  chiede approvazione per azioni pubbliche, pagamenti, DNS, email e Ads.
+- CSV catalogo: `collezioni_csv/collezione 12_06_2026_SHOPIFY_IMPORT_READY_SEO_TAGS_READY.csv`
+- DB SQLite: `collezioni_csv/bks_catalog.db`
+- Deploy tema: `scripts/deploy_theme_section.py`
+- Deploy Worker CF: `scripts/_deploy_worker.py`
+- Sorgente tema: `04_TEMA_SHOPIFY/`
 
-Endpoint utili:
+## Regole Operative
 
-- `GET /api/realtime-control`
-- `GET /api/catalog-live-sync`
-- `POST /api/catalog-live-sync/run`
-- `GET /api/network-monitor?live=1`
-- `POST /api/agent/chat`
+- MAI modificare `.env` direttamente
+- Printify Shop ID: `12030061` — NON cambiare
+- Google Merchant ID: `5295165689` — NON cambiare
+- PRE-PUBLISH GATE: armocromia + tipografo + copy + photo studio + commercial strategy
+- Immagini cliente: NON nel repository git
 
-Collegamento Desktop creato:
-
-- `C:\Users\Utente\Desktop\BakAbo BKS Master Monitor.lnk`
-
-File attivi principali:
-
-- Catalogo corrente: `collezioni_csv/collezione 12_06_2026_SHOPIFY_IMPORT_READY.csv`
-- Tema pronto: `04_TEMA_SHOPIFY/BKS_TM03_clean_12JUN2026_SEO_READY.zip`
-- Selezione asset: `output/bks_active_assets.json`
-- Testi/policy: `output/site_texts_v1/`
-- Audit live/link/SEO: `output/live_site_audit/` quando generato
-- Prompt OpenAI: `output/openai_image_prompts/`
-- Immagini OpenAI: `output/openai_images/`
-- Avatar Production: `output/avatar_production/`
-- Archivio storico: `99_ARCHIVIO/`
+Operatore: Roberto Picchioni — BKS Studio / bakabo.club

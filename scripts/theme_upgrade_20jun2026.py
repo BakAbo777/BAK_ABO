@@ -15,8 +15,8 @@ PRE-PUBLISH GATE (verificato prima del push):
 import os, sys, requests, urllib3, time, json
 from pathlib import Path
 
-sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-urllib3.disable_warnings()
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # type: ignore
+urllib3.disable_warnings()  # type: ignore
 
 ROOT = Path(__file__).resolve().parent.parent
 

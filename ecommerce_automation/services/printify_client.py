@@ -117,6 +117,28 @@ class PrintifyClient:
                     return product
         return None
 
+    def list_uploads(self, page: int = 1, limit: int = 50) -> dict[str, Any]:
+        """List all uploaded images (artwork / textures) for this account."""
+        return self.request("GET", "/uploads.json", params={"page": page, "limit": limit})
+
+    def iter_uploads(self, max_pages: int = 50) -> list[dict[str, Any]]:
+        uploads: list[dict[str, Any]] = []
+        for page in range(1, max_pages + 1):
+            data = self.list_uploads(page=page, limit=50)
+            items = data.get("data", data if isinstance(data, list) else [])
+            items = [u for u in items if isinstance(u, dict)]
+            if not items:
+                break
+            uploads.extend(items)
+            last_page = int(data.get("last_page", page) or page) if isinstance(data, dict) else page
+            if page >= last_page:
+                break
+        return uploads
+
+    def get_blueprint(self, blueprint_id: int) -> dict[str, Any]:
+        """Fetch blueprint (blank product template) details from Printify catalog."""
+        return self.request("GET", f"/catalog/{blueprint_id}.json")
+
     def health_snapshot(self, preferred_title: str = "bakabo.club") -> dict[str, Any]:
         if not self.configured:
             return {"configured": False, "status": "missing_token"}

@@ -1,6 +1,6 @@
 """Register bakabo.workers.dev subdomain via Cloudflare API."""
 import requests, urllib3
-urllib3.disable_warnings()
+urllib3.disable_warnings()  # type: ignore
 
 ACCOUNT_ID = "e796d289f744035eee2641e853d8a5af"
 CF_TOKEN   = "cfoat_ttdWlIIC0R52Kg3klNqzmBpAGbQRm5oVItDO1yfGsCU.o045AJ39otUUuvu5_G5k31ao_oRDE77mTLus8k8KRAE"

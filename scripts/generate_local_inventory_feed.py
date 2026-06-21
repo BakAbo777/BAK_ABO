@@ -27,7 +27,7 @@ import urllib3
 from datetime import datetime, timezone
 from pathlib import Path
 
-urllib3.disable_warnings()
+urllib3.disable_warnings()  # type: ignore
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))

@@ -20,7 +20,7 @@ TOKEN   = os.environ["SHOPIFY_ADMIN_TOKEN"]
 VERSION = os.environ.get("SHOPIFY_API_VERSION", "2025-01")
 GQL     = f"https://{DOMAIN}/admin/api/{VERSION}/graphql.json"
 HDR     = {"X-Shopify-Access-Token": TOKEN, "Content-Type": "application/json"}
-urllib3.disable_warnings()
+urllib3.disable_warnings()  # type: ignore
 
 STORE = f"https://{os.environ.get('PRIMARY_DOMAIN', 'bakabo.club')}"
 

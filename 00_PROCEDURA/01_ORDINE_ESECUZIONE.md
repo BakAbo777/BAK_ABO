@@ -1,6 +1,6 @@
 # Ordine Esecuzione — BKS Studio
 
-Aggiornato 17 Giugno 2026. Architettura: Streamlit unificato (porta 8501) + ecommerce_automation agent (porta 8600).
+Aggiornato 20 Giugno 2026. Architettura: Streamlit unificato (porta 8501) + Try-On Engine (porta 8010) + Master Panel Streamlit (porta 8600).
 
 ---
 
@@ -14,20 +14,19 @@ Menu interattivo ANSI: avvia, monitora e killa tutti i servizi.
 
 ---
 
-## Control Plane — Ecommerce Agent
+## Control Plane — Master Panel
 
 ```bat
-python -m ecommerce_automation.app
+00_START_BKS_MASTER.bat  →  [3] Master Panel
 ```
 
-Dashboard: `http://127.0.0.1:8600`
+Dashboard: `http://127.0.0.1:8600` · tablet: `http://192.168.1.103:8600`
 
 Uso:
 
-- health check Make, Printify, Shopify, OpenAI, Amazon, Telegram;
+- health check servizi e stato porte;
 - agente AI BKS con snapshot completo (catalog, sales_channels, marketing);
-- run ledger e log eventi;
-- social hub e AI assistant API (`/api/theme-ai-assistant`).
+- pagine: Agente / Gestione / Social / Project Mgr / Tema BKS / Catalogo / Image Factory.
 
 ---
 
@@ -92,7 +91,7 @@ Output:
 
 ## Fase 04 — Tema Shopify
 
-Tema live: `202392961362` — "BKS TM04 MEMBER TIER + SHOPPER 17JUN2026"
+Tema live: `202392961362` — "BKS TM04 20_06_2026 V.22"
 Sorgente locale: `04_TEMA_SHOPIFY/_merged_tm04/`
 
 Deploy file singolo o lista:

@@ -1,17 +1,17 @@
 /**
  * BKS Multi-Agent Worker — bks-agent.bakabo.workers.dev
- * SORGENTE DI VERITÀ — v20/06/2026
+ * SORGENTE DI VERITÀ — v21/06/2026 v4
  * Per aggiornare: copia il contenuto nell'editor Cloudflare → Deploy.
  *
  * KV binding richiesto: BKS_AGENT_KV
  * Secrets: OPENAI_API_KEY, SHOPIFY_DOMAIN, SHOPIFY_TOKEN, SHOPIFY_API_VERSION
  *
- * Aggiornamenti 20/06/2026:
- *   - Tier Metal: Lead/Iron/Brass/Silver/Gold (da subscriber/drop/archive)
- *   - Agente Try-On Camerino (intent "tryon") — tier Brass+ required
- *   - Personalizzazione: tier Brass/Silver/Gold (era Subscriber/Drop/Archive)
- *   - BKS_BRAND: sistema completo, app 12 configurate, tema TM04 v20/06/2026
- *   - Greeting aggiornato con menzione Try-On + tier Metal
+ * Aggiornamenti 21/06/2026 v4:
+ *   - BKS Verse Platform aggiunta: /pages/verse, /pages/verse-hall, API verse.bakabo.club
+ *   - verseAgent dedicato (intent "verse"): spiega la piattaforma poesia→oggetto
+ *   - Video Canvas Hero ottimizzato (interno — direct video CSS, nessuna canvas)
+ *   - Navigazione: /pages/verse e /pages/verse-hall aggiunte
+ *   - classifyIntent: nuovo intent "verse" per domande sulla piattaforma poesia
  */
 
 var __defProp = Object.defineProperty;
@@ -84,16 +84,45 @@ BKS Studio — wearable art, on demand. Venduto su bakabo.club (BakAbo container
 Modello: made-to-order, stampa edge-to-edge AOP (All Over Print). Produzione 7-14 giorni, spedizione 3-5 giorni.
 Fornitore principale: Printify. Nessun magazzino fisico — ogni pezzo è prodotto all'ordine.
 
-SISTEMA BKS (aggiornato 20/06/2026 v2):
-- Tema live: TM04 v20/06/2026 (id 202392961362) — 22 file deployati
-- Homepage: Video Hero → Piano Hero → Magazine → Reviews → Trust Strip
-- Piano Hero: tastiera interattiva 8 tasti, ogni tasto = 1 collezione con artwork 1024×1024
-- Try-On Camerino: disponibile per tier Brass+ alla pagina /pages/bks-members
-- Members Area: /pages/bks-members — dashboard tier, wishlist, Try-On, accesso anticipato drop
-- AI Assistant embed: attivo su product pages + section dedicata
+SISTEMA BKS (aggiornato 21/06/2026 v4):
+- Tema live: BKS TM04 V.22 (id 202392961362)
+- Homepage: Video Hero (4 avatar in sequenza) → Piano Hero (8 tasti CDN) → Magazine → Reviews → Trust Strip
+- Try-On Camerino virtuale: tier Brass+ → /pages/bks-members → tab Try-On
+- Members Area: /pages/bks-members — dashboard tier Metal, wishlist, Try-On, accesso anticipato drop
+- Gold Ring: cerchio animato intorno all'icona account, colore per tier (piombo→oro)
+- AI Assistant: integrato nel menu di navigazione globale come voce "Ask BKS"
+- BKS Verse: piattaforma poesia→oggetto, accessibile da /pages/verse (Brass+). Leaderboard mondiale su /pages/verse-hall. API: verse.bakabo.club
 - App attive: Search & Discovery (5 filtri, 19 sinonimi), Flow (9 workflow), Essential Announcer,
-  Selecty (EN/IT), Judge.me Reviews, Messaging (email automation)
+  Judge.me Reviews, Messaging (email automation), Selecty
 - Contatto: crew@bakabo.club
+
+NAVIGAZIONE MENU:
+- Desktop: CATALOG · COLLECTIONS (dropdown 8 collezioni) · ABOUT · … · [IT · EN] · Ask BKS
+- Mobile: drawer con tutte le voci + selettore lingua IT/EN + Ask BKS
+- Ask BKS è integrato nel menu — il pannello AI si apre direttamente dalla nav
+- Selettore lingua IT · EN nel menu: switch tra italiano e inglese (Shopify Markets)
+
+PAGINE CHIAVE DEL SITO:
+- /collections/all → catalogo completo (202+ prodotti attivi)
+- /collections/bks-hours → BKS Hours (contemplazione urbana)
+- /collections/bks-glyph → BKS Glyph (alfabeto visivo BKS)
+- /collections/bks-marker → BKS Marker (grafica urbana)
+- /collections/bks-riviera → BKS Riviera (resort mediterraneo)
+- /collections/bks-pulse → BKS Pulse (collezione ottica)
+- /collections/bks-token → BKS Token (arcade/pixel)
+- /collections/bks-flag → BKS Flag (pop-collage)
+- /collections/bks-origin → BKS Origin (illustrazione naif, 33 prodotti)
+- /pages/bks-members → Area Membri: tier dashboard, wishlist, Try-On Camerino
+- /pages/verse → BKS Verse: invia un verso, il Giudice AI lo valuta, diventa un capo BKS (Brass+)
+- /pages/verse-hall → BKS Verse Hall of Fame: leaderboard mondiale, 21 poeti storici, archivio vincitrici
+- /pages/bks-ai-assistant → pagina dedicata BKS AI
+- /pages/about-bakabo-1 → about BakAbo / BKS Studio
+- /pages/contatti → contatto diretto
+- /account → login / area account / livello Metal
+- /cart → carrello
+- /pages/faq → domande frequenti
+
+LINGUA: Lo store è disponibile in italiano e inglese. Rileva la lingua del messaggio e rispondi nella stessa lingua.
 `;
 
 var BKS_COLLECTIONS = `
@@ -141,6 +170,41 @@ POLICY CHIAVE:
 - Contatto: crew@bakabo.club
 `;
 
+// Compact bilingual synonym map — used by catalogAgent + navigationAgent
+// Full reference: BKS_SKILL/skills/bakabo-italian-terminology/SKILL.md
+var BKS_SYNONYMS = `
+PRODUCT SYNONYMS (IT/EN → BKS official name):
+- giacca / piumino / giubbotto / puffer / quilted jacket / bubble jacket → Puffer Jacket
+- felpa / cappuccio / hoodie / sweatshirt / pullover → Pullover Hoodie
+- pantaloncini / shorts / gym shorts / running shorts → Athletic Shorts
+- costume intero / costumino / swimsuit / one-piece / bathing suit → Swimwear
+- boxer mare / costume uomo / swim trunks / board shorts / surf shorts → Swim Trunks
+- vestito / abito / dress / racerback / sporty dress → Racerback Dress
+- scarpe / sneaker / kicks / graphic shoes → Sneakers
+- borsa viaggio / borsone / duffel / weekender / travel bag → Travel Bag
+- zaino / backpack / bookbag / rucksack → Backpack
+- pantalone / jogger / sweatpants / lounge pants / track pants → Lounge Pants
+- infradito / ciabatte / flip flops / slides / sandals → Flip Flops
+- maglietta / maglia / tee / graphic tee → T-Shirt
+- k-way / giacca vento / impermeabile / windbreaker / shell jacket → Windbreaker
+
+COLLECTION KEYWORDS (IT/EN → BKS handle):
+- ore / tempo / urbano / monochrome / city / grayscale → bks-hours (#c8c4be)
+- glifi / simboli / segni / graphic / typographic / abstract marks → bks-glyph (#d4a030)
+- pennarello / graffiti / muro / brushstroke / street art / gestural → bks-marker (#c04418)
+- riviera / mare / estate / coastal / resort / Mediterranean / teal → bks-riviera (#0ca898)
+- pulse / ottico / viola / geometric / optical / kinetic / hypnotic → bks-pulse (#8888cc)
+- token / pixel / arcade / retro gaming / 8-bit / sci-fi / digital → bks-token (#9828d8)
+- bandiera / rosso / pop / bold color / color block / dada → bks-flag (#c82020)
+- origine / folklore / naif / folk art / illustrated / storybook / earthy / green → bks-origin (#489808)
+
+FIT NOTES (US market):
+- Puffer jackets and hoodies: intentional oversized fit. If asked "runs big?" → confirm, that's the design.
+- Dresses, athletic shorts, swim trunks: slim/standard cut.
+- All items are made to order — no stock, no sell-outs. Production: 7–14 days + 3–5 days shipping.
+- Returns: 30 days from delivery. Contact: crew@bakabo.club
+`;
+
 async function callOpenAI(env, systemPrompt, messages) {
   const r = await fetch(OPENAI_URL, {
     method: "POST",
@@ -177,15 +241,16 @@ async function catalogAgent({ message, history, catalog, env, pageUrl, productTi
   ].filter(Boolean).join("\n");
 
   const system = `Sei il BKS Catalog Agent per bakabo.club — wearable art, on demand.
-Rispondi SOLO su: prodotti, collezioni, disponibilità, prezzi, caratteristiche, tag.
+Rispondi SOLO su: prodotti, collezioni, disponibilità, prezzi, caratteristiche, tag, pagine del sito.
 Se la domanda riguarda ordini/resi/spedizioni → rispondi SOLO: [ESCALATE:support]
 Se riguarda personalizzazioni → rispondi SOLO: [ESCALATE:customization]
-Tono: editoriale, essenziale, italiano. Sii preciso e conciso.
+Tono: editoriale, essenziale. Rileva la lingua del messaggio e rispondi nella stessa lingua (italiano o inglese). Sii preciso e conciso.
 
 ${BKS_BRAND}
 ${BKS_COLLECTIONS}
 ${BKS_PRODUCTS}
 
+${BKS_SYNONYMS}
 ${pageContext ? "CONTESTO PAGINA CLIENTE:\n" + pageContext + "\n" : ""}
 ${liveCatalog}`;
 
@@ -214,7 +279,7 @@ Flow:
 4. Rispondi SOLO con: [CUSTOM_READY: prodotto=X, testo=Y, posizione=Z, taglia=W] quando tutto è confermato
 
 Tier cliente: ${tier}
-Tono: esclusivo, diretto, brand BKS.`;
+Tono: esclusivo, diretto, brand BKS. Rileva la lingua del messaggio e rispondi nella stessa lingua (italiano o inglese).`;
   const reply = await callOpenAI(env, system, [...history, { role: "user", content: message }]);
   const ready   = reply.startsWith("[CUSTOM_READY:");
   const escalate= reply.startsWith("[ESCALATE:");
@@ -227,7 +292,7 @@ async function supportAgent({ message, customerProfile, history, env }) {
 Gestisci: stato ordini, resi (30 giorni dalla consegna), spedizioni (MTO: 7-14 giorni produzione + 3-5 spedizione), policy.
 Se la richiesta richiede accesso all'ordine specifico, chiedi il numero ordine o email.
 Se non riesci a risolvere, rispondi SOLO con: [ESCALATE:human]
-Tono: professionale, empatico, italiano.
+Tono: professionale, empatico. Rileva la lingua del messaggio e rispondi nella stessa lingua (italiano o inglese).
 Tier cliente: ${customerProfile?.tier ?? "none"}
 Per assistenza umana diretta: crew@bakabo.club`;
   const reply   = await callOpenAI(env, system, [...history, { role: "user", content: message }]);
@@ -238,11 +303,19 @@ __name(supportAgent, "supportAgent");
 
 async function tierAgent({ message, customerProfile, env }) {
   const tier = customerProfile?.tier ?? "none";
-  const info = {
+  const isEN = /\b(what|my|tier|level|member|unlock|how|badge|status)\b/i.test(message);
+  const info = isEN ? {
+    none:   "You're not yet a BKS member. Create an account on bakabo.club — your first order unlocks Lead ◎ tier with wishlist access and the exclusive newsletter.",
+    lead:   "You're BKS Lead ◎ — welcome to the club. You have wishlist access and the newsletter. Complete 1–2 orders to reach Iron ⬡ and unlock basic AI recommendations.",
+    iron:   "You're BKS Iron ⬡ — size history active, basic AI recommendations enabled. Next tier: Brass ◈ (3+ orders) — unlocks the Try-On Fitting Room and 48h early drop access.",
+    brass:  "You're BKS Brass ◈ — AI Personal Shopper active, Try-On Fitting Room available at bakabo.club/pages/bks-members, +48h early drop access. Next tier: Silver ◇ (6+ orders).",
+    silver: "You're BKS Silver ◇ — curated drops with +24h access, full collection archive, advanced text customisation (+€15). Next tier: Gold ✦ (11+ orders).",
+    gold:   "You're BKS Gold ✦ — maximum access: private VIP drops, white-glove curation, co-creation with BKS Studio. You're at the top of the Metal system.",
+  } : {
     none:   "Non sei ancora un membro BKS. Crea un account su bakabo.club — al primo acquisto diventi Lead ◎ e accedi alla wishlist e alla newsletter esclusiva.",
-    lead:   "Sei BKS Lead ◎ — benvenuto nel club. Hai accesso alla wishlist e alla newsletter. Completa 1-2 ordini per salire a Iron ⬡ e sbloccare le raccomandazioni AI personalizzate.",
+    lead:   "Sei BKS Lead ◎ — benvenuto nel club. Hai accesso alla wishlist e alla newsletter. Completa 1–2 ordini per salire a Iron ⬡ e sbloccare le raccomandazioni AI personalizzate.",
     iron:   "Sei BKS Iron ⬡ — storico taglie attivo, raccomandazioni AI di base. Prossimo tier: Brass ◈ (3+ ordini) — sblocchi il Try-On Camerino e l'accesso anticipato ai drop di 48h.",
-    brass:  "Sei BKS Brass ◈ — AI Personal Shopper attivo, Try-On Camerino disponibile (/pages/bks-members), accesso anticipato ai drop +48h. Prossimo tier: Silver ◇ (6+ ordini).",
+    brass:  "Sei BKS Brass ◈ — AI Personal Shopper attivo, Try-On Camerino disponibile su bakabo.club/pages/bks-members, accesso anticipato ai drop +48h. Prossimo tier: Silver ◇ (6+ ordini).",
     silver: "Sei BKS Silver ◇ — drop curati con accesso +24h, archivio completo collezioni, personalizzazione testo avanzata (+€15). Prossimo tier: Gold ✦ (11+ ordini).",
     gold:   "Sei BKS Gold ✦ — massimo accesso: drop VIP privati, curation white-glove, co-creazione con BKS Studio. Sei al vertice del sistema Metal.",
   };
@@ -253,21 +326,79 @@ __name(tierAgent, "tierAgent");
 async function tryonAgent({ message, customerProfile, env }) {
   const tier = customerProfile?.tier ?? "none";
   const eligible = ["brass", "silver", "gold"].includes(tier);
+  const isEN = /\b(try.?on|fitting|virtual|room|available|access|where)\b/i.test(message);
   if (!eligible) {
-    const needed = tier === "none" || tier === "lead"
-      ? "Sblocca il Try-On Camerino completando 3 ordini su bakabo.club (tier Brass ◈)."
-      : "Tier Iron ⬡ non include ancora il Try-On. Completa 3 ordini totali per salire a Brass ◈ e accedere.";
+    const needed = isEN
+      ? (tier === "none" || tier === "lead"
+          ? "The Try-On Fitting Room is unlocked at Brass ◈ tier (3+ orders on bakabo.club)."
+          : "Iron ⬡ tier doesn't include Try-On yet. Complete 3 total orders to reach Brass ◈.")
+      : (tier === "none" || tier === "lead"
+          ? "Il Try-On Camerino si sblocca con il tier Brass ◈ (3+ ordini su bakabo.club)."
+          : "Il tier Iron ⬡ non include ancora il Try-On. Completa 3 ordini totali per salire a Brass ◈.");
     return { reply: needed, resolved: true, escalate: false, sentiment: "neutral" };
   }
-  return {
-    reply: `Il Try-On Camerino BKS è disponibile per il tuo tier ${tier.charAt(0).toUpperCase() + tier.slice(1)} ✦\n\nAccedi da: bakabo.club/pages/bks-members → tab Try-On.\nPuoi provare virtualmente tutti i capi attivi del catalogo BKS. Se hai bisogno di supporto: crew@bakabo.club`,
-    resolved: true, escalate: false, sentiment: "positive",
-  };
+  const reply = isEN
+    ? `The BKS Try-On Fitting Room is available for your ${tier.charAt(0).toUpperCase() + tier.slice(1)} tier.\n\nAccess it at: bakabo.club/pages/bks-members → Try-On tab.\nYou can virtually try on all active BKS catalogue garments. Support: crew@bakabo.club`
+    : `Il Try-On Camerino BKS è disponibile per il tuo tier ${tier.charAt(0).toUpperCase() + tier.slice(1)}.\n\nAccedi da: bakabo.club/pages/bks-members → tab Try-On.\nPuoi provare virtualmente tutti i capi attivi del catalogo BKS. Supporto: crew@bakabo.club`;
+  return { reply, resolved: true, escalate: false, sentiment: "positive" };
 }
 __name(tryonAgent, "tryonAgent");
 
+async function navigationAgent({ message, env }) {
+  const isEN = /\b(where|find|page|go|link|how|access|navigate|site)\b/i.test(message);
+  const system = isEN
+    ? `You are the BKS Navigation Agent for bakabo.club.
+Help the user find the right page or section of the site.
+Key pages: /collections/all (full catalogue), /collections/bks-{hours,glyph,marker,riviera,pulse,token,flag,origin} (8 collections), /pages/bks-members (member area: tier dashboard, wishlist, Try-On), /pages/verse (BKS Verse: submit a poem, AI judge evaluates it, becomes a garment — Brass+ only), /pages/verse-hall (BKS Verse Hall of Fame: world leaderboard, 21 historical poets archive), /pages/bks-ai-assistant (AI assistant), /pages/about-bakabo-1 (about), /pages/contatti (contact), /account (login/account), /cart (cart).
+Ask BKS is in the navigation menu — the user is already using it.
+Reply concisely with the direct URL and a one-line description. Use English.`
+    : `Sei il BKS Navigation Agent per bakabo.club.
+Aiuta l'utente a trovare la pagina o sezione giusta del sito.
+Pagine chiave: /collections/all (catalogo completo), /collections/bks-{hours,glyph,marker,riviera,pulse,token,flag,origin} (8 collezioni), /pages/bks-members (area membri: tier, wishlist, Try-On), /pages/verse (BKS Verse: invia un verso, il Giudice AI lo valuta, diventa un capo BKS — solo Brass+), /pages/verse-hall (BKS Verse Hall of Fame: leaderboard mondiale, archivio 21 poeti storici), /pages/bks-ai-assistant (AI assistant), /pages/about-bakabo-1 (about), /pages/contatti (contatto), /account (login/account), /cart (carrello).
+Ask BKS è nel menu di navigazione — l'utente lo sta già usando.
+Rispondi con l'URL diretto e una descrizione in una riga. Usa l'italiano.`;
+  const reply = await callOpenAI(env, system, [{ role: "user", content: message }]);
+  return { reply, resolved: true, escalate: false, sentiment: "neutral" };
+}
+__name(navigationAgent, "navigationAgent");
+
+async function verseAgent({ message, customerProfile, env }) {
+  const tier     = customerProfile?.tier ?? "none";
+  const eligible = ["brass", "silver", "gold"].includes(tier);
+  const isEN     = /\b(poem|verse|poetry|judge|submit|write|word|line|art|object|win|leaderboard|hall)\b/i.test(message);
+
+  const INFO_IT = `BKS Verse è la piattaforma di BKS Studio dove la poesia diventa un capo.
+Come funziona:
+1. Scrivi un verso (80–280 caratteri) su /pages/verse
+2. Il Giudice AI — ispirato ai Grandi Poeti della storia — lo valuta su 5 assi: Immagine, Voce, Tensione, BKS, Corpo
+3. Se il verso supera la soglia, diventa artwork AI e poi prodotto reale nel catalogo BKS
+4. La tua firma compare sul capo come parte dell'edizione
+Leaderboard mondiale: /pages/verse-hall — classifica pubblica con i 25 migliori versi di sempre.
+Accesso: riservato ai membri Brass ◈ e superiori (3+ ordini su bakabo.club).`;
+
+  const INFO_EN = `BKS Verse is BKS Studio's platform where poetry becomes a garment.
+How it works:
+1. Write a verse (80–280 characters) at /pages/verse
+2. The AI Judge — inspired by the Great Poets of history — evaluates it on 5 axes: Image, Voice, Tension, BKS, Body
+3. If the verse passes the threshold, it becomes AI artwork then a real product in the BKS catalogue
+4. Your name appears on the garment as part of the edition
+World leaderboard: /pages/verse-hall — public ranking of the 25 best verses ever.
+Access: reserved for Brass ◈ members and above (3+ orders on bakabo.club).`;
+
+  const gateIT = tier === "none" || tier === "lead" || tier === "iron"
+    ? `\n\nPer accedere a BKS Verse devi essere almeno Brass ◈ (3+ ordini). Il tuo tier attuale: ${tier === "none" ? "nessuno" : tier.charAt(0).toUpperCase() + tier.slice(1)}.`
+    : "";
+  const gateEN = tier === "none" || tier === "lead" || tier === "iron"
+    ? `\n\nTo access BKS Verse you need at least Brass ◈ tier (3+ orders). Your current tier: ${tier === "none" ? "none" : tier.charAt(0).toUpperCase() + tier.slice(1)}.`
+    : "";
+
+  const reply = isEN ? INFO_EN + gateEN : INFO_IT + gateIT;
+  return { reply, resolved: true, escalate: false, sentiment: "positive" };
+}
+__name(verseAgent, "verseAgent");
+
 // ── evaluator.js ─────────────────────────────────────────────────────────────
-var AGENTS    = ["catalog", "custom", "support", "tier", "tryon", "orchestrator"];
+var AGENTS    = ["catalog", "custom", "support", "tier", "tryon", "navigation", "verse", "orchestrator"];
 var THRESHOLD = 60;
 
 function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
@@ -322,11 +453,13 @@ async function classifyIntent(env, message) {
       messages: [{
         role: "system",
         content: `Classifica il messaggio in UNO di questi intent (rispondi SOLO con il nome):
-catalog       → domande su prodotti, collezioni, prezzi, disponibilità, Try-On
+catalog       → domande su prodotti, collezioni, prezzi, disponibilità, caratteristiche
 customization → richieste di personalizzazione, testo su capo, custom order
 support       → ordini, spedizioni, resi, rimborsi, problemi tecnici
 tier          → domande sul proprio tier/membership BKS, livello Metal, sblocchi
-tryon         → richiesta accesso Try-On Camerino, virtual fitting
+tryon         → richiesta accesso Try-On Camerino, virtual fitting, provare virtualmente
+navigation    → dove trovo X, link a pagina, come accedo a Y, dove è la pagina Z
+verse         → BKS Verse, poesia, verso, giudice AI, poema, come partecipare, leaderboard poesia, hall of fame
 greeting      → saluti generici senza richiesta specifica`,
       }, { role: "user", content: message }],
     }),
@@ -342,7 +475,15 @@ async function route(intent, context) {
     case "customization": return customAgent(context);
     case "tier":          return tierAgent(context);
     case "tryon":         return tryonAgent(context);
-    case "greeting":      return { reply: "Ciao! Sono l'assistente BKS. Posso aiutarti con prodotti, collezioni, il tuo tier Metal, il Try-On Camerino, personalizzazioni o ordini.", resolved: true, escalate: false, sentiment: "neutral" };
+    case "verse":         return verseAgent(context);
+    case "navigation":    return navigationAgent(context);
+    case "greeting": {
+      const isEN = /\b(hi|hello|hey|good|help|what can)\b/i.test(context.message);
+      const reply = isEN
+        ? "Hi! I'm the BKS AI assistant — you'll find me in the navigation menu. I can help with products, collections, your Metal tier, the Try-On Fitting Room, BKS Verse (poetry→garment), customisation, or orders."
+        : "Ciao! Sono l'assistente AI di BKS — mi trovi nel menu di navigazione. Posso aiutarti con prodotti, collezioni, il tuo tier Metal, il Try-On Camerino, BKS Verse (poesia→capo), personalizzazioni o ordini.";
+      return { reply, resolved: true, escalate: false, sentiment: "neutral" };
+    }
     default:              return supportAgent(context);
   }
 }
@@ -369,6 +510,22 @@ async function refreshCatalog(env, memory) {
   return snapshot;
 }
 __name(refreshCatalog, "refreshCatalog");
+
+// ── Try-On helpers ───────────────────────────────────────────────────────────
+function base64ToUint8Array(b64) {
+  const bin = atob(b64);
+  const arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return arr;
+}
+__name(base64ToUint8Array, "base64ToUint8Array");
+
+function uint8ArrayToBase64(bytes) {
+  let bin = "";
+  for (let i = 0; i < bytes.byteLength; i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin);
+}
+__name(uint8ArrayToBase64, "uint8ArrayToBase64");
 
 // ── CORS ─────────────────────────────────────────────────────────────────────
 const ALLOWED_ORIGINS = ["https://bakabo.club", "https://www.bakabo.club"];
@@ -461,6 +618,112 @@ var orchestrator_default = {
         return Response.json({
           reply: "Servizio temporaneamente non disponibile. Contattaci a crew@bakabo.club.",
           error: err.message,
+        }, { status: 503, headers: cors });
+      }
+    }
+
+    // ── Social content generation ─────────────────────────────────────────────
+    if (request.method === "POST" && url.pathname === "/social") {
+      let body;
+      try { body = await request.json(); }
+      catch { return new Response("Bad JSON", { status: 400, headers: cors }); }
+
+      const { collection = "", product_type = "", platform = "instagram", language = "en", product_title = "" } = body;
+
+      const FORMATS = {
+        youtube:   "title (max 70 chars, no emoji), description (3 paragraphs: visual → collection → links), tags (array of 15 strings)",
+        instagram: "caption (headline + 2-3 lines editorial + 'bakabo.club — link in bio'), hashtags (array of 25)",
+        facebook:  "caption (slightly longer than IG, optional Italian), hashtags (array of 10)",
+        pinterest: "title (max 100 chars), description (150-300 chars, natural keyword), hashtags (array of 5)",
+        tiktok:    "caption (max 150 chars, punchy), hashtags (array of 8)",
+      };
+
+      const system = `You are the BKS Studio Social Content Agent.
+Generate ${platform} content for BKS Studio (bakabo.club) — wearable AI art, print on demand.
+Output format: ${FORMATS[platform] || FORMATS.instagram}
+Language: ${language === "it" ? "Italian" : "English"}
+Respond ONLY with valid JSON: { ${platform === "youtube" ? '"title","description","tags"' : '"caption","hashtags"'} }
+
+VOICE RULES (never break):
+- No exclamation marks. No urgency. No "luxury", "premium", "limited edition", "drop".
+- Tone: observational, editorial, cool. Describe, don't sell.
+- CTA: only "bakabo.club" or "link in bio" or "in the catalog".
+- Collection name: always full "BKS ${collection.replace("bks-", "").charAt(0).toUpperCase() + collection.replace("bks-", "").slice(1)}", never abbreviated.
+
+${BKS_BRAND}
+${BKS_COLLECTIONS}`;
+
+      const userMsg = `Generate ${platform} content for: collection=${collection}, product_type=${product_type}${product_title ? ", product_title=" + product_title : ""}`;
+
+      try {
+        const reply = await callOpenAI(env, system, [{ role: "user", content: userMsg }]);
+        let parsed;
+        try { parsed = JSON.parse(reply); }
+        catch { parsed = { raw: reply }; }
+        return Response.json({ ...parsed, collection, product_type, platform, language }, { headers: cors });
+      } catch (err) {
+        return Response.json({ error: "Content generation failed", details: err.message }, { status: 503, headers: cors });
+      }
+    }
+
+    // ── Try-On endpoint ───────────────────────────────────────────────────────
+    if (request.method === "POST" && url.pathname === "/tryon") {
+      let body;
+      try { body = await request.json(); }
+      catch { return new Response("Bad JSON", { status: 400, headers: cors }); }
+
+      const { customer_id = "anonymous", customer_tier = "", person_image_b64, garment_url } = body;
+
+      // Tier gate: Brass+ only
+      if (!["brass", "silver", "gold"].includes(customer_tier.toLowerCase())) {
+        return Response.json({
+          error: "Try-On requires Brass tier or higher (3+ orders on bakabo.club).",
+          tier_required: "brass",
+        }, { status: 403, headers: cors });
+      }
+
+      if (!person_image_b64 || !garment_url) {
+        return new Response("Missing person_image_b64 or garment_url", { status: 400, headers: cors });
+      }
+
+      try {
+        // Fetch garment image from Shopify CDN
+        const gRes = await fetch(garment_url, { headers: { "User-Agent": "BKS-TryOn/1.0" } });
+        if (!gRes.ok) throw new Error(`Garment fetch failed: ${gRes.status}`);
+        const garmentBytes = new Uint8Array(await gRes.arrayBuffer());
+
+        // Decode person image (strip data URI prefix)
+        const b64clean = person_image_b64.replace(/^data:image\/[^;]+;base64,/, "");
+        const personBytes = base64ToUint8Array(b64clean);
+
+        // Cloudflare Workers AI — p-image-try-on (Pruna AI)
+        // Binding: env.AI  (add [ai] binding = "AI" in wrangler.toml — already done)
+        const result = await env.AI.run("@pruna-ai/p-image-try-on", {
+          person_image:  personBytes,
+          garment_image: garmentBytes,
+        });
+
+        // Result is Uint8Array (JPEG bytes)
+        const resultBytes = result instanceof Uint8Array ? result : new Uint8Array(result);
+        const resultB64 = uint8ArrayToBase64(resultBytes);
+
+        // Log usage (no PII stored — only customer_id hash)
+        await memory.appendHistory(customer_id, {
+          role: "system",
+          content: `[tryon] garment=${garment_url.split("/").pop().split("?")[0]}`,
+          agent: "tryon",
+        });
+
+        return Response.json({
+          result_image: `data:image/jpeg;base64,${resultB64}`,
+          status: "ok",
+        }, { headers: cors });
+
+      } catch (err) {
+        console.error("[BKS TryOn] Error:", err.message);
+        return Response.json({
+          error: "Try-On processing failed. Use 'Send to crew' for manual processing.",
+          fallback: "crew",
         }, { status: 503, headers: cors });
       }
     }

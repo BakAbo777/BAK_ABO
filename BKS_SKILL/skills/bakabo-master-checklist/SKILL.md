@@ -1,5 +1,5 @@
 # BKS Master Checklist — Sistema Completo
-**Aggiornato:** 2026-06-20 (sessione pomeriggio)  
+**Aggiornato:** 2026-06-21 (pipeline editorial cutout)  
 **Store:** bakabo.club | Shopify `11628e-2.myshopify.com`  
 **Tema live:** id `202392961362` — BKS TM04 20_06_2026
 
@@ -28,6 +28,7 @@
 | 1.8 | Tag `collection:X` coerenti per 8 collezioni | ✅ | Tutti i 202 prodotti taggati |
 | 1.9 | Prodotti non taggati (Stamp Sneakerz) | 🔒 | Roberto attiva manualmente da Shopify Admin → Products |
 | 1.10 | `write_inventory` scope per sync qty | 🔒 | Aggiungere scope all'API token se necessario. Origin 03 = policy:continue OK |
+| 1.11 | Editorial cutout pipeline — scontorno AI prodotti | 🤖 | `scripts/bg_remove_catalog.py` — rembg 2.0.76, onnxruntime. Output: `output/catalog_images/editorial/{handle}/_01_cutout.png` + `_01_white.jpg`. 5 test OK (1200×1200px). Full run in corso 21-06-2026. |
 
 ---
 
@@ -158,6 +159,7 @@
 | 9.3 | Cloudflare Worker deploy pipeline | ✅ | `cloudflare/wrangler.toml` + `DEPLOY_NOW.bat` |
 | 9.4 | `00_START_BKS_MASTER.bat` — 3 servizi | ✅ | Streamlit :8501, Tryon :8010, Master :8600 |
 | 9.5 | Image Factory (`BAKABO_IMAGE_FACTORY_v1.1/`) | 🔄 | Avviabile da Streamlit page 07. Pipeline Printify → upload Shopify completata per 13 prodotti |
+| 9.9 | Editorial Cutout Pipeline | 🤖 | `scripts/bg_remove_catalog.py --collection bks-X` — rimuove sfondo mockup Printify per uso magazine. Full run 21-06-2026. Args: `--collection`, `--limit`, `--force`, `--dry-run` |
 | 9.6 | Sync media library (`I:\BKS database`) | ✅ | 14.421 file indicizzati, script `sync_bks_database.py` |
 | 9.7 | API scope `write_inventory` | 🔒 | Non aggiunto — serve per sync qty programmatico. Aggiungere se necessario |
 | 9.8 | Printify → Shopify sync automatico qty | 🔄 | Printify app sincronizza — Origin 03 qty=0 ma policy=continue (no SOLD OUT) |
@@ -201,6 +203,7 @@ ALTA — Esperienza utente:
   [x] 4.4  5 menu obsoleti eliminati — ✅ 20-06-2026
   [x] 4.5  Redirect /pages/contatti → /pages/contact — ✅ 20-06-2026
   [x] 5.16 BKS Weekly Editorial homepage — ✅ Vol.1/Issue 6 live 20/06/2026
+  [x] 1.11 Editorial cutout pipeline — ✅ rembg 2.0.76, full run 21-06-2026
 
 MEDIA — Completamento:
   [ ] 6.7  Shopify Markets IT/EN

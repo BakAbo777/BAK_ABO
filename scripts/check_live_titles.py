@@ -13,7 +13,7 @@ DOMAIN = os.environ["SHOPIFY_MYSHOPIFY_DOMAIN"]
 TOKEN  = os.environ["SHOPIFY_ADMIN_TOKEN"]
 VER    = os.environ.get("SHOPIFY_API_VERSION", "2025-01")
 HDR    = {"X-Shopify-Access-Token": TOKEN}
-urllib3.disable_warnings()
+urllib3.disable_warnings()  # type: ignore
 
 # Check a sample of handles that had ™ in CSV
 handles = [

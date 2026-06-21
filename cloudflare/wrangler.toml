@@ -14,6 +14,10 @@ crons = ["0 10 * * *"]
 binding = "BKS_AGENT_KV"
 id = "8f6b1e4accae47949b2960735d270a3a"
 
+# Workers AI binding — abilita env.AI per p-image-try-on (Pruna) e altri modelli
+[ai]
+binding = "AI"
+
 # Secrets (NON inserire qui — usare `wrangler secret put`):
 # OPENAI_API_KEY       → wrangler secret put OPENAI_API_KEY
 # SHOPIFY_DOMAIN       → wrangler secret put SHOPIFY_DOMAIN

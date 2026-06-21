@@ -3,9 +3,9 @@ User-authorized one-off correction (see chat 2026-06-16). Not reusable infra.
 """
 import os, requests, urllib3, json, sys
 from pathlib import Path
-sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # type: ignore
 
-urllib3.disable_warnings()
+urllib3.disable_warnings()  # type: ignore
 ROOT = Path(__file__).resolve().parent.parent
 for raw in (ROOT / ".env").read_text(encoding="utf-8").splitlines():
     line = raw.strip()

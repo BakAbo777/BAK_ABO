@@ -23,8 +23,11 @@ from typing import Any
 # Session: 2026-06-19 v20 — Cloudflare Worker bks-agent live (KV+secrets+OpenAI), AI assistant endpoint→Worker, try/catch fix
 # Session: 2026-06-19 v21 — AI assistant attivo globalmente (enabled:true, endpoint Worker), 6 template/sezioni deploy (members-login, embed, origin, ai-page, members, wishlist)
 # Session: 2026-06-19 v22 — Deploy completo 48 file BKS (assets/sections/snippets/templates) + handle emoji fix Pullover Token bks-pullover-token + GSC TXT verificato
-BKS_LAST_DEPLOY = "19_06_2026_v22"
-BKS_THEME_VERSION = "BKS TM04 19_06_2026 V.22"
+# Session: 2026-06-20 v23 — Theme upgrade 20/06: 20 file pushati, backup id=202600382802, Worker tier Metal + Try-On, FAQ 12 Q&A, Timed offer estate 2026
+# Session: 2026-06-20 v24 — Piano Hero in index.json (8 tasti+CDN), Weekly Editorial Vol.1/Issue 6, pagine duplicate eliminate, tema rinominato V.22
+# Session: 2026-06-20 v25 — BAT launchers v4 (auto-kill porte, single-line streamlit), Desktop BKS CENTER aggiornato, audit completo
+BKS_LAST_DEPLOY = "20_06_2026_v25"
+BKS_THEME_VERSION = "BKS TM04 20_06_2026 V.22"
 BKS_THEME_ID = "202392961362"
 BKS_COLLECTIONS = ("Hours", "Glyph", "Marker", "Riviera", "Pulse", "Token", "Flag", "Origin")
 SESSION_CHANGES = {
@@ -47,6 +50,9 @@ SESSION_CHANGES = {
     "V.20 19_06_2026": "Cloudflare Worker bks-agent live (KV 8f6b1e4a, 4 secrets, OpenAI) + AI assistant endpoint→Worker + try/catch graceful 503",
     "V.21 19_06_2026": "AI assistant attivo globalmente (enabled:true) + 6 deploy: members-login, ai-embed, origin template, ai-page, members, wishlist",
     "V.22 19_06_2026": "Deploy completo 48 file BKS custom (11 assets + 25 sections + 6 snippets + 6 templates) + handle emoji fix Pullover Token + GSC TXT OK",
+    "V.23 20_06_2026": "Theme upgrade 20/06: 20 file pushati, backup id=202600382802. Worker: tier Metal+Try-On. FAQ 12 Q&A corrette. Timed offer estate 2026.",
+    "V.24 20_06_2026": "Piano Hero in index.json (8 tasti CDN artwork). Weekly Editorial Vol.1/Issue 6. Pagine duplicate eliminate. Tema rinominato BKS TM04 20_06_2026 V.22.",
+    "V.25 20_06_2026": "BAT launchers v4 (auto-kill porte, single-line streamlit). Desktop BKS CENTER aggiornato. Audit completo sistema.",
 }
 
 

@@ -551,6 +551,304 @@ def is_rejected(db_path: Path, shopify_filename: str = "", file_path: str = "") 
     return False
 
 
+# ─────────────────────────── PRINTIFY LIBRARY TABLES ────────────────────────
+
+PRINTIFY_DDL = """
+CREATE TABLE IF NOT EXISTS printify_uploads (
+    id                   INTEGER PRIMARY KEY AUTOINCREMENT,
+    printify_id          TEXT NOT NULL UNIQUE,
+    filename             TEXT NOT NULL DEFAULT '',
+    url                  TEXT NOT NULL DEFAULT '',
+    local_path           TEXT NOT NULL DEFAULT '',
+    width                INTEGER,
+    height               INTEGER,
+    file_size            INTEGER,
+    mime_type            TEXT NOT NULL DEFAULT '',
+    upload_time          TEXT NOT NULL DEFAULT '',
+    used_in_collections  TEXT NOT NULL DEFAULT '[]',
+    synced_at            TEXT NOT NULL DEFAULT '',
+    meta_json            TEXT NOT NULL DEFAULT '{}'
+);
+CREATE INDEX IF NOT EXISTS idx_pfy_up_id ON printify_uploads(printify_id);
+
+CREATE TABLE IF NOT EXISTS printify_blueprints (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    blueprint_id  INTEGER NOT NULL UNIQUE,
+    title         TEXT NOT NULL DEFAULT '',
+    brand         TEXT NOT NULL DEFAULT '',
+    model         TEXT NOT NULL DEFAULT '',
+    description   TEXT NOT NULL DEFAULT '',
+    images_json   TEXT NOT NULL DEFAULT '[]',
+    synced_at     TEXT NOT NULL DEFAULT '',
+    meta_json     TEXT NOT NULL DEFAULT '{}'
+);
+CREATE INDEX IF NOT EXISTS idx_pfy_bp_id ON printify_blueprints(blueprint_id);
+
+CREATE TABLE IF NOT EXISTS printify_products (
+    id                      INTEGER PRIMARY KEY AUTOINCREMENT,
+    printify_product_id     TEXT NOT NULL UNIQUE,
+    shopify_product_id      TEXT NOT NULL DEFAULT '',
+    title                   TEXT NOT NULL DEFAULT '',
+    blueprint_id            INTEGER,
+    print_provider_id       INTEGER,
+    collection              TEXT NOT NULL DEFAULT '',
+    upload_ids_json         TEXT NOT NULL DEFAULT '[]',
+    mockup_urls_json        TEXT NOT NULL DEFAULT '[]',
+    local_mockup_paths_json TEXT NOT NULL DEFAULT '[]',
+    synced_at               TEXT NOT NULL DEFAULT '',
+    meta_json               TEXT NOT NULL DEFAULT '{}'
+);
+CREATE INDEX IF NOT EXISTS idx_pfy_prod_id  ON printify_products(printify_product_id);
+CREATE INDEX IF NOT EXISTS idx_pfy_prod_col ON printify_products(collection);
+"""
+
+
+def _ensure_printify_tables(conn: sqlite3.Connection) -> None:
+    for stmt in PRINTIFY_DDL.strip().split(";"):
+        stmt = stmt.strip()
+        if stmt:
+            conn.execute(stmt)
+    # Migrations for existing DBs that predate schema changes
+    existing_cols = {
+        row[1] for row in conn.execute("PRAGMA table_info(printify_uploads)").fetchall()
+    }
+    if "used_in_collections" not in existing_cols:
+        conn.execute(
+            "ALTER TABLE printify_uploads ADD COLUMN used_in_collections TEXT NOT NULL DEFAULT '[]'"
+        )
+    conn.commit()
+
+
+def upsert_printify_upload(
+    db_path: Path,
+    *,
+    printify_id: str,
+    filename: str = "",
+    url: str = "",
+    local_path: str = "",
+    width: int | None = None,
+    height: int | None = None,
+    file_size: int | None = None,
+    mime_type: str = "",
+    upload_time: str = "",
+    used_in_collections: list | None = None,
+    meta: dict | None = None,
+) -> int:
+    now = datetime.now().isoformat()
+    meta_json = json.dumps(meta or {}, ensure_ascii=False)
+    cols_json = json.dumps(used_in_collections or [], ensure_ascii=False)
+    db_path.parent.mkdir(parents=True, exist_ok=True)
+    with closing(sqlite3.connect(db_path)) as conn:
+        _ensure_printify_tables(conn)
+        existing = conn.execute(
+            "SELECT id FROM printify_uploads WHERE printify_id = ?", (printify_id,)
+        ).fetchone()
+        if existing:
+            conn.execute(
+                "UPDATE printify_uploads SET filename=?, url=?, local_path=?, width=?, height=?, "
+                "file_size=?, mime_type=?, upload_time=?, used_in_collections=?, synced_at=?, meta_json=? WHERE id=?",
+                (filename, url, local_path, width, height, file_size, mime_type,
+                 upload_time, cols_json, now, meta_json, existing[0]),
+            )
+            conn.commit()
+            return existing[0]
+        cur = conn.execute(
+            "INSERT INTO printify_uploads (printify_id, filename, url, local_path, width, height, "
+            "file_size, mime_type, upload_time, used_in_collections, synced_at, meta_json) "
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+            (printify_id, filename, url, local_path, width, height, file_size,
+             mime_type, upload_time, cols_json, now, meta_json),
+        )
+        conn.commit()
+        return cur.lastrowid
+
+
+def sync_upload_collections(db_path: Path) -> dict:
+    """Cross-reference: for each upload, compute which collections use it.
+
+    Reads printify_products.upload_ids_json and updates
+    printify_uploads.used_in_collections with the list of distinct collection handles.
+    """
+    if not db_path.exists():
+        return {"ok": False, "updated": 0}
+    now = datetime.now().isoformat()
+    with closing(sqlite3.connect(db_path)) as conn:
+        _ensure_printify_tables(conn)
+        conn.row_factory = sqlite3.Row
+        products = conn.execute(
+            "SELECT collection, upload_ids_json FROM printify_products WHERE upload_ids_json != '[]'"
+        ).fetchall()
+
+        # Build map: upload_id → set of collection handles
+        upload_cols: dict[str, set[str]] = {}
+        for prod in products:
+            col = prod["collection"] or ""
+            ids = json.loads(prod["upload_ids_json"] or "[]")
+            for uid in ids:
+                uid = str(uid)
+                if uid not in upload_cols:
+                    upload_cols[uid] = set()
+                if col:
+                    upload_cols[uid].add(col)
+
+        updated = 0
+        for printify_id, collections in upload_cols.items():
+            cols_json = json.dumps(sorted(collections), ensure_ascii=False)
+            result = conn.execute(
+                "UPDATE printify_uploads SET used_in_collections=?, synced_at=? WHERE printify_id=?",
+                (cols_json, now, printify_id),
+            )
+            if result.rowcount > 0:
+                updated += 1
+
+        conn.commit()
+    return {"ok": True, "updated": updated, "upload_ids_found": len(upload_cols)}
+
+
+def upsert_printify_blueprint(
+    db_path: Path,
+    *,
+    blueprint_id: int,
+    title: str = "",
+    brand: str = "",
+    model: str = "",
+    description: str = "",
+    images: list | None = None,
+    meta: dict | None = None,
+) -> int:
+    now = datetime.now().isoformat()
+    db_path.parent.mkdir(parents=True, exist_ok=True)
+    with closing(sqlite3.connect(db_path)) as conn:
+        _ensure_printify_tables(conn)
+        existing = conn.execute(
+            "SELECT id FROM printify_blueprints WHERE blueprint_id = ?", (blueprint_id,)
+        ).fetchone()
+        args = (title, brand, model, description,
+                json.dumps(images or [], ensure_ascii=False),
+                now, json.dumps(meta or {}, ensure_ascii=False))
+        if existing:
+            conn.execute(
+                "UPDATE printify_blueprints SET title=?, brand=?, model=?, description=?, "
+                "images_json=?, synced_at=?, meta_json=? WHERE id=?",
+                args + (existing[0],),
+            )
+            conn.commit()
+            return existing[0]
+        cur = conn.execute(
+            "INSERT INTO printify_blueprints (blueprint_id, title, brand, model, description, "
+            "images_json, synced_at, meta_json) VALUES (?,?,?,?,?,?,?,?)",
+            (blueprint_id,) + args,
+        )
+        conn.commit()
+        return cur.lastrowid
+
+
+def upsert_printify_product(
+    db_path: Path,
+    *,
+    printify_product_id: str,
+    shopify_product_id: str = "",
+    title: str = "",
+    blueprint_id: int | None = None,
+    print_provider_id: int | None = None,
+    collection: str = "",
+    upload_ids: list | None = None,
+    mockup_urls: list | None = None,
+    local_mockup_paths: list | None = None,
+    meta: dict | None = None,
+) -> int:
+    now = datetime.now().isoformat()
+    db_path.parent.mkdir(parents=True, exist_ok=True)
+    with closing(sqlite3.connect(db_path)) as conn:
+        _ensure_printify_tables(conn)
+        existing = conn.execute(
+            "SELECT id FROM printify_products WHERE printify_product_id = ?", (printify_product_id,)
+        ).fetchone()
+        vals = (
+            shopify_product_id, title, blueprint_id, print_provider_id, collection,
+            json.dumps(upload_ids or [], ensure_ascii=False),
+            json.dumps(mockup_urls or [], ensure_ascii=False),
+            json.dumps(local_mockup_paths or [], ensure_ascii=False),
+            now, json.dumps(meta or {}, ensure_ascii=False),
+        )
+        if existing:
+            conn.execute(
+                "UPDATE printify_products SET shopify_product_id=?, title=?, blueprint_id=?, "
+                "print_provider_id=?, collection=?, upload_ids_json=?, mockup_urls_json=?, "
+                "local_mockup_paths_json=?, synced_at=?, meta_json=? WHERE id=?",
+                vals + (existing[0],),
+            )
+            conn.commit()
+            return existing[0]
+        cur = conn.execute(
+            "INSERT INTO printify_products (printify_product_id, shopify_product_id, title, "
+            "blueprint_id, print_provider_id, collection, upload_ids_json, mockup_urls_json, "
+            "local_mockup_paths_json, synced_at, meta_json) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+            (printify_product_id,) + vals,
+        )
+        conn.commit()
+        return cur.lastrowid
+
+
+def list_printify_uploads(db_path: Path, limit: int | None = None) -> list[dict]:
+    if not db_path.exists():
+        return []
+    with closing(sqlite3.connect(db_path)) as conn:
+        _ensure_printify_tables(conn)
+        conn.row_factory = sqlite3.Row
+        q = "SELECT * FROM printify_uploads ORDER BY id DESC"
+        if limit:
+            q += f" LIMIT {limit}"
+        return [dict(r) for r in conn.execute(q).fetchall()]
+
+
+def list_printify_products(db_path: Path, collection: str = "") -> list[dict]:
+    if not db_path.exists():
+        return []
+    with closing(sqlite3.connect(db_path)) as conn:
+        _ensure_printify_tables(conn)
+        conn.row_factory = sqlite3.Row
+        q = "SELECT * FROM printify_products WHERE 1=1"
+        params: list = []
+        if collection:
+            q += " AND collection = ?"
+            params.append(collection)
+        q += " ORDER BY id"
+        return [dict(r) for r in conn.execute(q, params).fetchall()]
+
+
+def printify_library_summary(db_path: Path) -> dict:
+    if not db_path.exists():
+        return {"ok": False, "uploads": 0, "blueprints": 0, "products": 0}
+    with closing(sqlite3.connect(db_path)) as conn:
+        _ensure_printify_tables(conn)
+        conn.row_factory = sqlite3.Row
+        uploads = conn.execute("SELECT COUNT(*) AS c FROM printify_uploads").fetchone()["c"]
+        uploads_dl = conn.execute(
+            "SELECT COUNT(*) AS c FROM printify_uploads WHERE local_path != ''"
+        ).fetchone()["c"]
+        blueprints = conn.execute("SELECT COUNT(*) AS c FROM printify_blueprints").fetchone()["c"]
+        products = conn.execute("SELECT COUNT(*) AS c FROM printify_products").fetchone()["c"]
+        products_with_mockups = conn.execute(
+            "SELECT COUNT(*) AS c FROM printify_products WHERE local_mockup_paths_json != '[]'"
+        ).fetchone()["c"]
+        by_col = conn.execute(
+            "SELECT collection, COUNT(*) AS c FROM printify_products "
+            "WHERE collection != '' GROUP BY collection ORDER BY c DESC"
+        ).fetchall()
+    return {
+        "ok": True,
+        "uploads": uploads,
+        "uploads_downloaded": uploads_dl,
+        "blueprints": blueprints,
+        "products": products,
+        "products_with_mockups": products_with_mockups,
+        "by_collection": {r["collection"]: r["c"] for r in by_col},
+    }
+
+
+# ─────────────────────────── PUBLIC PAYLOAD ──────────────────────────────────
+
 def payload(settings: Any = None) -> dict[str, Any]:
     from bks_assets import active_catalog_db
 

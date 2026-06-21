@@ -21,7 +21,7 @@ def get(path: str) -> dict:
     try:
         r = requests.get(url, headers=HDR, timeout=30)
     except requests.exceptions.SSLError:
-        urllib3.disable_warnings()
+        urllib3.disable_warnings()  # type: ignore
         r = requests.get(url, headers=HDR, timeout=30, verify=False)
     r.raise_for_status()
     return r.json()

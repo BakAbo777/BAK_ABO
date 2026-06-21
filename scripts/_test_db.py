@@ -1,5 +1,5 @@
 import sys
-sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # type: ignore
 from ecommerce_automation.bks_db import bks_db
 print("Tables:", len(bks_db.list_tables()))
 rows = bks_db.query('SELECT handle, title FROM bks_collection_plan_v20 WHERE "group"="Editoriali"')

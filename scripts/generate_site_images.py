@@ -370,12 +370,17 @@ def main() -> None:
     client = None
     if not args.dry_run:
         try:
-            import openai
+            import openai, httpx, warnings
+            warnings.filterwarnings("ignore", message="Unverified HTTPS request")
             api_key = os.environ.get("OPENAI_API_KEY", "")
             if not api_key:
                 _out("✗ OPENAI_API_KEY not set in .env")
                 sys.exit(1)
-            client = openai.OpenAI(api_key=api_key)
+            # verify=False: Windows SSL cert workaround (same as other BKS scripts)
+            client = openai.OpenAI(
+                api_key=api_key,
+                http_client=httpx.Client(verify=False),
+            )
         except ImportError:
             _out("✗ openai package not installed. Run: pip install openai")
             sys.exit(1)

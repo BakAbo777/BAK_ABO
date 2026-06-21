@@ -45,11 +45,62 @@
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
-  /* language selector hidden — single market store */
+  /* language selector + market popup — hide Shopify floating widget only */
+  /* .bks-lang-toggle and .bks-gh__drawer-lang are KEPT VISIBLE (integrated in nav) */
   .bks-lang-form,
   localization-form,
   .localization-form,
-  .disclosure { display: none !important; }
+  .disclosure,
+  country-localization,
+  .country-selector,
+  market-popup,
+  .market-popup,
+  .footer__localization,
+  .header__localization,
+  .bks-gh__locale,
+  #market-selector,
+  [data-market-popup],
+  [data-localization-form],
+  .localization-wrapper,
+  .geolocation-form,
+  shopify-geo-localization,
+  /* GTranslate app */
+  .gts-switcher-box,
+  .gts-box,
+  .gts-widget,
+  .gts-select,
+  #gts-widget-block,
+  [class*="gts-switcher"],
+  [id*="gts-widget"],
+  /* Weglot */
+  .weglot-widget,
+  .weglot_switcher,
+  #weglot_here,
+  [class*="weglot"],
+  /* Google Translate */
+  #google_translate_element,
+  .goog-te-gadget,
+  .goog-te-banner-frame,
+  #goog-gt-tt,
+  .gtp-select-wrapper,
+  /* LangShop / other translation apps */
+  .language-switcher,
+  .langify-switcher,
+  [class*="translate-"],
+  [class*="lang-switch"],
+  /* Shopify Translate & Adapt floating widget */
+  .shopify-translate-language-switcher,
+  .translate-adapt-widget,
+  /* Selecty app */
+  .selecty-widget,
+  .selecty-container,
+  .selecty-popup,
+  .selecty-bar,
+  .selecty-flag,
+  #selecty-widget,
+  #selecty-app,
+  [class*="selecty"],
+  [id*="selecty"] { display: none !important; }
   .bks-gh.bks-gh--hidden {
     transform: translateY(-100%);
   }
@@ -103,10 +154,10 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: clamp(8px,1.5vw,20px);
+    gap: clamp(6px,1.2vw,16px);
   }
   .bks-gh__actions a,
-  .bks-gh__actions button {
+  .bks-gh__actions button:not(.bks-gh__ask-btn) {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -122,7 +173,20 @@
     padding: 0;
   }
   .bks-gh__actions a:hover,
-  .bks-gh__actions button:hover { color: #666; }
+  .bks-gh__actions button:not(.bks-gh__ask-btn):hover { color: #666; }
+  /* Separatore visivo tra utility controls e icone */
+  .bks-gh__action-sep {
+    width: 1px;
+    height: 16px;
+    background: rgba(10,10,10,0.13);
+    flex-shrink: 0;
+    align-self: center;
+  }
+  @media (max-width: 768px) {
+    .bks-gh__actions .bks-lang-toggle,
+    .bks-gh__actions .bks-gh__ask-btn,
+    .bks-gh__actions .bks-gh__action-sep { display: none; }
+  }
   /* ── LANGUAGE SELECTOR ──────────────────────────────────── */
   .bks-lang-form { display: flex; align-items: center; }
   .bks-lang-select {
@@ -147,6 +211,81 @@
   }
   .bks-lang-select:hover { border-color: rgba(10,10,10,0.4); }
   .bks-gh__actions svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  /* ── language toggle IT · EN ───────────────────────────── */
+  .bks-lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .bks-lang-toggle__btn {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #b0b0b0;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.15s;
+  }
+  .bks-lang-toggle__btn.is-active { color: #0a0a0a; font-weight: 700; }
+  .bks-lang-toggle__btn:hover { color: #0a0a0a; }
+  .bks-lang-toggle__sep { color: #d0d0d0; font-size: 0.65rem; font-family: var(--bks-font-mono, 'DM Mono', monospace); pointer-events: none; }
+  /* ── AI BKS nav trigger — accent badge ──────────────────── */
+  .bks-gh__ask-btn {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: var(--bks-active-accent, #2f6f6b);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #0a0a0a;
+    padding: 4px 10px;
+    position: relative;
+    transition: background 0.35s ease, color 0.2s, opacity 0.2s;
+    white-space: nowrap;
+    opacity: 0.92;
+  }
+  .bks-gh__ask-btn:hover {
+    opacity: 1;
+    filter: brightness(1.1);
+  }
+  .bks-gh__ask-btn[aria-expanded="true"] {
+    opacity: 1;
+    filter: brightness(0.88);
+  }
+  /* drawer versions */
+  .bks-gh__drawer-ask-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 14px 0;
+    border: none;
+    border-bottom: 1px solid #eee;
+    background: none;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--bks-active-accent, #2f6f6b);
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  .bks-gh__drawer-ask-btn:hover { color: #0a0a0a; }
+  .bks-gh__drawer-lang {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+  }
   /* ── CART BUBBLE ────────────────────────────────────────── */
   .bks-cart-count {
     position: absolute;
@@ -333,7 +472,7 @@
     </div>
 
     {%- comment -%} CENTER: primary nav (desktop) + hamburger (mobile) {%- endcomment -%}
-    <div style="display:flex;align-items:center;">
+    <div style="display:flex;align-items:center;justify-content:center;">
       <button class="bks-gh__hamburger bks-gh__actions" id="bks-menu-toggle" aria-label="Open menu" aria-expanded="false"
               style="justify-content:flex-start;width:auto;">
         <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -386,7 +525,7 @@
             </div>
           </div>
           <a href="/pages/about-bakabo-1">About</a>
-          <a href="/pages/contatti">Contatti</a>
+          <a href="/pages/contact">Contatti</a>
         {%- endif -%}
       </nav>
     </div>
@@ -451,21 +590,23 @@
       }
     </style>
 
-    {%- comment -%} RIGHT: language + search + cart {%- endcomment -%}
+    {%- comment -%} RIGHT: IT·EN · AI BKS · | · search · account · cart {%- endcomment -%}
     <div class="bks-gh__actions">
       {%- if localization.available_languages.size > 1 -%}
-      <form action="/localization" method="POST" class="bks-lang-form">
-        <input type="hidden" name="return_to" value="{{ request.path }}">
-        <select name="locale_code" aria-label="Language" onchange="this.form.submit()" class="bks-lang-select">
+        <form action="/localization" method="POST" class="bks-lang-toggle" aria-label="Language">
+          <input type="hidden" name="_method" value="PUT">
+          <input type="hidden" name="return_to" value="{{ request.path }}">
           {%- for lang in localization.available_languages -%}
-            <option value="{{ lang.iso_code }}"
-              {%- if lang.iso_code == localization.language.iso_code %} selected{%- endif -%}>
-              {{ lang.iso_code | upcase }}
-            </option>
+            <button type="submit" name="locale_code" value="{{ lang.iso_code }}"
+                    class="bks-lang-toggle__btn{% if lang.iso_code == localization.language.iso_code %} is-active{% endif %}">
+              {{- lang.iso_code | upcase -}}
+            </button>
+            {%- unless forloop.last -%}<span class="bks-lang-toggle__sep" aria-hidden="true">·</span>{%- endunless -%}
           {%- endfor -%}
-        </select>
-      </form>
+        </form>
       {%- endif -%}
+      <button class="bks-gh__ask-btn" id="bks-nav-ask-trigger" type="button" aria-expanded="false" aria-label="Open BKS AI Assistant">AI BKS</button>
+      <span class="bks-gh__action-sep" aria-hidden="true"></span>
       <a href="{{ routes.search_url }}" aria-label="Search catalog">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </a>
@@ -529,10 +670,24 @@
         <a href="/collections/bks-flag">BKS Flag</a>
         <a href="/collections/bks-origin">BKS Origin</a>
         <a href="/pages/about-bakabo-1">About BakAbo</a>
-        <a href="/pages/contatti">Contatti</a>
+        <a href="/pages/contact">Contatti</a>
       {%- endif -%}
       <a href="{{ routes.search_url }}">Search</a>
       <a href="{{ routes.cart_url }}">Cart ({{ cart.item_count }})</a>
+      {%- if localization.available_languages.size > 1 -%}
+        <form action="/localization" method="POST" class="bks-gh__drawer-lang" aria-label="Language">
+          <input type="hidden" name="_method" value="PUT">
+          <input type="hidden" name="return_to" value="{{ request.path }}">
+          {%- for lang in localization.available_languages -%}
+            <button type="submit" name="locale_code" value="{{ lang.iso_code }}"
+                    class="bks-lang-toggle__btn{% if lang.iso_code == localization.language.iso_code %} is-active{% endif %}">
+              {{- lang.iso_code | upcase -}}
+            </button>
+            {%- unless forloop.last -%}<span class="bks-lang-toggle__sep" aria-hidden="true">·</span>{%- endunless -%}
+          {%- endfor -%}
+        </form>
+      {%- endif -%}
+      <button class="bks-gh__drawer-ask-btn" id="bks-drawer-ask-trigger" type="button">AI BKS</button>
     </nav>
   </div>
 </div>
@@ -583,5 +738,98 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeDrawer();
   });
+
+  // Ask BKS — delegate to assistant toggle + sync aria-expanded
+  function getAiToggle() { return document.querySelector('[data-bks-ai-toggle]'); }
+  function syncAskBtns() {
+    var expanded = (getAiToggle() || {}).getAttribute && getAiToggle().getAttribute('aria-expanded') === 'true';
+    var navBtn = document.getElementById('bks-nav-ask-trigger');
+    if (navBtn) navBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  }
+  var navAsk = document.getElementById('bks-nav-ask-trigger');
+  if (navAsk) {
+    navAsk.addEventListener('click', function() {
+      var ai = getAiToggle();
+      if (ai) { ai.click(); syncAskBtns(); }
+    });
+  }
+  var drawerAsk = document.getElementById('bks-drawer-ask-trigger');
+  if (drawerAsk) {
+    drawerAsk.addEventListener('click', function() {
+      closeDrawer();
+      setTimeout(function() {
+        var ai = getAiToggle();
+        if (ai) { ai.click(); syncAskBtns(); }
+      }, 320);
+    });
+  }
+
+  // ── Locale killer — MutationObserver + interval fallback ───────────────────
+  var LOCALE_SELECTORS = [
+    'localization-form', '.localization-form', '.disclosure',
+    'market-popup', '.market-popup', '[data-market-popup]',
+    'country-localization', '.country-selector',
+    '.localization-wrapper', '.header__localization', '.footer__localization',
+    '#shopify-market-redirect', '[id*="market-redirect"]',
+    '[class*="gts-switcher"]', '[id*="gts-widget"]',
+    '[class*="weglot"]', '#weglot_here',
+    '#google_translate_element', '.goog-te-gadget', '.goog-te-banner-frame',
+    '.language-switcher', '[class*="translate-"]',
+    '.shopify-translate-language-switcher', '.translate-adapt-widget',
+    '.nturl', '[class*="nturl"]',
+    '.selecty-widget', '.selecty-container', '.selecty-popup', '.selecty-bar', '.selecty-flag',
+    '#selecty-widget', '#selecty-app', '[class*="selecty"]', '[id*="selecty"]'
+  ];
+  function killLocaleEl(el) {
+    if (!el) return;
+    try {
+      // Remove from DOM entirely so the app can't re-show it
+      if (el.parentNode) { el.parentNode.removeChild(el); return; }
+    } catch(e) {}
+    // Fallback: aggressive hide
+    try {
+      el.style.setProperty('display',        'none',   'important');
+      el.style.setProperty('visibility',     'hidden', 'important');
+      el.style.setProperty('opacity',        '0',      'important');
+      el.style.setProperty('pointer-events', 'none',   'important');
+      el.style.setProperty('position',       'absolute','important');
+      el.style.setProperty('clip',           'rect(0 0 0 0)', 'important');
+    } catch(e2) {}
+  }
+  function killAllLocale() {
+    LOCALE_SELECTORS.forEach(function(sel) {
+      try { document.querySelectorAll(sel).forEach(killLocaleEl); } catch(e) {}
+    });
+  }
+  killAllLocale();
+  document.addEventListener('DOMContentLoaded', killAllLocale);
+  window.addEventListener('load', killAllLocale);
+  // Interval fallback: catches elements the observer might miss
+  var _locInterval = setInterval(killAllLocale, 800);
+  setTimeout(function() { clearInterval(_locInterval); }, 12000); // stop after 12s
+  // MutationObserver for real-time interception
+  var _locObs = new MutationObserver(function(mutations) {
+    var needsKill = false;
+    mutations.forEach(function(m) {
+      m.addedNodes.forEach(function(n) {
+        if (n.nodeType !== 1) return;
+        var tag = (n.tagName || '').toLowerCase();
+        var cls = (n.className || '').toString();
+        var id  = (n.id || '');
+        if (tag === 'localization-form' || tag === 'market-popup' ||
+            tag === 'country-localization' ||
+            cls.indexOf('localization') > -1 || cls.indexOf('disclosure') > -1 ||
+            cls.indexOf('gts-') > -1 || cls.indexOf('weglot') > -1 ||
+            cls.indexOf('nturl') > -1 ||
+            cls.indexOf('translate') > -1 || cls.indexOf('lang-switch') > -1 ||
+            id.indexOf('market') > -1 || id.indexOf('gts') > -1 ||
+            id.indexOf('weglot') > -1 || id.indexOf('translate') > -1) {
+          needsKill = true;
+        }
+      });
+    });
+    if (needsKill) killAllLocale();
+  });
+  _locObs.observe(document.documentElement, { childList: true, subtree: true });
 })();
 </script>

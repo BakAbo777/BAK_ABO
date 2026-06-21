@@ -413,7 +413,9 @@
       const match = link.href.match(/\/products\/([^/?#]+)/);
       if (!match) return;
       const handle = match[1];
-      const wrapper = item.querySelector('.card__inner') || item.querySelector('.card') || item;
+      const wrapper = (item.classList.contains('product-card-wrapper') || item.classList.contains('card-wrapper'))
+        ? item
+        : (item.querySelector('.product-card-wrapper') || item.querySelector('.card-wrapper') || item.querySelector('.card') || item);
       wrapper.style.position = 'relative';
       const btn = document.createElement('button');
       btn.className = 'bks-heart-btn';

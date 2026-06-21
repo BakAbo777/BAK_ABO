@@ -1,11 +1,11 @@
 # Stato Attuale — BKS Studio / bakabo.club
 
-Aggiornato: 2026-06-17
+Aggiornato: 2026-06-20
 
 ## Domini Shopify
 
 | Dominio | Stato |
-|---|---|
+| --- | --- |
 | `bakabo.club` | Primary, Connected |
 | `11628e-2.myshopify.com` | Connected |
 | `bakabo.myshopify.com` | Connected |
@@ -15,16 +15,16 @@ Aggiornato: 2026-06-17
 ## Tema live
 
 | Campo | Valore |
-|---|---|
+| --- | --- |
 | ID | `202392961362` |
-| Nome | BKS TM04 MEMBER TIER + SHOPPER 17JUN2026 |
+| Nome | BKS TM04 20_06_2026 V.22 |
 | Ruolo | main (pubblicato) |
 | Sorgente locale | `04_TEMA_SHOPIFY/_merged_tm04/` |
 | Script deploy | `scripts/deploy_theme_section.py` |
 | GTM | `GTM-PF5Z85KS` (live nel tema) |
 | Lingua | Inglese unico (`locales/it.json` sovrascritto) |
 
-## Stato sito live (17 Giugno 2026)
+## Stato sito live (20 Giugno 2026)
 
 - Tutte le 8 collezioni editorial rispondono `200`
 - Tutte le 18 collection product type attive e raggiungibili
@@ -34,20 +34,26 @@ Aggiornato: 2026-06-17
 - BKS Shopping Guide live: `bakabo.club/pages/bks-shopping-guide`
 - Help FAQ live in inglese: `bakabo.club/pages/help-faq`
 - Selettore lingua rimosso (MutationObserver attivo nell'header)
+- AI Assistant live globalmente: `bakabo.club/pages/bks-ai-assistant`
+- Cloudflare Worker AI: `bks-agent.bakabo.workers.dev`
+- Wishlist standalone: `bakabo.club/pages/bks-wishlist`
+- Homepage (20/06): Video Hero → Weekly Editorial Vol.1/Issue 6 → Piano Hero (8 tasti) → Magazine → Reviews → Trust
+- Pagine duplicate eliminate: `about-bakabo`, `bks-about-bks`
+- Gold Ring animato: icona account header + avatar dashboard
 
 ## Catalogo
 
 | Campo | Valore |
-|---|---|
+| --- | --- |
 | CSV attivo | `collezioni_csv/collezione 12_06_2026_SHOPIFY_IMPORT_READY_SEO_TAGS_READY.csv` |
 | DB SQLite | `collezioni_csv/bks_catalog.db` |
-| Prodotti live | ~189 (8 collezioni × product type) |
+| Prodotti live | 202 (8 collezioni × product type) |
 | Fonte di verità | DB SQLite — CSV è export derivato |
 
 ## Analytics / Tag Manager
 
 | Elemento | Valore |
-|---|---|
+| --- | --- |
 | Account Analytics | `Roberto Picchioni architetto` |
 | Account ID | `252970033` |
 | Property | `bakabo-9a8c5` — ID `483501489` |
@@ -56,13 +62,13 @@ Aggiornato: 2026-06-17
 ## Google Merchant Center
 
 | Elemento | Valore |
-|---|---|
+| --- | --- |
 | Account | `bakabo.club` |
 | Merchant Center ID | `5295165689` |
 
 Stato: feed e sitemap da riverificare dopo i deploy di giugno. Richiedere nuovo controllo sito da Merchant Center. Vedi task pendenti in `project_bks_pending.md`.
 
-## 8 Collezioni permanenti (stato 17/06)
+## 8 Collezioni permanenti (stato 20/06)
 
 | Collezione | Handle | Colore | Stato |
 | --- | --- | --- | --- |
@@ -97,6 +103,8 @@ Skill: `BKS_SKILL/members/bks-member-marketing.json`
 | Shopping Guide | `bks-shopping-guide` | `page.bks-shopping-guide` |
 | Help FAQ | `help-faq` | `page.help-faq` |
 | Custom Request | `bks-custom` | `page.bks-custom` |
+| Wishlist | `bks-wishlist` | `page.bks-wishlist` |
+| Members Login | `bks-members-login` | `page.bks-members-login` |
 
 ## OpenAI Immagini
 

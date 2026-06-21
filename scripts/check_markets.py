@@ -24,7 +24,7 @@ def gql(query: str) -> dict:
     try:
         r = requests.post(URL, json={"query": query}, headers=HDR, timeout=30)
     except requests.exceptions.SSLError:
-        urllib3.disable_warnings()
+        urllib3.disable_warnings()  # type: ignore
         r = requests.post(URL, json={"query": query}, headers=HDR, timeout=30, verify=False)
     r.raise_for_status()
     return r.json()
@@ -49,7 +49,7 @@ def main() -> None:
     try:
         r = requests.get(rest_url, headers={"X-Shopify-Access-Token": TOKEN}, timeout=30)
     except requests.exceptions.SSLError:
-        urllib3.disable_warnings()
+        urllib3.disable_warnings()  # type: ignore
         r = requests.get(rest_url, headers={"X-Shopify-Access-Token": TOKEN}, timeout=30, verify=False)
     zones = r.json().get("shipping_zones", [])
     target = {"IN", "KR", "IT", "US", "GB"}

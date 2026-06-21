@@ -1,6 +1,6 @@
 """Check tema vecchio e pagine duplicate prima di eventuale cleanup."""
 import os, requests, urllib3, json
-urllib3.disable_warnings()
+urllib3.disable_warnings()  # type: ignore
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent

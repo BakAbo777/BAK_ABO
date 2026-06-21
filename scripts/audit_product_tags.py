@@ -7,8 +7,8 @@ import os, sys, json, requests, urllib3
 from collections import defaultdict
 from pathlib import Path
 
-sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-urllib3.disable_warnings()
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # type: ignore
+urllib3.disable_warnings()  # type: ignore
 ROOT = Path(__file__).resolve().parent.parent
 for raw in (ROOT / ".env").read_text(encoding="utf-8").splitlines():
     line = raw.strip()

@@ -8,8 +8,9 @@ description: >
   Works with: bakabo-commercial-strategy, bakabo-photo-studio.
 metadata:
   type: skill
-  version: "1.0"
+  version: "1.2"
   created: "2026-06-18"
+  updated: "2026-06-20"
 ---
 
 # BakAbo — Google Merchant Center Skill
@@ -79,18 +80,51 @@ If BKS creates its own product line with physical barcodes, add GTINs then.
 
 ---
 
-## 4. Feed Stats (18/06/2026)
+## 4. Feed Stats
+
+### 20/06/2026 — Current state
+
+| Metric | Value |
+|---|---|
+| Total products | 35.1K ("Numero limitato" — visible but quality-limited) |
+| Approvato | 0 |
+| Numero limitato | 35.1K |
+| GMC Account status | Active (no misrepresentation suspension) |
+| Google Ads | Active |
+
+**Active alerts (Merchant Center → Avvisi → Problemi):**
+
+| Problema | Quantità | Causa | Fix |
+|---|---|---|---|
+| Taglia mancante | 10.2K | Variant option non mappata al feed | Verificare nomi opzioni varianti (Italian?) |
+| Colore mancante | 8.72K | Variant option non mappata al feed | Verificare nomi opzioni varianti |
+| Età mancante | 8.85K | age_group metafield mancante | Script `_fix_google_feed_attributes.py` (20/06) |
+| Genere mancante | 8.1K | gender metafield mancante | Script `_fix_google_feed_attributes.py` (20/06) |
+
+### 18/06/2026 — After first metafield fix
 
 | Metric | Value |
 |---|---|
 | Total listings | 152,887 (products × variants × markets) |
 | Approved | 56,369 (36.9%) |
-| Not Approved | 96,441 (63.1%) — improving after metafield fix |
-| Under Review | 77 |
-| GMC Status | Pending (feed processing) |
-| Google Ads | Active |
+| Not Approved | 96,441 (63.1%) |
+| Namespace used | `mm-google-shopping` |
 
-**Expected improvement after fix**: Not Approved should drop significantly once Google re-indexes the updated metafields (24-72h).
+### Metafield namespace issue
+Two scripts exist with different namespaces:
+- `scripts/fix_google_merchant_attributes.py` → namespace `mm-google-shopping` (Shopify Google & YouTube app)
+- `scripts/_fix_google_feed_attributes.py` → namespace `google` (run 20/06/2026)
+
+**Active feed source**: Possibly **Wixpa Google Shopping** app (installed in Shopify) rather than native Google & YouTube channel. Wixpa may have its own attribute mapping. Check Wixpa app settings if metafield fixes don't resolve alerts after 48h.
+
+### 20/06/2026 — Second fix run (namespace `google`)
+- `age_group = adult` added to 125/202 products
+- `gender = unisex` added to 72/202 products
+- 207 errors — `google` namespace may be reserved by Shopify for some products; old mm-google-shopping values already present
+- **Variant options confirmed**: all products use `size` and `color` as option names (English) — GMC should map these from variants automatically
+
+### Next action (24-48h):
+Check Merchant Center again. If Taglia/Colore still missing → open **Wixpa Google Shopping** in Shopify Apps → check attribute mapping for Size and Color variant options → verify they are enabled in the feed.
 
 ---
 

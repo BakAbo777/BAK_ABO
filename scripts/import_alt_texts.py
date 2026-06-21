@@ -38,7 +38,7 @@ def _request(method: str, path: str, **kwargs) -> dict:
         try:
             r = getattr(requests, method)(url, headers=HDR, timeout=30, verify=_ssl_ok, **kwargs)
         except requests.exceptions.SSLError:
-            urllib3.disable_warnings()
+            urllib3.disable_warnings()  # type: ignore
             _ssl_ok = False
             r = getattr(requests, method)(url, headers=HDR, timeout=30, verify=False, **kwargs)
         if r.status_code == 429:

@@ -1,6 +1,6 @@
 """Push templates/index.json al tema Shopify live."""
 import os, requests, urllib3
-urllib3.disable_warnings()
+urllib3.disable_warnings()  # type: ignore
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
