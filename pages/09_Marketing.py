@@ -37,10 +37,10 @@ BKS_COLLECTIONS = {
 
 MEMBER_TIERS = {
     "Lead": 0,
-    "Iron": 5,
-    "Brass": 10,
-    "Silver": 15,
-    "Gold": 20,
+    "Iron": 10,    # First order milestone
+    "Brass": 15,   # 3rd order milestone — Camerino unlock
+    "Silver": 12,  # Reactivation / drop early access
+    "Gold": 20,    # VIP next collection drop
 }
 
 

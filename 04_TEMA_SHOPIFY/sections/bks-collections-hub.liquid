@@ -60,9 +60,9 @@
 
   #shopify-section-{{ section.id }} .bks-hub__card {
     position: relative;
-    background: #fff;
+    background: #fafaf7;
     border: 1px solid rgba(10, 10, 10, 0.1);
-    border-left: 4px solid var(--card-accent, #c8c4be);
+    border-top: 2px solid #c9b79c;
     border-radius: 0;
     padding: clamp(20px, 3vw, 28px);
     text-decoration: none;
@@ -75,22 +75,8 @@
   }
 
   #shopify-section-{{ section.id }} .bks-hub__card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 36px rgba(0,0,0,0.09);
-    border-left-color: var(--card-accent, #c8c4be);
-  }
-
-  #shopify-section-{{ section.id }} .bks-hub__card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-top: 2px solid var(--card-accent, #c8c4be);
-    opacity: 0;
-    transition: opacity 0.22s;
-  }
-
-  #shopify-section-{{ section.id }} .bks-hub__card:hover::after {
-    opacity: 1;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 32px rgba(0,0,0,0.08);
   }
 
   #shopify-section-{{ section.id }} .bks-hub__card-tag {
@@ -106,12 +92,12 @@
   }
 
   #shopify-section-{{ section.id }} .bks-hub__card-dot {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background: var(--card-accent, #c8c4be);
+    background: var(--card-accent, #c9b79c);
     flex-shrink: 0;
-    box-shadow: 0 0 14px color-mix(in srgb, var(--card-accent, #c8c4be) 54%, transparent);
+    opacity: 0.82;
   }
 
   #shopify-section-{{ section.id }} .bks-hub__card-name {
@@ -146,7 +132,7 @@
 
   #shopify-section-{{ section.id }} .bks-hub__card-count::before {
     content: '→';
-    color: var(--card-accent, #c8c4be);
+    color: #c9b79c;
     font-style: normal;
   }
 
@@ -159,7 +145,7 @@
   #shopify-section-{{ section.id }}.bks-hub--dark .bks-hub__headline { color: #FAFAF7; }
   #shopify-section-{{ section.id }}.bks-hub--dark .bks-hub__subtitle { color: rgba(250,250,247,0.58); }
   #shopify-section-{{ section.id }}.bks-hub--dark .bks-hub__eyebrow  { color: rgba(250,250,247,0.38); }
-  #shopify-section-{{ section.id }}.bks-hub--dark .bks-hub__card     { background: rgba(250,250,247,0.04); border-color: rgba(250,250,247,0.1); }
+  #shopify-section-{{ section.id }}.bks-hub--dark .bks-hub__card     { background: rgba(250,250,247,0.04); border-color: rgba(250,250,247,0.1); border-top-color: rgba(201,183,156,0.55); }
   #shopify-section-{{ section.id }}.bks-hub--dark .bks-hub__card-name,
   #shopify-section-{{ section.id }}.bks-hub--dark .bks-hub__card-tag { color: #FAFAF7; }
   #shopify-section-{{ section.id }}.bks-hub--dark .bks-hub__card-series,

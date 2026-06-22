@@ -1,7 +1,9 @@
 {% comment %}
-  BKS HOME VIDEO CANVAS — 4 avatar videos in sequence, no audio
+  BKS HOME VIDEO CANVAS — up to 8 avatar videos in sequence, no audio
+  Strategic sequence: Hours → Glyph → Marker → Riviera → Pulse → Token → Flag → Origin
   Direct <video> stack + CSS crossfade (GPU) — no canvas, no getImageData
   Grain via CSS SVG filter overlay (zero CPU)
+  Next video preloaded during current playback for seamless crossfade
 {% endcomment %}
 
 <style>
@@ -138,18 +140,21 @@
 
 <div id="bks-canvas-hero-{{ section.id }}">
 
-  {%- for i in (1..4) -%}
+  {%- assign bks_vid_count = 0 -%}
+  {%- for i in (1..8) -%}
     {%- assign vid_key = 'video_' | append: i -%}
     {%- assign vid_url = section.settings[vid_key] -%}
     {%- if vid_url != blank -%}
       <video
-        class="bks-cvh__vid{% if forloop.first %} active{% endif %}"
-        id="bks-vid-{{ section.id }}-{{ forloop.index0 }}"
+        class="bks-cvh__vid{% if bks_vid_count == 0 %} active{% endif %}"
+        id="bks-vid-{{ section.id }}-{{ bks_vid_count }}"
         src="{{ vid_url }}"
         muted
         playsinline
-        preload="{% if forloop.first %}auto{% else %}none{% endif %}"
+        preload="{% if bks_vid_count == 0 %}auto{% elsif bks_vid_count == 1 %}metadata{% else %}none{% endif %}"
+        data-idx="{{ bks_vid_count }}"
       ></video>
+      {%- assign bks_vid_count = bks_vid_count | plus: 1 -%}
     {%- endif -%}
   {%- endfor -%}
 
@@ -174,41 +179,57 @@
     </a>
   </div>
 
-  <div class="bks-cvh__progress" id="bks-cvh-dots-{{ section.id }}">
-    <div class="bks-cvh__dot active" data-idx="0"></div>
-    <div class="bks-cvh__dot" data-idx="1"></div>
-    <div class="bks-cvh__dot" data-idx="2"></div>
-    <div class="bks-cvh__dot" data-idx="3"></div>
-  </div>
+  <div class="bks-cvh__progress" id="bks-cvh-dots-{{ section.id }}"></div>
 </div>
 
 <script>
 (function() {
   var SID = {{ section.id | json }};
   var dotsEl = document.getElementById('bks-cvh-dots-' + SID);
-  var dots = dotsEl ? dotsEl.querySelectorAll('.bks-cvh__dot') : [];
 
   var videos = [];
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < 8; i++) {
     var v = document.getElementById('bks-vid-' + SID + '-' + i);
-    if (v && v.src) videos.push(v);
+    if (v && v.getAttribute('src')) videos.push(v);
   }
   if (videos.length === 0) return;
 
+  // Build dots dynamically based on actual video count
+  videos.forEach(function(_, idx) {
+    var d = document.createElement('div');
+    d.className = 'bks-cvh__dot' + (idx === 0 ? ' active' : '');
+    d.setAttribute('data-idx', idx);
+    dotsEl.appendChild(d);
+  });
+  var dots = dotsEl.querySelectorAll('.bks-cvh__dot');
+
   var current = 0;
+
+  function preloadNext(idx) {
+    var next = (idx + 1) % videos.length;
+    var nv = videos[next];
+    if (nv.preload === 'none') {
+      nv.preload = 'metadata';
+      nv.load();
+    }
+  }
 
   function setActive(idx) {
     videos.forEach(function(v) { v.classList.remove('active'); });
     videos[idx].classList.add('active');
     dots.forEach(function(d) { d.classList.remove('active'); });
     if (dots[idx]) dots[idx].classList.add('active');
+    preloadNext(idx);
   }
 
   function advance() {
     var next = (current + 1) % videos.length;
     var nv = videos[next];
     nv.currentTime = 0;
-    nv.load();
+    if (nv.readyState < 2) {
+      nv.preload = 'auto';
+      nv.load();
+    }
     nv.play().then(function() {
       setActive(next);
       current = next;
@@ -219,6 +240,7 @@
     v.addEventListener('ended', advance);
   });
 
+  preloadNext(0);
   videos[0].play().catch(function() {
     document.addEventListener('click', function starter() {
       videos[0].play().catch(function(){});
@@ -264,28 +286,48 @@
     },
     {
       "type": "header",
-      "content": "Video clips (4 in sequence, no audio)"
+      "content": "Avatar videos (up to 8, brand sequence)"
     },
     {
       "type": "url",
       "id": "video_1",
-      "label": "Video 1",
-      "info": "Upload video to Files in Shopify admin, paste URL here"
+      "label": "Video 1 — BKS Hours (signature)",
+      "info": "Upload avatar MP4 to Shopify Files → paste CDN URL here. Sequence follows brand priority."
     },
     {
       "type": "url",
       "id": "video_2",
-      "label": "Video 2"
+      "label": "Video 2 — BKS Glyph"
     },
     {
       "type": "url",
       "id": "video_3",
-      "label": "Video 3"
+      "label": "Video 3 — BKS Marker"
     },
     {
       "type": "url",
       "id": "video_4",
-      "label": "Video 4"
+      "label": "Video 4 — BKS Riviera"
+    },
+    {
+      "type": "url",
+      "id": "video_5",
+      "label": "Video 5 — BKS Pulse"
+    },
+    {
+      "type": "url",
+      "id": "video_6",
+      "label": "Video 6 — BKS Token"
+    },
+    {
+      "type": "url",
+      "id": "video_7",
+      "label": "Video 7 — BKS Flag"
+    },
+    {
+      "type": "url",
+      "id": "video_8",
+      "label": "Video 8 — BKS Origin"
     }
   ],
   "presets": [
