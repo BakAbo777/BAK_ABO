@@ -2577,8 +2577,8 @@ Return ONLY valid JSON (no markdown):
     const kvOk = !!env.BKS_AGENT_KV;
     const aiOk = !!env.AI;
     return new Response(
-      JSON.stringify({ status: "ok", version: "v16", kv: kvOk, ai: aiOk,
-        endpoints: ["/chat","/social","/tryon","/catalog","/eval","/health","/auth/google","/auth/status","/auth/logout","/memory/:id","/printify-update","/style","/generate-prompt","/style-learn","/trend-index","/weekly-brief"] }),
+      JSON.stringify({ status: "ok", version: "v17", kv: kvOk, ai: aiOk,
+        endpoints: ["/chat","/social","/tryon","/catalog","/eval","/health","/auth/google","/auth/status","/auth/logout","/memory/:id","/printify-update","/style","/generate-prompt","/style-learn","/trend-index","/weekly-brief","/patterns","/pattern/:id","/admin/patterns/sync"] }),
       { status: 200, headers: { ...cors, "Content-Type": "application/json" } }
     );
   },
