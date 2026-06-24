@@ -2435,6 +2435,45 @@ Return ONLY valid JSON (no markdown):
         usage: "GET /skills?name=bakabo-armocromista" }, { headers: cors });
     }
 
+    // ── Pattern Registry — GET /patterns + GET /pattern/:id ─────────────────
+    if (request.method === "GET" && url.pathname === "/patterns") {
+      if (!memory.hasKV) return Response.json({ error: "KV non disponibile" }, { status: 503, headers: cors });
+      const col    = url.searchParams.get("collection");
+      const minScore = parseInt(url.searchParams.get("min_score") || "0");
+      const registry = await env.BKS_AGENT_KV.get("bks:pattern_registry", "json");
+      if (!registry) return Response.json({ error: "Pattern registry non caricato. POST /admin/patterns/sync prima." }, { status: 404, headers: cors });
+      let patterns = Object.values(registry.patterns || {});
+      if (col)      patterns = patterns.filter(p => p.collection === col);
+      if (minScore) patterns = patterns.filter(p => p.quality_score >= minScore);
+      return Response.json({ total: patterns.length, meta: registry._meta, patterns }, { headers: cors });
+    }
+
+    if (request.method === "GET" && url.pathname.startsWith("/pattern/")) {
+      if (!memory.hasKV) return Response.json({ error: "KV non disponibile" }, { status: 503, headers: cors });
+      const patternId = url.pathname.replace("/pattern/", "").trim().toUpperCase();
+      if (!patternId) return Response.json({ error: "pattern_id mancante" }, { status: 400, headers: cors });
+      const p = await env.BKS_AGENT_KV.get(`pattern:${patternId}`, "json");
+      if (!p) return Response.json({ error: `Pattern ${patternId} non trovato` }, { status: 404, headers: cors });
+      return Response.json(p, { headers: cors });
+    }
+
+    if (request.method === "POST" && url.pathname === "/admin/patterns/sync") {
+      const authHdr = request.headers.get("Authorization") ?? "";
+      const tok = env.BKS_AI_TOKEN ?? "";
+      if (tok && authHdr !== `Bearer ${tok}`) return Response.json({ error: "Unauthorized" }, { status: 401, headers: cors });
+      let body; try { body = await request.json(); } catch { body = {}; }
+      const registry = body.registry;
+      if (!registry?.patterns) return Response.json({ error: "registry.patterns mancante" }, { status: 400, headers: cors });
+      // Salva registry completo
+      await env.BKS_AGENT_KV.put("bks:pattern_registry", JSON.stringify(registry), { expirationTtl: 60 * 60 * 24 * 365 });
+      // Salva ogni pattern individualmente per lookup veloce
+      const entries = Object.entries(registry.patterns);
+      await Promise.all(entries.map(([id, p]) =>
+        env.BKS_AGENT_KV.put(`pattern:${id}`, JSON.stringify(p), { expirationTtl: 60 * 60 * 24 * 365 })
+      ));
+      return Response.json({ status: "ok", synced: entries.length, ts: new Date().toISOString() }, { headers: cors });
+    }
+
     // ── Health check — all BKS services ──────────────────────────────────────
     if (request.method === "GET" && url.pathname === "/health") {
       const checks = await pingAllServices();
