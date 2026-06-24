@@ -8,9 +8,7 @@
         "subline": "AI-generated fashion. 8 collections, 670+ pieces. Every item designed, printed, and delivered on order.",
         "cta_primary_label": "Shop Collections",
         "cta_primary_url": "/collections/all",
-        "cta_secondary_label": "Our Story",
-        "cta_secondary_url": "/pages/about-bakabo-1",
-        "overlay_strength": "medium",
+"overlay_strength": "medium",
         "text_align": "center",
         "min_height": 90,
         "bg_image": "shopify://shop_images/bks-home-hero.png"

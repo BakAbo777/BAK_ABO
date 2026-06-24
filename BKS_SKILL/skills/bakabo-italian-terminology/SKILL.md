@@ -160,6 +160,86 @@ metadata:
 
 ---
 
+## 5e. Spanish (ES) — Product Synonyms
+
+| Termini cliente ES | BKS product name |
+|---|---|
+| chaqueta acolchada, doudoune, puffer, plumífero, anorak, parka | **Puffer Jacket** |
+| sudadera con capucha, hoodie, sweatshirt, jersey | **Pullover Hoodie** |
+| pantalones cortos, shorts, bermudas, short deportivo | **Athletic Shorts** |
+| bañador mujer, bañador entero, traje de baño | **Swimwear / One-Piece** |
+| bañador hombre, bermuda de baño, short de baño | **Swim Trunks** |
+| vestido, vestido deportivo, vestido tirantes | **Racerback Dress** |
+| zapatillas, deportivas, sneakers, tenis | **Sneakers** |
+| bolsa de viaje, bolso de viaje, bolso fin de semana | **Travel Bag** |
+| mochila, bolso, backpack | **Backpack** |
+| pantalón de chándal, jogger, pantalón deportivo | **Lounge Pants** |
+| chanclas, sandalias, flip flops | **Flip Flops** |
+| camiseta, remera, playera | **T-Shirt** |
+| chubasquero, cortavientos, rompevientos, kway | **Windbreaker** |
+
+### ES — Colecciones
+
+| Keywords ES | Colección | Handle |
+|---|---|---|
+| urbano, ciudad, monocromático, contemplación, gris | **BKS Hours** | `bks-hours` |
+| glifos, símbolos, signos, runas, alfabeto visual | **BKS Glyph** | `bks-glyph` |
+| marcador, grafiti, pincel, gestual, muro, trazo | **BKS Marker** | `bks-marker` |
+| riviera, mediterráneo, mar, verano, resort, turquesa | **BKS Riviera** | `bks-riviera` |
+| pulso, óptico, geométrico, vibración, cinético | **BKS Pulse** | `bks-pulse` |
+| píxel, arcade, retro, digital, videojuego, token | **BKS Token** | `bks-token` |
+| bandera, pop, bloques de color, dada, rojo | **BKS Flag** | `bks-flag` |
+| origen, folclore, naíf, ilustración, naturaleza, verde | **BKS Origin** | `bks-origin` |
+
+### ES Tone — BKS voice en español
+- No usar: "increíble", "genial", "bonito" — tono BKS es editorial, no comercial
+- Usar: "construido en torno a", "sistema gráfico", "identidad visual", "preciso", "intencional"
+- Productos siempre por nombre específico o "prenda", nunca "artículo"
+- Colecciones siempre "BKS [Nombre]"
+- Envío: "Cada pieza se fabrica para tu pedido — producción 7–14 días, envío 3–5 días"
+
+---
+
+## 5f. French (FR) — Synonymes produits
+
+| Termes client FR | BKS product name |
+|---|---|
+| doudoune, veste matelassée, puffer, anorak, veste rembourrée | **Puffer Jacket** |
+| sweat à capuche, hoodie, pull, sweatshirt | **Pullover Hoodie** |
+| short, short de sport, bermuda | **Athletic Shorts** |
+| maillot de bain une pièce, combinaison, maillot femme | **Swimwear / One-Piece** |
+| short de bain, bermuda de plage, maillot homme | **Swim Trunks** |
+| robe, robe sport, robe dos nageur | **Racerback Dress** |
+| baskets, sneakers, chaussures, tennis | **Sneakers** |
+| sac de voyage, sac week-end, sac cabine | **Travel Bag** |
+| sac à dos, backpack, sac | **Backpack** |
+| jogging, pantalon de jogging, jogger, pantalon détente | **Lounge Pants** |
+| tongs, sandales, flip flops, claquettes | **Flip Flops** |
+| t-shirt, tee-shirt, tee, haut | **T-Shirt** |
+| coupe-vent, imperméable, k-way, veste technique | **Windbreaker** |
+
+### FR — Collections
+
+| Keywords FR | Collection | Handle |
+|---|---|---|
+| urbain, ville, monochrome, contemplation, gris, minimaliste | **BKS Hours** | `bks-hours` |
+| glyphes, symboles, signes, alphabet visuel, runes | **BKS Glyph** | `bks-glyph` |
+| graffiti, marqueur, pinceau, gestuel, mur, trace | **BKS Marker** | `bks-marker` |
+| riviera, méditerranée, mer, été, resort, turquoise | **BKS Riviera** | `bks-riviera` |
+| pulsation, optique, géométrique, vibration, cinétique | **BKS Pulse** | `bks-pulse` |
+| pixel, arcade, rétro, digital, jeu vidéo, 8-bit | **BKS Token** | `bks-token` |
+| drapeau, pop art, blocs de couleur, dada, rouge | **BKS Flag** | `bks-flag` |
+| origine, folklore, naïf, illustration, nature, vert | **BKS Origin** | `bks-origin` |
+
+### FR Tone — BKS voice en français
+- Ne pas utiliser : "incroyable", "magnifique", "super" — ton BKS est éditorial, pas commercial
+- Utiliser : "construit autour de", "système graphique", "identité visuelle", "précis", "intentionnel"
+- Produits toujours par nom spécifique ou "vêtement", jamais "article"
+- Collections toujours "BKS [Nom]"
+- Livraison : "Chaque pièce est fabriquée pour votre commande — production 7–14 jours, livraison 3–5 jours"
+
+---
+
 ## 6. Shopify Search & Discovery — Sinonimi configurati (19)
 
 Questi sinonimi sono attivi nel pannello Shopify per il motore di ricerca nativo:
@@ -171,6 +251,8 @@ giacca vento → windbreaker
 costume → swimwear
 shorts → athletic shorts
 borsa → travel bag
+borsone → travel bag
+duffle → travel bag
 zaino → backpack
 scarpe → sneakers
 vestito → dress
@@ -182,12 +264,28 @@ glifi → glyph
 riviera → riviera
 origine → origin
 origine → folklore
-marker → glyph
+marker → marker
 pulse → pulse
+flag → flag
+token → token
 ```
 
-> Nota: i sinonimi Shopify sono monodirezionali (IT→EN per ricerca). Il Worker AI usa
-> la lista completa di questa skill (§1–4) per comprensione bidirezionale.
+> Nota: i sinonimi Shopify sono monodirezionali (→EN per ricerca). Il Worker AI usa
+> la lista completa di questa skill (§1–5f) per comprensione bidirezionale IT/EN/ES/FR.
+
+**Da aggiungere in Shopify per ES/FR:**
+```
+doudoune → puffer jacket
+sudadera → hoodie
+chubasquero → windbreaker
+mochila → backpack
+chanclas → flip flops
+camiseta → t-shirt
+sweat → hoodie
+sac à dos → backpack
+tongs → flip flops
+coupe-vent → windbreaker
+```
 
 ---
 
