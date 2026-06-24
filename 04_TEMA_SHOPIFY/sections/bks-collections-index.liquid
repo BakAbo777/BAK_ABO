@@ -1,0 +1,343 @@
+{% comment %}
+  BKS COLLECTIONS INDEX — BKS_Tm01
+  Indice tipografico delle 8 collezioni permanenti BKS.
+  Il cliente può navigare per mondo visivo o per categoria prodotto. Tipografia protagonista, righe numerate, hover leggibile.
+  Design tokens: bakabo-design-system §2-7.
+{% endcomment %}
+
+<section class="bks-cindex bks-cindex--{{ section.settings.scheme }}" aria-label="BKS Collections">
+  <div class="bks-cindex__inner">
+    {%- if section.settings.heading != blank -%}
+      <header class="bks-cindex__head">
+        <h2 class="bks-cindex__heading">{{ section.settings.heading | escape }}</h2>
+        {%- if section.settings.subheading != blank -%}
+          <p class="bks-cindex__sub">{{ section.settings.subheading | escape }}</p>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    <ol class="bks-cindex__list">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign c = collections[block.settings.collection_handle]
+          assign target = block.settings.link
+          if target == blank
+            if c != blank
+              assign target = c.url
+            elsif block.settings.collection_handle != blank
+              assign target = '/collections/' | append: block.settings.collection_handle
+            endif
+          endif
+
+          assign row_accent = '#c8c4be'
+          assign row_products = 'Outerwear · Sneakers · Bags · Apparel'
+          case block.settings.collection_handle
+            when 'bks-hours'
+              assign row_accent = '#c8c4be'
+              assign row_products = 'Puffer · Windbreaker · Sneakers · Travel'
+            when 'bks-origin'
+              assign row_accent = '#489808'
+              assign row_products = 'Hoodies · Swim · Dresses · Flip Flops'
+            when 'bks-glyph'
+              assign row_accent = '#d4a030'
+              assign row_products = 'Outerwear · Tees · Sneakers · Bags'
+            when 'bks-marker'
+              assign row_accent = '#c04418'
+              assign row_products = 'Windbreaker · Shorts · Sneakers · Backpacks'
+            when 'bks-riviera'
+              assign row_accent = '#0ca898'
+              assign row_products = 'Swimwear · Dresses · Flip Flops · Travel'
+            when 'bks-pulse'
+              assign row_accent = '#8888cc'
+              assign row_products = 'Outerwear · Hoodies · Sneakers · Active'
+            when 'bks-token'
+              assign row_accent = '#9828d8'
+              assign row_products = 'Sneakers · Lounge · Slippers · Bags'
+            when 'bks-flag'
+              assign row_accent = '#c82020'
+              assign row_products = 'Puffer · Windbreaker · Shorts · Backpacks'
+          endcase
+        -%}
+        <li class="bks-cindex__row" style="--bks-row-accent: {{ row_accent }};" {{ block.shopify_attributes }}>
+          <a class="bks-cindex__link" href="{{ target | default: '#' }}">
+            <span class="bks-cindex__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+            <span class="bks-cindex__name">
+              {{- block.settings.name | escape -}}
+            </span>
+            <span class="bks-cindex__tagline">{{ block.settings.tagline | escape }}</span>
+            <span class="bks-cindex__products">{{ row_products | escape }}</span>
+            <span class="bks-cindex__arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ol>
+
+    {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+      <div class="bks-cindex__cta">
+        <a class="bks-cindex__cta-link" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label | escape }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% style %}
+  .bks-cindex {
+    --bks-onyx: #0a0a0a;
+    --bks-salt: #fafaf7;
+    --bks-bone: #efeae0;
+    --bks-graphite: #3d3d3d;
+    --bks-ash: #9a9a9a;
+    background: var(--bks-salt);
+    color: var(--bks-onyx);
+    padding: 64px 24px;
+  }
+  .bks-cindex--dark {
+    background: var(--bks-onyx);
+    color: var(--bks-salt);
+  }
+  .bks-cindex__inner {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  .bks-cindex__head { margin-bottom: 48px; }
+  .bks-cindex__heading {
+    margin: 0;
+    font-size: clamp(26px, 3vw, 44px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+  .bks-cindex__sub {
+    margin: 12px 0 0;
+    max-width: 52ch;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--bks-graphite);
+  }
+  .bks-cindex--dark .bks-cindex__sub { color: var(--bks-bone); }
+  .bks-cindex__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid currentColor;
+  }
+  .bks-cindex__row {
+    border-bottom: 1px solid currentColor;
+    box-shadow: inset 4px 0 0 var(--bks-row-accent, var(--bks-bone));
+  }
+  .bks-cindex__link {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "num name arrow"
+      "num tagline arrow"
+      "num products arrow";
+    align-items: baseline;
+    column-gap: 24px;
+    padding: 24px 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 200ms ease-out, color 200ms ease-out;
+  }
+  .bks-cindex__num {
+    grid-area: num;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    align-self: start;
+    padding-top: 6px;
+    color: var(--bks-ash);
+  }
+  .bks-cindex__name {
+    grid-area: name;
+    font-size: clamp(26px, 4.5vw, 56px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+  .bks-cindex__tm {
+    font-size: 0.3em;
+    font-weight: 500;
+    vertical-align: super;
+  }
+  .bks-cindex__tagline {
+    grid-area: tagline;
+    margin-top: 4px;
+    font-size: 13px;
+    letter-spacing: 0.01em;
+    color: var(--bks-graphite);
+  }
+  .bks-cindex--dark .bks-cindex__tagline { color: var(--bks-bone); }
+  .bks-cindex__products {
+    grid-area: products;
+    margin-top: 6px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    line-height: 1.3;
+    text-transform: uppercase;
+    color: var(--bks-ash);
+  }
+  .bks-cindex--dark .bks-cindex__products { color: var(--bks-bone); }
+  .bks-cindex__arrow {
+    grid-area: arrow;
+    align-self: center;
+    font-size: 20px;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 200ms ease-out, transform 200ms ease-out;
+  }
+  .bks-cindex__link:hover {
+    background: var(--bks-onyx);
+    color: var(--bks-salt);
+  }
+  .bks-cindex__link:hover .bks-cindex__tagline,
+  .bks-cindex__link:hover .bks-cindex__products,
+  .bks-cindex__link:hover .bks-cindex__num { color: var(--bks-bone); }
+  .bks-cindex--dark .bks-cindex__link:hover {
+    background: var(--bks-salt);
+    color: var(--bks-onyx);
+  }
+  .bks-cindex--dark .bks-cindex__link:hover .bks-cindex__tagline,
+  .bks-cindex--dark .bks-cindex__link:hover .bks-cindex__products,
+  .bks-cindex--dark .bks-cindex__link:hover .bks-cindex__num { color: var(--bks-graphite); }
+  .bks-cindex__link:hover .bks-cindex__arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .bks-cindex__link:focus-visible {
+    outline: 1px solid currentColor;
+    outline-offset: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bks-cindex__link,
+    .bks-cindex__arrow { transition: none; }
+  }
+  @media screen and (min-width: 768px) {
+    .bks-cindex { padding: 96px 80px; }
+    .bks-cindex__link {
+      grid-template-areas: "num name tagline products arrow";
+      grid-template-columns: 48px 1fr minmax(180px, 24ch) minmax(180px, 28ch) 32px;
+      align-items: center;
+    }
+    .bks-cindex__tagline { margin-top: 0; text-align: right; }
+    .bks-cindex__products { margin-top: 0; text-align: right; }
+    .bks-cindex__num { align-self: center; padding-top: 0; }
+  }
+  .bks-cindex__cta {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+  }
+  .bks-cindex__cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border: 1px solid currentColor;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 200ms ease-out, color 200ms ease-out;
+  }
+  .bks-cindex__cta-link:hover {
+    background: currentColor;
+  }
+  .bks-cindex--dark .bks-cindex__cta-link:hover { color: var(--bks-onyx); }
+  .bks-cindex--light .bks-cindex__cta-link:hover,
+  .bks-cindex:not(.bks-cindex--dark) .bks-cindex__cta-link:hover { color: var(--bks-salt); }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "BKS Collections Index",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Collections"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Eight permanent visual worlds. Every piece printed on demand."
+    },
+    {
+      "type": "select",
+      "id": "scheme",
+      "label": "Scheme",
+      "options": [
+        { "value": "light", "label": "Salt (light)" },
+        { "value": "dark", "label": "Onyx (dark)" }
+      ],
+      "default": "light"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "info": "e.g. All collections"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_row",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "BKS Hours"
+        },
+        {
+          "type": "text",
+          "id": "tagline",
+          "label": "Tagline",
+          "default": "Measured Urban Stillness"
+        },
+        {
+          "type": "text",
+          "id": "collection_handle",
+          "label": "Collection handle",
+          "info": "e.g. bks-hours — used to resolve the link automatically."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link override"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "BKS Collections Index",
+      "blocks": [
+        { "type": "collection_row", "settings": { "name": "BKS Hours", "tagline": "Measured Urban Stillness", "collection_handle": "bks-hours" } },
+        { "type": "collection_row", "settings": { "name": "BKS Origin", "tagline": "Invented Narrative Marks", "collection_handle": "bks-origin" } },
+        { "type": "collection_row", "settings": { "name": "BKS Glyph", "tagline": "Constructed Signs", "collection_handle": "bks-glyph" } },
+        { "type": "collection_row", "settings": { "name": "BKS Marker", "tagline": "Gesture and Motion", "collection_handle": "bks-marker" } },
+        { "type": "collection_row", "settings": { "name": "BKS Riviera", "tagline": "Coastal Geometry", "collection_handle": "bks-riviera" } },
+        { "type": "collection_row", "settings": { "name": "BKS Pulse", "tagline": "Optical Movement", "collection_handle": "bks-pulse" } },
+        { "type": "collection_row", "settings": { "name": "BKS Token", "tagline": "Digital Objects", "collection_handle": "bks-token" } },
+        { "type": "collection_row", "settings": { "name": "BKS Flag", "tagline": "Graphic Fields", "collection_handle": "bks-flag" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -11,7 +11,7 @@
 "overlay_strength": "medium",
         "text_align": "center",
         "min_height": 90,
-        "bg_image": "shopify://shop_images/bks-home-hero.png"
+        "bg_image": "shopify://shop_images/bks-home-hero.jpg"
       }
     },
     "bks_editorial": {
@@ -194,6 +194,12 @@
         "back_label": "Back to piano"
       }
     },
+    "bks_impact": {
+      "type": "bks-impact-home",
+      "settings": {
+        "collection_handles": "bks-hours,bks-glyph,bks-marker,bks-riviera,bks-pulse,bks-token,bks-flag,bks-origin"
+      }
+    },
     "bks_verse_intro": {
       "type": "bks-verse-intro",
       "settings": {}
@@ -210,7 +216,7 @@
             "description": "Architectural B&W photography and underground textures rendered in ink on cotton.",
             "accent_color": "#c8c4be",
             "url": "/collections/bks-hours",
-            "image": "shopify://shop_images/bks-hours-editorial.jpg"
+            "image": "shopify://shop_images/bks-hours-editorial.png"
           }
         },
         "spread_2": {
@@ -222,7 +228,7 @@
             "description": "The founding collection. Raw nature, organic forms, and the green of new growth.",
             "accent_color": "#489808",
             "url": "/collections/bks-origin",
-            "image": "shopify://shop_images/bks-origin-editorial.jpg"
+            "image": "shopify://shop_images/bks-origin-editorial.png"
           }
         },
         "spread_3": {
@@ -234,7 +240,7 @@
             "description": "Symbols, scripts and ideographs from lost civilizations, translated into wearable art.",
             "accent_color": "#d4a030",
             "url": "/collections/bks-glyph",
-            "image": "shopify://shop_images/bks-glyph-editorial.jpg"
+            "image": "shopify://shop_images/bks-glyph-editorial.png"
           }
         },
         "spread_4": {
@@ -246,7 +252,7 @@
             "description": "Typography and signal from the city surface — the language of the street printed on premium cotton.",
             "accent_color": "#c04418",
             "url": "/collections/bks-marker",
-            "image": "shopify://shop_images/bks-marker-editorial.jpg"
+            "image": "shopify://shop_images/bks-marker-editorial.png"
           }
         },
         "spread_5": {
@@ -258,7 +264,7 @@
             "description": "Mediterranean heat and motion. Teal waves and the geometry of speed.",
             "accent_color": "#0ca898",
             "url": "/collections/bks-riviera",
-            "image": "shopify://shop_images/bks-riviera-editorial.jpg"
+            "image": "shopify://shop_images/bks-riviera-editorial.png"
           }
         },
         "spread_6": {
@@ -270,7 +276,7 @@
             "description": "Synth-wave patterns and energy fields from the electronic frontier — wearable sound.",
             "accent_color": "#8888cc",
             "url": "/collections/bks-pulse",
-            "image": "shopify://shop_images/bks-pulse-editorial.jpg"
+            "image": "shopify://shop_images/bks-pulse-editorial.png"
           }
         },
         "spread_7": {
@@ -282,7 +288,7 @@
             "description": "Blockchain aesthetics, pixel folklore and the cryptographic imagination — art-on-chain meets fabric.",
             "accent_color": "#9828d8",
             "url": "/collections/bks-token",
-            "image": "shopify://shop_images/bks-token-editorial.jpg"
+            "image": "shopify://shop_images/bks-token-editorial.png"
           }
         },
         "spread_8": {
@@ -294,7 +300,7 @@
             "description": "Bold statements, political geometry and the iconography of resistance. Wear your position.",
             "accent_color": "#c82020",
             "url": "/collections/bks-flag",
-            "image": "shopify://shop_images/bks-flag-editorial.jpg"
+            "image": "shopify://shop_images/bks-flag-editorial.png"
           }
         }
       },
@@ -330,6 +336,7 @@
     "bks_home_hero",
     "bks_editorial",
     "bks_piano_hero",
+    "bks_impact",
     "bks_verse_intro",
     "bks_magazine",
     "bks_reviews",

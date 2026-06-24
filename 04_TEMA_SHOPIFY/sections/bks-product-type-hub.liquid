@@ -1,0 +1,185 @@
+{% comment %}
+  BKS Product Type Hub
+  Purpose: high-visibility commercial navigator for the homepage and landing pages.
+  Positioning: accessible designer, not niche luxury and not dropshipping urgency.
+{% endcomment %}
+
+<section class="bks-type-hub" aria-labelledby="bks-type-hub-title-{{ section.id }}">
+  <div class="bks-type-hub__inner">
+    <div class="bks-type-hub__head">
+      <div>
+        {%- if section.settings.kicker != blank -%}<p class="bks-type-hub__kicker">{{ section.settings.kicker | escape }}</p>{%- endif -%}
+        <h2 id="bks-type-hub-title-{{ section.id }}" class="bks-type-hub__title">{{ section.settings.heading | escape }}</h2>
+      </div>
+      {%- if section.settings.copy != blank -%}<p class="bks-type-hub__copy">{{ section.settings.copy | escape }}</p>{%- endif -%}
+    </div>
+
+    <div class="bks-type-hub__layout">
+      <a class="bks-type-hub__hero" href="{{ section.settings.hero_link | default: '/collections' }}" aria-label="{{ section.settings.hero_label | escape }}">
+        {%- if section.settings.hero_image != blank -%}
+          {{ section.settings.hero_image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(min-width: 990px) 46vw, 100vw', alt: section.settings.hero_alt | escape }}
+        {%- else -%}
+          <div class="bks-type-hub__hero-fallback" aria-hidden="true">
+            <span>BKS</span>
+          </div>
+        {%- endif -%}
+        <div class="bks-type-hub__hero-copy">
+          <span>{{ section.settings.hero_kicker | escape }}</span>
+          <strong>{{ section.settings.hero_label | escape }}</strong>
+        </div>
+      </a>
+
+      <div class="bks-type-hub__grid" role="list">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign c = collections[block.settings.collection_handle]
+            assign target = block.settings.link
+            if target == blank and c != blank
+              assign target = c.url
+            endif
+            assign card_image = block.settings.image
+            if card_image == blank and c.image != blank
+              assign card_image = c.image
+            endif
+            if card_image == blank and c.products.first.featured_image != blank
+              assign card_image = c.products.first.featured_image
+            endif
+          -%}
+          <a class="bks-type-card" style="--bks-type-accent: {{ block.settings.accent }}" href="{{ target | default: '#' }}" role="listitem" {{ block.shopify_attributes }}>
+            <span class="bks-type-card__image">
+              {%- if card_image != blank -%}
+                {{ card_image | image_url: width: 540 | image_tag: loading: 'lazy', widths: '240, 360, 540', sizes: '(min-width: 990px) 18vw, 45vw', alt: block.settings.title | escape }}
+              {%- else -%}
+                <span class="bks-type-card__fallback">{{ block.settings.title | slice: 0, 3 | upcase }}</span>
+              {%- endif -%}
+            </span>
+            <span class="bks-type-card__body">
+              <small>{{ block.settings.label | escape }}</small>
+              <strong>{{ block.settings.title | escape }}</strong>
+              <em>{{ block.settings.line | escape }}</em>
+              <span class="bks-type-card__meta">Size guide · Care notes · Product grid</span>
+            </span>
+          </a>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="bks-type-hub__rail" aria-label="BKS service signals">
+      <span>Designed in Italy</span>
+      <span>Printed on demand</span>
+      <span>Size guides included</span>
+      <span>Care notes included</span>
+    </div>
+  </div>
+</section>
+
+{% style %}
+  #shopify-section-{{ section.id }} .bks-type-hub {
+    --bks-onyx: #0A0A0A;
+    --bks-salt: #FAFAF7;
+    --bks-bone: #EFEAE0;
+    --bks-dune: #C9B79C;
+    background: {{ section.settings.background }};
+    color: {{ section.settings.text_color }};
+    padding: clamp(48px, 7vw, 104px) 20px;
+  }
+  #shopify-section-{{ section.id }} .bks-type-hub__inner { width: min(1480px, 100%); margin: 0 auto; }
+  #shopify-section-{{ section.id }} .bks-type-hub__head {
+    display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.5fr); gap: clamp(22px, 5vw, 72px); align-items: end; margin-bottom: clamp(28px, 5vw, 64px);
+  }
+  #shopify-section-{{ section.id }} .bks-type-hub__kicker { margin: 0 0 12px; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: {{ section.settings.accent }}; }
+  #shopify-section-{{ section.id }} .bks-type-hub__title { margin: 0; max-width: 12ch; font-family: var(--bks-font-display, inherit); font-size: clamp(42px, 8vw, 116px); line-height: .86; letter-spacing: -.06em; text-transform: uppercase; }
+  #shopify-section-{{ section.id }} .bks-type-hub__copy { margin: 0; max-width: 50ch; color: {{ section.settings.muted_color }}; font-size: clamp(15px, 1.4vw, 18px); line-height: 1.55; }
+  #shopify-section-{{ section.id }} .bks-type-hub__layout { display: grid; grid-template-columns: minmax(340px, .66fr) minmax(0, 1fr); gap: clamp(18px, 3vw, 34px); align-items: stretch; }
+  #shopify-section-{{ section.id }} .bks-type-hub__hero { position: relative; min-height: clamp(420px, 54vw, 780px); overflow: hidden; display: flex; align-items: flex-end; color: #FAFAF7; text-decoration: none; background: #0A0A0A; }
+  #shopify-section-{{ section.id }} .bks-type-hub__hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.01); transition: transform .45s ease; }
+  #shopify-section-{{ section.id }} .bks-type-hub__hero:hover img { transform: scale(1.05); }
+  #shopify-section-{{ section.id }} .bks-type-hub__hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,.06), rgba(10,10,10,.72)); }
+  #shopify-section-{{ section.id }} .bks-type-hub__hero-fallback { position:absolute; inset:0; display:flex; align-items:flex-end; padding: clamp(28px, 4vw, 46px); background: radial-gradient(circle at 72% 18%, {{ section.settings.accent }} 0, transparent 30%), linear-gradient(145deg, #0A0A0A 0%, #242833 100%); }
+  #shopify-section-{{ section.id }} .bks-type-hub__hero-fallback span { font-size: clamp(86px, 17vw, 220px); line-height: .78; letter-spacing: -.08em; font-weight: 800; opacity: .22; }
+  #shopify-section-{{ section.id }} .bks-type-hub__hero-copy { position: relative; z-index: 2; padding: clamp(22px, 4vw, 42px); display: grid; gap: 8px; }
+  #shopify-section-{{ section.id }} .bks-type-hub__hero-copy span { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: {{ section.settings.accent }}; }
+  #shopify-section-{{ section.id }} .bks-type-hub__hero-copy strong { font-size: clamp(32px, 4vw, 64px); line-height: .94; letter-spacing: -.04em; text-transform: uppercase; }
+  #shopify-section-{{ section.id }} .bks-type-hub__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  #shopify-section-{{ section.id }} .bks-type-card { min-height: 245px; display: grid; grid-template-rows: 1fr auto; border: 1px solid rgba(10,10,10,.12); background: color-mix(in srgb, {{ section.settings.background }} 92%, #ffffff 8%); color: inherit; text-decoration: none; overflow: hidden; transition: transform .18s ease, border-color .18s ease, background .18s ease; }
+  #shopify-section-{{ section.id }} .bks-type-card:hover { transform: translateY(-3px); border-color: var(--bks-type-accent); background: color-mix(in srgb, var(--bks-type-accent) 10%, {{ section.settings.background }}); }
+  #shopify-section-{{ section.id }} .bks-type-card__image { position: relative; min-height: 118px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: linear-gradient(135deg, color-mix(in srgb, var(--bks-type-accent) 18%, #EFEAE0), #FAFAF7); }
+  #shopify-section-{{ section.id }} .bks-type-card__image::before { content: ''; position: absolute; inset: 0 0 auto; height: 5px; background: var(--bks-type-accent); }
+  #shopify-section-{{ section.id }} .bks-type-card__image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .35s ease; }
+  #shopify-section-{{ section.id }} .bks-type-card:hover .bks-type-card__image img { transform: scale(1.04); }
+  #shopify-section-{{ section.id }} .bks-type-card__fallback { font-size: clamp(34px, 4vw, 62px); letter-spacing: -.07em; font-weight: 800; color: rgba(10,10,10,.18); }
+  #shopify-section-{{ section.id }} .bks-type-card__body { display: grid; gap: 7px; padding: 16px; }
+  #shopify-section-{{ section.id }} .bks-type-card__body small, #shopify-section-{{ section.id }} .bks-type-card__meta { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: color-mix(in srgb, {{ section.settings.text_color }} 58%, transparent); font-style: normal; }
+  #shopify-section-{{ section.id }} .bks-type-card__body strong { font-size: clamp(18px, 1.8vw, 27px); line-height: 1; letter-spacing: -.04em; text-transform: uppercase; }
+  #shopify-section-{{ section.id }} .bks-type-card__body em { font-style: normal; color: {{ section.settings.muted_color }}; font-size: 13px; line-height: 1.35; }
+  #shopify-section-{{ section.id }} .bks-type-hub__rail { margin-top: 18px; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); border: 1px solid rgba(10,10,10,.12); }
+  #shopify-section-{{ section.id }} .bks-type-hub__rail span { padding: 14px 16px; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; text-align: center; border-right: 1px solid rgba(10,10,10,.12); }
+  #shopify-section-{{ section.id }} .bks-type-hub__rail span:last-child { border-right: 0; }
+  @media (max-width: 1180px) { #shopify-section-{{ section.id }} .bks-type-hub__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 860px) {
+    #shopify-section-{{ section.id }} .bks-type-hub__head, #shopify-section-{{ section.id }} .bks-type-hub__layout { grid-template-columns: 1fr; }
+    #shopify-section-{{ section.id }} .bks-type-hub__hero { min-height: 360px; }
+    #shopify-section-{{ section.id }} .bks-type-hub__rail { grid-template-columns: 1fr 1fr; }
+    #shopify-section-{{ section.id }} .bks-type-hub__rail span:nth-child(2) { border-right: 0; }
+    #shopify-section-{{ section.id }} .bks-type-hub__rail span { border-bottom: 1px solid rgba(10,10,10,.12); }
+  }
+  @media (max-width: 560px) { #shopify-section-{{ section.id }} .bks-type-hub__grid { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { #shopify-section-{{ section.id }} .bks-type-card, #shopify-section-{{ section.id }} .bks-type-hub__hero img, #shopify-section-{{ section.id }} .bks-type-card__image img { transition: none; } }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "BKS Product Type Hub",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Shop by product type" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Start with the piece" },
+    { "type": "textarea", "id": "copy", "label": "Copy", "default": "Choose the product first, then enter the collection color. Every page includes size guidance, care notes and the product grid." },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image" },
+    { "type": "text", "id": "hero_alt", "label": "Hero alt text", "default": "BKS Studio product selection hero" },
+    { "type": "text", "id": "hero_kicker", "label": "Hero kicker", "default": "Catalog system" },
+    { "type": "text", "id": "hero_label", "label": "Hero label", "default": "All categories" },
+    { "type": "url", "id": "hero_link", "label": "Hero link" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#FAFAF7" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#0A0A0A" },
+    { "type": "color", "id": "muted_color", "label": "Muted text", "default": "#5F5A52" },
+    { "type": "color", "id": "accent", "label": "Accent", "default": "#C9B79C" }
+  ],
+  "blocks": [
+    {
+      "type": "product_type",
+      "name": "Product type",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Sneakers" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Footwear" },
+        { "type": "textarea", "id": "line", "label": "Line", "default": "Graphic footwear with a clear everyday entry point." },
+        { "type": "text", "id": "collection_handle", "label": "Collection handle", "default": "sneakers" },
+        { "type": "url", "id": "link", "label": "Link override" },
+        { "type": "image_picker", "id": "image", "label": "Image override" },
+        { "type": "color", "id": "accent", "label": "Accent", "default": "#C9B79C" }
+      ]
+    }
+  ],
+  "max_blocks": 16,
+  "presets": [
+    {
+      "name": "BKS Product Type Hub",
+      "blocks": [
+        { "type": "product_type", "settings": { "title": "Puffer Jackets", "label": "Outerwear", "line": "Insulated outerwear with graphic surface and clear winter utility.", "collection_handle": "puffer-jacket", "accent": "#c8c4be" } },
+        { "type": "product_type", "settings": { "title": "Windbreakers", "label": "Outerwear", "line": "Light shell pieces for transitional weather and daily movement.", "collection_handle": "windbreaker", "accent": "#c04418" } },
+        { "type": "product_type", "settings": { "title": "Pullover Hoodies", "label": "Apparel", "line": "Soft volume, easy layering and collection graphics.", "collection_handle": "pullover-hoodie", "accent": "#8888cc" } },
+        { "type": "product_type", "settings": { "title": "Lounge Pants", "label": "Apparel", "line": "Relaxed studio and travel silhouette.", "collection_handle": "lounge-pants", "accent": "#0ca898" } },
+        { "type": "product_type", "settings": { "title": "Sneakers", "label": "Footwear", "line": "Graphic footwear with a clear everyday entry point.", "collection_handle": "sneakers", "accent": "#d4a030" } },
+        { "type": "product_type", "settings": { "title": "Backpacks", "label": "Bags", "line": "Daily carry format with visible BKS surface.", "collection_handle": "backpack", "accent": "#489808" } },
+        { "type": "product_type", "settings": { "title": "Travel Bags", "label": "Bags", "line": "Large-format carry for weekend, gym and short-stay travel.", "collection_handle": "travel-bag", "accent": "#c8c4be" } },
+        { "type": "product_type", "settings": { "title": "Swimwear", "label": "Resort", "line": "Resort swim category built around fast-dry surfaces.", "collection_handle": "swimwear", "accent": "#0ca898" } },
+        { "type": "product_type", "settings": { "title": "Flip Flops", "label": "Footwear", "line": "Pool, beach and resort footwear with BKS graphic identity.", "collection_handle": "flip-flop", "accent": "#c82020" } },
+        { "type": "product_type", "settings": { "title": "Athletic Shorts", "label": "Apparel", "line": "Movement-ready short silhouette for warm weather and training.", "collection_handle": "athletic-shorts", "accent": "#c82020" } },
+        { "type": "product_type", "settings": { "title": "One-Piece Swimsuits", "label": "Resort", "line": "Single-piece resort silhouette with full-surface print.", "collection_handle": "one-piece-swimsuit", "accent": "#0ca898" } },
+        { "type": "product_type", "settings": { "title": "Racerback Dresses", "label": "Dresses", "line": "Sleeveless dress shape with athletic shoulder line.", "collection_handle": "racerback-dress", "accent": "#9828d8" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,590 @@
+{% comment %}
+  BKS Shopping Guide
+  Uomo/Donna silhouette + armocromia → collection
+  Interactive 3-question quiz → collection result
+{% endcomment %}
+
+<section class="bks-sg" data-bks-shopping-guide>
+  <div class="bks-sg__intro">
+    <p class="bks-sg__eyebrow">{{ section.settings.eyebrow | default: 'FIND YOUR BKS' }}</p>
+    <h2 class="bks-sg__title">{{ section.settings.title | default: 'Shopping Guide' }}</h2>
+    <p class="bks-sg__sub">{{ section.settings.subtitle | default: 'Discover the BKS collection that fits your body, palette and occasion.' }}</p>
+
+    <div class="bks-sg__gender-tabs" role="tablist">
+      <button class="bks-sg__gender-tab is-active" role="tab" data-gender="man" aria-selected="true">
+        {{ section.settings.label_man | default: 'Man' }}
+      </button>
+      <button class="bks-sg__gender-tab" role="tab" data-gender="woman" aria-selected="false">
+        {{ section.settings.label_woman | default: 'Woman' }}
+      </button>
+      <button class="bks-sg__gender-tab" role="tab" data-gender="quiz" aria-selected="false">
+        {{ section.settings.label_quiz | default: 'Find My Collection' }}
+      </button>
+    </div>
+  </div>
+
+  {%- comment -%} ── MAN ── {%- endcomment -%}
+  <div class="bks-sg__panel is-active" data-panel="man">
+    <div class="bks-sg__grid">
+
+      <div class="bks-sg__card">
+        <div class="bks-sg__card-head" style="--card-accent:#c8c4be">
+          <span class="bks-sg__card-num">01</span>
+          <h3>The Structured Silhouette</h3>
+        </div>
+        <p>Broad shoulders, straight torso. You carry volume well. Structured pieces balance proportions without adding bulk.</p>
+        <ul class="bks-sg__recs">
+          <li><a href="/collections/bks-hours" class="bks-sg__col-link" style="--col:#c8c4be">Hours — clean tailored essentials</a></li>
+          <li><a href="/collections/bks-glyph" class="bks-sg__col-link" style="--col:#d4a030">Glyph — graphic cuts and bold prints</a></li>
+        </ul>
+      </div>
+
+      <div class="bks-sg__card">
+        <div class="bks-sg__card-head" style="--card-accent:#607080">
+          <span class="bks-sg__card-num">02</span>
+          <h3>The Athletic Build</h3>
+        </div>
+        <p>Defined chest and arms. Go with fitted jersey or stretch-woven fabrics. Avoid rigid boxy fits that hide your line.</p>
+        <ul class="bks-sg__recs">
+          <li><a href="/collections/bks-pulse" class="bks-sg__col-link" style="--col:#8888cc">Pulse — urban active silhouettes</a></li>
+          <li><a href="/collections/bks-riviera" class="bks-sg__col-link" style="--col:#0ca898">Riviera — coastal relaxed fit</a></li>
+        </ul>
+      </div>
+
+      <div class="bks-sg__card">
+        <div class="bks-sg__card-head" style="--card-accent:#489808">
+          <span class="bks-sg__card-num">03</span>
+          <h3>The Lean Frame</h3>
+        </div>
+        <p>Slimmer build, long lines. Layering adds dimension. Textured fabrics and medium-weight pieces create visual mass.</p>
+        <ul class="bks-sg__recs">
+          <li><a href="/collections/bks-origin" class="bks-sg__col-link" style="--col:#489808">Origin — natural layers, earth tones</a></li>
+          <li><a href="/collections/bks-marker" class="bks-sg__col-link" style="--col:#c04418">Marker — statement pieces that define</a></li>
+        </ul>
+      </div>
+
+      <div class="bks-sg__card">
+        <div class="bks-sg__card-head" style="--card-accent:#9828d8">
+          <span class="bks-sg__card-num">04</span>
+          <h3>By Armocromia</h3>
+        </div>
+        <div class="bks-sg__armo-grid">
+          <div class="bks-sg__armo-row">
+            <span class="bks-sg__season bks-sg__season--spring">Spring</span>
+            <span>Warm bright palette → <a href="/collections/bks-origin" style="color:#489808">Origin</a>, <a href="/collections/bks-riviera" style="color:#0ca898">Riviera</a></span>
+          </div>
+          <div class="bks-sg__armo-row">
+            <span class="bks-sg__season bks-sg__season--summer">Summer</span>
+            <span>Cool muted palette → <a href="/collections/bks-riviera" style="color:#0ca898">Riviera</a>, <a href="/collections/bks-pulse" style="color:#8888cc">Pulse</a></span>
+          </div>
+          <div class="bks-sg__armo-row">
+            <span class="bks-sg__season bks-sg__season--autumn">Autumn</span>
+            <span>Warm deep palette → <a href="/collections/bks-origin" style="color:#489808">Origin</a>, <a href="/collections/bks-marker" style="color:#c04418">Marker</a></span>
+          </div>
+          <div class="bks-sg__armo-row">
+            <span class="bks-sg__season bks-sg__season--winter">Winter</span>
+            <span>Cool contrast palette → <a href="/collections/bks-glyph" style="color:#d4a030">Glyph</a>, <a href="/collections/bks-token" style="color:#9828d8">Token</a></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {%- comment -%} ── WOMAN ── {%- endcomment -%}
+  <div class="bks-sg__panel" data-panel="woman" hidden>
+    <div class="bks-sg__grid">
+
+      <div class="bks-sg__card">
+        <div class="bks-sg__card-head" style="--card-accent:#0ca898">
+          <span class="bks-sg__card-num">01</span>
+          <h3>Fluid & Draped</h3>
+        </div>
+        <p>Movement-first dressing. Soft fabrics, relaxed volumes, and coastal ease define your silhouette naturally.</p>
+        <ul class="bks-sg__recs">
+          <li><a href="/collections/bks-riviera" class="bks-sg__col-link" style="--col:#0ca898">Riviera — coastal ease and swim</a></li>
+          <li><a href="/collections/bks-hours" class="bks-sg__col-link" style="--col:#c8c4be">Hours — timeless soft essentials</a></li>
+        </ul>
+      </div>
+
+      <div class="bks-sg__card">
+        <div class="bks-sg__card-head" style="--card-accent:#8888cc">
+          <span class="bks-sg__card-num">02</span>
+          <h3>Urban & Structured</h3>
+        </div>
+        <p>Clean lines meet city energy. You balance proportions with deliberate cuts. Tailored pieces do the talking.</p>
+        <ul class="bks-sg__recs">
+          <li><a href="/collections/bks-pulse" class="bks-sg__col-link" style="--col:#8888cc">Pulse — urban rhythm, architectural line</a></li>
+          <li><a href="/collections/bks-glyph" class="bks-sg__col-link" style="--col:#d4a030">Glyph — graphic structure and prints</a></li>
+        </ul>
+      </div>
+
+      <div class="bks-sg__card">
+        <div class="bks-sg__card-head" style="--card-accent:#489808">
+          <span class="bks-sg__card-num">03</span>
+          <h3>Natural & Grounded</h3>
+        </div>
+        <p>Earth tones, organic textures, and layered depth. You dress from nature inward — nothing performative, all intention.</p>
+        <ul class="bks-sg__recs">
+          <li><a href="/collections/bks-origin" class="bks-sg__col-link" style="--col:#489808">Origin — nature's colour language</a></li>
+          <li><a href="/collections/bks-marker" class="bks-sg__col-link" style="--col:#c04418">Marker — ochre, rust, and earth accents</a></li>
+        </ul>
+      </div>
+
+      <div class="bks-sg__card">
+        <div class="bks-sg__card-head" style="--card-accent:#9828d8">
+          <span class="bks-sg__card-num">04</span>
+          <h3>By Armocromia</h3>
+        </div>
+        <div class="bks-sg__armo-grid">
+          <div class="bks-sg__armo-row">
+            <span class="bks-sg__season bks-sg__season--spring">Spring</span>
+            <span>Warm vivid palette → <a href="/collections/bks-riviera" style="color:#0ca898">Riviera</a>, <a href="/collections/bks-origin" style="color:#489808">Origin</a></span>
+          </div>
+          <div class="bks-sg__armo-row">
+            <span class="bks-sg__season bks-sg__season--summer">Summer</span>
+            <span>Cool soft palette → <a href="/collections/bks-pulse" style="color:#8888cc">Pulse</a>, <a href="/collections/bks-riviera" style="color:#0ca898">Riviera</a></span>
+          </div>
+          <div class="bks-sg__armo-row">
+            <span class="bks-sg__season bks-sg__season--autumn">Autumn</span>
+            <span>Warm earthy palette → <a href="/collections/bks-origin" style="color:#489808">Origin</a>, <a href="/collections/bks-marker" style="color:#c04418">Marker</a></span>
+          </div>
+          <div class="bks-sg__armo-row">
+            <span class="bks-sg__season bks-sg__season--winter">Winter</span>
+            <span>Cool sharp palette → <a href="/collections/bks-token" style="color:#9828d8">Token</a>, <a href="/collections/bks-glyph" style="color:#d4a030">Glyph</a></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {%- comment -%} ── QUIZ ── {%- endcomment -%}
+  <div class="bks-sg__panel bks-sg__quiz" data-panel="quiz" hidden>
+    <div class="bks-sg__quiz-wrap">
+      <div class="bks-sg__quiz-steps">
+
+        {%- comment -%} Step 1 {%- endcomment -%}
+        <div class="bks-sg__step is-active" data-step="1">
+          <p class="bks-sg__step-label">1 / 3</p>
+          <h3 class="bks-sg__step-q">What's your style signature?</h3>
+          <div class="bks-sg__choices">
+            <button class="bks-sg__choice" data-scores="2,0,0,0,1,0,0,0,0,1">Understated elegance</button>
+            <button class="bks-sg__choice" data-scores="0,0,2,2,0,0,0,1">Bold &amp; graphic</button>
+            <button class="bks-sg__choice" data-scores="0,0,1,0,0,2,1,0">Urban energy</button>
+            <button class="bks-sg__choice" data-scores="1,2,0,0,1,0,0,0">Natural, earthy</button>
+          </div>
+        </div>
+
+        {%- comment -%} Step 2 {%- endcomment -%}
+        <div class="bks-sg__step" data-step="2" hidden>
+          <p class="bks-sg__step-label">2 / 3</p>
+          <h3 class="bks-sg__step-q">Your seasonal colour palette?</h3>
+          <div class="bks-sg__choices">
+            <button class="bks-sg__choice" data-scores="1,2,0,0,2,0,0,0">
+              <span class="bks-sg__choice-season bks-sg__season--spring"></span>Spring — warm, bright
+            </button>
+            <button class="bks-sg__choice" data-scores="1,0,0,0,2,2,0,0">
+              <span class="bks-sg__choice-season bks-sg__season--summer"></span>Summer — cool, soft
+            </button>
+            <button class="bks-sg__choice" data-scores="0,2,1,2,0,0,0,0">
+              <span class="bks-sg__choice-season bks-sg__season--autumn"></span>Autumn — warm, deep
+            </button>
+            <button class="bks-sg__choice" data-scores="0,0,2,0,0,1,2,0">
+              <span class="bks-sg__choice-season bks-sg__season--winter"></span>Winter — cool, sharp
+            </button>
+          </div>
+        </div>
+
+        {%- comment -%} Step 3 {%- endcomment -%}
+        <div class="bks-sg__step" data-step="3" hidden>
+          <p class="bks-sg__step-label">3 / 3</p>
+          <h3 class="bks-sg__step-q">What's the occasion?</h3>
+          <div class="bks-sg__choices">
+            <button class="bks-sg__choice" data-scores="2,1,0,0,0,1,0,0">Everyday wear</button>
+            <button class="bks-sg__choice" data-scores="0,0,2,0,0,2,1,0">Urban / editorial</button>
+            <button class="bks-sg__choice" data-scores="0,2,0,0,2,0,0,0">Coastal / outdoors</button>
+            <button class="bks-sg__choice" data-scores="0,0,0,1,0,0,2,2">Special moment / drop</button>
+          </div>
+        </div>
+
+      </div>
+
+      {%- comment -%} Result {%- endcomment -%}
+      <div class="bks-sg__result" data-quiz-result hidden>
+        <p class="bks-sg__result-label">Your BKS collection</p>
+        <div class="bks-sg__result-badge">
+          <span class="bks-sg__result-dot" data-result-dot></span>
+          <span class="bks-sg__result-name" data-result-name></span>
+        </div>
+        <p class="bks-sg__result-desc" data-result-desc></p>
+        <a class="bks-sg__result-cta" data-result-link href="#">Explore the collection</a>
+        <button class="bks-sg__result-reset" data-quiz-reset>Start again</button>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<style>
+.bks-sg {
+  --bks-sg-ink: #111111;
+  --bks-sg-paper: #ffffff;
+  --bks-sg-muted: #6a6258;
+  --bks-sg-line: #e2dcd4;
+  --bks-sg-accent: #d4a030;
+  font-family: var(--font-body-family, "Segoe UI", Arial, sans-serif);
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: {{ section.settings.padding_top | default: 56 }}px 24px {{ section.settings.padding_bottom | default: 72 }}px;
+  color: var(--bks-sg-ink);
+}
+.bks-sg__intro { text-align: center; margin-bottom: 48px; }
+.bks-sg__eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--bks-sg-muted);
+  margin: 0 0 10px;
+}
+.bks-sg__title {
+  font-family: var(--font-heading-family, "Segoe UI", Arial, sans-serif);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  margin: 0 0 12px;
+}
+.bks-sg__sub {
+  font-size: 1.05rem;
+  color: var(--bks-sg-muted);
+  max-width: 540px;
+  margin: 0 auto 32px;
+}
+.bks-sg__gender-tabs {
+  display: inline-flex;
+  border: 1px solid var(--bks-sg-line);
+  gap: 0;
+}
+.bks-sg__gender-tab {
+  background: transparent;
+  border: 0;
+  border-right: 1px solid var(--bks-sg-line);
+  color: var(--bks-sg-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  transition: background 0.18s, color 0.18s;
+}
+.bks-sg__gender-tab:last-child { border-right: 0; }
+.bks-sg__gender-tab.is-active,
+.bks-sg__gender-tab:hover {
+  background: var(--bks-sg-ink);
+  color: #fff;
+}
+.bks-sg__panel { display: none; }
+.bks-sg__panel.is-active { display: block; }
+.bks-sg__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+.bks-sg__card {
+  border: 1px solid var(--bks-sg-line);
+  padding: 24px;
+}
+.bks-sg__card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  border-bottom: 2px solid var(--card-accent, var(--bks-sg-accent));
+  padding-bottom: 12px;
+}
+.bks-sg__card-num {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--card-accent, var(--bks-sg-accent));
+}
+.bks-sg__card-head h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.3;
+}
+.bks-sg__card p {
+  font-size: 0.9rem;
+  color: var(--bks-sg-muted);
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+.bks-sg__recs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.bks-sg__col-link {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--col, var(--bks-sg-accent));
+  text-decoration: none;
+  border-left: 3px solid var(--col, var(--bks-sg-accent));
+  padding: 5px 10px;
+  background: rgba(0,0,0,0.025);
+  transition: background 0.15s;
+}
+.bks-sg__col-link:hover { background: rgba(0,0,0,0.055); }
+.bks-sg__armo-grid { display: flex; flex-direction: column; gap: 10px; }
+.bks-sg__armo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.84rem;
+}
+.bks-sg__armo-row a { text-decoration: none; font-weight: 600; }
+.bks-sg__season {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 3px 7px;
+  border-radius: 2px;
+  white-space: nowrap;
+  min-width: 60px;
+  text-align: center;
+}
+.bks-sg__season--spring { background: #fef3e2; color: #a06010; }
+.bks-sg__season--summer { background: #e8f4f8; color: #1a6a80; }
+.bks-sg__season--autumn { background: #f3ede2; color: #804010; }
+.bks-sg__season--winter { background: #eaeef6; color: #2a3a6a; }
+
+/* ── Quiz ── */
+.bks-sg__quiz { max-width: 600px; margin: 0 auto; }
+.bks-sg__quiz-wrap { position: relative; }
+.bks-sg__step-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--bks-sg-muted);
+  margin: 0 0 8px;
+}
+.bks-sg__step-q {
+  font-size: 1.3rem;
+  font-weight: 300;
+  margin: 0 0 24px;
+  line-height: 1.3;
+}
+.bks-sg__choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.bks-sg__choice {
+  background: transparent;
+  border: 1px solid var(--bks-sg-line);
+  color: var(--bks-sg-ink);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 16px 14px;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.bks-sg__choice:hover { border-color: var(--bks-sg-ink); background: #f5f2ee; }
+.bks-sg__choice-season {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.bks-sg__choice-season.bks-sg__season--spring { background: #d4a030; }
+.bks-sg__choice-season.bks-sg__season--summer { background: #0ca898; }
+.bks-sg__choice-season.bks-sg__season--autumn { background: #c04418; }
+.bks-sg__choice-season.bks-sg__season--winter { background: #8888cc; }
+.bks-sg__result {
+  text-align: center;
+  padding: 40px 24px;
+  border: 1px solid var(--bks-sg-line);
+  animation: bks-sg-fadein 0.4s ease;
+}
+@keyframes bks-sg-fadein { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.bks-sg__result-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--bks-sg-muted);
+  margin: 0 0 12px;
+}
+.bks-sg__result-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.bks-sg__result-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bks-sg-accent);
+  display: inline-block;
+}
+.bks-sg__result-name {
+  font-family: var(--font-heading-family, "Segoe UI", Arial, sans-serif);
+  font-size: 1.8rem;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+}
+.bks-sg__result-desc {
+  font-size: 0.95rem;
+  color: var(--bks-sg-muted);
+  max-width: 380px;
+  margin: 0 auto 24px;
+  line-height: 1.6;
+}
+.bks-sg__result-cta {
+  display: inline-block;
+  background: var(--bks-sg-ink);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 14px 28px;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  transition: opacity 0.15s;
+}
+.bks-sg__result-cta:hover { opacity: 0.82; }
+.bks-sg__result-reset {
+  display: block;
+  background: transparent;
+  border: 0;
+  color: var(--bks-sg-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.82rem;
+  margin: 8px auto 0;
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .bks-sg { padding-left: 16px; padding-right: 16px; }
+  .bks-sg__gender-tabs { display: flex; width: 100%; }
+  .bks-sg__gender-tab { flex: 1; padding: 10px 8px; font-size: 0.7rem; }
+  .bks-sg__choices { grid-template-columns: 1fr; }
+  .bks-sg__result-name { font-size: 1.4rem; }
+}
+</style>
+
+<script>
+(function(){
+  var root = document.querySelector('[data-bks-shopping-guide]');
+  if (!root) return;
+
+  // Gender tabs
+  root.querySelectorAll('[data-gender]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      root.querySelectorAll('[data-gender]').forEach(function(b){
+        b.classList.remove('is-active');
+        b.setAttribute('aria-selected','false');
+      });
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected','true');
+      root.querySelectorAll('[data-panel]').forEach(function(p){ p.classList.remove('is-active'); p.hidden = true; });
+      var target = root.querySelector('[data-panel="' + btn.dataset.gender + '"]');
+      if(target){ target.classList.add('is-active'); target.hidden = false; }
+    });
+  });
+
+  // Quiz
+  var COLLECTIONS = [
+    { name:'Hours',   color:'#c8c4be', url:'/collections/bks-hours',   desc:'Timeless essentials — quiet elegance, every day.' },
+    { name:'Origin',  color:'#489808', url:'/collections/bks-origin',  desc:'Nature\'s colour language — earthy, layered, grounded.' },
+    { name:'Glyph',   color:'#d4a030', url:'/collections/bks-glyph',   desc:'Graphic cuts and bold prints — dressed with intention.' },
+    { name:'Marker',  color:'#c04418', url:'/collections/bks-marker',  desc:'Statement pieces in ochre, rust and deep earth.' },
+    { name:'Riviera', color:'#0ca898', url:'/collections/bks-riviera', desc:'Coastal ease and swim — movement-first dressing.' },
+    { name:'Pulse',   color:'#8888cc', url:'/collections/bks-pulse',   desc:'Urban rhythm and architectural line — city energy.' },
+    { name:'Token',   color:'#9828d8', url:'/collections/bks-token',   desc:'Exclusive drops — curated for those who arrive early.' },
+    { name:'Flag',    color:'#c82020', url:'/collections/bks-flag',    desc:'Heritage codes and signal red — bold identity pieces.' }
+  ];
+
+  var scores = [0,0,0,0,0,0,0,0];
+
+  function addScores(scoreStr){
+    scoreStr.split(',').forEach(function(v,i){
+      if(i < scores.length) scores[i] += parseInt(v,10)||0;
+    });
+  }
+
+  function showResult(){
+    var best = scores.reduce(function(bIdx,v,i){ return v > scores[bIdx] ? i : bIdx; }, 0);
+    var col = COLLECTIONS[best];
+    root.querySelectorAll('[data-step]').forEach(function(s){ s.hidden = true; });
+    var resultEl = root.querySelector('[data-quiz-result]');
+    resultEl.hidden = false;
+    root.querySelector('[data-result-dot]').style.background = col.color;
+    root.querySelector('[data-result-name]').textContent = col.name;
+    root.querySelector('[data-result-desc]').textContent = col.desc;
+    var link = root.querySelector('[data-result-link]');
+    link.href = col.url;
+    link.style.background = col.color;
+  }
+
+  root.querySelectorAll('.bks-sg__choice').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      addScores(btn.dataset.scores);
+      var currentStep = btn.closest('[data-step]');
+      var nextStep = currentStep ? currentStep.nextElementSibling : null;
+      if(nextStep && nextStep.dataset.step){
+        currentStep.hidden = true;
+        nextStep.hidden = false;
+      } else {
+        showResult();
+      }
+    });
+  });
+
+  var resetBtn = root.querySelector('[data-quiz-reset]');
+  if(resetBtn){
+    resetBtn.addEventListener('click', function(){
+      scores = [0,0,0,0,0,0,0,0];
+      root.querySelector('[data-quiz-result]').hidden = true;
+      var firstStep = root.querySelector('[data-step="1"]');
+      root.querySelectorAll('[data-step]').forEach(function(s){ s.hidden = true; });
+      firstStep.hidden = false;
+    });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "BKS Shopping Guide",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow text", "default": "FIND YOUR BKS" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Shopping Guide" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Discover the BKS collection that fits your body, palette and occasion." },
+    { "type": "text", "id": "label_man", "label": "Tab: Man", "default": "Man" },
+    { "type": "text", "id": "label_woman", "label": "Tab: Woman", "default": "Woman" },
+    { "type": "text", "id": "label_quiz", "label": "Tab: Quiz", "default": "Find My Collection" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 120, "step": 8, "default": 56 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 8, "default": 72 }
+  ],
+  "presets": [
+    { "name": "BKS Shopping Guide" }
+  ]
+}
+{% endschema %}

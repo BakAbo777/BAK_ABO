@@ -1,0 +1,122 @@
+{
+  "sections": {
+    "cart-items": {
+      "type": "main-cart-items",
+      "settings": {
+        "color_scheme": "background-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "cart-footer": {
+      "type": "main-cart-footer",
+      "blocks": {
+        "subtotal": {
+          "type": "subtotal",
+          "settings": {}
+        },
+        "buttons": {
+          "type": "buttons",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "subtotal",
+        "buttons"
+      ],
+      "settings": {
+        "color_scheme": "inverse",
+        "padding_top": 20,
+        "padding_bottom": 40
+      }
+    },
+    "bks_cindex": {
+      "type": "bks-collections-index",
+      "blocks": {
+        "c1": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Hours",
+            "tagline": "Measured urban stillness",
+            "collection_handle": "bks-hours",
+            "link": ""
+          }
+        },
+        "c2": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Glyph",
+            "tagline": "Constructed signs",
+            "collection_handle": "bks-glyph",
+            "link": ""
+          }
+        },
+        "c3": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Marker",
+            "tagline": "Gesture and motion",
+            "collection_handle": "bks-marker",
+            "link": ""
+          }
+        },
+        "c4": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Riviera",
+            "tagline": "Coastal geometry",
+            "collection_handle": "bks-riviera",
+            "link": ""
+          }
+        },
+        "c5": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Pulse",
+            "tagline": "Optical movement",
+            "collection_handle": "bks-pulse",
+            "link": ""
+          }
+        },
+        "c6": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Token",
+            "tagline": "Digital objects",
+            "collection_handle": "bks-token",
+            "link": ""
+          }
+        },
+        "c7": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Flag",
+            "tagline": "Graphic fields",
+            "collection_handle": "bks-flag",
+            "link": ""
+          }
+        },
+        "c8": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Origin",
+            "tagline": "Invented narrative marks",
+            "collection_handle": "bks-origin",
+            "link": ""
+          }
+        }
+      },
+      "block_order": ["c1","c2","c3","c4","c5","c6","c7","c8"],
+      "settings": {
+        "heading": "Continue Shopping",
+        "subheading": "Eight permanent visual worlds. Each collection a distinct graphic language.",
+        "scheme": "light"
+      }
+    }
+  },
+  "order": [
+    "cart-items",
+    "cart-footer",
+    "bks_cindex"
+  ]
+}

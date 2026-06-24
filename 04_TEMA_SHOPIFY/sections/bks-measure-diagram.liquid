@@ -1,0 +1,446 @@
+{% comment %}
+  BKS Measure Diagram — sezione misure corporee con SVG inline
+  Mostra dove prendere le misure su silhouette uomo/donna + piede per scarpe.
+  Include in: bks-universal-size-guide modal, product pages, size guide page.
+{% endcomment %}
+
+<div class="bks-md" id="bks-measure-diagram-{{ section.id }}">
+
+  {%- if section.settings.show_heading -%}
+  <header class="bks-md__head">
+    <span class="bks-md__kicker">{{ section.settings.kicker | default: 'Guida alle misure' }}</span>
+    <h2 class="bks-md__title">{{ section.settings.title | default: 'Come prendere le misure' }}</h2>
+    <p class="bks-md__sub">{{ section.settings.subtitle | default: 'Misura il tuo corpo e confronta con la tabella taglie. In caso di dubbio scegli la taglia più grande.' }}</p>
+  </header>
+  {%- endif -%}
+
+  <div class="bks-md__grid">
+
+    <!-- ── SILHOUETTE UOMO ──────────────────────────────────────── -->
+    <figure class="bks-md__figure">
+      <div class="bks-md__svg-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 420" aria-label="Misure uomo" role="img" class="bks-md__svg">
+
+          <!-- Testa -->
+          <circle cx="110" cy="34" r="26" class="bks-md__body" />
+
+          <!-- Collo -->
+          <path d="M101,58 L101,72 L119,72 L119,58" class="bks-md__body" />
+
+          <!-- Spalle -->
+          <path d="M101,72 C95,72 68,76 52,84 L44,88 L36,94" class="bks-md__body" />
+          <path d="M119,72 C125,72 152,76 168,84 L176,88 L184,94" class="bks-md__body" />
+
+          <!-- Braccia sinistra -->
+          <path d="M36,94 C32,100 26,120 24,148 L24,172 C24,176 26,178 30,178 L38,178 C42,178 44,176 44,172 L44,148 C44,132 46,114 52,104" class="bks-md__body" />
+
+          <!-- Braccia destra -->
+          <path d="M184,94 C188,100 194,120 196,148 L196,172 C196,176 194,178 190,178 L182,178 C178,178 176,176 176,172 L176,148 C176,132 174,114 168,104" class="bks-md__body" />
+
+          <!-- Torso -->
+          <path d="M52,84 C52,84 44,90 42,100 L40,120 C40,128 42,140 46,148 C50,156 52,162 52,170 L52,200 C52,208 62,216 74,218 L84,220 L84,280 L136,280 L136,220 L146,218 C158,216 168,208 168,200 L168,170 C168,162 170,156 174,148 C178,140 180,128 180,120 L178,100 C176,90 168,84 168,84 Z" class="bks-md__body" />
+
+          <!-- Gambe sinistra -->
+          <path d="M84,280 L76,380 L96,380 L104,290 L104,280" class="bks-md__body" />
+          <!-- Gambe destra -->
+          <path d="M136,280 L144,380 L124,380 L116,290 L116,280" class="bks-md__body" />
+
+          <!-- ── LINEE DI MISURA ── -->
+
+          <!-- 1 — Petto (y≈118) -->
+          <line x1="40" y1="118" x2="180" y2="118" class="bks-md__mline" />
+          <circle cx="38" cy="118" r="9" class="bks-md__dot" />
+          <text x="38" y="122" class="bks-md__num">1</text>
+          <line x1="192" y1="118" x2="210" y2="118" class="bks-md__ext" />
+          <text x="214" y="122" class="bks-md__label">Petto</text>
+
+          <!-- 2 — Vita (y≈160) -->
+          <line x1="44" y1="160" x2="176" y2="160" class="bks-md__mline" />
+          <circle cx="42" cy="160" r="9" class="bks-md__dot" />
+          <text x="42" y="164" class="bks-md__num">2</text>
+          <line x1="190" y1="160" x2="210" y2="160" class="bks-md__ext" />
+          <text x="214" y="164" class="bks-md__label">Vita</text>
+
+          <!-- 3 — Fianchi (y≈204) -->
+          <line x1="40" y1="204" x2="180" y2="204" class="bks-md__mline" />
+          <circle cx="38" cy="204" r="9" class="bks-md__dot" />
+          <text x="38" y="208" class="bks-md__num">3</text>
+          <line x1="192" y1="204" x2="210" y2="204" class="bks-md__ext" />
+          <text x="214" y="208" class="bks-md__label">Fianchi</text>
+
+          <!-- 4 — Spalle (y≈82) -->
+          <line x1="52" y1="82" x2="168" y2="82" class="bks-md__mline" />
+          <circle cx="50" cy="82" r="9" class="bks-md__dot" />
+          <text x="50" y="86" class="bks-md__num">4</text>
+          <line x1="6" y1="82" x2="40" y2="82" class="bks-md__ext" />
+          <text x="2" y="86" class="bks-md__label-l">Spalle</text>
+
+          <!-- 5 — Altezza (lato sinistro) -->
+          <line x1="14" y1="8" x2="14" y2="380" class="bks-md__vline" />
+          <line x1="10" y1="8"  x2="18" y2="8"  class="bks-md__vtick" />
+          <line x1="10" y1="380" x2="18" y2="380" class="bks-md__vtick" />
+          <circle cx="14" cy="194" r="9" class="bks-md__dot" />
+          <text x="14" y="198" class="bks-md__num">5</text>
+
+        </svg>
+      </div>
+      <figcaption class="bks-md__caption">Abbigliamento</figcaption>
+    </figure>
+
+    <!-- ── SILHOUETTE DONNA ─────────────────────────────────────── -->
+    <figure class="bks-md__figure">
+      <div class="bks-md__svg-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 420" aria-label="Misure donna" role="img" class="bks-md__svg">
+
+          <!-- Testa -->
+          <circle cx="110" cy="34" r="26" class="bks-md__body" />
+
+          <!-- Capelli -->
+          <path d="M84,28 C84,10 136,10 136,28" class="bks-md__hair" />
+
+          <!-- Collo -->
+          <path d="M102,58 L102,72 L118,72 L118,58" class="bks-md__body" />
+
+          <!-- Spalle curve (più strette) -->
+          <path d="M102,72 C96,72 72,76 58,86 L50,92" class="bks-md__body" />
+          <path d="M118,72 C124,72 148,76 162,86 L170,92" class="bks-md__body" />
+
+          <!-- Braccia sinistra -->
+          <path d="M50,92 C46,100 40,122 38,150 L38,174 C38,178 40,180 44,180 L52,180 C56,180 58,178 58,174 L58,150 C58,134 60,114 66,102" class="bks-md__body" />
+
+          <!-- Braccia destra -->
+          <path d="M170,92 C174,100 180,122 182,150 L182,174 C182,178 180,180 176,180 L168,180 C164,180 162,178 162,174 L162,150 C162,134 160,114 154,102" class="bks-md__body" />
+
+          <!-- Torso donna (vita più marcata) -->
+          <path d="M58,86 C56,90 52,100 50,112 C48,124 50,138 54,148 C46,156 44,164 46,174 C48,186 58,196 68,202 C74,206 82,210 82,210 L82,278 L138,278 L138,210 C138,210 146,206 152,202 C162,196 172,186 174,174 C176,164 174,156 166,148 C170,138 172,124 170,112 C168,100 164,90 162,86 Z" class="bks-md__body" />
+
+          <!-- Gambe sinistra -->
+          <path d="M82,278 L74,380 L94,380 L104,288 L104,278" class="bks-md__body" />
+          <!-- Gambe destra -->
+          <path d="M138,278 L146,380 L126,380 L116,288 L116,278" class="bks-md__body" />
+
+          <!-- ── LINEE DI MISURA ── -->
+
+          <!-- 1 — Seno/Petto (y≈116) -->
+          <line x1="50" y1="116" x2="170" y2="116" class="bks-md__mline" />
+          <circle cx="48" cy="116" r="9" class="bks-md__dot" />
+          <text x="48" y="120" class="bks-md__num">1</text>
+          <line x1="182" y1="116" x2="210" y2="116" class="bks-md__ext" />
+          <text x="214" y="120" class="bks-md__label">Seno</text>
+
+          <!-- 2 — Vita (y≈160) -->
+          <line x1="46" y1="160" x2="174" y2="160" class="bks-md__mline" />
+          <circle cx="44" cy="160" r="9" class="bks-md__dot" />
+          <text x="44" y="164" class="bks-md__num">2</text>
+          <line x1="186" y1="160" x2="210" y2="160" class="bks-md__ext" />
+          <text x="214" y="164" class="bks-md__label">Vita</text>
+
+          <!-- 3 — Fianchi (y≈198) -->
+          <line x1="46" y1="198" x2="174" y2="198" class="bks-md__mline" />
+          <circle cx="44" cy="198" r="9" class="bks-md__dot" />
+          <text x="44" y="202" class="bks-md__num">3</text>
+          <line x1="186" y1="198" x2="210" y2="198" class="bks-md__ext" />
+          <text x="214" y="202" class="bks-md__label">Fianchi</text>
+
+          <!-- 4 — Spalle (y≈84) -->
+          <line x1="58" y1="84" x2="162" y2="84" class="bks-md__mline" />
+          <circle cx="56" cy="84" r="9" class="bks-md__dot" />
+          <text x="56" y="88" class="bks-md__num">4</text>
+          <line x1="6" y1="84" x2="46" y2="84" class="bks-md__ext" />
+          <text x="2" y="88" class="bks-md__label-l">Spalle</text>
+
+          <!-- 5 — Altezza -->
+          <line x1="14" y1="8" x2="14" y2="380" class="bks-md__vline" />
+          <line x1="10" y1="8"   x2="18" y2="8"   class="bks-md__vtick" />
+          <line x1="10" y1="380" x2="18" y2="380" class="bks-md__vtick" />
+          <circle cx="14" cy="194" r="9" class="bks-md__dot" />
+          <text x="14" y="198" class="bks-md__num">5</text>
+
+        </svg>
+      </div>
+      <figcaption class="bks-md__caption">Abbigliamento donna</figcaption>
+    </figure>
+
+    <!-- ── PIEDE (scarpe) ────────────────────────────────────────── -->
+    <figure class="bks-md__figure bks-md__figure--foot">
+      <div class="bks-md__svg-wrap bks-md__svg-wrap--foot">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 160" aria-label="Misura piede" role="img" class="bks-md__svg bks-md__svg--foot">
+
+          <!-- Profilo piede (vista dall'alto) -->
+          <path d="
+            M30,120
+            C28,110 28,90 32,70
+            C36,50 42,38 52,30
+            C60,24 72,20 84,20
+            C92,20 100,22 106,26
+            C110,28 114,28 118,28
+            C124,28 130,26 136,26
+            C142,26 148,28 152,32
+            C156,36 157,42 154,48
+            C151,54 146,58 140,60
+            C134,62 124,62 116,64
+            C108,66 100,70 96,76
+            C92,82 90,92 90,104
+            C90,114 92,122 94,130
+            C96,138 98,144 96,150
+            C94,154 88,156 80,156
+            C70,156 56,152 46,144
+            C38,138 32,130 30,120 Z
+          " class="bks-md__body" />
+
+          <!-- Dita (accenno) -->
+          <path d="M84,20 C84,14 90,10 96,12 C100,14 102,18 100,22" class="bks-md__body" />
+          <path d="M100,22 C102,16 108,12 114,14 C118,16 120,20 118,24" class="bks-md__body" />
+          <path d="M118,24 C120,18 126,14 132,16 C136,18 138,24 136,28" class="bks-md__body" />
+          <path d="M136,28 C138,22 144,20 150,24 C154,28 154,34 150,38" class="bks-md__body" />
+
+          <!-- ── MISURA LUNGHEZZA ── -->
+          <line x1="24" y1="20" x2="24" y2="156" class="bks-md__vline" />
+          <line x1="20" y1="20"  x2="28" y2="20"  class="bks-md__vtick" />
+          <line x1="20" y1="156" x2="28" y2="156" class="bks-md__vtick" />
+          <circle cx="24" cy="88" r="9" class="bks-md__dot" />
+          <text x="24" y="92" class="bks-md__num">6</text>
+
+          <!-- ── MISURA LARGHEZZA ── -->
+          <line x1="30" y1="100" x2="96" y2="100" class="bks-md__mline" />
+          <line x1="30" y1="96"  x2="30" y2="104" class="bks-md__vtick" />
+          <line x1="96" y1="96"  x2="96" y2="104" class="bks-md__vtick" />
+          <circle cx="96" cy="100" r="9" class="bks-md__dot" />
+          <text x="96" y="104" class="bks-md__num">7</text>
+
+          <!-- Label 6 -->
+          <text x="172" y="60" class="bks-md__label-block">
+            <tspan x="172" dy="0">6 — Lunghezza</tspan>
+            <tspan x="172" dy="16">piede (tacco → dito</tspan>
+            <tspan x="172" dy="14">più lungo)</tspan>
+          </text>
+          <!-- Label 7 -->
+          <text x="172" y="110" class="bks-md__label-block">
+            <tspan x="172" dy="0">7 — Larghezza</tspan>
+            <tspan x="172" dy="16">piede (punto</tspan>
+            <tspan x="172" dy="14">più largo)</tspan>
+          </text>
+
+        </svg>
+      </div>
+      <figcaption class="bks-md__caption">Scarpe &amp; sneakers</figcaption>
+    </figure>
+
+  </div><!-- /.bks-md__grid -->
+
+  <!-- ── LEGENDA ─────────────────────────────────────────────── -->
+  <div class="bks-md__legend">
+    <h3 class="bks-md__legend-title">Come misurare</h3>
+    <ol class="bks-md__legend-list">
+      <li>
+        <span class="bks-md__legend-num">1</span>
+        <div>
+          <strong>Petto / Seno</strong>
+          <p>Misura la circonferenza nella parte più ampia del petto, passando sotto le ascelle e tenendo il metro parallelo al pavimento.</p>
+        </div>
+      </li>
+      <li>
+        <span class="bks-md__legend-num">2</span>
+        <div>
+          <strong>Vita</strong>
+          <p>Misura la circonferenza nel punto più stretto del busto, solitamente 2–3 cm sopra l'ombelico. Non stringere il metro.</p>
+        </div>
+      </li>
+      <li>
+        <span class="bks-md__legend-num">3</span>
+        <div>
+          <strong>Fianchi</strong>
+          <p>Misura la circonferenza nella parte più prominente dei fianchi, circa 20 cm sotto la vita. Tieni i piedi uniti.</p>
+        </div>
+      </li>
+      <li>
+        <span class="bks-md__legend-num">4</span>
+        <div>
+          <strong>Spalle</strong>
+          <p>Misura da un capo della spalla all'altro, seguendo la linea delle spalle sul retro.</p>
+        </div>
+      </li>
+      <li>
+        <span class="bks-md__legend-num">5</span>
+        <div>
+          <strong>Altezza</strong>
+          <p>Misurati a piedi nudi, schiena contro il muro, da terra alla sommità della testa.</p>
+        </div>
+      </li>
+      <li>
+        <span class="bks-md__legend-num">6</span>
+        <div>
+          <strong>Lunghezza piede</strong>
+          <p>Metti il piede su un foglio, traccia il contorno. Misura dal tallone al dito più lungo.</p>
+        </div>
+      </li>
+      <li>
+        <span class="bks-md__legend-num">7</span>
+        <div>
+          <strong>Larghezza piede</strong>
+          <p>Misura la larghezza nel punto più ampio del piede (all'altezza dell'alluce).</p>
+        </div>
+      </li>
+    </ol>
+    <p class="bks-md__tip">{{ section.settings.tip | default: '💡 Usa un metro da sarto flessibile. Misura sempre sulla biancheria intima, non sopra i vestiti.' }}</p>
+  </div>
+
+</div>
+
+{% style %}
+.bks-md {
+  --md-ink:    {{ section.settings.color_ink | default: '#0a0a0a' }};
+  --md-paper:  {{ section.settings.color_paper | default: '#fafaf7' }};
+  --md-accent: {{ section.settings.color_accent | default: '#c9b79c' }};
+  --md-muted:  {{ section.settings.color_muted | default: '#9a9a9a' }};
+  background: var(--md-paper);
+  color: var(--md-ink);
+  padding: clamp(40px,6vw,80px) clamp(20px,4vw,64px);
+  font-family: var(--font-body-family, sans-serif);
+}
+.bks-md__head { text-align: center; margin-bottom: 48px; }
+.bks-md__kicker {
+  display: block; font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--md-muted); margin-bottom: 10px;
+}
+.bks-md__title {
+  font-size: clamp(22px,3.5vw,36px); font-weight: 600;
+  letter-spacing: -0.02em; margin: 0 0 12px;
+}
+.bks-md__sub { font-size: 14px; color: var(--md-muted); max-width: 44ch; margin: 0 auto; }
+
+/* Grid */
+.bks-md__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 40px;
+  max-width: 900px; margin: 0 auto 48px;
+}
+.bks-md__figure--foot { grid-column: 1 / -1; }
+.bks-md__figure { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.bks-md__svg-wrap {
+  width: 100%; max-width: 220px;
+  border: 1px solid rgba(10,10,10,0.08);
+  border-top: 2px solid var(--md-accent);
+  padding: 20px 4px;
+  background: #fff;
+}
+.bks-md__svg-wrap--foot { max-width: 340px; }
+.bks-md__svg { width: 100%; height: auto; display: block; overflow: visible; }
+.bks-md__svg--foot { max-height: 130px; }
+.bks-md__caption {
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--md-muted);
+}
+
+/* SVG elements */
+.bks-md__body {
+  fill: none; stroke: var(--md-ink);
+  stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+}
+.bks-md__hair {
+  fill: none; stroke: var(--md-ink);
+  stroke-width: 2; stroke-linecap: round;
+}
+.bks-md__mline {
+  stroke: var(--md-accent); stroke-width: 1;
+  stroke-dasharray: 3 3; fill: none;
+}
+.bks-md__vline {
+  stroke: var(--md-accent); stroke-width: 1;
+  stroke-dasharray: 3 3; fill: none;
+}
+.bks-md__ext {
+  stroke: var(--md-muted); stroke-width: 0.8; fill: none;
+}
+.bks-md__vtick {
+  stroke: var(--md-ink); stroke-width: 1.2; fill: none;
+}
+.bks-md__dot {
+  fill: var(--md-ink); stroke: none;
+}
+.bks-md__num {
+  fill: var(--md-paper); stroke: none;
+  font-size: 8px; font-weight: 700;
+  text-anchor: middle; dominant-baseline: auto;
+  font-family: var(--font-body-family, sans-serif);
+}
+.bks-md__label {
+  fill: var(--md-ink); stroke: none;
+  font-size: 9px; font-weight: 500;
+  text-anchor: start;
+  font-family: var(--font-body-family, sans-serif);
+}
+.bks-md__label-l {
+  fill: var(--md-ink); stroke: none;
+  font-size: 9px; font-weight: 500;
+  text-anchor: end;
+  font-family: var(--font-body-family, sans-serif);
+}
+.bks-md__label-block {
+  fill: var(--md-ink); stroke: none;
+  font-size: 10px;
+  font-family: var(--font-body-family, sans-serif);
+}
+
+/* Legend */
+.bks-md__legend {
+  max-width: 760px; margin: 0 auto;
+  border-top: 1px solid rgba(10,10,10,0.1);
+  padding-top: 36px;
+}
+.bks-md__legend-title {
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  margin: 0 0 24px; color: var(--md-muted);
+}
+.bks-md__legend-list {
+  list-style: none; padding: 0; margin: 0 0 24px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px 40px;
+}
+.bks-md__legend-list li {
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.bks-md__legend-num {
+  flex-shrink: 0;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--md-ink); color: var(--md-paper);
+  font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 2px;
+}
+.bks-md__legend-list strong { font-size: 12px; display: block; margin-bottom: 2px; }
+.bks-md__legend-list p { font-size: 12px; color: var(--md-muted); margin: 0; line-height: 1.5; }
+.bks-md__tip {
+  font-size: 12px; color: var(--md-muted);
+  border-left: 2px solid var(--md-accent);
+  padding-left: 12px; margin: 0;
+}
+
+@media screen and (max-width: 680px) {
+  .bks-md__grid { grid-template-columns: 1fr; }
+  .bks-md__figure--foot { grid-column: 1; }
+  .bks-md__legend-list { grid-template-columns: 1fr; }
+  .bks-md__svg-wrap { max-width: 200px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "BKS Measure Diagram",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "checkbox", "id": "show_heading", "label": "Mostra intestazione", "default": true },
+    { "type": "text",     "id": "kicker",  "label": "Kicker",    "default": "Guida alle misure" },
+    { "type": "text",     "id": "title",   "label": "Titolo",    "default": "Come prendere le misure" },
+    { "type": "textarea","id": "subtitle","label": "Sottotitolo","default": "Misura il tuo corpo e confronta con la tabella taglie. In caso di dubbio scegli la taglia più grande." },
+    { "type": "textarea","id": "tip",     "label": "Consiglio finale" },
+    { "type": "color",   "id": "color_ink",   "label": "Colore testo",   "default": "#0a0a0a" },
+    { "type": "color",   "id": "color_paper", "label": "Sfondo",         "default": "#fafaf7" },
+    { "type": "color",   "id": "color_accent","label": "Accent (linee)", "default": "#c9b79c" },
+    { "type": "color",   "id": "color_muted", "label": "Testo secondario","default": "#9a9a9a" }
+  ],
+  "presets": [{ "name": "BKS Measure Diagram" }]
+}
+{% endschema %}

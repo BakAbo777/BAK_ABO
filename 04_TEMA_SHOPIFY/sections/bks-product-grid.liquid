@@ -1,0 +1,643 @@
+{% comment %}
+  BakAbo / BKS Product Grid
+  File: sections/bks-product-grid.liquid
+  Editorial product grid for Flip Flops, Slippers, Beach Towels
+{% endcomment %}
+
+<style>
+  #shopify-section-{{ section.id }} .bks-pg {
+    --bks-pg-accent-auto: {% if section.settings.inherit_reference_colors %}var(--bks-active-accent, {{ section.settings.accent_color }}){% else %}{{ section.settings.accent_color }}{% endif %};
+    --bks-pg-foreground-auto: {% if section.settings.inherit_reference_colors %}var(--bks-active-foreground, {{ section.settings.accent_text_color }}){% else %}{{ section.settings.accent_text_color }}{% endif %};
+    position: relative;
+    overflow: hidden;
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__checker {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: {{ section.settings.checker_opacity | divided_by: 100.0 }};
+    background-image:
+      linear-gradient(45deg, {{ section.settings.border_color }} 25%, transparent 25%),
+      linear-gradient(-45deg, {{ section.settings.border_color }} 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, {{ section.settings.border_color }} 75%),
+      linear-gradient(-45deg, transparent 75%, {{ section.settings.border_color }} 75%);
+    background-size: {{ section.settings.checker_size }}px {{ section.settings.checker_size }}px;
+    background-position: 0 0, 0 {{ section.settings.checker_size | divided_by: 2 }}px, {{ section.settings.checker_size | divided_by: 2 }}px {{ section.settings.checker_size | divided_by: -2 }}px, {{ section.settings.checker_size | divided_by: -2 }}px 0;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__head {
+    padding: clamp(32px, 4vw, 56px) clamp(20px, 4vw, 48px) clamp(24px, 3vw, 40px);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid {{ section.settings.border_color }};
+    max-width: 1600px;
+    margin: 0 auto;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__kicker {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: {{ section.settings.muted_color }};
+    margin: 0 0 10px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__title {
+    font-size: clamp(26px, 4vw, 60px);
+    font-weight: 500;
+    letter-spacing: -0.06em;
+    line-height: 0.88;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__head-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__count {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: {{ section.settings.muted_color }};
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__view-all {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: {{ section.settings.text_color }};
+    padding: 10px 20px;
+    border: 1px solid {{ section.settings.border_color }};
+    transition: background 0.22s ease, color 0.22s ease;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__view-all:hover {
+    background: {{ section.settings.text_color }};
+    color: {{ section.settings.background_color }};
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__wrap {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: clamp(20px, 3vw, 40px) clamp(16px, 2.5vw, 32px);
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+    gap: {{ section.settings.card_gap }}px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__card {
+    text-decoration: none;
+    color: {{ section.settings.text_color }};
+    display: block;
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__media {
+    position: relative;
+    aspect-ratio: {{ section.settings.card_ratio }};
+    overflow: hidden;
+    background: {{ section.settings.border_color }};
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__img,
+  #shopify-section-{{ section.id }} .bks-pg__img2 {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease, opacity 0.4s ease;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__img2 { opacity: 0; }
+  #shopify-section-{{ section.id }} .bks-pg__card:hover .bks-pg__img { transform: scale(1.06); }
+  #shopify-section-{{ section.id }} .bks-pg__card:hover .bks-pg__img2 { opacity: 1; }
+
+  #shopify-section-{{ section.id }} .bks-pg__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 22px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__card:hover .bks-pg__overlay { opacity: 1; }
+
+  #shopify-section-{{ section.id }} .bks-pg__cta {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #fff;
+    padding: 10px 22px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: rgba(0, 0, 0, 0.2);
+    transform: translateY(8px);
+    transition: transform 0.3s ease;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__card:hover .bks-pg__cta { transform: none; }
+
+  #shopify-section-{{ section.id }} .bks-pg__badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    background: var(--bks-pg-accent-auto);
+    color: var(--bks-pg-foreground-auto);
+    z-index: 2;
+    font-weight: 600;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__num {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+    z-index: 2;
+    mix-blend-mode: difference;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__info {
+    padding: 14px 0 0;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__name {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 0 0 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__type {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: {{ section.settings.muted_color }};
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__price {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg__compare {
+    text-decoration: line-through;
+    color: {{ section.settings.muted_color }};
+    margin-right: 6px;
+    font-size: 11px;
+  }
+
+
+
+  #shopify-section-{{ section.id }} .bks-pg--scene {
+    background:
+      radial-gradient(circle at 10% 0%, color-mix(in srgb, var(--bks-pg-accent-auto) 22%, transparent) 0 18rem, transparent 32rem),
+      color-mix(in srgb, var(--bks-pg-accent-auto) 10%, {{ section.settings.background_color }});
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg--scene .bks-pg__head {
+    border-bottom-color: color-mix(in srgb, var(--bks-pg-accent-auto) 45%, transparent);
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg--scene .bks-pg__title {
+    max-width: 10ch;
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg--scene .bks-pg__view-all {
+    background: var(--bks-pg-accent-auto);
+    border-color: var(--bks-pg-accent-auto);
+    color: var(--bks-pg-foreground-auto);
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg--scene .bks-pg__grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: clamp(12px, 1.5vw, 24px);
+    align-items: stretch;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg--scene .bks-pg__card {
+    grid-column: span 3;
+    background: color-mix(in srgb, var(--bks-pg-accent-auto) 9%, #ffffff);
+    border: 1px solid color-mix(in srgb, var(--bks-pg-accent-auto) 34%, transparent);
+    padding: clamp(8px, .8vw, 14px);
+    transition: transform .32s ease, background .32s ease, border-color .32s ease;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg--scene .bks-pg__card:nth-child(7n+1),
+  #shopify-section-{{ section.id }} .bks-pg--scene .bks-pg__card:nth-child(7n+5) { grid-column: span 5; }
+  #shopify-section-{{ section.id }} .bks-pg--scene .bks-pg__card:nth-child(7n+2),
+  #shopify-section-{{ section.id }} .bks-pg--scene .bks-pg__card:nth-child(7n+6) { grid-column: span 4; }
+
+  #shopify-section-{{ section.id }} .bks-pg--scene .bks-pg__card:hover {
+    transform: translateY(-4px);
+    background: color-mix(in srgb, var(--bks-pg-accent-auto) 18%, #ffffff);
+    border-color: color-mix(in srgb, var(--bks-pg-accent-auto) 70%, transparent);
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg--scene .bks-pg__media {
+    aspect-ratio: 3/4;
+    background: color-mix(in srgb, var(--bks-pg-accent-auto) 16%, #f4f1eb);
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg--scene .bks-pg__card:nth-child(7n+1) .bks-pg__media,
+  #shopify-section-{{ section.id }} .bks-pg--scene .bks-pg__card:nth-child(7n+5) .bks-pg__media { aspect-ratio: 4/5; }
+  #shopify-section-{{ section.id }} .bks-pg--scene .bks-pg__card:nth-child(7n+2) .bks-pg__media,
+  #shopify-section-{{ section.id }} .bks-pg--scene .bks-pg__card:nth-child(7n+6) .bks-pg__media { aspect-ratio: 1/1; }
+
+  #shopify-section-{{ section.id }} .bks-pg--scene .bks-pg__info {
+    padding: 14px 0 4px;
+  }
+
+  #shopify-section-{{ section.id }} .bks-pg--scene .bks-pg__num {
+    color: var(--bks-pg-foreground-auto);
+    background: var(--bks-pg-accent-auto);
+    mix-blend-mode: normal;
+    padding: 4px 8px;
+  }
+
+  @media screen and (max-width: 989px) {
+    #shopify-section-{{ section.id }} .bks-pg__grid { grid-template-columns: repeat({{ section.settings.columns_tablet }}, 1fr); }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .bks-pg__grid { grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr); gap: {{ section.settings.card_gap_mobile }}px; }
+    #shopify-section-{{ section.id }} .bks-pg__head { padding: 22px 16px 18px; }
+    #shopify-section-{{ section.id }} .bks-pg__wrap { padding: 16px 12px; }
+    #shopify-section-{{ section.id }} .bks-pg__name { font-size: 12px; }
+  }
+</style>
+
+{%- liquid
+  assign chosen_collection = collections[section.settings.collection]
+  assign has_products = false
+  if chosen_collection != blank and chosen_collection.products_count > 0
+    assign has_products = true
+  endif
+-%}
+
+<section class="bks-pg{% if section.settings.scene_layout %} bks-pg--scene{% endif %}">
+  <div class="bks-pg__checker" aria-hidden="true"></div>
+
+  <header class="bks-pg__head">
+    <div>
+      {%- if section.settings.kicker != blank -%}
+        <p class="bks-pg__kicker">{{ section.settings.kicker | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="bks-pg__title">{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+    </div>
+    <div class="bks-pg__head-right">
+      {%- if has_products -%}
+        <span class="bks-pg__count">{{ chosen_collection.products_count }} items</span>
+      {%- endif -%}
+      {%- if section.settings.view_all_label != blank and has_products -%}
+        <a href="{{ chosen_collection.url }}" class="bks-pg__view-all">{{ section.settings.view_all_label | escape }} →</a>
+      {%- endif -%}
+    </div>
+  </header>
+
+  <div class="bks-pg__wrap">
+    <div class="bks-pg__grid">
+      {%- if has_products -%}
+        {%- for product in chosen_collection.products limit: section.settings.products_to_show -%}
+          <a class="bks-pg__card" href="{{ product.url }}">
+            <div class="bks-pg__media">
+              {%- if product.available == false -%}
+                <span class="bks-pg__badge">Sold Out</span>
+              {%- elsif product.compare_at_price > product.price -%}
+                <span class="bks-pg__badge">Sale</span>
+              {%- elsif forloop.index <= 2 -%}
+                <span class="bks-pg__badge">New</span>
+              {%- endif -%}
+
+              <span class="bks-pg__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+
+              {%- if product.featured_image != blank -%}
+                <img class="bks-pg__img" src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.featured_image.alt | escape }}" width="800" height="800" loading="lazy">
+              {%- endif -%}
+              {%- if product.images.size > 1 -%}
+                <img class="bks-pg__img2" src="{{ product.images[1] | image_url: width: 800 }}" alt="{{ product.images[1].alt | escape }}" width="800" height="800" loading="lazy">
+              {%- endif -%}
+
+              <div class="bks-pg__overlay">
+                <span class="bks-pg__cta">{{ section.settings.hover_cta | default: 'View →' | escape }}</span>
+              </div>
+            </div>
+            <div class="bks-pg__info">
+              <h3 class="bks-pg__name">{{ product.title | escape }}</h3>
+              <div class="bks-pg__meta">
+                <span class="bks-pg__type">{{ product.type | default: section.settings.product_type_label | escape }}</span>
+                <span class="bks-pg__price">
+                  {%- if product.compare_at_price > product.price -%}
+                    <span class="bks-pg__compare">{{ product.compare_at_price | money }}</span>
+                  {%- endif -%}
+                  {{ product.price | money }}
+                </span>
+              </div>
+            </div>
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..section.settings.products_to_show) -%}
+          <div class="bks-pg__card">
+            <div class="bks-pg__media">
+              {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+            <div class="bks-pg__info">
+              <h3 class="bks-pg__name">{{ section.settings.title | escape }} {{ i }}</h3>
+              <div class="bks-pg__meta">
+                <span class="bks-pg__type">BKS Collection</span>
+                <span class="bks-pg__price">—</span>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BKS Product Grid",
+  "tag": "section",
+  "class": "section-bks-product-grid",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contenuto"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "BKS COLLECTION"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo",
+      "default": "Flip Flops"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collezione"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Prodotti mostrati",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "default": 8
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "Label vedi tutti",
+      "default": "View All"
+    },
+    {
+      "type": "text",
+      "id": "hover_cta",
+      "label": "Testo overlay hover",
+      "default": "View"
+    },
+    {
+      "type": "text",
+      "id": "product_type_label",
+      "label": "Tipo prodotto fallback",
+      "default": "BKS Item"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Colonne desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "label": "Colonne tablet",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "label": "Colonne mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "select",
+      "id": "card_ratio",
+      "label": "Ratio immagine",
+      "options": [
+        {
+          "value": "1/1",
+          "label": "Quadrato"
+        },
+        {
+          "value": "3/4",
+          "label": "Portrait 3:4"
+        },
+        {
+          "value": "2/3",
+          "label": "Fashion 2:3"
+        },
+        {
+          "value": "4/3",
+          "label": "Landscape 4:3"
+        }
+      ],
+      "default": "3/4"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Gap desktop (px)",
+      "min": 4,
+      "max": 32,
+      "step": 2,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_gap_mobile",
+      "label": "Gap mobile (px)",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Colori"
+    },
+    {
+      "type": "checkbox",
+      "id": "inherit_reference_colors",
+      "label": "Use active page/collection colours",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "scene_layout",
+      "label": "Use editorial scene layout",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Sfondo",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Testo",
+      "default": "#050505"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Testo secondario",
+      "default": "#888888"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Bordi",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Badge",
+      "default": "#050505"
+    },
+    {
+      "type": "color",
+      "id": "accent_text_color",
+      "label": "Testo badge",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Pattern"
+    },
+    {
+      "type": "range",
+      "id": "checker_size",
+      "label": "Checker px",
+      "min": 6,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "checker_opacity",
+      "label": "Opacita checker",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "%",
+      "default": 2
+    }
+  ],
+  "presets": [
+    {
+      "name": "BKS Grid - Flip Flops",
+      "settings": {
+        "kicker": "BKS RESORT",
+        "title": "Flip Flops",
+        "card_ratio": "3/4",
+        "columns_desktop": 4
+      }
+    },
+    {
+      "name": "BKS Grid - Indoor Slippers",
+      "settings": {
+        "kicker": "BKS LOUNGE",
+        "title": "Indoor Slippers",
+        "background_color": "#050505",
+        "text_color": "#ffffff",
+        "border_color": "#222222",
+        "accent_color": "#ffffff",
+        "accent_text_color": "#050505",
+        "card_ratio": "1/1",
+        "columns_desktop": 4
+      }
+    },
+    {
+      "name": "BKS Grid - Beach Towels",
+      "settings": {
+        "kicker": "BKS RESORT",
+        "title": "Beach Towels",
+        "card_ratio": "2/3",
+        "columns_desktop": 3,
+        "products_to_show": 6
+      }
+    }
+  ]
+}
+{% endschema %}

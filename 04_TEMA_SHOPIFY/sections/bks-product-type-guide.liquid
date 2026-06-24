@@ -1,0 +1,462 @@
+{% comment %}
+  BakAbo / BKS Product Type Guide
+  File: sections/bks-product-type-guide.liquid
+  Purpose: collection-level hero + size guide + fit + care instructions per product typology.
+  Compatible with Dawn / Shopify JSON templates.
+{% endcomment %}
+
+{%- liquid
+  assign product_key = section.settings.product_type | default: 'puffer_jackets'
+  assign accent = section.settings.accent_color | default: '#C9B79C'
+  assign title = section.settings.hero_title
+  assign kicker = section.settings.hero_kicker
+  assign intro = section.settings.hero_text
+  assign fit_note = section.settings.fit_note
+
+  if title == blank
+    case product_key
+      when 'puffer_jackets'
+        assign title = 'Puffer Jackets'
+      when 'windbreakers'
+        assign title = 'Windbreakers'
+      when 'pullover_hoodies'
+        assign title = 'Pullover Hoodies'
+      when 'lounge_pants'
+        assign title = 'Lounge Pants'
+      when 'sneakers'
+        assign title = 'Sneakers'
+      when 'backpacks'
+        assign title = 'Backpacks'
+      when 'travel_bags'
+        assign title = 'Travel Bags'
+      when 'swimwear'
+        assign title = 'Swimwear'
+      when 'flip_flops'
+        assign title = 'Flip Flops'
+      when 'athletic_shorts'
+        assign title = 'Athletic Shorts'
+      when 'one_piece_swimsuits'
+        assign title = 'One-Piece Swimsuits'
+      when 'racerback_dresses'
+        assign title = 'Racerback Dresses'
+      else
+        assign title = 'BKS Product Guide'
+    endcase
+  endif
+
+  if kicker == blank
+    assign kicker = 'BKS Product Type Guide'
+  endif
+
+  if intro == blank
+    case product_key
+      when 'puffer_jackets'
+        assign intro = 'Insulated outerwear with graphic surface, regular volume and made-to-order production.'
+      when 'windbreakers'
+        assign intro = 'Light technical shell, built for transitional weather and full-surface BKS graphics.'
+      when 'pullover_hoodies'
+        assign intro = 'Soft everyday volume, clean shoulder line and printed surface for urban layering.'
+      when 'lounge_pants'
+        assign intro = 'Relaxed lower-body silhouette designed for resort, studio and travel use.'
+      when 'sneakers'
+        assign intro = 'Printed footwear with structured profile, rubber sole and BKS graphic language.'
+      when 'backpacks'
+        assign intro = 'Daily carry format with all-over print surface and practical internal capacity.'
+      when 'travel_bags'
+        assign intro = 'Large-format travel piece for weekend, gym and short-stay movement.'
+      when 'swimwear'
+        assign intro = 'Resort swim category with fast-dry surface and BKS graphic identity.'
+      when 'flip_flops'
+        assign intro = 'Summer footwear for pool, beach and resort contexts, with light EVA structure.'
+      when 'athletic_shorts'
+        assign intro = 'Active short silhouette with light construction, movement space and graphic print.'
+      when 'one_piece_swimsuits'
+        assign intro = 'Single-piece resort silhouette with clean coverage and edge-to-edge printed surface.'
+      when 'racerback_dresses'
+        assign intro = 'Sleeveless dress silhouette with athletic shoulder line and editorial surface print.'
+    endcase
+  endif
+
+  if fit_note == blank
+    case product_key
+      when 'puffer_jackets'
+        assign fit_note = 'Regular outerwear fit. If you are between sizes, choose the larger size for layering.'
+      when 'windbreakers'
+        assign fit_note = 'Regular technical fit. Size up if worn over hoodies or heavier layers.'
+      when 'pullover_hoodies'
+        assign fit_note = 'Relaxed fit. Choose your usual size for an easy silhouette.'
+      when 'lounge_pants'
+        assign fit_note = 'Relaxed waist and leg. Use waist and hip measurement as primary reference.'
+      when 'sneakers'
+        assign fit_note = 'Regular footwear fit. If you have a wide foot or sit between sizes, choose the larger EU size.'
+      when 'backpacks'
+        assign fit_note = 'One size. Capacity and dimensions are the reference measurements.'
+      when 'travel_bags'
+        assign fit_note = 'One size. Check dimensions against carry-on and travel requirements before purchase.'
+      when 'swimwear'
+        assign fit_note = 'Close-to-body fit. For a softer fit, choose the larger size when between two sizes.'
+      when 'flip_flops'
+        assign fit_note = 'Standard summer footwear fit. If between sizes, choose the larger size.'
+      when 'athletic_shorts'
+        assign fit_note = 'Regular athletic fit. Prioritise waist comfort and movement space.'
+      when 'one_piece_swimsuits'
+        assign fit_note = 'Close fit. Check bust, waist, hips and torso length together.'
+      when 'racerback_dresses'
+        assign fit_note = 'Slim-to-regular dress fit. Size up for a softer line through bust and hips.'
+    endcase
+  endif
+
+  assign hero_media = section.settings.hero_image
+  if hero_media == blank and collection.image != blank
+    assign hero_media = collection.image
+  endif
+  if hero_media == blank and collection.products.first.featured_image != blank
+    assign hero_media = collection.products.first.featured_image
+  endif
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} .bks-ptg {
+    --bks-ptg-accent: {{ accent }};
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    border-top: 1px solid rgba(10,10,10,0.08);
+    border-bottom: 1px solid rgba(10,10,10,0.08);
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__wrap {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+    gap: clamp(22px, 4vw, 54px);
+    align-items: stretch;
+    margin-bottom: clamp(28px, 4vw, 56px);
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__media {
+    min-height: clamp(300px, 40vw, 520px);
+    background:
+      radial-gradient(circle at 20% 18%, color-mix(in srgb, var(--bks-ptg-accent) 32%, transparent), transparent 34%),
+      linear-gradient(135deg, #0A0A0A 0%, #232323 52%, color-mix(in srgb, var(--bks-ptg-accent) 50%, #0A0A0A) 100%);
+    overflow: hidden;
+    position: relative;
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 46%, rgba(0,0,0,0.34));
+    pointer-events: none;
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    padding: clamp(24px, 4vw, 42px);
+    color: #FAFAF7;
+    letter-spacing: -0.04em;
+    font-size: clamp(38px, 7vw, 86px);
+    font-weight: 700;
+    line-height: 0.9;
+    text-transform: uppercase;
+    opacity: 0.92;
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(26px, 4vw, 50px);
+    background: {{ section.settings.card_bg }};
+    border-left: 4px solid var(--bks-ptg-accent);
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__kicker {
+    margin: 0 0 12px;
+    font-size: 10px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--bks-ptg-accent);
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__title {
+    margin: 0 0 18px;
+    font-size: clamp(34px, 5.8vw, 76px);
+    line-height: 0.92;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__intro {
+    max-width: 58ch;
+    margin: 0;
+    font-size: clamp(15px, 1.5vw, 18px);
+    line-height: 1.55;
+    color: {{ section.settings.muted_color }};
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__chips {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__chip {
+    border: 1px solid color-mix(in srgb, var(--bks-ptg-accent) 52%, #000000 8%);
+    color: {{ section.settings.text_color }};
+    background: color-mix(in srgb, var(--bks-ptg-accent) 8%, transparent);
+    padding: 8px 12px;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+    gap: clamp(18px, 3vw, 38px);
+    align-items: start;
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__panel {
+    background: {{ section.settings.card_bg }};
+    border: 1px solid rgba(10,10,10,0.09);
+    padding: clamp(20px, 3vw, 32px);
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__label {
+    margin: 0 0 16px;
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--bks-ptg-accent);
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__table-wrap {
+    overflow-x: auto;
+    border: 1px solid rgba(10,10,10,0.09);
+    background: {{ section.settings.background_color }};
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__table {
+    width: 100%;
+    min-width: 560px;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__table th,
+  #shopify-section-{{ section.id }} .bks-ptg__table td {
+    padding: 12px 13px;
+    border-bottom: 1px solid rgba(10,10,10,0.08);
+    text-align: center;
+    white-space: nowrap;
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__table th:first-child,
+  #shopify-section-{{ section.id }} .bks-ptg__table td:first-child {
+    text-align: left;
+    font-weight: 600;
+    color: {{ section.settings.text_color }};
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__table th {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: {{ section.settings.muted_color }};
+    background: color-mix(in srgb, var(--bks-ptg-accent) 10%, {{ section.settings.card_bg }});
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__table tr:last-child td {
+    border-bottom: 0;
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__fit {
+    margin: 16px 0 0;
+    padding: 14px 16px;
+    border-left: 3px solid var(--bks-ptg-accent);
+    background: color-mix(in srgb, var(--bks-ptg-accent) 8%, transparent);
+    color: {{ section.settings.muted_color }};
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__fit strong,
+  #shopify-section-{{ section.id }} .bks-ptg__care strong {
+    color: {{ section.settings.text_color }};
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__care {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: {{ section.settings.muted_color }};
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__care li {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 10px;
+    align-items: start;
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__care li::before {
+    content: '—';
+    color: var(--bks-ptg-accent);
+    font-weight: 700;
+  }
+  #shopify-section-{{ section.id }} .bks-ptg__note {
+    margin: 18px 0 0;
+    font-size: 12px;
+    line-height: 1.55;
+    color: {{ section.settings.muted_color }};
+    opacity: 0.86;
+  }
+  @media screen and (max-width: 860px) {
+    #shopify-section-{{ section.id }} .bks-ptg__hero,
+    #shopify-section-{{ section.id }} .bks-ptg__grid {
+      grid-template-columns: 1fr;
+    }
+    #shopify-section-{{ section.id }} .bks-ptg__copy {
+      padding: 24px 18px;
+    }
+    #shopify-section-{{ section.id }} .bks-ptg__media {
+      min-height: 320px;
+    }
+  }
+</style>
+
+<section class="bks-ptg" aria-labelledby="BksProductTypeGuideTitle-{{ section.id }}">
+  <div class="bks-ptg__wrap">
+    <div class="bks-ptg__hero">
+      <div class="bks-ptg__media">
+        {%- if hero_media != blank -%}
+          {{ hero_media | image_url: width: 1800 | image_tag: loading: 'lazy', class: 'bks-ptg__image', alt: title }}
+        {%- else -%}
+          <div class="bks-ptg__placeholder">{{ title }}</div>
+        {%- endif -%}
+      </div>
+      <div class="bks-ptg__copy">
+        <p class="bks-ptg__kicker">{{ kicker }}</p>
+        <h2 class="bks-ptg__title" id="BksProductTypeGuideTitle-{{ section.id }}">{{ title }}</h2>
+        <p class="bks-ptg__intro">{{ intro }}</p>
+        <div class="bks-ptg__chips" aria-label="Product guide highlights">
+          <span class="bks-ptg__chip">Size guide</span>
+          <span class="bks-ptg__chip">Fit note</span>
+          <span class="bks-ptg__chip">Care</span>
+          <span class="bks-ptg__chip">Made to order</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bks-ptg__grid">
+      <div class="bks-ptg__panel">
+        <p class="bks-ptg__label">Guida taglie</p>
+        <div class="bks-ptg__table-wrap">
+          {%- case product_key -%}
+            {%- when 'puffer_jackets' -%}
+              <table class="bks-ptg__table"><thead><tr><th>Misura capo</th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>2XL</th><th>3XL</th></tr></thead><tbody><tr><td>Petto</td><td>100</td><td>106</td><td>112</td><td>118</td><td>124</td><td>132</td><td>140</td></tr><tr><td>Lunghezza</td><td>66</td><td>68</td><td>70</td><td>72</td><td>74</td><td>76</td><td>78</td></tr><tr><td>Manica</td><td>62</td><td>63</td><td>64</td><td>65</td><td>66</td><td>67</td><td>68</td></tr></tbody></table>
+            {%- when 'windbreakers' -%}
+              <table class="bks-ptg__table"><thead><tr><th>Misura capo</th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>2XL</th><th>3XL</th></tr></thead><tbody><tr><td>Petto</td><td>98</td><td>104</td><td>110</td><td>116</td><td>122</td><td>130</td><td>138</td></tr><tr><td>Lunghezza</td><td>65</td><td>67</td><td>69</td><td>71</td><td>73</td><td>75</td><td>77</td></tr><tr><td>Manica</td><td>61</td><td>62</td><td>63</td><td>64</td><td>65</td><td>66</td><td>67</td></tr></tbody></table>
+            {%- when 'pullover_hoodies' -%}
+              <table class="bks-ptg__table"><thead><tr><th>Misura capo</th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>2XL</th><th>3XL</th></tr></thead><tbody><tr><td>Petto</td><td>96</td><td>102</td><td>108</td><td>114</td><td>122</td><td>130</td><td>138</td></tr><tr><td>Lunghezza</td><td>66</td><td>69</td><td>72</td><td>75</td><td>78</td><td>81</td><td>84</td></tr><tr><td>Manica</td><td>60</td><td>61</td><td>62</td><td>63</td><td>64</td><td>65</td><td>66</td></tr></tbody></table>
+            {%- when 'lounge_pants' -%}
+              <table class="bks-ptg__table"><thead><tr><th>Misura corpo</th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>2XL</th><th>3XL</th></tr></thead><tbody><tr><td>Vita</td><td>64–70</td><td>70–76</td><td>76–84</td><td>84–92</td><td>92–100</td><td>100–108</td><td>108–116</td></tr><tr><td>Fianchi</td><td>88–94</td><td>94–100</td><td>100–108</td><td>108–116</td><td>116–124</td><td>124–132</td><td>132–140</td></tr><tr><td>Interno gamba</td><td>74</td><td>75</td><td>76</td><td>77</td><td>78</td><td>79</td><td>80</td></tr></tbody></table>
+            {%- when 'sneakers' -%}
+              <table class="bks-ptg__table"><thead><tr><th>EU</th><th>36</th><th>38</th><th>40</th><th>42</th><th>44</th><th>46</th></tr></thead><tbody><tr><td>US uomo</td><td>4</td><td>5.5</td><td>7</td><td>8.5</td><td>10</td><td>11.5</td></tr><tr><td>US donna</td><td>5.5</td><td>7</td><td>8.5</td><td>10</td><td>11.5</td><td>13</td></tr><tr><td>UK</td><td>3.5</td><td>5</td><td>6.5</td><td>8</td><td>9.5</td><td>11</td></tr></tbody></table>
+            {%- when 'backpacks' -%}
+              <table class="bks-ptg__table"><thead><tr><th>Formato</th><th>Altezza</th><th>Larghezza</th><th>Profondità</th><th>Capacità</th></tr></thead><tbody><tr><td>One Size</td><td>45 cm</td><td>30 cm</td><td>15 cm</td><td>20 L</td></tr></tbody></table>
+            {%- when 'travel_bags' -%}
+              <table class="bks-ptg__table"><thead><tr><th>Formato</th><th>Lunghezza</th><th>Altezza</th><th>Profondità</th><th>Capacità</th></tr></thead><tbody><tr><td>One Size</td><td>70 cm</td><td>40 cm</td><td>25 cm</td><td>70 L</td></tr></tbody></table>
+            {%- when 'swimwear' -%}
+              <table class="bks-ptg__table"><thead><tr><th>Taglia</th><th>S</th><th>M</th><th>L</th><th>XL</th></tr></thead><tbody><tr><td>Vita uomo</td><td>76–81</td><td>81–86</td><td>86–91</td><td>91–97</td></tr><tr><td>Busto donna</td><td>82–86</td><td>86–90</td><td>90–96</td><td>96–102</td></tr><tr><td>Fianchi donna</td><td>88–92</td><td>92–96</td><td>96–102</td><td>102–108</td></tr></tbody></table>
+            {%- when 'flip_flops' -%}
+              <table class="bks-ptg__table"><thead><tr><th>EU</th><th>36–37</th><th>38–39</th><th>40–41</th><th>42–43</th><th>44–45</th></tr></thead><tbody><tr><td>US uomo</td><td>4–5</td><td>6–7</td><td>8–9</td><td>10–11</td><td>12–13</td></tr><tr><td>US donna</td><td>5–6</td><td>7–8</td><td>9–10</td><td>11–12</td><td>—</td></tr></tbody></table>
+            {%- when 'athletic_shorts' -%}
+              <table class="bks-ptg__table"><thead><tr><th>Misura corpo</th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>2XL</th></tr></thead><tbody><tr><td>Vita</td><td>66–72</td><td>72–78</td><td>78–86</td><td>86–94</td><td>94–102</td><td>102–110</td></tr><tr><td>Fianchi</td><td>88–94</td><td>94–100</td><td>100–108</td><td>108–116</td><td>116–124</td><td>124–132</td></tr><tr><td>Lunghezza</td><td>42</td><td>43</td><td>44</td><td>45</td><td>46</td><td>47</td></tr></tbody></table>
+            {%- when 'one_piece_swimsuits' -%}
+              <table class="bks-ptg__table"><thead><tr><th>Misura corpo</th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th></tr></thead><tbody><tr><td>Busto</td><td>78–82</td><td>82–86</td><td>86–90</td><td>90–96</td><td>96–102</td></tr><tr><td>Vita</td><td>60–64</td><td>64–68</td><td>68–74</td><td>74–80</td><td>80–86</td></tr><tr><td>Fianchi</td><td>84–88</td><td>88–92</td><td>92–98</td><td>98–104</td><td>104–110</td></tr><tr><td>Torso</td><td>145–150</td><td>150–155</td><td>155–160</td><td>160–166</td><td>166–172</td></tr></tbody></table>
+            {%- when 'racerback_dresses' -%}
+              <table class="bks-ptg__table"><thead><tr><th>Misura corpo</th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>2XL</th></tr></thead><tbody><tr><td>Busto</td><td>78–84</td><td>84–90</td><td>90–96</td><td>96–104</td><td>104–112</td><td>112–120</td></tr><tr><td>Vita</td><td>60–66</td><td>66–72</td><td>72–78</td><td>78–86</td><td>86–94</td><td>94–102</td></tr><tr><td>Fianchi</td><td>84–90</td><td>90–96</td><td>96–104</td><td>104–112</td><td>112–120</td><td>120–128</td></tr><tr><td>Lunghezza</td><td>86</td><td>88</td><td>90</td><td>92</td><td>94</td><td>96</td></tr></tbody></table>
+          {%- endcase -%}
+        </div>
+        <p class="bks-ptg__fit"><strong>Fit:</strong> {{ fit_note }}</p>
+        <p class="bks-ptg__note">Misure indicative in centimetri. Se il blueprint Printify riporta misure diverse, prevale sempre la tabella tecnica del produttore.</p>
+      </div>
+
+      <div class="bks-ptg__panel">
+        <p class="bks-ptg__label">Cura e manutenzione</p>
+        <ul class="bks-ptg__care">
+          {%- case product_key -%}
+            {%- when 'puffer_jackets' -%}
+              <li><span><strong>Pulisci localmente</strong> con panno morbido e detergente delicato.</span></li><li><span>Non lavare in lavatrice e non usare asciugatrice, salvo diversa indicazione del produttore.</span></li><li><span>Asciuga completamente lontano da fonti di calore diretto.</span></li><li><span>Riponi non compresso per mantenere volume e struttura dell’imbottitura.</span></li>
+            {%- when 'windbreakers' -%}
+              <li><span><strong>Lava a 30°C</strong>, al rovescio, con ciclo delicato.</span></li><li><span>Non candeggiare e non usare asciugatrice.</span></li><li><span>Appendere ad asciugare, lontano da calore diretto.</span></li><li><span>Non stirare direttamente sulla stampa.</span></li>
+            {%- when 'pullover_hoodies' -%}
+              <li><span><strong>Lava a 30°C</strong>, al rovescio, con colori simili.</span></li><li><span>Usa detersivo delicato e centrifuga bassa.</span></li><li><span>Evita candeggina e asciugatrice ad alta temperatura.</span></li><li><span>Stira al rovescio a bassa temperatura se necessario.</span></li>
+            {%- when 'lounge_pants' -%}
+              <li><span><strong>Lava a 30°C</strong> con ciclo delicato.</span></li><li><span>Asciuga naturalmente per preservare mano e stampa.</span></li><li><span>Non candeggiare e non lavare a secco.</span></li><li><span>Stira al rovescio a bassa temperatura se necessario.</span></li>
+            {%- when 'sneakers' -%}
+              <li><span><strong>Pulisci a mano</strong> con panno umido e sapone neutro.</span></li><li><span>Non lavare in lavatrice e non immergere completamente.</span></li><li><span>Asciuga all’aria, lontano da sole diretto o radiatori.</span></li><li><span>Rimuovi lacci e soletta durante la pulizia più profonda.</span></li>
+            {%- when 'backpacks' -%}
+              <li><span><strong>Svuota tutte le tasche</strong> prima della pulizia.</span></li><li><span>Pulisci localmente con panno umido e detergente delicato.</span></li><li><span>Non lavare in lavatrice e non usare asciugatrice.</span></li><li><span>Lascia asciugare aperto, in luogo ventilato.</span></li>
+            {%- when 'travel_bags' -%}
+              <li><span><strong>Pulisci localmente</strong> dopo il viaggio, soprattutto base e manici.</span></li><li><span>Non lavare in lavatrice e non immergere.</span></li><li><span>Asciuga completamente prima di riporre.</span></li><li><span>Conserva vuota, con zip aperte, in luogo asciutto.</span></li>
+            {%- when 'swimwear' -%}
+              <li><span><strong>Risciacqua in acqua dolce</strong> dopo piscina o mare.</span></li><li><span>Lava a mano o a 30°C con ciclo delicato.</span></li><li><span>Non strizzare e non asciugare al sole diretto.</span></li><li><span>Evita contatto prolungato con creme, oli e cloro.</span></li>
+            {%- when 'flip_flops' -%}
+              <li><span><strong>Risciacqua con acqua dolce</strong> dopo sabbia, mare o piscina.</span></li><li><span>Pulisci con panno morbido e sapone neutro.</span></li><li><span>Non esporre a calore diretto prolungato.</span></li><li><span>Lascia asciugare all’aria prima di riporre.</span></li>
+            {%- when 'athletic_shorts' -%}
+              <li><span><strong>Lava a 30°C</strong>, al rovescio, dopo attività intensa.</span></li><li><span>Non usare ammorbidenti aggressivi su tessuti tecnici.</span></li><li><span>Appendere ad asciugare; evitare asciugatrice calda.</span></li><li><span>Non stirare direttamente sulla stampa.</span></li>
+            {%- when 'one_piece_swimsuits' -%}
+              <li><span><strong>Risciacqua subito</strong> dopo uso in mare o piscina.</span></li><li><span>Lava a mano in acqua fredda o tiepida con sapone delicato.</span></li><li><span>Non strizzare e non asciugare al sole diretto.</span></li><li><span>Evita superfici ruvide per proteggere stampa e fibre elastiche.</span></li>
+            {%- when 'racerback_dresses' -%}
+              <li><span><strong>Lava a 30°C</strong>, al rovescio, con ciclo delicato.</span></li><li><span>Non candeggiare e non asciugare ad alta temperatura.</span></li><li><span>Stira al rovescio a bassa temperatura se necessario.</span></li><li><span>Appendere o piegare in modo morbido per preservare la linea.</span></li>
+          {%- endcase -%}
+        </ul>
+        <p class="bks-ptg__note">Per i prodotti made-to-order, leggere sempre anche l’etichetta interna del capo ricevuto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BKS Product Type Guide",
+  "tag": "section",
+  "class": "bks-product-type-guide-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "product_type",
+      "label": "Tipologia prodotto",
+      "options": [
+        { "value": "puffer_jackets", "label": "Puffer Jackets" },
+        { "value": "windbreakers", "label": "Windbreakers" },
+        { "value": "pullover_hoodies", "label": "Pullover Hoodies" },
+        { "value": "lounge_pants", "label": "Lounge Pants" },
+        { "value": "sneakers", "label": "Sneakers" },
+        { "value": "backpacks", "label": "Backpacks" },
+        { "value": "travel_bags", "label": "Travel Bags" },
+        { "value": "swimwear", "label": "Swimwear" },
+        { "value": "flip_flops", "label": "Flip Flops" },
+        { "value": "athletic_shorts", "label": "Athletic Shorts" },
+        { "value": "one_piece_swimsuits", "label": "One-Piece Swimsuits" },
+        { "value": "racerback_dresses", "label": "Racerback Dresses" }
+      ],
+      "default": "puffer_jackets"
+    },
+    { "type": "image_picker", "id": "hero_image", "label": "Immagine hero opzionale" },
+    { "type": "text", "id": "hero_kicker", "label": "Kicker hero" },
+    { "type": "text", "id": "hero_title", "label": "Titolo hero" },
+    { "type": "textarea", "id": "hero_text", "label": "Testo hero" },
+    { "type": "textarea", "id": "fit_note", "label": "Nota fit" },
+    { "type": "color", "id": "accent_color", "label": "Colore accento", "default": "#C9B79C" },
+    { "type": "color", "id": "background_color", "label": "Sfondo", "default": "#FAFAF7" },
+    { "type": "color", "id": "card_bg", "label": "Sfondo card", "default": "#FFFFFF" },
+    { "type": "color", "id": "text_color", "label": "Testo", "default": "#0A0A0A" },
+    { "type": "color", "id": "muted_color", "label": "Testo secondario", "default": "#5E5A54" },
+    { "type": "range", "id": "padding_top", "min": 24, "max": 120, "step": 4, "unit": "px", "label": "Padding superiore", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "min": 24, "max": 120, "step": 4, "unit": "px", "label": "Padding inferiore", "default": 56 }
+  ],
+  "presets": [
+    { "name": "BKS Product Type Guide" }
+  ]
+}
+{% endschema %}

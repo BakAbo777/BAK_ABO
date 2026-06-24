@@ -1,0 +1,351 @@
+{% comment %}
+  BKS Help / FAQ — Data-driven accordion
+  Categories managed via Theme Editor blocks.
+  File: sections/bks-help-faq.liquid
+{% endcomment %}
+
+<style>
+  .bks-help {
+    width: min(1100px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: clamp(48px,6vw,96px) 0 clamp(56px,7vw,112px);
+    font-family: var(--font-body-family, sans-serif);
+  }
+  .bks-help__head {
+    margin-bottom: clamp(32px,5vw,56px);
+  }
+  .bks-help__kicker {
+    font-size: .68rem;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: {{ section.settings.accent }};
+    margin: 0 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .bks-help__kicker::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: {{ section.settings.accent }};
+  }
+  .bks-help__title {
+    font-size: clamp(1.8rem,4.5vw,3.2rem);
+    letter-spacing: -.05em;
+    line-height: 1;
+    margin: 0 0 14px;
+    color: #0a0a0a;
+  }
+  .bks-help__sub {
+    font-size: clamp(.9rem,1.3vw,1.05rem);
+    color: #6f6a62;
+    max-width: 560px;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* Category filter tabs */
+  .bks-help__cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+  .bks-help__cat-btn {
+    border: 1px solid #e0dcd6;
+    background: #fff;
+    color: #0a0a0a;
+    padding: 8px 16px;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: .68rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .18s, color .18s, border-color .18s;
+    border-radius: 0;
+  }
+  .bks-help__cat-btn:hover,
+  .bks-help__cat-btn.is-active {
+    background: #0a0a0a;
+    color: #fafaf7;
+    border-color: #0a0a0a;
+  }
+
+  /* FAQ accordion */
+  .bks-help__group {
+    border-top: 2px solid #0a0a0a;
+    margin-bottom: 32px;
+  }
+  .bks-help__group-title {
+    font-size: .68rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: {{ section.settings.accent }};
+    padding: 14px 0 10px;
+    font-weight: 700;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+  }
+  .bks-help__item {
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .bks-help__q {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--font-body-family, sans-serif);
+    font-size: clamp(.9rem,1.2vw,1rem);
+    font-weight: 500;
+    color: #0a0a0a;
+    line-height: 1.4;
+  }
+  .bks-help__q svg {
+    width: 16px;
+    height: 16px;
+    stroke: #0a0a0a;
+    fill: none;
+    stroke-width: 1.5;
+    flex-shrink: 0;
+    transition: transform .22s ease;
+  }
+  .bks-help__q.is-open svg { transform: rotate(45deg); }
+  .bks-help__a {
+    height: 0;
+    overflow: hidden;
+    transition: height .28s cubic-bezier(.4,0,.2,1);
+  }
+  .bks-help__a-inner {
+    padding: 0 0 20px 2px;
+    font-size: .93rem;
+    line-height: 1.7;
+    color: #4a4540;
+  }
+  .bks-help__a-inner a { color: {{ section.settings.accent }}; }
+  .bks-help__a-inner p { margin: 0 0 10px; }
+  .bks-help__a-inner p:last-child { margin: 0; }
+
+  /* Contact CTA */
+  .bks-help__contact {
+    border: 1px solid #e0dcd6;
+    padding: clamp(24px,3vw,40px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 48px;
+    background: #fafaf7;
+  }
+  .bks-help__contact-title {
+    font-size: clamp(1rem,1.5vw,1.2rem);
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin: 0 0 6px;
+  }
+  .bks-help__contact-sub {
+    font-size: .85rem;
+    color: #6f6a62;
+    margin: 0;
+  }
+  .bks-help__contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #0a0a0a;
+    color: #fafaf7;
+    text-decoration: none;
+    padding: 12px 22px;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: .7rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    border: 1px solid #0a0a0a;
+    white-space: nowrap;
+    transition: background .18s, color .18s;
+  }
+  .bks-help__contact-btn:hover { background: {{ section.settings.accent }}; border-color: {{ section.settings.accent }}; color: #0a0a0a; }
+
+  @media (max-width: 600px) {
+    .bks-help__contact { flex-direction: column; align-items: flex-start; }
+    .bks-help__cats { gap: 6px; }
+    .bks-help__cat-btn { padding: 7px 12px; font-size: .62rem; }
+  }
+</style>
+
+{%- liquid
+  assign cats_raw = ""
+  for block in section.blocks
+    assign cat = block.settings.category | strip
+    unless cats_raw contains cat
+      assign cats_raw = cats_raw | append: cat | append: "|"
+    endunless
+  endfor
+  assign cats = cats_raw | split: "|"
+-%}
+
+<div class="bks-help" id="shopify-section-{{ section.id }}-help">
+
+  <div class="bks-help__head">
+    <p class="bks-help__kicker">{{ section.settings.kicker }}</p>
+    <h1 class="bks-help__title">{{ section.settings.title }}</h1>
+    <p class="bks-help__sub">{{ section.settings.subtitle }}</p>
+  </div>
+
+  <div class="bks-help__cats" role="tablist">
+    <button class="bks-help__cat-btn is-active" data-cat="all" role="tab" aria-selected="true">All topics</button>
+    {%- for cat in cats -%}
+      {%- unless cat == blank -%}
+        <button class="bks-help__cat-btn" data-cat="{{ cat | handleize }}" role="tab" aria-selected="false">{{ cat }}</button>
+      {%- endunless -%}
+    {%- endfor -%}
+  </div>
+
+  {%- for cat in cats -%}
+    {%- unless cat == blank -%}
+      <div class="bks-help__group" data-group="{{ cat | handleize }}">
+        <p class="bks-help__group-title">{{ cat }}</p>
+        {%- for block in section.blocks -%}
+          {%- if block.settings.category == cat -%}
+            <div class="bks-help__item">
+              <button class="bks-help__q" aria-expanded="false">
+                {{ block.settings.question | escape }}
+                <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </button>
+              <div class="bks-help__a">
+                <div class="bks-help__a-inner">{{ block.settings.answer }}</div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endunless -%}
+  {%- endfor -%}
+
+  <div class="bks-help__contact">
+    <div>
+      <p class="bks-help__contact-title">{{ section.settings.contact_title }}</p>
+      <p class="bks-help__contact-sub">{{ section.settings.contact_sub }}</p>
+    </div>
+    <a href="mailto:{{ section.settings.contact_email }}" class="bks-help__contact-btn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      {{ section.settings.contact_cta }}
+    </a>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var root = document.getElementById('shopify-section-{{ section.id }}-help');
+  if (!root) return;
+
+  /* Accordion */
+  root.querySelectorAll('.bks-help__q').forEach(function(btn){
+    var answer = btn.nextElementSibling;
+    btn.addEventListener('click', function(){
+      var open = btn.classList.contains('is-open');
+      /* close all */
+      root.querySelectorAll('.bks-help__q.is-open').forEach(function(b){
+        b.classList.remove('is-open');
+        b.setAttribute('aria-expanded','false');
+        b.nextElementSibling.style.height = '0';
+      });
+      if (!open){
+        btn.classList.add('is-open');
+        btn.setAttribute('aria-expanded','true');
+        answer.style.height = answer.scrollHeight + 'px';
+      }
+    });
+  });
+
+  /* Category filter */
+  root.querySelectorAll('.bks-help__cat-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      root.querySelectorAll('.bks-help__cat-btn').forEach(function(b){
+        b.classList.remove('is-active');
+        b.setAttribute('aria-selected','false');
+      });
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected','true');
+      var cat = btn.dataset.cat;
+      root.querySelectorAll('.bks-help__group').forEach(function(g){
+        g.style.display = (cat === 'all' || g.dataset.group === cat) ? '' : 'none';
+      });
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "BKS Help / FAQ",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Assistenza" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Come possiamo aiutarti?" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Trova risposta alle domande più frequenti su ordini, taglie, cura, resi e membership BKS." },
+    { "type": "color", "id": "accent", "label": "Accent color", "default": "#0ca898" },
+    { "type": "header", "content": "Contact block" },
+    { "type": "text", "id": "contact_title", "label": "Contact title", "default": "Non hai trovato risposta?" },
+    { "type": "text", "id": "contact_sub", "label": "Contact subtitle", "default": "Il team BKS risponde entro 24h. Scrivi a crew@bakabo.club" },
+    { "type": "text", "id": "contact_email", "label": "Contact email", "default": "crew@bakabo.club" },
+    { "type": "text", "id": "contact_cta", "label": "Contact CTA", "default": "Contatta il team" }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "category",
+          "label": "Category",
+          "options": [
+            { "value": "Ordini", "label": "Ordini" },
+            { "value": "Taglie & Fit", "label": "Taglie & Fit" },
+            { "value": "Cura & Materiali", "label": "Cura & Materiali" },
+            { "value": "Resi & Rimborsi", "label": "Resi & Rimborsi" },
+            { "value": "Membership BKS", "label": "Membership BKS" },
+            { "value": "Camerino Try-On", "label": "Camerino Try-On" },
+            { "value": "Collezioni", "label": "Collezioni" },
+            { "value": "Spedizioni", "label": "Spedizioni" }
+          ],
+          "default": "Ordini"
+        },
+        { "type": "text", "id": "question", "label": "Question", "default": "Domanda frequente" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Risposta alla domanda.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BKS Help / FAQ",
+      "blocks": [
+        { "type": "faq_item", "settings": { "category": "Ordini", "question": "Quando arriva il mio ordine?", "answer": "<p>Tutti i prodotti BKS sono realizzati su richiesta tramite Printify. I tempi di produzione sono 3-5 giorni lavorativi + spedizione (4-8 gg EU, 7-14 gg extra-EU).</p>" } },
+        { "type": "faq_item", "settings": { "category": "Ordini", "question": "Posso modificare o cancellare un ordine?", "answer": "<p>Gli ordini possono essere modificati o cancellati entro 2 ore dall'acquisto. Scrivi subito a <a href='mailto:crew@bakabo.club'>crew@bakabo.club</a> con il numero d'ordine.</p>" } },
+        { "type": "faq_item", "settings": { "category": "Ordini", "question": "Come traccio la spedizione?", "answer": "<p>Riceverai una email con il numero di tracking non appena il pacco viene spedito. Puoi seguirlo direttamente nell'area Member, tab Orders.</p>" } },
+        { "type": "faq_item", "settings": { "category": "Taglie & Fit", "question": "Come scelgo la taglia giusta?", "answer": "<p>Ogni pagina prodotto ha un link alla guida taglie BKS con misure in cm. Per capi grafici (puffer, windbreaker) consigliamo di misurare petto e spalle. Per i nuotatori, vita e fianchi.</p>" } },
+        { "type": "faq_item", "settings": { "category": "Taglie & Fit", "question": "I capi BKS hanno vestibilità oversize?", "answer": "<p>I modelli outerwear (puffer, windbreaker, hoodie) hanno un fit relaxed. I capi swim sono true-to-size. Consulta la guida taglie per dettagli specifici.</p>" } },
+        { "type": "faq_item", "settings": { "category": "Cura & Materiali", "question": "Come lavo un prodotto BKS?", "answer": "<p>Le istruzioni variano per tipo di prodotto. In generale: lavaggio a 30° delicato, non asciugatrice per i grafici stampati. La guida completa è nella pagina prodotto, sezione \"Cura\".</p>" } },
+        { "type": "faq_item", "settings": { "category": "Cura & Materiali", "question": "Quali materiali usa BKS?", "answer": "<p>Utilizziamo solo tessuti certificati (OEKO-TEX dove disponibile): poliestere riciclato per beachwear e outerwear, cotone organico per hoodies e tees. Ogni scheda prodotto riporta la composizione esatta.</p>" } },
+        { "type": "faq_item", "settings": { "category": "Resi & Rimborsi", "question": "Posso restituire un prodotto?", "answer": "<p>Sì, entro 14 giorni dalla ricezione se il prodotto è integro e non indossato. I prodotti personalizzati non sono rimborsabili. Scrivi a <a href='mailto:crew@bakabo.club'>crew@bakabo.club</a> per iniziare il reso.</p>" } },
+        { "type": "faq_item", "settings": { "category": "Resi & Rimborsi", "question": "Quanto tempo ci vuole per il rimborso?", "answer": "<p>Una volta ricevuto il reso e verificato, il rimborso viene elaborato entro 5-7 giorni lavorativi sul metodo di pagamento originale.</p>" } },
+        { "type": "faq_item", "settings": { "category": "Membership BKS", "question": "Cosa include la membership BKS?", "answer": "<p>La membership BKS è gratuita al livello base (BKS Subscriber). I tier superiori — BKS Drop, BKS Archive — danno accesso anticipato ai drop, personalizzazioni avanzate e al Camerino Try-On. Vai alla pagina <a href='/pages/bks-members'>BKS Members</a>.</p>" } },
+        { "type": "faq_item", "settings": { "category": "Membership BKS", "question": "Come accedo all'area member?", "answer": "<p>Crea un account su bakabo.club oppure accedi con le credenziali esistenti. L'area member è raggiungibile da Menu → BKS Members oppure da <a href='/pages/bks-members'>questa pagina</a>.</p>" } },
+        { "type": "faq_item", "settings": { "category": "Camerino Try-On", "question": "Come funziona il Camerino BKS?", "answer": "<p>Il Camerino è accessibile dall'area member, tab Try-On. Funziona direttamente dal browser mobile — nessuna app da scaricare. Aggiunge il prodotto selezionato dal carrello a una tua foto, con lo sfondo editoriale BKS.</p>" } },
+        { "type": "faq_item", "settings": { "category": "Camerino Try-On", "question": "Serve un'app per il camerino virtuale?", "answer": "<p>No. Il Camerino BKS usa la fotocamera del tuo cellulare direttamente dal browser (iOS Safari 14.3+, Chrome su Android). Sul desktop viene mostrato un link/QR da aprire sul telefono.</p>" } },
+        { "type": "faq_item", "settings": { "category": "Collezioni", "question": "Cosa sono le collezioni BKS?", "answer": "<p>Le 8 collezioni BKS sono mondi visivi permanenti — ognuno con un'identità grafica, una palette colori e un'estetica propria. Esplora da <a href='/collections'>Collezioni</a>.</p>" } },
+        { "type": "faq_item", "settings": { "category": "Spedizioni", "question": "BKS spedisce in Europa?", "answer": "<p>Sì, spediamo in tutti i paesi EU. I tempi sono 4-8 giorni lavorativi. Le spese di spedizione variano per paese e sono mostrate nel carrello prima del pagamento.</p>" } },
+        { "type": "faq_item", "settings": { "category": "Spedizioni", "question": "Ci sono spese doganali?", "answer": "<p>Per ordini intra-EU non ci sono dazi. Per spedizioni extra-EU (UK, Svizzera, USA) potrebbero applicarsi dazi doganali locali a carico del destinatario.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

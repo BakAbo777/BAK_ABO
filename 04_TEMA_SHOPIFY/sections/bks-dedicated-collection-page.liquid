@@ -1,0 +1,210 @@
+{% comment %}
+  BKS Dedicated Collection Page
+  Landing-page section for Shopify Pages, not default collection templates.
+  Use one page per BKS collection to apply the full collection palette.
+{% endcomment %}
+
+{%- liquid
+  assign key = section.settings.collection_key | default: 'bks-hours'
+  assign title = 'BKS Hours'
+  assign accent = '#c8c4be'
+  assign foreground = '#0A0A0A'
+  assign series = 'measured urban stillness'
+  assign route = '/collections/bks-hours'
+  assign copy = 'Warm neutral fields and measured graphic rhythm. A visual system built for outerwear, travel pieces and quiet technical layers.'
+  assign products = 'Puffer Jackets::/collections/puffer-jacket|Windbreakers::/collections/windbreaker|Pullover Hoodies::/collections/pullover-hoodie|Lounge Pants::/collections/lounge-pants|Sneakers::/collections/sneakers|Backpacks::/collections/backpack|Travel Bags::/collections/travel-bag'
+
+  case key
+    when 'bks-origin'
+      assign title = 'BKS Origin'
+      assign accent = '#489808'
+      assign foreground = '#FAFAF7'
+      assign series = 'invented narrative marks'
+      assign route = '/collections/bks-origin'
+      assign copy = 'Invented narrative marks translated into a contemporary BKS pattern language. Soft, tactile and graphic across resort silhouettes and daily pieces.'
+      assign products = 'Pullover Hoodies::/collections/pullover-hoodie|Swimwear::/collections/swimwear|One-Piece Swimsuits::/collections/one-piece-swimsuit|Racerback Dresses::/collections/racerback-dress|Flip Flops::/collections/flip-flop|Backpacks::/collections/backpack'
+    when 'bks-glyph'
+      assign title = 'BKS Glyph'
+      assign accent = '#d4a030'
+      assign foreground = '#0A0A0A'
+      assign series = 'constructed signs'
+      assign route = '/collections/bks-glyph'
+      assign copy = 'A system of signs, symbols and constructed marks. Built for clean product silhouettes and graphic accessories.'
+      assign products = 'Puffer Jackets::/collections/puffer-jacket|Windbreakers::/collections/windbreaker|Athletic Shorts::/collections/athletic-shorts|Sneakers::/collections/sneakers|Backpacks::/collections/backpack|Travel Bags::/collections/travel-bag'
+    when 'bks-marker'
+      assign title = 'BKS Marker'
+      assign accent = '#c04418'
+      assign foreground = '#FAFAF7'
+      assign series = 'gesture and motion'
+      assign route = '/collections/bks-marker'
+      assign copy = 'Brush marks, fast gestures and urban movement. A sharper BKS language for street-facing outerwear, shoes and compact accessories.'
+      assign products = 'Windbreakers::/collections/windbreaker|Pullover Hoodies::/collections/pullover-hoodie|Athletic Shorts::/collections/athletic-shorts|Sneakers::/collections/sneakers|Flip Flops::/collections/flip-flop|Backpacks::/collections/backpack'
+    when 'bks-riviera'
+      assign title = 'BKS Riviera'
+      assign accent = '#0ca898'
+      assign foreground = '#0A0A0A'
+      assign series = 'coastal geometry'
+      assign route = '/collections/bks-riviera'
+      assign copy = 'Coastal geometry, deep blues and resort rhythm. The summer system for swimwear, dresses, sandals and travel pieces.'
+      assign products = 'Swimwear::/collections/swimwear|One-Piece Swimsuits::/collections/one-piece-swimsuit|Racerback Dresses::/collections/racerback-dress|Lounge Pants::/collections/lounge-pants|Flip Flops::/collections/flip-flop|Travel Bags::/collections/travel-bag|Backpacks::/collections/backpack'
+    when 'bks-pulse'
+      assign title = 'BKS Pulse'
+      assign accent = '#8888cc'
+      assign foreground = '#0A0A0A'
+      assign series = 'optical movement'
+      assign route = '/collections/bks-pulse'
+      assign copy = 'Optical movement and digital pressure translated into wearable surface. Designed for active layers, jackets and technical accessories.'
+      assign products = 'Puffer Jackets::/collections/puffer-jacket|Windbreakers::/collections/windbreaker|Pullover Hoodies::/collections/pullover-hoodie|Athletic Shorts::/collections/athletic-shorts|Sneakers::/collections/sneakers|Backpacks::/collections/backpack'
+    when 'bks-token'
+      assign title = 'BKS Token'
+      assign accent = '#9828d8'
+      assign foreground = '#FAFAF7'
+      assign series = 'digital objects'
+      assign route = '/collections/bks-token'
+      assign copy = 'Encoded signs and compact digital references. A precise system for footwear, lounge pieces and accessories.'
+      assign products = 'Sneakers::/collections/sneakers|Pullover Hoodies::/collections/pullover-hoodie|Lounge Pants::/collections/lounge-pants|Backpacks::/collections/backpack|Travel Bags::/collections/travel-bag'
+    when 'bks-flag'
+      assign title = 'BKS Flag'
+      assign accent = '#c82020'
+      assign foreground = '#FAFAF7'
+      assign series = 'graphic fields'
+      assign route = '/collections/bks-flag'
+      assign copy = 'Flag structures, civic signs and graphic blocks. A direct BKS system for outerwear, sport pieces and travel accessories.'
+      assign products = 'Puffer Jackets::/collections/puffer-jacket|Windbreakers::/collections/windbreaker|Athletic Shorts::/collections/athletic-shorts|Swimwear::/collections/swimwear|Sneakers::/collections/sneakers|Flip Flops::/collections/flip-flop|Backpacks::/collections/backpack'
+  endcase
+
+  if section.settings.title_override != blank
+    assign title = section.settings.title_override
+  endif
+  if section.settings.copy_override != blank
+    assign copy = section.settings.copy_override
+  endif
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} .bks-dcp {
+    --bks-dcp-accent: {{ accent }};
+    --bks-dcp-fg: {{ foreground }};
+    background: {{ accent }};
+    color: {{ foreground }};
+    min-height: 72vh;
+    padding: clamp(64px, 9vw, 132px) 0 clamp(48px, 7vw, 96px);
+  }
+  #shopify-section-{{ section.id }} .bks-dcp__wrap {
+    width: min(1440px, calc(100% - 32px));
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(300px, .72fr);
+    gap: clamp(28px, 6vw, 86px);
+    align-items: end;
+  }
+  #shopify-section-{{ section.id }} .bks-dcp__kicker,
+  #shopify-section-{{ section.id }} .bks-dcp__meta {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: .72rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .bks-dcp h1 {
+    margin: 12px 0 22px;
+    font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
+    font-size: clamp(4.8rem, 13vw, 15rem);
+    line-height: .82;
+    text-transform: uppercase;
+    color: currentColor;
+  }
+  #shopify-section-{{ section.id }} .bks-dcp__copy {
+    max-width: 62ch;
+    font-size: clamp(1rem, 1.35vw, 1.24rem);
+    line-height: 1.58;
+    margin: 0;
+  }
+  #shopify-section-{{ section.id }} .bks-dcp__panel {
+    background: color-mix(in srgb, currentColor 8%, transparent);
+    border: 1px solid color-mix(in srgb, currentColor 24%, transparent);
+    padding: clamp(18px, 3vw, 32px);
+  }
+  #shopify-section-{{ section.id }} .bks-dcp__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 22px 0 28px;
+  }
+  #shopify-section-{{ section.id }} .bks-dcp__chips a {
+    color: currentColor;
+    text-decoration: none;
+    border: 1px solid color-mix(in srgb, currentColor 38%, transparent);
+    border-radius: 999px;
+    padding: 9px 13px;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: .68rem;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .bks-dcp__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 20px;
+    background: currentColor;
+    color: {{ accent }};
+    text-decoration: none;
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: .74rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .bks-dcp__wrap { grid-template-columns: 1fr; }
+  }
+</style>
+
+<section class="bks-dcp" data-bks-collection-page="{{ key }}">
+  <div class="bks-dcp__wrap">
+    <div>
+      <div class="bks-dcp__kicker">BKS collection page</div>
+      <h1>{{ title | escape }}</h1>
+      <p class="bks-dcp__copy">{{ copy | escape }}</p>
+    </div>
+    <aside class="bks-dcp__panel">
+      <div class="bks-dcp__meta">{{ series | escape }}</div>
+      <nav class="bks-dcp__chips" aria-label="{{ title | escape }} product types">
+        {%- assign product_items = products | split: '|' -%}
+        {%- for item in product_items -%}
+          {%- assign pair = item | split: '::' -%}
+          <a href="{{ pair[1] | default: route }}">{{ pair[0] | escape }}</a>
+        {%- endfor -%}
+      </nav>
+      <a class="bks-dcp__cta" href="{{ route }}">View products</a>
+    </aside>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BKS Collection Page",
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    {
+      "type": "select",
+      "id": "collection_key",
+      "label": "BKS collection",
+      "default": "bks-hours",
+      "options": [
+        { "value": "bks-hours", "label": "BKS Hours" },
+        { "value": "bks-origin", "label": "BKS Origin" },
+        { "value": "bks-glyph", "label": "BKS Glyph" },
+        { "value": "bks-marker", "label": "BKS Marker" },
+        { "value": "bks-riviera", "label": "BKS Riviera" },
+        { "value": "bks-pulse", "label": "BKS Pulse" },
+        { "value": "bks-token", "label": "BKS Token" },
+        { "value": "bks-flag", "label": "BKS Flag" }
+      ]
+    },
+    { "type": "text", "id": "title_override", "label": "Title override" },
+    { "type": "textarea", "id": "copy_override", "label": "Copy override" }
+  ],
+  "presets": [{ "name": "BKS dedicated collection page" }]
+}
+{% endschema %}
