@@ -29,8 +29,8 @@ if env_path.exists():
         if "=" in line and not line.startswith("#"):
             k, v = line.split("=", 1)
             os.environ.setdefault(k.strip(), v.strip())
-    SHOPIFY_TOKEN  = os.environ.get("SHOPIFY_TOKEN", "")
-    SHOPIFY_DOMAIN = os.environ.get("SHOPIFY_DOMAIN", "")
+    SHOPIFY_TOKEN  = os.environ.get("SHOPIFY_TOKEN") or os.environ.get("SHOPIFY_ADMIN_TOKEN", "")
+    SHOPIFY_DOMAIN = os.environ.get("SHOPIFY_DOMAIN") or os.environ.get("SHOPIFY_MYSHOPIFY_DOMAIN", "")
     SHOPIFY_API    = os.environ.get("SHOPIFY_API_VERSION", "2024-04")
     BKS_TOKEN      = os.environ.get("BKS_ASSISTANT_PUBLIC_TOKEN", "")
 
@@ -65,6 +65,7 @@ def push_shopify_metafields(registry: dict) -> None:
             if sid:
                 shopify_map[str(sid)] = pid
 
+    import time
     ok = err = 0
     for shopify_id, pattern_id in shopify_map.items():
         payload = {
@@ -75,16 +76,22 @@ def push_shopify_metafields(registry: dict) -> None:
                 "type":      "single_line_text_field",
             }
         }
-        r = requests.post(
-            f"{BASE}/products/{shopify_id}/metafields.json",
-            headers=SH, json=payload, verify=False, timeout=15,
-        )
+        for attempt in range(3):
+            r = requests.post(
+                f"{BASE}/products/{shopify_id}/metafields.json",
+                headers=SH, json=payload, verify=False, timeout=15,
+            )
+            if r.status_code == 429:
+                time.sleep(1.0)
+                continue
+            break
         if r.ok:
             ok += 1
             print(f"  ✓ {pattern_id} → Shopify #{shopify_id}")
         else:
             err += 1
             print(f"  ✗ {pattern_id} → #{shopify_id}: {r.status_code} {r.text[:60]}")
+        time.sleep(0.6)
 
     print(f"\n  Metafields: {ok} OK, {err} errori")
 
