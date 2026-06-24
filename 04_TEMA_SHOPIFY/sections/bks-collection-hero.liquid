@@ -7,9 +7,11 @@
 -%}
 
 <style>
+  /* Propaga accent color su tutta la pagina per il product grid */
+  :root { --bks-active-accent: {{ accent_color }}; }
+
   #bks-col-hero-{{ section.id }} {
     --bks-ch-accent: {{ accent_color }};
-    /* Full accent color background — same logic as home, one color per collection */
     background: var(--bks-ch-accent);
     position: relative;
     overflow: hidden;
@@ -117,12 +119,50 @@
     object-fit: cover;
     object-position: {{ section.settings.image_position | default: 'center top' }};
     display: block;
+    mix-blend-mode: multiply;
   }
   #bks-col-hero-{{ section.id }} .bks-ch__image-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(to right, rgba(250,250,247,0.18) 0%, transparent 60%);
     pointer-events: none;
+  }
+
+  /* ── Mosaic fallback (no hero image) ─────────────────────── */
+  #bks-col-hero-{{ section.id }} .bks-ch__mosaic {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 3px;
+    overflow: hidden;
+  }
+  #bks-col-hero-{{ section.id }} .bks-ch__mosaic-cell {
+    overflow: hidden;
+    background: rgba(0,0,0,0.08);
+  }
+  #bks-col-hero-{{ section.id }} .bks-ch__mosaic-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    mix-blend-mode: multiply;
+    transition: transform 0.5s ease;
+  }
+  #bks-col-hero-{{ section.id }} .bks-ch__mosaic-cell:hover img {
+    transform: scale(1.04);
+  }
+  #bks-col-hero-{{ section.id }} .bks-ch__mosaic-num {
+    position: absolute;
+    bottom: 20px;
+    right: 24px;
+    font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
+    font-size: clamp(3rem, 6vw, 6rem);
+    line-height: 1;
+    color: rgba(0,0,0,0.18);
+    pointer-events: none;
+    user-select: none;
   }
 
   @media (max-width: 900px) {
@@ -179,6 +219,18 @@
           fetchpriority="high"
         >
         <div class="bks-ch__image-overlay"></div>
+      </div>
+    {%- else -%}
+      <div class="bks-ch__mosaic">
+        {%- assign mosaic_products = col.products | slice: 0, 4 -%}
+        {%- for p in mosaic_products -%}
+          {%- if p.featured_image -%}
+            <div class="bks-ch__mosaic-cell">
+              <img src="{{ p.featured_image | image_url: width: 480 }}" alt="{{ p.title | escape }}" loading="eager">
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+        <span class="bks-ch__mosaic-num">{{ col.products_count }}</span>
       </div>
     {%- endif -%}
 

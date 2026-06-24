@@ -135,6 +135,22 @@ class PrintifyClient:
                 break
         return uploads
 
+    def get_product(self, shop_id: str, product_id: str) -> dict[str, Any]:
+        return self.request("GET", f"/shops/{shop_id}/products/{product_id}.json")
+
+    def update_product(self, shop_id: str, product_id: str, payload: dict[str, Any]) -> dict[str, Any]:
+        return self.request("PUT", f"/shops/{shop_id}/products/{product_id}.json", json=payload)
+
+    def upload_image_from_url(self, file_name: str, url: str) -> dict[str, Any]:
+        """Upload image to Printify media library from a public URL."""
+        return self.request("POST", "/uploads/images.json", json={"file_name": file_name, "url": url})
+
+    def upload_image_from_bytes(self, file_name: str, data: bytes) -> dict[str, Any]:
+        """Upload image to Printify media library from raw bytes (base64-encoded)."""
+        import base64
+        b64 = base64.b64encode(data).decode()
+        return self.request("POST", "/uploads/images.json", json={"file_name": file_name, "contents": b64})
+
     def get_blueprint(self, blueprint_id: int) -> dict[str, Any]:
         """Fetch blueprint (blank product template) details from Printify catalog."""
         return self.request("GET", f"/catalog/{blueprint_id}.json")

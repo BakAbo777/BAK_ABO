@@ -9,9 +9,9 @@ description: >
   bakabo-members (tier-based personalisation), bakabo-commercial-strategy (conversion rules).
 metadata:
   type: skill
-  version: "1.1"
+  version: "1.2"
   created: "2026-06-20"
-  updated: "2026-06-20"
+  updated: "2026-06-22"
 ---
 
 # BAKABO / BKS COLLECTION ASSISTANT — Skill Guide v1
@@ -55,7 +55,7 @@ Each collection must be introducible in a single sharp sentence. These are the c
 ## 3. Product type × collection matrix
 
 Use this matrix to answer "what does BKS Hours have?" or "which collection has swim trunks?".
-Verified against live Shopify catalog 2026-06-20 (202 products, 8 collections):
+Verified against live Shopify catalog 2026-06-22 (202 products, 8 collections):
 
 | Product type | Hours | Glyph | Marker | Riviera | Pulse | Token | Flag | Origin |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -66,16 +66,33 @@ Verified against live Shopify catalog 2026-06-20 (202 products, 8 collections):
 | Athletic Shorts | ● | ● | ● | ● | ● | ● | ● | ● |
 | Lounge Pants | ● | ● | ● | | ● | | ● | ● |
 | Swim Trunks | ● | ● | ● | ● | ● | ● | ● | ● |
-| Swimwear (One-Piece) | | ● | ● | | ● | | | ● |
+| Swimwear (One-Piece) | | ● | ● | ● | ● | | ● | ● |
+| Hawaiian Shirt | | ●● | | | ● | | | ● |
 | Sneakers | ● | ● | ● | ● | ● | ● | ● | ● |
-| Travel Bags | ● | ● | ● | ● | ● | | ● | ● |
+| Travel Bag / Duffel | ● | ● | ● | ● | ● | | ● | ● |
 | Backpacks | ● | ● | ● | ● | ● | | | |
 | Flip Flops | | | | | ● | | ● | |
-| T-Shirts | ● | | ● | ● | | | | |
+| Slippers | ● | | | | | ● | | |
+| T-Shirts / Women's Tee | ● | ●● | ● | ● | | | | ● |
+| Cut & Sew Tee | | | | | | | | ● |
+| Beach Towel | | | ● | ● | | | | ● |
 
-**Observations:** Puffer Jackets and Sneakers are present in ALL 8 collections — they are the BKS backbone silhouettes. Racerback Dresses and Athletic Shorts are in all 8. Origin is the widest collection (33 products). Token is the most focused (6 product types only).
+**Note — Shopify product_type:** In the live store, Puffer Jackets, Hawaiian Shirts, One-Piece Swimsuits, and some Tees share the `"All Over Prints"` product_type label in Shopify — they are different garments distinguished by product handle and title only.
 
-**How to use:** When a customer asks what's in a collection, pull the `●` rows. When they ask "which collection has swimwear?", read the Swimwear row (Glyph, Marker, Pulse, Origin).
+**Observations:** Puffer Jackets and Sneakers are present in ALL 8 collections. Racerback Dresses and Athletic Shorts are in all 8. Hawaiian Shirts are exclusive to Glyph (2), Pulse (1), Origin (1). Riviera has the most One-Piece Swimsuits (8). Token is the most focused collection.
+
+**How to use:** When a customer asks what's in a collection, pull the `●` rows. When they ask "which collection has Hawaiian shirts?", read the Hawaiian Shirt row (Glyph, Pulse, Origin).
+
+**Feature notes by product type:**
+- Travel Bag / Duffel Bag: waterproof, all-over print, dual carry handles + shoulder strap
+- Backpack: padded back panel, multi-compartment, AOP print
+- Flip Flops: AOP graphic sole, available in Pulse and Flag only
+- Hawaiian Shirt: short sleeve, AOP all-over print, button-down — Glyph (2), Pulse (1), Origin (1)
+- One-Piece Swimsuit: Riviera (8 designs), Flag (1), Glyph, Marker, Pulse, Origin
+- Puffer Jacket: AOP quilted shell, oversized fit by design — available in all 8 collections
+- Slipper / Cozy Slipper: AOP closed-toe indoor footwear — Hours (1), Token (1) only
+- Cut & Sew Tee: fabric cut from AOP panels (not printed), women's cut — Origin only
+- Beach Towel: AOP microfiber — Riviera, Marker, Origin (0 active Shopify products at 2026-06-22, schema included for when added)
 
 ---
 

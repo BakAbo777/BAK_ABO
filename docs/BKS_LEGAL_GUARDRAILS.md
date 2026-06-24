@@ -43,7 +43,7 @@ AI conversations with customers require disclosure, opt-in and human escalation 
 | HeyGen / creative AI | medium | `collection_identity` | `active_needs_contract_review` | Do not use customer likeness or private data for avatar training without explicit written consent. |
 | Meta / Instagram / Facebook | high | `campaign_layer` | `active_needs_contract_review` | Autonomous campaigns remain draft/supervised until google_trust_contract P0 is green. Never run retargeting without consent. |
 | Logistics/shipping partners | high | `trust_foundation` | `planned_contract` | Do not promise delivery dates beyond verified carrier/Shopify checkout data. |
-| WhatsApp Business / Telegram | medium | `collection_identity` | `planned_contract` | Do not initiate conversations without explicit opt-in. Human escalation path must be available at all times. |
+| WhatsApp Business / Telegram | medium | `collection_identity` | `active_needs_contract_review` | Do not initiate conversations without explicit opt-in. Human escalation path must be available at all times. |
 
 ## Approval Gate
 

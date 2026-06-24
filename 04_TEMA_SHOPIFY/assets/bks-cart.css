@@ -6,8 +6,8 @@
 /* Panel background */
 .drawer__inner,
 cart-drawer .drawer__inner {
-  background: #0a0a0a !important;
-  color: #fafaf7 !important;
+  background: var(--bks-bg-deep, #0a0a0a) !important;
+  color: var(--bks-paper, #fafaf7) !important;
   border-color: rgba(250, 250, 247, 0.10) !important;
 }
 
@@ -23,10 +23,10 @@ cart-drawer .drawer__inner {
 }
 
 .drawer__heading {
-  font-family: 'Bebas Neue', sans-serif !important;
+  font-family: var(--bks-font-display, "Bebas Neue", sans-serif) !important;
   font-size: 1.4rem !important;
   letter-spacing: 0.12em !important;
-  color: #fafaf7 !important;
+  color: var(--bks-paper, #fafaf7) !important;
   margin: 0 !important;
   text-transform: uppercase;
 }
@@ -36,7 +36,7 @@ cart-drawer .drawer__inner {
   transition: color 0.15s !important;
 }
 .drawer__close:hover {
-  color: #fafaf7 !important;
+  color: var(--bks-paper, #fafaf7) !important;
 }
 .drawer__close svg,
 .drawer__close .svg-wrapper svg {
@@ -45,7 +45,7 @@ cart-drawer .drawer__inner {
 
 /* ── Items table header ───────────────────────────────────────────────────── */
 .cart-drawer .cart-items thead th {
-  font-family: 'DM Mono', monospace !important;
+  font-family: var(--bks-font-mono, "DM Mono", monospace) !important;
   font-size: 0.68rem !important;
   letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
@@ -61,10 +61,10 @@ cart-drawer .drawer__inner {
 
 .cart-item__name,
 .cart-item__name.h4 {
-  font-family: 'DM Sans', sans-serif !important;
+  font-family: var(--bks-font-body, "DM Sans", sans-serif) !important;
   font-size: 0.82rem !important;
   font-weight: 500 !important;
-  color: #fafaf7 !important;
+  color: var(--bks-paper, #fafaf7) !important;
   letter-spacing: 0.01em !important;
   text-decoration: none !important;
 }
@@ -73,13 +73,13 @@ cart-drawer .drawer__inner {
 /* Product type / variant */
 .cart-item__details .product-option,
 .cart-item__details .cart-item__variant-title {
-  font-family: 'DM Mono', monospace !important;
+  font-family: var(--bks-font-mono, "DM Mono", monospace) !important;
   font-size: 0.68rem !important;
   color: rgba(250, 250, 247, 0.46) !important;
 }
 .cart-item__details dd {
   color: rgba(250, 250, 247, 0.46) !important;
-  font-family: 'DM Mono', monospace !important;
+  font-family: var(--bks-font-mono, "DM Mono", monospace) !important;
   font-size: 0.68rem !important;
 }
 
@@ -88,7 +88,7 @@ cart-drawer .drawer__inner {
   border-radius: 0 !important;
   object-fit: cover !important;
   aspect-ratio: 1 / 1 !important;
-  background: #1a1a1a !important;
+  background: var(--bks-surface, #1a1a1a) !important;
   width: 72px !important;
   height: 72px !important;
 }
@@ -97,12 +97,12 @@ cart-drawer .drawer__inner {
 .cart-item__price-wrapper .price,
 .cart-item__price-wrapper .price--end,
 .cart-drawer .price {
-  font-family: 'DM Mono', monospace !important;
+  font-family: var(--bks-font-mono, "DM Mono", monospace) !important;
   font-size: 0.8rem !important;
-  color: #fafaf7 !important;
+  color: var(--bks-paper, #fafaf7) !important;
 }
 .cart-item__price-wrapper .price--on-sale {
-  color: #d4a030 !important;
+  color: var(--bks-gold-dark, #d4a030) !important;
 }
 
 /* Remove button */
@@ -112,29 +112,29 @@ cart-remove-button button,
   font-size: 0.7rem !important;
   transition: color 0.15s !important;
 }
-cart-remove-button button:hover { color: #fafaf7 !important; }
+cart-remove-button button:hover { color: var(--bks-paper, #fafaf7) !important; }
 
 /* Quantity input */
 .cart-drawer .quantity {
   border-color: rgba(250, 250, 247, 0.18) !important;
   background: transparent !important;
-  color: #fafaf7 !important;
+  color: var(--bks-paper, #fafaf7) !important;
 }
 .cart-drawer .quantity__button {
   color: rgba(250, 250, 247, 0.6) !important;
   background: transparent !important;
 }
-.cart-drawer .quantity__button:hover { color: #fafaf7 !important; }
+.cart-drawer .quantity__button:hover { color: var(--bks-paper, #fafaf7) !important; }
 .cart-drawer .quantity__input {
   background: transparent !important;
-  color: #fafaf7 !important;
-  font-family: 'DM Mono', monospace !important;
+  color: var(--bks-paper, #fafaf7) !important;
+  font-family: var(--bks-font-mono, "DM Mono", monospace) !important;
 }
 
 /* ── Footer ───────────────────────────────────────────────────────────────── */
 .drawer__footer {
   border-top: 1px solid rgba(250, 250, 247, 0.10) !important;
-  background: #0a0a0a !important;
+  background: var(--bks-bg-deep, #0a0a0a) !important;
   padding-top: 14px !important;
 }
 
@@ -146,7 +146,7 @@ cart-remove-button button:hover { color: #fafaf7 !important; }
 }
 
 .cart-drawer .totals__subtotal {
-  font-family: 'DM Sans', sans-serif !important;
+  font-family: var(--bks-font-body, "DM Sans", sans-serif) !important;
   font-size: 0.78rem !important;
   letter-spacing: 0.06em !important;
   text-transform: uppercase !important;
@@ -154,15 +154,15 @@ cart-remove-button button:hover { color: #fafaf7 !important; }
 }
 
 .cart-drawer .totals__subtotal-value {
-  font-family: 'DM Mono', monospace !important;
+  font-family: var(--bks-font-mono, "DM Mono", monospace) !important;
   font-size: 1rem !important;
   font-weight: 500 !important;
-  color: #fafaf7 !important;
+  color: var(--bks-paper, #fafaf7) !important;
 }
 
 .cart-drawer .tax-note,
 .cart-drawer .cart-drawer__taxes {
-  font-family: 'DM Sans', sans-serif !important;
+  font-family: var(--bks-font-body, "DM Sans", sans-serif) !important;
   font-size: 0.7rem !important;
   color: rgba(250, 250, 247, 0.38) !important;
 }
@@ -170,11 +170,11 @@ cart-remove-button button:hover { color: #fafaf7 !important; }
 /* ── Checkout button — BKS gold ───────────────────────────────────────────── */
 .cart__checkout-button,
 .cart-drawer .cart__checkout-button {
-  background: #d4a030 !important;
-  color: #0a0a0a !important;
+  background: var(--bks-gold-dark, #d4a030) !important;
+  color: var(--bks-ink, #0a0a0a) !important;
   border: none !important;
   border-radius: 0 !important;
-  font-family: 'DM Sans', sans-serif !important;
+  font-family: var(--bks-font-body, "DM Sans", sans-serif) !important;
   font-size: 0.78rem !important;
   font-weight: 600 !important;
   letter-spacing: 0.12em !important;
@@ -184,14 +184,14 @@ cart-remove-button button:hover { color: #fafaf7 !important; }
   width: 100% !important;
   margin-top: 10px !important;
 }
-.cart__checkout-button:hover { background: #c0902a !important; }
+.cart__checkout-button:hover { background: var(--bks-amber, #c0902a) !important; }
 
 /* ── Empty state ──────────────────────────────────────────────────────────── */
 cart-drawer.is-empty .drawer__inner-empty {
-  background: #0a0a0a !important;
+  background: var(--bks-bg-deep, #0a0a0a) !important;
 }
 .cart__empty-text {
-  font-family: 'Bebas Neue', sans-serif !important;
+  font-family: var(--bks-font-display, "Bebas Neue", sans-serif) !important;
   font-size: 1.6rem !important;
   letter-spacing: 0.08em !important;
   color: rgba(250, 250, 247, 0.5) !important;
@@ -199,8 +199,8 @@ cart-drawer.is-empty .drawer__inner-empty {
 .cart-drawer__empty-content .button {
   background: transparent !important;
   border: 1px solid rgba(250, 250, 247, 0.24) !important;
-  color: #fafaf7 !important;
-  font-family: 'DM Sans', sans-serif !important;
+  color: var(--bks-paper, #fafaf7) !important;
+  font-family: var(--bks-font-body, "DM Sans", sans-serif) !important;
   font-size: 0.76rem !important;
   letter-spacing: 0.08em !important;
   border-radius: 0 !important;
@@ -214,7 +214,7 @@ cart-drawer.is-empty .drawer__inner-empty {
 /* ── Discount code / notes accordion ─────────────────────────────────────── */
 .drawer__footer details summary {
   color: rgba(250, 250, 247, 0.52) !important;
-  font-family: 'DM Sans', sans-serif !important;
+  font-family: var(--bks-font-body, "DM Sans", sans-serif) !important;
   font-size: 0.76rem !important;
   letter-spacing: 0.04em !important;
 }
@@ -223,10 +223,10 @@ cart-drawer.is-empty .drawer__inner-empty {
 }
 .drawer__footer .field__input,
 .drawer__footer input[type="text"] {
-  background: #161616 !important;
+  background: var(--bks-surface, #161616) !important;
   border-color: rgba(250, 250, 247, 0.16) !important;
-  color: #fafaf7 !important;
-  font-family: 'DM Sans', sans-serif !important;
+  color: var(--bks-paper, #fafaf7) !important;
+  font-family: var(--bks-font-body, "DM Sans", sans-serif) !important;
   border-radius: 0 !important;
 }
 

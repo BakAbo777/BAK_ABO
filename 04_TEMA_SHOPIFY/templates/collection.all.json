@@ -1,0 +1,110 @@
+{
+  "sections": {
+    "bks_hero": {
+      "type": "bks-collection-hero",
+      "settings": {
+        "accent_color": "#C9B79C",
+        "tagline": "BKS Studio — Full Catalog",
+        "description": "200+ all-over print designs across 8 permanent collections. Puffer jackets, windbreakers, sneakers, swimwear and accessories — all printed on demand.",
+        "min_height": 300,
+        "show_cta": false
+      }
+    },
+    "bks_collections_nav": {
+      "type": "bks-collections-index",
+      "blocks": {
+        "col_hours": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Hours",
+            "tagline": "Measured urban stillness",
+            "collection_handle": "bks-hours"
+          }
+        },
+        "col_glyph": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Glyph",
+            "tagline": "Constructed graphic signs",
+            "collection_handle": "bks-glyph"
+          }
+        },
+        "col_marker": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Marker",
+            "tagline": "Gesture and motion",
+            "collection_handle": "bks-marker"
+          }
+        },
+        "col_riviera": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Riviera",
+            "tagline": "Coastal geometry",
+            "collection_handle": "bks-riviera"
+          }
+        },
+        "col_pulse": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Pulse",
+            "tagline": "Optical movement",
+            "collection_handle": "bks-pulse"
+          }
+        },
+        "col_token": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Token",
+            "tagline": "Digital objects",
+            "collection_handle": "bks-token"
+          }
+        },
+        "col_flag": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Flag",
+            "tagline": "Graphic color fields",
+            "collection_handle": "bks-flag"
+          }
+        },
+        "col_origin": {
+          "type": "collection_row",
+          "settings": {
+            "name": "BKS Origin",
+            "tagline": "Invented narrative marks",
+            "collection_handle": "bks-origin"
+          }
+        }
+      },
+      "block_order": [
+        "col_hours", "col_glyph", "col_marker", "col_riviera",
+        "col_pulse", "col_token", "col_flag", "col_origin"
+      ],
+      "settings": {
+        "heading": "Enter a collection",
+        "subheading": "",
+        "scheme": "dark"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid-bks",
+      "settings": {
+        "products_per_page": 36,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "enable_filtering": true,
+        "filter_type": "vertical",
+        "enable_sorting": true,
+        "quick_add": "none",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": ["bks_hero", "bks_collections_nav", "product-grid"]
+}

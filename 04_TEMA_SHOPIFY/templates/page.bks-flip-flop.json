@@ -1,0 +1,57 @@
+{
+  "sections": {
+    "page_hero": {
+      "type": "bks-page-hero",
+      "settings": {
+        "kicker": "BKS Studio",
+        "title": "FLIP FLOPS",
+        "lead": "Resort footwear with AI-art surface. The final touch on the beach look.",
+        "meta_1": "AI-Generated",
+        "meta_2": "Made to Order",
+        "meta_3": "Ships Worldwide",
+        "primary_label": "Shop Flip Flops",
+        "primary_link": "/collections/bks-type-flip-flop",
+        "secondary_label": "All Collections",
+        "secondary_link": "/pages/bks-collections",
+        "background_color": "#04100f",
+        "text_color": "#FAFAF7",
+        "accent_color": "#0ca898"
+      },
+      "blocks": {
+        "link_bks_riviera": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Riviera",
+            "link": "/collections/bks-riviera"
+          }
+        }
+      },
+      "block_order": [
+        "link_bks_riviera"
+      ]
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "product_grid": {
+      "type": "bks-product-type-grid",
+      "settings": {
+        "section_title": "Flip Flops",
+        "accent_color": "#0ca898",
+        "bg_color": "#fafaf7",
+        "collection_1": "bks-type-flip-flop",
+        "products_per_collection": 24,
+        "collection_2": "",
+        "collection_3": "",
+        "collection_4": "",
+        "view_all_url": "/collections/bks-type-flip-flop"
+      }
+    }
+  },
+  "order": [
+    "page_hero",
+    "product_grid",
+    "main"
+  ]
+}

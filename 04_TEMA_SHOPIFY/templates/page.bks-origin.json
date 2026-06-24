@@ -1,0 +1,74 @@
+{
+  "sections": {
+    "page_hero": {
+      "type": "bks-page-hero",
+      "settings": {
+        "kicker": "BKS Studio \u2014 Origin",
+        "title": "ORIGIN",
+        "lead": "Botanical origins and organic DNA translated into earth-tone fashion.",
+        "meta_1": "Botanical",
+        "meta_2": "Organic",
+        "meta_3": "Made to Order",
+        "primary_label": "Shop Origin",
+        "primary_link": "/collections/bks-origin",
+        "secondary_label": "All Collections",
+        "secondary_link": "/collections/all",
+        "background_color": "#040e00",
+        "text_color": "#FAFAF7",
+        "accent_color": "#489808"
+      },
+      "blocks": {
+        "link_tee": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Tee",
+            "link": "/collections/bks-origin/tee"
+          }
+        },
+        "link_lounge_pants": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Lounge Pants",
+            "link": "/collections/bks-origin/lounge-pants"
+          }
+        },
+        "link_beach_towel": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Beach Towel",
+            "link": "/collections/bks-origin/beach-towel"
+          }
+        },
+        "link_windbreaker": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Windbreaker",
+            "link": "/collections/bks-origin/windbreaker"
+          }
+        },
+        "link_travel_bag": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Travel Bag",
+            "link": "/collections/bks-origin/travel-bag"
+          }
+        }
+      },
+      "block_order": [
+        "link_tee",
+        "link_lounge_pants",
+        "link_beach_towel",
+        "link_windbreaker",
+        "link_travel_bag"
+      ]
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "page_hero",
+    "main"
+  ]
+}

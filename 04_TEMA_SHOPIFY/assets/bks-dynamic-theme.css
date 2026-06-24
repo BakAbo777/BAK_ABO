@@ -1,10 +1,10 @@
 /* BKS dynamic collection/menu UX — generated 16JUN2026 */
 html {
-  --bks-active-accent: var(--bks-dune, #C9B79C);
-  --bks-active-foreground: #0A0A0A;
-  --bks-header-background: #ffffff;
-  --bks-header-foreground: #0A0A0A;
-  --bks-header-border: #e8e8e8;
+  --bks-active-accent:     var(--bks-sand, #C9B79C);
+  --bks-active-foreground: var(--bks-ink, #0A0A0A);
+  --bks-header-background: var(--bks-paper, #fafaf7);
+  --bks-header-foreground: var(--bks-ink, #0A0A0A);
+  --bks-header-border:     rgba(10,10,10,0.10);
   --bks-header-accent-bar: transparent;
 }
 
@@ -101,7 +101,7 @@ html[data-bks-locale-detected="true"] .announcement-bar form[action*="/localizat
 }
 @supports not (color: color-mix(in srgb, #000 50%, #fff)) {
   .bks-gh.bks-gh--scrolled { background: var(--bks-header-background, #ffffff) !important; }
-  .bks-gh__dd-panel { border-color: #e8e8e8 !important; }
+  .bks-gh__dd-panel { border-color: var(--bks-border-inv, #e8e8e8) !important; }
 }
 
 /* ── NUCLEAR LOCALIZATION KILL — single-market IT store ──────── */
@@ -118,25 +118,25 @@ form[action="/localization"],
 /* ── PRE-FOOTER SECTION (NORMATIVA) — blend with dark footer ─── */
 /* Targets any shopify-section immediately before the footer section */
 .shopify-section:has(+ .shopify-section footer.footer) {
-  background: #0a0a0a !important;
+  background: var(--bks-bg-deep, #0a0a0a) !important;
   border-top: none !important;
 }
 .shopify-section:has(+ .shopify-section footer.footer) *:not(script):not(style) {
-  color: #fafaf7 !important;
+  color: var(--bks-paper, #fafaf7) !important;
 }
 .shopify-section:has(+ .shopify-section footer.footer) a,
 .shopify-section:has(+ .shopify-section footer.footer) button {
   border-color: rgba(250,250,247,0.2) !important;
   background: rgba(250,250,247,0.06) !important;
-  color: #fafaf7 !important;
+  color: var(--bks-paper, #fafaf7) !important;
 }
 .shopify-section:has(+ .shopify-section footer.footer) a:hover,
 .shopify-section:has(+ .shopify-section footer.footer) button:hover {
   background: rgba(250,250,247,0.12) !important;
 }
 /* Fallback for browsers without :has() — JS adds .bks-pre-footer class */
-.bks-pre-footer { background: #0a0a0a !important; }
-.bks-pre-footer *:not(script):not(style) { color: #fafaf7 !important; }
+.bks-pre-footer { background: var(--bks-bg-deep, #0a0a0a) !important; }
+.bks-pre-footer *:not(script):not(style) { color: var(--bks-paper, #fafaf7) !important; }
 .bks-pre-footer a, .bks-pre-footer button {
   border-color: rgba(250,250,247,0.2) !important;
   background: rgba(250,250,247,0.06) !important;

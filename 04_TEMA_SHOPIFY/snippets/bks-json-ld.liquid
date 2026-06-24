@@ -43,9 +43,30 @@
       "price": {{ variant.price | money_without_currency | remove: ',' }},
       "availability": "{% if variant.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
       "url": "{{ shop.url }}{{ product.url }}?variant={{ variant.id }}",
-      "seller": {
-        "@type": "Organization",
-        "name": "BakAbo"
+      "seller": { "@type": "Organization", "name": "BakAbo" },
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": ["IT","DE","FR","ES","US"],
+        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+        "merchantReturnDays": 30,
+        "returnMethod": "https://schema.org/ReturnByMail",
+        "returnFees": "https://schema.org/ReturnShippingFees"
+      },
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingDestination": [
+          { "@type": "DefinedRegion", "addressCountry": "IT" },
+          { "@type": "DefinedRegion", "addressCountry": "DE" },
+          { "@type": "DefinedRegion", "addressCountry": "FR" },
+          { "@type": "DefinedRegion", "addressCountry": "ES" },
+          { "@type": "DefinedRegion", "addressCountry": "US" }
+        ],
+        "shippingRate": { "@type": "MonetaryAmount", "value": "6.90", "currency": "EUR" },
+        "deliveryTime": {
+          "@type": "ShippingDeliveryTime",
+          "handlingTime": { "@type": "QuantitativeValue", "minValue": 7, "maxValue": 14, "unitCode": "DAY" },
+          "transitTime": { "@type": "QuantitativeValue", "minValue": 3, "maxValue": 10, "unitCode": "DAY" }
+        }
       }
       {%- if variant.sku != blank -%}
       ,"sku": {{ variant.sku | json }}

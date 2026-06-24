@@ -689,10 +689,12 @@ def render_theme_bks_page() -> None:
     cols[1].metric("Output", "ready" if summary.get("output_zip") else "missing")
     cols[2].metric("Hero", "BKS")
     cols[3].metric("Effetti", "global")
-    st.write(summary.get("output_zip", ""))
-    output = BASE_DIR / summary.get("output_zip", "")
-    if output.exists():
-        st.download_button("Scarica ZIP tema", output.read_bytes(), file_name=output.name, mime="application/zip", width="stretch")
+    zip_rel = summary.get("output_zip", "")
+    if zip_rel:
+        st.write(zip_rel)
+        output = BASE_DIR / zip_rel
+        if output.exists() and output.is_file():
+            st.download_button("Scarica ZIP tema", output.read_bytes(), file_name=output.name, mime="application/zip", width="stretch")
     st.dataframe(pd.DataFrame(data.get("checks", [])), width="stretch", hide_index=True)
     st.dataframe(pd.DataFrame([{"file": key, "path": value} for key, value in files.items()]), width="stretch", hide_index=True)
 
@@ -958,7 +960,7 @@ def render_services() -> None:
             st.markdown(f"**{service.phase} {service.name}**")
             st.caption(service.role)
             if service.launcher:
-                if st.button(f"Avvia {service.phase}", key=f"start-{service.phase}", width="stretch"):
+                if st.button(f"Avvia {service.phase}", key=f"start-{service.phase}-{index}", width="stretch"):
                     ok, message = start_launcher(service.launcher)
                     st.success(message) if ok else st.error(message)
             else:

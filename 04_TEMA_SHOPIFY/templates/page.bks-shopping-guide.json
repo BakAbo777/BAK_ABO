@@ -1,0 +1,66 @@
+{
+  "sections": {
+    "page_hero": {
+      "type": "bks-page-hero",
+      "settings": {
+        "kicker": "BKS Studio",
+        "title": "SHOPPING GUIDE",
+        "lead": "Everything you need to know about BKS Studio products, sizing, materials and ordering.",
+        "meta_1": "AI-Generated",
+        "meta_2": "Made to Order",
+        "meta_3": "Ships Worldwide",
+        "primary_label": "Shop Shopping Guide",
+        "primary_link": "/collections/all",
+        "secondary_label": "All Collections",
+        "secondary_link": "/pages/bks-collections",
+        "background_color": "#0a0a08",
+        "text_color": "#FAFAF7",
+        "accent_color": "#C9B79C"
+      },
+      "blocks": {
+        "link_size_guide": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Size Guide",
+            "link": "/pages/bks-size-guide"
+          }
+        },
+        "link_collections": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Collections",
+            "link": "/pages/bks-collections"
+          }
+        },
+        "link_bks_members": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Members",
+            "link": "/pages/bks-members"
+          }
+        },
+        "link_faq": {
+          "type": "quick_link",
+          "settings": {
+            "label": "FAQ",
+            "link": "/pages/bks-faq"
+          }
+        }
+      },
+      "block_order": [
+        "link_size_guide",
+        "link_collections",
+        "link_bks_members",
+        "link_faq"
+      ]
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "page_hero",
+    "main"
+  ]
+}

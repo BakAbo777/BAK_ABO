@@ -1,0 +1,74 @@
+{
+  "sections": {
+    "page_hero": {
+      "type": "bks-page-hero",
+      "settings": {
+        "kicker": "BKS Studio \u2014 Marker",
+        "title": "MARKER",
+        "lead": "Raw mark-making and editorial heat translated into bold all-over prints.",
+        "meta_1": "Bold Print",
+        "meta_2": "Editorial Heat",
+        "meta_3": "Made to Order",
+        "primary_label": "Shop Marker",
+        "primary_link": "/collections/bks-marker",
+        "secondary_label": "All Collections",
+        "secondary_link": "/collections/all",
+        "background_color": "#100800",
+        "text_color": "#FAFAF7",
+        "accent_color": "#c04418"
+      },
+      "blocks": {
+        "link_tee": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Tee",
+            "link": "/collections/bks-marker/tee"
+          }
+        },
+        "link_hoodie": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Hoodie",
+            "link": "/collections/bks-marker/hoodie"
+          }
+        },
+        "link_windbreaker": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Windbreaker",
+            "link": "/collections/bks-marker/windbreaker"
+          }
+        },
+        "link_backpack": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Backpack",
+            "link": "/collections/bks-marker/backpack"
+          }
+        },
+        "link_shorts": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Shorts",
+            "link": "/collections/bks-marker/shorts"
+          }
+        }
+      },
+      "block_order": [
+        "link_tee",
+        "link_hoodie",
+        "link_windbreaker",
+        "link_backpack",
+        "link_shorts"
+      ]
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "page_hero",
+    "main"
+  ]
+}

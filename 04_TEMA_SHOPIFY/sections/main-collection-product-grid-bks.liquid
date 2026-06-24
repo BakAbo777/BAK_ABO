@@ -18,8 +18,8 @@
 {%- style -%}
   .section-{{ section.id }}-padding {
     --bks-cg-accent: var(--bks-active-accent, #2f6f6b);
-    background: #FAFAF7;
-    color: #0A0A0A;
+    background: var(--bks-paper, #FAFAF7);
+    color: var(--bks-ink, #0A0A0A);
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
   }
@@ -35,8 +35,8 @@
   .section-{{ section.id }}-padding .gradient,
   .section-{{ section.id }}-padding .color-background-1,
   .section-{{ section.id }}-padding .color-background-2 {
-    background: #FAFAF7;
-    color: #0A0A0A;
+    background: var(--bks-paper, #FAFAF7);
+    color: var(--bks-ink, #0A0A0A);
   }
 
   .section-{{ section.id }}-padding .collection,
@@ -57,13 +57,13 @@
   }
 
   .section-{{ section.id }}-padding .card-wrapper {
-    background: #fff;
+    background: var(--bks-paper, #fff);
     border-radius: 0;
   }
 
   .section-{{ section.id }}-padding .card,
   .section-{{ section.id }}-padding .card__inner {
-    background: #fff;
+    background: var(--bks-paper, #fff);
   }
 
   .section-{{ section.id }}-padding .card__media,
@@ -79,7 +79,7 @@
   .section-{{ section.id }}-padding .card__heading,
   .section-{{ section.id }}-padding .card__heading a,
   .section-{{ section.id }}-padding .card-product__title {
-    color: #0A0A0A;
+    color: var(--bks-ink, #0A0A0A);
     font-family: var(--bks-font-mono, 'DM Mono', monospace);
     font-size: 13px;
     font-weight: 600;
@@ -95,7 +95,7 @@
   .section-{{ section.id }}-padding .card-information,
   .section-{{ section.id }}-padding .card-information > *,
   .section-{{ section.id }}-padding .product-count__text {
-    color: #0A0A0A;
+    color: var(--bks-ink, #0A0A0A);
     font-family: var(--bks-font-body, 'DM Sans', sans-serif);
     font-size: 15px;
     letter-spacing: 0;
@@ -104,7 +104,7 @@
 
   .section-{{ section.id }}-padding .price,
   .section-{{ section.id }}-padding .price * {
-    color: #0A0A0A;
+    color: var(--bks-ink, #0A0A0A);
     font-family: var(--bks-font-mono, 'DM Mono', monospace);
     font-size: 14px;
     letter-spacing: 0;
@@ -115,7 +115,7 @@
   .section-{{ section.id }}-padding .facets__summary,
   .section-{{ section.id }}-padding .mobile-facets__open,
   .section-{{ section.id }}-padding .mobile-facets__heading {
-    color: #0A0A0A;
+    color: var(--bks-ink, #0A0A0A);
     font-family: var(--bks-font-mono, 'DM Mono', monospace);
     font-size: 12px;
     letter-spacing: 0;
@@ -130,16 +130,16 @@
   .section-{{ section.id }}-padding .facets__form,
   .section-{{ section.id }}-padding .facet-filters,
   .section-{{ section.id }}-padding .facets-container {
-    color: #0A0A0A;
+    color: var(--bks-ink, #0A0A0A);
   }
 
   .section-{{ section.id }}-padding .select,
   .section-{{ section.id }}-padding .select__select,
   .section-{{ section.id }}-padding .facet-checkbox,
   .section-{{ section.id }}-padding .mobile-facets__inner {
-    background: #FAFAF7;
+    background: var(--bks-paper, #FAFAF7);
     border-color: rgba(10, 10, 10, 0.18);
-    color: #0A0A0A;
+    color: var(--bks-ink, #0A0A0A);
     font-family: var(--bks-font-body, 'DM Sans', sans-serif);
   }
 
@@ -155,9 +155,9 @@
   }
 
   .section-{{ section.id }}-padding .quick-add__submit {
-    background: #0A0A0A;
-    border: 1px solid #0A0A0A;
-    color: #FAFAF7;
+    background: var(--bks-ink, #0A0A0A);
+    border: 1px solid var(--bks-ink, #0A0A0A);
+    color: var(--bks-paper, #FAFAF7);
     font-family: var(--bks-font-mono, 'DM Mono', monospace);
     font-size: 12px;
     letter-spacing: 0;
@@ -167,9 +167,9 @@
   }
 
   .section-{{ section.id }}-padding .quick-add__submit:hover {
-    background: #FAFAF7;
-    border-color: #0A0A0A;
-    color: #0A0A0A;
+    background: var(--bks-paper, #FAFAF7);
+    border-color: var(--bks-ink, #0A0A0A);
+    color: var(--bks-ink, #0A0A0A);
   }
 
   .section-{{ section.id }}-padding .pagination-wrapper {
@@ -177,15 +177,15 @@
   }
 
   .section-{{ section.id }}-padding .pagination__item {
-    color: #0A0A0A;
+    color: var(--bks-ink, #0A0A0A);
     font-family: var(--bks-font-mono, 'DM Mono', monospace);
     font-size: 14px;
     letter-spacing: 0;
   }
 
   .section-{{ section.id }}-padding .pagination__item:hover {
-    background: #0A0A0A;
-    color: #FAFAF7;
+    background: var(--bks-ink, #0A0A0A);
+    color: var(--bks-paper, #FAFAF7);
   }
 
   .section-{{ section.id }}-padding .collection--empty {
@@ -194,7 +194,7 @@
   }
 
   .section-{{ section.id }}-padding .collection--empty .title--primary {
-    color: #0A0A0A;
+    color: var(--bks-ink, #0A0A0A);
     font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
     font-size: 32px;
     letter-spacing: 0;
@@ -203,6 +203,53 @@
 
   .section-{{ section.id }}-padding .loading-overlay {
     background: transparent;
+  }
+
+  /* ── Collection bar ────────────────────────────────────── */
+  .section-{{ section.id }}-padding .bks-cg-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 0 20px;
+    border-bottom: 1px solid rgba(10,10,10,0.08);
+    margin-bottom: 36px;
+  }
+  .section-{{ section.id }}-padding .bks-cg-bar__accent {
+    display: block;
+    width: 4px;
+    height: 28px;
+    background: var(--bks-cg-accent);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .section-{{ section.id }}-padding .bks-cg-bar__name {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    color: var(--bks-ink, #0a0a0a);
+  }
+  .section-{{ section.id }}-padding .bks-cg-bar__count {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--bks-cg-accent);
+    font-weight: 500;
+    background: color-mix(in srgb, var(--bks-cg-accent) 10%, transparent);
+    padding: 3px 10px;
+    border-radius: 2px;
+  }
+  .section-{{ section.id }}-padding .bks-cg-bar__label {
+    font-family: var(--bks-font-mono, 'DM Mono', monospace);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: rgba(10,10,10,0.4);
+    margin-left: auto;
+    text-transform: uppercase;
+  }
+  @media (max-width: 749px) {
+    .section-{{ section.id }}-padding .bks-cg-bar__label { display: none; }
+    .section-{{ section.id }}-padding .bks-cg-bar { gap: 10px; }
   }
 
   @media screen and (max-width: 989px) {
@@ -242,7 +289,7 @@
   .section-{{ section.id }}-padding .card .media {
     aspect-ratio: 4 / 5;
     overflow: hidden;
-    background: #f2f0ec;
+    background: #ffffff;
   }
 
   .section-{{ section.id }}-padding .card__media img,
@@ -251,7 +298,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center top;
+    object-position: center 10%;
     display: block;
   }
 
@@ -475,6 +522,14 @@
         {%- else -%}
           <div class="collection">
             <div class="loading-overlay"></div>
+
+            <div class="bks-cg-bar">
+              <span class="bks-cg-bar__accent"></span>
+              <span class="bks-cg-bar__name">{{ collection.title | upcase }}</span>
+              <span class="bks-cg-bar__count">{{ collection.products_count }} {{ 'products.general.items' | t | default: 'pieces' }}</span>
+              <span class="bks-cg-bar__label">◎ Made to order · Worldwide shipping</span>
+            </div>
+
             <ul
               id="product-grid"
               data-id="{{ section.id }}"

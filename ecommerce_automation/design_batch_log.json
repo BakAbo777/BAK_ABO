@@ -1,0 +1,4383 @@
+{
+  "69f69a87606067cce40f778e": {
+    "ts": "2026-06-24T10:49:21.139748",
+    "collection": "riviera",
+    "title": "BKS Riviera Tile™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3b9a0cef9c95552417161f",
+      "areas_replaced": 10,
+      "template_used": "bks_riviera_0f778e_1782239398668.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong match with BKS Riviera, visually appealing and commercially viable.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "655b9956ff4e7e8f9700e67a": {
+    "ts": "2026-06-23T22:36:37.607217",
+    "collection": "marker",
+    "title": "BKS Marker Trace™ Backpack",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3aee50e1a49e9f1a1caee7",
+      "areas_replaced": 7,
+      "template_used": "bks_marker_00e67a_1782246473677.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and color mastery; minor execution refinements needed.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "655510c78f7ef849a00bd3d6": {
+    "ts": "2026-06-23T22:38:18.135308",
+    "collection": "riviera",
+    "title": "BKS Riviera Scale™ Backpack",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3aeeb5e1a49e9f1a1caefb",
+      "areas_replaced": 6,
+      "template_used": "bks_riviera_0bd3d6_1782246581711.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong adherence to BKS Riviera theme with excellent commercial appeal.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 5
+      }
+    }
+  },
+  "6a16429cd4fccb2f800a3fb6": {
+    "ts": "2026-06-23T20:16:51.743350",
+    "collection": "token",
+    "title": "BKS Token Maze™ Athletic Long Shorts",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3acd8daf958677afa8f7bd",
+      "areas_replaced": 5,
+      "template_used": "bks_token_0a3fb6_1782237781438.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with vibrant colors and cohesive design, though inventiveness could be higher.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "65fe0788b3afc878930b6724": {
+    "ts": "2026-06-23T21:31:41.162063",
+    "collection": "origin",
+    "title": "KS Folklore Bloom™ Lounge Pants",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3adf18e5df30a487520af6",
+      "areas_replaced": 5,
+      "template_used": "bks_origin_0b6724_1782242395180.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and invention with harmonious color and execution.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "69f9eff8af1e4497af013d41": {
+    "ts": "2026-06-23T20:26:23.138874",
+    "collection": "marker",
+    "title": "BKS Marker Stave™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3acfc6e7f50a041cedaa75",
+      "areas_replaced": 27,
+      "template_used": "bks_marker_013d41_1782238389669.png"
+    }
+  },
+  "65368b2e086a3b46000a3753": {
+    "ts": "2026-06-23T22:57:46.051045",
+    "collection": "origin",
+    "title": "BKS Folklore Manor™ Travel Bag",
+    "visible": false,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3af345328690fb82cc30d2",
+      "areas_replaced": 6,
+      "template_used": "bks_origin_0a3753_1782247714956.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and suitable for the collection with minor color adjustments possible.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "655d33f7dd7666ffb705bb86": {
+    "ts": "2026-06-23T23:18:42.698053",
+    "collection": "hours",
+    "title": "BKS Hours Atelier™ Backpack",
+    "visible": false,
+    "status": "excluded",
+    "result": {
+      "status": "error",
+      "body": "deleted_in_printify_404"
+    }
+  },
+  "6533fd971939df9a4005171f": {
+    "ts": "2026-06-24T11:37:50.850081",
+    "collection": "origin",
+    "title": "BKS Folklore Grove™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ba56a88335ad1e0d13231",
+      "areas_replaced": 4,
+      "template_used": "bks_origin_05171f_1782248312833.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong botanical theme and color align with collection identity, suitable for commercial use.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 5
+      }
+    }
+  },
+  "65ff3113da8593c69c058a1a": {
+    "ts": "2026-06-23T21:30:46.893087",
+    "collection": "glyph",
+    "title": "BKS Glyph Loom™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3adee2840cf58464a9adee",
+      "areas_replaced": 5,
+      "template_used": "bks_glyph_058a1a_1782242338543.png"
+    }
+  },
+  "651ec5c8c9778709b80a53d2": {
+    "ts": "2026-06-23T23:07:17.038703",
+    "collection": "token",
+    "title": "BKS Token Score™ Sneakers",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3af57a185c4b9f41213361",
+      "areas_replaced": 4,
+      "template_used": "bks_token_0a53d2_1782248233546.png"
+    }
+  },
+  "6a2541948ca667581803f253": {
+    "ts": "2026-06-23T19:59:21.242270",
+    "collection": "glyph",
+    "title": "BKS Glyph Hex™ Athletic Long Shorts",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ac9706d445df245315bbd",
+      "areas_replaced": 13,
+      "template_used": "bks_glyph_03f253_1782236752419.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong geometric design with excellent color and originality, suitable for BKS Glyph.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 5,
+        "commercial": 4
+      }
+    }
+  },
+  "655100c60594bb28890aaccc": {
+    "ts": "2026-06-23T22:42:29.668162",
+    "collection": "origin",
+    "title": "BKS Folklore Shoal Red™ Pullover Hoodie",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3aefb058e18405af3b9c40",
+      "areas_replaced": 10,
+      "template_used": "bks_origin_0aaccc_1782246850984.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong adherence to BKS Origin with excellent botanical abstraction and color mastery.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65748a415032e3ca450422d8": {
+    "ts": "2026-06-24T11:23:12.750854",
+    "collection": "glyph",
+    "title": "BKS Glyph Weave™ Backpack",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ba1e201efa6bf5ea38c53",
+      "areas_replaced": 9,
+      "template_used": "bks_glyph_0422d8_1782246133940.png",
+      "bks_score": 18,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Color and element sizing need refinement for collection coherence.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 3,
+        "color": 3,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "69fe6d164ba2ff981a018551": {
+    "ts": "2026-06-24T10:46:47.130922",
+    "collection": "marker",
+    "title": "BKS Marker Brush™ Windbreaker Jacket",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3b996b4be2910defc56304",
+      "areas_replaced": 31,
+      "template_used": "bks_marker_018551_1782239024347.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with a rich, expressive palette.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "656f3f09ac0f25077c00aeed": {
+    "ts": "2026-06-23T22:28:30.053104",
+    "collection": "unknown",
+    "title": "BKS Node™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3aec6930dd7b1993152bbc",
+      "areas_replaced": 7,
+      "template_used": "bks_glyph_00aeed_1782245986832.png"
+    }
+  },
+  "6661c5ef7913095ea3068c4a": {
+    "ts": "2026-06-24T10:53:26.986110",
+    "collection": "origin",
+    "title": "BKS Folklore Shoal™ Windbreaker",
+    "visible": false,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b9b00bb1bff3eba5c100d",
+      "areas_replaced": 34,
+      "template_used": "bks_origin_068c4a_1782241083001.png",
+      "bks_score": 19,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and execution, with slightly lower commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 3,
+        "commercial": 3
+      }
+    }
+  },
+  "6536a675a7a4ebb56c0128a3": {
+    "ts": "2026-06-24T11:36:28.207259",
+    "collection": "hours",
+    "title": "BKS Hours Gaze™ Travel Bag",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ba5177ad42daa41b7d57f",
+      "areas_replaced": 5,
+      "template_used": "bks_hours_0128a3_1782247912468.png",
+      "bks_score": 18,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Color mastery and execution need improvement for BKS Hours.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 3,
+        "color": 2,
+        "invention": 4,
+        "commercial": 5
+      }
+    }
+  },
+  "662bbbb59db56b8ca00b6fea": {
+    "ts": "2026-06-24T11:00:16.955283",
+    "collection": "glyph",
+    "title": "BKS Glyph Stride™ Travel Bag",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3b9c9946295417749b0a6c",
+      "areas_replaced": 11,
+      "template_used": "bks_glyph_0b6fea_1782241942626.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong geometric precision and color usage fit BKS Glyph expectations.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 5,
+        "color": 4,
+        "invention": 5,
+        "commercial": 4
+      }
+    }
+  },
+  "6a03710004f95d0172067ecc": {
+    "ts": "2026-06-23T23:46:47.720988",
+    "collection": "glyph",
+    "title": "BKS Glyph Code™ One-Piece Swimsuit",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3afec0816df27dc487320c",
+      "areas_replaced": 5,
+      "template_used": "bks_glyph_067ecc_1782238894533.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong geometric design with slight color refinement needed.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65fe0534e01044924901bfdf": {
+    "ts": "2026-06-24T11:05:33.250814",
+    "collection": "pulse",
+    "title": "BKS Pulse Hatch™ Lounge Pants",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3b9dd6a2dc8cfc08855b7c",
+      "areas_replaced": 5,
+      "template_used": "bks_pulse_01bfdf_1782243150072.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Bold and modern design meets BKS Pulse expectations.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65fd889ed491c0d8800c3a1a": {
+    "ts": "2026-06-23T21:41:36.675543",
+    "collection": "flag",
+    "title": "BKS Flag Wedge™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae16b0b908efe49188660",
+      "areas_replaced": 7,
+      "template_used": "bks_flag_0c3a1a_1782242993997.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with effective color use and commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 5
+      }
+    }
+  },
+  "65f8849ea00bb919610618fc": {
+    "ts": "2026-06-24T11:08:52.040087",
+    "collection": "pulse",
+    "title": "BKS Pulse Arc™ One-Piece Swimsuit",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b9e9b4632c99c6dd06023",
+      "areas_replaced": 2,
+      "template_used": "bks_pulse_0618fc_1782243961458.png",
+      "bks_score": 17,
+      "bks_decision": "REWORK",
+      "bks_feedback": "The design needs better element harmony and sizing for commercial viability.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 3,
+        "color": 4,
+        "invention": 3,
+        "commercial": 3
+      }
+    }
+  },
+  "654ebf02625fd10ac1073a8b": {
+    "ts": "2026-06-23T22:47:24.415087",
+    "collection": "glyph",
+    "title": "BKS Glyph Script™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3af0d7b41dec653019a2c2",
+      "areas_replaced": 2,
+      "template_used": "bks_glyph_073a8b_1782247134716.png",
+      "bks_score": 20,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Strong identity and invention, but color is slightly off the expected range.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 3,
+        "invention": 5,
+        "commercial": 4
+      }
+    }
+  },
+  "65f4893569ea0c2a0105f84f": {
+    "ts": "2026-06-23T21:51:34.517981",
+    "collection": "flag",
+    "title": "BKS Flag Bloc™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ae3c1e5df30a487520d99",
+      "areas_replaced": 6,
+      "template_used": "bks_flag_05f84f_1782243510308.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity and effective color use, but lacks high originality.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "6607bfd40d8cc1fe970a005a": {
+    "ts": "2026-06-24T11:02:01.998153",
+    "collection": "glyph",
+    "title": "BKS Glyph Acid™ Lounge Pants",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3b9d03bb1bff3eba5c10bf",
+      "areas_replaced": 5,
+      "template_used": "bks_glyph_0a005a_1782242504539.png"
+    }
+  },
+  "65551839f4f59ee6a3093ce8": {
+    "ts": "2026-06-23T22:37:31.182132",
+    "collection": "riviera",
+    "title": "BKS Riviera Terrain™ Backpack",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3aee86e5306703f3b9521e",
+      "areas_replaced": 7,
+      "template_used": "bks_riviera_093ce8_1782246533976.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and color mastery, though slightly generic.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "6a1d9bb9fc56adac9f0e95d6": {
+    "ts": "2026-06-23T20:12:24.608448",
+    "collection": "riviera",
+    "title": "BKS Riviera Cabana™ Sneakers",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3acc7f36d5254120cd4796",
+      "areas_replaced": 12,
+      "template_used": "bks_riviera_0e95d6_1782237544843.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity with good execution and color usage.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65f21f845a9ae7fdd2079714": {
+    "ts": "2026-06-24T11:16:00.086534",
+    "collection": "flag",
+    "title": "BKS Flag Shard™ Racerback Dress",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ba04a8fec4af59e645798",
+      "areas_replaced": 2,
+      "template_used": "bks_flag_079714_1782244997300.png",
+      "bks_score": 20,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Strong composition but needs refinement in brightness and harmony.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65e48d1de3ca19da0c0b4abb": {
+    "ts": "2026-06-23T22:11:15.621280",
+    "collection": "unknown",
+    "title": "BKS Tribal Signals™ Flip Flops",
+    "visible": false,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae85c5cd1abad3a58b281",
+      "areas_replaced": 2,
+      "template_used": "bks_glyph_0b4abb_1782244911570.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong geometric style with appropriate color palette and commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6649d9a4c1e59df36e058e70": {
+    "ts": "2026-06-23T21:02:08.734666",
+    "collection": "origin",
+    "title": "BKS Folklore Shoal Sky™ Pullover Hoodie",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ad82bfc19843a2bfe8574",
+      "areas_replaced": 7,
+      "template_used": "bks_origin_058e70_1782240526403.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong alignment with BKS identity and mood, but commercial appeal could improve.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "67a396d1a43b046f6b017b15": {
+    "ts": "2026-06-23T20:41:43.595147",
+    "collection": "marker",
+    "title": "BKS Marker Stream™ Women's Tee",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ad363f2af55ff2df8cf44",
+      "areas_replaced": 5,
+      "template_used": "bks_marker_017b15_1782239376806.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and color with slight execution improvements needed.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6a2467bc992522364109421f": {
+    "ts": "2026-06-23T20:03:38.175323",
+    "collection": "token",
+    "title": "BKS Token Block™ Cozy Slipper",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3aca7262d37834a3aa7ab5",
+      "areas_replaced": 2,
+      "template_used": "bks_token_09421f_1782236986653.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong design matches BKS mood with harmonious colors and inventive retro style.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "66044d9b6b46913fbc0734ce": {
+    "ts": "2026-06-24T11:03:50.183409",
+    "collection": "hours",
+    "title": "BKS Hours Quilt™ Pullover Hoodie",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3b9d6fbb1bff3eba5c1114",
+      "areas_replaced": 8,
+      "template_used": "bks_hours_0734ce_1782242724961.png"
+    }
+  },
+  "66044f29d794b74829051203": {
+    "ts": "2026-06-24T11:02:52.324719",
+    "collection": "hours",
+    "title": "BKS Hours Quilt™ Lounge Pants",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b9d35f6b277e72902b7b9",
+      "areas_replaced": 5,
+      "template_used": "bks_hours_051203_1782242668174.png",
+      "bks_score": 17,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Solid identity but needs better color balance and execution.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 3,
+        "color": 3,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "651c452249ddc69dc20d0dc6": {
+    "ts": "2026-06-24T11:39:37.608395",
+    "collection": "unknown",
+    "title": "BKS Coral™ Sneakers",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ba5d5fd228c618185e2c7",
+      "areas_replaced": 4,
+      "template_used": "bks_glyph_0d0dc6_1782249085164.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong alignment with BKS glyph identity and appealing design for the target market.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "663273fa86a4b4f759006b4b": {
+    "ts": "2026-06-24T10:58:33.340705",
+    "collection": "pulse",
+    "title": "BKS Pulse Lens™ Racerback Dress",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3b9c26a2dc8cfc088559c6",
+      "areas_replaced": 3,
+      "template_used": "bks_pulse_006b4b_1782241745567.png",
+      "bks_score": 23,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity with precise execution and vibrant colors.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 5,
+        "color": 4,
+        "invention": 4,
+        "commercial": 5
+      }
+    }
+  },
+  "65369c303138b248e00c6ce8": {
+    "ts": "2026-06-23T22:54:31.478999",
+    "collection": "glyph",
+    "title": "BKS Glyph Stand™ Travel Bagnt",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3af28230dd7b199315321d",
+      "areas_replaced": 8,
+      "template_used": "bks_glyph_0c6ce8_1782247537120.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong geometric identity with great commercial appeal and harmonious design.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 5
+      }
+    }
+  },
+  "65fdf5e135ecb6e38e0cad4a": {
+    "ts": "2026-06-23T21:35:59.614733",
+    "collection": "origin",
+    "title": "BKS Folklore Band™ Lounge Pants",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ae01ae5df30a487520b53",
+      "areas_replaced": 9,
+      "template_used": "bks_origin_0cad4a_1782242634022.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong alignment with BKS theme and good commercial appeal.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6a19e9034525ffd5730f1447": {
+    "ts": "2026-06-23T20:15:29.940781",
+    "collection": "token",
+    "title": "BKS Token Mosaic™ Sneakers",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3acd3baf958677afa8f7b0",
+      "areas_replaced": 8,
+      "template_used": "bks_token_0f1447_1782237720571.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong neon style and color balance fit BKS theme, slightly refine layout for garment.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "67fea6beee04c42ae6090935": {
+    "ts": "2026-06-23T20:37:01.980085",
+    "collection": "token",
+    "title": "BKS Token Pixel™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ad249e7f50a041cedaed3",
+      "areas_replaced": 13,
+      "template_used": "bks_token_090935_1782239058031.png",
+      "bks_score": 24,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with vibrant execution, slightly adjust brightness.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 5,
+        "color": 4,
+        "invention": 5,
+        "commercial": 5
+      }
+    }
+  },
+  "6550fdedcfc58b97e50c8b4e": {
+    "ts": "2026-06-23T22:44:34.510214",
+    "collection": "origin",
+    "title": "BKS Folklore Shoal™ Pullover Hoodie",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3af02d93fa738582b60bcb",
+      "areas_replaced": 10,
+      "template_used": "bks_origin_0c8b4e_1782246965546.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong alignment with BKS identity and excellent color harmony, suitable for garment application.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6649e4c069a38ecd690bbf7a": {
+    "ts": "2026-06-24T10:55:32.958133",
+    "collection": "flag",
+    "title": "BKS Flag Meridian Forest™ Pullover Hoodie",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3b9b80096bc9fbef42ef65",
+      "areas_replaced": 8,
+      "template_used": "bks_flag_0bbf7a_1782241194211.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and commercial appeal but minor execution improvements possible.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "660438c813d0b413c90d3209": {
+    "ts": "2026-06-23T21:27:34.205904",
+    "collection": "glyph",
+    "title": "BKS Glyph Maze™ Pullover Hoodie",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ade1f989905bed007629d",
+      "areas_replaced": 7,
+      "template_used": "bks_glyph_0d3209_1782242118761.png",
+      "bks_score": 23,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS Glyph identity with excellent execution and color harmony.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 5,
+        "color": 5,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6649e6bbfa389ee883074e9c": {
+    "ts": "2026-06-24T10:54:13.471184",
+    "collection": "flag",
+    "title": "BKS Flag Meridian Earth™ Pullover Hoodie",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b9b31bb1bff3eba5c101a",
+      "areas_replaced": 8,
+      "template_used": "bks_flag_074e9c_1782241137520.png",
+      "bks_score": 18,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Design aligns well with BKS identity but needs better element sizing and cohesion.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 3,
+        "color": 4,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "65eb417ac9e6ce551704aeab": {
+    "ts": "2026-06-23T22:10:10.085145",
+    "collection": "glyph",
+    "title": "BKS Glyph Flow™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ae819f1895b44ca0ffd69",
+      "areas_replaced": 11,
+      "template_used": "BKS_Image_oua3oyoua3oyoua3.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong geometric coding and color mastery align well with brand identity.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6a25399f38707c982f103639": {
+    "ts": "2026-06-23T20:02:42.255633",
+    "collection": "marker",
+    "title": "BKS Marker Frame™ Athletic Long Shorts",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3aca3db7df82ae13611401",
+      "areas_replaced": 5,
+      "template_used": "bks_marker_103639_1782236927625.png"
+    }
+  },
+  "65f353d6e2b5153bca050bca": {
+    "ts": "2026-06-23T21:58:35.074265",
+    "collection": "marker",
+    "title": "BKS Marker Clash™ One-Piece Swimsuit",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae566353bab3a4024bbf2",
+      "areas_replaced": 6,
+      "template_used": "bks_marker_050bca_1782244055685.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with suitable color and inventive design for the collection.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65f4682bcb001838f201672a": {
+    "ts": "2026-06-24T11:10:40.573089",
+    "collection": "pulse",
+    "title": "BKS Pulse Drift™ One-Piece Swimsuit",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b9f0abb1bff3eba5c1243",
+      "areas_replaced": 2,
+      "template_used": "bks_pulse_01672a_1782244348724.png",
+      "bks_score": 18,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Refine color harmony and brightness for coherence with BKS Pulse.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 3,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "6a2454dd6ff905d8c70bbe60": {
+    "ts": "2026-06-23T20:05:21.415565",
+    "collection": "flag",
+    "title": "BKS Flag Slate™ Flip Flop",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3acad57447d0f17e1c04ca",
+      "areas_replaced": 16,
+      "template_used": "bks_flag_0bbe60_1782237101643.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with effective color use, but invention could be improved.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "65f45c2df21a69505c0c151b": {
+    "ts": "2026-06-24T11:12:28.729451",
+    "collection": "glyph",
+    "title": "BKS Glyph Quill™ Swim Trunks",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b9f76bb1bff3eba5c126e",
+      "areas_replaced": 5,
+      "template_used": "bks_glyph_0c151b_1782244505848.png",
+      "bks_score": 18,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Improve element size harmony for better visual impact.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 3,
+        "color": 4,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "65f4601cc35b8a8a9a02c21c": {
+    "ts": "2026-06-23T21:54:18.126866",
+    "collection": "origin",
+    "title": "BKS Folklore Velvet™ One-Piece Swimsuit",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae466664e7f62f057f7ab",
+      "areas_replaced": 2,
+      "template_used": "bks_origin_02c21c_1782243709843.png"
+    }
+  },
+  "66c393a4f9d0ba1fd009a9e6": {
+    "ts": "2026-06-23T20:46:09.846849",
+    "collection": "marker",
+    "title": "BKS Marker Flux™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ad46caea7e788da72cd7b",
+      "areas_replaced": 2,
+      "template_used": "bks_marker_09a9e6_1782239621415.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong color mastery with cohesive BKS identity, minor originality could improve.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 5,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "66818bccb4c870a8060c080c": {
+    "ts": "2026-06-23T20:51:56.342717",
+    "collection": "origin",
+    "title": "BKS Folklore Grove™ Racerback Dress",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ad5c8fc41dd1dd73cd3e6",
+      "areas_replaced": 5,
+      "template_used": "bks_origin_0c080c_1782239919432.png",
+      "bks_score": 20,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Refine element harmony and integration for garment application.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 3,
+        "color": 4,
+        "invention": 5,
+        "commercial": 4
+      }
+    }
+  },
+  "66278fe9c5f16bd043070c41": {
+    "ts": "2026-06-23T21:13:27.086389",
+    "collection": "unknown",
+    "title": "BKS Neo Matrix™ Flip Flops",
+    "visible": false,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3adace5cd1abad3a589fc0",
+      "areas_replaced": 1,
+      "template_used": "bks_glyph_070c41_1782241141391.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong alignment with BKS Glyph identity and commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6a2d7a93f5f63e26000f7c4c": {
+    "ts": "2026-06-23T19:51:59.087595",
+    "collection": "glyph",
+    "title": "BKS Glyph Cross™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ac7b303975585fa0e9e52",
+      "areas_replaced": 16,
+      "template_used": "bks_glyph_0f7c4c_1782236180799.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong design with coherent color and balanced elements.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "69f5f087758757bfa3041449": {
+    "ts": "2026-06-23T20:33:14.997831",
+    "collection": "unknown",
+    "title": "BKS Sprawl™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ad1663c0b050a50961ef0",
+      "areas_replaced": 19,
+      "template_used": "bks_glyph_041449_1782238775817.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with balanced execution and color harmony.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "656f53497d78c12f3f0fc68b": {
+    "ts": "2026-06-24T11:26:56.888114",
+    "collection": "glyph",
+    "title": "BKS Glyph Clover™ Pullover Hoodie",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ba2dbc3bc3cdaf7fc23fb",
+      "areas_replaced": 10,
+      "template_used": "bks_glyph_0fc68b_1782246453342.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with excellent geometric precision and color mastery.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "668ec766d8a995e44b02adba": {
+    "ts": "2026-06-23T20:49:39.910771",
+    "collection": "pulse",
+    "title": "BKS Pulse Burst™ Racerback Dress",
+    "visible": true,
+    "status": "restored_phase1",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ad52fc7852a6c70908c4e",
+      "areas_replaced": 5,
+      "template_used": "bks_pulse_02adba_1782239795159.png",
+      "bks_score": 20,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Strong design but requires better alignment with BKS color harmony and mood.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    },
+    "restored_image_id": "6a3b93b966f57acbf23f4d3d"
+  },
+  "6a1d9e468b2f35aed00e5e57": {
+    "ts": "2026-06-24T10:40:51.704026",
+    "collection": "flag",
+    "title": "BKS Flag Soleil™ Sneakers",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3b980c137b1cc8db6584a3",
+      "areas_replaced": 4,
+      "template_used": "bks_flag_0e5e57_1782250847957.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with minor execution adjustments needed.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "6574b70e7c643fb64d0db17b": {
+    "ts": "2026-06-23T22:20:01.791914",
+    "collection": "glyph",
+    "title": "BKS Glyph City™ Hawaiian Shirt",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3aea67b59fa6368298f60f",
+      "areas_replaced": 11,
+      "template_used": "bks_glyph_0db17b_1782245500033.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong execution with clear BKS identity and inventive design.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 5,
+        "commercial": 4
+      }
+    }
+  },
+  "6a1dd048b4d76d22050a91aa": {
+    "ts": "2026-06-23T20:10:33.832433",
+    "collection": "unknown",
+    "title": "BKS Abyss™ Sneakers",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3acc1462d37834a3aa7b33",
+      "areas_replaced": 4,
+      "template_used": "bks_glyph_0a91aa_1782237431460.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong execution with harmonious size and color balance.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 5,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65f8974b4c0c445f6d09805e": {
+    "ts": "2026-06-23T21:44:44.897002",
+    "collection": "hours",
+    "title": "BKS Hours Press™ Racerback Dress",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae22661ffa053150260fe",
+      "areas_replaced": 4,
+      "template_used": "bks_hours_09805e_1782243152601.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with excellent execution and commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 5,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6521ab02de363402b307bb37": {
+    "ts": "2026-06-23T23:02:47.014377",
+    "collection": "flag",
+    "title": "BKS Flag Signal™ Sneakers",
+    "visible": false,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3af47293fa738582b60d96",
+      "areas_replaced": 7,
+      "template_used": "bks_flag_07bb37_1782247978755.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with excellent color harmony but average commercial appeal.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "65f226410d29a003ed0f982b": {
+    "ts": "2026-06-23T22:01:23.324440",
+    "collection": "marker",
+    "title": "BKS Marker Flux™ Racerback Dress",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae60cf1895b44ca0ffc4a",
+      "areas_replaced": 3,
+      "template_used": "bks_marker_0f982b_1782244278366.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity and balance; slightly improve color harmony.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "67a397080d6ae2b6260898bd": {
+    "ts": "2026-06-23T20:40:45.602786",
+    "collection": "hours",
+    "title": "BKS Hours Burl™ Women's Tee",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ad327c7852a6c70908b7f",
+      "areas_replaced": 5,
+      "template_used": "bks_hours_0898bd_1782239313821.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong alignment with BKS Hours' mood and technical expectations.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "66c38f517d0c2c65d7013b5c": {
+    "ts": "2026-06-23T20:47:18.390019",
+    "collection": "token",
+    "title": "BKS Token Circuit™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ad4b0713a8e0d762ee6ac",
+      "areas_replaced": 3,
+      "template_used": "bks_token_013b5c_1782239675621.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Vibrant, arcade-inspired design with strong identity and good commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65f21c820f5263fd440dc27c": {
+    "ts": "2026-06-23T22:06:03.828695",
+    "collection": "token",
+    "title": "BKS Token Grid™ Racerback Dress",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae725353bab3a4024bd4f",
+      "areas_replaced": 6,
+      "template_used": "bks_token_0dc27c_1782244592675.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and color mastery, but invention could be enhanced.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "66f9a76b675c90dfec070ce5": {
+    "ts": "2026-06-23T20:44:17.049853",
+    "collection": "glyph",
+    "title": "BKS Glyph Circuit™ Pullover Hoodie",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ad3eb5520ef76e28f3b05",
+      "areas_replaced": 5,
+      "template_used": "bks_glyph_070ce5_1782239484649.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity with excellent color coherence, though innovation could be improved.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "6555042caaa821258a0c6643": {
+    "ts": "2026-06-23T22:39:38.590350",
+    "collection": "glyph",
+    "title": "BKS Glyph Net™ Backpack",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3aef05f9970bff5d514d99",
+      "areas_replaced": 6,
+      "template_used": "bks_glyph_0c6643_1782246630101.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS alignment with distinct style and viable commercial design.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 5,
+        "commercial": 4
+      }
+    }
+  },
+  "6582b43aace58ff3960638ef": {
+    "ts": "2026-06-23T22:17:54.769877",
+    "collection": "marker",
+    "title": "BKS Marker Burst™ Backpack",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae9ea64a77f6bccfd6d6c",
+      "areas_replaced": 6,
+      "template_used": "bks_marker_0638ef_1782245357874.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with coherent colors, but slight adjustments in execution could enhance harmony.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6661f920b8e07c81cd031431": {
+    "ts": "2026-06-23T20:52:53.742329",
+    "collection": "flag",
+    "title": "BKS Flag Frame™ Windbreaker",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ad601e5df30a48752056d",
+      "areas_replaced": 36,
+      "template_used": "bks_flag_031431_1782239997231.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Striking geometric design with strong brand alignment but slightly limited commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "6602eee1f5238149c70bf7a5": {
+    "ts": "2026-06-24T11:04:41.907326",
+    "collection": "marker",
+    "title": "BKS Marker Stitch™ Lounge Pants",
+    "visible": true,
+    "status": "error",
+    "result": {
+      "status": "error",
+      "body": "OpenAI fallito: Error code: 400 - {'error': {'message': 'Your request was rejected by the safety system. If you believe this is an error, contact us at help.openai.com and include the request ID req_b40d247ccb5d49f6a"
+    }
+  },
+  "65f21e283e5593810603ea1b": {
+    "ts": "2026-06-23T22:04:21.381042",
+    "collection": "pulse",
+    "title": "BKS Pulse Coil™ Racerback Dress",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae6bf028f913a3d83da30",
+      "areas_replaced": 3,
+      "template_used": "bks_pulse_03ea1b_1782244457807.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and visual appeal, but consider slightly enhancing color brightness.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "656514d4dd4f1cb56c0b7a26": {
+    "ts": "2026-06-23T22:31:44.110304",
+    "collection": "marker",
+    "title": "ABKS Marker Shard™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3aed2b30dd7b1993152cbd",
+      "areas_replaced": 6,
+      "template_used": "bks_marker_0b7a26_1782246187647.png",
+      "bks_score": 23,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with excellent color mastery, harmonious element sizing.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 5
+      }
+    }
+  },
+  "655ba73834541723a90daeb7": {
+    "ts": "2026-06-24T11:31:56.560761",
+    "collection": "pulse",
+    "title": "BKS Pulse Meadow™ Backpack",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ba408fd228c618185e1a5",
+      "areas_replaced": 8,
+      "template_used": "bks_pulse_0daeb7_1782246939033.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong alignment with BKS Pulse and visually appealing.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65fd94bbd78870301201630c": {
+    "ts": "2026-06-23T21:39:40.631062",
+    "collection": "flag",
+    "title": "BKS Flag Apex™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae0f7713a8e0d762ef390",
+      "areas_replaced": 10,
+      "template_used": "bks_flag_01630c_1782242870898.png"
+    }
+  },
+  "69f5e23ae1b7b9b0b0086383": {
+    "ts": "2026-06-23T20:34:07.548873",
+    "collection": "unknown",
+    "title": "BKS Orbit™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ad199aea7e788da72c7e4",
+      "areas_replaced": 21,
+      "template_used": "bks_glyph_086383_1782238832768.png",
+      "bks_score": 20,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Palette needs adjustment for BKS glyph coherence.",
+      "bks_dims": {
+        "identity": 3,
+        "execution": 4,
+        "color": 3,
+        "invention": 5,
+        "commercial": 5
+      }
+    }
+  },
+  "651c86f077038d015b0c57f6": {
+    "ts": "2026-06-23T23:10:59.318931",
+    "collection": "origin",
+    "title": "BKS Folklore Tide™ Sneakers",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3af65858e18405af3b9ffc",
+      "areas_replaced": 0,
+      "template_used": "bks_origin_0c57f6_1782248394794.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Artwork aligns well with BKS Origin and holds commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 5
+      }
+    }
+  },
+  "65f709784a88d06b100826c0": {
+    "ts": "2026-06-23T21:48:44.954496",
+    "collection": "hours",
+    "title": "BKS Hours Plan™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae3185770a818fc5c2dac",
+      "areas_replaced": 6,
+      "template_used": "bks_hours_0826c0_1782243339363.png",
+      "bks_score": 23,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong match with BKS Hours' urban contemplative mood and technical precision.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 5,
+        "color": 4,
+        "invention": 5,
+        "commercial": 4
+      }
+    }
+  },
+  "65f354a8eb73ba772f09005b": {
+    "ts": "2026-06-23T21:57:41.935142",
+    "collection": "glyph",
+    "title": "BKS Glyph Patch™ One-Piece Swimsuit",
+    "visible": false,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae52e37b82c4b95050a8c",
+      "areas_replaced": 2,
+      "template_used": "bks_glyph_09005b_1782243942976.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong visual identity with minor execution enhancements for perfection.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65f315c234e7a1cb3a0a240b": {
+    "result": {
+      "status": "error",
+      "body": "reset_for_redesign_v14"
+    },
+    "ts": "2026-06-23T13:12:57.959966",
+    "status": "excluded",
+    "visible": true,
+    "collection": "folklore",
+    "title": "BKS Folklore Crew™ Racerback Dress"
+  },
+  "6612a1bff86efa0304061766": {
+    "ts": "2026-06-23T21:15:22.857620",
+    "collection": "flag",
+    "title": "BKS Flag Orbit™ Racerback Dress",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3adb3f5520ef76e28f414c",
+      "areas_replaced": 2,
+      "template_used": "bks_flag_061766_1782241236214.png"
+    }
+  },
+  "67fea4b3264b90fb1c1001d2": {
+    "ts": "2026-06-23T20:37:54.227309",
+    "collection": "origin",
+    "title": "BKS Folklore Gilt™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ad27cebe762d3fa2e42cf",
+      "areas_replaced": 12,
+      "template_used": "bks_origin_1001d2_1782239118764.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong design with fitting mood and colors, ideal for garment application.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 5,
+        "commercial": 4
+      }
+    }
+  },
+  "6661e189db3825a40e0cee4c": {
+    "ts": "2026-06-23T20:57:06.882521",
+    "collection": "flag",
+    "title": "BKS Flag Clash™ Windbreaker",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ad6fdfc19843a2bfe854f",
+      "areas_replaced": 20,
+      "template_used": "bks_flag_0cee4c_1782240265312.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with vibrant color and coherent design.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65369abd87ddabc50b0a4689": {
+    "ts": "2026-06-23T22:55:21.744708",
+    "collection": "glyph",
+    "title": "BKS Glyph Lattice™ Sneakers",
+    "visible": false,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3af2b42cb5ef1932c1aaac",
+      "areas_replaced": 4,
+      "template_used": "bks_glyph_0a4689_1782247598186.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong geometric design with good color balance and commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6661b48041b44b5a8e0b0c89": {
+    "ts": "2026-06-23T23:18:45.746341",
+    "collection": "pulse",
+    "title": "BKS Pulse Blush™ Windbreaker",
+    "visible": false,
+    "status": "no_design",
+    "result": {
+      "status": "no_design",
+      "body": "Worker: nessun template per questo prodotto"
+    }
+  },
+  "67fea781fb08073efd06f006": {
+    "ts": "2026-06-23T20:36:07.543784",
+    "collection": "riviera",
+    "title": "BKS Riviera Crest™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ad212d6b61c698281e3f9",
+      "areas_replaced": 27,
+      "template_used": "bks_riviera_06f006_1782238997671.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong Mediterranean feel with good color use and commercial appeal.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6a2a5d8e9e369b8a080c1a54": {
+    "ts": "2026-06-23T19:52:53.871718",
+    "collection": "hours",
+    "title": "BKS Hours Pane™ Lounge Pants",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ac7ed03975585fa0e9e5c",
+      "areas_replaced": 5,
+      "template_used": "bks_hours_0c1a54_1782236269083.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity with cohesive execution and commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "66378746aa85bbd7800f5680": {
+    "ts": "2026-06-23T21:08:26.320777",
+    "collection": "riviera",
+    "title": "BKS Riviera Blocks™ Athletic Long Shorts",
+    "visible": false,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ad9a37a1ceb32cf47c9d2",
+      "areas_replaced": 6,
+      "template_used": "bks_riviera_0f5680_1782240838194.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS Riviera match with good color harmony and commercial appeal.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65f22a78d13c8ac032024dea": {
+    "ts": "2026-06-24T11:14:18.373631",
+    "collection": "marker",
+    "title": "BKS Marker Tag™ Racerback Dress",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3b9fe0a2dc8cfc08855e52",
+      "areas_replaced": 4,
+      "template_used": "bks_marker_024dea_1782244820333.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Excellent mood and strong execution with slight color imbalance.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6a1060eaebc1f93268028718": {
+    "ts": "2026-06-24T10:44:44.094370",
+    "collection": "unknown",
+    "title": "BKS Digital Citizens™ - Low Top Sneakers",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b98f611785857d14aa621",
+      "areas_replaced": 6,
+      "template_used": "bks_glyph_028718_1782251141742.png",
+      "bks_score": 17,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Adjust color palette and brightness for better alignment with BKS glyph standards.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 3,
+        "invention": 3,
+        "commercial": 3
+      }
+    }
+  },
+  "65f71310d58dff0fe00d5695": {
+    "ts": "2026-06-23T21:47:38.355565",
+    "collection": "pulse",
+    "title": "BKS Pulse Rush™ Backpack",
+    "visible": false,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae2bbe5df30a487520d67",
+      "areas_replaced": 11,
+      "template_used": "bks_pulse_0d5695_1782243255446.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with precise execution and vibrant color use, though commercial appeal could be broader.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 5,
+        "color": 4,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "67a394b80d6ae2b626089850": {
+    "ts": "2026-06-23T20:42:38.679032",
+    "collection": "riviera",
+    "title": "BKS Riviera Bloom™ Women's Tee",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ad398840cf58464a9a4e5",
+      "areas_replaced": 12,
+      "template_used": "bks_riviera_089850_1782239430533.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with vibrant Mediterranean feel, minor detail adjustments needed.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "65369326770a3c0dae094386": {
+    "ts": "2026-06-23T22:56:23.698381",
+    "collection": "riviera",
+    "title": "BKS Riviera Sage™ Travel Bag",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3af2f230dd7b1993153229",
+      "areas_replaced": 8,
+      "template_used": "bks_riviera_094386_1782247664407.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong color mastery and commercial appeal with minor identity alignment needed.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 5
+      }
+    }
+  },
+  "69fe661eb639fab5c10826b5": {
+    "ts": "2026-06-23T20:25:18.357340",
+    "collection": "token",
+    "title": "KS Token Shield™ Windbreaker Jacket",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3acf85ebe762d3fa2e4150",
+      "areas_replaced": 31,
+      "template_used": "bks_token_0826b5_1782238332607.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with vibrant color and retro mood, suitable for market.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6612a5ca1df35e3cd006830a": {
+    "ts": "2026-06-24T11:01:06.856424",
+    "collection": "riviera",
+    "title": "BKS Riviera Tile™ Racerback Dress",
+    "visible": false,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b9ccd096bc9fbef42f060",
+      "areas_replaced": 3,
+      "template_used": "bks_riviera_06830a_1782242059794.png",
+      "bks_score": 17,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Strong identity but color and execution need refinement.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 3,
+        "color": 3,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "6661f18c606ff0ad350c7dc8": {
+    "ts": "2026-06-24T10:51:33.741696",
+    "collection": "origin",
+    "title": "BKS Folklore Field™ Windbreaker",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3b9a904be2910defc564c8",
+      "areas_replaced": 23,
+      "template_used": "bks_origin_0c7dc8_1782240890106.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with harmonious botanical design and balanced colors.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "660fe68a233b837241095423": {
+    "ts": "2026-06-23T21:19:49.914656",
+    "collection": "token",
+    "title": " BKS Token Vault™ Windbreaker Jacket",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3adc4cad9a968b9acbaa89",
+      "areas_replaced": 23,
+      "template_used": "bks_token_095423_1782241511157.png"
+    }
+  },
+  "6649dbab2a5a72d20e05cff8": {
+    "ts": "2026-06-24T10:56:22.912793",
+    "collection": "flag",
+    "title": "BKS Flag Meridian™ Pullover Hoodie",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3b9bb276882d33b9e2fb1e",
+      "areas_replaced": 8,
+      "template_used": "bks_flag_05cff8_1782241269701.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and color, slightly off execution in size harmony.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6611749a1bfdfbddb10c2e9c": {
+    "ts": "2026-06-23T21:17:54.788596",
+    "collection": "marker",
+    "title": "BKS Marker Knot™ Lounge Pants",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3adbdba6f8477131344ed3",
+      "areas_replaced": 7,
+      "template_used": "bks_marker_0c2e9c_1782241387619.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong expressionist style with coherent palette, suitable for garment use.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65f21d6266b030c2720a9a61": {
+    "ts": "2026-06-24T11:16:54.008615",
+    "collection": "flag",
+    "title": "BKS Flag Prism™ Racerback Dress",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ba07e0c0ae2acf52368bc",
+      "areas_replaced": 5,
+      "template_used": "bks_flag_0a9a61_1782245102220.png",
+      "bks_score": 18,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Refine execution for better visual harmony.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 3,
+        "color": 4,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "6526aa901f911751010c2164": {
+    "ts": "2026-06-23T23:00:57.096463",
+    "collection": "marker",
+    "title": "BKS Marker Gesture™ Sneakers",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3af40478f17ab8543f39f1",
+      "areas_replaced": 5,
+      "template_used": "bks_marker_0c2164_1782247866136.png"
+    }
+  },
+  "6a1d799a291037b8c603e328": {
+    "ts": "2026-06-24T10:43:02.313537",
+    "collection": "glyph",
+    "title": "BKS Glyph Fracture™ Sneakers",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b988e137b1cc8db6584b9",
+      "areas_replaced": 5,
+      "template_used": "bks_glyph_03e328_1782250946149.png",
+      "bks_score": 17,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Design needs clearer geometric precision and stronger BKS identity alignment.",
+      "bks_dims": {
+        "identity": 3,
+        "execution": 3,
+        "color": 4,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "653feca9a0c7afd7f10278f7": {
+    "ts": "2026-06-24T11:32:47.432604",
+    "collection": "glyph",
+    "title": "BKS Glyph Relief™ Travel Bag",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ba43bc24235dab1a918f7",
+      "areas_replaced": 4,
+      "template_used": "bks_glyph_0278f7_1782247689809.png",
+      "bks_score": 18,
+      "bks_decision": "REJECT",
+      "bks_feedback": "The artwork partially aligns with BKS glyph identity but lacks clear coherence in execution.",
+      "bks_dims": {
+        "identity": 3,
+        "execution": 3,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "663cf49b451b33cbd50b7d7a": {
+    "ts": "2026-06-24T10:57:30.710333",
+    "collection": "token",
+    "title": "BKS Token Volt™ Sneakers",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b9bf1bb1bff3eba5c103e",
+      "areas_replaced": 20,
+      "template_used": "bks_token_0b7d7a_1782241573637.png",
+      "bks_score": 19,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with effective retro neon style, but invention can improve.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 3,
+        "commercial": 3
+      }
+    }
+  },
+  "65fd9147edb1f388c104dadf": {
+    "ts": "2026-06-23T21:40:43.373518",
+    "collection": "token",
+    "title": "BKS Token Iso™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae136ad9a968b9acbaea8",
+      "areas_replaced": 7,
+      "template_used": "bks_token_04dadf_1782242927462.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and color mastery with original elements suitable for a garment.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "69f67e2e15b42c15280c7a05": {
+    "ts": "2026-06-23T20:30:52.994953",
+    "collection": "flag",
+    "title": "BKS Flag Patch™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ad0d7ad9a968b9acb9e9d",
+      "areas_replaced": 3,
+      "template_used": "bks_flag_0c7a05_1782238660821.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and commercial potential with minor execution adjustments needed.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 5
+      }
+    }
+  },
+  "663cfc06396370f96206e47a": {
+    "ts": "2026-06-23T21:04:09.723058",
+    "collection": "hours",
+    "title": "BKS Hours Cipher™ Sneakers",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ad8a4dbb0818113fc2a5c",
+      "areas_replaced": 21,
+      "template_used": "bks_hours_06e47a_1782240631797.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with good execution, but minor color improvements possible.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "66f992e209ce4030ab03ced7": {
+    "ts": "2026-06-24T10:50:41.786402",
+    "collection": "pulse",
+    "title": "BKS Pulse Swell™ Pullover Hoodie",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b9a5176882d33b9e2f9dc",
+      "areas_replaced": 6,
+      "template_used": "bks_pulse_03ced7_1782240308346.png",
+      "bks_score": 18,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Solid but color needs refinement to align with BKS Pulse.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 3,
+        "color": 3,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "67fea2afee04c42ae609082c": {
+    "ts": "2026-06-23T20:39:48.990045",
+    "collection": "unknown",
+    "title": "BKS Route™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ad2f0e7f50a041cedaef5",
+      "areas_replaced": 12,
+      "template_used": "bks_glyph_09082c_1782239241024.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity and execution with commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 5,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6a2581a31180303054016930": {
+    "ts": "2026-06-24T10:38:37.179623",
+    "collection": "marker",
+    "title": "BKS Marker City™ Athletic Long Shorts",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3b97854589b588d7100193",
+      "areas_replaced": 8,
+      "template_used": "bks_marker_016930_1782289955290.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and mood fit with good commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "6a15a69056ded98cbb02c912": {
+    "ts": "2026-06-24T10:43:51.412248",
+    "collection": "riviera",
+    "title": "BKS Riviera Weave™ Athletic Long Shorts",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b98c3096bc9fbef42ee76",
+      "areas_replaced": 4,
+      "template_used": "bks_riviera_02c912_1782251022092.png",
+      "bks_score": 17,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Needs improvement in execution for better harmony and placement.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 3,
+        "color": 4,
+        "invention": 3,
+        "commercial": 3
+      }
+    }
+  },
+  "65f356105b2513e70e01491e": {
+    "ts": "2026-06-23T21:56:19.047475",
+    "collection": "glyph",
+    "title": "BKS Glyph Crust™ One-Piece Swimsuit",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae4de353bab3a4024bb13",
+      "areas_replaced": 3,
+      "template_used": "bks_glyph_01491e_1782243824227.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong geometric style with cohesive color palette, though some elements could be better integrated.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "66c388f16b148589b707d27e": {
+    "ts": "2026-06-23T20:48:28.838693",
+    "collection": "riviera",
+    "title": "BKS Riviera Weave™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ad4f1d6b61c698281e730",
+      "areas_replaced": 2,
+      "template_used": "bks_riviera_07d27e_1782239732878.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS Riviera identity with harmonious and vibrant colors, suitable for swimwear.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65fdf9bcff84f8c5d8054f40": {
+    "ts": "2026-06-23T21:34:40.798244",
+    "collection": "glyph",
+    "title": "BKS Glyph Shade™ Lounge Pants",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3adfcc989905bed0076406",
+      "areas_replaced": 5,
+      "template_used": "bks_glyph_054f40_1782242573153.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and originality with good commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 5,
+        "commercial": 4
+      }
+    }
+  },
+  "658c6d6d79ea80d1f308ca43": {
+    "ts": "2026-06-23T22:15:24.717647",
+    "collection": "token",
+    "title": "BKS Token Rune™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae957f1895b44ca0ffe2b",
+      "areas_replaced": 73,
+      "template_used": "bks_token_08ca43_1782245181210.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and execution with vibrant colors; commercially viable design.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6604431f85f4432d7907084a": {
+    "ts": "2026-06-23T21:26:36.709593",
+    "collection": "marker",
+    "title": "BKS Marker Torrent™ Pullover Hoodie",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3adde05770a818fc5c2835",
+      "areas_replaced": 8,
+      "template_used": "bks_marker_07084a_1782241961649.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong execution with cohesive color and expressive brushwork fits BKS identity.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 5,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6a0a3e67d424404741015461": {
+    "ts": "2026-06-23T20:19:50.166004",
+    "collection": "pulse",
+    "title": "BKS Pulse Grid™ Lounge Pants",
+    "visible": true,
+    "status": "restored_phase1",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ace3fdbb0818113fc2418",
+      "areas_replaced": 5,
+      "template_used": "bks_pulse_015461_1782238000614.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong alignment with BKS Pulse identity and commercial appeal, with minor improvements possible.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 5
+      }
+    },
+    "restored_image_id": "6a3b93bfc5e6672c1de522ab"
+  },
+  "65f606e0e4991ff60108b4eb": {
+    "ts": "2026-06-23T21:50:45.558713",
+    "collection": "marker",
+    "title": "BKS Marker Scrawl™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae38ee5df30a487520d8c",
+      "areas_replaced": 7,
+      "template_used": "bks_marker_08b4eb_1782243464589.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with excellent color harmony and originality.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6a244a1f8ca6675818034b8a": {
+    "ts": "2026-06-23T20:07:15.365768",
+    "collection": "pulse",
+    "title": "BKS Pulse Arrow™ Flip Flop",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3acb4c62d37834a3aa7af2",
+      "areas_replaced": 21,
+      "template_used": "bks_pulse_034b8a_1782237219530.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong optical kinetic mood with excellent color mastery and commercial appeal.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6a257de038707c982f106172": {
+    "ts": "2026-06-24T10:39:57.415843",
+    "collection": "flag",
+    "title": "BKS Flag Drop™ Athletic Long Shorts",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3b97d9a69f31dc69e6a559",
+      "areas_replaced": 7,
+      "template_used": "bks_flag_106172_1782250683639.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong alignment with BKS identity; consider slight color adjustment for vibrant pop.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65f22d2484401d0f0e0cf493": {
+    "result": {
+      "status": "error",
+      "body": "reset_for_redesign_v14"
+    },
+    "ts": "2026-06-23T13:17:27.457925",
+    "status": "excluded",
+    "visible": true,
+    "collection": "folklore",
+    "title": "BKS Folklore Citadel™ Racerback Dress"
+  },
+  "657460def1caeeaec305dbfd": {
+    "ts": "2026-06-24T11:24:06.080181",
+    "collection": "glyph",
+    "title": "BKS Glyph Deco™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ba231c3bc3cdaf7fc23bb",
+      "areas_replaced": 8,
+      "template_used": "bks_glyph_05dbfd_1782246215290.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong geometric design with excellent color palette and commercial appeal.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65f33d836a152dce260c5954": {
+    "ts": "2026-06-24T11:13:28.314647",
+    "collection": "glyph",
+    "title": "BKS Glyph Fold™ One-Piece Swimsuit",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b9fb04632c99c6dd060cc",
+      "areas_replaced": 2,
+      "template_used": "bks_glyph_0c5954_1782244741252.png",
+      "bks_score": 19,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Color harmony needs improvement; ensure brightness meets collection standards.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 3,
+        "color": 3,
+        "invention": 4,
+        "commercial": 5
+      }
+    }
+  },
+  "651f3b7691a9771a560ac91d": {
+    "ts": "2026-06-23T23:04:19.197338",
+    "collection": "pulse",
+    "title": "BKS Pulse Hex™ Sneakers",
+    "visible": true,
+    "status": "restored_phase1",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3af4ceed0d9e1e4ca816ce",
+      "areas_replaced": 4,
+      "template_used": "bks_pulse_0ac91d_1782248085667.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity and commercial appeal with minor execution refinements needed.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    },
+    "restored_image_id": "6a3b93c3137b1cc8db6582d0"
+  },
+  "65fdfbc12b06ae4662025d1a": {
+    "ts": "2026-06-23T21:33:39.122620",
+    "collection": "glyph",
+    "title": "BKS Glyph Cube™ Lounge Pants",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3adf8d713a8e0d762ef2bc",
+      "areas_replaced": 5,
+      "template_used": "bks_glyph_025d1a_1782242506255.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity with minor size and color improvements needed.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65ec487e7a2b9c24590ac15b": {
+    "ts": "2026-06-24T11:18:55.333463",
+    "collection": "marker",
+    "title": "BKS Marker Glow™ Swim Trunks",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ba0f8f6b277e72902b96e",
+      "areas_replaced": 6,
+      "template_used": "bks_marker_0ac15b_1782245333981.png",
+      "bks_score": 18,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Color mastery needs adjustment for brightness and harmony.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 3,
+        "color": 3,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "67fea99759c84794070cfa66": {
+    "ts": "2026-06-23T20:35:01.946227",
+    "collection": "origin",
+    "title": "BKS Folklore Lacquer™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ad1d0af958677afa8f9c7",
+      "areas_replaced": 33,
+      "template_used": "bks_origin_0cfa66_1782238940365.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with harmonious execution and market appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6536a71f8c8b7c97940efe96": {
+    "ts": "2026-06-24T11:35:50.002927",
+    "collection": "marker",
+    "title": "BKS Marker Face™ Travel Bag",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ba4ef88335ad1e0d13206",
+      "areas_replaced": 6,
+      "template_used": "bks_marker_0efe96_1782247879306.png",
+      "bks_score": 18,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Solid execution with a cohesive palette, but commercial viability could be stronger.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 3,
+        "commercial": 3
+      }
+    }
+  },
+  "651fd0fc4291488291023a61": {
+    "ts": "2026-06-23T23:03:28.098320",
+    "collection": "flag",
+    "title": "BKS Flag Arc™ Sneakers",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3af49b5f849954dbe376c2",
+      "areas_replaced": 4,
+      "template_used": "bks_flag_023a61_1782248023210.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with bold color and solid commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "654ec90f6368bc4f9e0d8d8c": {
+    "ts": "2026-06-23T22:46:23.346529",
+    "collection": "flag",
+    "title": "BKS Flag Cord™ Travel Bag",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3af09958e18405af3b9c5b",
+      "areas_replaced": 15,
+      "template_used": "bks_flag_0d8d8c_1782247078195.png"
+    }
+  },
+  "66042851892b75682600c8bd": {
+    "ts": "2026-06-23T21:28:40.413692",
+    "collection": "marker",
+    "title": "BKS Marker Prism™ Pullover Hoodie",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ade5f5cd1abad3a58a2fd",
+      "areas_replaced": 10,
+      "template_used": "bks_marker_00c8bd_1782242195126.png"
+    }
+  },
+  "6536a3f05e765cb9cf0880fa": {
+    "ts": "2026-06-24T11:36:58.510240",
+    "collection": "hours",
+    "title": "BKS Hours Visage™ Travel Bag",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ba5361ac4a440f27bac23",
+      "areas_replaced": 4,
+      "template_used": "bks_hours_0880fa_1782248012043.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong design with minor improvements for commercial appeal.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 5,
+        "color": 4,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "6a1ed9a6bb4de366c9055250": {
+    "ts": "2026-06-23T20:08:29.702923",
+    "collection": "pulse",
+    "title": "Pulse Grid™ Travel Bag",
+    "visible": true,
+    "status": "restored_phase1",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3acb814b5c54116459cc6e",
+      "areas_replaced": 8,
+      "template_used": "bks_pulse_055250_1782237273323.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with good color harmony and commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 5,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    },
+    "restored_image_id": "6a3b93c7137b1cc8db6582e3"
+  },
+  "6648eb848d21075a9e082535": {
+    "ts": "2026-06-23T21:03:09.044959",
+    "collection": "pulse",
+    "title": "BKS Pulse Flux™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ad868843a243123d17f9f",
+      "areas_replaced": 7,
+      "template_used": "bks_pulse_082535_1782240582684.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong integration with BKS Pulse and appealing design for modern buyers.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 5,
+        "commercial": 4
+      }
+    }
+  },
+  "65f1a8d1ed00a81c7a048cc4": {
+    "ts": "2026-06-24T11:17:55.002807",
+    "collection": "flag",
+    "title": "BKS Flag Patch™ Racerback Dress",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ba0baa2dc8cfc08855ebc",
+      "areas_replaced": 2,
+      "template_used": "bks_flag_048cc4_1782245269066.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong design with vivid colors and identity match, suitable for the collection.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6a1ddcd53dd1b31f700d50cf": {
+    "ts": "2026-06-23T20:09:36.220386",
+    "collection": "origin",
+    "title": "BKS Folklore Bloom™ Sneakers",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3acbd6dbb0818113fc222b",
+      "areas_replaced": 9,
+      "template_used": "bks_origin_0d50cf_1782237374025.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with harmonious botanical elements and color palette.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 5
+      }
+    }
+  },
+  "6a1d7cb66d9987e14104ab24": {
+    "ts": "2026-06-24T10:42:09.749824",
+    "collection": "riviera",
+    "title": "BKS Riviera Argyle™ Sneakers",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b985abe397264a78d8c02",
+      "areas_replaced": 4,
+      "template_used": "bks_riviera_04ab24_1782250893911.png",
+      "bks_score": 19,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Strong identity and color use, but needs better execution on element sizing.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 3,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6a293e1abbf0294ff40c029d": {
+    "ts": "2026-06-23T19:53:52.605069",
+    "collection": "flag",
+    "title": "BKS Flag Burst™ One-Piece Swimsuit",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ac823af958677afa8f43c",
+      "areas_replaced": 7,
+      "template_used": "bks_flag_0c029d_1782236393978.png"
+    }
+  },
+  "6587f516ffd55a59a8015d4a": {
+    "ts": "2026-06-23T22:16:59.737349",
+    "collection": "unknown",
+    "title": "BKS Scale™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae9b355ed6244c9c9f27d",
+      "areas_replaced": 13,
+      "template_used": "bks_glyph_015d4a_1782245298007.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with excellent commercial potential.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 5
+      }
+    }
+  },
+  "6607c1f46aae7d484307c547": {
+    "ts": "2026-06-23T21:21:00.336052",
+    "collection": "pulse",
+    "title": "BKS Pulse Surge™ Swim Trunks",
+    "visible": true,
+    "status": "restored_phase1",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3adc90e7f50a041cedbea1",
+      "areas_replaced": 3,
+      "template_used": "bks_pulse_07c547_1782241590035.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Design matches BKS Pulse mood and is visually appealing.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    },
+    "restored_image_id": "6a3b93cb4be2910defc55c95"
+  },
+  "6a2570faad1d6c20330250fe": {
+    "ts": "2026-06-23T19:57:43.601609",
+    "collection": "glyph",
+    "title": "BKS Glyph Blueprint™ Athletic Long Shorts",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ac9137b03c99a6ad901cf",
+      "areas_replaced": 10,
+      "template_used": "bks_glyph_0250fe_1782236643597.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and color mastery, with minor improvements needed in size harmony.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "65528c01e3917900fb015abf": {
+    "ts": "2026-06-23T22:40:31.673497",
+    "collection": "riviera",
+    "title": "BKS Riviera Vault™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3aef39028f913a3d83e2bf",
+      "areas_replaced": 7,
+      "template_used": "bks_riviera_015abf_1782246689684.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong alignment with BKS Riviera's Mediterranean theme, but commercial viability could improve.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "6a0a3591eeb1cc67a708362c": {
+    "ts": "2026-06-23T20:20:48.092660",
+    "collection": "marker",
+    "title": "BKS Marker Flow™ Lounge Pants",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ace7362d37834a3aa7c51",
+      "areas_replaced": 8,
+      "template_used": "bks_marker_08362c_1782238058470.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong alignment with BKS Marker identity and commercial potential.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6536a86e8e8f7ad60d0d8a71": {
+    "ts": "2026-06-24T11:34:46.489115",
+    "collection": "marker",
+    "title": "BKS Marker Collage™ Travel Bag",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ba4b18fec4af59e645eb2",
+      "areas_replaced": 4,
+      "template_used": "bks_marker_0d8a71_1782247817063.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong original expression consistent with BKS Marker mood.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 5,
+        "commercial": 4
+      }
+    }
+  },
+  "6661e37cc7d9f8b0c1071e7c": {
+    "ts": "2026-06-24T10:52:33.141662",
+    "collection": "glyph",
+    "title": "BKS Glyph Orbit™ Windbreaker",
+    "visible": false,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b9acc11785857d14aa71c",
+      "areas_replaced": 24,
+      "template_used": "bks_glyph_071e7c_1782240973890.png",
+      "bks_score": 18,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Design needs better color harmony and execution balance.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 3,
+        "color": 3,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6a00f1104ba2ff981a031032": {
+    "ts": "2026-06-24T10:45:48.971107",
+    "collection": "origin",
+    "title": "BKS Folklore Totem™ Swim Trunks",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b992ebe397264a78d8d1c",
+      "areas_replaced": 5,
+      "template_used": "bks_origin_031032_1782238954529.png",
+      "bks_score": 18,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Solid design with BKS essence but needs better element balance and execution.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 3,
+        "color": 4,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "66045ea178c06dd0080f39d4": {
+    "ts": "2026-06-23T21:23:44.993357",
+    "collection": "origin",
+    "title": "BKS Folklore Panel™ Lounge Pants",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3add3a989905bed0076245",
+      "areas_replaced": 5,
+      "template_used": "bks_origin_0f39d4_1782241779097.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong mood alignment with BKS theme; slight refinement on color harmony advised.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6587f8cf11b3fd24380aac8a": {
+    "ts": "2026-06-23T22:16:26.203421",
+    "collection": "unknown",
+    "title": "BKS Fawn™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae9920590b295e6c4fe64",
+      "areas_replaced": 9,
+      "template_used": "bks_glyph_0aac8a_1782245239243.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and design with excellent commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 5
+      }
+    }
+  },
+  "6a2544f48ca667581803f49b": {
+    "ts": "2026-06-23T23:39:11.579832",
+    "collection": "hours",
+    "title": "BKS Hours Brocade™ Athletic Long Shorts",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3afcf8ca55d90d2ad74f7f",
+      "areas_replaced": 5,
+      "template_used": "bks_hours_03f49b_1782237500203.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong artistic style with good commercial appeal.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 5,
+        "commercial": 4
+      }
+    }
+  },
+  "6551fcb26b55e9ca5b077967": {
+    "ts": "2026-06-23T22:41:38.884776",
+    "collection": "origin",
+    "title": "BKS Folklore Shoal Mint™ Pullover Hoodie",
+    "visible": false,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3aef7e5f849954dbe374b5",
+      "areas_replaced": 10,
+      "template_used": "bks_origin_077967_1782246778826.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with cohesive design and suitable color palette.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "651da2a15f96edee4c095246": {
+    "ts": "2026-06-23T23:10:05.986128",
+    "collection": "riviera",
+    "title": "BKS Riviera Stripe™ Travel Bag",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3af62078f17ab8543f3c36",
+      "areas_replaced": 0,
+      "template_used": "bks_riviera_095246_1782248343795.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong alignment with BKS Riviera; balanced design with good commercial appeal.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 5
+      }
+    }
+  },
+  "656d0337424c319d4f047080": {
+    "ts": "2026-06-23T22:30:23.197097",
+    "collection": "unknown",
+    "title": "BKS Solar Tribe™ Flip Flops",
+    "visible": false,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3aecda8e83353029337d51",
+      "areas_replaced": 3,
+      "template_used": "bks_glyph_047080_1782246116290.png"
+    }
+  },
+  "6533facb4e697bffbb0f71e9": {
+    "ts": "2026-06-23T23:00:05.691431",
+    "collection": "token",
+    "title": "BKS Token Prism™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3af3cec576acd3fac3b21b",
+      "areas_replaced": 3,
+      "template_used": "bks_token_0f71e9_1782247818483.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong alignment with BKS aesthetic and commercial appeal, though element arrangement could improve.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "662cce043eb603f2330fcb15": {
+    "ts": "2026-06-23T21:11:27.222127",
+    "collection": "origin",
+    "title": "BKS Folklore Flutter™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ada58fc19843a2bfe8699",
+      "areas_replaced": 3,
+      "template_used": "bks_origin_0fcb15_1782241000459.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Solid BKS aesthetic with harmonious design and appealing commercial potential.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "6551006a7bc6b8b9a902133c": {
+    "ts": "2026-06-23T22:43:32.481111",
+    "collection": "origin",
+    "title": "BKS Folklore Shoal Deep™ Pullover Hoodie",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3aefeeb41dec653019a29c",
+      "areas_replaced": 10,
+      "template_used": "bks_origin_02133c_1782246906782.png"
+    }
+  },
+  "69f660079110dda910061121": {
+    "ts": "2026-06-23T20:31:44.420780",
+    "collection": "hours",
+    "title": "BKS Hours Walker™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ad10b47da24397504122a",
+      "areas_replaced": 10,
+      "template_used": "bks_hours_061121_1782238725433.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with balanced composition and mood.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "69f8b680adcc49d563068a16": {
+    "ts": "2026-06-24T10:48:28.819423",
+    "collection": "origin",
+    "title": "BKS Folklore Pelican™ Hawaiian Shirt",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b99bd11785857d14aa682",
+      "areas_replaced": 9,
+      "template_used": "bks_origin_068a16_1782239293510.png",
+      "bks_score": 18,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Refinement needed in element scale and placement for harmonious design.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 3,
+        "color": 4,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "65fd9d6a67b07c717604e52c": {
+    "ts": "2026-06-24T11:07:01.037570",
+    "collection": "unknown",
+    "title": "BKS Weft™ Puffer",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b9e2c498ae038935941ca",
+      "areas_replaced": 14,
+      "template_used": "bks_glyph_04e52c_1782243457949.png",
+      "bks_score": 16,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Color and identity need adjustment to better match BKS Glyph expectations.",
+      "bks_dims": {
+        "identity": 3,
+        "execution": 4,
+        "color": 3,
+        "invention": 3,
+        "commercial": 3
+      }
+    }
+  },
+  "651f294dcd91356f0604caeb": {
+    "ts": "2026-06-23T23:06:08.012208",
+    "collection": "flag",
+    "title": "BKS Flag Column™ Sneakers",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3af53674e2b9ffad8c25e3",
+      "areas_replaced": 4,
+      "template_used": "bks_flag_04caeb_1782248181346.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity with excellent color integration, suitable for product.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6661f5833934d91e800952b0": {
+    "ts": "2026-06-23T20:53:47.624014",
+    "collection": "riviera",
+    "title": "BKS Riviera Crest™ Windbreaker",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ad635c7852a6c70908dad",
+      "areas_replaced": 28,
+      "template_used": "bks_riviera_0952b0_1782240050531.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong design fitting the BKS Riviera mood with harmonious colors.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 5,
+        "color": 4,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "69f9cc09af1e4497af01246a": {
+    "ts": "2026-06-23T20:27:20.754275",
+    "collection": "origin",
+    "title": "BKS Folklore Effigy™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3acffc7447d0f17e1c08de",
+      "areas_replaced": 17,
+      "template_used": "bks_origin_01246a_1782238447851.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity and color mastery, with solid technical execution.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "66117de6f800b197a104680b": {
+    "ts": "2026-06-23T21:17:01.361883",
+    "collection": "origin",
+    "title": "BKS Folklore Rogue™ Backpack",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3adb867a1ceb32cf47cc67",
+      "areas_replaced": 8,
+      "template_used": "bks_origin_04680b_1782241299388.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong botanical abstraction with cohesive colors and balanced composition.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 5,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "663a6b01cc4f90b6450ac9fc": {
+    "ts": "2026-06-23T21:07:27.360507",
+    "collection": "token",
+    "title": "BKS Token Tin™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ad968ad9a968b9acba7e0",
+      "areas_replaced": 5,
+      "template_used": "bks_token_0ac9fc_1782240784198.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong neon geometric design fits the arcade retro theme well.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 5,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65f462c482aa45e34d065431": {
+    "ts": "2026-06-24T11:11:34.009609",
+    "collection": "marker",
+    "title": "BKS Marker Shatter™ One-Piece Swimsuit",
+    "visible": false,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3b9f3eba5e8b0186b26a3c",
+      "areas_replaced": 4,
+      "template_used": "bks_marker_065431_1782244402546.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and originality with good commercial potential, but slight color harmonization needed.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 5,
+        "commercial": 4
+      }
+    }
+  },
+  "660586892600aaf9a6008b0c": {
+    "ts": "2026-06-23T21:22:48.567950",
+    "collection": "flag",
+    "title": "BKS Flag Frame™ Lounge Pants",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3adcfec7852a6c7090934e",
+      "areas_replaced": 5,
+      "template_used": "bks_flag_008b0c_1782241724443.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong pop graphic with coherent color palette.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "66326d97f3d9023f31096cb7": {
+    "ts": "2026-06-24T10:59:20.839659",
+    "collection": "pulse",
+    "title": "BKS Pulse Vortex™ Racerback Dress",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3b9c64498ae03893593f1d",
+      "areas_replaced": 3,
+      "template_used": "bks_pulse_096cb7_1782241824086.png",
+      "bks_score": 19,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong mood and colors, fits BKS Pulse but lacks originality.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "65720221303fee950c033ceb": {
+    "ts": "2026-06-23T22:26:46.117085",
+    "collection": "marker",
+    "title": "BKS Marker Drip™ Puffer Jacket",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3aec0155ed6244c9c9f35a",
+      "areas_replaced": 7,
+      "template_used": "bks_marker_033ceb_1782245879280.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity and color mastery; minor adjustments could enhance originality.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "651f2f015d87d9747e040838": {
+    "ts": "2026-06-23T23:05:12.259736",
+    "collection": "marker",
+    "title": "BKS Marker Hybrid™ Sneakers",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3af5028ab24d640e511e94",
+      "areas_replaced": 8,
+      "template_used": "bks_marker_040838_1782248136881.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong adherence to brand identity with impressive color mastery.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "655fbc53a1d282af11043bc3": {
+    "ts": "2026-06-24T11:31:05.554981",
+    "collection": "origin",
+    "title": "BKS Folklore Petal™ Backpack",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ba3d41ac4a440f27baac9",
+      "areas_replaced": 9,
+      "template_used": "bks_origin_043bc3_1782246882033.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity with inventive botanical abstraction and cohesive color palette.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "657ca9511245a103bb0ea8b1": {
+    "ts": "2026-06-24T11:20:56.716460",
+    "collection": "origin",
+    "title": "BKS Folklore Arabesque™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ba1710c0ae2acf523696b",
+      "areas_replaced": 21,
+      "template_used": "bks_origin_0ea8b1_1782245922506.png"
+    }
+  },
+  "65720ba69b48d6a3f90f6c2a": {
+    "ts": "2026-06-24T11:25:01.546240",
+    "collection": "glyph",
+    "title": "BKS Glyph Mesh™ Puffer",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ba2670c0ae2acf52369f8",
+      "areas_replaced": 18,
+      "template_used": "bks_glyph_0f6c2a_1782246293333.png",
+      "bks_score": 15,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Mood and colors need refinement to align with BKS glyph standards.",
+      "bks_dims": {
+        "identity": 3,
+        "execution": 3,
+        "color": 3,
+        "invention": 3,
+        "commercial": 3
+      }
+    }
+  },
+  "6562717f06e92e0f8c03bd7c": {
+    "ts": "2026-06-24T11:29:40.474353",
+    "collection": "hours",
+    "title": "BKS Hours Prism™ Backpack",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ba38057c6f7fa4dbb1b6c",
+      "areas_replaced": 7,
+      "template_used": "bks_hours_03bd7c_1782246802264.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and technical execution; suitable for dark luxury theme.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6a253c988ca667581803f022": {
+    "ts": "2026-06-23T20:01:17.946009",
+    "collection": "origin",
+    "title": "BKS Folklore Bestiary™ Athletic Long Shorts",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ac9e4af958677afa8f5be",
+      "areas_replaced": 6,
+      "template_used": "bks_origin_03f022_1782236874056.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong representation of BKS Origin with harmonious color use and identity.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "65fda17c9fbbf5818203d6ad": {
+    "ts": "2026-06-23T21:36:52.568183",
+    "collection": "unknown",
+    "title": "BKS Scan™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae050c7852a6c709096be",
+      "areas_replaced": 7,
+      "template_used": "bks_glyph_03d6ad_1782242689454.png",
+      "bks_score": 24,
+      "bks_decision": "CAPSULE CANDIDATE",
+      "bks_feedback": "Strong identity and execution with excellent commercial appeal, though slight color adjustment warranted.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 5,
+        "color": 4,
+        "invention": 5,
+        "commercial": 5
+      }
+    }
+  },
+  "65e487d1dfb463a8790c6aec": {
+    "ts": "2026-06-23T22:12:11.411271",
+    "collection": "unknown",
+    "title": "BKS Lava Motion™ Flip Flops",
+    "visible": false,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae891a2da40156f69b837",
+      "areas_replaced": 5,
+      "template_used": "bks_glyph_0c6aec_1782244967574.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong geometric design with fitting color palette and good commercial potential.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "652461b9a064e339fb02695d": {
+    "ts": "2026-06-24T11:38:44.749882",
+    "collection": "glyph",
+    "title": "BKS Glyph Gold™ Travel Bag",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ba59ec33cf92b55e029c7",
+      "areas_replaced": 4,
+      "template_used": "bks_glyph_02695d_1782248508465.png",
+      "bks_score": 18,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Adjust technical execution for better harmony and scale.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 3,
+        "color": 4,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "65720340bc427ed9c7012777": {
+    "ts": "2026-06-24T11:26:02.426923",
+    "collection": "origin",
+    "title": "BKS Folklore Block™ Puffer",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ba2a688335ad1e0d13037",
+      "areas_replaced": 21,
+      "template_used": "bks_origin_012777_1782246343050.png",
+      "bks_score": 19,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Strong identity but color palette needs refinement to enhance harmony and accent use.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 3,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "6a24501411bd1b19ea0232e9": {
+    "ts": "2026-06-23T23:40:01.069626",
+    "collection": "origin",
+    "title": "BKS Folklore Crowd™ Flip Flop",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3afd2b00caaecab2e4cb48",
+      "areas_replaced": 16,
+      "template_used": "bks_origin_0232e9_1782237969354.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with harmonious design, color, and originality.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65650cc13d1ec0d32b03cc06": {
+    "ts": "2026-06-24T11:28:42.995289",
+    "collection": "glyph",
+    "title": "BKS Glyph Drift™ Pullover Hoodie",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ba34688335ad1e0d13050",
+      "areas_replaced": 9,
+      "template_used": "bks_glyph_03cc06_1782246753061.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with inventive design; minor execution and color refinements could enhance.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 5,
+        "commercial": 4
+      }
+    }
+  },
+  "658c80edc429e4e3090a49b0": {
+    "ts": "2026-06-23T22:14:33.208975",
+    "collection": "token",
+    "title": "BKS Token Cipher™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae91f55ed6244c9c9f21f",
+      "areas_replaced": 68,
+      "template_used": "bks_token_0a49b0_1782245119490.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with excellent commercial appeal; slight color and execution refinements needed.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 5
+      }
+    }
+  },
+  "67fea3bf264b90fb1c100193": {
+    "ts": "2026-06-23T20:38:46.171925",
+    "collection": "unknown",
+    "title": "BKS Crown™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ad2b0fc19843a2bfe833e",
+      "areas_replaced": 10,
+      "template_used": "bks_glyph_100193_1782239190473.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity and viable for garment production.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65f2208591415d01ee0f820d": {
+    "ts": "2026-06-24T11:15:09.344768",
+    "collection": "marker",
+    "title": "BKS Marker Cube™ Racerback Dress",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ba0144632c99c6dd06168",
+      "areas_replaced": 3,
+      "template_used": "bks_marker_0f820d_1782244928197.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong execution and color mastery with a distinct BKS identity and commercial potential.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 5,
+        "invention": 3,
+        "commercial": 4
+      }
+    }
+  },
+  "6536a9dc48b9da05ad0eac45": {
+    "ts": "2026-06-24T11:33:43.964076",
+    "collection": "marker",
+    "title": "BKS Marker Mask™ Travel Bag",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ba4721ac4a440f27babff",
+      "areas_replaced": 6,
+      "template_used": "bks_marker_0eac45_1782247742529.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and color mastery, but slightly less inventive.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 3,
+        "commercial": 3
+      }
+    }
+  },
+  "663cf99c6438b622fc0ded0a": {
+    "ts": "2026-06-23T21:05:32.365605",
+    "collection": "hours",
+    "title": "BKS Hours Effigy™ Sneakers",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ad8f2c7852a6c70909068",
+      "areas_replaced": 24,
+      "template_used": "bks_hours_0ded0a_1782240682580.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and execution with minor color adjustments needed.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65fb00c430271bde2307ceda": {
+    "ts": "2026-06-24T11:07:55.678954",
+    "collection": "riviera",
+    "title": "BKS Riviera Facet™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3b9e644632c99c6dd0601a",
+      "areas_replaced": 5,
+      "template_used": "bks_riviera_07ceda_1782243742430.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS Riviera identity with cohesive design and colors.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "668d91c5885322f6950d899b": {
+    "ts": "2026-06-23T20:50:30.995804",
+    "collection": "pulse",
+    "title": "BKS Pulse Radial™ Racerback Dress",
+    "visible": true,
+    "status": "restored_phase1",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ad572c7852a6c70908c88",
+      "areas_replaced": 3,
+      "template_used": "bks_pulse_0d899b_1782239863982.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity match and appealing modern aesthetic, with minor execution refinement needed.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    },
+    "restored_image_id": "6a3b93cf4be2910defc55c96"
+  },
+  "6a253ec3ad1d6c2033022d6d": {
+    "ts": "2026-06-23T20:00:15.414136",
+    "collection": "pulse",
+    "title": "BKS Pulse Shard™ Athletic Long Shorts",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ac9a97b03c99a6ad901df",
+      "areas_replaced": 7,
+      "template_used": "bks_pulse_022d6d_1782236818038.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and original design with good color harmony, slight execution improvements needed.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 5,
+        "commercial": 4
+      }
+    }
+  },
+  "651ebbe2f81c6925e30f3c34": {
+    "ts": "2026-06-23T23:08:29.837730",
+    "collection": "pulse",
+    "title": "BKS Pulse Wave™ Sneakers",
+    "visible": true,
+    "status": "restored_phase1",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3af5c7475859eb975c07c2",
+      "areas_replaced": 9,
+      "template_used": "bks_pulse_0f3c34_1782248283124.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity with good execution, though commercial appeal could be enhanced.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 3
+      }
+    },
+    "restored_image_id": "6a3b93d4c5e6672c1de522b0"
+  },
+  "65f219592c489806e40f438e": {
+    "ts": "2026-06-23T22:07:08.838074",
+    "collection": "glyph",
+    "title": "BKS Glyph Swarm™ Racerback Dress",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae76455ed6244c9c9f04c",
+      "areas_replaced": 3,
+      "template_used": "bks_glyph_0f438e_1782244658201.png",
+      "bks_score": 24,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong geometric mood with excellent color harmony and commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 5,
+        "commercial": 5
+      }
+    }
+  },
+  "656d04c4150223e0650a507d": {
+    "ts": "2026-06-24T11:27:50.410342",
+    "collection": "marker",
+    "title": "BKS Marker Tag™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ba3111ac4a440f27baa56",
+      "areas_replaced": 8,
+      "template_used": "bks_marker_0a507d_1782246565802.png"
+    }
+  },
+  "6574aac689d466651c04ac5e": {
+    "ts": "2026-06-23T22:21:21.437190",
+    "collection": "pulse",
+    "title": "BKS Pulse Block™ Hawaiian Shirt",
+    "visible": true,
+    "status": "restored_phase1",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3aeab34107ca3bc8d04bc2",
+      "areas_replaced": 7,
+      "template_used": "bks_pulse_04ac5e_1782245564248.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with good color harmony and design adaptability.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    },
+    "restored_image_id": "6a3b93d8c5e6672c1de522b2"
+  },
+  "65fd9a1aec0d49b83d01185a": {
+    "ts": "2026-06-23T21:38:50.998912",
+    "collection": "hours",
+    "title": "BKS Hours Cloud™ Puffer",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae0c7843a243123d184e6",
+      "areas_replaced": 7,
+      "template_used": "bks_hours_01185a_1782242814058.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong mood and originality, though slightly brighter highlights could enhance identity.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 4,
+        "color": 4,
+        "invention": 5,
+        "commercial": 4
+      }
+    }
+  },
+  "65f89bf708c652688806273d": {
+    "ts": "2026-06-23T21:43:51.678444",
+    "collection": "glyph",
+    "title": "BKS Glyph Column™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ae1f2917d6889d0b2f2d2",
+      "areas_replaced": 4,
+      "template_used": "bks_glyph_06273d_1782243100437.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong geometric theme and color use with high commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 5
+      }
+    }
+  },
+  "654ecbe15d33cc534f0dbda5": {
+    "ts": "2026-06-23T22:45:35.097734",
+    "collection": "marker",
+    "title": "BKS Marker Vortex™ Travel Bag",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3af067c576acd3fac3afaa",
+      "areas_replaced": 14,
+      "template_used": "bks_marker_0dbda5_1782247018440.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong embodiment of BKS Marker with cohesive color and balanced design.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 5,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "6a2466618ca6675818035c52": {
+    "ts": "2026-06-23T20:04:30.013944",
+    "collection": "hours",
+    "title": "BKS Hours Drift™ Cozy Slipper",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3acaa959325572b64686fc",
+      "areas_replaced": 9,
+      "template_used": "bks_hours_035c52_1782237050351.png",
+      "bks_score": 20,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong execution with mood and color mastery aligning well with BKS Hours.",
+      "bks_dims": {
+        "identity": 4,
+        "execution": 5,
+        "color": 4,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "660ff42853d620027105e72c": {
+    "ts": "2026-06-23T21:18:53.482431",
+    "collection": "token",
+    "title": "BKS Token Maze™ Windbreaker",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3adc14f2af55ff2df8d318",
+      "areas_replaced": 35,
+      "template_used": "bks_token_05e72c_1782241440887.png",
+      "bks_score": 21,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong identity and color mastery with slight technical execution improvement needed.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 4,
+        "commercial": 4
+      }
+    }
+  },
+  "65f70690b91e48f4c90acf1e": {
+    "ts": "2026-06-24T11:09:46.188056",
+    "collection": "pulse",
+    "title": "BKS Pulse Chord™ Swim Trunks",
+    "visible": true,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3b9ed5bb1bff3eba5c11df",
+      "areas_replaced": 3,
+      "template_used": "bks_pulse_0acf1e_1782244173567.png",
+      "bks_score": 22,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS Pulse identity with minor technical refinements needed.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 4,
+        "invention": 5,
+        "commercial": 4
+      }
+    }
+  },
+  "65c0fdd71864035bc2034c1b": {
+    "ts": "2026-06-24T11:19:57.350093",
+    "collection": "glyph",
+    "title": "BKS Glyph Prism™ Hawaiian Shirt",
+    "visible": true,
+    "status": "needs_rework",
+    "result": {
+      "status": "needs_rework",
+      "new_image_id": "6a3ba12d88335ad1e0d12fe8",
+      "areas_replaced": 14,
+      "template_used": "bks_glyph_034c1b_1782245589224.png",
+      "bks_score": 17,
+      "bks_decision": "REWORK",
+      "bks_feedback": "Refine color palette and ensure identity alignment with BKS Glyph expectations.",
+      "bks_dims": {
+        "identity": 3,
+        "execution": 4,
+        "color": 3,
+        "invention": 4,
+        "commercial": 3
+      }
+    }
+  },
+  "6a3a8c08643f05dd8007aaae": {
+    "ts": "2026-06-23T19:50:52.696349",
+    "collection": "flag",
+    "title": "BKS Flag Tee™",
+    "visible": false,
+    "status": "updated",
+    "result": {
+      "status": "updated",
+      "new_image_id": "6a3ac7696d445df245315648",
+      "areas_replaced": 8,
+      "template_used": "bks_flag_07aaae_1782236115380.png",
+      "bks_score": 23,
+      "bks_decision": "PRODUCT READY",
+      "bks_feedback": "Strong BKS identity with excellent color mastery and commercial appeal.",
+      "bks_dims": {
+        "identity": 5,
+        "execution": 4,
+        "color": 5,
+        "invention": 4,
+        "commercial": 5
+      }
+    }
+  }
+}

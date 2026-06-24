@@ -1,0 +1,17 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Dipendenze
+RUN pip install --no-cache-dir requests urllib3 openai
+
+# Copia il progetto (senza cartelle pesanti)
+COPY ecommerce_automation/ ./ecommerce_automation/
+COPY scripts/ ./scripts/
+COPY BKS_SKILL/ ./BKS_SKILL/
+COPY .env .env
+
+ENV PYTHONUNBUFFERED=1
+
+ENTRYPOINT ["python", "scripts/_run_approved_batch.py"]
+CMD ["--resume"]

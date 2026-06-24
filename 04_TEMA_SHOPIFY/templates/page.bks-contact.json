@@ -3,9 +3,9 @@
     "bks_contact": {
       "type": "bks-contact",
       "settings": {
-        "kicker": "BKS Studio — Contatti",
-        "title": "Parliamoci.",
-        "lead": "Il nostro crew è a disposizione. Scrivici per ordini personalizzati, collaborazioni, press o semplici domande.",
+        "kicker": "BKS Studio — Contact",
+        "title": "Let's talk.",
+        "lead": "Our crew is here for you. Write to us for custom orders, collaborations, press or any questions.",
         "email": "crew@bakabo.club"
       }
     }

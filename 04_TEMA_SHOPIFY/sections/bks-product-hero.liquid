@@ -161,13 +161,15 @@
     transition: opacity 0.2s;
   }
   #bks-ph-{{ section.id }} .bks-ph__link:hover { opacity: 0.6; }
-  /* Image column — product on accent bg (white-bg cutout effect) */
+  /* Image column — product floats on accent bg via multiply blend */
   #bks-ph-{{ section.id }} .bks-ph__image-col {
     position: relative;
     display: flex;
     align-items: flex-end;
     justify-content: center;
     overflow: visible;
+    background: transparent !important;
+    mix-blend-mode: multiply;
   }
   #bks-ph-{{ section.id }} .bks-ph__img {
     width: 100%;
@@ -176,8 +178,8 @@
     object-fit: contain;
     object-position: center bottom;
     display: block;
-    /* No filter — white-bg product images show as "floating on color" */
-    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.18));
+    mix-blend-mode: multiply;
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.22));
   }
   /* 3px accent bars top + bottom */
   #bks-ph-{{ section.id }} .bks-ph__bar-top,

@@ -1,0 +1,65 @@
+{
+  "sections": {
+    "page_hero": {
+      "type": "bks-page-hero",
+      "settings": {
+        "kicker": "BKS Studio",
+        "title": "LOUNGE PANTS",
+        "lead": "Relaxed knit with editorial all-over treatment. Studio wear redefined.",
+        "meta_1": "AI-Generated",
+        "meta_2": "Made to Order",
+        "meta_3": "Ships Worldwide",
+        "primary_label": "Shop Lounge Pants",
+        "primary_link": "/collections/bks-type-lounge-pants",
+        "secondary_label": "All Collections",
+        "secondary_link": "/pages/bks-collections",
+        "background_color": "#121210",
+        "text_color": "#FAFAF7",
+        "accent_color": "#c8c4be"
+      },
+      "blocks": {
+        "link_bks_hours": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Hours",
+            "link": "/collections/bks-hours"
+          }
+        },
+        "link_bks_origin": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Origin",
+            "link": "/collections/bks-origin"
+          }
+        }
+      },
+      "block_order": [
+        "link_bks_hours",
+        "link_bks_origin"
+      ]
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "product_grid": {
+      "type": "bks-product-type-grid",
+      "settings": {
+        "section_title": "Lounge Pants",
+        "accent_color": "#c8c4be",
+        "bg_color": "#fafaf7",
+        "collection_1": "bks-type-lounge-pants",
+        "products_per_collection": 24,
+        "collection_2": "",
+        "collection_3": "",
+        "collection_4": "",
+        "view_all_url": "/collections/bks-type-lounge-pants"
+      }
+    }
+  },
+  "order": [
+    "page_hero",
+    "product_grid",
+    "main"
+  ]
+}

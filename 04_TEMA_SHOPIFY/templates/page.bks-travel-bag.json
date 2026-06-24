@@ -1,0 +1,89 @@
+{
+  "sections": {
+    "page_hero": {
+      "type": "bks-page-hero",
+      "settings": {
+        "kicker": "BKS Studio",
+        "title": "TRAVEL BAG",
+        "lead": "Oversized carry-all with full editorial surface. From weekender to studio companion.",
+        "meta_1": "AI-Generated",
+        "meta_2": "Made to Order",
+        "meta_3": "Ships Worldwide",
+        "primary_label": "Shop Travel Bag",
+        "primary_link": "/collections/bks-type-travel-bag",
+        "secondary_label": "All Collections",
+        "secondary_link": "/pages/bks-collections",
+        "background_color": "#0a0a08",
+        "text_color": "#FAFAF7",
+        "accent_color": "#C9B79C"
+      },
+      "blocks": {
+        "link_bks_hours": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Hours",
+            "link": "/collections/bks-hours"
+          }
+        },
+        "link_bks_riviera": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Riviera",
+            "link": "/collections/bks-riviera"
+          }
+        },
+        "link_bks_token": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Token",
+            "link": "/collections/bks-token"
+          }
+        },
+        "link_bks_flag": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Flag",
+            "link": "/collections/bks-flag"
+          }
+        },
+        "link_bks_origin": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Origin",
+            "link": "/collections/bks-origin"
+          }
+        }
+      },
+      "block_order": [
+        "link_bks_hours",
+        "link_bks_riviera",
+        "link_bks_token",
+        "link_bks_flag",
+        "link_bks_origin"
+      ]
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "product_grid": {
+      "type": "bks-product-type-grid",
+      "settings": {
+        "section_title": "Travel Bags",
+        "accent_color": "#C9B79C",
+        "bg_color": "#fafaf7",
+        "collection_1": "bks-type-travel-bag",
+        "products_per_collection": 24,
+        "collection_2": "",
+        "collection_3": "",
+        "collection_4": "",
+        "view_all_url": "/collections/bks-type-travel-bag"
+      }
+    }
+  },
+  "order": [
+    "page_hero",
+    "product_grid",
+    "main"
+  ]
+}

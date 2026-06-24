@@ -4,8 +4,8 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse 160% 90% at 50% 108%, #1c0e04 0%, #0d0905 38%, #080604 100%);
+  background: var(--bks-piano-bg,
+    radial-gradient(ellipse 160% 90% at 50% 108%, #1c0e04 0%, #0d0905 38%, #080604 100%));
   display: block;
 }
 
@@ -19,7 +19,8 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(8,6,4,0.72) 0%, rgba(8,6,4,0.55) 50%, rgba(8,6,4,0.80) 100%);
+  background: var(--bks-piano-overlay,
+    linear-gradient(180deg, rgba(8,6,4,0.72) 0%, rgba(8,6,4,0.55) 50%, rgba(8,6,4,0.80) 100%));
   z-index: 0;
   pointer-events: none;
 }
@@ -229,7 +230,7 @@
   margin: 0 0 8px;
   transition: color 0.6s ease;
   font-family: var(--font-heading-family, sans-serif);
-  color: #fff;
+  color: var(--bks-paper, #fff);
 }
 #bks-coll-note {
   font-size: 11px;
@@ -374,7 +375,7 @@
    ════════════════════════════════════════════════════════ */
 
 .bks-piano-hero.bks-paper #bks-coll-screen {
-  background: #fafaf7;
+  background: var(--bks-paper, #fafaf7);
 }
 .bks-piano-hero.bks-paper #bks-model-bg {
   opacity: 0.12;
@@ -387,7 +388,7 @@
   color: rgba(20,14,6,0.38);
 }
 .bks-piano-hero.bks-paper #bks-coll-name {
-  color: #0A0A0A;
+  color: var(--bks-ink, #0A0A0A);
 }
 .bks-piano-hero.bks-paper #bks-coll-note,
 .bks-piano-hero.bks-paper #bks-coll-quote {
@@ -516,8 +517,8 @@
   font-weight: 800;
   letter-spacing: -0.018em;
   line-height: 0.93;
-  color: #0A0A0A;
-  border-top: 1.5px solid #0A0A0A;
+  color: var(--bks-ink, #0A0A0A);
+  border-top: 1.5px solid var(--bks-ink, #0A0A0A);
   padding-top: 10px;
   margin: 6px 0 14px;
 }

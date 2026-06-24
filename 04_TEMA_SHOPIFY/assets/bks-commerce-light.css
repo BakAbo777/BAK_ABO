@@ -4,14 +4,13 @@
   and avoid urgency patterns that could look misleading.
 */
 :root {
-  --bks-commerce-paper: #fafaf7;
-  --bks-commerce-ink: #111111;
-  --bks-commerce-muted: #5f5a52;
-  --bks-commerce-line: #ded8cd;
-  --bks-commerce-accent: #2f6f6b;
-  --bks-font-display: 'Bebas Neue', 'Arial Narrow', Arial, sans-serif;
-  --bks-font-text: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-  --bks-font-mono: 'DM Mono', 'Courier New', monospace;
+  --bks-commerce-paper:  var(--bks-paper, #fafaf7);
+  --bks-commerce-ink:    var(--bks-ink, #0a0a0a);
+  --bks-commerce-muted:  var(--bks-muted, #5f5a52);
+  --bks-commerce-line:   var(--bks-border-inv, #ded8cd);
+  --bks-commerce-accent: var(--bks-col-riviera, #2f6f6b);
+  /* font tokens already global via bks-tokens.css */
+  --bks-font-text: var(--bks-font-body, 'DM Sans', sans-serif);
 }
 
 body,
@@ -41,7 +40,7 @@ textarea {
 .footer__content-top,
 .footer__content-bottom,
 .announcement-bar {
-  background: #ffffff;
+  background: var(--bks-paper, #fafaf7);
   color: var(--bks-commerce-ink);
 }
 
@@ -58,7 +57,7 @@ textarea {
 .quick-add__submit {
   background: var(--bks-commerce-ink);
   border-color: var(--bks-commerce-ink);
-  color: #ffffff;
+  color: var(--bks-paper, #fafaf7);
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1.2;
@@ -131,7 +130,7 @@ textarea {
 .quantity,
 .field__input,
 .select__select {
-  background: #ffffff;
+  background: var(--bks-paper, #fafaf7);
   border-color: var(--bks-commerce-line);
   color: var(--bks-commerce-ink);
 }
@@ -139,13 +138,13 @@ textarea {
 .badge,
 .price__badge-sale,
 .price__badge-sold-out {
-  background: #ffffff;
+  background: var(--bks-paper, #fafaf7);
   border: 1px solid var(--bks-commerce-line);
   color: var(--bks-commerce-ink);
 }
 
 .bks-trust-strip {
-  background: #ffffff;
+  background: var(--bks-paper, #fafaf7);
   border-block: 1px solid var(--bks-commerce-line);
   color: var(--bks-commerce-ink);
 }

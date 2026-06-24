@@ -26,8 +26,11 @@ from typing import Any
 # Session: 2026-06-20 v23 — Theme upgrade 20/06: 20 file pushati, backup id=202600382802, Worker tier Metal + Try-On, FAQ 12 Q&A, Timed offer estate 2026
 # Session: 2026-06-20 v24 — Piano Hero in index.json (8 tasti+CDN), Weekly Editorial Vol.1/Issue 6, pagine duplicate eliminate, tema rinominato V.22
 # Session: 2026-06-20 v25 — BAT launchers v4 (auto-kill porte, single-line streamlit), Desktop BKS CENTER aggiornato, audit completo
-BKS_LAST_DEPLOY = "20_06_2026_v25"
-BKS_THEME_VERSION = "BKS TM04 20_06_2026 V.22"
+# Session: 2026-06-22 v26 — Members entry gate (bks-members-entry page+template+Liquid gate ≥18/1 order), GMC 0 alert (244+90 varianti fix), /collections/all catalog pro, bks-home-hero data-attr fix, 5 product-type pages
+# Session: 2026-06-22 v27 — BKS Verse poems (8 poesie archiviate + embed hero collezioni), generate_print_panels.py (8/8 tile AOP gpt-image-1 1024x1024), FAQ contact support Q aggiunta
+# Session: 2026-06-22 v28 — Site Monitor control panel (00_Site_Monitor.py: site health 20 pagine, GMC panel, Worker, print panels browser, verse poems, quick actions), fix PermissionError streamlit_master (BASE_DIR/"" bug)
+BKS_LAST_DEPLOY = "22_06_2026_v28"
+BKS_THEME_VERSION = "BKS TM04 22_06_2026 V.28"
 BKS_THEME_ID = "202392961362"
 BKS_COLLECTIONS = ("Hours", "Glyph", "Marker", "Riviera", "Pulse", "Token", "Flag", "Origin")
 SESSION_CHANGES = {
@@ -53,6 +56,9 @@ SESSION_CHANGES = {
     "V.23 20_06_2026": "Theme upgrade 20/06: 20 file pushati, backup id=202600382802. Worker: tier Metal+Try-On. FAQ 12 Q&A corrette. Timed offer estate 2026.",
     "V.24 20_06_2026": "Piano Hero in index.json (8 tasti CDN artwork). Weekly Editorial Vol.1/Issue 6. Pagine duplicate eliminate. Tema rinominato BKS TM04 20_06_2026 V.22.",
     "V.25 20_06_2026": "BAT launchers v4 (auto-kill porte, single-line streamlit). Desktop BKS CENTER aggiornato. Audit completo sistema.",
+    "V.26 22_06_2026": "Members entry gate: pagina bks-members-entry + template JSON + Liquid gate (score≥18 o 1 ordine). GMC 0 alert: 244+90 varianti corrette. /collections/all catalog professionale. bks-home-hero data-attr fix. 5 product-type pages (puffer/windbreaker/hawaiian/beach-towel/hoodie).",
+    "V.27 22_06_2026": "BKS Verse poems: 8 poesie archiviate in output/collection_poems.json + embed quote in hero descrizione di ogni collezione. generate_print_panels.py: 8/8 tile AOP 1024x1024 via gpt-image-1 (2–3MB ciascuno). FAQ: Q contact support aggiunta.",
+    "V.28 22_06_2026": "Site Monitor control panel (pages/00_Site_Monitor.py): live HTTP check 20 pagine, GMC panel, Worker health, print panels browser 8 tile, verse poems 2-col, quick actions (GMC sync/price fix/panel gen). PermissionError fix streamlit_master.py (BASE_DIR/'' bug in render_theme_bks_page).",
 }
 
 

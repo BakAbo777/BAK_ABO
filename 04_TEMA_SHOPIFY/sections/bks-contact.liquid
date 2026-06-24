@@ -239,9 +239,9 @@
 
     <!-- ── INFO ── -->
     <div class="bks-ct__info">
-      <span class="bks-ct__kicker">{{ section.settings.kicker | default: 'BKS Studio — Contatti' }}</span>
-      <h1 class="bks-ct__title">{{ section.settings.title | default: 'Parliamoci.' }}</h1>
-      <p class="bks-ct__lead">{{ section.settings.lead | default: "Il nostro crew è a disposizione. Scrivici per ordini personalizzati, collaborazioni, press o semplici domande." }}</p>
+      <span class="bks-ct__kicker">{{ section.settings.kicker | default: 'BKS Studio — Contact' }}</span>
+      <h1 class="bks-ct__title">{{ section.settings.title | default: "Let's talk." }}</h1>
+      <p class="bks-ct__lead">{{ section.settings.lead | default: "Our crew is here for you. Write to us for custom orders, collaborations, press or any questions." }}</p>
 
       <div class="bks-ct__row">
         <div class="bks-ct__icon" aria-hidden="true">
@@ -282,35 +282,35 @@
       <div class="bks-ct__links">
         <a href="/pages/custom-request" class="bks-ct__link">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          Custom Request — ordine personalizzato
+          Custom Request
         </a>
         <a href="/pages/domande-frequenti" class="bks-ct__link">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          Domande Frequenti (FAQ)
+          Frequently Asked Questions (FAQ)
         </a>
         <a href="/pages/about-bakabo-1" class="bks-ct__link">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          Chi siamo — About BakAbo
+          About BakAbo
         </a>
       </div>
     </div>
 
     <!-- ── FORM ── -->
     <div class="bks-ct__form-wrap">
-      <p class="bks-ct__form-title">Inviaci un messaggio</p>
+      <p class="bks-ct__form-title">Send us a message</p>
 
       {%- form 'contact' -%}
 
         {%- if form.posted_successfully -%}
           <div class="bks-ct__success" role="alert">
-            Messaggio ricevuto — ti risponderemo entro 48 ore. Grazie!
+            Message received — we'll reply within 48 hours. Thank you!
           </div>
         {%- else -%}
 
           {{ form.errors | default_errors }}
 
           <div class="bks-ct__field">
-            <label for="bks-ct-name-{{ sid }}">Nome</label>
+            <label for="bks-ct-name-{{ sid }}">Name</label>
             <input type="text" id="bks-ct-name-{{ sid }}" name="contact[name]" autocomplete="name" value="{{ form.name }}" required>
           </div>
 
@@ -320,25 +320,25 @@
           </div>
 
           <div class="bks-ct__field">
-            <label for="bks-ct-subject-{{ sid }}">Argomento</label>
-            <select id="bks-ct-subject-{{ sid }}" name="contact[Argomento]">
-              <option value="Informazioni generali">Informazioni generali</option>
-              <option value="Ordine personalizzato">Ordine personalizzato</option>
-              <option value="Reso / rimborso">Reso / rimborso</option>
-              <option value="Spedizione">Spedizione</option>
-              <option value="Collaborazione / Press">Collaborazione / Press</option>
-              <option value="Membership BakAbo">Membership BakAbo</option>
-              <option value="Altro">Altro</option>
+            <label for="bks-ct-subject-{{ sid }}">Subject</label>
+            <select id="bks-ct-subject-{{ sid }}" name="contact[Subject]">
+              <option value="General enquiry">General enquiry</option>
+              <option value="Custom order">Custom order</option>
+              <option value="Return / refund">Return / refund</option>
+              <option value="Shipping">Shipping</option>
+              <option value="Collaboration / Press">Collaboration / Press</option>
+              <option value="BakAbo Membership">BakAbo Membership</option>
+              <option value="Other">Other</option>
             </select>
           </div>
 
           <div class="bks-ct__field">
-            <label for="bks-ct-msg-{{ sid }}">Messaggio *</label>
+            <label for="bks-ct-msg-{{ sid }}">Message *</label>
             <textarea id="bks-ct-msg-{{ sid }}" name="contact[body]" required>{{ form.body }}</textarea>
           </div>
 
           <button type="submit" class="bks-ct__submit">
-            Invia messaggio
+            Send message
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </button>
 
@@ -360,25 +360,25 @@
     {
       "type": "text",
       "id": "kicker",
-      "label": "Kicker (sopra titolo)",
-      "default": "BKS Studio — Contatti"
+      "label": "Kicker (above title)",
+      "default": "BKS Studio — Contact"
     },
     {
       "type": "text",
       "id": "title",
-      "label": "Titolo",
-      "default": "Parliamoci."
+      "label": "Title",
+      "default": "Let's talk."
     },
     {
       "type": "textarea",
       "id": "lead",
-      "label": "Testo introduttivo",
-      "default": "Il nostro crew è a disposizione. Scrivici per ordini personalizzati, collaborazioni, press o semplici domande."
+      "label": "Lead text",
+      "default": "Our crew is here for you. Write to us for custom orders, collaborations, press or any questions."
     },
     {
       "type": "text",
       "id": "email",
-      "label": "Email contatto",
+      "label": "Contact email",
       "default": "crew@bakabo.club"
     },
     {

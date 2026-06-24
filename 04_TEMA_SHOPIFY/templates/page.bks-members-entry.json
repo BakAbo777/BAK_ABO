@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "bks-members-entry": {
+      "type": "bks-members-entry",
+      "settings": {
+        "kicker": "BKS Members",
+        "heading": "A quieter layer of the studio.",
+        "text": "Create an account to access orders, wishlist, virtual fitting room and early drops.",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": ["bks-members-entry"]
+}

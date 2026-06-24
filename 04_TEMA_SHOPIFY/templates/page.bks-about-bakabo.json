@@ -6,30 +6,30 @@
         "origin": {
           "type": "text_column",
           "settings": {
-            "label": "Origine",
-            "title": "Nata dall'arte digitale",
-            "content": "<p>BakAbo nasce dall'archivio di Roberto Picchioni: oltre 12.700 NFT e 2.400 AI artwork che formano il DNA visivo del brand. Ogni collezione è un capitolo di questa enciclopedia visuale.</p><p>Il nome unisce <em>Baka</em> (fool, giullare — chi sfida il senso comune) con l'idea di <em>abolire</em> il fast fashion: moda lenta, consapevole, con un'identità forte.</p>"
+            "label": "Origin",
+            "title": "Born from digital art",
+            "content": "<p>BakAbo was born from Roberto Picchioni's archive: over 12,700 NFTs and 2,400 AI artworks that form the brand's visual DNA. Each collection is a chapter of this visual encyclopaedia.</p><p>The name unites <em>Baka</em> (fool, jester — the one who challenges convention) with the idea of <em>abolishing</em> fast fashion: slow, intentional clothing with a strong identity.</p>"
           }
         },
         "model": {
           "type": "text_column",
           "settings": {
-            "label": "Modello",
-            "title": "Print-on-demand, zero spreco",
-            "content": "<p>Nessun magazzino. Nessuna sovrapproduzione. Ogni capo viene stampato e spedito solo quando viene ordinato — eliminando gli sprechi del modello fast fashion tradizionale.</p><p>La qualità è garantita da Printify, uno dei provider print-on-demand più affidabili in Europa.</p>"
+            "label": "Model",
+            "title": "Print-on-demand, zero waste",
+            "content": "<p>No warehouse. No overproduction. Every piece is printed and shipped only when ordered — eliminating the waste of traditional fast fashion. Quality is guaranteed by Printify, one of the most reliable print-on-demand providers in Europe.</p>"
           }
         },
         "stats": {
           "type": "stat",
           "settings": {
-            "stats_data": "12.7K:NFT artwork, 8:Collezioni, 2019:Anno fondazione, 100%:Print-on-demand"
+            "stats_data": "12.7K:NFT artworks, 8:Collections, 2019:Founded, 100%:Print-on-demand"
           }
         },
         "quote": {
           "type": "pull_quote",
           "settings": {
             "letter": "B",
-            "quote": "L'intelligenza artificiale non sostituisce l'arte — la trasforma in qualcosa che non avremmo mai immaginato.",
+            "quote": "Artificial intelligence does not replace art — it transforms it into something we could never have imagined.",
             "attribution": "Roberto Picchioni, BKS Studio"
           }
         }
@@ -38,7 +38,7 @@
       "settings": {
         "overline": "bakabo.club",
         "headline": "About BakAbo",
-        "tagline": "Un atelier AI-art dove moda, tecnologia e identità visiva si incontrano.",
+        "tagline": "An AI-art atelier where fashion, technology and visual identity converge.",
         "accent_color": "#0a0a0a",
         "text_on_dark": true,
         "hero_height": 520,

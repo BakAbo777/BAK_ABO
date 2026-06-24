@@ -1,0 +1,73 @@
+{
+  "sections": {
+    "page_hero": {
+      "type": "bks-page-hero",
+      "settings": {
+        "kicker": "BKS Studio",
+        "title": "SHOES",
+        "lead": "Footwear as wearable art. AI-generated surface print on every pair.",
+        "meta_1": "AI-Generated",
+        "meta_2": "Made to Order",
+        "meta_3": "Ships Worldwide",
+        "primary_label": "Shop Shoes",
+        "primary_link": "/collections/bks-type-shoes",
+        "secondary_label": "All Collections",
+        "secondary_link": "/pages/bks-collections",
+        "background_color": "#0a0010",
+        "text_color": "#FAFAF7",
+        "accent_color": "#9828d8"
+      },
+      "blocks": {
+        "link_bks_glyph": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Glyph",
+            "link": "/collections/bks-glyph"
+          }
+        },
+        "link_bks_pulse": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Pulse",
+            "link": "/collections/bks-pulse"
+          }
+        },
+        "link_bks_token": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Token",
+            "link": "/collections/bks-token"
+          }
+        }
+      },
+      "block_order": [
+        "link_bks_glyph",
+        "link_bks_pulse",
+        "link_bks_token"
+      ]
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "product_grid": {
+      "type": "bks-product-type-grid",
+      "settings": {
+        "section_title": "Shoes",
+        "accent_color": "#9828d8",
+        "bg_color": "#fafaf7",
+        "collection_1": "bks-type-shoes",
+        "products_per_collection": 24,
+        "collection_2": "",
+        "collection_3": "",
+        "collection_4": "",
+        "view_all_url": "/collections/bks-type-shoes"
+      }
+    }
+  },
+  "order": [
+    "page_hero",
+    "product_grid",
+    "main"
+  ]
+}

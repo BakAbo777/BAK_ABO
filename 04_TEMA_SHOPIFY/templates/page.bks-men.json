@@ -1,0 +1,96 @@
+{
+  "sections": {
+    "page_hero": {
+      "type": "bks-page-hero",
+      "settings": {
+        "kicker": "BKS Studio",
+        "title": "MEN",
+        "lead": "BKS Studio wearables for men. AI-art fashion across all eight collections.",
+        "meta_1": "AI-Generated",
+        "meta_2": "Made to Order",
+        "meta_3": "Ships Worldwide",
+        "primary_label": "Shop Men",
+        "primary_link": "/collections/all",
+        "secondary_label": "All Collections",
+        "secondary_link": "/pages/bks-collections",
+        "background_color": "#0a0a08",
+        "text_color": "#FAFAF7",
+        "accent_color": "#C9B79C"
+      },
+      "blocks": {
+        "link_bks_hours": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Hours",
+            "link": "/collections/bks-hours"
+          }
+        },
+        "link_bks_glyph": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Glyph",
+            "link": "/collections/bks-glyph"
+          }
+        },
+        "link_bks_marker": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Marker",
+            "link": "/collections/bks-marker"
+          }
+        },
+        "link_bks_pulse": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Pulse",
+            "link": "/collections/bks-pulse"
+          }
+        },
+        "link_bks_flag": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Flag",
+            "link": "/collections/bks-flag"
+          }
+        },
+        "link_bks_origin": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Origin",
+            "link": "/collections/bks-origin"
+          }
+        }
+      },
+      "block_order": [
+        "link_bks_hours",
+        "link_bks_glyph",
+        "link_bks_marker",
+        "link_bks_pulse",
+        "link_bks_flag",
+        "link_bks_origin"
+      ]
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "product_grid": {
+      "type": "bks-product-type-grid",
+      "settings": {
+        "section_title": "Men's Collection",
+        "accent_color": "#C9B79C",
+        "bg_color": "#fafaf7",
+        "collection_1": "bks-hours",
+        "products_per_collection": 12,
+        "collection_2": "bks-marker",
+        "collection_3": "bks-pulse",
+        "collection_4": "bks-flag"
+      }
+    }
+  },
+  "order": [
+    "page_hero",
+    "product_grid",
+    "main"
+  ]
+}

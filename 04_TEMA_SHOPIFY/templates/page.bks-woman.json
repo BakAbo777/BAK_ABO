@@ -1,0 +1,96 @@
+{
+  "sections": {
+    "page_hero": {
+      "type": "bks-page-hero",
+      "settings": {
+        "kicker": "BKS Studio",
+        "title": "WOMAN",
+        "lead": "BKS Studio wearables for women. AI-art fashion across all eight collections.",
+        "meta_1": "AI-Generated",
+        "meta_2": "Made to Order",
+        "meta_3": "Ships Worldwide",
+        "primary_label": "Shop Woman",
+        "primary_link": "/collections/all",
+        "secondary_label": "All Collections",
+        "secondary_link": "/pages/bks-collections",
+        "background_color": "#0a0a08",
+        "text_color": "#FAFAF7",
+        "accent_color": "#C9B79C"
+      },
+      "blocks": {
+        "link_bks_riviera": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Riviera",
+            "link": "/collections/bks-riviera"
+          }
+        },
+        "link_bks_glyph": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Glyph",
+            "link": "/collections/bks-glyph"
+          }
+        },
+        "link_bks_pulse": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Pulse",
+            "link": "/collections/bks-pulse"
+          }
+        },
+        "link_bks_token": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Token",
+            "link": "/collections/bks-token"
+          }
+        },
+        "link_bks_flag": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Flag",
+            "link": "/collections/bks-flag"
+          }
+        },
+        "link_bks_origin": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Origin",
+            "link": "/collections/bks-origin"
+          }
+        }
+      },
+      "block_order": [
+        "link_bks_riviera",
+        "link_bks_glyph",
+        "link_bks_pulse",
+        "link_bks_token",
+        "link_bks_flag",
+        "link_bks_origin"
+      ]
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "product_grid": {
+      "type": "bks-product-type-grid",
+      "settings": {
+        "section_title": "Women's Collection",
+        "accent_color": "#C9B79C",
+        "bg_color": "#fafaf7",
+        "collection_1": "bks-riviera",
+        "products_per_collection": 12,
+        "collection_2": "bks-glyph",
+        "collection_3": "bks-pulse",
+        "collection_4": "bks-origin"
+      }
+    }
+  },
+  "order": [
+    "page_hero",
+    "product_grid",
+    "main"
+  ]
+}

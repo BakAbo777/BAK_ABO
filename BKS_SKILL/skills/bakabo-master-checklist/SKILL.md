@@ -122,14 +122,15 @@
 
 | # | Item | Stato | Note / Risoluzione |
 |---|---|---|---|
-| 7.1 | Cloudflare Worker `bks-agent` live | ✅ | `bks-agent.bakabo.workers.dev` — `/chat` 200 OK |
-| 7.2 | Worker `bks-ai` live | ✅ | Prompt con 8 collezioni, colori, prodotti |
+| 7.1 | Cloudflare Worker `bks-agent` v16 live | ✅ | `/chat` `/social` `/origins` OK · KV+AI bindings · 24/06/2026 |
+| 7.2 | Worker bindings KV + Workers AI | ✅ | `BKS_AGENT_KV` ID `8f6b1e4accae47949b2960735d270a3a` · AI binding attivo |
 | 7.3 | Worker `bks-tier-upgrade` live | ✅ | |
 | 7.4 | Theme AI Assistant system prompt | ✅ | Aggiornato con catalogo reale 20-06-2026 |
 | 7.5 | Cron refresh 12:00 CET | 🔒 | `bks-agent-refresh` Worker cron — verificare KV secrets in Cloudflare Dashboard |
 | 7.6 | KV `BKS_AGENT_KV` + 4 secrets | ✅ | OpenAI/Shopify secrets impostati via CF API |
-| 7.7 | Streamlit Master Agent (porta :8501) | ✅ | `streamlit_master.py` — 7 pagine |
+| 7.7 | Streamlit Master Agent (porta :8501) | ✅ | `streamlit_master.py` · Streamlit 1.58.0 (latest) |
 | 7.8 | Ecommerce Automation Agent | ✅ | `ecommerce_automation/master_agent.py` |
+| 7.9 | Token System CSS 3-layer | ✅ | 20 file CSS tokenizzati · `assets/bks-tokens.css` · deploy 24/06/2026 |
 
 ---
 

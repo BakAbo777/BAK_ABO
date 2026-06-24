@@ -1,0 +1,74 @@
+{
+  "sections": {
+    "page_hero": {
+      "type": "bks-page-hero",
+      "settings": {
+        "kicker": "BKS Studio \u2014 Glyph",
+        "title": "GLYPH",
+        "lead": "Abstract glyphs decoded into wearable geometry. Gold ink on every surface.",
+        "meta_1": "Geometric",
+        "meta_2": "Gold Ink",
+        "meta_3": "Made to Order",
+        "primary_label": "Shop Glyph",
+        "primary_link": "/collections/bks-glyph",
+        "secondary_label": "All Collections",
+        "secondary_link": "/collections/all",
+        "background_color": "#0f0e08",
+        "text_color": "#FAFAF7",
+        "accent_color": "#d4a030"
+      },
+      "blocks": {
+        "link_tee": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Tee",
+            "link": "/collections/bks-glyph/tee"
+          }
+        },
+        "link_puffer": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Puffer",
+            "link": "/collections/bks-glyph/puffer"
+          }
+        },
+        "link_backpack": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Backpack",
+            "link": "/collections/bks-glyph/backpack"
+          }
+        },
+        "link_sneakers": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Sneakers",
+            "link": "/collections/bks-glyph/sneakers"
+          }
+        },
+        "link_travel_bag": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Travel Bag",
+            "link": "/collections/bks-glyph/travel-bag"
+          }
+        }
+      },
+      "block_order": [
+        "link_tee",
+        "link_puffer",
+        "link_backpack",
+        "link_sneakers",
+        "link_travel_bag"
+      ]
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "page_hero",
+    "main"
+  ]
+}

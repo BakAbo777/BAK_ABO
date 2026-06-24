@@ -60,23 +60,32 @@ The store navigation is organized as follows:
   - BKS Duffel Bags → /pages/bks-duffel-bag
   - BKS Beach Towels → /pages/bks-beach-towel
 - **BKS Members** → /pages/bks-members
-- **About** → /pages/about
+- **Wishlist** → /pages/bks-wishlist
+- **BKS Man** → /pages/bks-men
+- **BKS Woman** → /pages/bks-woman
+- **Shopping Guide** → /pages/bks-shopping-guide
+- **Custom / Personalizzazione** → /pages/bks-custom
+- **About BakAbo** → /pages/about-bakabo-1
+- **FAQ / Help** → /pages/faq-domande-frequenti
+- **Contact** → /pages/contact
+- **BKS Verse** → /pages/verse
+- **Verse Hall of Fame** → /pages/verse-hall
 When directing a customer to a collection or product type, always use these page URLs (not /collections/...).
 Navigation backup: Shopify handle `bks-main-menu-base` (GID: gid://shopify/Menu/330749083986), created 2026-06-17 — restore reference if main-menu is ever modified or corrupted.
 
 ## ACTIVE COLLECTIONS
-**Concept collections** — canonical one-line hook + confirmed product types (verified 2026-06-20):
+**Concept collections** — canonical one-line hook + confirmed product types (verified 2026-06-22):
 - **BKS Hours** `#c8c4be` — "A monochrome outerwear system built around urban stillness and measured technical layers." → puffer, sneakers, swim trunks, travel bag, hoodie, lounge pants, athletic shorts, racerback dress, tee
-- **BKS Glyph** `#d4a030` — "A graphic sign language — constructed marks and symbols pressed into garments and accessories." → puffer, swim trunks, swimwear, backpack, hoodie, travel bag, lounge pants, windbreaker, racerback dress, sneakers, athletic shorts
+- **BKS Glyph** `#d4a030` — "A graphic sign language — constructed marks and symbols pressed into garments and accessories." → puffer, swim trunks, swimwear, backpack, hoodie, travel bag, lounge pants, windbreaker, racerback dress, sneakers, athletic shorts, hawaiian shirt (2)
 - **BKS Marker** `#c04418` — "Gesture and momentum — brush marks translated into windbreakers, shorts and bags." → puffer, travel bag, swim trunks, racerback dress, lounge pants, hoodie, swimwear, sneakers, athletic shorts, windbreaker, tee
-- **BKS Riviera** `#0ca898` — "The summer coastal system — coastal geometry and teal depths in swim, dresses and travel." → puffer, swimwear, swim trunks, racerback dress, travel bag, sneakers, athletic shorts, windbreaker
-- **BKS Pulse** `#8888cc` — "Optical pressure from digital systems — violet signal fields across jackets, hoodies and active wear." → puffer, racerback dress, swim trunks, swimwear, sneakers, flip flops, travel bag, hoodie, windbreaker, lounge pants, athletic shorts
+- **BKS Riviera** `#0ca898` — "The summer coastal system — coastal geometry and teal depths in swim, dresses and travel." → puffer, swimwear (8), swim trunks, racerback dress, travel bag, sneakers, athletic shorts, windbreaker
+- **BKS Pulse** `#8888cc` — "Optical pressure from digital systems — violet signal fields across jackets, hoodies and active wear." → puffer, racerback dress, swim trunks, swimwear, sneakers, flip flops, travel bag, hoodie, windbreaker, lounge pants, athletic shorts, hawaiian shirt (1)
 - **BKS Token** `#9828d8` — "Encoded digital objects — compact sci-fi references in a precise, deep-purple graphic system." → puffer, sneakers, windbreaker, swim trunks, racerback dress, athletic shorts
-- **BKS Flag** `#c82020` — "Bold graphic fields and civic structure — strong red volumes in puffers, windbreakers and packs." → puffer, racerback dress, hoodie, sneakers, swim trunks, windbreaker, flip flops, travel bag, lounge pants, athletic shorts
-- **BKS Origin** `#489808` — "Invented narrative marks on organic shapes — naif folk gestures across the widest BKS product range." → puffer, hoodie, sneakers, swim trunks, racerback dress, lounge pants, windbreaker, swimwear, travel bag, athletic shorts [widest collection — 33 products across all silhouettes]
+- **BKS Flag** `#c82020` — "Bold graphic fields and civic structure — strong red volumes in puffers, windbreakers and packs." → puffer, racerback dress, hoodie, sneakers, swim trunks, windbreaker, flip flops, travel bag, lounge pants, athletic shorts, one-piece swimsuit
+- **BKS Origin** `#489808` — "Invented narrative marks on organic shapes — naif folk gestures across the widest BKS product range." → puffer, hoodie, sneakers, swim trunks, racerback dress, lounge pants, windbreaker, swimwear, travel bag, athletic shorts, hawaiian shirt (1) [widest collection — 33+ products across all silhouettes]
 
 **Garment-type collections** (cross-collection product categories):
-Sneakers, Puffer Jackets, Windbreakers, Pullover Hoodies, Swim Trunks, Swimwear, Flip Flops, Athletic Shorts, Lounge Pants, One-Piece Swimsuits, Racerback Dresses, Backpacks, Travel Bags, T-Shirts
+Sneakers, Puffer Jackets, Windbreakers, Pullover Hoodies, Swim Trunks, Swimwear, Flip Flops, Athletic Shorts, Lounge Pants, One-Piece Swimsuits, Racerback Dresses, Hawaiian Shirts, Backpacks, Travel Bags, T-Shirts
 
 ## CROSS-COLLECTION AFFINITIES
 When a customer already owns one collection and asks what to add next:

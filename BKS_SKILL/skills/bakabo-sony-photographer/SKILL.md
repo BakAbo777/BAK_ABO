@@ -59,6 +59,47 @@ Ogni foto BAKABO/BKS deve essere costruita come una fotografia professionale rea
 | Costa mediterranea | BKS Riviera — swimwear, beach towel, flip flops, travel summer |
 | Studio neutro premium | Catalogo, prodotto singolo, macro dettagli, Shopify |
 
+---
+
+## Drone Photography — BKS Post-Approval Pipeline
+
+Dopo approvazione design, il generatore drone produce 3 slot automatici via OpenAI.
+
+**Camera drone:** Sony FX3 su DJI, Zeiss 35mm f/1.4 GM, RAW+Log, 4K still frame
+
+| Slot | Angolo | Formato | Uso |
+|---|---|---|---|
+| `overhead_flatlay` | 90° straight down | 1024×1024 | Shopify product image principale |
+| `drone_angle_45` | 45° prospettiva | 1792×1024 | Hero banner collezione |
+| `collection_scene` | 60° editoriale, 2-3 prodotti | 1792×1024 | Social, campagna, newsletter |
+
+**Superfici drone per collezione:**
+| Collezione | Superficie | Luce |
+|---|---|---|
+| hours | dark brushed concrete | hard single lateral |
+| glyph | matte black polished stone | flat ring light |
+| marker | aged industrial iron sheet | harsh lateral |
+| riviera | white travertine + sea traces | golden hour overhead |
+| pulse | dark checkerboard resin | uniform ring light |
+| token | reflective plexiglass dark | low-key neon accent |
+| flag | pure white studio seamless | flat uniform frontal |
+| folklore | linen on light stone garden | soft overcast golden |
+
+**CLI:**
+```bash
+python scripts/_generate_drone_shots.py \
+  --handle bks-pulse-hex-sneakers \
+  --collection pulse \
+  --type sneakers \
+  --title "BKS Pulse Hex Sneakers" \
+  --design "orange hexagonal grid on charcoal grey" \
+  [--dry-run]
+```
+
+**Output:** `BAKABO_IMAGE_FACTORY_v1.1/output/generated/{collection}/{handle}/`
+
+---
+
 ### Divieti assoluti
 Non generare mai: testo sull'immagine · loghi inventati · mani/piedi/gambe deformate · prodotto tagliato male · pattern alterato · colori cambiati senza richiesta · sfondi confusi · posa volgare · prodotto troppo piccolo · set più importante del capo.
 

@@ -45,6 +45,9 @@
         "@type": "Organization",
         "name": "BKS Studio",
         "alternateName": "BakAbo",
+        "description": "BakAbo / BKS Studio is an AI-art fashion atelier designed in Italy and made on demand worldwide. The brand creates AI-generated all-over print collections, curated as raw editorial artwear and produced after purchase to avoid overstock.",
+        "slogan": "Wearable art, on demand",
+        "foundingLocation": { "@type": "Place", "addressCountry": "IT" },
         "url": "{{ request.origin }}",
         "logo": "{{ request.origin }}/cdn/shop/files/bakabo-logo.png",
         "email": "crew@bakabo.club",
@@ -307,21 +310,18 @@
   {{ 'bks-typography.css' | asset_url | stylesheet_tag }}
   {{ 'bks-future.css' | asset_url | stylesheet_tag }}
 
-  <!-- BKS Studio — Design Tokens -->
+  <!-- BKS Studio — Design Token System (3-layer: primitive → semantic → component) -->
+  {{ 'bks-tokens.css' | asset_url | stylesheet_tag }}
+  <!-- BKS Studio — Legacy name aliases (backward compat with older sections) -->
   <style>
     :root {
-      --bks-font-display: 'Bebas Neue', sans-serif;
-      --bks-font-body:    'DM Sans', sans-serif;
-      --bks-font-mono:    'DM Mono', monospace;
-      --bks-onyx:    #0A0A0A;
-      --bks-salt:    #FAFAF7;
-      --bks-bone:    #EFEAE0;
-      --bks-graphite:#3D3D3D;
-      --bks-ash:     #9A9A9A;
-      --bks-dune:    #C9B79C;
-      --bks-accent:  #C9B79C;
-      --bks-shadow:  #242833;
-      --bks-ink:     #0F2240;
+      --bks-onyx:    var(--bks-bg-deep);
+      --bks-salt:    var(--bks-paper);
+      --bks-graphite: #3D3D3D;
+      --bks-ash:     var(--bks-muted);
+      --bks-dune:    var(--bks-sand);
+      --bks-accent:  var(--bks-sand);
+      --bks-shadow:  var(--bks-surface-3);
       --bks-mocha:   #443C3C;
     }
   </style>

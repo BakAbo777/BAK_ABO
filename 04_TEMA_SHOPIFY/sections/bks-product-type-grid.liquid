@@ -1,0 +1,235 @@
+{% comment %}
+  BKS Product Type Grid — mostra prodotti da una o più collezioni su pagine page.*
+  Accede alle collezioni tramite handle (non richiede oggetto collection della pagina).
+{% endcomment %}
+
+{%- liquid
+  assign accent = section.settings.accent_color | default: '#C9B79C'
+  assign col1 = collections[section.settings.collection_1]
+  assign col2 = collections[section.settings.collection_2]
+  assign col3 = collections[section.settings.collection_3]
+  assign col4 = collections[section.settings.collection_4]
+  assign limit_per = section.settings.products_per_collection | default: 6
+  assign section_title = section.settings.section_title | default: 'Products'
+-%}
+
+<style>
+  #bks-ptg-{{ section.id }} {
+    padding: clamp(40px,6vw,80px) clamp(16px,3vw,48px);
+    background: {{ section.settings.bg_color | default: '#fafaf7' }};
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 32px;
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    padding-bottom: 14px;
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__accent-bar {
+    width: 4px;
+    height: 28px;
+    background: {{ accent }};
+    flex-shrink: 0;
+    border-radius: 2px;
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__title {
+    font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
+    font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+    letter-spacing: 0.04em;
+    color: #0a0a0a;
+    margin: 0;
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__coll-label {
+    font-family: var(--bks-font-mono, monospace);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #999;
+    margin: 0 0 14px;
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__coll-label a {
+    color: {{ accent }};
+    text-decoration: none;
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    max-width: 1600px;
+    margin: 0 auto 48px;
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__card {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    text-decoration: none;
+    color: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__card:hover {
+    box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__card-media {
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    background: #fff;
+    position: relative;
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 10%;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__card:hover .bks-ptg__card-media img {
+    transform: scale(1.04);
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__card-accent {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: {{ accent }};
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__card:hover .bks-ptg__card-accent {
+    transform: scaleX(1);
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__card-info {
+    padding: 12px 14px 14px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__card-type {
+    font-family: var(--bks-font-mono, monospace);
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #999;
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__card-title {
+    font-family: var(--bks-font-body, 'DM Sans', sans-serif);
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.35;
+    color: #0a0a0a;
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__card-price {
+    font-family: var(--bks-font-mono, monospace);
+    font-size: 0.8rem;
+    color: #555;
+    margin-top: auto;
+    padding-top: 6px;
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__view-all {
+    display: block;
+    text-align: center;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 14px;
+    border: 1px solid {{ accent }};
+    font-family: var(--bks-font-mono, monospace);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #0a0a0a;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  #bks-ptg-{{ section.id }} .bks-ptg__view-all:hover {
+    background: {{ accent }};
+    color: #fff;
+  }
+  @media (max-width: 600px) {
+    #bks-ptg-{{ section.id }} .bks-ptg__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+  }
+</style>
+
+<div id="bks-ptg-{{ section.id }}">
+  <div class="bks-ptg__head">
+    <span class="bks-ptg__accent-bar"></span>
+    <h2 class="bks-ptg__title">{{ section_title | upcase }}</h2>
+  </div>
+
+  {%- assign _c1 = collections[section.settings.collection_1] -%}
+  {%- assign _c2 = collections[section.settings.collection_2] -%}
+  {%- assign _c3 = collections[section.settings.collection_3] -%}
+  {%- assign _c4 = collections[section.settings.collection_4] -%}
+
+  {%- capture _card_html -%}{% endcapture -%}
+
+  {%- for _slot in (1..4) -%}
+    {%- if _slot == 1 -%}{%- assign _sc = _c1 -%}{%- endif -%}
+    {%- if _slot == 2 -%}{%- assign _sc = _c2 -%}{%- endif -%}
+    {%- if _slot == 3 -%}{%- assign _sc = _c3 -%}{%- endif -%}
+    {%- if _slot == 4 -%}{%- assign _sc = _c4 -%}{%- endif -%}
+
+    {%- unless _sc == blank -%}
+      {%- if section.settings.collection_2 != blank -%}
+        <p class="bks-ptg__coll-label"><a href="{{ _sc.url }}">{{ _sc.title }}</a></p>
+      {%- endif -%}
+      <div class="bks-ptg__grid">
+        {%- for product in _sc.products limit: limit_per -%}
+          <a href="{{ product.url }}" class="bks-ptg__card">
+            <span class="bks-ptg__card-accent"></span>
+            <div class="bks-ptg__card-media">
+              {%- if product.featured_image -%}
+                <img src="{{ product.featured_image | image_url: width: 480 }}" alt="{{ product.title | escape }}" loading="lazy" width="480" height="480">
+              {%- endif -%}
+            </div>
+            <div class="bks-ptg__card-info">
+              <span class="bks-ptg__card-type">{{ product.type }}</span>
+              <span class="bks-ptg__card-title">{{ product.title }}</span>
+              <span class="bks-ptg__card-price">{{ product.price | money }}</span>
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+    {%- endunless -%}
+  {%- endfor -%}
+
+  {%- if section.settings.view_all_url != blank -%}
+    <a href="{{ section.settings.view_all_url }}" class="bks-ptg__view-all">
+      View all → {{ section_title | upcase }}
+    </a>
+  {%- elsif col1 != blank -%}
+    <a href="{{ col1.url }}" class="bks-ptg__view-all">
+      View all in {{ col1.title }}
+    </a>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "BKS Product Type Grid",
+  "settings": [
+    { "type": "text", "id": "section_title", "label": "Section title", "default": "Products" },
+    { "type": "text", "id": "collection_1", "label": "Collection handle 1", "info": "e.g. bks-riviera" },
+    { "type": "text", "id": "collection_2", "label": "Collection handle 2 (optional)" },
+    { "type": "text", "id": "collection_3", "label": "Collection handle 3 (optional)" },
+    { "type": "text", "id": "collection_4", "label": "Collection handle 4 (optional)" },
+    { "type": "text", "id": "product_type_filter", "label": "Product type filter (optional)", "info": "Filter by exact Shopify product type" },
+    { "type": "range", "id": "products_per_collection", "min": 4, "max": 24, "step": 4, "default": 12, "label": "Max products per collection" },
+    { "type": "url", "id": "view_all_url", "label": "View all link (optional)" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#C9B79C" },
+    { "type": "color", "id": "bg_color", "label": "Background color", "default": "#fafaf7" }
+  ],
+  "presets": [{ "name": "BKS Product Type Grid" }]
+}
+{% endschema %}

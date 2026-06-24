@@ -1,26 +1,11 @@
-/* BKS Member Area — Dark editorial aesthetic */
+/* BKS Member Area — Dark editorial aesthetic
+   Global design tokens → bks-tokens.css (loaded in theme.liquid) */
 
 :root {
-  --bks-bg: #0c0c0c;
-  --bks-surface: #141414;
-  --bks-surface-2: #1e1e1e;
-  --bks-border: rgba(255,255,255,0.07);
-  --bks-text: #f0ece4;
-  --bks-muted: #8a8480;
-  --bks-gold: #c8a96e;
-  --bks-gold-light: #e8d5a8;
-  --bks-blue: #4a9eff;
-  --bks-amber: #e8a020;
-  /* Metal tier palette */
-  --bks-tier-lead:   #7a7a7a;
-  --bks-tier-iron:   #8a8a8a;
-  --bks-tier-brass:  #c8a96e;
-  --bks-tier-silver: #b0b0c8;
-  --bks-tier-gold:   #d4a030;
-  /* legacy aliases — kept for backward compat */
-  --bks-tier-subscriber: #4a9eff;
-  --bks-tier-drop: #e8a020;
-  --bks-tier-archive: #c8a96e;
+  /* Legacy tier aliases — backward compat with older member templates */
+  --bks-tier-subscriber: var(--bks-blue);
+  --bks-tier-drop:       var(--bks-amber);
+  --bks-tier-archive:    var(--bks-gold);
 }
 
 /* ── Wrapper ── */
@@ -192,11 +177,11 @@
   letter-spacing: 0.04em;
 }
 
-.bks-status-pill--paid { background: rgba(74,222,128,0.12); color: #4ade80; }
+.bks-status-pill--paid { background: rgba(74,222,128,0.12); color: var(--bks-status-ok-bright, #4ade80); }
 .bks-status-pill--pending { background: rgba(232,160,32,0.12); color: var(--bks-amber); }
 .bks-status-pill--fulfilled { background: rgba(74,158,255,0.12); color: var(--bks-blue); }
 .bks-status-pill--unfulfilled { background: rgba(255,255,255,0.05); color: var(--bks-muted); }
-.bks-status-pill--refunded { background: rgba(248,113,113,0.12); color: #f87171; }
+.bks-status-pill--refunded { background: rgba(248,113,113,0.12); color: var(--bks-status-err-bright, #f87171); }
 
 /* ── MTO Order tracker ── */
 .bks-tracker-wrap {
@@ -268,7 +253,7 @@
 .bks-tracker-step.done .bks-tracker-step-dot {
   border-color: var(--bks-gold);
   background: var(--bks-gold);
-  color: #000;
+  color: var(--bks-ink, #000);
 }
 
 .bks-tracker-step.current .bks-tracker-step-dot {
@@ -365,7 +350,7 @@
   transition: color 0.2s;
 }
 
-.bks-wishlist-card-remove:hover { color: #f87171; }
+.bks-wishlist-card-remove:hover { color: var(--bks-status-err-bright, #f87171); }
 
 .bks-wishlist-share {
   display: inline-flex;
@@ -409,7 +394,7 @@
 
 .bks-heart-btn svg { width: 15px; height: 15px; }
 
-.bks-heart-btn .bks-heart-icon { fill: none; stroke: #fff; stroke-width: 1.5; }
+.bks-heart-btn .bks-heart-icon { fill: none; stroke: var(--bks-paper, #fff); stroke-width: 1.5; }
 .bks-heart-btn.wishlisted .bks-heart-icon { fill: #e74c3c; stroke: #e74c3c; }
 
 /* ── Wishlist toast ── */
@@ -418,8 +403,8 @@
   bottom: 32px;
   left: 50%;
   transform: translateX(-50%) translateY(20px);
-  background: #111;
-  color: #f0ece4;
+  background: var(--bks-bg, #111);
+  color: var(--bks-text, #f0ece4);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 4px;
   padding: 11px 20px;
@@ -459,7 +444,7 @@
   height: 16px;
   border-radius: 50%;
   background: #e74c3c;
-  color: #fff;
+  color: var(--bks-paper, #fff);
   font-size: 10px;
   font-family: var(--bks-font-mono, 'DM Mono', monospace);
   font-weight: 700;
@@ -602,7 +587,7 @@
 .bks-referral-copy-btn {
   padding: 10px 18px;
   background: var(--bks-gold);
-  color: #000;
+  color: var(--bks-ink, #000);
   border: none;
   border-radius: 2px;
   font-size: 12px;
@@ -614,7 +599,7 @@
 }
 
 .bks-referral-copy-btn:hover { background: var(--bks-gold-light); }
-.bks-referral-copy-btn.copied { background: #4ade80; color: #000; }
+.bks-referral-copy-btn.copied { background: var(--bks-status-ok-bright, #4ade80); color: var(--bks-ink, #000); }
 
 .bks-referral-stats {
   display: flex;
@@ -868,7 +853,7 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #000;
+  color: var(--bks-ink, #000);
   background: var(--bks-gold);
   text-decoration: none;
   cursor: pointer;

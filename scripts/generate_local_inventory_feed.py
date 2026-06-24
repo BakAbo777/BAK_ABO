@@ -1,11 +1,11 @@
 """Generate Google Merchant Center — Local Inventory Feed (TSV).
 
 BKS Studio è 100% online / print-on-demand.
-Il feed marca tutti i prodotti con availability=out_of_stock, quantity=0
+Il feed marca tutti i prodotti con availability=in_stock, quantity=999
 per la sede fisica registrata in Google Business Profile (BKS_TERNI).
 
-Questo risolve l'errore "Dati di inventario locale mancanti" nel GMC
-senza richiedere stock fisico.
+Questo risolve il conflitto "Numero limitato" nel GMC allineando
+il feed locale con il feed principale (entrambi in_stock).
 
 Uso:
   python scripts/generate_local_inventory_feed.py
@@ -71,8 +71,10 @@ def _out(msg: str) -> None:
 
 
 def _shopify_id(product_id: int, variant_id: int, country: str = "IT") -> str:
-    """Google Shopping product ID format used by Shopify's Google channel app."""
-    return f"shopify_{country}_{product_id}_{variant_id}"
+    """Product ID must match g:id in the primary Google Shopping feed.
+    Our custom feed template (page.bks-google-feed.liquid) uses {{ variant.id }}
+    so the ID is just the numeric variant ID."""
+    return str(variant_id)
 
 
 def _eur(price_str: str) -> str:
@@ -129,8 +131,8 @@ def build_feed_rows(products: list[dict], store_code: str) -> list[dict]:
             row = {
                 "id": _shopify_id(pid, vid, "IT"),
                 "store_code": store_code,
-                "availability": "out_of_stock",
-                "quantity": "0",
+                "availability": "in_stock",
+                "quantity": "999",
                 "price": _eur(price_raw),
                 "sale_price": _eur(compare_raw) if compare_raw else "",
             }
@@ -153,11 +155,11 @@ def write_summary(rows: list[dict], path: Path, store_code: str) -> None:
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "store_code": store_code,
         "total_rows": len(rows),
-        "availability": "out_of_stock",
-        "quantity": 0,
+        "availability": "in_stock",
+        "quantity": 999,
         "output_file": str(OUTPUT_PATH.relative_to(ROOT)),
         "upload_to": "Google Merchant Center → Feeds → Local products inventory feed",
-        "note": "BKS Studio è online-only / print-on-demand. Il feed marca tutti i prodotti out_of_stock per la sede fisica per eliminare l'errore 'Dati inventario locale mancanti'.",
+        "note": "BKS Studio è online-only / POD. availability=in_stock / quantity=999 allineati al feed principale per eliminare il conflitto 'Numero limitato' su 35K prodotti.",
     }
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
@@ -184,7 +186,7 @@ def main() -> None:
     _out(f"→ {len(products)} products fetched.")
 
     rows = build_feed_rows(products, args.store_code)
-    _out(f"→ {len(rows)} variant rows built (all out_of_stock, quantity=0).")
+    _out(f"→ {len(rows)} variant rows built (in_stock, quantity=999 — POD unlimited).")
 
     if args.dry_run:
         _out("\nFirst 3 rows:")

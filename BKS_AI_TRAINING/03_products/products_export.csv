@@ -1,0 +1,675 @@
+id,title,visible,approved,collection,tags,variants_count,images_count
+6a2d7a93f5f63e26000f7c4c,BKS Glyph Cross™ Puffer,True,True,glyph,,10,7
+6a2a5d8e9e369b8a080c1a54,BKS Hours Pane™ Lounge Pants,True,True,hours,,6,5
+6a293e1abbf0294ff40c029d,BKS Flag Burst™ One-Piece Swimsuit,True,True,flag,,70,7
+6a2581a31180303054016930,BKS Marker City™ Athletic Long Shorts,True,True,marker,,8,8
+6a257de038707c982f106172,BKS Flag Drop™ Athletic Long Shorts,True,True,flag,,8,7
+6a2570faad1d6c20330250fe,BKS Glyph Blueprint™ Athletic Long Shorts,True,True,glyph,,8,7
+6a2544f48ca667581803f49b,BKS Hours Brocade™ Athletic Long Shorts,True,True,hours,,8,7
+6a2541948ca667581803f253,BKS Glyph Hex™ Athletic Long Shorts,True,True,glyph,,8,7
+6a253ec3ad1d6c2033022d6d,BKS Pulse Shard™ Athletic Long Shorts,True,True,pulse,,8,8
+6a253c988ca667581803f022,BKS Folklore Bestiary™ Athletic Long Shorts,True,True,folklore,,8,7
+6a25399f38707c982f103639,BKS Marker Frame™ Athletic Long Shorts,True,True,marker,,8,8
+6a2467bc992522364109421f,BKS Token Block™ Cozy Slipper,True,True,token,,3,6
+6a2466618ca6675818035c52,BKS Hours Drift™ Cozy Slipper,True,True,hours,,3,6
+6a2454dd6ff905d8c70bbe60,BKS Flag Slate™ Flip Flop,True,True,flag,,4,16
+6a24501411bd1b19ea0232e9,BKS Folklore Crowd™ Flip Flop,True,True,folklore,,4,16
+6a244a1f8ca6675818034b8a,BKS Pulse Arrow™ Flip Flop,True,True,pulse,,4,16
+6a1ed9a6bb4de366c9055250,Pulse Grid™ Travel Bag,True,True,pulse,"brand:bks,collection:pulse,series:optical,type:duffle,macro:man,macro:woman,status:active,print-type:aop,use-case:travel,bakabo-enriched,drop:catalog-reset-2026,curation:keep",1,8
+6a1ddcd53dd1b31f700d50cf,BKS Folklore Bloom™ Sneakers,True,True,folklore,"brand:bks,collection:folklore,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,30
+6a1dd048b4d76d22050a91aa,BKS Abyss™ Sneakers,True,True,folklore,"brand:bks,collection:folklore,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,20
+6a1d9e468b2f35aed00e5e57,BKS Flag Soleil™ Sneakers,True,True,flag,"brand:bks,collection:flag,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,20
+6a1d9bb9fc56adac9f0e95d6,BKS Riviera Cabana™ Sneakers,True,True,riviera,"brand:bks,collection:riviera,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,10
+6a1d7cb66d9987e14104ab24,BKS Riviera Argyle™ Sneakers,True,True,riviera,"brand:bks,collection:riviera,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,10
+6a1d799a291037b8c603e328,BKS Glyph Fracture™ Sneakers,True,True,glyph,"brand:bks,collection:glyph,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,11
+6a19e9034525ffd5730f1447,BKS Token Mosaic™ Sneakers,True,True,token,"brand:bks,collection:token,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,20
+6a188a85c15d35b51100324f,BKS Resort Graphic One-Piece: Luxury-Inspired Geometric Beachwear,True,False,unknown,"one piece,women swimsuit,black white,retro swim,graphic swim,modest swim,pool party,beachwear,summer outfit,swimwear chic,vacation wear,gift for her,resort style,`chlorine-resistant swimwear`,`fade-resistant swimsuit`,`quick-dry swimwear`,`elastic-lined one-piece swimsuit`,BakAbo One-Piece Swimsuit,bakabo.club,BKS",70,5
+6a16e936179aa841ea0c919d,Duffel Bag,True,False,unknown,"Accessories,Bags,All Over Print,AOP,Duffle,Assembled in the USA,Made in USA,Assembled in USA,Made in the USA",2,7
+6a16429cd4fccb2f800a3fb6,BKS Token Maze™ Athletic Long Shorts,True,True,token,,8,7
+6a15ee90197a0f28d90f0304,Pastel Carousel Horse Duffel Bag – Cute Kids Travel & Gym Bag,False,False,unknown,"duffel bag,travel duffel,cute duffel,pastel duffel,carousel bag,kids duffel,gym duffel,roller coaster,travel carryon,soft pastel bag,vacation duffel,childrens bag,whimsical duffel",2,8
+6a15a69056ded98cbb02c912,BKS Riviera Weave™ Athletic Long Shorts,True,True,riviera,,8,8
+6a137d3c4d922bbffe0637e3,BKS Textured Geo Women's Cut & Sew Tee — Neutral All-Over Print,True,False,unknown,"women tee,cut sew tee,all over print,neutral tee,minimal shirt,women casual,everyday tee,soft texture,subtle pattern,summer top,lightweight tee,gift for her,mom gift tee,BakAbo Cut & Sew Tee,bakabo.club,BKS,BKS Neo Classic Collection,Neo Classic,BakAbo Women's Cut & Sew Tee",24,7
+6a1378caf930b50771105ed0,Women's Wave-Pattern Cut & Sew Tee — BKS Logo,True,False,unknown,"women tee,cut sew tee,black wave tee,fitted t shirt,all over print,casual womens,everyday tee,athleisure top,minimalist tee,streetwear top,gift for her,small business,birthday gift,BakAbo Cut & Sew Tee,bakabo.club,BKS,BKS Neo Classic Collection,Neo Classic",24,6
+6a1377d078784eaa2706a1e1,Women's Geo Grid Tee — Neutral Pixel Check Pattern,False,False,unknown,,24,6
+6a13337601e2f9024705508b,Women’s Black Washed Stripe Tee — ‘BKS’ Minimal Logo,False,False,unknown,,24,6
+6a132b749dddfd0ff10747bc,Beige Grid Women's Tee — 'BKS' Minimal Graphic Cut & Sew T‑Shirt,False,False,unknown,,24,6
+6a1329634d922bbffe0606ba,Women's Grid Ringer Tee - BKS Logo,False,False,unknown,,24,6
+6a1319cf9f95ec33cf0307dd,Women's Grid Tee — Minimalist BKS Check Pattern AOP,False,False,unknown,,24,4
+6a1060eaebc1f93268028718,BKS Digital Citizens™ - Low Top Sneakers,True,True,unknown,"bks-token,sneakers,low-top,placement-print,made-to-order,black,blue,arcade",16,10
+6a0a3e67d424404741015461,BKS Pulse Grid™ Lounge Pants,True,True,pulse,"brand:bks,collection:pulse,series:optical,macro:woman,print-type:aop,type:lounge-pants,use-case:loungewear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,5
+6a0a3591eeb1cc67a708362c,BKS Marker Flow™ Lounge Pants,True,True,marker,,6,5
+6a04b818b796133c9d07a209,Goldfish Pattern Swim Trunks — Red All-Over-Print Men's Swim Shorts,False,False,unknown,,7,6
+6a03710004f95d0172067ecc,BKS Glyph Code™ One-Piece Swimsuit,True,True,glyph,"brand:bks,collection:glyph,series:brut,macro:woman,print-type:aop,type:swimwear,use-case:beachwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",70,4
+6a01b75ed9dc047a4a09876f,Waterproof Duffle Bag – Black & Forest Green Speckled Travel Weekender,False,False,unknown,"travel bag,waterproof bag,duffel bag,weekend travel,carry on bag,gym travel bag,green black bag,snow print bag,outdoor travel,mens travel bag,women travel bag,vacation duffel,airport friendly,BKS,bakabo.club,BakAbo Waterproof travel bag",1,9
+6a01b4be12a8bcf66d00252f,Starry Contrast Waterproof Travel Duffle Bag,False,False,unknown,"travel bag,weekend bag,duffel bag,waterproof bag,black white bag,carry on bag,gym travel bag,leather trim bag,snowflake print,travel accessory,vacation duffel,airport bag,unisex travel,BakAbo Waterproof travel bag,BKS,bakabo.club",1,8
+6a01b3731b13a78a40085021,Speckled Two-Tone Waterproof Travel Duffle Bag — Black & Rose Weekend Bag,False,False,unknown,"waterproof bag,travel duffel,weekend bag,airport bag,carry on bag,travel accessory,packing bag,water resistant,travel tote,gym travel bag,vacation duffel,weekender bag,boat travel bag,BakAbo Waterproof travel bag,BKS,bakabo.club",1,9
+6a01b20bb4d5e9221a0ca292,"Aqua & Noir Splatter Waterproof Travel Bag — Durable Weekend Duffle for Beach, Gym & Getaways",False,False,unknown,,1,9
+6a01a28012a8bcf66d000fb8,Waterproof Travel Bag — Retro Abstract Circle Pattern Duffle,False,False,unknown,"waterproof bag,travel duffel,weekend bag,boho travel,retro circles,colorful duffel,carry on bag,vacation tote,gift for traveler,airport bag,gift for her,bohemian bag,patterned bag,BakAbo Waterproof travel bag,bakabo.club,BKS",1,9
+6a00f1104ba2ff981a031032,BKS Folklore Totem™ Swim Trunks,True,True,folklore,"brand:bks,collection:folklore,series:folklore,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+6a00ebec146ee39d4b0cfc53,Bird Pinstripe Swim Trunks — Blue All-Over-Print Beach Shorts,False,False,unknown,"swim trunks,mens swim,navy swim,striped trunks,tropical swim,beach swim,pool shorts,summer trunks,casual swim,resort wear,vacation shorts,gift for him,fishing trunks,BKS,bakabo.club,BakAbo swim trunks",7,6
+6a00e532146ee39d4b0cf90e,Men's Striped Multicolor Swim Trunks — Retro Beach Shorts,False,False,unknown,,7,7
+69fe6d164ba2ff981a018551,BKS Marker Brush™ Windbreaker Jacket,True,True,marker,"brand:bks,collection:marker,series:neo-expressionism,type:windbreaker,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched,drop:catalog-reset-2026,curation:keep",6,10
+69fe661eb639fab5c10826b5,KS Token Shield™ Windbreaker Jacket,True,True,token,,6,10
+69fdfea3f9b3c9205f0f9e92,Retro Geo Pattern Windbreaker Jacket,False,False,unknown,,6,9
+69f9fb6337dd0469c1045c39,Puffer Jacket — Retro Orange Speckle All-Over Print,False,False,unknown,,10,8
+69f9eff8af1e4497af013d41,BKS Marker Stave™ Puffer,True,True,marker,,10,7
+69f9eb14ff7605cf080a269f,Men's Puffer Jacket — Cool Blue Geometric Plaid All-Over Print,False,False,unknown,"mens jacket,puffer jacket,blue plaid,casual outer,winter jacket,everyday wear,cold weather,lightweight coat,urban style,gift for him,holiday gift,travel jacket,layering coat,BKS,BakAbo Puffer jacket,bakabo.club",10,7
+69f9cc09af1e4497af01246a,BKS Folklore Effigy™ Puffer,True,True,folklore,,10,7
+69f9cba944aadacf110ba79f,Abstract Cityscape Puffer Jacket,False,False,unknown,,10,8
+69f9b4b7db5852ba44001dab,Abstract Cityscape Puffer Jacket — Men's Artistic Urban Winter Coat,False,False,unknown,,10,8
+69f8f69bbe136844f000783b,Men's Retro Stripe Hawaiian Shirt — Red Teal Camp-Collar Aloha,True,False,unknown,"men's shirt,hawaiian shirt,resort wear,tropical shirt,button up,vacation top,summer shirt,casual shirt,striped shirt,retro shirt,beach outfit,island shirt,luau shirt,BakAbo Hawaiian Shirt,BKS,bakabo.club",16,8
+69f8b742ad402ce2b4033c44,Navy Palm Stripe Hawaiian Shirt — Tropical Retro Aloha Button-Up,True,False,unknown,"mens aloha,navy hawaiian,resort shirt,vacation top,tropical shirt,summer aloha,casual button,beach outfit,island wear,party shirt,holiday top,cruise wear,poolside tee,BakAbo Hawaiian Shirt,BKS,bakabo.club",16,8
+69f8b680adcc49d563068a16,BKS Folklore Pelican™ Hawaiian Shirt,True,True,folklore,"brand:bks,collection:folklore,series:naif,macro:man,print-type:aop,type:hawaiian-shirt,use-case:resort,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",16,7
+69f69a87606067cce40f778e,BKS Riviera Tile™ Swim Trunks,True,True,riviera,"brand:bks,collection:riviera,series:islands,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+69f6801ce1b7b9b0b008c622,Orange Tropical Fish Swim Trunks – All-Over Print Beach Shorts,False,False,unknown,,7,7
+69f67e2e15b42c15280c7a05,BKS Flag Patch™ Swim Trunks,True,True,flag,"brand:bks,collection:flag,series:neo-dada,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+69f660079110dda910061121,BKS Hours Walker™ Swim Trunks,True,True,hours,"brand:bks,collection:hours,series:hyperrealism,macro:man,type:swimwear,placement-front,drop:catalog-reset-2026,status:active,curation:keep",7,6
+69f5f087758757bfa3041449,BKS Sprawl™ Puffer,True,True,unknown,,10,7
+69f5eded1cc4ed38fb0b78d5,Green Geo-Block Puffer Jacket,False,False,unknown,"men jacket,puffer jacket,green puffer,men outerwear,geometric jacket,everyday jacket,winter jacket,casual jacket,streetwear men,gift for him,holiday jacket,cold weather,modern puffer,BKS,bakabo.club,BakAbo Puffer jacket",10,8
+69f5e23ae1b7b9b0b0086383,BKS Orbit™ Puffer,True,True,unknown,,10,7
+69f5d72bdb88631ee309b0ae,Abstract Block Pattern Puffer Jacket,False,False,unknown,"men jacket,puffer jacket,mens outerwear,quilted jacket,graphic jacket,pattern jacket,retro puffer,streetwear coat,casual outerwear,cold weather,everyday jacket,gift for him,fall jacket,BakAbo Puffer jacket,BKS,bakabo.club",10,7
+69f47b01ef66d02ffe01ac36,Checkerboard Patchwork Women's Puffer Jacket,False,False,unknown,,7,6
+69f2851029c1d0349a00ffb9,Maroon Koi Print Swim Trunks — All-Over Fish Pattern Beach Shorts,False,False,unknown,,7,7
+69f0e816d343d27cd4039577,Archive Script Women's Cut & Sew Tee,False,False,unknown,,24,7
+69f09a6191bdc9a00605f9de,Abstract Arch Women's Cut & Sew Tee,True,False,unknown,"T-shirts,Women's Clothing,BakAbo Cut & Sew Tee,bakabo.club,women's cut and sew tee,BKS,tailored fit tshirt,travel fashion,minimalist fashion,arch design shirt,polyester performance tee",24,7
+69ef63314f5f4bb16a064c34,Colorblock Geometric Women's Tee — Bold Abstract Patchwork Top,False,False,unknown,,24,7
+69ee55e48899de92c30ca306,BaktextB's Women's Cut & Sew Tee,True,False,unknown,"T-shirts,Women's Clothing,All Over Print,Regular fit,Crew neck,Sublimation,BakAbo Cut & Sew Tee,bakabo.club,BakAbo Original,branded graphic tee,tailored fit tshirt,luxury street style,polyester performance tee,text pattern shirt",24,7
+69b12f8cfa27b868c705949c,Woven Blanket,True,False,unknown,,6,4
+67fea99759c84794070cfa66,BKS Folklore Lacquer™ Puffer,True,True,folklore,,10,7
+67fea781fb08073efd06f006,BKS Riviera Crest™ Puffer,True,True,riviera,,10,7
+67fea6beee04c42ae6090935,BKS Token Pixel™ Puffer,True,True,token,,10,7
+67fea4b3264b90fb1c1001d2,BKS Folklore Gilt™ Puffer,True,True,folklore,,10,7
+67fea3bf264b90fb1c100193,BKS Crown™ Puffer,True,True,unknown,,10,7
+67fea2afee04c42ae609082c,BKS Route™ Puffer,True,True,unknown,,10,7
+67aa59c7cfaeb48d94019566,Blue Grid Stripe Puffer Jacket,False,False,unknown,"men jacket,puffer jacket,men outerwear,blue pattern,winter jacket,everyday coat,casual jacket,cold weather,gift for him,holiday jacket,stylish puffer,urban outerwear,layering piece,BKS,bakabo.club,BakAbo Puffer jacket",10,7
+67a39a720d6ae2b626089976,Black & White Maps Women's Cut & Sew Tee,True,False,unknown,"T-shirts,Women's Clothing,All Over Print,Regular fit,Crew neck,Sublimation,BakAbo Cut & Sew Tee,bakabo.club,bakabo,minimalist fashion,abstract geometric,urban art wear",24,7
+67a39a714138ca75a5093648,Neo Bloom Women's Cut & Sew Tee,True,False,unknown,"T-shirts,Women's Clothing,All Over Print,Regular fit,Crew neck,Sublimation,BakAbo Cut & Sew Tee,bakabo.club,contemporary art wear,tailored fit tshirt,bold style,urban art fashion,BKS",24,7
+67a3970d1fd029f95d05e0fc,Blu Maps Women's Cut & Sew Tee,True,False,unknown,"T-shirts,Women's Clothing,All Over Print,Regular fit,Crew neck,Sublimation,BakAbo Cut & Sew Tee,bakabo.club,tailored fit tshirt,blue graphic tee,BKS",24,7
+67a397080d6ae2b6260898bd,BKS Hours Burl™ Women's Tee,True,True,hours,,24,6
+67a397001fd029f95d05e0f1,April Lawn Women's Cut & Sew Tee,True,False,unknown,"T-shirts,Women's Clothing,Regular fit,Crew neck,BakAbo Cut & Sew Tee,bakabo.club,cherry blossom print,botanical art fashion,spring fashion tee,pink blossom shirt,BKS",24,7
+67a396f975e669bea60779dd,Neon Noir Women's Cut & Sew Tee,True,False,unknown,"T-shirts,Women's Clothing,All Over Print,Regular fit,Crew neck,Sublimation,BakAbo Cut & Sew Tee,tailored fit tshirt,cut and sew tee,neon noir tshirt,neon green shirt,eco friendly tshirt,sustainable streetwear,Eco Graphic T-Shirt",24,7
+67a396d1a43b046f6b017b15,BKS Marker Stream™ Women's Tee,True,True,marker,"brand:bks,collection:marker,series:neo-expressionism,macro:woman,print-type:aop,type:tee,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",24,6
+67a396cdfac10778ae009c4d,Aurora Blossom Women's Cut & Sew Tee,True,False,unknown,"T-shirts,Women's Clothing,All Over Print,Regular fit,Crew neck,Sublimation,BakAbo Cut & Sew Tee,bakabo.club,modern geometric wear,polyester performance tee,tailored fit tshirt",24,7
+67a396c0a43b046f6b017b0c,Grey Lattice Women's Cut & Sew Tee,True,False,unknown,"T-shirts,Women's Clothing,All Over Print,Regular fit,Crew neck,Sublimation,BakAbo Cut & Sew Tee,bakabo.club,BKS",24,7
+67a395f275e669bea60779a0,BaktextA's Women's Cut & Sew Tee,False,False,unknown,"T-shirts,Women's Clothing,All Over Print,Regular fit,Crew neck,Sublimation,BakAbo Cut & Sew Tee,bakabo.club,BakAbo Original,branded graphic tee,tailored fit tshirt,luxury street style,polyester performance tee,text pattern shirt,BKS",24,8
+67a395d10d6ae2b62608987c,Cosmic Composition Women's Cut & Sew Tee,True,False,unknown,"T-shirts,Women's Clothing,All Over Print,Regular fit,BakAbo Cut & Sew Tee,bakabo.club,contemporary art shirt,bakabo.clubBKS,geometric abstraction,abstract art shirt",24,7
+67a395c8ba9821cc60075d23,VioletMystique Women's Cut & Sew Tee,False,True,unknown,,24,6
+67a394b80d6ae2b626089850,BKS Riviera Bloom™ Women's Tee,True,True,riviera,"brand:bks,collection:riviera,series:islands,macro:woman,print-type:aop,type:tee,use-case:streetwear,use-case:beachwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",24,6
+67a394a2ba9821cc60075cf1,Sand Sketch Women's Cut & Sew Tee,True,False,unknown,"T-shirts,Women's Clothing,All Over Print,Regular fit,Crew neck,Sublimation,BakAbo Cut & Sew Tee,bakabo.club,BKS",24,7
+67a38e9cfac10778ae009a80,Wegrip Women's Cut & Sew Tee | Blue Geometric Mesh,False,False,unknown,,24,7
+67a38e97fac10778ae009a7e,Terra Grid Women's Cut & Sew Tee,True,False,unknown,"T-shirts,Women's Clothing,All Over Print,Regular fit,Crew neck,Sublimation,BakAbo Cut & Sew Tee,tailored fit tshirt,architectural design,muted color palette,polyester performance tee,BKS",24,7
+67a3835a587f2a4e480054ec,Australian Tee Women's Cut & Sew Tee,True,False,unknown,"T-shirts,Women's Clothing,BakAbo Cut & Sew Tee,bakabo.club,women's cut and sew tee,BKS,tailored fit tshirt,travel fashion,polyester performance tee",24,7
+66f9a76b675c90dfec070ce5,BKS Glyph Circuit™ Pullover Hoodie,True,True,glyph,"brand:bks,collection:glyph,series:brut,macro:unisex,print-type:aop,type:pullover-hoodie,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,4
+66f992e209ce4030ab03ced7,BKS Pulse Swell™ Pullover Hoodie,True,True,pulse,"brand:bks,collection:pulse,series:optical,macro:unisex,print-type:aop,type:pullover-hoodie,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,4
+66f3369db5a94390310b36f2,Green Retro Sea Creature Backpack – Nautical Ocean Life Print Backpack,False,False,unknown,,1,5
+66f2e06a09971b98a1083441,Lila Beaumont(BKS)🎒Backpack,False,False,unknown,,1,5
+66f2da03049f17caae0ede3c,Teal Wave Floral Pattern Backpack – Vintage Swirl School & Travel Bag,False,False,unknown,,1,5
+66d9acf427de3098cb08d7d5,Men's Brown Textured Puffer Jacket – All-Over Cozy Quilted Shell,False,False,unknown,,10,7
+66d75a701b92cf85020d5bea,Corrado Hammer (BKS)🥦Backpack,False,False,unknown,,1,5
+66d737c09c17c2768a039863,Rosalind Beaumont (BKS)🐤Backpack,False,False,unknown,,1,4
+66d7336c6f846532bf0af467,Elowen Sinclair (BKS) ꡙ‍ Backpack,False,False,unknown,,1,5
+66d730460e2175732d063c2b,Lavinia Sinclair (BKS) ꡙ‍ Backpack,False,False,unknown,,1,5
+66d72dfd667ebc5a750d6a60,Isadora Monet (BKS) ꡙ‍ Backpack,False,False,unknown,,1,5
+66d727d14a4c9222a702d57e,Rosalind Beaumont (BKS) ꡙ‍ Backpack,False,False,unknown,,1,5
+66c39eeaa175a226c50e6a36,Rustic Terra Swim Trunks — Textured Orange AOP Beach Shorts,False,False,unknown,"swim trunks,men swimwear,orange swim,summer trunks,beach shorts,tropical trunks,surf shorts,casual swim,pool party,vacation wear,men beachwear,board shorts,athletic swim,BakAbo swim trunks,BKS,bakabo.club",7,6
+66c39b1646d03f3814028b9a,Men's Light Gray Textured Swim Trunks — Subtle Woodgrain AOP Beach Shorts,False,False,unknown,,7,8
+66c398fb7ecec7358c0cca06,Green Abstract Cow Print Swim Trunks,False,False,unknown,,7,7
+66c393a4f9d0ba1fd009a9e6,BKS Marker Flux™ Swim Trunks,True,True,marker,"brand:bks,collection:marker,series:marker,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+66c390dcfef83d20e50303ca,Green Grid Pattern Swim Trunks – Modern Plaid All-Over Print,False,False,unknown,"swim trunks,men swim,green swim,plaid swim,beach trunks,board shorts,summer trunks,pool shorts,casual swim,resort wear,vacation trunks,surf shorts,swimwear men,BakAbo swim trunks,bakabo.club,BKS",7,6
+66c38f517d0c2c65d7013b5c,BKS Token Circuit™ Swim Trunks,True,True,token,"brand:bks,collection:token,series:arcade,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+66c388f16b148589b707d27e,BKS Riviera Weave™ Swim Trunks,True,True,riviera,"brand:bks,collection:riviera,series:riviera,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+668ec766d8a995e44b02adba,BKS Pulse Burst™ Racerback Dress,True,True,pulse,"brand:bks,collection:pulse,series:optical,macro:woman,print-type:aop,type:dress,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,7
+668ebb0bea4a17d6700c0125,Racerback Dress — Colorful 3D Ribbon Stripe All-Over Print,False,False,unknown,"racerback dress,cut sew dress,women's dress,aop dress,colorful dress,abstract dress,summer dress,festival dress,beach dress,casual dress,club dress,athleisure dress,party dress,BakAbo Women's Cut Dress (BKS),BKS,bakabo.club",6,7
+668d91c5885322f6950d899b,BKS Pulse Radial™ Racerback Dress,True,True,pulse,"brand:bks,collection:pulse,series:optical,macro:woman,print-type:aop,type:dress,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,7
+668d8c01c3b5eb6d0c03ca92,Abstract Rainbow Stripe Racerback Dress — Vibrant All-Over Print,False,False,unknown,,6,8
+66819990c582440b5605887a,Wavy Sunset Racerback Dress – Colorful Striped AOP Summer Dress,False,False,unknown,,6,8
+668197a6e6c1c281990880da,Tropical Citrus One-Piece Swimsuit — Fruit Print Summer Swimwear,False,False,unknown,,70,9
+6681954bbe977d571e06f42c,Racerback Dress – Vintage Ornate Dark Boho Pattern,False,False,unknown,"racerback dress,women dress,boho racerback,black pattern,summer dress,casual dress,aop dress,festival dress,bohemian dress,everyday dress,gothic dress,vintage pattern,earth tone dress,BakAbo Women's Cut Dress (BKS),BKS,bakabo.club",6,7
+668194b4cb3b41f3af00c1cc,Golden Fur Texture Racerback Dress — Animal Print Summer Dress,False,False,unknown,,6,8
+66819272daf475e6460617f8,Racerback Dress — Golden Swirl Floral All-Over Print,False,False,unknown,,6,7
+66818bccb4c870a8060c080c,BKS Folklore Grove™ Racerback Dress,True,True,folklore,"brand:bks,collection:folklore,series:naif,macro:woman,print-type:aop,type:dress,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,7
+666847d18ee9441abd0407fa,Abstract Yellow Mosaic Swim Trunks — Men's Summer Beach Shorts,False,False,unknown,"swim trunks,men swim,beach shorts,summer trunks,patterned swim,tropical swim,vacation wear,pool party,resort trunks,surf shorts,casual swim,bright swim,holiday trunks,bakabo.club,BKS,BakAbo swim trunks",7,5
+666601505210fa976e0e03cc,Lavender Purple Hooded Windbreaker Jacket — Lightweight All-Over Print,True,False,unknown,"windbreaker jacket,light purple jacket,hooded windbreaker,ladies windbreaker,casual outerwear,spring jacket,festival jacket,travel jacket,everyday windbreaker,rain shell jacket,athleisure jacket,unisex windbreaker,cute purple coat,bakabo.club,BakAbo Windbreaker Jacket,BKS",6,7
+666585fe68acd4ff9c08133a,Abstract Urban Collage Racerback Dress — Colorful All-Over Print,False,False,unknown,,6,8
+6661f920b8e07c81cd031431,BKS Flag Frame™ Windbreaker,True,True,flag,"brand:bks,collection:flag,series:neo-dada,macro:man,macro:woman,type:outerwear,aop,drop:catalog-reset-2026,status:active,curation:keep",6,6
+6661f5833934d91e800952b0,BKS Riviera Crest™ Windbreaker,True,True,riviera,,6,10
+6661f34ae687be478406822b,"Colorblock Chevron Windbreaker Jacket — Red, Charcoal & White Hooded Jacket",False,False,unknown,"windbreaker jacket,hooded windbreaker,lightweight jacket,everyday outer,streetwear jacket,maroon chevron,minimalist jacket,unisex windbreaker,casual travel,spring jacket,athleisure wear,festival outer,rainproof layer,BakAbo Windbreaker Jacket,BKS,bakabo.club",6,6
+6661f18c606ff0ad350c7dc8,BKS Folklore Field™ Windbreaker,True,True,folklore,,6,6
+6661e37cc7d9f8b0c1071e7c,BKS Glyph Orbit™ Windbreaker,False,True,glyph,"brand:bks,collection:glyph,series:brut,macro:man,macro:woman,type:outerwear,aop,drop:catalog-reset-2026,status:active,curation:keep",6,10
+6661e189db3825a40e0cee4c,BKS Flag Clash™ Windbreaker,True,True,flag,"brand:bks,collection:flag,series:neo-dada,macro:man,macro:woman,type:outerwear,aop,drop:catalog-reset-2026,status:active,curation:keep",6,10
+6661df47ab2e850a680143e1,Colorblock Chevron Windbreaker Jacket — Lightweight Hooded Outdoor Shell,True,False,unknown,"windbreaker jacket,mint gray jacket,unisex windbreaker,casual outerwear,spring jacket,hooded windbreaker,athleisure jacket,travel jacket,everyday windbreaker,gift for hikers,festival outerwear,water resistant,stylish windbreaker,BakAbo Windbreaker Jacket,bakabo.club,BKS",6,11
+6661c8f25ca6517330081a8e,Windbreaker Jacket – Retro Chevron Colorblock Hooded Windbreaker,True,False,unknown,"windbreaker jacket,hooded windbreaker,colorblock jacket,retro colorblock,outdoor jacket,lightweight jacket,activewear jacket,rain shell,casual outerwear,unisex windbreaker,festival jacket,travel jacket,spring jacket,BakAbo Windbreaker Jacket,bakabo.club,BKS",6,11
+6661c5ef7913095ea3068c4a,BKS Folklore Shoal™ Windbreaker,False,True,folklore,"brand:bks,collection:folklore,series:naif,macro:man,macro:woman,type:outerwear,aop,drop:catalog-reset-2026,status:active,curation:keep",6,10
+6661c2d28418cdf9d20d976a,Blue Chevron Windbreaker Jacket – Lightweight Waterproof Hooded Jacket,False,False,unknown,,6,11
+6661bdd31907a6ba6507feaf,Mint Chevron Windbreaker Jacket — Lightweight Hooded Outdoor Jacket,True,False,unknown,"windbreaker jacket,mint green jacket,hooded windbreaker,lightweight jacket,outdoor jacket,casual outerwear,everyday windbreaker,spring jacket,travel jacket,rain resistant,streetwear jacket,unisex windbreaker,athleisure jacket,BakAbo Windbreaker Jacket,bakabo.club,BKS",6,11
+6661b48041b44b5a8e0b0c89,BKS Pulse Blush™ Windbreaker,True,True,pulse,"brand:bks,collection:pulse,series:optical,macro:woman,type:outerwear,drop:catalog-reset-2026,status:active,curation:keep",6,10
+6660816a95aedcc1f401de4b,Abstract Color Splash Racerback Dress - Vibrant All-Over Print,False,False,unknown,,6,8
+66607d8260a278890e0c7d1d,"Racerback Dress – Neutral Vertical Ribbed Print, Women's Summer Tank Dress",False,False,unknown,"racerback dress,summer dress,casual dress,women's dress,tank dress,striped dress,beige dress,minimal dress,day dress,vacation dress,beach dress,everyday dress,athleisure dress,BakAbo Women's Cut Dress (BKS),BKS,bakabo.club",6,7
+666069fe8490ec52f4022648,Butterfly Garden Racerback Dress — All-Over Print Floral Summer Dress,False,False,unknown,,6,8
+6660681ac35c5e2b7902cffc,Blue & Gold Geometric Racerback Dress — Bold Abstract All-Over Print,False,False,unknown,,6,8
+665cb76720989f095a0ef0a9,WheatWave(BKS)🌾Beach Cloth,True,False,unknown,"Towels,bakabo Beach Cloth,Beach towel,bakabo.club",1,5
+665cb6708535c4c4410b42c5,GoldenGrain(BKS)🌾Beach Cloth,True,False,unknown,"Towels,bakabo Beach Cloth,Beach towel,bakabo.club",1,5
+665cb40c63ef165c3b08a32b,CitrusSands (BKS)🍊Beach Cloth,True,False,unknown,"Towels,bakabo Beach Cloth,Beach towel,bakabo.club",1,5
+665cb12823490986f60bc680,CopperBreeze (BKS)🍀Beach Cloth,True,False,unknown,"Towels,bakabo Beach Cloth,Beach towel,bakabo.club",1,4
+665cb0199e3ca7d97b05f22e,SunTemple (BKS)🏛️Beach Cloth,True,False,unknown,"Towels,bakabo Beach Cloth,Beach towel,bakabo.club",1,5
+665caeb45b5cdd641802245a,SunSplash (BKS)🌞Beach Cloth,True,False,unknown,"Towels,bakabo Beach Cloth,Beach towel,bakabo.club",1,5
+665cad48ba9286db63063636,SunSway (BKS)🏖️Beach Cloth,True,False,unknown,"Towels,bakabo Beach Cloth,Beach towel,bakabo.club",1,5
+665ca8a82f0181940b0b059b,TropicalTog (BKS)🏖️Beach Cloth,True,False,unknown,"Towels,bakabo Beach Cloth,Beach towel,bakabo.club",1,5
+665ca8a5752fba2663043744,Temple Tides (BKS)🏛️Beach Cloth,True,False,unknown,"Towels,bakabo Beach Cloth,Beach towel,bakabo.club",1,5
+665ca679384e63e04504fe6d,Midnight Shores (BKS)🦇Beach Cloth,True,False,unknown,"Towels,bakabo Beach Cloth,Beach towel,bakabo.club",1,4
+665617c778cf25abb30a8dae,Abstract Blue & Gold Flip Flops — Tropical Geometric Beach Sandals,False,False,unknown,,4,15
+6655cf04f5e4a6071106c15a,Flip Flops — Bold Geometric Blue & Gold Summer Sandals,False,False,unknown,,4,5
+6655cdd6e008859a0309d1ad,Men's Geometric Island Print Hawaiian Shirt,True,False,unknown,"hawaiian shirt,men's shirt,aloha shirt,tropical shirt,patterned shirt,vacation wear,summer shirt,resort shirt,casual shirt,beach shirt,button up shirt,island style,bold print,BakAbo Hawaiian Shirt,BKS,bakabo.club",16,8
+664b03457b2364c0420085dd,Abstract Cityscape Backpack — Retro Geometric Art School Bag,False,False,unknown,,1,4
+664a4355f66579c55f060e51,Graphite Grove (BKS)🍀Pullover Hoodie,False,False,unknown,,6,4
+6649e882d109b0e37e0dd448,Midnight Grove (BKS)🍀Pullover Hoodie,False,False,unknown,,6,4
+6649e6bbfa389ee883074e9c,BKS Flag Meridian Earth™ Pullover Hoodie,True,True,flag,"brand:bks,collection:flag,series:neo-dada,macro:unisex,print-type:aop,type:pullover-hoodie,use-case:streetwear,colorway:earth,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,9
+6649e4c069a38ecd690bbf7a,BKS Flag Meridian Forest™ Pullover Hoodie,True,True,flag,"brand:bks,collection:flag,series:neo-dada,macro:unisex,print-type:aop,type:pullover-hoodie,use-case:streetwear,colorway:forest,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,4
+6649e07df570188f1a08f8db,Phoenix Flame (BKS)🔥 Pullover Hoodie,False,False,unknown,,6,4
+6649dbab2a5a72d20e05cff8,BKS Flag Meridian™ Pullover Hoodie,True,True,flag,"brand:bks,collection:flag,series:neo-dada,macro:unisex,print-type:aop,type:pullover-hoodie,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,4
+6649d9a4c1e59df36e058e70,BKS Folklore Shoal Sky™ Pullover Hoodie,True,True,folklore,"brand:bks,collection:folklore,series:naif,macro:unisex,print-type:aop,type:pullover-hoodie,use-case:streetwear,colorway:sky,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,4
+6648eb848d21075a9e082535,BKS Pulse Flux™ Puffer,True,True,pulse,,10,7
+6648c7f534c5b3650d0ac66b,Colorful Geometric Hawaiian Shirt — Retro Abstract Pattern AOP,True,False,unknown,"hawaiian shirt,men's shirt,tropical shirt,colorful shirt,summer shirt,vacation shirt,luau outfit,resort wear,party shirt,bold print,geometric print,retro shirt,casual shirt,BakAbo Hawaiian Shirt,BKS,bakabo.club",16,8
+6648c4bc962b597cdf0f7abf,Green Geometric Flip Flops — Modern Pixelated Pattern Beach Sandals,False,False,unknown,,4,13
+6648c33bdeb727a7f1092d4e,Men's Geometric Hawaiian Shirt — Colorful Retro Square Pattern AOP,True,False,unknown,"Hawaiian shirt,men's shirt,AOP shirt,tropical shirt,vacation wear,beach shirt,summer shirt,colorful shirt,retro pattern,geometric shirt,party shirt,gift for him,holiday shirt,BakAbo Hawaiian Shirt,bakabo.club,BKS",16,8
+6648bed121b27a1c9805f996,Colorful Geometric Square Flip Flops — Retro Pattern Beach Sandals,False,False,unknown,,4,13
+6648ba987312fc86b90cbf3d,Tropical Fish Flip Flops — Black & White Beach Sandals with Fish Pattern,False,False,unknown,,4,13
+6648b446c0b8ed50b8060b08,Tropical Green Brushstroke Flip Flops — Palm Leaf Beach Sandals,False,False,unknown,,4,13
+6648b431786e20bc5f0c1526,Striped Sunset Flip Flops — Orange & Blue Beach Sandals,False,False,unknown,,4,12
+6648728c67fd74ee040bf6b2,Colorful Abstract Swimsuit — Women's One-Piece Beach Swimwear,False,False,unknown,,70,5
+664759a3baaceaf8000a4eab,Yellow Geometric Abstract One-Piece Swimsuit,False,False,unknown,,70,5
+664645c0663922f72f0492d1,Yellow Geo Camo Hawaiian Shirt — Men's Bold Abstract Aloha,True,False,unknown,"Hawaiian shirt,men's shirt,tropical tee,vacation shirt,summer shirt,beach shirt,bright aloha,yellow shirt,graphic aloha,resort wear,casual shirt,party shirt,holiday shirt,BakAbo Hawaiian Shirt,BKS,bakabo.club",16,8
+663cfc06396370f96206e47a,BKS Hours Cipher™ Sneakers,True,True,hours,"brand:bks,collection:hours,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,10
+663cf99c6438b622fc0ded0a,BKS Hours Effigy™ Sneakers,True,True,hours,"brand:bks,collection:hours,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,10
+663cf49b451b33cbd50b7d7a,BKS Token Volt™ Sneakers,True,True,token,"brand:bks,collection:token,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,10
+663bc1039c41872ef70aa38a,Dragon Wave Racerback Dress — Vintage Japanese Tattoo Print,False,False,unknown,"racerback dress,dragon dress,Asian floral,boho dress,festival dress,summer dress,all over print,women's dress,tattoo inspired,casual dress,beach dress,unique dress,colorful dress,BakAbo Women's Cut Dress (BKS),BKS,bakabo.club",6,8
+663b9aba87221d867508f45e,Men's Abstract Camo Swim Trunks — Green & Earth Tone All-Over Print,False,False,unknown,"swim trunks,mens swim,camouflage print,abstract swim,summer beach,pool party,tropical vibe,vacation wear,mens swimwear,board shorts,beach holiday,casual swim,retro pattern,BKS,BakAbo swim trunks,bakabo.club",7,6
+663a700e205f5793230a5f34,Green Bamboo Stripe Swim Trunks — Rustic Woodgrain Pattern,False,False,unknown,"swim trunks,men swim,beach shorts,summer swim,green swim,resort wear,pool party,surf shorts,casual swim,vacation shorts,tropical vibe,waterproof swim,mens beach,BakAbo swim trunks,BKS,bakabo.club",7,7
+663a6b01cc4f90b6450ac9fc,BKS Token Tin™ Swim Trunks,True,True,token,"brand:bks,collection:token,series:arcade,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+66379325476d30aa6005bc7e,Dreamscape Drift (BKS)🏬Athletic Long Shorts,True,False,unknown,"AOP,AOP Clothing,Men's Clothing,Sportswear,All Over Print,Sublimation,Sports,bakabo.club,Bakabo Athletic Long Shorts",8,8
+6637913bafc257b30e0cefc3,Sunny Streak (BKS)🦜Athletic Long Shorts,False,False,unknown,,8,8
+66378fbcb253dcf6b4056ac3,Verdant Vigor (BKS)🏬Athletic Long Shorts,False,False,unknown,,8,8
+66378ce66ddabf9dfc00446a,Azure Ascendant (BKS)🏬Athletic Long Shorts,False,False,unknown,,8,7
+66378a8e8b2d28ce9809e361,Shadowstorm (BKS)🏬Athletic Long Shorts,False,False,unknown,,8,8
+66378746aa85bbd7800f5680,BKS Riviera Blocks™ Athletic Long Shorts,False,True,riviera,,8,7
+6637861380b2750262098dda,Bolty (BKS)🦜Athletic Long Shorts,False,False,unknown,,8,8
+6637833de06a51968d0ad4c2,Flight Flex (BKS)🦜Athletic Long Shorts,False,False,unknown,,8,4
+66378338013e967a090180f2,Linear Avian (BKS)🦜Athletic Long Shorts,False,False,unknown,,8,4
+66378134a55120489104e087,Sky Glide (BKS)🦜Athletic Long Shorts,False,False,unknown,,8,8
+66377e8fac86da628a0094ad,BKS Mono Architectural Grid - Athletic Shorts,True,False,unknown,"athletic shorts,long athletic,graphic shorts,urban pattern,monochrome gym,men workout,women workout,casual wear,summer shorts,running shorts,street style,modern active,gym training,BakAbo Athletic Long Shorts,bakabo.club,BKS",8,9
+6633cdac36bc67a47c0637c8,Retro Grid Plaid Hawaiian Shirt — Men's Vintage Orange & Slate AOP Camp Collar,False,False,unknown,"men's shirt,Hawaiian shirt,summer shirt,casual shirt,vacation wear,tropical shirt,resort wear,beach shirt,button up,short sleeve,retro pattern,gift for him,island style,BakAbo Hawaiian Shirt,BKS,bakabo.club",16,7
+6633cbf3540315e8e101171d,Men's Abstract Tropical Hawaiian Shirt — Colorful All-Over Print Vacation Camp Shirt,True,False,unknown,"men shirt,hawaiian shirt,tropical shirt,colorful shirt,vacation wear,summer shirt,resort shirt,casual shirt,beach outfit,luau outfit,party shirt,island shirt,bold print,BakAbo Hawaiian Shirt,bakabo.club,BKS",16,8
+663275600afdc872e905f87d,Racerback Dress — Bold Yellow & Navy Optical Check Spiral Print,False,False,unknown,,6,8
+663273fa86a4b4f759006b4b,BKS Pulse Lens™ Racerback Dress,True,True,pulse,"brand:bks,collection:pulse,series:optical,macro:woman,print-type:aop,type:dress,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,7
+66326d97f3d9023f31096cb7,BKS Pulse Vortex™ Racerback Dress,True,True,pulse,"brand:bks,collection:pulse,series:optical,macro:woman,print-type:aop,type:dress,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,7
+662cd5a272315d73e8017309,Retro Geo Pattern Hawaiian Shirt,False,False,unknown,"hawaiian shirt,mens aloha,tropical shirt,vacation wear,summer buttonup,resort shirt,beach outfit,patterned shirt,colorful shirt,casual shirt,festival wear,island vibe,holiday shirt,bks,BakAbo Hawaiian Shirt,bakabo.club",16,8
+662cce043eb603f2330fcb15,BKS Folklore Flutter™ Swim Trunks,True,True,folklore,"brand:bks,collection:folklore,series:naif,macro:man,macro:woman,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+662bbd0979cac3248106c6da,Abstract Retro Circles Swim Trunks — Colorful Vintage Pattern AOP,False,False,unknown,"swim trunks,men swim,summer swim,beach wear,retro pattern,colorful shorts,vacation gear,pool party,men beachwear,bold swimwear,tropical trunks,holiday trunks,surf shorts,BakAbo swim trunks,bakabo.club,BKS",7,6
+662bbd06e14be30cf20f821a,Men's Striped Swim Trunks — Green Orange Retro Beach Shorts,False,False,unknown,,7,7
+662bbbb59db56b8ca00b6fea,BKS Glyph Stride™ Travel Bag,True,True,glyph,"brand:bks,collection:glyph,type:duffle,macro:man,macro:woman,status:active,print-type:aop,use-case:travel,bakabo-enriched",1,7
+662a86b5117707355c016c75,Striped Red Windbreaker Jacket — Lightweight Hooded Zip-Up,False,False,unknown,,6,10
+662a83c78e05d7571a08e82c,Striped Teal Windbreaker Jacket - Lightweight Hooded Windbreaker,True,False,unknown,"windbreaker jacket,striped windbreaker,hooded jacket,lightweight jacket,rain windbreaker,casual outerwear,outdoor jacket,travel jacket,spring jacket,everyday jacket,unisex windbreaker,athleisure jacket,commuter jacket,BakAbo Windbreaker Jacket,bakabo.club,BKS",6,11
+66291467918a3d16280430fb,AdaFly (BKS)🌳Duffle Bag,True,False,unknown,"Accessories,bakabo.club,Bakabo Duffle Bag,Duffle Bag",2,14
+6629113a7a779717390e2eaf,Summer marsh (BKS)🌳Duffle Bag,True,False,unknown,"Accessories,bakabo.club,Bakabo Duffle Bag,Duffle Bag",2,14
+6628e96ec052256fd90adaea,Waterproof Travel Bag – Retro Beach Umbrella Pattern Duffle,False,False,unknown,"travel bag,waterproof duffel,weekend bag,beach travel,carry on bag,vacation duffel,patterned bag,retro umbrella,stylish duffel,gift for traveler,airport bag,boat trip bag,poolside tote,BakAbo Waterproof travel bag,BKS,bakabo.club",1,9
+66279592baa134b0680ae2bb,Flip Flops - Vintage Aztec Pattern Beach Sandals,False,False,unknown,,4,15
+66279497520afbcb9f0438d0,Mosaic Tile Flip Flops — Blue & Sand Beach Sandals,False,False,unknown,,4,15
+66279328c0080cafcc00855a,Plaid Teal Stripe Flip Flops — Casual Beach & Everyday Sandals,False,False,unknown,,4,15
+662790e58ace0b71b20ec780,Tropical Abstract Flip Flops — Colorful Beach Sandal with Vibrant Wave Pattern,False,False,unknown,,4,15
+66278fe9c5f16bd043070c41,BKS Neo Matrix™ Flip Flops,False,True,unknown,,4,16
+66278e2920ce5918060dad55,Colorful Tribal Pattern Flip Flops – Bold Aztec-Inspired Beach Sandals,False,False,unknown,,4,15
+66278ce6a7f7b140cf03a279,Floral Blue Retro Flip Flops — Women’s Summer Beach Sandals,False,False,unknown,,4,13
+66278c3294eb69abcc0fd5bd,Flip Flops — Vibrant Geometric Pattern Beach Sandals,False,False,unknown,,4,19
+661ea9a7689acd02850ed790,Brown Tribal Pattern Sneakers — Men’s Low-Top Casual Shoes,False,False,unknown,"men sneakers,brown sneakers,casual sneakers,canvas sneakers,street shoes,everyday shoes,urban style,men footwear,retro sneakers,skater shoes,groom gift,birthday shoes,fall fashion,BKS,bakabo.club,BakAbo sneakers",16,6
+661905b2ffa0450c2c01754b,Whispers in the Wind (BKS)🏀Pullover Hoodie,False,False,unknown,,6,4
+6612c6023331445fce0adf7a,Men's Retro Geometric Hawaiian Shirt — Orange Navy Striped Camp Shirt,True,False,unknown,"Hawaiian shirt,mens aloha,tropical shirt,vacation shirt,resort wear,beachwear men,summer button,casual camp,patterned shirt,retro print,bold stripe,island style,holiday outfit,BakAbo Hawaiian Shirt,BKS,bakabo.club",16,8
+6612bedbdbda0de60b0445ca,Striped Purple & Orange Racerback Dress - Vibrant Boho Summer Sundress,False,False,unknown,,6,8
+6612af2d5cb6139e250869dc,Purple & Orange Striped Racerback Dress – Vibrant Summer Layered AOP Dress,False,False,unknown,,6,8
+6612a5ca1df35e3cd006830a,BKS Riviera Tile™ Racerback Dress,False,True,riviera,"brand:bks,collection:riviera,series:islands,macro:woman,print-type:aop,type:dress,use-case:beachwear,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,7
+6612a50c183d80696104a1a8,Geometric Stripe Racerback Dress — Modern Orange & Navy All-Over Print,False,False,unknown,,6,8
+6612a1bff86efa0304061766,BKS Flag Orbit™ Racerback Dress,True,True,flag,,6,7
+66118237b984468fc803f68b,Drop Purple (BKS)🐟backpack,False,False,unknown,,1,4
+661181a8bc2bca32190d5cfc,Asor Burgundy (BKS)🐡backpack,False,False,unknown,,1,4
+66117fa1f7beb2fd600ad8ea,Black Seabed (BKS)🐟backpack ,False,False,unknown,,1,4
+66117efc0c6ea62269073faa,Asor Seaweed (BKS)🐡backpack,False,False,unknown,,1,4
+66117de6f800b197a104680b,BKS Folklore Rogue™ Backpack,True,True,folklore,,1,5
+6611749a1bfdfbddb10c2e9c,BKS Marker Knot™ Lounge Pants,True,True,marker,,6,5
+66103545ae5378002c06565a,Two-Tone Lightweight Windbreaker Jacket – Red & Navy Hooded Zip-Up,True,False,unknown,"windbreaker jacket,lightweight jacket,hooded windbreaker,casual outerwear,athletic jacket,everyday jacket,rain shell,spring jacket,travel jacket,outdoor jacket,unisex windbreaker,water resistant,maroon jacket,BakAbo Windbreaker Jacket,BKS,bakabo.club",6,9
+66102e6aae977a17fa06ab91,Olive Brown Lightweight Windbreaker Jacket – Packable Hooded Shell,False,False,unknown,,6,10
+66101e5197648c9b6d031bee,Forest Green Windbreaker Jacket — Lightweight Hooded Rain Shell,True,False,unknown,"windbreaker jacket,green windbreaker,lightweight jacket,hooded windbreaker,casual outerwear,everyday jacket,spring jacket,travel jacket,unisex windbreaker,outdoor jacket,rain shell,festival jacket,athleisure jacket,BakAbo Windbreaker Jacket,bakabo.club,BKS",6,11
+660ff42853d620027105e72c,BKS Token Maze™ Windbreaker,True,True,token,"brand:bks,collection:token,series:arcade,macro:man,macro:woman,type:outerwear,aop,drop:catalog-reset-2026,status:active,curation:keep",6,7
+660fe68a233b837241095423, BKS Token Vault™ Windbreaker Jacket,True,True,token,"brand:bks,collection:token,series:monogram,type:windbreaker,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched,drop:catalog-reset-2026,curation:keep",6,10
+660c39b6181e6cdb2e0a19ea,Peacock Feather Pattern Flip Flops — Tropical Beach Sandals with Elegant Feather Design,False,False,unknown,,4,15
+660c3414ea593bdeb80f0370,Color Splash Flip Flops — Vibrant Abstract Summer Sandals,False,False,unknown,,4,13
+660c252e6ac7783ab60b017a,Abstract Color Splash Swim Trunks — Vibrant All-Over Print Beach Shorts,False,False,unknown,"swim trunks,colorful swim,men swimwear,aop swimwear,beach shorts,summer trunks,art print swim,abstract swim,vacation shorts,pool party wear,bold swim trunks,rainbow swim,surf shorts,bakabo.club,BKS,BakAbo swim trunks",7,6
+6607eb42cae52d636001294b,Abstract Colorblock Flip Flops – Bold Geo Beach Sandals,False,False,unknown,,4,15
+6607c5ad6e736a7c80038db1,Gray Geometric Pattern Flip Flops – Minimalist Beach Sandals,False,False,unknown,,4,15
+6607c1f46aae7d484307c547,BKS Pulse Surge™ Swim Trunks,True,True,pulse,"brand:bks,collection:pulse,series:optical,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+6607c021aca25235a90b9240,Flip Flops — Neon Geometric Pattern Beach Sandals,False,False,unknown,,4,13
+6607bfd40d8cc1fe970a005a,BKS Glyph Acid™ Lounge Pants,True,True,glyph,"brand:bks,collection:glyph,series:brut,macro:woman,print-type:aop,type:lounge-pants,use-case:loungewear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,5
+6605965944bf52c294039ed2,Blue Geometric Flip Flops – Lightweight Summer Beach Sandals,False,False,unknown,,4,15
+660586892600aaf9a6008b0c,BKS Flag Frame™ Lounge Pants,True,True,flag,"brand:bks,collection:flag,series:neo-dada,macro:woman,print-type:aop,type:lounge-pants,use-case:loungewear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,5
+66045ea178c06dd0080f39d4,BKS Folklore Panel™ Lounge Pants,True,True,folklore,,6,5
+66045d50b5075330f800614b,April Lawn (BKS)🦚Pullover Hoodie,False,False,unknown,,6,4
+6604516d6cd644e85008a07a,Men's Tropical Brown Quilted Pattern Hawaiian Shirt,True,False,unknown,"mens shirt,hawaiian shirt,aloha shirt,tropical shirt,vacation wear,summer shirt,resort shirt,beach shirt,casual shirt,printed shirt,men aloha,island shirt,pattern shirt,bakabo.club,BAK,BakAbo Hawaiian Shirt",16,8
+66044f29d794b74829051203,BKS Hours Quilt™ Lounge Pants,True,True,hours,"brand:bks,collection:hours,series:hyperrealism,macro:woman,print-type:aop,type:lounge-pants,use-case:loungewear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,5
+66044d9b6b46913fbc0734ce,BKS Hours Quilt™ Pullover Hoodie,True,True,hours,"brand:bks,collection:hours,series:hyperrealism,macro:unisex,print-type:aop,type:pullover-hoodie,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,4
+6604431f85f4432d7907084a,BKS Marker Torrent™ Pullover Hoodie,True,True,marker,"brand:bks,collection:marker,series:neo-expressionism,macro:unisex,print-type:aop,type:pullover-hoodie,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,4
+660440631c3a0dc98004e22b,Abstract Geometric All-Over Print Hoodie,False,False,unknown,,6,5
+660438c813d0b413c90d3209,BKS Glyph Maze™ Pullover Hoodie,True,True,glyph,"brand:bks,collection:glyph,series:brut,macro:unisex,print-type:aop,type:pullover-hoodie,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,10
+66042851892b75682600c8bd,BKS Marker Prism™ Pullover Hoodie,True,True,marker,"brand:bks,collection:marker,series:neo-expressionism,macro:unisex,print-type:aop,type:pullover-hoodie,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,4
+6602eee1f5238149c70bf7a5,BKS Marker Stitch™ Lounge Pants,True,True,marker,"brand:bks,collection:marker,series:neo-expressionism,macro:woman,print-type:aop,type:lounge-pants,use-case:loungewear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,4
+660169a02f26810c7901a892,Piper Rothko (BKS)🔥Sneakers,False,False,unknown,"Sneakers,BakAbo Sneakers,Mondello,bakabo.club,shoes",16,4
+65ff3113da8593c69c058a1a,BKS Glyph Loom™ Swim Trunks,True,True,glyph,"brand:bks,collection:glyph,series:brut,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+65fe0788b3afc878930b6724,KS Folklore Bloom™ Lounge Pants,True,True,folklore,"brand:bks,collection:folklore,series:naif,macro:woman,print-type:aop,type:lounge-pants,use-case:loungewear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,5
+65fe0534e01044924901bfdf,BKS Pulse Hatch™ Lounge Pants,True,True,pulse,"brand:bks,collection:pulse,series:optical,macro:woman,print-type:aop,type:lounge-pants,use-case:loungewear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,5
+65fdfbc12b06ae4662025d1a,BKS Glyph Cube™ Lounge Pants,True,True,glyph,"brand:bks,collection:glyph,series:brut,macro:woman,print-type:aop,type:lounge-pants,use-case:loungewear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,5
+65fdf9bcff84f8c5d8054f40,BKS Glyph Shade™ Lounge Pants,True,True,glyph,"brand:bks,collection:glyph,series:brut,macro:woman,print-type:aop,type:lounge-pants,use-case:loungewear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,5
+65fdf5e135ecb6e38e0cad4a,BKS Folklore Band™ Lounge Pants,True,True,folklore,"brand:bks,collection:folklore,series:naif,macro:woman,print-type:aop,type:lounge-pants,use-case:loungewear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,5
+65fda6824db0930db20f3f9a,Men's Quilted Wave Puffer Jacket — Lightweight White Cloud Pattern,False,False,unknown,,10,8
+65fda5747f9b4e190d00aa36,Abstract Art Puffer Jacket — Yellow Figure & Collage All-Over Print,False,False,unknown,,10,8
+65fda437b21af072570cd81b,Puffer Jacket — Red Cityscape Graphic with Figure,False,False,unknown,,10,8
+65fda17c9fbbf5818203d6ad,BKS Scan™ Puffer,True,True,unknown,,10,7
+65fd9d6a67b07c717604e52c,BKS Weft™ Puffer,True,True,unknown,,10,7
+65fd9a1aec0d49b83d01185a,BKS Hours Cloud™ Puffer,True,True,hours,,10,7
+65fd94bbd78870301201630c,BKS Flag Apex™ Puffer,True,True,flag,,10,7
+65fd9147edb1f388c104dadf,BKS Token Iso™ Puffer,True,True,token,,10,7
+65fd889ed491c0d8800c3a1a,BKS Flag Wedge™ Puffer,True,True,flag,,10,7
+65fd811a531a034d4302324c,Flip Flops — Geometric Gold Tribal Pattern Beach Sandals,False,False,unknown,,4,5
+65fb1ba710952513240b3c90,Geometric Pattern Flip Flops — Navy & Mustard Square Design,False,False,unknown,,4,5
+65fb1abf49c4ddb47f052c06,Nautical Sailboat Flip Flops – Blue & Gold Beach Sandals,False,False,unknown,,4,4
+65fb18d43b0879d4a5094e93,Cloud Pattern Flip Flops – Colorful Retro Clouds Beach Sandals,False,False,unknown,,4,4
+65fb079fdc1c4c62e60c2d22,Floral Cherry Blossom One-Piece Swimsuit,False,False,unknown,,70,5
+65fb02d340d894a228024138,Striped Retro Swim Trunks — Vintage Neutral Multi-Stripe Beach Shorts,False,False,unknown,"swim trunks,mens swim,striped swim,beach shorts,summer trunks,pool shorts,casual swim,retro stripes,vacation wear,surf trunks,board shorts,lightweight swim,swimwear men,BakAbo swim trunks,BKS,bakabo.club",7,6
+65fb00c430271bde2307ceda,BKS Riviera Facet™ Swim Trunks,True,True,riviera,"brand:bks,collection:riviera,series:islands,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+65f89f17237c57961405a365,Brown Plaid Racerback Dress — Stretchy All-Over-Print Casual Shift,False,False,unknown,,6,8
+65f89bf708c652688806273d,BKS Glyph Column™ Swim Trunks,True,True,glyph,"brand:bks,collection:glyph,series:brut,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+65f89a4f1a3bb63d6c090496,Geometric Mosaic Racerback Dress — Vibrant Tile Print,False,False,unknown,"racerback dress,patterned dress,colorful dress,abstract dress,boho racerback,summer racerback,athleisure dress,art print dress,festival dress,everyday dress,vacation dress,gift for her,beach coverup,BakAbo Women's Cut Dress (BKS),BakAbo Women's Cut Dress,BKS,bakabo.club",6,7
+65f8974b4c0c445f6d09805e,BKS Hours Press™ Racerback Dress,True,True,hours,,6,7
+65f88b3b55620aee670c3f9b,Pixel Mosaic Racerback Dress — Colorful Geometric AOP Bodycon,False,False,unknown,,6,8
+65f8849ea00bb919610618fc,BKS Pulse Arc™ One-Piece Swimsuit,True,True,pulse,"bakabo.club,brand:bks,collection:pulse,series:optical,macro:woman,print-type:aop,type:swimwear,use-case:beachwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",70,4
+65f87f9b972429b28b082ead,Green & Blue Geo Wave One-Piece Swimsuit,False,False,unknown,,70,5
+65f87d11c17fe2ab420bc7dd,Geometric Blue & Yellow One-Piece Swimsuit — Bold Abstract Print,False,False,unknown,,70,5
+65f7549c8074a0294405b7d8,Victoria Englewood (BKS)🐟backpack,False,False,unknown,,1,5
+65f751fc0f09bf0c2d0c3397,Vivian Hartwell (BKS)📽️backpack,False,False,unknown,,1,4
+65f74ebc34db8008ab02b226,Elara Montclair(BKS)👀backpack,False,False,unknown,"Expressionism,bakabo.club,Bakabo backpack,backpack",1,5
+65f7373130fe2a1701002798,Vivienne Sinclair (BKS)🎨backpack,False,False,unknown,,1,5
+65f72d704662db43f707801f,Edgar Beaufort(BKS)🐪backpack,False,False,unknown,,1,5
+65f71310d58dff0fe00d5695,BKS Pulse Rush™ Backpack,False,True,pulse,,1,5
+65f70fbf7cfd4779bf018d75,Blue Floral Flip Flops – Lightweight Summer Beach Sandals with White Daisy Pattern,False,False,unknown,,4,5
+65f709784a88d06b100826c0,BKS Hours Plan™ Swim Trunks,True,True,hours,"brand:bks,collection:hours,series:hours,macro:man,type:swimwear,aop,placement-back,drop:catalog-reset-2026,status:active,curation:keep",7,6
+65f70690b91e48f4c90acf1e,BKS Pulse Chord™ Swim Trunks,True,True,pulse,"brand:bks,collection:pulse,series:pulse,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+65f70141b80e5cfce90d9f1b,Geometric Blue & Yellow One-Piece Swimsuit — Modern Abstract Square Print,False,False,unknown,,70,5
+65f6108c6985906bcc05c4a3,Striped Fiesta Swim Trunks — Colorful Serape Pattern All-Over Print,False,False,unknown,,7,7
+65f60e553782f03a4605519c,Colorful Striped Flip Flops – Vibrant Summer Beach Sandals (BAK ABO Accent),False,False,unknown,,4,5
+65f606e0e4991ff60108b4eb,BKS Marker Scrawl™ Puffer,True,True,marker,,10,7
+65f605b7e2aaef3c5a055b1f,Men's Neon Abstract Puffer Jacket — Green & Navy All-Over Print,False,False,unknown,"mens jacket,puffer jacket,neon pattern,bold outerwear,street style,winter jacket,graphic jacket,festival wear,urban fashion,gift for him,casual outerwear,cold weather,techwear look,BakAbo Puffer jacket,BKS,bakabo.club",10,8
+65f601518140a94d5e09ce6e,Abstract Navy Coral Puffer Jacket,False,False,unknown,"men jacket,puffer jacket,men outerwear,pattern jacket,blue puffer,casual jacket,streetwear men,winter jacket,everyday wear,gift for him,holiday gift,cold weather,layering jacket,BKS,BakAbo Puffer jacket,bakabo.club",10,8
+65f5f895c7a96285890a0806,Striped Black & White Puffer Jacket — '176-761' Quilted Coat,False,False,unknown,,10,9
+65f489fdcf54f4f02d0aa50d,Colorblocked Abstract Flip Flops – Bright Geometric Summer Sandals,False,False,unknown,,4,5
+65f4893569ea0c2a0105f84f,BKS Flag Bloc™ Swim Trunks,True,True,flag,"BKS Flag Bloc™ Swim Trunks,brand:bks,collection:flag,series:neo-dada,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+65f472f7ae1ba49e510825aa,Blue Floral Swim Trunks — White Sketch Hibiscus All-Over Print,False,False,unknown,"swim trunks,men swim,beach shorts,floral swim,blue swimwear,summer trunks,pool party,vacation wear,resort trunks,tropical vibe,casual swim,surf shorts,holiday trunks,BakAbo swim trunks,BKS,bakabo.club",7,3
+65f4704c12546eee2a0c7cda,Geometric Maze Pattern Swim Trunks — Black & Gray AOP,False,False,unknown,,7,7
+65f4682bcb001838f201672a,BKS Pulse Drift™ One-Piece Swimsuit,True,True,pulse,"brand:bks,collection:pulse,series:optical,macro:woman,print-type:aop,type:swimwear,use-case:beachwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",70,4
+65f466489bcc9114750e4116,Floral Tropical One-Piece Swimsuit - Navy Hibiscus Print,False,False,unknown,"floral swimsuit,one piece,tropical swim,women swimwear,beachwear suit,summer bathing,vacation swim,pool party,resort wear,flower print,navy swimsuit,retro swimwear",70,5
+65f4638a9f6349e97b0d1054,Blue Vintage Floral One-Piece Swimsuit – Women's Retro Flower Print Bathing Suit,False,False,unknown,,70,5
+65f462c482aa45e34d065431,BKS Marker Shatter™ One-Piece Swimsuit,False,True,marker,"brand:bks,collection:marker,series:neo-expressionism,macro:woman,print-type:aop,type:swimwear,use-case:beachwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",70,4
+65f4601cc35b8a8a9a02c21c,BKS Folklore Velvet™ One-Piece Swimsuit,True,True,folklore,"brand:bks,collection:folklore,series:naif,macro:woman,print-type:aop,type:swimwear,use-case:beachwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",70,4
+65f45f25854af3e454001f92,Floral Retro One-Piece Swimsuit — Teal Red Yellow All-Over Print,False,False,unknown,,70,5
+65f45c2df21a69505c0c151b,BKS Glyph Quill™ Swim Trunks,True,True,glyph,"brand:bks,collection:glyph,series:glyph,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+65f4496bd73baca1da083978,Vincent Delacroix (BKS)💫backpack,False,False,unknown,,1,4
+65f446896367c41b220ad0a6,Vivienne Montclair (BKS)🐠backpack,False,False,unknown,,1,5
+65f435997ab25ade440553a3,How about Evelyn Sinclair(BKS)🎒backpack,False,False,unknown,,1,5
+65f358f7d54ddcb5be0ffdec,Geometric Patchwork One-Piece Swimsuit — Retro Abstract Print,False,False,unknown,,70,4
+65f356d91d888528bd09a62a,Striped Earth-Tone One-Piece Swimsuit — Retro Vertical Stripe Bathing Suit,False,False,unknown,,70,5
+65f356105b2513e70e01491e,BKS Glyph Crust™ One-Piece Swimsuit,True,True,glyph,"brand:bks,collection:glyph,series:brut,macro:woman,print-type:aop,type:swimwear,use-case:beachwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",70,4
+65f354a8eb73ba772f09005b,BKS Glyph Patch™ One-Piece Swimsuit,False,True,glyph,"brand:bks,collection:glyph,series:brut,macro:woman,print-type:aop,type:swimwear,use-case:beachwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",70,4
+65f353d6e2b5153bca050bca,BKS Marker Clash™ One-Piece Swimsuit,True,True,marker,"brand:bks,collection:marker,series:neo-expressionism,macro:woman,print-type:aop,type:swimwear,use-case:beachwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",70,4
+65f351fded493c0a43050964,Urban Chromatic Flow – Bakabo Studio (BKS) One‑Piece Swimsuit,False,False,unknown,,70,4
+65f33d836a152dce260c5954,BKS Glyph Fold™ One-Piece Swimsuit,True,True,glyph,"brand:bks,collection:glyph,series:brut,macro:woman,print-type:aop,type:swimwear,use-case:beachwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",70,4
+65f318fbb2dd3ef77e0de54a,Gold Swirl Racerback Dress — Abstract Metallic Marble Print,False,False,unknown,,6,8
+65f315c234e7a1cb3a0a240b,BKS Folklore Crew™ Racerback Dress,True,True,folklore,,6,7
+65f22d2484401d0f0e0cf493,BKS Folklore Citadel™ Racerback Dress,True,True,folklore,,6,7
+65f22c58cba78d9b2c05be40,Koi Scale Racerback Dress — Vibrant Japanese Fish Print,False,False,unknown,,6,8
+65f22b77a5df023f930c4bff,Beige Honeycomb Pattern Racerback Dress — All-Over Print,False,False,unknown,,6,8
+65f22a78d13c8ac032024dea,BKS Marker Tag™ Racerback Dress,True,True,marker,,6,7
+65f229e0ab490433da04e61b,Blue Leopard Print Racerback Dress — Women's Patterned Tank Dress,False,False,unknown,,6,8
+65f228c6425ab61ced059c0c,Blue & Gold Mosaic Racerback Dress — Abstract Tile Pattern,False,False,unknown,,6,8
+65f2276b0092e03aa807a041,Abstract Black & Red Racerback Dress – Modern Graphic AOP,False,False,unknown,,6,8
+65f226410d29a003ed0f982b,BKS Marker Flux™ Racerback Dress,True,True,marker,"brand:bks,collection:marker,series:neo-expressionism,macro:woman,print-type:aop,type:dress,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,7
+65f224a39a6766ae57048925,Yellow Tribal Pattern Racerback Dress — Geometric All-Over-Print,False,False,unknown,,6,8
+65f2234eadb754ef80050c6f,Abstract Black & White Racerback Dress — Modern Geometric AOP,False,False,unknown,,6,8
+65f2208591415d01ee0f820d,BKS Marker Cube™ Racerback Dress,True,True,marker,"brand:bks,collection:marker,series:neo-expressionism,macro:woman,print-type:aop,type:dress,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,7
+65f21f845a9ae7fdd2079714,BKS Flag Shard™ Racerback Dress,True,True,flag,"brand:bks,collection:flag,series:neo-dada,macro:woman,print-type:aop,type:dress,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,7
+65f21e283e5593810603ea1b,BKS Pulse Coil™ Racerback Dress,True,True,pulse,,6,7
+65f21d6266b030c2720a9a61,BKS Flag Prism™ Racerback Dress,True,True,flag,"brand:bks,collection:flag,series:neo-dada,macro:woman,print-type:aop,type:dress,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,7
+65f21c820f5263fd440dc27c,BKS Token Grid™ Racerback Dress,True,True,token,"brand:bks,collection:token,series:arcade,macro:woman,print-type:aop,type:dress,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,7
+65f21bca5a45b75e400922bd,Racerback Dress — Abstract Tribal Stripe Print,False,False,unknown,"racerback dress,women dress,summer dress,aop dress,printed dress,boho dress,festival dress,casual dress,beach dress,tank dress,graphic dress,everyday wear,vacation dress,BakAbo Women's Cut Dress (BKS),bakabo.club,BKS",6,7
+65f219592c489806e40f438e,BKS Glyph Swarm™ Racerback Dress,True,True,glyph,"brand:bks,collection:glyph,series:brut,macro:woman,print-type:aop,type:dress,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,14
+65f1ab975c9da5ca2b0f2b9b,Geometric Retro Mosaic Racerback Dress — Gray & Orange All-Over Print,False,False,unknown,"racerback dress,women's dress,summer dress,graphic dress,all over print,urban dress,festival dress,casual dress,streetwear dress,boho racerback,travel dress,lightweight dress,orange gray dress",6,8
+65f1ab2679a1760dff07f25e,Geometric Petal Print Racerback Dress — Metallic Blue & Gold All-Over Print,False,False,unknown,,6,8
+65f1aa638c79f876ab03ee1d,Blue & Gold Mosaic Racerback Dress – Abstract Tile Pattern Summer Dress,False,False,unknown,,6,8
+65f1a9c2769eddc7d60dbb08,Yellow Abstract Textured Racerback Dress — All-Over Print Summer Sundress,False,False,unknown,,6,8
+65f1a8d1ed00a81c7a048cc4,BKS Flag Patch™ Racerback Dress,True,True,flag,"brand:bks,collection:flag,series:neo-dada,macro:woman,print-type:aop,type:dress,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,7
+65ec488731ff54612d024bfd,Red Green Tartan Plaid Swim Trunks — Classic Holiday Plaid Beach Shorts,False,False,unknown,,7,8
+65ec487e7a2b9c24590ac15b,BKS Marker Glow™ Swim Trunks,True,True,marker,"brand:bks,collection:marker,series:neo-expressionism,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+65ec46cc009a2d734c08e80d,Abstract Neon Swirl Flip Flops,False,False,unknown,,4,5
+65ec389fab5c20a92c080cb4,Zebra Stripe Flip Flops — Black & White Optical Pattern Beach Sandals,False,False,unknown,,4,4
+65ec37a9c4c83564db0dec6a,Monochrome Foliage (BKS)🖤Flip Flops ,False,False,unknown,,4,8
+65ec367feaf2dc2d8d0ddd10,Woodgrain Striped Flip Flops – Black & White Casual Beach Sandals,False,False,unknown,,4,5
+65ec3469dfbfc19eda061574,Striped Black & White Swim Trunks — Vertical Barcode Pattern,False,False,unknown,,7,7
+65ec2dce5fe6666103040d04,Red & Navy Geometric Swim Trunks — All-Over Plaid Grid Pattern,False,False,unknown,"swim trunks,men swim,summer trunks,beach wear,red navy print,geometric swim,vacation shorts,pool party,casual swim,holiday trunks,athleisure swim,surf shorts,board shorts,BakAbo swim trunks,bakabo.club,BKS",7,6
+65ec230c1a8ccbef5c057d95,Men's Floral Swim Trunks — Red Vintage Poppy All-Over Print,False,False,unknown,,7,7
+65eb60a7fd99f1bc920665ac,Men's Striped Swim Trunks — Neutral Black & Beige Vertical Stripe Swim Shorts,False,False,unknown,,7,7
+65eb417ac9e6ce551704aeab,BKS Glyph Flow™ Swim Trunks,True,True,glyph,"brand:bks,collection:glyph,series:brut,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+65eb3cb2afde18718105c114,Blue Coral Reef Pattern Swim Trunks — All-Over Print Beach Shorts,False,False,unknown,,7,7
+65e4fd7d2648834d80015f8f,DryEarth Drifters (BKS)-Flip Flops ,False,False,unknown,,4,4
+65e4fa6608f0cdfa31025e41,Flip Flops - Blue Mosaic Pattern Beach Sandals,False,False,unknown,,4,5
+65e4f8ee04cd18129c018513,Leopard Crest Flip Flops – Statement Animal Print Beach Sandals,False,False,unknown,,4,5
+65e4f6c13bb525f49108945f,Abstract Urban Graffiti Flip Flops — BAK ABO Graphic Beach Sandals,False,False,unknown,,4,5
+65e4f54e7b3fb7bfe607cbad,Camo Brushstroke Flip Flops — Casual Beach Sandals with Abstract Olive & Navy Print,False,False,unknown,,4,5
+65e4f24881cf228a66008040,Flip Flops - Gold Marble Beach Sand Pattern with 'BAK ABO' Accent,False,False,unknown,,4,5
+65e4f0ab7f1d364185094c08,Artistic Olive Swirl Flip Flops — Abstract Yellow Marbled Beach Sandals,False,False,unknown,,4,5
+65e4eebac1f8f2747400ab34,Serape Stripe Flip Flops — Southwestern Pattern Beach Sandals,False,False,unknown,,4,5
+65e48d1de3ca19da0c0b4abb,BKS Tribal Signals™ Flip Flops,False,True,unknown,,4,6
+65e48a46a44353a2a50b3f18,Abstract Mosaic Flip Flops – Colorful Geometric Beach Sandals,False,False,unknown,,4,5
+65e487d1dfb463a8790c6aec,BKS Lava Motion™ Flip Flops,False,True,unknown,,4,6
+65e484f9bedc2d09bb0b7f93,Abstract Orange Grid Flip Flops – Lightweight Summer Beach Sandals,False,False,unknown,,4,5
+65e48371bca5225b0d0a165d,Daisy Retro Flip Flops — Boho Floral Beach Sandals,False,False,unknown,,4,5
+65e4825832503ff29d04f82d,Monochrome Beetle Pattern Flip Flops — Black & White Bug Print Summer Sandals,False,False,unknown,,4,4
+65e4814e504a7fcccb01a259,Tropical Wave Flip Flops – Blue Abstract Beach Sandals,False,False,unknown,,4,5
+65e47e13209a6968260a9cdb,Geometric Blue Pattern Flip Flops — Bold Navy Mosaic Beach Sandals,False,False,unknown,,4,5
+65e47bf45d8e06020708ef35,Patterned Flip Flops – Olive Geometric Beach Sandals with 'BAK | ABO' Accent,False,False,unknown,,4,5
+65e46a9f8541d532ca0af95e,Colorful Abstract Tiger Flip Flops - Vibrant Summer Beach Sandals,False,False,unknown,,4,5
+65e466ac26429212a205619a,Blue Geometric Flip Flops — Patterned Beach Sandals,False,False,unknown,,4,5
+65e462f70b0fb59c880bfb1a,Blue Houndstooth Flip Flops – Lightweight Summer Beach Sandals,False,False,unknown,,4,5
+65dfa360e678e3e50c09de8a,Flip Flops - Geometric Brown Houndstooth Pattern Beach Sandals,False,False,unknown,,4,5
+65dfa0ad7b23fcfc780cc08c,Flip Flops - Retro Geometric Pattern with Orange & Blue Stripes (BAK ABO Accent),False,False,unknown,,4,4
+65df937ea1f3b72eea05785b,Wavy Sand Stripe Flip Flops — Beach Casual Sandal with Subtle Logo,False,False,unknown,,4,5
+65df90496f0e88d75b01e93c,Beach Fish Pattern Flip Flops — Neutral Tan Nautical Sandals,False,False,unknown,,4,5
+65df8e6c020e8b04060df79a,Green Celtic Pattern Flip Flops — St. Patrick’s Day Beach Sandals,False,False,unknown,,4,4
+65df89bf55e23491a209b86c,Buffalo Plaid Flip Flops – Casual Beach Sandals with Subtle Logo,False,False,unknown,,4,5
+65df75a43c944c3e7c0d5cbb,Geometric Pattern Flip Flops — Retro Diamond Beach Sandals,False,False,unknown,,4,4
+65df728967ed43075b0e7105,Boho Geometric Flip Flops — Colorful Tribal Pattern Beach Sandals,False,False,unknown,,4,5
+65df6507ab5af6220b072460,Color Grid Flip Flops — Pixelated Plaid Beach Sandals,False,False,unknown,,4,4
+65c0ffed578b8aa1960fbae7,Red Stripe Hawaiian Shirt - Men's Casual Aloha Button-Up,True,False,unknown,"hawaiian shirt,men's shirt,camp shirt,resort wear,vacation shirt,tropical vibe,casual shirt,summer shirt,striped shirt,button up,beach shirt,aloha shirt,men's summer,bakabo.club,BakAbo Hawaiian Shirt,BKS",16,7
+65c0fdd71864035bc2034c1b,BKS Glyph Prism™ Hawaiian Shirt,True,True,glyph,"brand:bks,collection:glyph,series:brut,macro:man,print-type:aop,type:hawaiian-shirt,use-case:resort,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",16,7
+65c0f54197266e1dcf0a0eaa,Olive Tropical Print Hawaiian Shirt — Men's Relaxed Camp-Collar Button-Up,True,False,unknown,"mens shirt,hawaiian shirt,aloha shirt,summer shirt,vacation shirt,resort wear,tropical shirt,casual shirt,short sleeve,button down,beach outfit,island style,surf shirt,BakAbo Hawaiian Shirt,bakabo.club,BKS",16,8
+65c0d6fd52d6037aaf058582,Men's Striped Hawaiian Shirt — Retro Olive & Gold AOP Camp Collar,True,False,unknown,"hawaiian shirt,mens aloha,striped shirt,vacation shirt,resort wear,summer shirt,beach shirt,retro aloha,tropical shirt,casual button,holiday shirt,men's shirt,pool party,BKS,BakAbo Hawaiian Shirt,bakabo.club",16,8
+65ba894e8b9c8ec63b0f02b6,Abstract Mosaic Flip Flops — Golden Geometric Beach Sandals,False,False,unknown,,4,5
+65b28b6e3f7801844c01e60c, MarotteLegacy (BKS)🏺Unisex Pullover Hoodie,False,False,unknown,,6,4
+65b288492394ad1bba0dacf4,HellenicChic Sweater (BKS)🏺Pullover Hoodie,False,False,unknown,,6,4
+659ed7352eb5523b48097950,PsychoStamper (BKS)🐞Duffle Bag,True,False,unknown,"Stamp,BakAbo Duffle Bag,Duffle Bag,bakabo.club,bags",2,14
+659ececfa8ab6e08f80b742e,Emily Walsh's Vintage Courtier (BKS)🎾Duffle Bag,True,False,unknown,"Tennis,bakabo.club,Australian,Duffle Bag,Bakabo Duffle Bag",2,8
+659ec8e817cabfa11c0cdb6b,Chessboard Voyager (BKS)🥸 Duffle Bag,True,False,unknown,"Weft,bakabo.club,Duffle Bag,bags,Bakabo Duffle Bag",2,14
+658db1170e2793dd980fe53a,Artisan's Palette (BKS)🎨backpack,False,False,unknown,,1,5
+658daa0f798fab77b0004d5b,Anniina Kokko (BKS)🤩backpack,False,False,unknown,,1,4
+658c8c19456efe31cd028f15,Pixellate Magenta.(BKS)👾backpack,False,False,unknown,,1,4
+658c8b8654ae83e32d0725b2,Cyber Pixel (BKS)👾backpack,False,False,unknown,,1,5
+658c8a384214027be7051cec,Pixellate Blu (BKS)👾backpack,False,False,unknown,,1,4
+658c89a5a9c7fed5620b1684,Pixellate Yellow (BKS)👾backpack,False,False,unknown,,1,5
+658c88a2e6b38de8670e70be,Pixellate Orange(BKS)👾backpack,False,False,unknown,,1,5
+658c80edc429e4e3090a49b0,BKS Token Cipher™ Puffer,True,True,token,,10,7
+658c6d6d79ea80d1f308ca43,BKS Token Rune™ Puffer,True,True,token,,10,11
+658c46b427d7a46ed706f42e,"Boho Beach Towel — Retro Geometric Mermaid Print, Fringe Cotton Beach Blanket",True,False,unknown,"boho cloth,beach towel,boho towel,turkish towel,fringe towel,retro beach,vintage boho,summer towel,surf towel,pool towel,boho decor,music festival,gift for her,BakAbo beach towel,bakabo.club,BKS",1,5
+658c454d84a4e7cde40b8a64,Contemplative Visions (BKS)🦇Beach Cloth,True,False,unknown,"Towels,bakabo Beach Cloth,Beach towel,bakabo.club",1,5
+658c43b990bc9c8f0f04fd48,Graffiti Symphony (BKS)🏖️Beach Cloth,True,False,unknown,"Towels,bakabo Beach Cloth,bakabo.club",1,5
+658c42dc8f1f03323a050e80,Urban Artistry (BKS)🏖️Beach Cloth,True,False,unknown,"Towels,bakabo Beach Cloth,bakabo.club",1,5
+6589dd54f6df63d4c70e8f81,Olive Textured Scale Puffer Jacket — Men's Lightweight Quilted Coat,False,False,unknown,"men jacket,puffer jacket,olive jacket,mens outerwear,quilted jacket,casual menswear,winter jacket,everyday coat,army green puffer,mens cold coat,streetwear jacket,lightweight puffer,gift for him,BKS,bakabo.club,BakAbo Puffer jacket",10,7
+65884c27f91f72afd7039c3c,Men's Hawaiian Shirt — Vintage Palm Pinstripe AOP,True,False,unknown,"mens shirt,hawaiian shirt,camp shirt,dark aloha,resort shirt,vacation top,tropical print,casual button,summer shirt,beach outfit,retro striped,palmtree design,father day gift,bakabo.club,BKS,BakAbo Hawaiian Shirt",16,8
+6588481d15817b1ca30bcb37,Lagoon Map (BKS)🏛️Duffle Bag,True,False,unknown,"Gero,bakabo.club,Duffel Bag,Bakabo Duffle Bag",2,14
+6587fb42c544f9365b083d4a,Textured Mauve Puffer Jacket — Men's All-Over Print Quilted Look,False,False,unknown,"men jacket,puffer jacket,mens outerwear,quilted jacket,men winter,cold weather,casual jacket,streetwear men,everyday wear,gifts for him,holiday jacket,autumn jacket,layering piece,BakAbo Puffer jacket,bakabo.club,BKS",10,8
+6587f8cf11b3fd24380aac8a,BKS Fawn™ Puffer,True,True,unknown,,10,7
+6587f516ffd55a59a8015d4a,BKS Scale™ Puffer,True,True,unknown,,10,7
+6585f250d057a57313046ae9,Men's Quilted Puffer Jacket – Black with Subtle Stripe Trim,False,False,unknown,"men puffer,puffer jacket,black puffer,men outerwear,quilted jacket,casual jacket,streetwear men,winter jacket,cold weather,everyday coat,gift for him,holiday jacket,travel coat,BKS,bakabo.club,BakAbo Puffer jacket",10,7
+6585f12eff49168f510e68aa,Men's Black Quilted Puffer Jacket — Lightweight Insulated Outerwear,False,False,unknown,,10,8
+6585ebdbb996e7149403eb99,Green Cracked Stone Pattern Puffer Jacket,False,False,unknown,"men jacket,puffer jacket,green puffer,textured coat,mens outerwear,casual jacket,lightweight puffer,everyday coat,urban outerwear,cool weather,festival jacket,streetwear men,gift for him,BakAbo Puffer jacket bakabo.club BKS",10,8
+6585ea167c66a0b3550d509d,Puffer Jacket — Cracked Stone Texture All-Over Print,False,False,unknown,,10,8
+6585dd5d5a7c323a1702da48,Purple Cracked Stone Puffer Jacket — Textured All-Over Print Men’s Outerwear,False,False,unknown,,10,8
+65836e08ded4091d3700d7da,Mystic Basquiat Reverie (BKS)🍐Pullover Hoodie ,False,False,unknown,,6,4
+65836cde105c5b57a60ce21c,CoinCouture (BKS)🍀Unisex Pullover Hoodie,False,False,unknown,,6,4
+658369a293547853a709a1ba,CryptoChic BKS)🍀Unisex Pullover Hoodie ,False,False,unknown,,6,4
+658367896350f407ce0c053b,Abstract Walkers Flip Flops — Retro Geometric Beach Sandals,False,False,unknown,,4,5
+6582b5199a3da2a57e052263,Compact Companion (BKS)🌳backpack ,False,False,unknown,,1,5
+6582b43aace58ff3960638ef,BKS Marker Burst™ Backpack,True,True,marker,,1,5
+65809be8e50cd0a9db023260,Green Tropical Pattern Hawaiian Shirt — Men's Casual Aloha Button-Up,True,False,unknown,"mens shirt,hawaiian shirt,green aloha,vacation top,resort wear,summer shirt,casual button,beach shirt,tropical vibe,holiday shirt,men's aloha,island shirt,gift for him,BakAbo Hawaiian Shirt,BKS,bakabo.club",16,8
+6580976cfe6a2b4b7b0097d4,Men's Navy Geometric Hawaiian Shirt — Casual Resort Aloha Button-Up,True,False,unknown,"Hawaiian shirt,men's shirt,summer shirt,navy aloha,resort wear,vacation shirt,tropical shirt,casual button,beach shirt,island shirt,camp collar,mens aloha,summer casual,bakabo.club,BakAbo Hawaiian Shirt,BKS",16,8
+65808eff3e1875a1ff020108,Men's Quilted Puffer Jacket — Light Blue Patterned All-Over Print,False,False,unknown,"men jacket,puffer jacket,men outerwear,light blue coat,casual bomber,everyday jacket,winter layering,cold weather wear,men streetwear,urban jacket,gift for him,fall wardrobe,holiday jacket,bakabo.club,BakAbo Puffer jacket,BKS",10,7
+65806e9066b5033e430127cb,Puffer Jacket — Subtle Geometric Plum All-Over Print,False,False,unknown,"men jacket,puffer jacket,men outerwear,quilted jacket,casual jacket,everyday wear,winter jacket,cold weather,street style,mens fashion,gift for him,autumn jacket,layering piece,bakabo.club,BKS,BakAbo Puffer jacket",10,7
+65806a4bfe5c4ddaeb08814b,Puffer Jacket — Abstract Figure & Urban Collage All-Over Print,False,False,unknown,"men jacket,puffer jacket,men outerwear,graphic puffer,everyday jacket,urban streetwear,winter coat,lightweight puffer,casual jacket,men's fashion,holiday gift,cold weather,layering jacket,BakAbo Puffer jacket,bakabo.club,BKS",10,7
+657db7be185cd9bab80ad3b8,Retro Geometric Hawaiian Shirt — Vintage Brown Tiki Pattern Aloha Shirt,False,False,unknown,"hawaiian shirt,men's shirt,tropical shirt,retro pattern,vintage aloha,vacation wear,summer shirt,beach shirt,casual shirt,holiday shirt,resort wear,luau outfit,island shirt,BakAbo Hawaiian Shirt,BKS,bakabo.club",16,7
+657cc818fe20cd9b7608126a,Nocturnal Sonata (BKS)🦇backpack,False,False,unknown,,1,4
+657cb59569c1a894ce05f86e,Artemisia De Rondio(BKS)🎨backpack,False,False,unknown,,1,4
+657cb36592474ee90801352c,Giovanni Roma (BKS)🪰backpack,False,False,unknown,,1,5
+657ca9511245a103bb0ea8b1,BKS Folklore Arabesque™ Puffer,True,True,folklore,,10,11
+657b4055754c367286044a1b,Men's Mustard Geometric Puffer Jacket,False,False,unknown,,10,8
+657b3053f74ccbbdaf02ddfd,Checkerboard Swim Trunks — Distressed Black & Brown All-Over Print,False,False,unknown,"men swim,mens trunks,checkered swim,brown checkers,beach swimwear,summer trunks,casual swim,pool shorts,board short,vacation wear,surf trunks,retro checkers,gift for him,bakabo.club,BKS,BakAbo swim trunks",7,6
+657b2d9d6d67b6acdf0eadbe,Abstract Neon Camo Swim Trunks — Pink Green All-Over Print Beach Shorts,False,False,unknown,"swim trunks,men swim,beach shorts,colorful trunks,abstract print,summer swim,pool wear,vacation shorts,tropical vibe,festival wear,surf trunks,gift for him,resort wear,BakAbo swim trunks,BKS,bakabo,bakabo.club",7,5
+657b2b043d93c5443b0cf68a,Camo Moss Swim Trunks — Green Woodland All-Over Print,False,False,unknown,"swim trunks,mens swim,camouflage swim,green camo,beach trunks,pool shorts,summer wear,surf shorts,casual swim,vacation shorts,tropical camo,outdoor swim,athletic swim,BakAbo swim trunks,BKS,bakabo.club",7,6
+657b28ceac9af10102069116,Neon Leopard Swim Trunks — Bold Yellow Animal Print Beach Shorts,False,False,unknown,"swim trunks,men swimwear,neon leopard,animal print,beach shorts,pool party,summer vacation,tropical vibe,bold swimwear,festival outfit,board shorts,resort wear,vacation style,BakAbo swim trunks,BKS,bakabo,bakabo.club",7,7
+657b0852f9855972b503da71,Oceanic Harmony (BKS)🔥Pullover Hoodie,False,False,unknown,,6,4
+6579e8d5b2b376b40102ad96,Abstract Confetti Puffer Jacket — Men’s All-Over Print Winter Coat,False,False,unknown,"men jacket,puffer jacket,men outerwear,pattern jacket,retro puffer,colorful coat,urban jacket,casual jacket,streetwear men,winter puffer,gift for him,holiday jacket,everyday outer,BakAbo Puffer jacket,bks,bakabo.club",10,7
+657898066057d5a0b80e0193,"Colorblock Swim Trunks – Teal, Orange & Charcoal Beach Shorts",False,False,unknown,"swim trunks,men swim,beach shorts,board shorts,summer swim,pool wear,vacation shorts,casual swim,retro colorblock,surf trunks,men beachwear,swimwear gift,family beach,BakAbo swim trunks,BKS,bakabo.club",7,7
+6575c86a1a939bf35c003836,"Men's Red Striped Puffer Jacket — Retro Multicolor Trim, Warm Casual Outerwear",False,False,unknown,"men jacket,puffer jacket,red puffer,striped jacket,men outerwear,casual menswear,everyday jacket,winter puffer,holiday jacket,gift for him,streetwear jacket,lightweight puffer,men bomber,BakAbo Puffer jacket,bakabo.club,BKS",10,8
+6574b70e7c643fb64d0db17b,BKS Glyph City™ Hawaiian Shirt,True,True,glyph,"brand:bks,collection:glyph,series:brut,macro:man,print-type:aop,type:hawaiian-shirt,use-case:resort,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",16,7
+6574b45ac0b3121934079e9e,Tribal Geo Print Hawaiian Shirt — Blue & Taupe AOP,True,False,unknown,"men's shirt,hawaiian shirt,aztec aloha,tropical shirt,vacation shirt,summer shirt,resort wear,men's aloha,geometric shirt,printed shirt,beach shirt,casual shirt,surf shirt,bakabo.club,BKS,BakAbo Hawaiian Shirt",16,8
+6574b3693534c8957a0f1dba,Men's Geometric Blue & Orange Hawaiian Shirt — Tropical Abstract AOP,True,False,unknown,"Hawaiian shirt,tropical shirt,men's aloha,vacation shirt,resort wear,beach shirt,summer shirt,bold print,geometric aloha,festival shirt,pool party,cruise outfit,gift for him,BakAbo Hawaiian Shirt,BKS,bakabo.club",16,8
+6574b21069a95e27e0097fbf,Psychedelic Surf Art Hawaiian Shirt — Colorful Ocean Waves & Stars AOP,False,False,unknown,"hawaiian shirt,men's hawaiian,tropical shirt,retro aloha,colorful aloha,bold print top,beach vacation,festival shirt,graphic aloha,summer buttonup,island vibes,casual resort,surf shirt,BakAbo Hawaiian Shirt,bakabo.club,BKS",16,7
+6574b0104fbec7311705e42a,Men's Geometric Hawaiian Shirt - Island Tribal Pattern,False,False,unknown,"hawaiian shirt,men's shirt,tropical shirt,resort wear,vacation shirt,beach shirt,aloha shirt,summer shirt,patterned shirt,geometric shirt,casual shirt,club shirt,island shirt,BakAbo Hawaiian Shirt,bakabo.club,BKS",16,7
+6574adffe097afe86f0f288a,Retro Geometric Hawaiian Shirt — Brown Block Pattern AOP,True,False,unknown,"hawaiian shirt,men's shirt,retro print,tropical shirt,vacation wear,beach shirt,summer shirt,resort shirt,casual shirt,island vibes,boho shirt,geometric top,men's aloha,BakAbo Hawaiian Shirt,bakabo.club,BKS",16,8
+6574ad476cd7f877f10a0c2c,Grey Geometric Hawaiian Shirt — Men's Casual Camp Shirt,True,False,unknown,"mens shirt,hawaiian shirt,summer shirt,gray aloha,camp collar,vacation shirt,resort wear,casual shirt,beach shirt,tropical shirt,island vibes,mens buttonup,patio party,BakAbo Hawaiian Shirt,BKS,bakabo.club",16,8
+6574ac85a5773015ed0a86ff,Beige Geo Patchwork Hawaiian Shirt,False,False,unknown,"mens shirt,hawaiian shirt,beige aloha,casual summer,resort wear,vacation shirt,tropical shirt,camp collar,mens aloha,neutral shirt,beach outfit,summer shirt,laid back tee,BKS,bakabo.club,BakAbo Hawaiian Shirt",16,7
+6574abaca9a4a2881b021d55,Men's Retro Geometric Hawaiian Shirt — Rose Block Pattern,True,False,unknown,"mens shirt,hawaiian shirt,aloha shirt,resort wear,vacation shirt,tropical shirt,button up,casual shirt,summer shirt,pink shirt,geometric print,retro shirt,pool party,BakAbo Hawaiian Shirt,bakabo.club,BKS",16,8
+6574aac689d466651c04ac5e,BKS Pulse Block™ Hawaiian Shirt,True,True,pulse,"brand:bks,collection:pulse,series:optical,macro:man,print-type:aop,type:hawaiian-shirt,use-case:resort,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",16,7
+6574a7964d57c9cb9f02a9c5,Men's Blue Geo Patchwork Hawaiian Shirt — Lightweight Vacation Camp Collar,True,False,unknown,"men shirt,hawaiian shirt,blue aloha,tropical shirt,vacation wear,resort shirt,summer shirt,casual shirt,beach outfit,men aloha,pattern shirt,light blue top,island style,BakAbo Hawaiian Shirt,BKS,bakabo.club",16,8
+65749f4792f14efec10a77dc,Waterproof Travel Bag — Beige Geometric Weekender with Blue Stick Figure,False,False,unknown,"travel bag,waterproof bag,weekend bag,duffel bag,carry on,travel accessory,beach bag,gym duffel,lightweight bag,vacation tote,mens travel,womens duffel,airport bag,BakAbo Waterproof travel bag,bakabo.club,BKS",1,7
+65749ea40a44dcea3902fce5,Blue Geometric Waterproof Travel Bag with Minimalist Stick Figure,False,False,unknown,,1,8
+65749ddb6d1000085b0349de,Geometric Plaid Waterproof Travel Bag with Minimalist Figure,False,False,unknown,"travel bag,waterproof bag,weekender bag,duffel travel,carry on bag,gym travel bag,vacation duffel,airport friendly,packing organizer,gift for traveler,commuter bag,lightweight duffel,water resistant,BakAbo Waterproof travel bag,BKS,bakabo.club",1,8
+65749c290eb7e66a810f2643,Geometric Retro Travel Duffle — Waterproof Weekend Bag with Blue Figure Accent,False,False,unknown,"travel bag,waterproof bag,weekend bag,duffel travel,carry on bag,gym travel,mens travel,womens travel,retro pattern,brown duffel,vacation bag,airport bag,overnight bag,BakAbo Waterproof travel bag,bakabo.club,BKS",1,9
+65749b5a11ae1414870cb30f,GeoShore (BKS)🏖️Beach Cloth,True,False,unknown,"Towels,Comfort ,bakabo Beach Cloth,bakabo.club",1,5
+65749a95bdf1d5bd940a46a6,HexaTowel (BKS)👁️Beach Cloth,True,False,unknown,"Towels,Comfort ,bakabo Beach Cloth",1,4
+6574999bbd892c4e810ada8c,GeoPattern Shore (BKS)👁️Beach Cloth,True,False,unknown,"Towels,Comfort ,bakabo Beach Cloth,bakabo.club",1,4
+6574990022d3a43150031479,Angular Sands (BKS)👁️Beach Cloth,True,False,unknown,"Towels,bakabo Beach Cloth,bakabo.club",1,5
+657498444cfac92350052c96,Beachscape Grids (BKS)👁️Beach Cloth,True,False,unknown,"Towels,Comfort ,bakabo Beach Cloth,bakabo.club",1,4
+65748a415032e3ca450422d8,BKS Glyph Weave™ Backpack,True,True,glyph,"brand:bks,collection:glyph,type:backpack,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",1,5
+657488404c17af6c080064aa,Tropical Tessellations (BKS)👁️Beach Cloth,True,False,unknown,"Towels,Comfort ,bakabo Beach Cloth,bakabo.club",1,4
+657460def1caeeaec305dbfd,BKS Glyph Deco™ Swim Trunks,True,True,glyph,"brand:bks,collection:glyph,series:brut,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+65720ba69b48d6a3f90f6c2a,BKS Glyph Mesh™ Puffer,True,True,glyph,,10,7
+657205f6b9a81e5d32055e1a,Checkerboard Puffer Jacket — Green & Navy All-Over Print,False,False,unknown,"men jacket,puffer jacket,checker jacket,green blue,streetwear men,casual outer,graphic puffer,winter jacket,warm outerwear,men fashion,festival jacket,everyday wear,gift for him,BKS,bakabo.club,BakAbo Puffer jacket",10,7
+65720340bc427ed9c7012777,BKS Folklore Block™ Puffer,True,True,folklore,,10,7
+65720221303fee950c033ceb,BKS Marker Drip™ Puffer Jacket,True,True,marker,,10,11
+6571ff480996ea24880a173b,Men's Light Blue Striped Puffer Jacket — Casual Quilted Winter Coat,False,False,unknown,"men jacket,puffer jacket,men outerwear,quilted jacket,lightweight puffer,striped trim,casual jacket,winter layering,cold weather wear,everyday jacket,gift for him,travel jacket,stadium jacket,BakAbo Puffer jacket,bakabo.club,BKS",10,7
+6571faeb6a43229bb80e4cc5,Checkerboard Vintage Script Puffer Jacket — Men's All-Over Print,False,False,unknown,"men jacket,puffer jacket,men outerwear,winter jacket,quilted jacket,men fashion,streetwear jacket,casual jacket,warm outerwear,cold weather,holiday gift,mens winter,everyday jacket,BKS,bakabo.club,BakAbo Puffer jacket",10,6
+656f53497d78c12f3f0fc68b,BKS Glyph Clover™ Pullover Hoodie,True,True,glyph,"brand:bks,collection:glyph,series:brut,macro:unisex,print-type:aop,type:pullover-hoodie,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,4
+656f52397a1173df7607e7a0,Men's Geometric Houndstooth Puffer Jacket – All-Over Print,False,False,unknown,,10,7
+656f3f09ac0f25077c00aeed,BKS Node™ Puffer,True,True,unknown,,10,7
+656f374bf9c20f14c90883d1,SerenityBlend (BKS)🍀Unisex Pullover,False,False,unknown,,6,4
+656d04c4150223e0650a507d,BKS Marker Tag™ Swim Trunks,True,True,marker,"brand:bks,collection:marker,series:neo-expressionism,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+656d0337424c319d4f047080,BKS Solar Tribe™ Flip Flops,False,True,unknown,,4,5
+656d021eb6acb95be40c6115,Graffiti Floral Flip Flops — Urban Art Beach Sandals,False,False,unknown,,4,5
+656b86c3c7179057a00ecb1a,Checkered Hawaiian Shirt — Green & Navy Retro AOP Camp Shirt,False,False,unknown,"men shirt,hawaiian shirt,checkered shirt,green blue top,vacation shirt,summer aloha,tropical shirt,resort wear,casual shirt,men blouse,beach outfit,holiday shirt,party shirt,BakAbo Hawaiian Shirt,bakabo.club,BKS",16,7
+656b860536801dbe470b0a59,Men's Tropical Abstract Hawaiian Shirt – Olive Green Leaf Pattern AOP,True,False,unknown,"Hawaiian shirt,men's shirt,tropical shirt,vacation shirt,beach shirt,summer aloha,resort wear,casual shirt,patterned shirt,floral aloha,holiday shirt,island shirt,men's aloha,BakAbo Hawaiian Shirt,BKS,bakabo.club",16,8
+656b8520ef8891817c0ee993,Abstract Retro Faces Hawaiian Shirt — Vintage Geometric AOP Men's Camp Shirt,False,False,unknown,"men's shirt,hawaiian shirt,tropical shirt,resort wear,vintage pattern,printed shirt,summer shirt,casual shirt,vacation top,beach shirt,retro aloha,artsy shirt,gift for him,BakAbo Hawaiian Shirt,BKS,bakabo.club",16,8
+656b83b1007ee7112702255c,Men's Retro Geometric Hawaiian Shirt — Mustard Mosaic AOP,True,False,unknown,"men's shirt,hawaiian shirt,vacation shirt,tropical shirt,resort wear,summer shirt,patterned shirt,retro aloha,casual shirt,beach outfit,holiday shirt,island shirt,linen look,BakAbo Hawaiian Shirt,BKS,bakabo.club",16,8
+656b811c114d602fad0975b8,Blue Geometric Pattern Hawaiian Shirt — Men's Relaxed Aloha Shirt,True,False,unknown,"Hawaiian shirt,men's aloha,summer shirt,resort wear,vacation top,tropical tee,beach shirt,patterned shirt,casual shirt,island style,luau outfit,cruise shirt,men's casual,bakabo.club,BKS,BakAbo Hawaiian Shirt",16,8
+656b77be66a39f06e20ac0f2,Striped Blue Flip Flops — Casual Beach Sandals with Coastal Ombre Design,False,False,unknown,,4,5
+656b77b979ed2b148703e788,Tribal Fire Dance Flip Flops – Bold Illustration Beach Sandals,False,False,unknown,,4,5
+656b76410927aaf7c204890a,Blue Fish Pattern Flip Flops — Beach Sandals with Cute Fish Design,False,False,unknown,,4,5
+656b74d3e6fb19a4e7080a8e,Abstract Colorblock Flip Flops – Geometric Summer Sandals,False,False,unknown,,4,5
+656b73504f0a29f19c0d17a4,Daisy Pattern Flip Flops – Blue & Yellow Floral Summer Sandals,False,False,unknown,,4,5
+656b7248ce571406750821aa,Striped Beach Flip Flops – Blue Nautical Summer Sandals,False,False,unknown,,4,5
+656b705f0d30bb3b0a0df7cf,Striped Summer Flip Flops — Colorful Red & Blue Beach Sandals,False,False,unknown,,4,5
+656b6b8faf3c32a7ea077f38,Abstract Pebble Pattern Flip Flops – Earth Tones Beach Sandals,False,False,unknown,,4,5
+656b66a2db2a336ef80cfb69,Blue Plaid Flip Flops — Men's Summer Beach Sandals,False,False,unknown,,4,5
+656b65a70db6f49cc909536c,Blue Geometric Flip Flops — Light Plaid Summer Sandals,False,False,unknown,,4,5
+656b6493531eb57c6a06ff77,Striped Blue & White Flip Flops — Casual Beach Sandals with BAK ABO Accent,False,False,unknown,,4,5
+656b6087e11e273d8b019072,Bakabo Brown Faux Fur Flip Flops — Cozy Novelty Beach Sandals,False,False,unknown,,4,5
+656b5da80f91013e650deed5,Flip Flops — Geometric Blue Stripe Beach Sandals,False,False,unknown,,4,5
+656b507ee949fec80b00e5aa,Purple Abstract Stripe Flip Flops – Summer Beach Sandals,False,False,unknown,,4,5
+656a5645842cf44a2b0d6b4f,Abstract Geometric Flip Flops — Retro Pattern Beach Sandals,False,False,unknown,,4,5
+656a515121c62fec8a01f630,Striped Teal Beach Flip Flops – Casual Summer Sandals,False,False,unknown,,4,5
+656a5046158581f49806f5e4,Striped Blue Flip Flops – Casual Beach Sandals with 'BAK ABO' Accent,False,False,unknown,,4,5
+656a4f2ad1c465a44b0bd3ac,Tribal Carved Wood Pattern Flip Flops – Beach Sandals with Geometric Tiki Design,False,False,unknown,,4,5
+656a4a280c5d4648090c952d,Geometric Colorblock Flip Flops — Bold Blue & Orange Beach Sandals,False,False,unknown,,4,5
+656a486098325445760d1b66,Striped Brown Beach Flip Flops – Casual Summer Sandals,False,False,unknown,,4,5
+656a4724dfd18c5eac08e2df,Egyptian Hieroglyph Flip Flops – Ancient Script Beach Sandals,False,False,glyph,,4,5
+656a43ca501642f841016496,Abstract Coral Pattern Flip Flops — Artistic Summer Beach Sandals,False,False,unknown,,4,4
+656a431c0ba99520ac08c65b,Striped Blue Beach Flip Flops — Casual Summer Sandals,False,False,unknown,,4,5
+656a4210ca74dfd0da04c8f6,Striped Blue & Black Flip Flops – Lightweight Summer Beach Sandals,False,False,unknown,,4,5
+656a41ff5286206aa500f48c,Tribal Stick Figure Flip Flops — Funky Beach Sandals with 'BAK ABO' Accent,False,False,unknown,,4,5
+656a4059e6c799258209ea74,Plaid Pattern Flip Flops — Casual Gray Beach Sandals,False,False,unknown,,4,5
+656a3e7cf36016946909d06b,Geometric Mosaic Flip Flops — Modern Triangle Pattern Beach Sandals,False,False,unknown,,4,4
+656a33ed34dd349029067e68,Camo Coastal Flip Flops — Blue & Brown Beach Sandals with 'BAK ABO' Accent,False,False,unknown,,4,5
+656514d4dd4f1cb56c0b7a26,ABKS Marker Shard™ Swim Trunks,True,True,marker,"brand:bks,collection:marker,series:neo-expressionism,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+65650cc13d1ec0d32b03cc06,BKS Glyph Drift™ Pullover Hoodie,True,True,glyph,"brand:bks,collection:glyph,series:brut,macro:unisex,print-type:aop,type:pullover-hoodie,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,4
+65627c2b3552f1bb5905fd10,Madame Réunion (BKS)🦇backpack,False,False,unknown,,1,5
+6562717f06e92e0f8c03bd7c,BKS Hours Prism™ Backpack,True,True,hours,"brand:bks,collection:hours,type:backpack,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",1,5
+6562636e64f054660c091a05,Stamp Sneakerz (BKS)🎫Sneakers,False,False,unknown,,16,5
+65611fd519a7ae45ff082df6,Refined Radiance (BKS)🏖️Beach Cloth,True,False,unknown,"Blankets,Towels,bakabo Beach Cloth,Gero,bakabo.club",1,5
+65611df376b2640d9b091419,Men's Blue Striped Swim Trunks — Nautical Horizontal Stripe Beach Shorts,False,False,unknown,"swim trunks,men swim,beach shorts,striped trunks,blue swimwear,summer trunks,pool shorts,casual swim,surf trunks,vacation wear,mens beach,coastal style,holiday swim,BakAbo swim trunks,bakabo.club,BKS",7,6
+6561123318115bdfde0c7610,Eddy Addams junior (BKS)👁️Beach Cloth,True,False,unknown,"Blankets,Sublimation,Indoor,Outdoor,Bedding,Towels,Comfort ,bakabo Beach Cloth,bakabo.club",1,5
+655fbc53a1d282af11043bc3,BKS Folklore Petal™ Backpack,True,True,folklore,"brand:bks,collection:folklore,type:backpack,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",1,5
+655fba0aae186a00e90bf0a9,Pietro da Siena (BKS)🌺backpack,False,False,unknown,,1,4
+655fb3a51042b557980cab1f,Helon Garbatella (BKS)👀backpack,False,False,unknown,,1,4
+655faf8071f297a0500847b5,Hans van der Meer (BKS)👨‍🎨backpack,False,False,unknown,,1,4
+655facb2ae9c788de401f434,Galio da Bellini (BKS)🎨backpack,False,False,unknown,,1,4
+655fa62ba68ada75630902db,Edmundo da Silva (BKS)🦔backpack,False,False,unknown,,1,4
+655f960f8fe850f3e3065c8a,Geometric Yellow & Purple Pattern Swim Trunks – Retro Checkerboard All-Over Print,False,False,unknown,,7,7
+655f9420700bfddfdc0c114b,Olive Pinstripe Swim Trunks with Retro Palm Pattern,False,False,unknown,"swim trunks,men swim,beach shorts,summer trunks,olive swim,pinstripe swim,tropical trunks,casual swim,pool shorts,vacation wear,resort trunks,everyday swim,gift for him,BKS,BakAbo swim trunks,bakabo.club",7,6
+655f92ffede24b51110150b8,Cocorito Chic (BKS)♾️Duffle Bag,True,False,unknown,"Accessories,bakabo.club,Bakabo Duffle Bag,Duffle Bag",2,14
+655f85d6cd5c260cb40e3b23,Green Swirl Swim Trunks — Abstract Woodgrain AOP Beach Shorts,False,False,unknown,"swim trunks,green swim,mens swim,beach shorts,summer trunks,surf swim,pattern trunks,olive swim,retro swim,casual swim,vacation wear,pool party,groom gift,BakAbo swim trunks,bakabo.club,BKS",7,6
+655d33f7dd7666ffb705bb86,BKS Hours Atelier™ Backpack,True,True,hours,"brand:bks,collection:hours,type:backpack,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",1,5
+655d321f1294e4c1c40017aa,Aruspico Kubrick (BKS)😨backpack,False,False,unknown,,1,4
+655d30d69859ba1c4c0d646a,Ares Baroncelli (BKS)🦇backpack,False,False,unknown,,1,5
+655cfac78b43892c6a08eace,Plaid Blue Grid Flip Flops — Casual Beach Sandals with Modern Geometric Pattern,False,False,unknown,,4,5
+655cf7e94a3429bbee00fae1,Striped Nautical Flip Flops – Casual Beach Sandals with 'BAK ABO' Accent,False,False,unknown,,4,5
+655cf2e72259e3b6d30a39ba,Raffaele Adams (BKS)📽️Duffle Bag,True,False,unknown,"Accessories,bakabo.club,Bakabo Duffle Bag,Duffle Bag",2,14
+655cea41c31e4b8712088b42,Saverio Luzzi (BKS)🍸Duffle Bag,True,False,unknown,"Accessories,Bags,All Over Print,AOP,Duffle,bakabo.club,Gero,BakAbo duffle bag",2,14
+655bad310418120455024ae4,Artemio Giocondi (BKS)📽️Duffle Bag,True,False,unknown,"Accessories,Bags,AOP,Duffle,bakabo.club,Bakabo Duffle Bag",2,8
+655ba73834541723a90daeb7,BKS Pulse Meadow™ Backpack,True,True,pulse,"brand:bks,collection:pulse,type:backpack,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",1,5
+655ba679517906a0e9035710,Alessandro Frescobaldi (BKS)🩰Backpack,False,False,unknown,,1,5
+655b9cfa2b289643720e57c0,Giovanni Bernini (BKS)🦇backpack,False,False,unknown,,1,4
+655b9c65c8f80999530494f0,Eloisa da Pontecorvo (BKS)🩰backpack,False,False,unknown,,1,4
+655b9ab5957fed3561055099,Christopher VanGilder (BKS)🩰backpack,False,False,unknown,"Gero,Bakabo backpack,bakabo.club,backpack,bags",1,4
+655b9956ff4e7e8f9700e67a,BKS Marker Trace™ Backpack,True,True,marker,"brand:bks,collection:marker,type:backpack,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",1,5
+655b959c80c409015f0cbbd3,Jacobe Van Dijck (BKS)🎨backpack,False,False,unknown,,1,4
+65592fde8856f20c4e097214,Striped Teal Puffer Jacket – Quilted All-Over Print Men's Outerwear,False,False,unknown,,10,8
+65592cddf31c25faf6004703,Striped Retro Puffer Jacket — Vintage-Inspired Multicolor Quilted Coat,False,False,unknown,,10,7
+6559287772f37c998f0d6e88,EdgeVogue (BKS)🪰Duffle Bag,True,False,unknown,"Accessories,Bags,All Over Print,AOP,bakabo.club,Bakabo Duffle Bag",2,14
+65592719c1bdf5536a090eef,Butterfly Quest Modern (BKS)🌷backpack,False,False,unknown,,1,4
+655925641d6cce6e400029fb,Men's Butterfly Pattern Hawaiian Shirt — Colorful Tropical Aloha Shirt,True,False,unknown,"men's shirt,hawaiian shirt,floral aloha,tropical shirt,butterfly shirt,summer vacation,beach shirt,casual shirt,resort wear,holiday shirt,vacation outfit,island shirt,men's aloha,BakAbo Hawaiian Shirt,BKS,bakabo.club",16,8
+6559224cef905cc39204d299,Butterfly VIChic (BKS)🦋Duffle Bag,True,False,unknown,"bakabo.club,Bakabo Duffle Bag,Butterfly,bags",2,14
+655921755fe18fd9af0236ab,Cryptic Notes (BKS)🔱Duffel Bag,True,False,unknown,"bakabo Duffel Bag,Gero,bakabo.club,duffel bag",2,14
+6557ab949a446555c60b017a,Koi Pond Hawaiian Shirt — Blue Tropical Fish AOP,False,False,unknown,"hawaiian shirt,men's shirt,tropical shirt,summer shirt,vacation shirt,beach shirt,resort wear,casual shirt,aloha shirt,pattern shirt,light blue top,island shirt,pool party,BKS,bakabo.club,BakAbo Hawaiian Shirt",16,7
+655545741d2696ab6808fd29,Johnathan Two(BKS)🦔backpack,False,False,unknown,,1,4
+65554173398d7dad940b5188,Sir John de Astleys (BKS)😃backpack,False,False,unknown,,1,5
+65553f524ad2998bc60a11b8,Caterina Astolfi Rossini (BKS)🍀backpack,False,False,unknown,,1,4
+65553eccac3e2592ea016f93,Giovanni Bernini (BKS)𓅓 backpack,False,False,unknown,,1,4
+65552d605f60514a17029deb,Alicia Brandi (BKS)🐠backpack,False,False,unknown,,1,4
+65552a367c743675a5020ad3,Sir Arthur de Gentilio (BKS)👨‍🎨backpack,False,False,unknown,,1,5
+65552681d64967496d05c74a,Mariana Holino de Medici (BKS)🐟backpack,False,False,unknown,,1,4
+6555266e7a592f70eb0d40b3,Asor No Pink (BKS)🐡backpack,False,False,unknown,,1,4
+655525249cac9d98950b6886,Antonio di Giacomo (BKS)👾backpack,False,False,unknown,,1,5
+655521ec3da382590a05f44b,Pepin de Martelline (BKS)🐠backpack,False,False,unknown,,1,4
+65551d7a767bcdaa890503b5,Cornelio Van Wijnspaat (BKS)⏹️backpack,False,False,unknown,,1,4
+65551a37f7b1262b080fec54,Lucinda da Vinci (BKS)🎒backpack,False,False,unknown,,1,5
+65551839f4f59ee6a3093ce8,BKS Riviera Terrain™ Backpack,True,True,riviera,"brand:bks,collection:riviera,type:backpack,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",1,5
+655515d675a5edf2ac063792,Sir Francesco (BKS)👨‍🎨backpack,False,False,unknown,,1,4
+655513df4f093a3ca20f7821,Josephine de Cousier (BKS)🎒backpack,False,False,unknown,,1,4
+655510c78f7ef849a00bd3d6,BKS Riviera Scale™ Backpack,True,True,riviera,"backpack,brand:bks,collection:riviera,type:backpack,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",1,5
+65550d4665d8d1719307a1dd,Nightshade Rook (BKS)🦇backpack,False,False,unknown,,1,5
+65550d28d77bc041530622bb,Hans von Holstein (BKS)🎒backpack,False,False,unknown,,1,4
+65550bad3085f19884063f43,Pieter van Bloemburgh (BKS)👾backpack,False,False,unknown,,1,4
+65550a989f5703c5ef08a7f9,Giovanni Veneziano (BKS)❤️backpack,False,False,unknown,,1,5
+65550823d188d4af2f0cea46,Johann van der Gheselle (BKS)🎒backpack,False,False,unknown,,1,4
+6555080324c604aa7104eda8,Henry de La Fayette(BKS)😃backpack,False,False,unknown,,1,4
+655505c269334c806c068533,Gianetta da Faria (BKS)🎨backpack,False,False,unknown,,1,4
+655505ac745bc47eae0e9dff,Vintage Camera Pattern Backpack — Retro Photography Print School & Travel Bag,False,False,unknown,,1,4
+6555042caaa821258a0c6643,BKS Glyph Net™ Backpack,True,True,glyph,"brand:bks,collection:glyph,type:backpack,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",1,5
+655503390e4f6f957309236c,Waffle Pattern Brown Backpack – Cozy Retro Grid Print School & Travel Bag,False,False,unknown,,1,4
+655500b5160adf1adb008391,Jan Vermeer van Delft (BKS)🐪backpack,False,False,unknown,,1,4
+6554fc36e1ed788bf40b5a39,Jaime's Zen Journey (BKS) 🈸 backpack,False,False,unknown,,1,4
+65528c01e3917900fb015abf,BKS Riviera Vault™ Puffer,True,True,riviera,,10,7
+655286eda0fedd07a001394c,KnytXXII.(BKS)🐉Duffel Bag,True,False,unknown,"Gero,bakabo.club,bags,Bakabo Duffle Bag",2,14
+65528661cbea3519a40b8644,Arenario Borghetti (BKS)🥸Duffel Bag,True,False,unknown,"Gero,bakabo.club,Duffel Bag,Bakabo Duffle Bag",2,14
+655285744fa7069f97020b87,ManuelitoBosh (BKS)🥸Duffel Bag,True,False,unknown,"Gero,bakabo.club,duffel bag,Bakabo Duffle Bag",2,8
+6552849fb879b76fea0b3290,Earthmoveup (BKS)📽️Duffle Bag,True,False,unknown,"Accessories,Bags,Duffle,bakabo.club,Bakabo Duffle Bag",2,14
+65528238da8438cf740becda,Patchwork Pattern Duffel Bag — Colorful Travel Gym Bag with Abstract Stitch Design,True,False,unknown,"duffel bag,colorful duffel,patchwork bag,travel duffel,gym duffel,weekend bag,retro travel,boho duffel,quirky luggage,bright gym bag,carry on bag,everyday duffel,vacation bag",2,8
+65527d87fb0556313c009f3a,Spectrum Voyager (BKS)🦈Duffel Bag,True,False,unknown,"7 Colors,bakabo.club,duffel bag,Bakabo Duffle Bag",2,14
+6552601ea9b0219a28089bfc,AquaFlow Apparel (BKS)🐟Pullover Hoodie ,False,False,unknown,,6,4
+65525a3c623c37bccb083924,Navy Dot Pattern Hawaiian Shirt — Men's Casual Aloha Button-Up,True,False,unknown,"Hawaiian shirt,mens aloha,resort wear,beach shirt,summer shirt,vacation wear,tropical shirt,casual shirt,aloha shirt,mens beach,navy print,island style,cruise outfit,bakabo.club,BakAbo Hawaiian Shirt,BKS",16,8
+65525a38559626b04d076636,Butterfly Breeze Hawaiian Shirt — Golden Monarch Floral Camp Shirt,False,False,unknown,"men's shirt,hawaiian shirt,butterfly shirt,tropical shirt,vacation shirt,summer aloha,resort wear,casual shirt,men's aloha,island shirt,beach vacation,summer outfit,holiday shirt,bakabo.club,BakAbo Hawaiian Shirt,BKS",16,7
+655259f7eba20ec69f0f4d4a,Men’s Navy Floral Hawaiian Shirt — Tropical Palm Pattern AOP,True,False,unknown,"Hawaiian shirt,men's shirt,vacation shirt,beach shirt,tropical shirt,resort wear,summer shirt,camp collar,patterned shirt,casual shirt,luau outfit,holiday shirt,palm print,BakAbo Hawaiian Shirt,bakabo.club,BKS",16,8
+655259eac4daa78fd607d8f4,Purple Retro Palm Pattern Hawaiian Shirt,True,False,unknown,"Hawaiian shirt,mens aloha,purple shirt,vacation shirt,tropical shirt,resort wear,beach shirt,summer shirt,camp collar,casual shirt,luau outfit,island style,gift for him,BakAbo Hawaiian Shirt,BKS,bakabo.club",16,8
+65525992f580c2c14e0144ed,Men's Blue Palm Stripe Hawaiian Shirt — Casual Resort Button-Up,True,False,unknown,"hawaiian shirt,men's shirt,aloha shirt,vacation wear,resort shirt,summer shirt,tropical shirt,casual shirt,beach shirt,island shirt,button up,patio party,holiday shirt",16,8
+655258f16121f73fe80d16ca,Blue Floral Hawaiian Shirt — Men’s Tropical Vacation Camp Shirt,True,False,unknown,"Hawaiian shirt,men's shirt,resort wear,vacation shirt,tropical shirt,summer aloha,blue aloha,casual button,island style,beach outfit,luau shirt,men's aloha,vacation outfit,BKS,bakabo.club,BakAbo Hawaiian Shirt",16,8
+65525690d6f13bf4d808eeeb,Men's Palm Stripe Hawaiian Shirt – Vintage Tropical AOP,True,False,unknown,"men's shirt,hawaiian shirt,tropical shirt,vacation shirt,resort wear,island shirt,summer shirt,casual shirt,button up,palm print,aloha shirt,beach party,pool party,BKS,bakabo.club,BakAbo Hawaiian Shirt",16,8
+6552506ab75cb90b1603300a,Men's Retro Stripe Hawaiian Shirt — Vintage Multicolor Cuban Collar,True,False,unknown,"Hawaiian shirt,mens aloha,tropical shirt,vacation shirt,resort wear,summer shirt,striped shirt,casual mens,beach outfit,party shirt,gift for him,pool party,retro stripes,BakAbo Hawaiian Shirt,BKS,bakabo.club",16,8
+65524daeac0788b8a6010edc,Autumn Leaves All-Over Print Hoodie,False,False,unknown,,6,5
+65524c824088ec2b68072d45,GlowFish Threads (BKS)🐟Pullover Hoodie,False,False,unknown,,6,4
+65524ac6557133ecfa06a760,Autumn Foxes All-Over Print Hoodie,False,False,unknown,,6,5
+6551fcb26b55e9ca5b077967,BKS Folklore Shoal Mint™ Pullover Hoodie,False,True,folklore,"brand:bks,collection:folklore,series:naif,macro:unisex,print-type:aop,type:pullover-hoodie,use-case:streetwear,colorway:mint,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,10
+655100c60594bb28890aaccc,BKS Folklore Shoal Red™ Pullover Hoodie,True,True,folklore,"brand:bks,collection:folklore,series:naif,macro:unisex,print-type:aop,type:pullover-hoodie,use-case:streetwear,colorway:red,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,4
+6551006a7bc6b8b9a902133c,BKS Folklore Shoal Deep™ Pullover Hoodie,True,True,folklore,"brand:bks,collection:folklore,series:naif,macro:unisex,print-type:aop,type:pullover-hoodie,use-case:streetwear,colorway:deep,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,4
+6550fdedcfc58b97e50c8b4e,BKS Folklore Shoal™ Pullover Hoodie,True,True,folklore,"brand:bks,collection:folklore,series:naif,macro:unisex,print-type:aop,type:pullover-hoodie,use-case:streetwear,status:active,curation:keep,drop:catalog-reset-2026,bakabo-enriched",6,4
+6550fd89b4c994f1a002cf1d,MythicCozy QuestHood (BKS)🐟Pullover Hoodie ,False,False,unknown,,6,4
+6550fcdac789b792ac03edc1,ImagiKnit Adventure Attire (BKS)🐟Pullover Hoodie ,False,False,unknown,,6,5
+6550f8afc16361eb8e0d2d0c,FableKnit Ethereal Hood (BKS)🐟Pullover Hoodie ,False,False,unknown,,6,4
+6550f7beb4d1cbe0ac051fee,Seraphina Moonshade (BKS) Pullover Hoodie ,False,False,unknown,,6,4
+654ecbe15d33cc534f0dbda5,BKS Marker Vortex™ Travel Bag,True,True,marker,"brand:bks,collection:marker,type:duffle,macro:man,macro:woman,status:active,print-type:aop,use-case:travel,bakabo-enriched",1,8
+654ec90f6368bc4f9e0d8d8c,BKS Flag Cord™ Travel Bag,True,True,flag,,1,7
+654ebf02625fd10ac1073a8b,BKS Glyph Script™ Swim Trunks,True,True,glyph,"brand:bks,collection:glyph,series:brut,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+654ebd4ca51d19a70a094c2c,Gold Mosaic Swim Trunks — Abstract Pattern AOP Beach Shorts,False,False,unknown,"swim trunks,men swim,beach wear,summer shorts,gold swim,pattern trunks,casual swim,pool trunks,vacation wear,surf shorts,holiday swim,everyday swim,resort trunks",7,7
+654ebac87d4fa0cab70a99ec,Striped Summer Swim Trunks — Retro Multicolor Vertical Stripe Beach Shorts,False,False,unknown,,7,7
+654eba3397f3183e2f046f6b,Men's Colorful Vertical Stripe Swim Trunks — Vibrant Rainbow Beach Shorts,False,False,unknown,"swim trunks,striped swim,colorful swim,men swimwear,beach trunks,summer shorts,patterned trunks,rainbow stripes,pool party,vacation wear,surf trunks,casual swim,festival wear,BakAbo swim trunks,bakabo.club,BKS",7,7
+653ffbdb641a2c5ba80a9e9b,Goldfish Pattern Swim Trunks — Retro Brown AOP Beach Shorts,False,False,unknown,"swim trunks,men swim,beach trunks,kids swim,fish pattern,brown swim,summer trunks,pool shorts,tropical vibe,casual beach,vacation wear,ocean themed,board shorts,BKS,bakabo.club,BakAbo swim trunks",7,7
+653fefc2d5cd185ee0088f67,Waterproof Duffle Bag — Two-Tone Confetti Travel Weekender,False,False,unknown,,1,8
+653feca9a0c7afd7f10278f7,BKS Glyph Relief™ Travel Bag,True,True,glyph,"brand:bks,collection:glyph,series:brut,type:duffle,macro:man,macro:woman,status:active,print-type:aop,use-case:travel,bakabo-enriched,drop:catalog-reset-2026,curation:keep",1,14
+653feb51d35608fc8f07b566,Waterproof Travel Bag — Egyptian Hieroglyphic Pattern Duffle,False,False,glyph,"travel bag,waterproof bag,weekend bag,duffel bag,overnight bag,carry on bag,vacation bag,boho travel,ethnic pattern,gift for traveler,airport bag,adventure bag,boat friendly,BKS,bakabo.club,BakAbo Waterproof travel bag",1,8
+653fe948d13fb3845c0f9779,Jamilia II (BKS)⚱️Travel Bag ,True,False,unknown,"Accessories,All Over Print,Sublimation,AOP,Summer Challenge Picks,Travel Accessories,Seasonal Picks,LINEA 1BAG",1,8
+653fe56c8ecab8957605fdf1,Waterproof Travel Bag — Abstract Mosaic Pattern with Stick Figure,False,False,unknown,"weekend bag,duffel travel,waterproof duffel,travel weekender,mens travel bag,women travel bag,carry on duffel,vacation bag,gym travel bag,boho travel bag,stylish duffel,airport bag,overnight bag,BKS,bakabo.club,BakAbo Waterproof travel bag",1,9
+653fe3fe5dc766ae3a09c2fe,Japanese Doll Stripe Waterproof Travel Bag – Retro Kokeshi Weekender Tote,False,False,unknown,"waterproof bag,travel duffel,striped travel,kokeshi design,cute weekend,retro stripes,carry on bag,gift for her,vacation bag,travel accessory,girls weekend,Japan inspired,rainproof tote,BakAbo Waterproof travel bag,bakabo.club,BKS",1,9
+653fe24c490bae036f0dce29,Sinbad IX (BKS)⚱️Travel Bag ,False,False,unknown,"Accessories,All Over Print,Sublimation,AOP,Summer Challenge Picks,Travel Accessories,Seasonal Picks,LINEA 1BAG",1,4
+6536ab5fe7ea092e4c0e5a2a,Waterproof Weekender Bag – Minimal Stick Figure Travel Duffle,False,False,unknown,"waterproof bag,travel duffel,weekend bag,carry on bag,gym travel,waterproof duffel,mens travel,womens travel,leather trim bag,airport bag,vacation bag,boat travel,commuter bag,BakAbo Waterproof travel bag,bakabo,club,BKS",1,8
+6536aaf5c0f71e1ea10f6966,Waterproof Travel Bag — Vintage Geisha Print Weekender Duffel,False,False,unknown,"waterproof bag,travel duffel,cute weekender,asian inspired,women travel,retro pattern,carry on bag,gym travel,packing gift,vacation tote,unique luggage,overnight bag,boho travel,bakabo.club,BKS,BakAbo Waterproof travel bag",1,8
+6536a9dc48b9da05ad0eac45,BKS Marker Mask™ Travel Bag,True,True,marker,"brand:bks,collection:marker,series:neo-expressionism,type:duffle,macro:man,macro:woman,status:active,print-type:aop,use-case:travel,bakabo-enriched,drop:catalog-reset-2026,curation:keep",1,8
+6536a9101c3d6b55fa00e00c,Egyptian Hieroglyph Travel Duffle — Waterproof Weekend Bag with Stick Figure Motif,False,False,glyph,"travel bag,waterproof duffel,Egyptian travel,ancient hieroglyphs,adventure gear,weekend duffel,carry on bag,unisex travel,vacation bag,gym travel bag,unique luggage,travel gift,holiday travel,BakAbo Waterproof travel bag,bakabo.club,BKS",1,7
+6536a86e8e8f7ad60d0d8a71,BKS Marker Collage™ Travel Bag,True,True,marker,"brand:bks,collection:marker,series:neo-expressionism,type:duffle,macro:man,macro:woman,status:active,print-type:aop,use-case:travel,bakabo-enriched,drop:catalog-reset-2026,curation:keep",1,8
+6536a7e4081f4eacc30eb078,Art Nouveau Travel Duffle — Waterproof Bag with Vintage Portrait Design,False,False,unknown,"travel bag,waterproof bag,duffel bag,art print bag,retro travel,vintage style,women travel,weekend duffel,airport carry,beach weekend,gift for her,boho travel,city getaway,BKS,bakabo.club,BakAbo Waterproof travel bag",1,8
+6536a71f8c8b7c97940efe96,BKS Marker Face™ Travel Bag,True,True,marker,,1,7
+6536a675a7a4ebb56c0128a3,BKS Hours Gaze™ Travel Bag,True,True,hours,"brand:bks,collection:hours,series:hyperrealism,type:duffle,macro:man,macro:woman,status:active,print-type:aop,use-case:travel,bakabo-enriched,drop:catalog-reset-2026,curation:keep",1,7
+6536a3f05e765cb9cf0880fa,BKS Hours Visage™ Travel Bag,True,True,hours,"brand:bks,collection:hours,type:duffle,macro:man,macro:woman,status:active,print-type:aop,use-case:travel,bakabo-enriched",1,8
+65369c303138b248e00c6ce8,BKS Glyph Stand™ Travel Bagnt,True,True,glyph,"brand:bks,collection:glyph,type:duffle,macro:man,macro:woman,status:active,print-type:aop,use-case:travel,bakabo-enriched",1,8
+65369abd87ddabc50b0a4689,BKS Glyph Lattice™ Sneakers,False,True,glyph,"brand:bks,collection:glyph,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,9
+653698abaeea712663064dd9,Waterproof Travel Duffle Bag — Red Geo Pattern with White Stick Figure,False,False,unknown,"waterproof bag,travel duffel,red weekender,travel carryon,waterproof duffel,weekend bag,gym travel bag,airport bag,patent red bag,vacation duffel,waterproof weekender,mens travel bag,womens duffel,BakAbo Waterproof travel bag,bakabo.club,BKS",1,7
+65369326770a3c0dae094386,BKS Riviera Sage™ Travel Bag,True,True,riviera,"brand:bks,collection:riviera,type:duffle,macro:man,macro:woman,status:active,print-type:aop,use-case:travel,bakabo-enriched",1,8
+65368b2e086a3b46000a3753,BKS Folklore Manor™ Travel Bag,False,True,folklore,"brand:bks,collection:folklore,series:naif,type:duffle,macro:woman,macro:man,status:active,print-type:aop,use-case:travel,bakabo-enriched,drop:catalog-reset-2026,curation:keep",1,7
+6533fd971939df9a4005171f,BKS Folklore Grove™ Swim Trunks,True,True,folklore,"brand:bks,collection:folklore,series:naif,macro:man,type:swimwear,placement-front,drop:catalog-reset-2026,status:active,curation:keep",7,6
+6533facb4e697bffbb0f71e9,BKS Token Prism™ Swim Trunks,True,True,token,"brand:bks,collection:token,series:arcade,macro:man,type:swimwear,aop,drop:catalog-reset-2026,status:active,curation:keep",7,6
+652f1a872734ae0f5c066657,"Striped Colorblock Flip Flops — Bold Red, Orange & Blue Summer Sandals",False,False,unknown,,4,5
+6526aa901f911751010c2164,BKS Marker Gesture™ Sneakers,True,True,marker,"brand:bks,collection:marker,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,10
+652461b9a064e339fb02695d,BKS Glyph Gold™ Travel Bag,True,True,glyph,"brand:bks,collection:glyph,series:brut,type:duffle,macro:man,macro:woman,status:active,print-type:aop,use-case:travel,bakabo-enriched,drop:catalog-reset-2026,curation:keep",1,7
+65241ca742be86e3960c48d8,Shark & Fish All-Over Print Swim Trunks — Blue Ocean Pattern,False,False,unknown,,7,7
+65241a0c8e3281bfdc0e6786,Acqua Red Men's Swim Trunks | Fish Print Swim Shorts | bakabo.club,False,False,unknown,,7,7
+6521ab02de363402b307bb37,BKS Flag Signal™ Sneakers,False,True,flag,"brand:bks,collection:flag,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,9
+65208075c43d84d8d608146d,"Checkerboard Pattern Men's Sneakers — Red, Yellow & Green Casual Canvas Shoes",False,False,unknown,"men sneakers,colorful sneakers,checker sneakers,casual sneakers,fashion sneakers,street style,everyday shoes,gift for him,summer footwear,retro sneakers,skate shoes,urban sneakers,athleisure shoe",16,5
+65206180cfd8fc640e0a61fa,Abstract Yellow Grid Men's Sneakers — Street Art Canvas Shoes,False,False,unknown,"men sneakers,casual sneakers,graphic sneakers,black yellow shoes,streetwear shoes,everyday sneakers,urban sneakers,men low tops,gift for him,birthday sneakers,artistic shoes,skate style,summer sneakers",16,9
+651fd0fc4291488291023a61,BKS Flag Arc™ Sneakers,True,True,flag,"brand:bks,collection:flag,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,10
+651f3b7691a9771a560ac91d,BKS Pulse Hex™ Sneakers,True,True,pulse,,16,6
+651f30c326fad3803d0d1816,Men's Sneakers — Retro Geometric Collage Low-Top Sneakers,False,False,unknown,"men sneakers,casual sneakers,graphic shoes,urban footwear,everyday shoes,street style,modern sneakers,gift for him,summer sneakers,printed sneakers,skate shoes,canvas sneakers,retro sneakers",16,10
+651f2f015d87d9747e040838,BKS Marker Hybrid™ Sneakers,True,True,marker,"brand:bks,collection:marker,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,10
+651f294dcd91356f0604caeb,BKS Flag Column™ Sneakers,True,True,flag,"brand:bks,collection:flag,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,10
+651ec5c8c9778709b80a53d2,BKS Token Score™ Sneakers,True,True,token,"brand:bks,collection:token,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,10
+651ebbe2f81c6925e30f3c34,BKS Pulse Wave™ Sneakers,True,True,pulse,"brand:bks,collection:pulse,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,10
+651eb65cdcf268f5650043a3,Striped Waterproof Travel Duffle Bag with Minimalist Figure — Light Blue,False,False,unknown,,1,8
+651eab74dcf34c54910dbc80,Waterproof Striped Duffle Bag with Minimalist Figure — Travel Weekender Tote,False,False,unknown,"travel bag,waterproof duffel,weekend bag,striped duffel,leather handles,carry on bag,gym travel bag,mens travel bag,womens travel bag,unisex duffel,airport bag,boat trip bag,vacation bag,BKS,bakabo.club,BakAbo Waterproof travel bag",1,8
+651e953f779dcb81b00406e9,Yellow Retro Fish Swim Trunks — All-Over Print Beach Shorts,False,False,unknown,,7,7
+651e92a03e6a31a42b06a728,Green School of Fish Swim Trunks — All-Over Print Beach Shorts,False,False,unknown,,7,6
+651db59cac6ddb04d709bd43,Blue Striped Waterproof Travel Duffle Bag with Minimalist Figure,False,False,unknown,"travel bag,waterproof bag,striped duffel,blue travel,weekend bag,carry on bag,mens duffel,gym travel,vacation bag,boat bag,family trip,airport bag,lightweight bag,BakAbo Waterproof travel bag,BKS,bakabo.club",1,9
+651da2a15f96edee4c095246,BKS Riviera Stripe™ Travel Bag,True,True,riviera,"brand:bks,collection:riviera,type:duffle,macro:man,macro:woman,status:active,print-type:aop,use-case:travel,bakabo-enriched",1,8
+651d9a19e1dd6f3b850e66f6,999 (BKS)💼Waterproof Travel Bag,False,False,unknown,"Accessories,All Over Print,Sublimation,AOP,Summer Challenge Picks,Travel Accessories,Seasonal Picks,LINEA 1BAG",1,9
+651d92f08ecefcde7405fccb,Whale Pattern Waterproof Travel Bag — Nautical Duffle for Beach & Weekend Getaways,False,False,unknown,"waterproof bag,travel duffel,blue travel,whale pattern,nautical bag,weekend duffel,water resistant,carry on bag,beach travel,boat trip gift,vacation bag,airport friendly,ocean themed,BakAbo Waterproof travel bag,bakabo.club",1,9
+651d83450a7d6ca2d302ee9f,Fish School Swim Trunks — Orange Abstract All-Over-Print Beach Shorts,False,False,unknown,"swim trunks,men swim,beach trunks,orange swim,pattern trunks,summer swim,pool shorts,casual beach,tropical swim,surf trunks,vacation wear,holiday swim,resort shorts,BKS,bakabo.club,BakAbo swim trunks",7,7
+651d3a9d9ac6020cdd001dd9,Swim Trunks — Colorful Neon Fox Pattern All-Over-Print,False,False,unknown,,7,7
+651c86f077038d015b0c57f6,BKS Folklore Tide™ Sneakers,True,True,folklore,"brand:bks,collection:folklore,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,10
+651c452249ddc69dc20d0dc6,BKS Coral™ Sneakers,True,True,folklore,"brand:bks,collection:folklore,type:shoes,macro:man,macro:woman,status:active,print-type:aop,use-case:streetwear,bakabo-enriched",16,10

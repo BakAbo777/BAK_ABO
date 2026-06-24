@@ -1,0 +1,65 @@
+{
+  "sections": {
+    "page_hero": {
+      "type": "bks-page-hero",
+      "settings": {
+        "kicker": "BKS Studio",
+        "title": "SHORTS",
+        "lead": "Active silhouette with AI-art all-over print. From studio to street.",
+        "meta_1": "AI-Generated",
+        "meta_2": "Made to Order",
+        "meta_3": "Ships Worldwide",
+        "primary_label": "Shop Shorts",
+        "primary_link": "/collections/bks-type-athletic-shorts",
+        "secondary_label": "All Collections",
+        "secondary_link": "/pages/bks-collections",
+        "background_color": "#100000",
+        "text_color": "#FAFAF7",
+        "accent_color": "#c82020"
+      },
+      "blocks": {
+        "link_bks_marker": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Marker",
+            "link": "/collections/bks-marker"
+          }
+        },
+        "link_bks_flag": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Flag",
+            "link": "/collections/bks-flag"
+          }
+        }
+      },
+      "block_order": [
+        "link_bks_marker",
+        "link_bks_flag"
+      ]
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "product_grid": {
+      "type": "bks-product-type-grid",
+      "settings": {
+        "section_title": "Shorts",
+        "accent_color": "#c82020",
+        "bg_color": "#fafaf7",
+        "collection_1": "bks-type-athletic-shorts",
+        "products_per_collection": 24,
+        "collection_2": "",
+        "collection_3": "",
+        "collection_4": "",
+        "view_all_url": "/collections/bks-type-athletic-shorts"
+      }
+    }
+  },
+  "order": [
+    "page_hero",
+    "product_grid",
+    "main"
+  ]
+}

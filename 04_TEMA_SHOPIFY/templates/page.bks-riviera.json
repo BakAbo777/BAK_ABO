@@ -1,0 +1,74 @@
+{
+  "sections": {
+    "page_hero": {
+      "type": "bks-page-hero",
+      "settings": {
+        "kicker": "BKS Studio \u2014 Riviera",
+        "title": "RIVIERA",
+        "lead": "Mediterranean light and water patterns as a wearable surface system.",
+        "meta_1": "Mediterranean",
+        "meta_2": "Aquatic",
+        "meta_3": "Made to Order",
+        "primary_label": "Shop Riviera",
+        "primary_link": "/collections/bks-riviera",
+        "secondary_label": "All Collections",
+        "secondary_link": "/collections/all",
+        "background_color": "#04100f",
+        "text_color": "#FAFAF7",
+        "accent_color": "#0ca898"
+      },
+      "blocks": {
+        "link_tee": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Tee",
+            "link": "/collections/bks-riviera/tee"
+          }
+        },
+        "link_swim_trunks": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Swim Trunks",
+            "link": "/collections/bks-riviera/swim-trunks"
+          }
+        },
+        "link_beach_towel": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Beach Towel",
+            "link": "/collections/bks-riviera/beach-towel"
+          }
+        },
+        "link_flip_flops": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Flip Flops",
+            "link": "/collections/bks-riviera/flip-flops"
+          }
+        },
+        "link_hawaiian": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Hawaiian",
+            "link": "/collections/bks-riviera/hawaiian"
+          }
+        }
+      },
+      "block_order": [
+        "link_tee",
+        "link_swim_trunks",
+        "link_beach_towel",
+        "link_flip_flops",
+        "link_hawaiian"
+      ]
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "page_hero",
+    "main"
+  ]
+}

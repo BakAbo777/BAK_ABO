@@ -1,0 +1,74 @@
+{
+  "sections": {
+    "page_hero": {
+      "type": "bks-page-hero",
+      "settings": {
+        "kicker": "BKS Studio \u2014 Flag",
+        "title": "FLAG",
+        "lead": "Signal codes and identity flags as all-over wearable art pieces.",
+        "meta_1": "Signal",
+        "meta_2": "Identity",
+        "meta_3": "Made to Order",
+        "primary_label": "Shop Flag",
+        "primary_link": "/collections/bks-flag",
+        "secondary_label": "All Collections",
+        "secondary_link": "/collections/all",
+        "background_color": "#100000",
+        "text_color": "#FAFAF7",
+        "accent_color": "#c82020"
+      },
+      "blocks": {
+        "link_tee": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Tee",
+            "link": "/collections/bks-flag/tee"
+          }
+        },
+        "link_hoodie": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Hoodie",
+            "link": "/collections/bks-flag/hoodie"
+          }
+        },
+        "link_beach_towel": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Beach Towel",
+            "link": "/collections/bks-flag/beach-towel"
+          }
+        },
+        "link_shorts": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Shorts",
+            "link": "/collections/bks-flag/shorts"
+          }
+        },
+        "link_windbreaker": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Windbreaker",
+            "link": "/collections/bks-flag/windbreaker"
+          }
+        }
+      },
+      "block_order": [
+        "link_tee",
+        "link_hoodie",
+        "link_beach_towel",
+        "link_shorts",
+        "link_windbreaker"
+      ]
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "page_hero",
+    "main"
+  ]
+}

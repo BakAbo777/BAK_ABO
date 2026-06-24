@@ -5,10 +5,10 @@
       "settings": {
         "accent_color": "#c82020",
         "tagline": "Graphic fields",
-        "description": "BKS Flag works with heraldic structure, emblem design and field-of-color geometry. Bold graphic fields, stemmi and logotype systems scaled to wearable statement.",
+        "description": "BKS Flag asserts bold graphic fields — color blocks, pop-collage, primary geometry without apology. Declare your territory. «I colori non si chiedono il permesso.» — BKS Verse",
+        "hero_image": "shopify://shop_images/bks-flag-hero.png",
         "min_height": 440,
-        "show_cta": true,
-        "hero_image": "shopify://shop_images/bks-flag-editorial.png"
+        "show_cta": true
       }
     },
     "bks_signal": {
@@ -81,16 +81,13 @@
         "products_per_page": 36,
         "columns_desktop": 4,
         "columns_mobile": "2",
-        "color_scheme": "background-1",
         "image_ratio": "portrait",
         "image_shape": "default",
         "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
         "enable_filtering": true,
         "filter_type": "drawer",
         "enable_sorting": true,
+        "quick_add": "none",
         "padding_top": 36,
         "padding_bottom": 36
       }

@@ -1,0 +1,370 @@
+{% comment %}
+  BKS VERSE INTRO — Dalla Poesia all'Oggetto
+  Home page teaser. Static fallback + live fetch from verse.bakabo.club
+  Gate: Brass+ (3+ orders) to submit · leaderboard public
+{% endcomment %}
+
+<style>
+  /* ── BKS VERSE INTRO ───────────────────────────────────────── */
+  #shopify-section-{{ section.id }} {
+    --ink:   #080604;
+    --paper: #fafaf7;
+    --muted: rgba(250,250,247,0.46);
+    --gold:  #d4a030;
+    --gold-dim: rgba(212,160,48,0.18);
+    background: var(--ink);
+    color: var(--paper);
+    border-top: 1px solid rgba(250,250,247,0.07);
+  }
+
+  .bks-vi__wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 64px 24px 72px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  /* ── LEFT — CONCEPT ── */
+  .bks-vi__eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 18px;
+  }
+
+  .bks-vi__title {
+    font-family: 'Bebas Neue', var(--font-heading-family, sans-serif);
+    font-size: clamp(48px, 6vw, 82px);
+    letter-spacing: 0.04em;
+    line-height: 0.92;
+    margin: 0 0 24px;
+    text-transform: uppercase;
+    color: var(--paper);
+  }
+
+  .bks-vi__divider {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 0 24px;
+    opacity: 0.7;
+  }
+
+  .bks-vi__body {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(250,250,247,0.72);
+    margin: 0 0 28px;
+    max-width: 420px;
+  }
+
+  .bks-vi__axes {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 0 0 28px;
+  }
+
+  .bks-vi__axis {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(212,160,48,0.32);
+    padding: 3px 8px;
+  }
+
+  .bks-vi__access {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 32px;
+  }
+
+  .bks-vi__badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--ink);
+    background: var(--gold);
+    padding: 4px 10px;
+    font-weight: 600;
+  }
+
+  .bks-vi__access-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  .bks-vi__cta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .bks-vi__btn-primary {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+    background: var(--gold);
+    padding: 12px 22px;
+    transition: opacity 0.2s;
+  }
+  .bks-vi__btn-primary:hover { opacity: 0.82; }
+
+  .bks-vi__btn-ghost {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--paper);
+    border: 1px solid rgba(250,250,247,0.28);
+    padding: 12px 22px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .bks-vi__btn-ghost:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .bks-vi__btn-locked {
+    opacity: 0.46;
+    cursor: default;
+  }
+  .bks-vi__btn-locked:hover {
+    border-color: rgba(250,250,247,0.28);
+    color: var(--paper);
+  }
+
+  /* ── RIGHT — LEADERBOARD ── */
+  .bks-vi__leaderboard {
+    border-left: 1px solid rgba(250,250,247,0.09);
+    padding-left: 64px;
+  }
+
+  .bks-vi__lb-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 16px;
+  }
+
+  .bks-vi__lb-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .bks-vi__lb-sublabel {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(250,250,247,0.28);
+    margin: 0;
+  }
+
+  .bks-vi__lb-list {
+    border-top: 1px solid rgba(250,250,247,0.09);
+    margin-bottom: 20px;
+    min-height: 120px;
+  }
+
+  .bks-vi__lb-row {
+    display: grid;
+    grid-template-columns: 32px 1fr 28px 52px;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(250,250,247,0.07);
+  }
+
+  .bks-vi__lb-rank {
+    font-family: 'Bebas Neue', var(--font-heading-family, sans-serif);
+    font-size: 22px;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .bks-vi__lb-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--paper);
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .bks-vi__lb-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-align: center;
+  }
+
+  .bks-vi__lb-score {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--gold);
+    text-align: right;
+    font-weight: 600;
+  }
+
+  .bks-vi__lb-more {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .bks-vi__lb-more:hover { color: var(--gold); }
+
+  .bks-vi__lb-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: rgba(250,250,247,0.28);
+    margin: 20px 0 0;
+    line-height: 1.6;
+    border-top: 1px solid rgba(250,250,247,0.07);
+    padding-top: 16px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .bks-vi__wrap {
+      grid-template-columns: 1fr;
+      gap: 48px;
+      padding: 48px 20px 56px;
+    }
+    .bks-vi__leaderboard {
+      border-left: none;
+      padding-left: 0;
+      border-top: 1px solid rgba(250,250,247,0.09);
+      padding-top: 40px;
+    }
+    .bks-vi__body { max-width: none; }
+  }
+</style>
+
+<section class="bks-verse-intro" id="bks-verse-intro">
+  <div class="bks-vi__wrap">
+
+    {%- comment -%} ── LEFT: CONCEPT ─────────────────────────────── {%- endcomment -%}
+    <div class="bks-vi__concept">
+      <p class="bks-vi__eyebrow">BKS Verse &nbsp;—&nbsp; Vol. I · 2026</p>
+      <h2 class="bks-vi__title">Dalla Poesia<br>all'Oggetto</h2>
+      <div class="bks-vi__divider"></div>
+      <p class="bks-vi__body">
+        Write 80 to 280 characters. The Gran Giudice AI evaluates on five axes.
+        Score 20 out of 25 or above: your verse becomes a limited garment —
+        25 pieces, your name on the product page.
+      </p>
+      <div class="bks-vi__axes">
+        <span class="bks-vi__axis">Image</span>
+        <span class="bks-vi__axis">Voice</span>
+        <span class="bks-vi__axis">Tension</span>
+        <span class="bks-vi__axis">BKS</span>
+        <span class="bks-vi__axis">Body</span>
+      </div>
+      <div class="bks-vi__access">
+        <span class="bks-vi__badge">◈ Brass+</span>
+        <span class="bks-vi__access-note">to submit &middot; leaderboard open to all</span>
+      </div>
+      <div class="bks-vi__cta">
+        <a href="/pages/verse" class="bks-vi__btn-primary">View Leaderboard</a>
+        {%- if customer and customer.orders_count >= 3 -%}
+          <a href="/account" class="bks-vi__btn-ghost">Submit a Verse</a>
+        {%- else -%}
+          <a href="/pages/bks-members-entry" class="bks-vi__btn-ghost bks-vi__btn-locked"
+             title="Brass+ membership required (3+ orders)">
+            Submit a Verse &nbsp;◈
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- comment -%} ── RIGHT: LEADERBOARD TEASER ─────────────────── {%- endcomment -%}
+    <div class="bks-vi__leaderboard">
+      <div class="bks-vi__lb-header">
+        <p class="bks-vi__lb-label">Leaderboard mondiale</p>
+        <p class="bks-vi__lb-sublabel">Live &nbsp;·&nbsp; Top 3</p>
+      </div>
+      <div class="bks-vi__lb-list" id="bks-verse-lb-home">
+        <div class="bks-vi__lb-row">
+          <span class="bks-vi__lb-rank">#1</span>
+          <span class="bks-vi__lb-name">e.e. cummings</span>
+          <span class="bks-vi__lb-flag">US</span>
+          <span class="bks-vi__lb-score">25/25</span>
+        </div>
+        <div class="bks-vi__lb-row">
+          <span class="bks-vi__lb-rank">#2</span>
+          <span class="bks-vi__lb-name">G. Ungaretti</span>
+          <span class="bks-vi__lb-flag">IT</span>
+          <span class="bks-vi__lb-score">25/25</span>
+        </div>
+        <div class="bks-vi__lb-row">
+          <span class="bks-vi__lb-rank">#3</span>
+          <span class="bks-vi__lb-name">P. Celan</span>
+          <span class="bks-vi__lb-flag">DE</span>
+          <span class="bks-vi__lb-score">24/25</span>
+        </div>
+      </div>
+      <a href="/pages/verse" class="bks-vi__lb-more">View full ranking &nbsp;&rarr;</a>
+      <p class="bks-vi__lb-note">
+        Historical poets and members compete on the same scale.<br>
+        Hall of Fame: 25/25 &nbsp;&middot;&nbsp; Gate: 20/25
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  var el = document.getElementById('bks-verse-lb-home');
+  if (!el) return;
+  fetch('https://verse.bakabo.club/leaderboard/global?limit=3')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (!data || !data.ranking || !data.ranking.length) return;
+      el.innerHTML = data.ranking.slice(0, 3).map(function (p, i) {
+        var flag = p.country_code ? p.country_code : '';
+        return '<div class="bks-vi__lb-row">'
+          + '<span class="bks-vi__lb-rank">#' + (i + 1) + '</span>'
+          + '<span class="bks-vi__lb-name">' + (p.display_name || p.name || '') + '</span>'
+          + '<span class="bks-vi__lb-flag">' + flag + '</span>'
+          + '<span class="bks-vi__lb-score">' + (p.total || 0) + '/25</span>'
+          + '</div>';
+      }).join('');
+    })
+    .catch(function () {}); /* fallback statico rimane */
+})();
+</script>
+
+{% schema %}
+{
+  "name": "BKS Verse Intro",
+  "tag": "section",
+  "class": "bks-verse-intro-section",
+  "settings": [],
+  "presets": [{"name": "BKS Verse Intro"}]
+}
+{% endschema %}

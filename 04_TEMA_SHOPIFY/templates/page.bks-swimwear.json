@@ -1,0 +1,65 @@
+{
+  "sections": {
+    "page_hero": {
+      "type": "bks-page-hero",
+      "settings": {
+        "kicker": "BKS Studio",
+        "title": "SWIMWEAR",
+        "lead": "AI-art water collection. Resort prints for the Mediterranean moment and beyond.",
+        "meta_1": "AI-Generated",
+        "meta_2": "Made to Order",
+        "meta_3": "Ships Worldwide",
+        "primary_label": "Shop Swimwear",
+        "primary_link": "/collections/bks-type-swimwear",
+        "secondary_label": "All Collections",
+        "secondary_link": "/pages/bks-collections",
+        "background_color": "#04100f",
+        "text_color": "#FAFAF7",
+        "accent_color": "#0ca898"
+      },
+      "blocks": {
+        "link_bks_riviera": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Riviera",
+            "link": "/collections/bks-riviera"
+          }
+        },
+        "link_shop_all": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Shop All",
+            "link": "/collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "link_bks_riviera",
+        "link_shop_all"
+      ]
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "product_grid": {
+      "type": "bks-product-type-grid",
+      "settings": {
+        "section_title": "Swimwear",
+        "accent_color": "#0ca898",
+        "bg_color": "#fafaf7",
+        "collection_1": "bks-type-swimwear",
+        "products_per_collection": 24,
+        "collection_2": "",
+        "collection_3": "",
+        "collection_4": "",
+        "view_all_url": "/collections/bks-type-swimwear"
+      }
+    }
+  },
+  "order": [
+    "page_hero",
+    "product_grid",
+    "main"
+  ]
+}

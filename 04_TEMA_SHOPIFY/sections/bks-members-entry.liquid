@@ -1,0 +1,406 @@
+{{ 'bks-member.css' | asset_url | stylesheet_tag }}
+
+<style>
+/* ── BKS MEMBERS ENTRY — magazine dark landing ──────────────────── */
+.bks-me {
+  --me-bg:      #0A0A0A;
+  --me-surf:    rgba(250,250,247,0.04);
+  --me-line:    rgba(250,250,247,0.08);
+  --me-text:    #FAFAF7;
+  --me-muted:   rgba(250,250,247,0.62);
+  --me-sub:     rgba(250,250,247,0.42);
+  --me-teal:    #0ca898;
+  --me-gold:    #d4a030;
+  --me-blue:    #4a9eff;
+  --me-warm:    #c8a96e;
+  background: var(--me-bg);
+  color: var(--me-text);
+  font-family: var(--bks-font-body, 'DM Sans', sans-serif);
+  position: relative;
+  overflow: hidden;
+}
+
+/* radial glows */
+.bks-me::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 82% 8%,  color-mix(in srgb, var(--me-teal) 9%, transparent)  0 22rem, transparent 44rem),
+    radial-gradient(ellipse at 4%  72%, color-mix(in srgb, var(--me-blue) 6%, transparent)  0 18rem, transparent 36rem);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── HERO ────────────────────────────────────────────────────────── */
+.bks-me__hero {
+  position: relative;
+  z-index: 1;
+  width: min(1440px, calc(100% - 48px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(40px, 6vw, 100px);
+  align-items: start;
+  padding: clamp(64px, 10vw, 128px) 0 clamp(52px, 7vw, 88px);
+}
+
+/* copy column */
+.bks-me__kicker {
+  font-family: var(--bks-font-mono, 'DM Mono', monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--me-teal);
+  margin: 0 0 18px;
+}
+
+.bks-me__title {
+  font-family: var(--bks-font-display, 'Bebas Neue', sans-serif);
+  font-size: clamp(3.2rem, 6.5vw, 7rem);
+  line-height: 0.86;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--me-text);
+  margin: 0 0 28px;
+}
+
+.bks-me__sub {
+  font-size: clamp(0.94rem, 1.1vw, 1.1rem);
+  line-height: 1.64;
+  color: var(--me-muted);
+  max-width: 50ch;
+  margin: 0 0 38px;
+}
+
+/* CTAs */
+.bks-me__ctas {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.bks-me__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 26px;
+  font-family: var(--bks-font-mono, 'DM Mono', monospace);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+
+.bks-me__btn--primary {
+  background: var(--me-text);
+  color: var(--me-bg);
+  border: 1px solid var(--me-text);
+}
+.bks-me__btn--primary:hover { background: #efeae0; border-color: #efeae0; }
+
+.bks-me__btn--ghost {
+  background: transparent;
+  color: var(--me-text);
+  border: 1px solid rgba(250,250,247,0.22);
+}
+.bks-me__btn--ghost:hover {
+  border-color: var(--me-text);
+  background: rgba(250,250,247,0.06);
+}
+
+.bks-me__btn--register {
+  background: var(--me-teal);
+  color: var(--me-bg);
+  border: 1px solid var(--me-teal);
+}
+.bks-me__btn--register:hover { background: #0b9588; border-color: #0b9588; }
+
+.bks-me__terms {
+  font-size: 0.7rem;
+  color: var(--me-sub);
+  margin: 6px 0 0;
+  line-height: 1.5;
+}
+.bks-me__terms a { color: rgba(250,250,247,0.55); text-decoration: underline; }
+
+/* logged-in welcome */
+.bks-me__welcome {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  padding: 16px 20px;
+  background: rgba(12,168,152,0.08);
+  border: 1px solid rgba(12,168,152,0.2);
+  border-left: 4px solid var(--me-teal);
+}
+.bks-me__welcome-text { font-size: 0.9rem; color: var(--me-text); margin: 0; }
+.bks-me__welcome-text strong { color: var(--me-teal); }
+
+/* ── TIER CARDS ──────────────────────────────────────────────────── */
+.bks-me__tiers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.bks-me__tier {
+  padding: 22px 18px 20px;
+  border: 1px solid var(--me-line);
+  background: var(--me-surf);
+  transition: border-color 0.22s, background 0.22s;
+  cursor: default;
+}
+.bks-me__tier:hover {
+  border-color: rgba(250,250,247,0.16);
+  background: rgba(250,250,247,0.07);
+}
+
+.bks-me__tier--subscriber { border-left: 3px solid var(--me-blue); }
+.bks-me__tier--drop       { border-left: 3px solid var(--me-gold); }
+.bks-me__tier--archive    { border-left: 3px solid var(--me-warm); }
+.bks-me__tier--tryon      { border-left: 3px solid var(--me-teal); }
+
+.bks-me__tier-gem {
+  display: block;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+.bks-me__tier--subscriber .bks-me__tier-gem { color: var(--me-blue); }
+.bks-me__tier--drop       .bks-me__tier-gem { color: var(--me-gold); }
+.bks-me__tier--archive    .bks-me__tier-gem { color: var(--me-warm); }
+.bks-me__tier--tryon      .bks-me__tier-gem { color: var(--me-teal); }
+
+.bks-me__tier-name {
+  display: block;
+  font-family: var(--bks-font-mono, 'DM Mono', monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--me-text);
+  margin-bottom: 8px;
+}
+
+.bks-me__tier-desc {
+  font-size: 0.8rem;
+  line-height: 1.52;
+  color: var(--me-muted);
+  margin: 0;
+}
+
+/* ── BENEFITS STRIP ──────────────────────────────────────────────── */
+.bks-me__benefits {
+  border-top: 1px solid var(--me-line);
+  position: relative;
+  z-index: 1;
+}
+
+.bks-me__benefits-inner {
+  width: min(1440px, calc(100% - 48px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.bks-me__benefit {
+  padding: clamp(22px, 3vw, 38px) clamp(18px, 2.5vw, 30px);
+  border-right: 1px solid var(--me-line);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.bks-me__benefit:last-child { border-right: none; }
+
+.bks-me__benefit-icon {
+  color: rgba(250,250,247,0.44);
+  margin-bottom: 6px;
+  flex-shrink: 0;
+}
+
+.bks-me__benefit-label {
+  font-family: var(--bks-font-mono, 'DM Mono', monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--me-text);
+}
+
+.bks-me__benefit-desc {
+  font-size: 0.8rem;
+  line-height: 1.52;
+  color: var(--me-muted);
+  margin: 0;
+}
+
+/* ── ACCENT BAR ─────────────────────────────────────────────────── */
+.bks-me__bar {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--me-teal), var(--me-gold), var(--me-blue), transparent);
+  opacity: 0.7;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────── */
+@media (max-width: 989px) {
+  .bks-me__hero { grid-template-columns: 1fr; gap: 40px; }
+  .bks-me__tiers { grid-template-columns: 1fr 1fr; }
+  .bks-me__benefits-inner { grid-template-columns: 1fr 1fr; }
+  .bks-me__benefit { border-right: none; border-bottom: 1px solid var(--me-line); }
+  .bks-me__benefit:nth-child(odd)  { border-right: 1px solid var(--me-line); }
+  .bks-me__benefit:last-child,
+  .bks-me__benefit:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+}
+
+@media (max-width: 599px) {
+  .bks-me__hero { width: calc(100% - 32px); padding-top: 48px; padding-bottom: 40px; }
+  .bks-me__title { font-size: clamp(2.8rem, 14vw, 4rem); }
+  .bks-me__tiers { grid-template-columns: 1fr; }
+  .bks-me__ctas { flex-direction: column; }
+  .bks-me__btn { justify-content: center; }
+  .bks-me__benefits-inner { grid-template-columns: 1fr; width: calc(100% - 32px); }
+  .bks-me__benefit { border-right: none; }
+  .bks-me__benefit:nth-child(odd) { border-right: none; }
+  .bks-me__benefit:last-child { border-bottom: none; }
+}
+</style>
+
+<div class="bks-me" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: 0;">
+
+  <div class="bks-me__hero">
+
+    {%- comment -%}— COPY ——————————————————————————{%- endcomment -%}
+    <div class="bks-me__copy">
+      <p class="bks-me__kicker">{{ section.settings.kicker | default: 'BKS Members' }}</p>
+      <h1 class="bks-me__title">{{ section.settings.heading | default: 'A quieter layer of the studio.' }}</h1>
+      <p class="bks-me__sub">{{ section.settings.text | default: 'Create an account to access orders, wishlist, virtual fitting room and early drops.' }}</p>
+
+      {%- if customer -%}
+        {%- assign _oc = customer.orders_count | default: 0 -%}
+        {%- assign _qualified = false -%}
+        {%- if customer.tags contains 'bks_tier_gold' or customer.tags contains 'bks_tier_silver' or customer.tags contains 'bks_tier_brass' or customer.tags contains 'bks_tier_iron' or customer.tags contains 'bks_verse_gate' or _oc >= 1 -%}
+          {%- assign _qualified = true -%}
+        {%- endif -%}
+        {%- if _qualified -%}
+          <div class="bks-me__welcome">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 22c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+            <p class="bks-me__welcome-text">Hi, <strong>{{ customer.first_name | default: customer.email }}</strong> — you are in the BKS Members area.</p>
+          </div>
+          <div class="bks-me__ctas">
+            <a class="bks-me__btn bks-me__btn--primary" href="/pages/bks-members">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 22c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+              Go to member area
+            </a>
+            <a class="bks-me__btn bks-me__btn--ghost" href="{{ routes.root_url }}collections/all">Browse catalog</a>
+          </div>
+        {%- else -%}
+          <div class="bks-me__welcome" style="align-items:flex-start">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d4a030" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>
+            <p class="bks-me__welcome-text" style="color:var(--me-muted)">Hi, <strong>{{ customer.first_name | default: customer.email }}</strong> — to access the full Members area, complete your first BKS order or reach a BKS Verse score of 18.</p>
+          </div>
+          <div class="bks-me__ctas">
+            <a class="bks-me__btn bks-me__btn--primary" href="{{ routes.root_url }}collections/all">Shop BKS</a>
+            <a class="bks-me__btn bks-me__btn--ghost" href="https://verse.bakabo.club">BKS Verse ↗</a>
+          </div>
+        {%- endif -%}
+      {%- else -%}
+        <div class="bks-me__ctas">
+          <a class="bks-me__btn bks-me__btn--primary" href="{{ routes.account_login_url }}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 22c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+            Sign in
+          </a>
+          <a class="bks-me__btn bks-me__btn--register" href="{{ routes.account_register_url }}">
+            Create BKS Members account
+          </a>
+        </div>
+        <p class="bks-me__terms">By signing up you agree to our <a href="{{ routes.root_url }}policies/terms-of-service">Terms of service</a> and <a href="{{ routes.root_url }}policies/privacy-policy">Privacy Policy</a>.</p>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%}— TIER CARDS ————————————————————{%- endcomment -%}
+    <div class="bks-me__tiers">
+      <div class="bks-me__tier bks-me__tier--subscriber">
+        <span class="bks-me__tier-gem">◇</span>
+        <strong class="bks-me__tier-name">BKS Subscriber</strong>
+        <p class="bks-me__tier-desc">Wishlist, saved profile, studio notes and first access to BKS updates.</p>
+      </div>
+      <div class="bks-me__tier bks-me__tier--drop">
+        <span class="bks-me__tier-gem">◈</span>
+        <strong class="bks-me__tier-name">BKS Drop</strong>
+        <p class="bks-me__tier-desc">Order tracking, early drop access and advanced customization requests.</p>
+      </div>
+      <div class="bks-me__tier bks-me__tier--archive">
+        <span class="bks-me__tier-gem">✦</span>
+        <strong class="bks-me__tier-name">BKS Archive</strong>
+        <p class="bks-me__tier-desc">Process notes, private archive material and full customization paths.</p>
+      </div>
+      <div class="bks-me__tier bks-me__tier--tryon">
+        <span class="bks-me__tier-gem">◐</span>
+        <strong class="bks-me__tier-name">BKS Try-On</strong>
+        <p class="bks-me__tier-desc">AI fitting room from cart — custom background or BKS studio preset.</p>
+      </div>
+    </div>
+
+  </div>{%- comment -%}/.bks-me__hero{%- endcomment -%}
+
+  {%- comment -%}— BENEFITS STRIP ————————————————————{%- endcomment -%}
+  <div class="bks-me__benefits" style="padding-bottom: {{ section.settings.padding_bottom }}px;">
+    <div class="bks-me__benefits-inner">
+
+      <div class="bks-me__benefit">
+        <div class="bks-me__benefit-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <strong class="bks-me__benefit-label">Wishlist</strong>
+        <p class="bks-me__benefit-desc">Save favorites, access from any device</p>
+      </div>
+
+      <div class="bks-me__benefit">
+        <div class="bks-me__benefit-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <strong class="bks-me__benefit-label">Try-On AI</strong>
+        <p class="bks-me__benefit-desc">Virtual fitting room with studio or personal background</p>
+      </div>
+
+      <div class="bks-me__benefit">
+        <div class="bks-me__benefit-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <strong class="bks-me__benefit-label">Early Access</strong>
+        <p class="bks-me__benefit-desc">Drops, limited releases and editorial notes in preview</p>
+      </div>
+
+      <div class="bks-me__benefit">
+        <div class="bks-me__benefit-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <strong class="bks-me__benefit-label">Custom request</strong>
+        <p class="bks-me__benefit-desc">Customization requests direct to the studio</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="bks-me__bar"></div>
+
+</div>
+
+{% schema %}
+{
+  "name": "BKS Members Entry",
+  "settings": [
+    { "type": "text",     "id": "kicker",  "label": "Kicker",   "default": "BKS Members" },
+    { "type": "text",     "id": "heading", "label": "Heading",  "default": "A quieter layer of the studio." },
+    { "type": "textarea", "id": "text",    "label": "Body",     "default": "Create an account to access orders, wishlist, virtual fitting room and early drops." },
+    { "type": "range", "id": "padding_top",    "min": 0, "max": 160, "step": 8, "unit": "px", "label": "Padding top",    "default": 0 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 8, "unit": "px", "label": "Padding bottom", "default": 0 }
+  ],
+  "presets": [{ "name": "BKS Members Entry" }]
+}
+{% endschema %}

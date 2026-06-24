@@ -11,6 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(BASE_DIR))
 
 _PAGES = [
+    ("◈", "Site Monitor",       "pages/00_Site_Monitor.py"),
     ("◎", "BKS Algorithm",     "pages/00_BKS_Algorithm.py"),
     ("◈", "Agente",             "pages/01_Agente_Progressione.py"),
     ("⊡", "Gestione",           "pages/02_Gestione.py"),
@@ -23,6 +24,8 @@ _PAGES = [
     ("◒", "Google Merchant",    "pages/08_Google_Merchant.py"),
     ("◕", "Marketing",          "pages/09_Marketing.py"),
     ("◔", "Analytics",          "pages/10_Analytics.py"),
+    ("◈", "Sistema BKS",        "pages/11_Sistema_BKS.py"),
+    ("⊕", "Crea Prodotti",      "pages/12_Crea_Prodotti.py"),
 ]
 
 _COLL_ACCENTS = {

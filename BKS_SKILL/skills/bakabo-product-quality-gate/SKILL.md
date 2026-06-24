@@ -1,16 +1,51 @@
 ---
 name: bakabo-product-quality-gate
-description: Use this skill BEFORE publishing any product on bakabo.club. It runs the BKS quality gate — a 5-dimension score (0–5 each, max 25) where fashion and art intersect. Minimum to publish: 20/25. Products below 20 receive a specific redesign instruction, not a generic "improve it." Triggers include: "valuta il prodotto", "score", "quality check", "possiamo pubblicarlo?", "è pronto?", or any moment where a product is about to move from Printify draft to Shopify published. Works with bakabo-art-critic (visual/graphic scoring), bakabo-business (price viability), bakabo-printify-sync (enrichment), bakabo-product-copy (SEO/copy). This is the curation gate — the market-rejection preventer.
+description: Use this skill BEFORE publishing any product on bakabo.club. BKS Product Score ≥ 21/25 required to publish. Two-level system: primary BKS Product Score (9 factors × weights) + detailed 5-dimension deep-dive. Minimum 21/25 to publish, 23/25 for strategic product, 25 for capsule candidate. Triggers: "valuta il prodotto", "score", "quality check", "possiamo pubblicarlo?", "è pronto?", REJECT / REWORK / PRODUCT READY / STRATEGIC PRODUCT / CAPSULE CANDIDATE.
 ---
 
 # BKS Studio — Product Quality Gate
-## Moda × Arte — Punteggio minimo 20/25
+## BKS Product Score ≥ 21/25 — minimo obbligatorio per pubblicare
 
-Nessun prodotto BakAbo viene pubblicato senza superare questo gate. Il mercato dell'arte/moda ha standard alti: un prodotto mediocre non danneggia solo la singola vendita — danneggia la credibilità dell'intero catalogo.
+Nessun prodotto BakAbo viene pubblicato senza superare questo gate.
+Meglio 8 prodotti da 22/25 che 80 da 14/25. BakAbo è sistema visivo curato, non catalogo di massa.
 
 ---
 
-## Il sistema di scoring — 5 dimensioni, 0–5 ciascuna
+## LIVELLO 1 — BKS Product Score (formula principale)
+
+```
+BKS Product Score =
+  (BKS Identity Fit      × 0.15)   ← è riconoscibile come BakAbo / BKS?
++ (Visual Surface Strength × 0.15) ← il pattern/superficie è forte?
++ (Product Truth          × 0.15)  ← credibile rispetto a Printify / made-on-demand?
++ (Commercial Clarity     × 0.15)  ← il cliente capisce subito cosa compra?
++ (Garment Fit            × 0.10)  ← il capo è adatto a trend / età / collezione?
++ (Color Fit              × 0.10)  ← i colori sono attuali, armonici, coerenti col target?
++ (Mobile Impact          × 0.10)  ← funziona in 3 secondi da cellulare?
++ (Image Potential        × 0.05)  ← si può fotografare bene in studio neutro + architettura BKS?
++ (Risk Safety            × 0.05)  ← evita falso lusso, confusione, promesse non verificabili?
+```
+
+**Decisione finale (usa solo queste):**
+
+| Score | Decisione |
+|---|---|
+| 1–18 | REJECT |
+| 19–20 | REWORK — correggere naming / colori / capo / immagine / descrizione |
+| 21–22 | PRODUCT READY |
+| 23–24 | STRATEGIC PRODUCT |
+| 25 | CAPSULE CANDIDATE |
+
+**Regola No-Luxury:** se il prodotto "sembra luxury finto" → automaticamente ≤ 15 (REJECT).
+
+---
+
+## LIVELLO 2 — Analisi 5 dimensioni (dettaglio per redesign)
+
+Usa il Livello 2 quando il prodotto è REWORK — fornisce il feedback specifico su quale dimensione correggere.
+
+### Dimensione 1 — BLANK SUITABILITY (moda dominant) — /5
+La qualità della base Printify è la fondazione su cui poggia tutto. Un print eccellente su un blank sbagliato vale zero.
 
 ### Dimensione 1 — BLANK SUITABILITY (moda dominant) — /5
 La qualità della base Printify è la fondazione su cui poggia tutto. Un print eccellente su un blank sbagliato vale zero.
@@ -92,28 +127,16 @@ Il test finale: questo prodotto comparirebbe su SSENSE, System, Wallpaper*? Robe
 
 ---
 
-## La matrice decisionale
+## Matrice decisionale unificata
 
 ```
-PUNTEGGIO TOTALE     DECISIONE
-─────────────────────────────────────────────────────
-22–25               PUBBLICA — prodotto di riferimento
-                    Tag: bakabo-hero-product
-
-20–21               PUBBLICA — prodotto solido
-                    Tag: bakabo-enriched (standard)
-
-17–19               HOLD — revisione su dimensione/i specifiche
-                    Tag: bakabo-needs-review
-                    Azione: feedback preciso su quale dimensione manca
-
-14–16               REDESIGN — non è un ritocco, è una ripartenza
-                    Tag: bakabo-needs-redesign
-                    Azione: identificare la dimensione con score ≤ 2 e riprogettare quella
-
-< 14                RIMUOVI — il prodotto non è BKS
-                    Tag: bakabo-ai-failed
-                    Azione: da Printify, prima che venga pubblicato
+BKS Product Score    Decisione finale           Tag Shopify
+──────────────────────────────────────────────────────────────
+25                  CAPSULE CANDIDATE           bakabo-hero-product
+23–24               STRATEGIC PRODUCT           bakabo-hero-product
+21–22               PRODUCT READY               bakabo-enriched
+19–20               REWORK (non pubblicare)     bakabo-needs-review
+< 19                REJECT                      bakabo-ai-failed / bakabo-needs-redesign
 ```
 
 ---
@@ -157,13 +180,14 @@ Sync automatico → Shopify (draft, not published)
          ↓
 Quality Gate (questo skill) — score 0–25
          ↓
-Score ≥ 20 → bakabo-printify-sync (enrichment: title, copy, SEO, metafields)
+Score ≥ 21 → bakabo-printify-sync (enrichment: title, copy, SEO, metafields)
            → bakabo-product-copy (descrizione HTML + meta)
-           → publish + tag bakabo-enriched
+           → publish + tag bakabo-enriched / bakabo-hero-product
          ↓
-Score < 20 → flag + feedback preciso → HOLD o REDESIGN
-           → NON pubblicare
+Score 19–20 → REWORK — feedback preciso → NON pubblicare
            → Roberto riceve briefing di redesign specifico
+         ↓
+Score < 19  → REJECT — rimuovere da Printify / non creare
 ```
 
 ---
@@ -176,7 +200,7 @@ Quando in dubbio sul calibro, confronta con questi:
 | --- | --- | --- |
 | BKS Glyph Hoodie — ochre chromatic field | 23/25 | Benchmark di eccellenza |
 | BKS Origin Pullover — botanical mark | 21/25 | Solido, pubblicabile |
-| BKS Pulse Tee — violet frequency | 20/25 | Minimo accettabile |
+| BKS Pulse Tee — violet frequency | 21/25 | Minimo pubblicabile |
 | BKS Token Oversized — purple depth | 22/25 | Alto valore editoriale |
 
 ---

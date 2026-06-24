@@ -1,0 +1,81 @@
+{
+  "sections": {
+    "page_hero": {
+      "type": "bks-page-hero",
+      "settings": {
+        "kicker": "BKS Studio",
+        "title": "BACKPACK",
+        "lead": "Structured carry with AI-art surface treatment. Clean silhouette, editorial presence.",
+        "meta_1": "AI-Generated",
+        "meta_2": "Made to Order",
+        "meta_3": "Ships Worldwide",
+        "primary_label": "Shop Backpack",
+        "primary_link": "/collections/bks-type-backpack",
+        "secondary_label": "All Collections",
+        "secondary_link": "/pages/bks-collections",
+        "background_color": "#0f0e08",
+        "text_color": "#FAFAF7",
+        "accent_color": "#d4a030"
+      },
+      "blocks": {
+        "link_bks_glyph": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Glyph",
+            "link": "/collections/bks-glyph"
+          }
+        },
+        "link_bks_marker": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Marker",
+            "link": "/collections/bks-marker"
+          }
+        },
+        "link_bks_pulse": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Pulse",
+            "link": "/collections/bks-pulse"
+          }
+        },
+        "link_bks_token": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Token",
+            "link": "/collections/bks-token"
+          }
+        }
+      },
+      "block_order": [
+        "link_bks_glyph",
+        "link_bks_marker",
+        "link_bks_pulse",
+        "link_bks_token"
+      ]
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "product_grid": {
+      "type": "bks-product-type-grid",
+      "settings": {
+        "section_title": "Backpacks",
+        "accent_color": "#d4a030",
+        "bg_color": "#fafaf7",
+        "collection_1": "bks-type-backpack",
+        "products_per_collection": 24,
+        "collection_2": "",
+        "collection_3": "",
+        "collection_4": "",
+        "view_all_url": "/collections/bks-type-backpack"
+      }
+    }
+  },
+  "order": [
+    "page_hero",
+    "product_grid",
+    "main"
+  ]
+}

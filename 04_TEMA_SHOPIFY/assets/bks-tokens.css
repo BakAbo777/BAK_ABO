@@ -1,0 +1,352 @@
+/*
+ * BKS Design Tokens — Single Source of Truth
+ * BKS TM04 · bakabo.club
+ *
+ * Architecture (UI/UX Pro Max — 3-layer system):
+ *   1. PRIMITIVE   — raw values, no meaning
+ *   2. SEMANTIC    — purpose aliases, referenced everywhere
+ *   3. COMPONENT   — component-specific tokens
+ *
+ * Load order: include BEFORE all other BKS stylesheets.
+ * In theme.liquid: {{ 'bks-tokens.css' | asset_url | stylesheet_tag }}
+ */
+
+/* ═══════════════════════════════════════════════════════════════
+   LAYER 1 — PRIMITIVE
+   Raw values. Never reference these directly in components.
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  /* Neutral scale */
+  --prim-black-0:   #000000;
+  --prim-black-10:  #080604;
+  --prim-black-12:  #0a0a0a;
+  --prim-black-14:  #0c0c0c;
+  --prim-black-18:  #141414;
+  --prim-black-24:  #1a1510;
+  --prim-black-28:  #1c1c1c;
+  --prim-black-30:  #1e1e1e;
+  --prim-black-36:  #242833;
+  --prim-white-100: #ffffff;
+  --prim-paper:     #fafaf7;
+  --prim-bone:      #efeae0;
+  --prim-muted-1:   #8a8480;
+  --prim-muted-2:   #6b6560;
+
+  /* Gold / warm */
+  --prim-gold-30:   #d4a030;
+  --prim-gold-50:   #c8a96e;
+  --prim-sand:      #c9b79c;
+  --prim-amber:     #e8a020;
+  --prim-gold-light: #e8d5a8;
+
+  /* Collection accent primaries */
+  --prim-hours:    #c8c4be;
+  --prim-origin:   #489808;
+  --prim-glyph:    #d4a030;
+  --prim-marker:   #c04418;
+  --prim-riviera:  #0ca898;
+  --prim-pulse:    #8888cc;
+  --prim-token:    #9828d8;
+  --prim-flag:     #c82020;
+
+  /* Tier metals */
+  --prim-lead:   #7a7a7a;
+  --prim-iron:   #8a8a8a;
+  --prim-brass:  #c8a96e;
+  --prim-silver: #b0b0c8;
+  --prim-gold:   #d4a030;
+
+  /* Blue accent */
+  --prim-blue:   #4a9eff;
+
+  /* Typography — families */
+  --prim-font-display: 'Bebas Neue', sans-serif;
+  --prim-font-body:    'DM Sans', 'Helvetica Neue', sans-serif;
+  --prim-font-mono:    'DM Mono', 'Courier New', monospace;
+
+  /* Typography — scale (base 16px) */
+  --prim-text-2xs: 0.6rem;     /* 9.6px  — overline, micro-label */
+  --prim-text-xs:  0.65rem;    /* 10.4px — category tag */
+  --prim-text-sm:  0.75rem;    /* 12px   — caption, badge */
+  --prim-text-md:  0.875rem;   /* 14px   — small body */
+  --prim-text-base: 1rem;      /* 16px   — base body */
+  --prim-text-lg:  1.125rem;   /* 18px   — large body */
+  --prim-text-xl:  1.25rem;    /* 20px   */
+  --prim-text-2xl: 1.5rem;     /* 24px   */
+  --prim-text-3xl: 2rem;       /* 32px   */
+  --prim-text-4xl: 3rem;       /* 48px   */
+  --prim-text-5xl: 4rem;       /* 64px   */
+  --prim-text-hero: clamp(2.8rem, 6vw, 5rem);   /* display hero */
+
+  /* Spacing scale (4px base) */
+  --prim-space-1:  4px;
+  --prim-space-2:  8px;
+  --prim-space-3:  12px;
+  --prim-space-4:  16px;
+  --prim-space-5:  20px;
+  --prim-space-6:  24px;
+  --prim-space-8:  32px;
+  --prim-space-10: 40px;
+  --prim-space-12: 48px;
+  --prim-space-16: 64px;
+  --prim-space-20: 80px;
+  --prim-space-24: 96px;
+
+  /* Radius */
+  --prim-radius-none: 0;
+  --prim-radius-sm:   2px;
+  --prim-radius-md:   4px;
+  --prim-radius-lg:   8px;
+  --prim-radius-pill: 999px;
+
+  /* Easing */
+  --prim-ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --prim-ease-in:    cubic-bezier(0.4, 0, 1, 1);
+  --prim-ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   LAYER 2 — SEMANTIC
+   Purpose aliases. Use these in all components & sections.
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  /* ── Surface / Background ── */
+  --bks-bg:        var(--prim-black-14);   /* #0c0c0c — dark page bg */
+  --bks-bg-deep:   var(--prim-black-12);   /* #0a0a0a — deepest dark */
+  --bks-surface:   var(--prim-black-18);   /* #141414 — card surface */
+  --bks-surface-2: var(--prim-black-30);   /* #1e1e1e — elevated surface */
+  --bks-surface-3: var(--prim-black-36);   /* #242833 — inverse/mid dark */
+  --bks-paper:     var(--prim-paper);      /* #fafaf7 — light sections */
+  --bks-bone:      var(--prim-bone);       /* #efeae0 — warm off-white */
+
+  /* ── Text ── */
+  --bks-text:      #f0ece4;                 /* primary on dark */
+  --bks-text-inv:  var(--prim-black-12);   /* primary on light */
+  --bks-ink:       var(--prim-black-12);   /* #0a0a0a — ink on paper */
+  --bks-muted:     var(--prim-muted-1);    /* secondary text */
+  --bks-muted-inv: rgba(10,10,10,0.55);    /* secondary text on light */
+
+  /* ── Borders ── */
+  --bks-border:     rgba(255,255,255,0.07);
+  --bks-border-inv: rgba(10,10,10,0.12);
+  --bks-border-mid: rgba(10,10,10,0.18);
+
+  /* ── Accent / Brand ── */
+  --bks-gold:       var(--prim-gold-50);   /* #c8a96e — primary accent */
+  --bks-gold-dark:  var(--prim-gold-30);   /* #d4a030 — darker gold */
+  --bks-gold-light: var(--prim-gold-light);/* #e8d5a8 — light gold */
+  --bks-sand:       var(--prim-sand);      /* #c9b79c — warm neutral */
+  --bks-amber:      var(--prim-amber);     /* #e8a020 */
+  --bks-blue:       var(--prim-blue);      /* #4a9eff */
+
+  /* ── Typography ── */
+  --bks-font-display: var(--prim-font-display);
+  --bks-font-body:    var(--prim-font-body);
+  --bks-font-mono:    var(--prim-font-mono);
+
+  /* ── Type scale aliases ── */
+  --bks-text-micro:   var(--prim-text-2xs);  /* 0.6rem  — overline */
+  --bks-text-tag:     var(--prim-text-xs);   /* 0.65rem — category */
+  --bks-text-caption: var(--prim-text-sm);   /* 0.75rem — caption */
+  --bks-text-small:   var(--prim-text-md);   /* 0.875rem */
+  --bks-text-body:    var(--prim-text-base); /* 1rem */
+  --bks-text-lead:    var(--prim-text-lg);   /* 1.125rem */
+  --bks-text-title:   var(--prim-text-2xl);  /* 1.5rem */
+  --bks-text-heading: var(--prim-text-3xl);  /* 2rem */
+  --bks-text-display: var(--prim-text-hero); /* clamp hero */
+
+  /* ── Spacing aliases ── */
+  --bks-gap-xs:  var(--prim-space-2);   /* 8px */
+  --bks-gap-sm:  var(--prim-space-4);   /* 16px */
+  --bks-gap-md:  var(--prim-space-6);   /* 24px */
+  --bks-gap-lg:  var(--prim-space-8);   /* 32px */
+  --bks-gap-xl:  var(--prim-space-12);  /* 48px */
+  --bks-gap-2xl: var(--prim-space-20);  /* 80px */
+
+  /* ── Radius ── */
+  --bks-radius-sm: var(--prim-radius-sm);
+  --bks-radius-md: var(--prim-radius-md);
+  --bks-radius-pill: var(--prim-radius-pill);
+
+  /* ── Easing ── */
+  --bks-ease:     var(--prim-ease-out);
+  --bks-ease-in:  var(--prim-ease-in);
+
+  /* ── Collection accent system ── */
+  --bks-col-hours:   var(--prim-hours);    /* #c8c4be */
+  --bks-col-origin:  var(--prim-origin);   /* #489808 */
+  --bks-col-glyph:   var(--prim-glyph);    /* #d4a030 */
+  --bks-col-marker:  var(--prim-marker);   /* #c04418 */
+  --bks-col-riviera: var(--prim-riviera);  /* #0ca898 */
+  --bks-col-pulse:   var(--prim-pulse);    /* #8888cc */
+  --bks-col-token:   var(--prim-token);    /* #9828d8 */
+  --bks-col-flag:    var(--prim-flag);     /* #c82020 */
+
+  /* collection foreground (light or dark depending on accent luminosity) */
+  --bks-col-hours-fg:   var(--bks-ink);
+  --bks-col-origin-fg:  var(--bks-ink);
+  --bks-col-glyph-fg:   var(--bks-ink);
+  --bks-col-marker-fg:  var(--bks-paper);
+  --bks-col-riviera-fg: var(--bks-ink);
+  --bks-col-pulse-fg:   var(--bks-ink);
+  --bks-col-token-fg:   var(--bks-paper);
+  --bks-col-flag-fg:    var(--bks-paper);
+
+  /* ── Tier metal system ── */
+  --bks-tier-lead:   var(--prim-lead);
+  --bks-tier-iron:   var(--prim-iron);
+  --bks-tier-brass:  var(--prim-brass);
+  --bks-tier-silver: var(--prim-silver);
+  --bks-tier-gold:   var(--prim-gold);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   LAYER 3 — COMPONENT
+   Component-specific tokens. Compose from semantic layer.
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  /* ── Badge / Tier ── */
+  --bks-badge-radius:     var(--bks-radius-sm);
+  --bks-badge-font:       var(--bks-font-mono);
+  --bks-badge-size:       var(--bks-text-caption);
+  --bks-badge-tracking:   0.1em;
+  --bks-badge-padding:    5px 12px;
+
+  /* ── Button (primary dark) ── */
+  --bks-btn-bg:           var(--bks-gold);
+  --bks-btn-bg-hover:     var(--bks-gold-dark);
+  --bks-btn-text:         var(--bks-ink);
+  --bks-btn-radius:       var(--bks-radius-sm);
+  --bks-btn-font:         var(--bks-font-mono);
+  --bks-btn-size:         var(--bks-text-caption);
+  --bks-btn-tracking:     0.12em;
+  --bks-btn-padding:      10px 24px;
+  --bks-btn-transition:   background 0.18s var(--bks-ease);
+
+  /* ── Button (ghost/outline) ── */
+  --bks-btn-ghost-border:       var(--bks-border);
+  --bks-btn-ghost-border-hover: var(--bks-gold);
+  --bks-btn-ghost-text:         var(--bks-text);
+  --bks-btn-ghost-text-hover:   var(--bks-gold);
+
+  /* ── Card (dark surface) ── */
+  --bks-card-bg:          var(--bks-surface);
+  --bks-card-border:      var(--bks-border);
+  --bks-card-radius:      var(--bks-radius-md);
+  --bks-card-padding:     var(--bks-gap-md);
+  --bks-card-shadow:      0 1px 3px rgba(0,0,0,0.4);
+  --bks-card-shadow-hover: 0 8px 24px rgba(0,0,0,0.5);
+
+  /* ── Card (light/paper) ── */
+  --bks-card-light-bg:     var(--bks-paper);
+  --bks-card-light-border: var(--bks-border-inv);
+  --bks-card-light-shadow: 0 1px 4px rgba(0,0,0,0.08);
+
+  /* ── FAQ ── */
+  --bks-faq-bg:           var(--bks-paper);
+  --bks-faq-item-border:  var(--bks-border-mid);
+  --bks-faq-item-bg-active: var(--bks-bone);
+  --bks-faq-title-font:   var(--bks-font-display);
+  --bks-faq-title-size:   var(--bks-text-display);
+  --bks-faq-body-font:    var(--bks-font-body);
+  --bks-faq-overline-font: var(--bks-font-mono);
+
+  /* ── Header ── */
+  --bks-header-bg:        var(--bks-paper);
+  --bks-header-border:    var(--bks-border-inv);
+  --bks-header-height:    72px;
+  --bks-header-font:      var(--bks-font-mono);
+  --bks-header-font-size: var(--bks-text-tag);
+  --bks-header-tracking:  0.12em;
+
+  /* ── Piano Hero ── */
+  --bks-piano-bg:         radial-gradient(ellipse 160% 90% at 50% 108%, #1c0e04 0%, #0d0905 38%, #080604 100%);
+  --bks-piano-overlay:    linear-gradient(180deg, rgba(8,6,4,0.72) 0%, rgba(8,6,4,0.55) 50%, rgba(8,6,4,0.80) 100%);
+
+  /* ── AI Assistant ── */
+  --bks-ai-bg:            var(--bks-surface);
+  --bks-ai-border:        var(--bks-border);
+  --bks-ai-radius:        var(--bks-radius-md);
+  --bks-ai-font:          var(--bks-font-body);
+  --bks-ai-accent:        var(--bks-gold);
+
+  /* ── Collection grid ── */
+  --bks-grid-gap:         clamp(12px, 2vw, 24px);
+  --bks-grid-cols-mobile: 2;
+  --bks-grid-cols-tablet: 6;
+  --bks-grid-cols-desk:   12;
+
+  /* ── Status / Feedback ── */
+  --bks-status-ok:          #4a9065;
+  --bks-status-ok-text:     #6fc490;
+  --bks-status-ok-bright:   #4ade80;
+  --bks-status-err:         var(--prim-marker, #c04418);
+  --bks-status-err-text:    #e07060;
+  --bks-status-err-bright:  #f87171;
+
+  /* ── Transition defaults ── */
+  --bks-transition-fast:   0.15s var(--bks-ease);
+  --bks-transition-base:   0.25s var(--bks-ease);
+  --bks-transition-slow:   0.5s  var(--bks-ease);
+  --bks-transition-reveal: 0.9s  var(--bks-ease);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   UTILITY — global helpers using token system
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Collection dot — used in product cards and badges */
+.bks-col-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--bks-radius-pill);
+  background: var(--bks-col-accent, var(--bks-gold));
+  flex-shrink: 0;
+}
+
+/* Overline / micro-label — consistent across all sections */
+.bks-overline {
+  font-family: var(--bks-font-mono);
+  font-size: var(--bks-text-micro);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bks-sand);
+}
+.bks-overline--inv {
+  color: var(--bks-muted-inv);
+}
+
+/* Display heading */
+.bks-heading-display {
+  font-family: var(--bks-font-display);
+  font-size: var(--bks-text-display);
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+}
+
+/* Gold accent text */
+.bks-text-gold { color: var(--bks-gold); }
+.bks-text-sand { color: var(--bks-sand); }
+.bks-text-muted { color: var(--bks-muted); }
+
+/* Surface cards */
+.bks-card {
+  background: var(--bks-card-bg);
+  border: 1px solid var(--bks-card-border);
+  border-radius: var(--bks-card-radius);
+  padding: var(--bks-card-padding);
+}
+.bks-card--light {
+  background: var(--bks-card-light-bg);
+  border-color: var(--bks-card-light-border);
+}
+
+/* Focus ring — accessible, consistent */
+.bks-focus:focus-visible {
+  outline: 2px solid var(--bks-gold);
+  outline-offset: 2px;
+}

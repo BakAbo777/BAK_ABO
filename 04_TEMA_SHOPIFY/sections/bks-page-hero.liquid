@@ -1,0 +1,218 @@
+{% comment %}
+  BKS Editorial Page Header v1
+  Custom page hero for BakAbo / BKS manual pages.
+  Uses page content below via main-page section.
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign accent = section.settings.accent_color | default: '#C9B79C'
+  assign bg = section.settings.background_color | default: '#0A0A0A'
+  assign fg = section.settings.text_color | default: '#FAFAF7'
+-%}
+
+<style>
+  #shopify-section-{{ sid }} .bks-page-hero {
+    background: {{ bg }};
+    color: {{ fg }};
+    border-bottom: 1px solid rgba(255,255,255,.12);
+  }
+  #shopify-section-{{ sid }} .bks-page-hero__inner {
+    max-width: 1480px;
+    margin: 0 auto;
+    padding: clamp(54px,8vw,128px) clamp(18px,4vw,64px) clamp(40px,6vw,84px);
+    display: grid;
+    grid-template-columns: minmax(0,1.05fr) minmax(280px,.95fr);
+    gap: clamp(28px,5vw,84px);
+    align-items: end;
+  }
+  #shopify-section-{{ sid }} .bks-page-hero__kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--bks-font-mono, monospace);
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    opacity: .78;
+    margin-bottom: 18px;
+  }
+  #shopify-section-{{ sid }} .bks-page-hero__kicker:before {
+    content: '';
+    display: inline-block;
+    width: 34px;
+    height: 1px;
+    background: {{ accent }};
+  }
+  #shopify-section-{{ sid }} .bks-page-hero h1 {
+    margin: 0;
+    font-family: var(--bks-font-display, 'Bebas Neue', 'Arial Narrow', sans-serif);
+    font-size: clamp(72px,10vw,160px);
+    line-height: .88;
+    letter-spacing: .01em;
+    text-transform: uppercase;
+    max-width: 10ch;
+    color: {{ fg }};
+  }
+  #shopify-section-{{ sid }} .bks-page-hero__lead {
+    font-size: clamp(16px,2vw,24px);
+    line-height: 1.35;
+    letter-spacing: -.02em;
+    max-width: 640px;
+    margin: 0 0 28px;
+    color: {{ fg }};
+  }
+  #shopify-section-{{ sid }} .bks-page-hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 28px;
+  }
+  #shopify-section-{{ sid }} .bks-page-hero__pill {
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 999px;
+    padding: 9px 12px;
+    font-family: var(--bks-font-mono, monospace);
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: {{ fg }};
+    background: rgba(255,255,255,.04);
+  }
+  #shopify-section-{{ sid }} .bks-page-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  #shopify-section-{{ sid }} .bks-page-hero__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 18px;
+    border: 1px solid {{ accent }};
+    color: {{ fg }};
+    background: transparent;
+    text-decoration: none;
+    font-family: var(--bks-font-mono, monospace);
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    transition: background .2s ease, color .2s ease;
+  }
+  #shopify-section-{{ sid }} .bks-page-hero__btn:hover {
+    background: {{ accent }};
+    color: #0A0A0A;
+  }
+  #shopify-section-{{ sid }} .bks-page-hero__links {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 8px;
+  }
+  #shopify-section-{{ sid }} .bks-page-hero__link {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    border-top: 1px solid rgba(255,255,255,.14);
+    padding: 13px 0;
+    color: {{ fg }};
+    text-decoration: none;
+    font-family: var(--bks-font-mono, monospace);
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  #shopify-section-{{ sid }} .bks-page-hero__link span { opacity:.52; }
+  #shopify-section-{{ sid }} .bks-page-hero__link:hover { color: {{ accent }}; }
+  /* Hide duplicate page title rendered by main-page section */
+  .bks-hero-no-dupe-title { display: none !important; }
+
+  @media (max-width: 860px) {
+    #shopify-section-{{ sid }} .bks-page-hero__inner { grid-template-columns: 1fr; align-items:start; }
+    #shopify-section-{{ sid }} .bks-page-hero h1 { max-width: none; }
+    #shopify-section-{{ sid }} .bks-page-hero__links { grid-template-columns: 1fr; }
+  }
+</style>
+
+<section class="bks-page-hero" aria-label="{{ section.settings.title | escape }}">
+  <div class="bks-page-hero__inner">
+    <div>
+      {%- if section.settings.kicker != blank -%}
+        <div class="bks-page-hero__kicker">{{ section.settings.kicker | escape }}</div>
+      {%- endif -%}
+      <h1>{{ section.settings.title | default: page.title | escape }}</h1>
+      <div class="bks-page-hero__meta">
+        {%- if section.settings.meta_1 != blank -%}<span class="bks-page-hero__pill">{{ section.settings.meta_1 | escape }}</span>{%- endif -%}
+        {%- if section.settings.meta_2 != blank -%}<span class="bks-page-hero__pill">{{ section.settings.meta_2 | escape }}</span>{%- endif -%}
+        {%- if section.settings.meta_3 != blank -%}<span class="bks-page-hero__pill">{{ section.settings.meta_3 | escape }}</span>{%- endif -%}
+      </div>
+    </div>
+    <div>
+      {%- if section.settings.lead != blank -%}<p class="bks-page-hero__lead">{{ section.settings.lead }}</p>{%- endif -%}
+      <div class="bks-page-hero__actions">
+        {%- if section.settings.primary_label != blank -%}<a class="bks-page-hero__btn" href="{{ section.settings.primary_link | default: '/collections/all' }}">{{ section.settings.primary_label | escape }}</a>{%- endif -%}
+        {%- if section.settings.secondary_label != blank -%}<a class="bks-page-hero__btn" href="{{ section.settings.secondary_link | default: '/pages/bks-members' }}">{{ section.settings.secondary_label | escape }}</a>{%- endif -%}
+      </div>
+      {%- if section.blocks.size > 0 -%}
+        <div class="bks-page-hero__links">
+          {%- for block in section.blocks -%}
+            <a class="bks-page-hero__link" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+              {{ block.settings.label | escape }} <span>↗</span>
+            </a>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  var heroTitle = {{ section.settings.title | default: page.title | json }};
+  var heroSection = document.getElementById('shopify-section-{{ section.id }}');
+  if (!heroSection || !heroTitle) return;
+  var next = heroSection.nextElementSibling;
+  if (!next) return;
+  var headings = next.querySelectorAll('h1, h2');
+  headings.forEach(function(h) {
+    if (h.textContent.trim().toUpperCase() === heroTitle.toUpperCase()) {
+      h.classList.add('bks-hero-no-dupe-title');
+    }
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "BKS Editorial Page Hero",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "BKS Studio" },
+    { "type": "text", "id": "title", "label": "Title", "default": "BKS Page" },
+    { "type": "textarea", "id": "lead", "label": "Lead", "default": "AI-generated graphics, editorial structure and made-to-order production." },
+    { "type": "text", "id": "meta_1", "label": "Meta 1", "default": "AI-generated" },
+    { "type": "text", "id": "meta_2", "label": "Meta 2", "default": "Made to order" },
+    { "type": "text", "id": "meta_3", "label": "Meta 3", "default": "BKS" },
+    { "type": "text", "id": "primary_label", "label": "Primary button", "default": "View products" },
+    { "type": "url", "id": "primary_link", "label": "Primary link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "BKS Members" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary link" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#0A0A0A" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#FAFAF7" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#C9B79C" }
+  ],
+  "blocks": [
+    {
+      "type": "quick_link",
+      "name": "Quick link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "BKS Link" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "BKS Editorial Page Hero" }
+  ]
+}
+{% endschema %}

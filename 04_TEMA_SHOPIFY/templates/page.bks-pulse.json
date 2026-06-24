@@ -1,0 +1,74 @@
+{
+  "sections": {
+    "page_hero": {
+      "type": "bks-page-hero",
+      "settings": {
+        "kicker": "BKS Studio \u2014 Pulse",
+        "title": "PULSE",
+        "lead": "Optical movement and digital pressure translated into wearable surface.",
+        "meta_1": "Technical Layer",
+        "meta_2": "Optical",
+        "meta_3": "Made to Order",
+        "primary_label": "Shop Pulse",
+        "primary_link": "/collections/bks-pulse",
+        "secondary_label": "All Collections",
+        "secondary_link": "/collections/all",
+        "background_color": "#0A0A0A",
+        "text_color": "#FAFAF7",
+        "accent_color": "#8888cc"
+      },
+      "blocks": {
+        "link_tee": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Tee",
+            "link": "/collections/bks-pulse/tee"
+          }
+        },
+        "link_hoodie": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Hoodie",
+            "link": "/collections/bks-pulse/hoodie"
+          }
+        },
+        "link_windbreaker": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Windbreaker",
+            "link": "/collections/bks-pulse/windbreaker"
+          }
+        },
+        "link_sneakers": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Sneakers",
+            "link": "/collections/bks-pulse/sneakers"
+          }
+        },
+        "link_backpack": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Backpack",
+            "link": "/collections/bks-pulse/backpack"
+          }
+        }
+      },
+      "block_order": [
+        "link_tee",
+        "link_hoodie",
+        "link_windbreaker",
+        "link_sneakers",
+        "link_backpack"
+      ]
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "page_hero",
+    "main"
+  ]
+}

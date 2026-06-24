@@ -1,10 +1,37 @@
 {
   "_meta": {
-    "version": "2.3",
-    "last_updated": "2026-06-20",
+    "version": "2.5",
+    "last_updated": "2026-06-24",
     "source": "COST_TABLE da bks_agent_dashboard.py (fonte autoritativa) + Printify API shipping sync",
     "note": "base_cost = costo reale Printify da COST_TABLE verificato. shipping_EU/US = da Printify API sync. Tutti i prezzi in USD.",
     "alignment_verified": "2026-06-20 v2.3 — tutti i puffer verificati $129 (29 prodotti, nessun repricing necessario). Woven Blanket non presente nel catalogo attivo. Cozy Slipper $55, Flip Flop $49, One-Piece $55: tutti OK. 202 prodotti attivi verificati."
+  },
+
+  "system_status": {
+    "as_of": "2026-06-24",
+    "store": {
+      "products_live": 200,
+      "products_draft": 0,
+      "language": "EN (fixed 2026-06-24 — all Italian UI text translated)",
+      "theme": "TM04 live (ID 202392961362)",
+      "collections": 8,
+      "product_type_pages": 17
+    },
+    "images": {
+      "mockup_sync": "147/159 updated products synced from Printify to Shopify (11 orphans ignored)",
+      "hero_shots_openai": "5/159 generated and uploaded (in progress — batch pending)",
+      "setstyle_heroes": "8/8 collection heroes live on Shopify"
+    },
+    "channels": {
+      "shopify": "LIVE — checkout active, EUR + USD",
+      "google_merchant_center": "FIX IN PROGRESS — local inventory feed corrected (in_stock/999, was out_of_stock/0). Upload to GMC pending. 35.1K 'limited availability' warnings expected to resolve in 24-48h.",
+      "pinterest": "SUSPENDED — appeal sent 2026-06-20, awaiting review",
+      "instagram": "ACTIVE account — 0 posts published, content needed",
+      "youtube": "0 videos published",
+      "tiktok": "pixel disconnected"
+    },
+    "current_priority": "1. Upload GMC local inventory feed → 2. Complete hero photos (OpenAI) → 3. Instagram first 3 posts",
+    "sales": "0 orders to date — store launched June 2026, traffic channels being activated"
   },
 
   "brand_positioning": {
@@ -436,6 +463,26 @@
       "action": "RISOLTO: tutti 29 puffer verificati a $129. Margine EU ~57.6%."
     }
   ],
+
+  "image_pipeline": {
+    "status": "live",
+    "activated": "2026-06-21",
+    "type": "bks_hero",
+    "script": "scripts/generate_bks_hero_images.py",
+    "source": "Printify ghost mannequin (camera_label=front, no on-person)",
+    "bg_removal": "edge_flood_fill_BFS — rimuove solo bianco connesso ai bordi, mai il print interno",
+    "composition": {
+      "canvas": "1200x1200",
+      "background": "gradiente verticale: top=accent+45%PAPER, bottom=accent*0.88",
+      "shadow": "Gaussian blur r=22, offset_y=8, opacity=60",
+      "rotation": "hash(handle)%7-3 gradi (deterministic, -3 a +3)",
+      "padding": "10% (prodotto occupa 80% canvas)"
+    },
+    "shopify_position": 2,
+    "db_asset_type": "bks_hero",
+    "rule_no_luminance_threshold": "MAI usare soglia luminanza pura — taglia zone bianche del print prodotto",
+    "rule_no_rembg": "Ghost mannequin non richiede rembg — sfondo bianco studio gestito con flood fill"
+  },
 
   "auto_update": {
     "refresh_source": "Printify API /catalog/blueprints + /shops/{id}/products",

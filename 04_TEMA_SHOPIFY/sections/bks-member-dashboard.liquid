@@ -123,28 +123,28 @@
 
 {%- if customer -%}
 
-{%- comment -%} ── Metal Tier detection via orders_count ── {%- endcomment -%}
+{%- comment -%} ── Metal Tier detection (tag override → orders_count) ── {%- endcomment -%}
 {%- liquid
   assign _oc = customer.orders_count | default: 0
-  if _oc >= 11
+  if customer.tags contains 'bks_tier_gold' or _oc >= 11
     assign bks_metal_tier   = 'gold'
     assign bks_metal_label  = 'Gold Member'
     assign bks_metal_symbol = '✦'
     assign bks_metal_color  = '#d4a030'
     assign bks_metal_rank   = 4
-  elsif _oc >= 6
+  elsif customer.tags contains 'bks_tier_silver' or _oc >= 6
     assign bks_metal_tier   = 'silver'
     assign bks_metal_label  = 'Silver Member'
     assign bks_metal_symbol = '◇'
     assign bks_metal_color  = '#b0b0c8'
     assign bks_metal_rank   = 3
-  elsif _oc >= 3
+  elsif customer.tags contains 'bks_tier_brass' or _oc >= 3
     assign bks_metal_tier   = 'brass'
     assign bks_metal_label  = 'Brass Member'
     assign bks_metal_symbol = '◈'
     assign bks_metal_color  = '#c8a96e'
     assign bks_metal_rank   = 2
-  elsif _oc >= 1
+  elsif customer.tags contains 'bks_tier_iron' or _oc >= 1
     assign bks_metal_tier   = 'iron'
     assign bks_metal_label  = 'Iron Member'
     assign bks_metal_symbol = '⬡'
@@ -213,6 +213,14 @@
         Archive <span class="bks-tab-lock">◌</span>
       </button>
     {%- endif -%}
+    {%- if bks_metal_rank >= 2 -%}
+      <button class="bks-tab-btn" data-tab="verse">BKS Verse</button>
+    {%- else -%}
+      <button class="bks-tab-btn" data-tab="verse" title="Unlocks at Brass (3+ orders)">
+        BKS Verse <span class="bks-tab-lock">◌</span>
+      </button>
+    {%- endif -%}
+    <button class="bks-tab-btn" data-tab="creations">Creations</button>
     <button class="bks-tab-btn" data-tab="account">Account</button>
   </nav>
 
@@ -563,136 +571,151 @@
   ══════════════════════════════════════════ {%- endcomment -%}
   <div id="bks-panel-camerino" class="bks-member-panel">
 
-    <section class="bks-camerino" data-bks-camerino>
-      <div class="bks-camerino__head">
-        <div>
-          <h2 class="bks-camerino__title">BKS Try-On</h2>
-          <p class="bks-camerino__subtitle">Upload your photo, choose a garment from your wishlist and see how it looks on you.</p>
+    <section class="bks-camerino-v3" data-bks-camerino>
+
+      <!-- Step indicator -->
+      <div class="bks-cv3-steps">
+        <div class="bks-cv3-step is-active" data-bks-step="0">
+          <div class="bks-cv3-step__num">01</div>
+          <span class="bks-cv3-step__label">Photo</span>
+        </div>
+        <div class="bks-cv3-step-line"></div>
+        <div class="bks-cv3-step" data-bks-step="1">
+          <div class="bks-cv3-step__num">02</div>
+          <span class="bks-cv3-step__label">Garment</span>
+        </div>
+        <div class="bks-cv3-step-line"></div>
+        <div class="bks-cv3-step" data-bks-step="2">
+          <div class="bks-cv3-step__num">03</div>
+          <span class="bks-cv3-step__label">Preview</span>
         </div>
       </div>
 
-      <div class="bks-camerino__steps">
-        <div class="bks-camerino__step is-active" data-bks-step="0">00 · Photo</div>
-        <div class="bks-camerino__step" data-bks-step="1">01 · Garment</div>
-        <div class="bks-camerino__step" data-bks-step="2">02 · Preview</div>
+      <!-- Privacy notice -->
+      <div class="bks-cv3-privacy">
+        <span>⊙</span>
+        <span><strong>Your photo stays in your browser.</strong> Processing is local — no image is sent to BKS servers. If you use "Send to crew", the photo is transmitted only with your explicit consent (GDPR art. 6.1.a).</span>
       </div>
 
-      <div class="bks-photo-guide">
-        <p class="bks-section-title" style="margin:0 0 16px">Photo guide</p>
-        <div class="bks-photo-guide__grid">
-          <div class="bks-photo-guide__rule"><span class="bks-photo-guide__icon">↕</span><strong>Full body</strong><span>Head to toe, standing, arms slightly away from body.</span></div>
-          <div class="bks-photo-guide__rule"><span class="bks-photo-guide__icon">◎</span><strong>Frontal</strong><span>Look straight into the camera. 0° angle, no 3/4 turn.</span></div>
-          <div class="bks-photo-guide__rule"><span class="bks-photo-guide__icon">◻</span><strong>Neutral background</strong><span>White, beige or light grey wall. No doors, frames or clutter behind you.</span></div>
-          <div class="bks-photo-guide__rule"><span class="bks-photo-guide__icon">◑</span><strong>Front light</strong><span>Window or natural light facing you. Avoid backlighting and harsh shadows on the face.</span></div>
-          <div class="bks-photo-guide__rule"><span class="bks-photo-guide__icon">▭</span><strong>Fitted clothes</strong><span>Wear something simple and fitted (t-shirt, leggings) — the BKS garment will be overlaid.</span></div>
-          <div class="bks-photo-guide__rule"><span class="bks-photo-guide__icon">⊡</span><strong>Portrait format</strong><span>Vertical photo, minimum 800×1200 px. JPG or PNG, max 12 MB.</span></div>
-        </div>
-        <div class="bks-photo-guide__example">
-          <svg viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Correct pose: full body frontal">
-            <rect width="120" height="200" rx="4" fill="#efeae0"/>
-            <circle cx="60" cy="32" r="14" stroke="#0a0a0a" stroke-width="1.5"/>
-            <line x1="60" y1="46" x2="60" y2="120" stroke="#0a0a0a" stroke-width="1.5"/>
-            <line x1="60" y1="68" x2="34" y2="96" stroke="#0a0a0a" stroke-width="1.5"/>
-            <line x1="60" y1="68" x2="86" y2="96" stroke="#0a0a0a" stroke-width="1.5"/>
-            <line x1="60" y1="120" x2="42" y2="172" stroke="#0a0a0a" stroke-width="1.5"/>
-            <line x1="60" y1="120" x2="78" y2="172" stroke="#0a0a0a" stroke-width="1.5"/>
-            <line x1="14" y1="18" x2="14" y2="182" stroke="#c9b79c" stroke-width="1"/>
-            <line x1="10" y1="18" x2="18" y2="18" stroke="#c9b79c" stroke-width="1"/>
-            <line x1="10" y1="182" x2="18" y2="182" stroke="#c9b79c" stroke-width="1"/>
-            <text x="60" y="194" text-anchor="middle" font-size="8" fill="#9a9a9a" font-family="monospace">full body · frontal</text>
-          </svg>
-          <p class="bks-photo-guide__caption">✓ &nbsp;Full body · arms open · neutral background · front light</p>
-        </div>
-      </div>
-
-      <div class="bks-privacy-notice">
-        <span class="bks-privacy-notice__icon">⊙</span>
-        <p><strong>Your photo stays in your browser.</strong> Try-on is processed locally: no image is uploaded to BKS servers or third parties. If you use "Send to crew", we'll receive your photo for manual processing — your consent will be requested at that point.</p>
-      </div>
-
-      <div class="bks-camerino__upload-zone" id="bks-upload-zone">
+      <!-- Upload zone -->
+      <div class="bks-cv3-upload-wrap" id="bks-upload-zone">
         <input type="file" id="bks-photo-input" accept="image/jpeg,image/png,image/webp,image/heic" style="display:none" aria-label="Upload your photo">
-        <label for="bks-photo-input" class="bks-upload-label" id="bks-upload-label">
-          <span class="bks-upload-label__icon">↑</span>
-          <strong>Upload your photo</strong>
-          <span>JPG · PNG · WEBP · max 12 MB</span>
-        </label>
-        <div class="bks-upload-preview" id="bks-upload-preview" style="display:none">
-          <img id="bks-uploaded-img" alt="Your photo">
-          <button class="bks-upload-remove" id="bks-upload-remove" aria-label="Remove photo">✕</button>
+        <div class="bks-cv3-upload-zone">
+          <label for="bks-photo-input" class="bks-cv3-upload-label" id="bks-upload-label">
+            <div class="bks-cv3-upload-icon">↑</div>
+            <strong>Drag your photo here</strong>
+            <span>or click to upload</span>
+            <em>JPG · PNG · WEBP · max 12 MB · Full body · Portrait · Min 600×900</em>
+          </label>
+        </div>
+        <!-- Photo guide (collapsible) -->
+        <button class="bks-cv3-guide-toggle" id="bks-guide-toggle" type="button">
+          <span>Photo guide — how to get a good result</span>
+          <span class="bks-cv3-guide-toggle__arrow">▾</span>
+        </button>
+        <div class="bks-cv3-guide-body" id="bks-guide-body">
+          <div class="bks-cv3-guide-rule"><span class="bks-cv3-guide-rule__icon">↕</span><strong>Full body</strong><span>Head to toe, standing, arms slightly away.</span></div>
+          <div class="bks-cv3-guide-rule"><span class="bks-cv3-guide-rule__icon">◎</span><strong>Frontal</strong><span>0° angle, straight to camera, no 3/4 turn.</span></div>
+          <div class="bks-cv3-guide-rule"><span class="bks-cv3-guide-rule__icon">◻</span><strong>Neutral background</strong><span>White, beige or light grey. No clutter.</span></div>
+          <div class="bks-cv3-guide-rule"><span class="bks-cv3-guide-rule__icon">◑</span><strong>Front light</strong><span>Window or natural light facing you.</span></div>
+          <div class="bks-cv3-guide-rule"><span class="bks-cv3-guide-rule__icon">▭</span><strong>Fitted base</strong><span>T-shirt and leggings — the BKS garment overlays.</span></div>
+          <div class="bks-cv3-guide-rule"><span class="bks-cv3-guide-rule__icon">⊡</span><strong>Portrait format</strong><span>Vertical, min 600×900 px, JPG or PNG.</span></div>
         </div>
       </div>
-      <div id="bks-photo-feedback" class="bks-photo-error" role="alert"></div>
-      <div id="bks-photo-ok" class="bks-photo-ok" role="status"></div>
 
-      <div class="bks-camerino__grid" id="bks-camerino-grid" style="display:none">
-        <div class="bks-camerino__panel">
-          <p class="bks-section-title" style="margin:0 0 12px">Garment from wishlist</p>
-          <div class="bks-wishlist" data-bks-wishlist id="bks-camerino-wishlist">
-            <div style="color:#b8b2a6;font-size:13px;">Loading wishlist...</div>
+      <!-- Feedback messages -->
+      <div id="bks-photo-feedback" class="bks-cv3-feedback is-error" role="alert"></div>
+      <div id="bks-photo-ok" class="bks-cv3-feedback is-ok" role="status"></div>
+
+      <!-- Hidden legacy nodes (preserved for canvas JS that may reference them) -->
+      <div id="bks-upload-preview" style="display:none" aria-hidden="true">
+        <img id="bks-uploaded-img" alt="" style="display:none">
+        <button id="bks-upload-remove" style="display:none" aria-label="Remove photo">✕</button>
+      </div>
+
+      <!-- Split layout (visible after photo upload) -->
+      <div class="bks-cv3-split" id="bks-camerino-grid">
+
+        <!-- Left: user photo panel -->
+        <div class="bks-cv3-photo-panel">
+          <img class="bks-cv3-photo-panel__img" id="bks-cv3-photo-img" alt="Your photo" src="">
+          <div class="bks-cv3-photo-panel__footer">
+            <span class="bks-cv3-photo-label">Your photo</span>
+            <button class="bks-cv3-change-btn" id="bks-cv3-change-btn" type="button">Change ↺</button>
           </div>
-          <div class="bks-actions" style="margin-top:20px">
-            <label class="bks-consent-row" id="bks-consent-row">
+        </div>
+
+        <!-- Right: garment selection + preview canvas -->
+        <div class="bks-cv3-right">
+          <div class="bks-cv3-garments">
+            <p class="bks-cv3-garments__label">02 · Choose garment from wishlist</p>
+            <div class="bks-cv3-wishlist" data-bks-wishlist id="bks-camerino-wishlist">
+              <div style="color:#6a6560;font-size:12px;font-family:'DM Mono',monospace;letter-spacing:0.06em;">Loading wishlist...</div>
+            </div>
+          </div>
+          <div class="bks-cv3-preview" data-bks-preview>
+            <div class="bks-cv3-preview__empty" id="bks-cv3-preview-empty">
+              <div class="bks-cv3-preview__empty-icon">◈</div>
+              <span class="bks-cv3-preview__empty-text">03 · Select a garment above to preview</span>
+            </div>
+            <canvas id="bks-tryon-canvas"></canvas>
+            <div class="bks-cv3-status" id="bks-cv3-status" style="display:none">
+              <span data-bks-status>—</span>
+              <button class="bks-cv3-btn-download" data-bks-tryon-download>↓ Save</button>
+            </div>
+          </div>
+          <div class="bks-cv3-actions" id="bks-cv3-actions">
+            <label class="bks-cv3-consent">
               <input type="checkbox" id="bks-consent-check">
               <span>I consent to sending my photo to the BKS crew for manual try-on processing (GDPR art. 6.1.a)</span>
             </label>
-            <button class="bks-btn bks-btn--ghost" id="bks-crew-btn" disabled>Send to BKS crew</button>
+            <button class="bks-cv3-btn-send" id="bks-crew-btn" disabled>Send to crew →</button>
           </div>
         </div>
-        <div class="bks-preview" data-bks-preview>
-          <canvas id="bks-tryon-canvas" style="width:100%;height:100%;display:block;"></canvas>
-          <div class="bks-preview__status"><div data-bks-status>Choose a garment from your wishlist.</div></div>
-        </div>
+
       </div>
 
     </section>
-
-    <style>
-      .bks-photo-guide { background:#f5f0e8;border:1px solid rgba(10,10,10,0.08);padding:clamp(20px,3vw,32px);margin-bottom:28px; }
-      .bks-photo-guide__grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:24px; }
-      .bks-photo-guide__rule { display:flex;flex-direction:column;gap:4px;padding:14px;background:#fafaf7;border-left:2px solid #c9b79c; }
-      .bks-photo-guide__icon { font-size:1.1rem;color:#c9b79c;line-height:1;margin-bottom:4px; }
-      .bks-photo-guide__rule strong { font-family:var(--bks-font-mono,'DM Mono',monospace);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:#0a0a0a; }
-      .bks-photo-guide__rule span { font-size:0.8rem;color:#5a5a5a;line-height:1.5; }
-      .bks-photo-guide__example { display:flex;align-items:center;gap:20px;padding-top:16px;border-top:1px solid rgba(10,10,10,0.08); }
-      .bks-photo-guide__example svg { width:80px;flex-shrink:0; }
-      .bks-photo-guide__caption { font-family:var(--bks-font-mono,'DM Mono',monospace);font-size:0.72rem;color:#5a5a5a;letter-spacing:0.06em;line-height:1.6; }
-      .bks-camerino__upload-zone { margin-bottom:24px; }
-      .bks-upload-label { display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:40px 24px;border:2px dashed rgba(10,10,10,0.2);cursor:pointer;text-align:center;transition:border-color 0.2s,background 0.2s;background:#fafaf7; }
-      .bks-upload-label:hover { border-color:#0a0a0a;background:#f0ebe0; }
-      .bks-upload-label__icon { font-size:2rem;color:#c9b79c;line-height:1; }
-      .bks-upload-label strong { font-family:var(--bks-font-mono,'DM Mono',monospace);font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;color:#0a0a0a; }
-      .bks-upload-label span { font-size:0.72rem;color:#9a9a9a;font-family:var(--bks-font-mono,'DM Mono',monospace);letter-spacing:0.06em; }
-      .bks-upload-preview { position:relative;max-width:280px;margin:0 auto; }
-      .bks-upload-preview img { width:100%;display:block;border:1px solid rgba(10,10,10,0.12); }
-      .bks-upload-remove { position:absolute;top:8px;right:8px;background:rgba(10,10,10,0.75);color:#fafaf7;border:none;width:28px;height:28px;cursor:pointer;font-size:0.8rem;display:flex;align-items:center;justify-content:center; }
-      .bks-privacy-notice { display:flex;gap:12px;align-items:flex-start;background:#f0ebe0;border-left:3px solid #c9b79c;padding:14px 16px;margin-bottom:20px;font-size:0.8rem;line-height:1.55;color:#3d3d3d; }
-      .bks-privacy-notice__icon { font-size:1rem;flex-shrink:0;margin-top:1px; }
-      .bks-privacy-notice strong { color:#0a0a0a; }
-      .bks-consent-row { display:flex;gap:10px;align-items:flex-start;font-size:0.75rem;color:#5a5a5a;line-height:1.5;margin-bottom:12px;cursor:pointer; }
-      .bks-consent-row input { flex-shrink:0;margin-top:2px; }
-      .bks-photo-error { display:none;background:#fef0ee;border-left:3px solid #c04418;padding:10px 14px;font-size:0.78rem;color:#c04418;margin-top:8px;font-family:var(--bks-font-mono,'DM Mono',monospace); }
-      .bks-photo-ok { display:none;background:#eef8ee;border-left:3px solid #489808;padding:10px 14px;font-size:0.78rem;color:#2d6006;margin-top:8px;font-family:var(--bks-font-mono,'DM Mono',monospace); }
-    </style>
 
     <script>
     (function() {
       var MAX_BYTES=12*1024*1024, MIN_W=600, MIN_H=900;
       var ALLOWED=['image/jpeg','image/png','image/webp','image/heic','image/heif'];
       var input=document.getElementById('bks-photo-input');
+      var uploadWrap=document.getElementById('bks-upload-zone');
       var labelEl=document.getElementById('bks-upload-label');
-      var previewBox=document.getElementById('bks-upload-preview');
       var img=document.getElementById('bks-uploaded-img');
-      var removeBtn=document.getElementById('bks-upload-remove');
+      var photoImg=document.getElementById('bks-cv3-photo-img');
+      var changeBtn=document.getElementById('bks-cv3-change-btn');
       var grid=document.getElementById('bks-camerino-grid');
       var errBox=document.getElementById('bks-photo-feedback');
       var okBox=document.getElementById('bks-photo-ok');
       var consentChk=document.getElementById('bks-consent-check');
       var crewBtn=document.getElementById('bks-crew-btn');
-      if (!input) return;
+      var uploadZoneInner=uploadWrap?uploadWrap.querySelector('.bks-cv3-upload-zone'):null;
+      var guideToggle=document.getElementById('bks-guide-toggle');
+      var guideBody=document.getElementById('bks-guide-body');
+      if(!input)return;
+
+      if(guideToggle&&guideBody){
+        guideToggle.addEventListener('click',function(){
+          var open=guideBody.classList.toggle('is-open');
+          guideToggle.classList.toggle('is-open',open);
+        });
+      }
+
       function showErr(m){errBox.textContent='✗ '+m;errBox.style.display='block';okBox.style.display='none';}
       function showOk(m){okBox.textContent='✓ '+m;okBox.style.display='block';errBox.style.display='none';}
       function clearFeedback(){errBox.style.display=okBox.style.display='none';}
+
+      function setStep(n){
+        document.querySelectorAll('[data-bks-step]').forEach(function(s){
+          var i=parseInt(s.getAttribute('data-bks-step'),10);
+          s.classList.toggle('is-active',i===n);
+          s.classList.toggle('is-done',i<n);
+        });
+      }
+
       function validateAndLoad(file){
         clearFeedback();
         if(ALLOWED.indexOf(file.type)===-1&&!file.name.match(/\.(heic|heif)$/i)){showErr('Unsupported format. Use JPG, PNG or WEBP.');return;}
@@ -702,35 +725,50 @@
         tmp.onload=function(){
           var w=tmp.naturalWidth,h=tmp.naturalHeight;
           URL.revokeObjectURL(url);
-          if(w<MIN_W||h<MIN_H){showErr('Photo too small ('+w+'×'+h+'px). Minimum 600×900 px — full body portrait.');return;}
-          if(w>h){showErr('Horizontal photo. Rotate your phone and shoot in portrait (vertical) mode.');return;}
+          if(w<MIN_W||h<MIN_H){showErr('Photo too small ('+w+'\xd7'+h+'px). Minimum 600\xd7900 px — full body portrait.');return;}
+          if(w>h){showErr('Horizontal photo. Rotate to portrait (vertical) mode.');return;}
           var displayUrl=URL.createObjectURL(file);
-          img.src=displayUrl;
-          labelEl.style.display='none';previewBox.style.display='block';grid.style.display='grid';
-          showOk('Photo valid ('+w+'×'+h+'px). Choose a garment from your wishlist.');
-          document.querySelectorAll('.bks-camerino__step').forEach(function(s,i){s.classList.toggle('is-active',i===1);});
+          if(img)img.src=displayUrl;
+          if(photoImg)photoImg.src=displayUrl;
+          uploadWrap.style.display='none';
+          grid.classList.add('is-visible');
+          showOk('Photo loaded ('+w+'\xd7'+h+'px). Now choose a garment from your wishlist.');
+          setStep(1);
         };
         tmp.onerror=function(){showErr('Cannot read file. Try a different format.');};
         tmp.src=url;
       }
+
       input.addEventListener('change',function(){if(input.files[0])validateAndLoad(input.files[0]);});
-      removeBtn.addEventListener('click',function(){
-        input.value='';img.src='';previewBox.style.display='none';labelEl.style.display='flex';grid.style.display='none';
-        clearFeedback();if(consentChk)consentChk.checked=false;if(crewBtn)crewBtn.disabled=true;
-        document.querySelectorAll('.bks-camerino__step').forEach(function(s,i){s.classList.toggle('is-active',i===0);});
-      });
+
+      if(changeBtn){
+        changeBtn.addEventListener('click',function(){
+          input.value='';
+          if(img){img.src='';}
+          if(photoImg){photoImg.src='';}
+          uploadWrap.style.display='';
+          grid.classList.remove('is-visible');
+          clearFeedback();
+          if(consentChk)consentChk.checked=false;
+          if(crewBtn)crewBtn.disabled=true;
+          setStep(0);
+        });
+      }
+
       if(consentChk&&crewBtn){consentChk.addEventListener('change',function(){crewBtn.disabled=!consentChk.checked;});}
-      var zone=document.getElementById('bks-upload-zone');
-      zone.addEventListener('dragover',function(e){e.preventDefault();labelEl.style.borderColor='#0a0a0a';});
-      zone.addEventListener('dragleave',function(){labelEl.style.borderColor='';});
-      zone.addEventListener('drop',function(e){
-        e.preventDefault();labelEl.style.borderColor='';
-        var f=e.dataTransfer.files[0];
-        if(f&&f.type.startsWith('image/')){
-          try{var dt=new DataTransfer();dt.items.add(f);input.files=dt.files;}catch(x){}
-          validateAndLoad(f);
-        }
-      });
+
+      if(uploadZoneInner){
+        uploadZoneInner.addEventListener('dragover',function(e){e.preventDefault();uploadZoneInner.classList.add('is-drag');});
+        uploadZoneInner.addEventListener('dragleave',function(){uploadZoneInner.classList.remove('is-drag');});
+        uploadZoneInner.addEventListener('drop',function(e){
+          e.preventDefault();uploadZoneInner.classList.remove('is-drag');
+          var f=e.dataTransfer.files[0];
+          if(f&&f.type.startsWith('image/')){
+            try{var dt=new DataTransfer();dt.items.add(f);input.files=dt.files;}catch(x){}
+            validateAndLoad(f);
+          }
+        });
+      }
     })();
     </script>
 
@@ -767,6 +805,536 @@
       </div>
     {%- endif -%}
   </div>
+
+  {%- comment -%} ══════════════════════════════════════════
+      TAB: BKS Verse
+  ══════════════════════════════════════════ {%- endcomment -%}
+  <div id="bks-panel-verse" class="bks-member-panel">
+
+    {%- if bks_metal_rank >= 2 -%}
+
+      <p class="bks-section-title">BKS Verse &mdash; Dalla Poesia all&rsquo;Oggetto</p>
+
+      <div class="bks-verse-info">
+        <p class="bks-verse-info__text">
+          Write 80 to 280 characters. The Gran Giudice AI evaluates on five axes — image, voice, tension, BKS resonance, body.
+          Score <strong>20/25 or above</strong>: your verse becomes a limited garment, 25 pieces, your name on the product page.
+        </p>
+        <a href="/pages/verse" class="bks-verse-info__lb-link">View leaderboard &rarr;</a>
+      </div>
+
+      <div class="bks-verse-form-wrap">
+        <form id="bks-verse-form"
+              data-customer-email="{{ customer.email | escape }}"
+              data-customer-id="{{ customer.id }}">
+
+          <div class="bks-verse-field">
+            <label class="bks-cz-label" for="bks-verse-collection">Collection (optional)</label>
+            <select id="bks-verse-collection" class="bks-cz-select">
+              <option value="">— No preference —</option>
+              <option value="bks-hours">BKS Hours</option>
+              <option value="bks-glyph">BKS Glyph</option>
+              <option value="bks-marker">BKS Marker</option>
+              <option value="bks-riviera">BKS Riviera</option>
+              <option value="bks-pulse">BKS Pulse</option>
+              <option value="bks-token">BKS Token</option>
+              <option value="bks-flag">BKS Flag</option>
+              <option value="bks-origin">BKS Origin</option>
+            </select>
+          </div>
+
+          <div class="bks-verse-field" style="margin-top:20px;">
+            <label class="bks-cz-label" for="bks-verse-text">
+              Your verse <span class="bks-cz-req">*</span>
+              <span class="bks-verse-lang-toggle">
+                <button type="button" class="bks-verse-lang-btn is-active" data-lang="it">IT</button>
+                <button type="button" class="bks-verse-lang-btn" data-lang="en">EN</button>
+              </span>
+            </label>
+            <textarea id="bks-verse-text" class="bks-cz-textarea bks-verse-textarea" rows="5"
+                      placeholder="Write your verse here..."
+                      required minlength="80" maxlength="280"></textarea>
+            <div class="bks-verse-char-bar">
+              <div class="bks-verse-char-fill" id="bks-verse-char-fill"></div>
+            </div>
+            <div class="bks-verse-char-info">
+              <span id="bks-verse-char-count">0</span><span style="color:var(--bks-muted);"> / 280 &nbsp;&middot;&nbsp; min 80</span>
+            </div>
+          </div>
+
+          <div class="bks-verse-axes-preview">
+            <span class="bks-vi__axis">Image</span>
+            <span class="bks-vi__axis">Voice</span>
+            <span class="bks-vi__axis">Tension</span>
+            <span class="bks-vi__axis">BKS</span>
+            <span class="bks-vi__axis">Body</span>
+            <span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--bks-muted);align-self:center;">Evaluated by Gran Giudice AI</span>
+          </div>
+
+          <div class="bks-cz-actions" style="margin-top:24px;">
+            <button type="submit" class="bks-btn-gold" id="bks-verse-submit">Submit verse</button>
+            <p class="bks-cz-note">Result notified to <strong>{{ customer.email }}</strong> within 24h</p>
+          </div>
+
+        </form>
+
+        <div id="bks-verse-success" hidden>
+          <div class="bks-cz-success">
+            <div class="bks-cz-success-icon">◈</div>
+            <h3>Verse received</h3>
+            <p id="bks-verse-success-msg">The Gran Giudice will evaluate it. You'll receive the result at <strong>{{ customer.email }}</strong>.</p>
+            <button class="bks-btn-ghost" id="bks-verse-new">Submit another</button>
+          </div>
+        </div>
+
+        <div id="bks-verse-error" hidden class="bks-verse-error"></div>
+      </div>
+
+    {%- else -%}
+      <div class="bks-upgrade-card">
+        <div class="bks-upgrade-icon">◈</div>
+        <h3 class="bks-upgrade-title">BKS Verse — Brass+ required</h3>
+        <p class="bks-upgrade-text">
+          You have {{ customer.orders_count }} order{% if customer.orders_count != 1 %}s{% endif %}.
+          Reach Brass (3+ orders) to submit your verse and compete with poets from around the world.
+          Your poem could become a limited-edition garment.
+        </p>
+        <span class="bks-upgrade-badge"><span class="bks-tier-dot"></span>◈ Brass Member — 3+ orders</span>
+        <div style="margin-top:20px;">
+          <a href="/pages/verse" class="bks-btn-ghost" style="font-size:11px;">View leaderboard &rarr;</a>
+        </div>
+      </div>
+    {%- endif -%}
+
+  </div>
+
+  <style>
+    .bks-verse-info {
+      background: var(--bks-surface);
+      border: 1px solid var(--bks-border);
+      border-left: 3px solid #d4a030;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .bks-verse-info__text {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--bks-muted);
+      line-height: 1.65;
+      margin: 0;
+      max-width: 520px;
+    }
+    .bks-verse-info__text strong { color: var(--bks-text); }
+    .bks-verse-info__lb-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #d4a030;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .bks-verse-info__lb-link:hover { text-decoration: underline; }
+    .bks-verse-textarea {
+      font-family: 'DM Mono', monospace !important;
+      font-size: 14px !important;
+      line-height: 1.75 !important;
+      letter-spacing: 0.02em;
+    }
+    .bks-verse-char-bar {
+      height: 2px;
+      background: var(--bks-border);
+      margin-top: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+    .bks-verse-char-fill {
+      height: 100%;
+      width: 0;
+      background: #d4a030;
+      transition: width 0.2s, background 0.2s;
+    }
+    .bks-verse-char-fill.is-ready { background: #489808; }
+    .bks-verse-char-fill.is-over  { background: #c04418; }
+    .bks-verse-char-info {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .bks-verse-axes-preview {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: var(--bks-surface);
+      border: 1px solid var(--bks-border);
+    }
+    .bks-verse-lang-toggle {
+      display: inline-flex;
+      gap: 4px;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+    .bks-verse-lang-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      padding: 2px 7px;
+      border: 1px solid var(--bks-border);
+      background: transparent;
+      color: var(--bks-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .bks-verse-lang-btn.is-active {
+      background: #d4a030;
+      border-color: #d4a030;
+      color: #080604;
+    }
+    .bks-verse-error {
+      background: #1a0808;
+      border-left: 3px solid #c04418;
+      padding: 12px 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #e07060;
+      margin-top: 16px;
+      line-height: 1.55;
+    }
+  </style>
+
+  <script>
+  (function () {
+    var form = document.getElementById('bks-verse-form');
+    if (!form) return;
+
+    var textarea   = document.getElementById('bks-verse-text');
+    var countEl    = document.getElementById('bks-verse-char-count');
+    var fillEl     = document.getElementById('bks-verse-char-fill');
+    var submitBtn  = document.getElementById('bks-verse-submit');
+    var successBox = document.getElementById('bks-verse-success');
+    var errorBox   = document.getElementById('bks-verse-error');
+    var newBtn     = document.getElementById('bks-verse-new');
+    var langBtns   = document.querySelectorAll('.bks-verse-lang-btn');
+    var activeLang = 'it';
+
+    langBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        activeLang = btn.dataset.lang;
+        langBtns.forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+      });
+    });
+
+    textarea.addEventListener('input', function () {
+      var len = textarea.value.length;
+      countEl.textContent = len;
+      var pct = Math.min((len / 280) * 100, 100);
+      fillEl.style.width = pct + '%';
+      fillEl.classList.toggle('is-ready', len >= 80 && len <= 280);
+      fillEl.classList.toggle('is-over',  len > 280);
+      submitBtn.disabled = len < 80 || len > 280;
+    });
+    submitBtn.disabled = true;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      errorBox.hidden = true;
+
+      var payload = {
+        member_email:    form.dataset.customerEmail,
+        member_id:       form.dataset.customerId,
+        collection_slug: document.getElementById('bks-verse-collection').value || null,
+        poem_text:       textarea.value.trim(),
+        poem_lang:       activeLang
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      fetch('https://verse.bakabo.club/verse/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(function (r) {
+        if (!r.ok) return r.json().then(function (d) { throw new Error(d.detail || d.message || 'Error ' + r.status); });
+        return r.json();
+      })
+      .then(function (data) {
+        form.hidden = true;
+        successBox.hidden = false;
+        var msg = document.getElementById('bks-verse-success-msg');
+        if (msg) {
+          var id = data.id ? ' #' + data.id : '';
+          msg.innerHTML = 'Verse' + id + ' received. The Gran Giudice will evaluate it. '
+            + 'You\'ll receive the result at <strong>' + form.dataset.customerEmail + '</strong>.';
+        }
+      })
+      .catch(function (err) {
+        errorBox.hidden = false;
+        errorBox.textContent = '✗ ' + (err.message || 'Submission failed. Try again.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit verse';
+      });
+    });
+
+    if (newBtn) {
+      newBtn.addEventListener('click', function () {
+        form.reset();
+        textarea.dispatchEvent(new Event('input'));
+        form.hidden = false;
+        successBox.hidden = true;
+        errorBox.hidden = true;
+      });
+    }
+  })();
+  </script>
+
+  {%- comment -%} ══════════════════════════════════════════
+      TAB: Creations — BAK ABO Member Creations
+  ══════════════════════════════════════════ {%- endcomment -%}
+  <div id="bks-panel-creations" class="bks-member-panel">
+    <p class="bks-section-title">BAK ABO Originals &amp; Member Creations</p>
+
+    {%- comment -%} Collect approved creation tags (bks_creation_*) {%- endcomment -%}
+    {%- assign _creation_tags = "" -%}
+    {%- for tag in customer.tags -%}
+      {%- if tag contains "bks_creation_" -%}
+        {%- assign _creation_tags = _creation_tags | append: tag | append: "|" -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- assign _creation_list = _creation_tags | split: "|" | compact -%}
+
+    <div class="bks-creation-origin">
+      <p class="bks-creation-origin__eyebrow">BKS Origins</p>
+      <p class="bks-creation-origin__text">
+        BKS Studio grew from a longer arc — traditional art on paper and canvas, NFTs, AI artworks,
+        then AOP textile production. Every pattern carries the DNA of 15,000&plus; digital works created by Roberto Picchioni.
+        The 8 editorial collections are the distilled output of that transition.<br>
+        <a href="/pages/about-bakabo-1" class="bks-creation-origin__link">Full story &rarr;</a>
+      </p>
+    </div>
+
+    <div class="bks-creation-gate-info">
+      <div class="bks-creation-gate-info__icon">◈</div>
+      <div>
+        <p class="bks-creation-gate-title">How Member Creations work</p>
+        <ol class="bks-creation-gate-list">
+          <li>Submit your artwork or AOP pattern to <a href="mailto:crew@bakabo.club?subject=Member%20Creation%20Submission">crew@bakabo.club</a></li>
+          <li>The BKS AI quality gate evaluates it on 5 axes (score 0–25)</li>
+          <li>Score &ge;21/25: your design enters the BKS catalog as a Member Creation</li>
+          <li>You receive tier credit: <strong>Iron &rarr; Brass</strong> on first approved creation</li>
+          <li>Your name appears on the product page as creator</li>
+        </ol>
+      </div>
+    </div>
+
+    {%- if _creation_list.size > 0 -%}
+      <p class="bks-section-title" style="margin-top:36px;">Your approved creations</p>
+      <div class="bks-creation-grid">
+        {%- for ctag in _creation_list -%}
+          {%- assign _slug = ctag | remove: "bks_creation_" | replace: "_", " " | capitalize -%}
+          <div class="bks-creation-card">
+            <div class="bks-creation-card__badge">◈ Approved</div>
+            <p class="bks-creation-card__title">{{ _slug }}</p>
+            <a href="/collections/all?q={{ _slug | url_encode }}" class="bks-creation-card__link">View in catalog &rarr;</a>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="bks-creation-empty">
+        <p class="bks-creation-empty__label">No approved creations yet.</p>
+        {%- if bks_metal_rank >= 1 -%}
+          <a href="mailto:crew@bakabo.club?subject=Member%20Creation%20Submission&body=Hi%20BKS%20crew%2C%0A%0AI%20would%20like%20to%20submit%20an%20artwork%20for%20the%20Member%20Creations%20gate.%0A%0AMember%3A%20{{ customer.email | url_encode }}%0ATier%3A%20{{ bks_metal_label | url_encode }}"
+             class="bks-btn-gold" style="margin-top:20px;">Submit your artwork &rarr;</a>
+        {%- else -%}
+          <div class="bks-upgrade-card" style="margin-top:20px;">
+            <div class="bks-upgrade-icon">→</div>
+            <h3 class="bks-upgrade-title">Submissions open at Iron</h3>
+            <p class="bks-upgrade-text">Place your first order to unlock artwork submission for the BAK ABO quality gate.</p>
+            <span class="bks-upgrade-badge"><span class="bks-tier-dot"></span>⬡ Iron Member — 1+ orders</span>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="bks-creation-tier-credits">
+      <p class="bks-creation-tier-credits__title">Tier credits for Member Creations</p>
+      <div class="bks-creation-tier-table">
+        <div class="bks-creation-tier-row{% if bks_metal_rank >= 4 %} bks-creation-tier-row--active{% endif %}">
+          <span style="color:#d4a030;">✦ Gold</span><span>Founding creator — 4+ approved</span>
+        </div>
+        <div class="bks-creation-tier-row{% if bks_metal_rank >= 3 %} bks-creation-tier-row--active{% endif %}">
+          <span style="color:#b0b0c8;">◇ Silver</span><span>2+ approved creations</span>
+        </div>
+        <div class="bks-creation-tier-row{% if bks_metal_rank >= 2 %} bks-creation-tier-row--active{% endif %}">
+          <span style="color:#c8a96e;">◈ Brass</span><span>First approved creation</span>
+        </div>
+        <div class="bks-creation-tier-row{% if bks_metal_rank >= 1 %} bks-creation-tier-row--active{% endif %}">
+          <span style="color:#8a8a8a;">⬡ Iron</span><span>Submission unlocked</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <style>
+    .bks-creation-origin {
+      background: var(--bks-surface);
+      border: 1px solid var(--bks-border);
+      border-left: 3px solid #c9b79c;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+    }
+    .bks-creation-origin__eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: #c9b79c;
+      margin: 0 0 8px;
+    }
+    .bks-creation-origin__text {
+      font-size: 13px;
+      color: var(--bks-muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+    .bks-creation-origin__link {
+      color: #c9b79c;
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.10em;
+    }
+    .bks-creation-origin__link:hover { text-decoration: underline; }
+
+    .bks-creation-gate-info {
+      display: flex;
+      gap: 20px;
+      background: var(--bks-surface);
+      border: 1px solid var(--bks-border);
+      padding: 20px 24px;
+      margin-bottom: 28px;
+    }
+    .bks-creation-gate-info__icon {
+      font-size: 1.4rem;
+      color: #c8a96e;
+      flex-shrink: 0;
+      line-height: 1.4;
+    }
+    .bks-creation-gate-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--bks-text);
+      margin: 0 0 12px;
+    }
+    .bks-creation-gate-list {
+      font-size: 13px;
+      color: var(--bks-muted);
+      line-height: 1.7;
+      margin: 0;
+      padding-left: 18px;
+    }
+    .bks-creation-gate-list li { margin-bottom: 4px; }
+    .bks-creation-gate-list a { color: #c8a96e; }
+    .bks-creation-gate-list strong { color: var(--bks-text); }
+
+    .bks-creation-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .bks-creation-card {
+      background: var(--bks-surface);
+      border: 1px solid var(--bks-border);
+      border-top: 3px solid #c8a96e;
+      padding: 18px 20px;
+    }
+    .bks-creation-card__badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #c8a96e;
+      margin-bottom: 8px;
+    }
+    .bks-creation-card__title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--bks-text);
+      margin: 0 0 12px;
+    }
+    .bks-creation-card__link {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--bks-muted);
+      text-decoration: none;
+    }
+    .bks-creation-card__link:hover { color: var(--bks-text); }
+
+    .bks-creation-empty {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .bks-creation-empty__label {
+      color: var(--bks-muted);
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .bks-creation-tier-credits {
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid var(--bks-border);
+    }
+    .bks-creation-tier-credits__title {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--bks-muted);
+      margin: 0 0 16px;
+    }
+    .bks-creation-tier-table {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .bks-creation-tier-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      font-size: 13px;
+      gap: 16px;
+    }
+    .bks-creation-tier-row span:first-child {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .bks-creation-tier-row span:last-child { color: var(--bks-muted); }
+    .bks-creation-tier-row--active {
+      background: rgba(200,169,110,0.07);
+      border-color: rgba(200,169,110,0.18);
+    }
+  </style>
 
   {%- comment -%} ══════════════════════════════════════════
       TAB: Account

@@ -1,10 +1,14 @@
 name = "bks-agent"
 main = "bks-ai-worker.js"
 account_id = "e796d289f744035eee2641e853d8a5af"
+# Live URL: https://bks-agent.bakabo.workers.dev
+# Health:   https://bks-agent.bakabo.workers.dev/health
+# AI ask:   https://bks-agent.bakabo.workers.dev/ask
 compatibility_date = "2025-01-01"
 compatibility_flags = ["nodejs_compat"]
 
-# Cron: ogni giorno alle 12:00 CET (10:00 UTC) — catalog refresh + agent evaluation
+# Cron: 10:00 UTC = refresh catalogo + price audit + evaluation
+# (price audit integrato nel cron principale)
 [triggers]
 crons = ["0 10 * * *"]
 
@@ -23,4 +27,6 @@ binding = "AI"
 # SHOPIFY_DOMAIN       → wrangler secret put SHOPIFY_DOMAIN
 # SHOPIFY_TOKEN        → wrangler secret put SHOPIFY_TOKEN
 # SHOPIFY_API_VERSION  → wrangler secret put SHOPIFY_API_VERSION
-# BKS_AI_TOKEN         → wrangler secret put BKS_AI_TOKEN  (opzionale, per CORS auth)
+# BKS_AI_TOKEN         → wrangler secret put BKS_AI_TOKEN  (auth gate /printify-update)
+# PRINTIFY_API_TOKEN   → wrangler secret put PRINTIFY_API_TOKEN
+# PRINTIFY_SHOP_ID     → wrangler secret put PRINTIFY_SHOP_ID  (default: 12030061)

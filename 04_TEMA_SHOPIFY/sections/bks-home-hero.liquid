@@ -1,0 +1,220 @@
+{{ 'bks-home-hero.css' | asset_url | stylesheet_tag }}
+
+{%- assign has_video = section.settings.video_url | strip | size -%}
+{%- assign has_image = section.settings.bg_image -%}
+
+<section
+  class="bks-hh"
+  id="bks-home-hero"
+  data-section-id="{{ section.id }}"
+  data-overlay="{{ section.settings.overlay_strength }}"
+  data-align="{{ section.settings.text_align }}"
+  style="--bks-hh-min-height: {{ section.settings.min_height }}vh;"
+  aria-label="{{ section.settings.headline | escape }}"
+>
+
+  {%- comment %} ── Background layer ── {%- endcomment %}
+  <div class="bks-hh__bg" aria-hidden="true">
+
+    {%- if has_video != 0 -%}
+      <video
+        class="bks-hh__video"
+        src="{{ section.settings.video_url }}"
+        autoplay muted loop playsinline
+        preload="auto"
+      ></video>
+      {%- if has_image -%}
+        <img
+          class="bks-hh__img bks-hh__img--fallback"
+          src="{{ section.settings.bg_image | image_url: width: 1920 }}"
+          alt=""
+          loading="eager"
+        >
+      {%- endif -%}
+    {%- elsif has_image -%}
+      <img
+        class="bks-hh__img"
+        src="{{ section.settings.bg_image | image_url: width: 1920 }}"
+        srcset="
+          {{ section.settings.bg_image | image_url: width: 800 }} 800w,
+          {{ section.settings.bg_image | image_url: width: 1200 }} 1200w,
+          {{ section.settings.bg_image | image_url: width: 1920 }} 1920w
+        "
+        sizes="100vw"
+        alt=""
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- else -%}
+      <div class="bks-hh__placeholder"></div>
+    {%- endif -%}
+
+    <div class="bks-hh__overlay"></div>
+  </div>
+
+  {%- comment %} ── Content layer ── {%- endcomment %}
+  <div class="bks-hh__content">
+
+    {%- if section.settings.kicker != blank -%}
+      <p class="bks-hh__kicker">{{ section.settings.kicker | upcase }}</p>
+    {%- endif -%}
+
+    <h1 class="bks-hh__headline">
+      {{ section.settings.headline | newline_to_br }}
+    </h1>
+
+    {%- if section.settings.subline != blank -%}
+      <p class="bks-hh__subline">{{ section.settings.subline }}</p>
+    {%- endif -%}
+
+    <div class="bks-hh__ctas">
+      {%- if section.settings.cta_primary_label != blank -%}
+        <a
+          class="bks-hh__cta bks-hh__cta--primary"
+          href="{{ section.settings.cta_primary_url }}"
+        >
+          {{ section.settings.cta_primary_label }}
+        </a>
+      {%- endif -%}
+      {%- if section.settings.cta_secondary_label != blank -%}
+        <a
+          class="bks-hh__cta bks-hh__cta--secondary"
+          href="{{ section.settings.cta_secondary_url }}"
+        >
+          {{ section.settings.cta_secondary_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+  </div>
+
+  {%- comment %} ── Scroll indicator ── {%- endcomment %}
+  <div class="bks-hh__scroll" aria-hidden="true">
+    <span class="bks-hh__scroll-line"></span>
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "BKS Home Hero",
+  "tag": "section",
+  "class": "bks-section-hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Background video URL (CDN, .mp4)",
+      "placeholder": "https://cdn.shopify.com/.../brand-intro.mp4",
+      "info": "If set, video plays over the image. Image = fallback."
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Eyebrow text",
+      "default": "BKS Studio"
+    },
+    {
+      "type": "textarea",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Wearable Art\nOn Demand"
+    },
+    {
+      "type": "text",
+      "id": "subline",
+      "label": "Subheadline",
+      "default": "AI-generated fashion collections. Every piece designed, printed, delivered."
+    },
+    {
+      "type": "header",
+      "content": "CTA Buttons"
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_label",
+      "label": "Primary CTA label",
+      "default": "Shop Collections"
+    },
+    {
+      "type": "url",
+      "id": "cta_primary_url",
+      "label": "Primary CTA link"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_label",
+      "label": "Secondary CTA label",
+      "default": "About BKS"
+    },
+    {
+      "type": "url",
+      "id": "cta_secondary_url",
+      "label": "Secondary CTA link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "overlay_strength",
+      "label": "Dark overlay strength",
+      "options": [
+        { "value": "light",  "label": "Light (0.25)" },
+        { "value": "medium", "label": "Medium (0.45)" },
+        { "value": "strong", "label": "Strong (0.65)" }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left",   "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right",  "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "label": "Min height (vh)",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "default": 90
+    }
+  ],
+  "presets": [
+    {
+      "name": "BKS Home Hero",
+      "settings": {
+        "kicker": "BKS Studio",
+        "headline": "Wearable Art\nOn Demand",
+        "subline": "AI-generated fashion. Every piece designed, printed, delivered.",
+        "cta_primary_label": "Shop Collections",
+        "cta_secondary_label": "Our Story",
+        "overlay_strength": "medium",
+        "text_align": "center",
+        "min_height": 90
+      }
+    }
+  ]
+}
+{% endschema %}

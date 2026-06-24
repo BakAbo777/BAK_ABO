@@ -1,0 +1,57 @@
+{
+  "sections": {
+    "page_hero": {
+      "type": "bks-page-hero",
+      "settings": {
+        "kicker": "BKS Studio",
+        "title": "ONE PIECE",
+        "lead": "Full-coverage editorial swimwear. AI-generated print on clean minimal silhouette.",
+        "meta_1": "AI-Generated",
+        "meta_2": "Made to Order",
+        "meta_3": "Ships Worldwide",
+        "primary_label": "Shop One Piece",
+        "primary_link": "/collections/bks-type-one-piece",
+        "secondary_label": "All Collections",
+        "secondary_link": "/pages/bks-collections",
+        "background_color": "#04100f",
+        "text_color": "#FAFAF7",
+        "accent_color": "#0ca898"
+      },
+      "blocks": {
+        "link_bks_riviera": {
+          "type": "quick_link",
+          "settings": {
+            "label": "BKS Riviera",
+            "link": "/collections/bks-riviera"
+          }
+        }
+      },
+      "block_order": [
+        "link_bks_riviera"
+      ]
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "product_grid": {
+      "type": "bks-product-type-grid",
+      "settings": {
+        "section_title": "One Piece",
+        "accent_color": "#0ca898",
+        "bg_color": "#fafaf7",
+        "collection_1": "bks-type-one-piece",
+        "products_per_collection": 24,
+        "collection_2": "",
+        "collection_3": "",
+        "collection_4": "",
+        "view_all_url": "/collections/bks-type-one-piece"
+      }
+    }
+  },
+  "order": [
+    "page_hero",
+    "product_grid",
+    "main"
+  ]
+}

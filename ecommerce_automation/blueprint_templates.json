@@ -1,0 +1,193 @@
+{
+  "_comment": "Mappatura Printify blueprint_id -> template locale in I:\\BKS database\\",
+  "_base_path": "I:\\BKS database",
+  "_note": "png_per_area = posizione placeholder Printify -> file PNG template",
+
+  "276": {
+    "product": "Women's Cut & Sew Racerback Dress",
+    "folder": "5d44361ff902f00dc457e754",
+    "has_png": false,
+    "has_ai_psd": true,
+    "png_per_area": {}
+  },
+
+  "291": {
+    "product": "Men's Low Top Sneakers (AOP)",
+    "folder": "616ee4b6694694423167543e",
+    "has_png": false,
+    "has_ai_psd": true,
+    "png_per_area": {}
+  },
+
+  "360": {
+    "product": "Women's Classic One-Piece Swimsuit",
+    "folder": "5dea5e678a0e7116d329d203",
+    "has_png": false,
+    "has_ai_psd": true,
+    "png_per_area": {}
+  },
+
+  "279": {
+    "product": "Women's AOP Cut'n Sew Tee",
+    "folder": "63ef6338d94d573b83065687",
+    "has_png": true,
+    "has_ai_psd": true,
+    "png_per_area": {
+      "front":         "PNG/MWW_WomensAOPCutnSewTee_Template_Front.png",
+      "back":          "PNG/MWW_WomensAOPCutnSewTee_Template_Back.png",
+      "left_sleeve":   "PNG/MWW_WomensAOPCutnSewTee_Template_LeftSleeve.png",
+      "right_sleeve":  "PNG/MWW_WomensAOPCutnSewTee_Template_RightSleeve.png"
+    },
+    "skip_positions": ["inside_label", "neck_label", "label"]
+  },
+
+  "372": {
+    "product": "Duffel Bag",
+    "folder": "67346f4f18029ab09a0d3da2",
+    "has_png": false,
+    "has_ai_psd": true,
+    "png_per_area": {},
+    "_note": "RESERVED — original BAK ABO product, do not publish/archive/delete"
+  },
+
+  "413": {
+    "product": "Backpack",
+    "folder": "5d53aec94b5ca8006138ce38",
+    "has_png": false,
+    "has_ai_psd": true,
+    "png_per_area": {}
+  },
+
+  "587": {
+    "product": "Flip Flops",
+    "folder": "60b50df41ba151568e7ec09f",
+    "has_png": false,
+    "has_ai_psd": true,
+    "png_per_area": {}
+  },
+
+  "589": {
+    "product": "Swim Trunks AOP (Subliminator)",
+    "folder": "671f5777b4006ab6e908b2f4",
+    "has_png": true,
+    "has_ai_psd": true,
+    "print_areas": {
+      "right_leg": { "px_w": 12001, "px_h": 9001 },
+      "left_leg":  { "px_w": 12001, "px_h": 9001 }
+    },
+    "png_per_area": {
+      "right_leg": "PNG/Subliminator_SwimTrunks_Template_Right-Leg.png",
+      "left_leg":  "PNG/Subliminator_SwimTrunks_Template_Left-Leg.png"
+    },
+    "skip_positions": ["inside_label", "label"]
+  },
+
+  "739": {
+    "product": "Women's Lounge / Pajama Pants",
+    "folder": "619b874f8fae281f0e3b02d2",
+    "has_png": false,
+    "has_ai_psd": true,
+    "png_per_area": {}
+  },
+
+  "739_mens": {
+    "_note": "Men's version — blueprint ID to verify",
+    "product": "Men's Pajama Pants",
+    "folder": "619b8bd88fae281f0e3b02fe",
+    "has_png": false,
+    "has_ai_psd": true,
+    "png_per_area": {}
+  },
+
+  "888": {
+    "product": "Waterproof Travel Bag 20x12",
+    "folder": "621612bdd7b7d84017282700",
+    "has_png": true,
+    "has_ai_psd": true,
+    "png_per_area": {},
+    "_note": "PSD per side (Front/Back/Left/Right) — no standalone PNG exports yet"
+  },
+
+  "924": {
+    "product": "Men's Hawaiian Shirt",
+    "folder": "6643dc3625aff1a4cc020af4",
+    "has_png": true,
+    "has_ai_psd": true,
+    "png_per_area": {
+      "front_left":   "PNGs/ArtsAdd_MensHawaiianShirt_Template_Front_Left.png",
+      "front_right":  "PNGs/ArtsAdd_MensHawaiianShirt_Template_Front_Right.png",
+      "back_top":     "PNGs/ArtsAdd_MensHawaiianShirt_Template_Back_Top.png",
+      "back_bottom":  "PNGs/ArtsAdd_MensHawaiianShirt_Template_Back_Bottom.png",
+      "sleeve_left":  "PNGs/ArtsAdd_MensHawaiianShirt_Template_Sleeve_Left.png",
+      "sleeve_right": "PNGs/ArtsAdd_MensHawaiianShirt_Template_Sleeve_Right.png",
+      "collar":       "PNGs/ArtsAdd_MensHawaiianShirt_Template_Collar.png"
+    },
+    "skip_positions": ["inside_label", "neck_label", "label"]
+  },
+
+  "934": {
+    "product": "Men's Stand Collar Padded Jacket (Puffer)",
+    "folder": "620fb687ae8a9b534e31e5b8",
+    "has_png": false,
+    "has_ai_psd": true,
+    "png_per_area": {}
+  },
+
+  "1006": {
+    "product": "Boho Beach Cloth",
+    "folder": "625d669f56cd37ab240701ac",
+    "has_png": false,
+    "has_ai_psd": true,
+    "png_per_area": {},
+    "_note": "RESERVED — original BAK ABO product, do not publish/archive/delete"
+  },
+
+  "1084": {
+    "product": "Athletic Long Shorts (AOP)",
+    "folder": "630cc27780e8f2ad42021ae4",
+    "has_png": true,
+    "has_ai_psd": true,
+    "print_areas": {
+      "right_leg":   { "px": 6295, "in": 42, "dpi": 150 },
+      "left_leg":    { "px": 6295, "in": 42, "dpi": 150 },
+      "front_pockets": { "px": 4594, "in": 30.6, "dpi": 150 },
+      "back_pocket": { "px": 2398, "in": 16, "dpi": 150 },
+      "inside_label": { "px_w": 502, "px_h": 219, "dpi": 150, "skip": true }
+    },
+    "png_per_area": {
+      "right_leg":      "PNG/Subliminator_AthleticLongShorts_AOP_Template_RightLeg.png",
+      "left_leg":       "PNG/Subliminator_AthleticLongShorts_AOP_Template_LeftLeg.png",
+      "front_pockets":  "PNG/Subliminator_AthleticLongShorts_AOP_Template_Pocket.png",
+      "back_pocket":    "PNG/Subliminator_AthleticLongShorts_AOP_Template_BackPocketRight.png"
+    },
+    "skip_positions": ["inside_label"],
+    "info_png": "PNG/Subliminator_AthleticLongShorts_AOP_Template_INFO.png"
+  },
+
+  "1095": {
+    "product": "Women's Cozy Indoor Slippers",
+    "folder": "66a20d21a620463e910eeae2",
+    "has_png": false,
+    "has_ai_psd": true,
+    "png_per_area": {}
+  },
+
+  "1397": {
+    "product": "Windbreaker Jacket",
+    "folder": "6603f22e58e0035ec7043e52",
+    "has_png": true,
+    "has_ai_psd": true,
+    "png_per_area": {
+      "front_right":  "PNG/Windbreaker_Jacket_Template_Front_Right.png",
+      "front_left":   "PNG/Windbreaker_Jacket_Template_Front_Left.png",
+      "back":         "PNG/Windbreaker_Jacket_Template_Back.png",
+      "sleeve_left":  "PNG/Windbreaker_Jacket_Template_Sleeve_Left.png",
+      "sleeve_right": "PNG/Windbreaker_Jacket_Template_Seleve_Right.png",
+      "hood_left":    "PNG/Windbreaker_Jacket_Template_Hood_Left.png",
+      "hood_right":   "PNG/Windbreaker_Jacket_Template_Hood_Right.png",
+      "pocket_left":  "PNG/Windbreaker_Jacket_Template_Pocket_Left.png",
+      "pocket_right": "PNG/Windbreaker_Jacket_Template_Pocket_Right.png"
+    },
+    "skip_positions": ["inside_label", "neck_label", "label"]
+  }
+}

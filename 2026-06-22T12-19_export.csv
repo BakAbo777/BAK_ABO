@@ -1,0 +1,7 @@
+stage,status,progress,signal,detail
+Dialogo,ready,100,AI conversazionale,"Una richiesta alla volta: capisco, rispondo, propongo un solo passo."
+Memoria e fasi,ready,83,10 fasi,Uso lo stato locale e la Knowledge DB prima di chiamare API costose.
+Network e API,needs_fix,80,1 blocker,"DNS, DMARC, DSN, endpoint e suffissi dati governano consegna e fiducia."
+Trust gate,attention,55,3 blocker,"Google, legal, customer safety e Merchant restano il semaforo prima della crescita."
+Prossima azione,needs_fix,55,Disattiva o completa inventario locale Google,In Merchant Center disattiva local inventory ads/free local listings; conferma la verifica quando fatto.
+Verifica e apprendimento,ready,100,streamlit.master,open

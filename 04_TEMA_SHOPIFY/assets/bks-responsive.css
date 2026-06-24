@@ -116,7 +116,7 @@
 .template-index .card-wrapper,
 .template-product .card-wrapper,
 .template-collection .card-wrapper {
-  background: #fff;
+  background: var(--bks-paper, #fff);
 }
 
 .template-product {
@@ -252,16 +252,16 @@ html:has(body.template-product) {
 
 .bks-section--dark {
   color-scheme: dark;
-  --bks-bg: #0A0A0A;
-  --bks-text: #FAFAF7;
+  --bks-bg: var(--bks-bg-deep, #0A0A0A);
+  --bks-text: var(--bks-paper, #FAFAF7);
   --bks-muted: rgba(250, 250, 247, 0.72);
   background: var(--bks-bg);
   color: var(--bks-text);
 }
 
 .bks-section--light {
-  --bks-bg: #FAFAF7;
-  --bks-text: #0A0A0A;
+  --bks-bg: var(--bks-paper, #FAFAF7);
+  --bks-text: var(--bks-ink, #0A0A0A);
   --bks-muted: rgba(10, 10, 10, 0.68);
   background: var(--bks-bg);
   color: var(--bks-text);
@@ -298,7 +298,7 @@ html:has(body.template-product) {
 .bks-timed-offer,
 .bks-planet-orbit,
 [class*="bks-hero--dark"] {
-  color: #FAFAF7;
+  color: var(--bks-paper, #FAFAF7);
 }
 
 .bks-collection-signal p,
@@ -316,12 +316,12 @@ html:has(body.template-product) {
 
 /* 3b. Product system section — gradient ends dark; panels are light */
 .bks-product-system {
-  color: #0A0A0A;
+  color: var(--bks-ink, #0A0A0A);
 }
 
 .bks-product-system__copy,
 .bks-product-system__panel {
-  color: #0A0A0A;
+  color: var(--bks-ink, #0A0A0A);
 }
 
 .bks-product-system__intro {
@@ -338,12 +338,12 @@ html:has(body.template-product) {
 }
 
 .bks-product-system__label {
-  color: #0A0A0A !important;
+  color: var(--bks-ink, #0A0A0A) !important;
 }
 
 /* Table header: ensure dark text regardless of accent tint */
 .bks-product-system th {
-  color: #0A0A0A;
+  color: var(--bks-ink, #0A0A0A);
 }
 
 /* Darken accent borders on white panels (Hours #c8c4be = 1.7:1 raw, Glyph #d4a030 = 2.4:1 raw)
@@ -357,8 +357,8 @@ html:has(body.template-product) {
 
 /* 3c. Collections index — light scheme (default) */
 .bks-cindex {
-  background: #FAFAF7;
-  color: #0A0A0A;
+  background: var(--bks-paper, #FAFAF7);
+  color: var(--bks-ink, #0A0A0A);
 }
 
 .bks-cindex__sub,
@@ -391,15 +391,15 @@ html:has(body.template-product) {
 .bks-member-wrap input,
 .bks-member-wrap select,
 .bks-member-wrap textarea {
-  background: #1e1e1e;
-  color: #f0ece4;
+  background: var(--bks-surface-2, #1e1e1e);
+  color: var(--bks-text, #f0ece4);
   border-color: rgba(255,255,255,0.12);
 }
 
 /* 3e. Related products section — background-2 (#efeae0) with dark text */
 .shopify-section .related-products,
 [data-section-type="related-products"] {
-  color: #0A0A0A;
+  color: var(--bks-ink, #0A0A0A);
 }
 
 /* 3f. Footer (accent-1 = #0A0A0A bg) — force light text */
@@ -408,12 +408,12 @@ html:has(body.template-product) {
 .footer__menu a,
 .footer__newsletter-label,
 .footer__copyright p {
-  color: #FAFAF7;
+  color: var(--bks-paper, #FAFAF7);
 }
 
 /* 3g. Timed offer banner */
 .bks-timed-offer {
-  color: #FAFAF7;
+  color: var(--bks-paper, #FAFAF7);
 }
 
 .bks-timed-offer__kicker { color: #bfcfca; }
@@ -425,11 +425,11 @@ html:has(body.template-product) {
    ══════════════════════════════════════════════════════════ */
 
 :root {
-  --bks-tier-lead:   #8c8c8c;
-  --bks-tier-iron:   #607080;
-  --bks-tier-brass:  #d4a030;
-  --bks-tier-silver: #b0b8c4;
-  --bks-tier-gold:   #c8a820;
+  --bks-tier-lead:   var(--bks-tier-lead, #8c8c8c);
+  --bks-tier-iron:   var(--bks-tier-iron, #607080);
+  --bks-tier-brass:  var(--bks-tier-brass, #d4a030);
+  --bks-tier-silver: var(--bks-tier-silver, #b0b8c4);
+  --bks-tier-gold:   var(--bks-tier-gold, #c8a820);
 }
 
 .bks-tier-badge--lead   { background: rgba(140,140,140,.14); color: var(--bks-tier-lead);   border: 1px solid rgba(140,140,140,.30); }

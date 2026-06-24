@@ -1,16 +1,19 @@
 {
   "sections": {
-    "bks_video_hero": {
-      "type": "bks-home-video-canvas",
+    "bks_home_hero": {
+      "type": "bks-home-hero",
       "settings": {
-        "height": 95,
-        "headline": "Designed by AI.",
-        "cta_url": "/collections/all",
-        "cta_label": "Shop all collections",
-        "video_1": "https://cdn.shopify.com/videos/c/vp/31c3c6c8ca1b4909b3b03848b32f54e4/31c3c6c8ca1b4909b3b03848b32f54e4.SD-480p-0.9Mbps-87070965.mp4",
-        "video_2": "https://cdn.shopify.com/videos/c/vp/d10a6f6860a8490db3160b96dff34762/d10a6f6860a8490db3160b96dff34762.SD-480p-0.9Mbps-87070966.mp4",
-        "video_3": "https://cdn.shopify.com/videos/c/vp/a157e014eaa74591ac206d52381995ec/a157e014eaa74591ac206d52381995ec.SD-480p-0.9Mbps-87070967.mp4",
-        "video_4": "https://cdn.shopify.com/videos/c/vp/2e43eb8a7c20469ab9b402d085e7d522/2e43eb8a7c20469ab9b402d085e7d522.SD-480p-0.9Mbps-87070968.mp4"
+        "kicker": "BKS Studio",
+        "headline": "Wearable Art\nOn Demand",
+        "subline": "AI-generated fashion. 8 collections, 670+ pieces. Every item designed, printed, and delivered on order.",
+        "cta_primary_label": "Shop Collections",
+        "cta_primary_url": "/collections/all",
+        "cta_secondary_label": "Our Story",
+        "cta_secondary_url": "/pages/about-bakabo-1",
+        "overlay_strength": "medium",
+        "text_align": "center",
+        "min_height": 90,
+        "bg_image": "shopify://shop_images/bks-home-hero.png"
       }
     },
     "bks_editorial": {
@@ -21,7 +24,11 @@
         "tagline": "Summer Edition 2026",
         "cover_title": "Summer Catalog 2026 — Eight Collections. One Wardrobe.",
         "cover_deck": "674 pieces designed by AI. Made to order, shipped worldwide. Each piece a unique expression of the BKS visual language across 8 editorial collections.",
-        "show_strip": true
+        "show_strip": true,
+        "featured_product_1": "gid://shopify/Product/8819496812882",
+        "featured_product_2": "gid://shopify/Product/8604750446930",
+        "featured_product_3": "gid://shopify/Product/8620196233554",
+        "cover_collection": "gid://shopify/Collection/685331153234"
       }
     },
     "bks_piano_hero": {
@@ -40,7 +47,7 @@
             "products": "Puffer Jacket, Sneakers, Hoodie",
             "arm_season": "Winter",
             "arm_desc": "Deep tones, warm neutrals. Dune, slate grey, antique ivory.",
-            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/bks-hours-piano.png?v=1781988131",
+            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/125809527499689953_2048.jpg",
             "bpm": 36,
             "decay": 4
           }
@@ -58,7 +65,7 @@
             "products": "Puffer Jacket, Hoodie, Windbreaker",
             "arm_season": "Summer",
             "arm_desc": "Gold, amber, graphite, ink.",
-            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/bks-glyph-piano.png?v=1781988137",
+            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/ChatGPT_Image_12_giu_2026_10_29_17_3.png",
             "bpm": 40,
             "decay": 4
           }
@@ -76,7 +83,7 @@
             "products": "Puffer Jacket, Athletic Shorts, Swim Trunks",
             "arm_season": "Spring",
             "arm_desc": "Terracotta, industrial red, raw paper cream.",
-            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/bks-marker-piano.png?v=1781988143",
+            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/9047535510207771668_2048.jpg",
             "bpm": 44,
             "decay": 3
           }
@@ -94,7 +101,7 @@
             "products": "Swim Trunks, Swimwear, Windbreaker",
             "arm_season": "Summer",
             "arm_desc": "Mediterranean teal, coral, salt white.",
-            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/bks-riviera-piano.png?v=1781988150",
+            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/4919242295829721514_2048.jpg",
             "bpm": 36,
             "decay": 5
           }
@@ -112,7 +119,7 @@
             "products": "Puffer Jacket, Athletic Shorts, Sneakers",
             "arm_season": "All seasons",
             "arm_desc": "Lavender, optical blue, kinetic white.",
-            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/bks-pulse-piano.png?v=1781988156",
+            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/1863987455781623013_2048.jpg",
             "bpm": 52,
             "decay": 3
           }
@@ -130,7 +137,7 @@
             "products": "Puffer Jacket, Sneakers, Windbreaker",
             "arm_season": "Autumn",
             "arm_desc": "Electric violet, arcade green, pixel gold.",
-            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/bks-token-piano.png?v=1781988162",
+            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/15098654075567303913_2048.jpg",
             "bpm": 48,
             "decay": 4
           }
@@ -148,7 +155,7 @@
             "products": "Puffer Jacket, Sneakers, Hoodie",
             "arm_season": "Spring",
             "arm_desc": "Flag red, Dada magenta, stencil yellow.",
-            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/bks-flag-piano.png?v=1781988168",
+            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/1569918230506030129_2048.jpg",
             "bpm": 38,
             "decay": 5
           }
@@ -166,19 +173,32 @@
             "products": "Puffer Jacket, Hoodie, Sneakers",
             "arm_season": "Spring/Summer",
             "arm_desc": "Leaf green, warm stone, natural linen.",
-            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/bks-origin-piano.png?v=1781988175",
+            "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/d99e5076-e446-4bf3-bea8-25c40f0f3307.png",
             "bpm": 42,
             "decay": 5
           }
         }
       },
-      "block_order": ["piano_hours","piano_glyph","piano_marker","piano_riviera","piano_pulse","piano_token","piano_flag","piano_origin"],
+      "block_order": [
+        "piano_hours",
+        "piano_glyph",
+        "piano_marker",
+        "piano_riviera",
+        "piano_pulse",
+        "piano_token",
+        "piano_flag",
+        "piano_origin"
+      ],
       "settings": {
         "height": 620,
         "fallboard_label": "BAK | ABO",
         "hint_text": "Press a key to explore",
         "back_label": "Back to piano"
       }
+    },
+    "bks_verse_intro": {
+      "type": "bks-verse-intro",
+      "settings": {}
     },
     "bks_magazine": {
       "type": "bks-home-magazine",
@@ -192,7 +212,7 @@
             "description": "Architectural B&W photography and underground textures rendered in ink on cotton.",
             "accent_color": "#c8c4be",
             "url": "/collections/bks-hours",
-            "image": "shopify://shop_images/bks-hours-editorial.png"
+            "image": "shopify://shop_images/bks-hours-editorial.jpg"
           }
         },
         "spread_2": {
@@ -204,7 +224,7 @@
             "description": "The founding collection. Raw nature, organic forms, and the green of new growth.",
             "accent_color": "#489808",
             "url": "/collections/bks-origin",
-            "image": "shopify://shop_images/bks-origin-editorial.png"
+            "image": "shopify://shop_images/bks-origin-editorial.jpg"
           }
         },
         "spread_3": {
@@ -216,7 +236,7 @@
             "description": "Symbols, scripts and ideographs from lost civilizations, translated into wearable art.",
             "accent_color": "#d4a030",
             "url": "/collections/bks-glyph",
-            "image": "shopify://shop_images/bks-glyph-editorial.png"
+            "image": "shopify://shop_images/bks-glyph-editorial.jpg"
           }
         },
         "spread_4": {
@@ -228,7 +248,7 @@
             "description": "Typography and signal from the city surface — the language of the street printed on premium cotton.",
             "accent_color": "#c04418",
             "url": "/collections/bks-marker",
-            "image": "shopify://shop_images/bks-marker-editorial.png"
+            "image": "shopify://shop_images/bks-marker-editorial.jpg"
           }
         },
         "spread_5": {
@@ -240,7 +260,7 @@
             "description": "Mediterranean heat and motion. Teal waves and the geometry of speed.",
             "accent_color": "#0ca898",
             "url": "/collections/bks-riviera",
-            "image": "shopify://shop_images/bks-riviera-editorial.png"
+            "image": "shopify://shop_images/bks-riviera-editorial.jpg"
           }
         },
         "spread_6": {
@@ -252,7 +272,7 @@
             "description": "Synth-wave patterns and energy fields from the electronic frontier — wearable sound.",
             "accent_color": "#8888cc",
             "url": "/collections/bks-pulse",
-            "image": "shopify://shop_images/bks-pulse-editorial.png"
+            "image": "shopify://shop_images/bks-pulse-editorial.jpg"
           }
         },
         "spread_7": {
@@ -264,7 +284,7 @@
             "description": "Blockchain aesthetics, pixel folklore and the cryptographic imagination — art-on-chain meets fabric.",
             "accent_color": "#9828d8",
             "url": "/collections/bks-token",
-            "image": "shopify://shop_images/bks-token-puffer.png"
+            "image": "shopify://shop_images/bks-token-editorial.jpg"
           }
         },
         "spread_8": {
@@ -276,11 +296,20 @@
             "description": "Bold statements, political geometry and the iconography of resistance. Wear your position.",
             "accent_color": "#c82020",
             "url": "/collections/bks-flag",
-            "image": "shopify://shop_images/bks-flag-editorial.png"
+            "image": "shopify://shop_images/bks-flag-editorial.jpg"
           }
         }
       },
-      "block_order": ["spread_1","spread_2","spread_3","spread_4","spread_5","spread_6","spread_7","spread_8"],
+      "block_order": [
+        "spread_1",
+        "spread_2",
+        "spread_3",
+        "spread_4",
+        "spread_5",
+        "spread_6",
+        "spread_7",
+        "spread_8"
+      ],
       "settings": {
         "cover_image": "shopify://shop_images/bks-magazine-cover.png",
         "headline": "Eight worlds. One wardrobe.",
@@ -299,5 +328,13 @@
       "settings": {}
     }
   },
-  "order": ["bks_video_hero","bks_editorial","bks_piano_hero","bks_magazine","bks_reviews","bks_trust"]
+  "order": [
+    "bks_home_hero",
+    "bks_editorial",
+    "bks_piano_hero",
+    "bks_verse_intro",
+    "bks_magazine",
+    "bks_reviews",
+    "bks_trust"
+  ]
 }

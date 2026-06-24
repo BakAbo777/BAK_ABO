@@ -111,12 +111,16 @@ WHERE collection = 'bks-hours';
 # 1. Sync Printify library (patches + mockups + blueprints → DB + disk)
 python scripts/sync_printify_library.py
 
-# 2. Generate AI catalog shots (free scene, preserved product+texture)
+# 2. BKS Hero Images — ghost mannequin + BKS color (NO AI, NO rembg)
+#    Usa camera_label=front da Printify, edge flood fill, gradiente BKS
+python scripts/generate_bks_hero_images.py
+
+# 3. Generate AI catalog shots (free scene, preserved product+texture)
 python scripts/generate_catalog_images.py
 python scripts/generate_catalog_images.py --collection bks-hours --shots 2
 python scripts/generate_catalog_images.py --dry-run
 
-# 3. Check which patches are cataloged per collection
+# 4. Check which patches are cataloged per collection
 python -c "
 from bks_assets import active_catalog_db
 from ecommerce_automation import catalog_db
@@ -127,6 +131,19 @@ print(catalog_db.printify_library_summary(db))
 # Fallback (no AI, use mockups directly)
 python scripts/prepare_catalog_images.py
 ```
+
+## Image type map
+
+| Type | Source | Script | DB asset_type | Shopify position |
+|---|---|---|---|---|
+| `bks_hero` | Printify ghost front | `generate_bks_hero_images.py` | `bks_hero` | 2 |
+| `catalog_ai` | Printify mockup → AI edit | `generate_catalog_images.py` | `catalog_ai` | 3+ |
+| `catalog_mockup` | Printify mockup AS-IS | `prepare_catalog_images.py` | `catalog_mockup` | fallback |
+
+## BG removal rule (bks_hero pipeline)
+
+**Edge flood fill** — removes only white connected to image border. Internal white in print is NEVER removed.
+See full spec in bakabo-photo-studio skill → "BKS Hero Image Pipeline".
 
 ---
 

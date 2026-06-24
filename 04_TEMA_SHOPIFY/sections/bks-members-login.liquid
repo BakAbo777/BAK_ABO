@@ -178,9 +178,9 @@
       <a class="bks-mlogin__logo" href="{{ routes.root_url }}" aria-label="BAKABO home">
         <img src="{{ 'bakabo-logo-official.png' | asset_url }}" alt="BAKABO" width="160" height="44">
       </a>
-      <p class="bks-mlogin__eyebrow">Area Riservata</p>
+      <p class="bks-mlogin__eyebrow">Members Area</p>
       <h1 class="bks-mlogin__title">BKS Members</h1>
-      <p class="bks-mlogin__sub">Accedi alla tua area personale per gestire ordini,<br>wishlist e il camerino virtuale.</p>
+      <p class="bks-mlogin__sub">Sign in to your personal area to manage orders,<br>wishlist and virtual fitting room.</p>
     </div>
 
     <div class="bks-mlogin__card">
@@ -188,33 +188,33 @@
       {%- if customer -%}
         {%- comment -%} Già loggato: redirect al dashboard {%- endcomment -%}
         <p style="text-align:center;font-size:0.9rem;color:var(--muted);margin:0 0 4px;">
-          Benvenuto, <strong style="color:var(--ink);">{{ customer.first_name | default: customer.email }}</strong>
+          Welcome, <strong style="color:var(--ink);">{{ customer.first_name | default: customer.email }}</strong>
         </p>
         <a class="bks-mlogin__btn bks-mlogin__btn--primary" href="{{ routes.account_url }}">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 22c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
-          Vai al tuo profilo
+          Go to your profile
         </a>
         <a class="bks-mlogin__btn bks-mlogin__btn--ghost" href="{{ routes.root_url }}collections/all">
-          Sfoglia il catalogo
+          Browse the catalogue
         </a>
-        <p class="bks-mlogin__note"><a href="{{ routes.account_logout_url }}">Esci dall'account</a></p>
+        <p class="bks-mlogin__note"><a href="{{ routes.account_logout_url }}">Sign out</a></p>
 
       {%- else -%}
         {%- comment -%} Non loggato: mostra opzioni accesso {%- endcomment -%}
         <a class="bks-mlogin__btn bks-mlogin__btn--primary" href="{{ routes.account_login_url }}">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 22c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
-          Accedi al tuo account
+          Sign in to your account
         </a>
 
-        <div class="bks-mlogin__divider">oppure</div>
+        <div class="bks-mlogin__divider">or</div>
 
         <a class="bks-mlogin__btn bks-mlogin__btn--accent" href="{{ routes.account_register_url }}">
-          Crea un account BKS Members
+          Create a BKS Members account
         </a>
 
         <p class="bks-mlogin__note">
-          Registrandoti accetti i <a href="{{ routes.root_url }}policies/terms-of-service">Termini di servizio</a>
-          e la <a href="{{ routes.root_url }}policies/privacy-policy">Privacy Policy</a>.
+          By registering you accept the <a href="{{ routes.root_url }}policies/terms-of-service">Terms of service</a>
+          and the <a href="{{ routes.root_url }}policies/privacy-policy">Privacy Policy</a>.
         </p>
       {%- endif -%}
 
@@ -225,19 +225,19 @@
         <span class="bks-mlogin__benefit-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </span>
-        <span class="bks-mlogin__benefit-label">Wishlist<br>personale</span>
+        <span class="bks-mlogin__benefit-label">Personal<br>Wishlist</span>
       </div>
       <div class="bks-mlogin__benefit">
         <span class="bks-mlogin__benefit-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
         </span>
-        <span class="bks-mlogin__benefit-label">Camerino<br>virtuale AI</span>
+        <span class="bks-mlogin__benefit-label">AI Virtual<br>Fitting Room</span>
       </div>
       <div class="bks-mlogin__benefit">
         <span class="bks-mlogin__benefit-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </span>
-        <span class="bks-mlogin__benefit-label">Accesso<br>anticipato</span>
+        <span class="bks-mlogin__benefit-label">Early<br>Access</span>
       </div>
     </div>
 
