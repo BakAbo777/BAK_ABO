@@ -151,10 +151,28 @@ def _build_prompt(
 
     design_line = f"Design artwork on product: {design_description}. " if design_description else ""
 
+    # Product-type-specific pattern scale rules
+    pt_lower = product_type.lower()
+    if "puffer" in pt_lower:
+        scale_rule = (
+            "Pattern scale rule for puffer jacket: design motifs at garment-appropriate scale "
+            "(no single symbol larger than 8% of garment surface), evenly distributed across panels, "
+            "texture reads as harmonious textile not aggressive graphic. "
+        )
+    elif "travel" in pt_lower or "bag" in pt_lower or "backpack" in pt_lower or "duffle" in pt_lower:
+        scale_rule = (
+            "Pattern scale rule for bag: design motifs balanced across panels, "
+            "no oversized isolated symbols dominating a single face, "
+            "texture reads as refined material surface not an aggressive print. "
+        )
+    else:
+        scale_rule = ""
+
     return (
         f"AI-directed luxury fashion photography for BKS Studio wearable art brand. "
         f"Product: {product_title} ({product_type}), BKS {collection.title()} collection — {col_mood}. "
         f"{design_line}"
+        f"{scale_rule}"
         f"Camera system: {AI_CAMERA_SYSTEM} "
         f"Camera directive for this shot: {spec['directive']} "
         f"Virtual set environment: {stage['environment']}. "
@@ -223,20 +241,20 @@ def generate_drone_shots(
                     "n":       1,
                     "size":    spec["size"],
                     "quality": "high",
-                    "output_format": "jpeg",
                 },
                 timeout=120,
                 verify=False,
             )
-            r.raise_for_status()
+            if not r.ok:
+                raise Exception(f"{r.status_code} {r.text[:300]}")
             data    = r.json()
-            b64_img = data["data"][0].get("b64_json") or data["data"][0].get("url")
+            b64_img = data["data"][0].get("b64_json")
+            img_url = data["data"][0].get("url") if not b64_img else None
 
-            if data["data"][0].get("b64_json"):
+            if b64_img:
                 out_jpg.write_bytes(base64.b64decode(b64_img))
             else:
-                # URL-based response (dall-e-3)
-                img_r = requests.get(b64_img, timeout=60, verify=False)
+                img_r = requests.get(img_url, timeout=60, verify=False)
                 out_jpg.write_bytes(img_r.content)
 
             size_kb = out_jpg.stat().st_size // 1024

@@ -480,7 +480,7 @@ def create_product_on_printify(col: str, product_type: str, design_id: str, titl
             "is_enabled": True,
         })
 
-    # 3. Costruisci print_areas con il nuovo design + posizionamento sezione aurea φ=1.618
+    # 3. Costruisci print_areas con il nuovo design
     clone_areas = []
     for area in clone_source.get("print_areas", []):
         new_placeholders = []
@@ -576,15 +576,6 @@ def call_local_full(prod: dict, dry_run: bool) -> dict:
     artwork_prompt = dry.get("artwork_prompt", "")
     mode           = dry.get("decision", {}).get("mode", "generate")
     design_ids     = dry.get("design_ids", [])
-
-    # Inietta regola sezione aurea nel prompt — composizione φ=1.618
-    artwork_prompt += (
-        " Composition rule (mandatory): apply golden ratio φ=1.618. "
-        "Place the main graphic element at the upper golden point (38.2% from top). "
-        "61.8% dominant area / 38.2% negative space. "
-        "Color harmony: 60% dominant / 30% secondary / 10% accent. "
-        "Never perfectly centered. Raw editorial BKS style, not generic mockup."
-    )
 
     # Inietta direttiva stampa: AOP (pezza intera) vs panel (grafica modulare)
     pt = get_product_type(prod.get("title", ""))
