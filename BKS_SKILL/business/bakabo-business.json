@@ -24,13 +24,18 @@
     },
     "channels": {
       "shopify": "LIVE — checkout active, EUR + USD",
-      "google_merchant_center": "FIX IN PROGRESS — local inventory feed corrected (in_stock/999, was out_of_stock/0). Upload to GMC pending. 35.1K 'limited availability' warnings expected to resolve in 24-48h.",
+      "google_merchant_center": "FIXED 2026-06-24 — local inventory feed corrected (in_stock/999). Upload to GMC done. 35.1K 'limited availability' warnings expected to resolve in 24-48h.",
       "pinterest": "SUSPENDED — appeal sent 2026-06-20, awaiting review",
       "instagram": "ACTIVE account — 0 posts published, content needed",
       "youtube": "0 videos published",
       "tiktok": "pixel disconnected"
     },
-    "current_priority": "1. Upload GMC local inventory feed → 2. Complete hero photos (OpenAI) → 3. Instagram first 3 posts",
+    "infrastructure": {
+      "streamlit_dashboard": "LIVE — https://dashboard.bakabo.club (Hetzner 95.217.232.186, systemd bks-dashboard.service, nginx+SSL)",
+      "bks_verse": "LIVE — verse-api.bakabo.club:8001 (FastAPI, Gran Giudice, 21 poets archive)",
+      "cloudflare_worker": "LIVE — bks-agent.bakabo.workers.dev"
+    },
+    "current_priority": "1. Complete hero photos (OpenAI — raise billing limit) → 2. Instagram first 3 posts → 3. Pinterest appeal follow-up",
     "sales": "0 orders to date — store launched June 2026, traffic channels being activated"
   },
 
