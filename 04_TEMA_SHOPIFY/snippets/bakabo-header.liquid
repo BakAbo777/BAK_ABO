@@ -270,9 +270,41 @@
 
     transition: color 0.2s;
 
+    position: relative;
+
   }
 
-  .bks-gh__nav a:hover { color: #666; }
+  .bks-gh__nav a:hover { color: #444; }
+
+  /* active page underline — uses current collection accent */
+
+  .bks-gh__nav a[aria-current="page"] { color: var(--bks-active-accent, #0a0a0a); }
+
+  .bks-gh__nav a[aria-current="page"]::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0; right: 0;
+    height: 2px;
+    background: var(--bks-active-accent, #0a0a0a);
+    border-radius: 1px;
+  }
+
+  /* ── DRAWER COLLECTION COLORS ───────────────────────────── */
+
+  .bks-gh__drawer-nav [data-coll="hours"]   { --cc: #c8c4be; }
+  .bks-gh__drawer-nav [data-coll="origin"]  { --cc: #489808; }
+  .bks-gh__drawer-nav [data-coll="glyph"]   { --cc: #d4a030; }
+  .bks-gh__drawer-nav [data-coll="marker"]  { --cc: #c04418; }
+  .bks-gh__drawer-nav [data-coll="riviera"] { --cc: #0ca898; }
+  .bks-gh__drawer-nav [data-coll="pulse"]   { --cc: #8888cc; }
+  .bks-gh__drawer-nav [data-coll="token"]   { --cc: #9828d8; }
+  .bks-gh__drawer-nav [data-coll="flag"]    { --cc: #c82020; }
+
+  .bks-gh__drawer-nav a[data-coll] {
+    border-left: 3px solid var(--cc, transparent);
+    padding-left: 13px;
+  }
 
   /* ── LOGO ───────────────────────────────────────────────── */
 
@@ -988,9 +1020,34 @@
 
                   {%- for child in link.links -%}
 
-                    <a role="menuitem" href="{{ child.url }}"{% if child.current %} aria-current="page"{% endif %}>
+                  {%- liquid
+                    assign coll_slug = ''
+                    if child.url contains 'bks-hours'
+                      assign coll_slug = 'hours'
+                    elsif child.url contains 'bks-origin'
+                      assign coll_slug = 'origin'
+                    elsif child.url contains 'bks-glyph'
+                      assign coll_slug = 'glyph'
+                    elsif child.url contains 'bks-marker'
+                      assign coll_slug = 'marker'
+                    elsif child.url contains 'bks-riviera'
+                      assign coll_slug = 'riviera'
+                    elsif child.url contains 'bks-pulse'
+                      assign coll_slug = 'pulse'
+                    elsif child.url contains 'bks-token'
+                      assign coll_slug = 'token'
+                    elsif child.url contains 'bks-flag'
+                      assign coll_slug = 'flag'
+                    endif
+                  -%}
 
-                      {{- child.title | escape -}}
+                    <a role="menuitem" href="{{ child.url }}"{% if coll_slug != '' %} data-coll="{{ coll_slug }}"{% endif %}{% if child.current %} aria-current="page"{% endif %}>
+
+                      {%- if coll_slug != '' -%}
+                        <span class="bks-dd-name"><span class="bks-dd-dot" aria-hidden="true"></span>{{- child.title | escape -}}</span>
+                      {%- else -%}
+                        {{- child.title | escape -}}
+                      {%- endif -%}
 
                       {%- if child.links.size > 0 -%}
 
@@ -1034,21 +1091,21 @@
 
             <div class="bks-gh__dd-panel" role="menu" aria-label="BKS collections">
 
-              <a role="menuitem" href="/collections/bks-hours">Hours<span>Time as Graphic Language</span></a>
+              <a role="menuitem" href="/collections/bks-hours" data-coll="hours"><span class="bks-dd-name"><span class="bks-dd-dot" aria-hidden="true"></span>Hours</span><span>Time as Graphic Language</span></a>
 
-              <a role="menuitem" href="/collections/bks-origin">Origin<span>Roots, Marks, Present Form</span></a>
+              <a role="menuitem" href="/collections/bks-origin" data-coll="origin"><span class="bks-dd-name"><span class="bks-dd-dot" aria-hidden="true"></span>Origin</span><span>Roots, Marks, Present Form</span></a>
 
-              <a role="menuitem" href="/collections/bks-glyph">Glyph<span>Symbols and Signs</span></a>
+              <a role="menuitem" href="/collections/bks-glyph" data-coll="glyph"><span class="bks-dd-name"><span class="bks-dd-dot" aria-hidden="true"></span>Glyph</span><span>Symbols and Signs</span></a>
 
-              <a role="menuitem" href="/collections/bks-marker">Marker<span>Urban Gestures</span></a>
+              <a role="menuitem" href="/collections/bks-marker" data-coll="marker"><span class="bks-dd-name"><span class="bks-dd-dot" aria-hidden="true"></span>Marker</span><span>Urban Gestures</span></a>
 
-              <a role="menuitem" href="/collections/bks-riviera">Riviera<span>Mediterranean Geometry</span></a>
+              <a role="menuitem" href="/collections/bks-riviera" data-coll="riviera"><span class="bks-dd-name"><span class="bks-dd-dot" aria-hidden="true"></span>Riviera</span><span>Mediterranean Geometry</span></a>
 
-              <a role="menuitem" href="/collections/bks-pulse">Pulse<span>Digital Motion</span></a>
+              <a role="menuitem" href="/collections/bks-pulse" data-coll="pulse"><span class="bks-dd-name"><span class="bks-dd-dot" aria-hidden="true"></span>Pulse</span><span>Digital Motion</span></a>
 
-              <a role="menuitem" href="/collections/bks-token">Token<span>Encoded Identity</span></a>
+              <a role="menuitem" href="/collections/bks-token" data-coll="token"><span class="bks-dd-name"><span class="bks-dd-dot" aria-hidden="true"></span>Token</span><span>Encoded Identity</span></a>
 
-              <a role="menuitem" href="/collections/bks-flag">Flag<span>Global Signals</span></a>
+              <a role="menuitem" href="/collections/bks-flag" data-coll="flag"><span class="bks-dd-name"><span class="bks-dd-dot" aria-hidden="true"></span>Flag</span><span>Global Signals</span></a>
 
             </div>
 
@@ -1110,11 +1167,21 @@
 
       }
 
+      /* ── COLLECTION COLOR MAP ──────────────────────────────── */
+      .bks-gh__dd-panel [data-coll="hours"]   { --cc: #c8c4be; }
+      .bks-gh__dd-panel [data-coll="origin"]  { --cc: #489808; }
+      .bks-gh__dd-panel [data-coll="glyph"]   { --cc: #d4a030; }
+      .bks-gh__dd-panel [data-coll="marker"]  { --cc: #c04418; }
+      .bks-gh__dd-panel [data-coll="riviera"] { --cc: #0ca898; }
+      .bks-gh__dd-panel [data-coll="pulse"]   { --cc: #8888cc; }
+      .bks-gh__dd-panel [data-coll="token"]   { --cc: #9828d8; }
+      .bks-gh__dd-panel [data-coll="flag"]    { --cc: #c82020; }
+
       .bks-gh__dd-panel a {
 
         display: flex;
 
-        align-items: baseline;
+        align-items: center;
 
         justify-content: space-between;
 
@@ -1136,6 +1203,10 @@
 
         color: #0a0a0a;
 
+        border-left: 3px solid transparent;
+
+        transition: background 0.15s, border-color 0.15s, color 0.15s;
+
       }
 
       .bks-gh__dd-panel a span {
@@ -1152,21 +1223,61 @@
 
         text-align: right;
 
+        flex-shrink: 0;
+
       }
 
-      .bks-gh__dd-panel a:hover,
-
-      .bks-gh__dd-panel a:focus-visible {
+      /* non-collection items: classic BKS black hover */
+      .bks-gh__dd-panel a:not([data-coll]):hover,
+      .bks-gh__dd-panel a:not([data-coll]):focus-visible {
 
         background: #0a0a0a;
 
         color: #fafaf7;
 
+        border-left-color: #0a0a0a;
+
       }
 
-      .bks-gh__dd-panel a:hover span,
+      .bks-gh__dd-panel a:not([data-coll]):hover span,
+      .bks-gh__dd-panel a:not([data-coll]):focus-visible span { color: #efeae0; }
 
-      .bks-gh__dd-panel a:focus-visible span { color: #efeae0; }
+      /* ── COLLECTION ITEMS: tinted hover ─────────────────────── */
+      .bks-dd-name {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .bks-dd-dot {
+        display: block;
+        width: 7px; height: 7px;
+        border-radius: 50%;
+        background: var(--cc, #cccccc);
+        flex-shrink: 0;
+        opacity: 0.6;
+        transition: opacity 0.15s, transform 0.15s;
+      }
+
+      .bks-gh__dd-panel a[data-coll] {
+        padding-left: 13px; /* compensate 3px border */
+      }
+
+      .bks-gh__dd-panel a[data-coll]:hover,
+      .bks-gh__dd-panel a[data-coll]:focus-visible {
+        background: color-mix(in srgb, var(--cc) 9%, #ffffff);
+        border-left-color: var(--cc);
+        color: #0a0a0a;
+      }
+
+      .bks-gh__dd-panel a[data-coll]:hover span,
+      .bks-gh__dd-panel a[data-coll]:focus-visible span { color: #888888; }
+
+      .bks-gh__dd-panel a[data-coll]:hover .bks-dd-dot,
+      .bks-gh__dd-panel a[data-coll]:focus-visible .bks-dd-dot {
+        opacity: 1;
+        transform: scale(1.25);
+      }
 
       @media (prefers-reduced-motion: reduce) {
 
@@ -1322,7 +1433,28 @@
 
           {%- for child in link.links -%}
 
-            <a class="bks-gh__drawer-sub" href="{{ child.url }}">{{ child.title | escape }}</a>
+            {%- liquid
+              assign coll_slug = ''
+              if child.url contains 'bks-hours'
+                assign coll_slug = 'hours'
+              elsif child.url contains 'bks-origin'
+                assign coll_slug = 'origin'
+              elsif child.url contains 'bks-glyph'
+                assign coll_slug = 'glyph'
+              elsif child.url contains 'bks-marker'
+                assign coll_slug = 'marker'
+              elsif child.url contains 'bks-riviera'
+                assign coll_slug = 'riviera'
+              elsif child.url contains 'bks-pulse'
+                assign coll_slug = 'pulse'
+              elsif child.url contains 'bks-token'
+                assign coll_slug = 'token'
+              elsif child.url contains 'bks-flag'
+                assign coll_slug = 'flag'
+              endif
+            -%}
+
+            <a class="bks-gh__drawer-sub" href="{{ child.url }}"{% if coll_slug != '' %} data-coll="{{ coll_slug }}"{% endif %}>{{ child.title | escape }}</a>
 
           {%- endfor -%}
 
@@ -1334,21 +1466,21 @@
 
         <a href="/collections/all">Catalog</a>
 
-        <a href="/collections/bks-hours">BKS Hours</a>
+        <a class="bks-gh__drawer-sub" href="/collections/bks-hours" data-coll="hours">BKS Hours</a>
 
-        <a href="/collections/bks-glyph">BKS Glyph</a>
+        <a class="bks-gh__drawer-sub" href="/collections/bks-glyph" data-coll="glyph">BKS Glyph</a>
 
-        <a href="/collections/bks-marker">BKS Marker</a>
+        <a class="bks-gh__drawer-sub" href="/collections/bks-marker" data-coll="marker">BKS Marker</a>
 
-        <a href="/collections/bks-riviera">BKS Riviera</a>
+        <a class="bks-gh__drawer-sub" href="/collections/bks-riviera" data-coll="riviera">BKS Riviera</a>
 
-        <a href="/collections/bks-pulse">BKS Pulse</a>
+        <a class="bks-gh__drawer-sub" href="/collections/bks-pulse" data-coll="pulse">BKS Pulse</a>
 
-        <a href="/collections/bks-token">BKS Token</a>
+        <a class="bks-gh__drawer-sub" href="/collections/bks-token" data-coll="token">BKS Token</a>
 
-        <a href="/collections/bks-flag">BKS Flag</a>
+        <a class="bks-gh__drawer-sub" href="/collections/bks-flag" data-coll="flag">BKS Flag</a>
 
-        <a href="/collections/bks-origin">BKS Origin</a>
+        <a class="bks-gh__drawer-sub" href="/collections/bks-origin" data-coll="origin">BKS Origin</a>
 
         <a href="/pages/contact">Contact</a>
 
