@@ -1,89 +1,433 @@
-{% if section.settings.enabled %}
-<section class="bks-store-reviews" aria-label="Store ratings">
-  <div class="bks-store-reviews__inner">
-    {% if section.settings.heading != blank %}
-      <p class="bks-store-reviews__heading">{{ section.settings.heading | escape }}</p>
-    {% endif %}
-    <div class="bks-store-reviews__badge">
+{%- liquid
+  assign has_reviews = false
+  if section.blocks.size > 0
+    assign has_reviews = true
+  endif
+-%}
+
+{%- unless section.settings.enabled == false -%}
+
+<section class="bks-reviews" aria-label="Customer reviews" id="bks-reviews">
+
+  <div class="bks-reviews__head">
+    {%- if section.settings.kicker != blank -%}
+      <p class="bks-reviews__kicker">{{ section.settings.kicker | escape }}</p>
+    {%- endif -%}
+    <h2 class="bks-reviews__headline">{{ section.settings.headline | default: 'Heard from our wearers' | escape }}</h2>
+    {%- if section.settings.subline != blank -%}
+      <p class="bks-reviews__subline">{{ section.settings.subline | escape }}</p>
+    {%- endif -%}
+  </div>
+
+  {%- if has_reviews -%}
+
+  <div class="bks-reviews__track" role="list">
+
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'review' -%}
+
+        {%- assign stars = block.settings.rating | default: 5 -%}
+
+        {%- liquid
+          assign coll = block.settings.collection | default: ''
+          case coll
+            when 'hours'
+              assign cc = '#c8c4be'
+              assign coll_label = 'BKS Hours'
+            when 'origin'
+              assign cc = '#489808'
+              assign coll_label = 'BKS Origin'
+            when 'glyph'
+              assign cc = '#d4a030'
+              assign coll_label = 'BKS Glyph'
+            when 'marker'
+              assign cc = '#c04418'
+              assign coll_label = 'BKS Marker'
+            when 'riviera'
+              assign cc = '#0ca898'
+              assign coll_label = 'BKS Riviera'
+            when 'pulse'
+              assign cc = '#8888cc'
+              assign coll_label = 'BKS Pulse'
+            when 'token'
+              assign cc = '#9828d8'
+              assign coll_label = 'BKS Token'
+            when 'flag'
+              assign cc = '#c82020'
+              assign coll_label = 'BKS Flag'
+            else
+              assign cc = '#c9b79c'
+              assign coll_label = ''
+          endcase
+        -%}
+
+        <article class="bks-rev-card" role="listitem" {{ block.shopify_attributes }}>
+
+          <header class="bks-rev-card__top">
+            <span class="bks-rev-card__stars" aria-label="{{ stars }} out of 5 stars">
+              {%- for i in (1..5) -%}
+                {%- if i <= stars -%}★{%- else -%}<span class="bks-rev-card__star--empty">☆</span>{%- endif -%}
+              {%- endfor -%}
+            </span>
+            {%- if coll_label != '' -%}
+              <span class="bks-rev-card__coll" style="--cc:{{ cc }}">
+                <span class="bks-rev-card__dot" aria-hidden="true"></span>
+                {{- coll_label -}}
+              </span>
+            {%- endif -%}
+          </header>
+
+          {%- if block.settings.quote != blank -%}
+            <blockquote class="bks-rev-card__quote">
+              <p>{{ block.settings.quote | escape }}</p>
+            </blockquote>
+          {%- endif -%}
+
+          <footer class="bks-rev-card__footer">
+            <cite class="bks-rev-card__author">
+              {{- block.settings.author | default: '— Anonymous' | escape -}}
+              {%- if block.settings.location != blank -%}
+                <span class="bks-rev-card__loc">{{ block.settings.location | escape }}</span>
+              {%- endif -%}
+            </cite>
+            {%- if block.settings.verified -%}
+              <span class="bks-rev-card__verified">Verified</span>
+            {%- endif -%}
+          </footer>
+
+        </article>
+
+      {%- endif -%}
+    {%- endfor -%}
+
+  </div>
+
+  {%- else -%}
+
+  {%- comment -%} Placeholder cards — replace with real blocks in customizer {%- endcomment -%}
+  <div class="bks-reviews__track" role="list">
+
+    <article class="bks-rev-card" role="listitem">
+      <header class="bks-rev-card__top">
+        <span class="bks-rev-card__stars" aria-label="5 out of 5 stars">★★★★★</span>
+        <span class="bks-rev-card__coll" style="--cc:#c8c4be">
+          <span class="bks-rev-card__dot" aria-hidden="true"></span>BKS Hours
+        </span>
+      </header>
+      <blockquote class="bks-rev-card__quote">
+        <p>The artwork on this puffer jacket is unlike anything I've seen in fashion. It doesn't look printed — it looks painted. The fit is structured and the print is sharp at every angle.</p>
+      </blockquote>
+      <footer class="bks-rev-card__footer">
+        <cite class="bks-rev-card__author">— C.T.<span class="bks-rev-card__loc">London, UK</span></cite>
+        <span class="bks-rev-card__verified">Verified</span>
+      </footer>
+    </article>
+
+    <article class="bks-rev-card" role="listitem">
+      <header class="bks-rev-card__top">
+        <span class="bks-rev-card__stars" aria-label="5 out of 5 stars">★★★★★</span>
+        <span class="bks-rev-card__coll" style="--cc:#d4a030">
+          <span class="bks-rev-card__dot" aria-hidden="true"></span>BKS Glyph
+        </span>
+      </header>
+      <blockquote class="bks-rev-card__quote">
+        <p>The Glyph hoodie arrived and the symbols printed are sharp — no bleed, no fading after washing. Quality is exactly as described. Would order again without hesitation.</p>
+      </blockquote>
+      <footer class="bks-rev-card__footer">
+        <cite class="bks-rev-card__author">— M.R.<span class="bks-rev-card__loc">New York, US</span></cite>
+        <span class="bks-rev-card__verified">Verified</span>
+      </footer>
+    </article>
+
+    <article class="bks-rev-card" role="listitem">
+      <header class="bks-rev-card__top">
+        <span class="bks-rev-card__stars" aria-label="5 out of 5 stars">★★★★★</span>
+        <span class="bks-rev-card__coll" style="--cc:#0ca898">
+          <span class="bks-rev-card__dot" aria-hidden="true"></span>BKS Riviera
+        </span>
+      </header>
+      <blockquote class="bks-rev-card__quote">
+        <p>Ordered the Riviera swim trunks for a summer trip. The print catches light in a way I didn't expect from an on-demand piece. Production took 10 days — absolutely worth the wait.</p>
+      </blockquote>
+      <footer class="bks-rev-card__footer">
+        <cite class="bks-rev-card__author">— T.B.<span class="bks-rev-card__loc">Berlin, DE</span></cite>
+        <span class="bks-rev-card__verified">Verified</span>
+      </footer>
+    </article>
+
+  </div>
+
+  {%- endunless -%}
+
+  {%- if section.settings.show_google_badge -%}
+    <div class="bks-reviews__gcr">
       {% render 'bks-gcr-badge' %}
     </div>
-    {% if section.settings.subtext != blank %}
-      <p class="bks-store-reviews__sub">{{ section.settings.subtext | escape }}</p>
-    {% endif %}
-  </div>
+  {%- endif -%}
+
 </section>
 
 <style>
-  .bks-store-reviews {
-    --bks-rev-accent: var(--bks-active-accent, #2f6f6b);
+
+  /* ── SECTION ──────────────────────────────────────────────── */
+
+  .bks-reviews {
     background: #fafaf7;
-    border-bottom: 1px solid rgba(10,10,10,0.07);
+    padding: clamp(48px, 6vw, 96px) clamp(16px, 4vw, 64px);
     border-top: 1px solid rgba(10,10,10,0.07);
-    padding: {{ section.settings.padding_v }}px 16px;
-    position: relative;
   }
 
-  .bks-store-reviews::before {
-    background: var(--bks-rev-accent);
-    content: '';
-    height: 2px;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.32s cubic-bezier(0.22,1,0.36,1);
+  /* ── SECTION HEADER ───────────────────────────────────────── */
+
+  .bks-reviews__head {
+    max-width: 640px;
+    margin: 0 auto clamp(32px, 4vw, 56px);
+    text-align: center;
   }
 
-  .bks-store-reviews:hover::before {
-    transform: scaleX(1);
+  .bks-reviews__kicker {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.42);
+    margin: 0 0 12px;
   }
 
-  .bks-store-reviews__inner {
-    align-items: center;
+  .bks-reviews__headline {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: #0a0a0a;
+    margin: 0 0 12px;
+  }
+
+  .bks-reviews__subline {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.76rem;
+    color: rgba(10,10,10,0.48);
+    letter-spacing: 0.04em;
+    margin: 0;
+  }
+
+  /* ── TRACK ────────────────────────────────────────────────── */
+
+  .bks-reviews__track {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    gap: clamp(16px, 2.5vw, 28px);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ── CARD ─────────────────────────────────────────────────── */
+
+  .bks-rev-card {
+    background: #ffffff;
+    border: 1px solid rgba(10,10,10,0.09);
+    border-top: 2px solid #c9b79c;
+    padding: clamp(20px, 3vw, 28px);
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin: 0 auto;
-    max-width: 640px;
+    gap: 14px;
+    transition: transform 0.22s cubic-bezier(0.22,1,0.36,1), box-shadow 0.22s ease;
   }
 
-  .bks-store-reviews__heading {
-    color: #0a0a0a;
-    font-family: 'DM Mono', 'Courier New', monospace;
-    font-size: 0.72rem;
+  .bks-rev-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.07);
+  }
+
+  /* top row: stars + collection tag */
+
+  .bks-rev-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .bks-rev-card__stars {
+    font-size: 0.88rem;
+    color: #c9a84c;
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+
+  .bks-rev-card__star--empty {
+    color: rgba(10,10,10,0.2);
+  }
+
+  .bks-rev-card__coll {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.60rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.48);
+    white-space: nowrap;
+  }
+
+  .bks-rev-card__dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--cc, #c9b79c);
+    flex-shrink: 0;
+  }
+
+  /* quote */
+
+  .bks-rev-card__quote {
+    margin: 0;
+    flex: 1;
+  }
+
+  .bks-rev-card__quote p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(0.88rem, 1.4vw, 0.96rem);
+    font-weight: 400;
+    line-height: 1.65;
+    color: rgba(10,10,10,0.82);
+    margin: 0;
+    font-style: normal;
+    quotes: '\201C' '\201D';
+  }
+
+  .bks-rev-card__quote p::before { content: open-quote; }
+  .bks-rev-card__quote p::after  { content: close-quote; }
+
+  /* footer */
+
+  .bks-rev-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(10,10,10,0.07);
+  }
+
+  .bks-rev-card__author {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
     font-weight: 500;
     letter-spacing: 0.10em;
-    margin: 0;
     text-transform: uppercase;
+    color: #0a0a0a;
+    font-style: normal;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
   }
 
-  .bks-store-reviews__badge {
+  .bks-rev-card__loc {
+    font-weight: 400;
+    color: rgba(10,10,10,0.42);
+    letter-spacing: 0.06em;
+  }
+
+  .bks-rev-card__loc::before { content: '·\00a0'; }
+
+  .bks-rev-card__verified {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #0a0a0a;
+    background: rgba(10,10,10,0.06);
+    border-radius: 2px;
+    padding: 3px 7px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Google badge below */
+
+  .bks-reviews__gcr {
     display: flex;
     justify-content: center;
+    margin-top: clamp(28px, 3vw, 48px);
+    opacity: 0.7;
   }
 
-  .bks-store-reviews__sub {
-    color: rgba(10,10,10,0.50);
-    font-family: 'DM Mono', 'Courier New', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.06em;
-    margin: 0;
-    text-align: center;
-    text-transform: uppercase;
+  /* ── MOBILE ───────────────────────────────────────────────── */
+
+  @media (max-width: 768px) {
+    .bks-reviews__track {
+      grid-template-columns: 1fr;
+      overflow-x: auto;
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 12px;
+      padding-bottom: 8px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .bks-rev-card {
+      min-width: min(300px, 82vw);
+      scroll-snap-align: start;
+      flex-shrink: 0;
+    }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bks-rev-card { transition: none; }
+  }
+
 </style>
-{% endif %}
+
+{%- endunless -%}
 
 {% schema %}
 {
   "name": "BKS Store reviews",
   "settings": [
     { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Verified by Google" },
-    { "type": "text", "id": "subtext", "label": "Subtext (optional)" },
-    { "type": "range", "id": "padding_v", "label": "Vertical padding (px)", "min": 12, "max": 64, "step": 4, "default": 28 }
+    { "type": "text", "id": "kicker", "label": "Kicker (small label above headline)", "default": "Customer reviews" },
+    { "type": "text", "id": "headline", "label": "Headline", "default": "Heard from our wearers" },
+    { "type": "text", "id": "subline", "label": "Subline (optional)" },
+    { "type": "checkbox", "id": "show_google_badge", "label": "Show Google Customer Reviews badge", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "limit": 9,
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Star rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "quote", "label": "Review text" },
+        { "type": "text", "id": "author", "label": "Author (e.g. — J.T.)", "default": "— Anonymous" },
+        { "type": "text", "id": "location", "label": "City, Country (optional)" },
+        {
+          "type": "select",
+          "id": "collection",
+          "label": "Collection",
+          "default": "",
+          "options": [
+            { "value": "", "label": "— None —" },
+            { "value": "hours", "label": "BKS Hours" },
+            { "value": "origin", "label": "BKS Origin" },
+            { "value": "glyph", "label": "BKS Glyph" },
+            { "value": "marker", "label": "BKS Marker" },
+            { "value": "riviera", "label": "BKS Riviera" },
+            { "value": "pulse", "label": "BKS Pulse" },
+            { "value": "token", "label": "BKS Token" },
+            { "value": "flag", "label": "BKS Flag" }
+          ]
+        },
+        { "type": "checkbox", "id": "verified", "label": "Show Verified badge", "default": true }
+      ]
+    }
   ],
   "presets": [
     { "name": "BKS Store reviews" }
