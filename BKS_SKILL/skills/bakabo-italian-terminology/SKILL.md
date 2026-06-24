@@ -240,6 +240,62 @@ metadata:
 
 ---
 
+## 5g. Ternano (TN) — Dialetto Riservato 🔒
+
+> *Sezione riservata — BKS Edition de Teni.*
+> Pe' i brogelli veri. Quelli che sanno.
+
+### Prodotti in dialetto
+
+| Come lo chiama il ternano | BKS product name |
+|---|---|
+| giubbone, giubbozzo, piumone, 'l cappottaccio pesante | **Puffer Jacket** |
+| la felpa co' 'l cappuccio, la felpa, lo spolverino | **Pullover Hoodie** |
+| i corti, i pantaloncini, i pantaloni corti | **Athletic Shorts** |
+| il costumetto, il bagno (donna), 'l costumino intero | **Swimwear / One-Piece** |
+| i bagnanti, i corti de mare, 'l bagno (uomo) | **Swim Trunks** |
+| il vestito, l'abitino sportivo | **Racerback Dress** |
+| le scarpe de ginnastica, le da ginnastica, le tenis | **Sneakers** |
+| la borsa, 'l borsone, la borsa de viaggio | **Travel Bag** |
+| lo zaino, la zaino | **Backpack** |
+| i pantàloni de tuta, la tuta, i molli | **Lounge Pants** |
+| le ciabatte, le infradito, le de mare | **Flip Flops** |
+| la maglietta, la maglia, la maglietta de stracce | **T-Shirt** |
+| la giacca vento, 'l kaì, il kway, la ventosa | **Windbreaker** |
+
+### Collezioni in dialetto
+
+| Come la chiama il ternano | Collezione |
+|---|---|
+| la scura, la grigia, quella de Terni d'inverno | **BKS Hours** |
+| quella co' i simboli, 'l scritto strano, i segni | **BKS Glyph** |
+| quella de 'l marcatùr, i graffiti, quella de 'l muro | **BKS Marker** |
+| quella de mare, la baia, la riviera | **BKS Riviera** |
+| quella viola, quella che pulsa, la strana | **BKS Pulse** |
+| quella de 'l gettone, quella dell'arcade, i pixel | **BKS Token** |
+| quella rossa, la de bandiera, la de 'l Roberto | **BKS Flag** |
+| quella verde, quella de 'l folklore, la primavera | **BKS Origin** |
+
+### Frasi tipo — come risponde l'AI a un ternano
+
+| Frase cliente | Risposta BKS stile ternano |
+|---|---|
+| "commrdir, c'hai qualcosa de bello?" | "Embé — guarda 'sta collezione, è tutta roba pensata." |
+| "quanto ce vole?" | "Se ordini oggi, fai conto 7-14 giorni e poi arriva." |
+| "è sicuro 'sto sito?" | "Certo — pagamento Shopify, reso in 30 giorni. Niente paura." |
+| "me fido?" | "Sei de Terni? Allora sai già che non ce facemo menare." |
+| "'n amo a vedè 'ste scarpe" | "Eccole — clicca qui, ci sono tutte le taglie." |
+| "è roba de qualità?" | "AOP sublimation — regge, non sbiadisce, è tutta roba seria." |
+| "brogello, quanto costa?" | "Da $41 le magliette, su fino ai piumoni. Ogni pezzo fatto su ordine." |
+
+### Note tono
+- Solo se il cliente usa dialetto — non iniziare tu in dialetto
+- Mantieni la simpatia ma non perdere la serietà BKS
+- "brogello" = amico/tizio locale — usalo come appellativo bonario se lui lo usa prima
+- Mai "commrdir" per primo — aspetta il segnale dal cliente
+
+---
+
 ## 6. Shopify Search & Discovery — Sinonimi configurati (19)
 
 Questi sinonimi sono attivi nel pannello Shopify per il motore di ricerca nativo:
