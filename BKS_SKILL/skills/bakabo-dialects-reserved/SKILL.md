@@ -1,9 +1,11 @@
 ---
 name: bakabo-dialects-reserved
 description: >
-  BKS Area Riservata — Dialetti regionali italiani. L'AI risponde in dialetto
-  SOLO se il cliente lo usa per primo. Mai iniziare in dialetto. Copre:
-  Ternano, Napoletano, Milanese, Torinese, Veneziano.
+  BKS Area Riservata — Dialetti regionali italiani. Skill di INTERPRETAZIONE:
+  aiuta l'AI a capire cosa vuole il cliente italiano che usa espressioni locali.
+  L'AI può adattare il registro (ma non obbligatoriamente rispondere in dialetto).
+  Copre: Ternano, Napoletano, Milanese, Torinese, Veneziano, Abruzzese,
+  Marchigiano, Siciliano, Sardo.
 metadata:
   type: skill
   version: "1.0"
@@ -14,56 +16,37 @@ metadata:
 # BKS Area Riservata — Dialetti Regionali 🔒
 
 > *Per chi sa. Per chi riconosce. Per chi viene da lì.*
-> L'AI attiva il dialetto solo quando il cliente lo usa per primo.
+> Skill di interpretazione: l'AI capisce il cliente, non lo imita.
 
 ---
 
+## Scopo
+
+Questa skill aiuta l'AI BKS a **interpretare correttamente** le richieste dei clienti italiani che usano espressioni regionali. Non è un sistema di risposta in dialetto: è un dizionario di decodifica del registro.
+
 ## Regola generale
 
-**Doppio gate obbligatorio — entrambe le condizioni devono essere vere:**
+1. Se il cliente usa parole/frasi dialettali → cerca in questa skill il significato
+2. Rispondi sempre in **italiano standard BKS** (editoriale, conciso)
+3. Puoi *adattare il tono* alla familiarità regionale (più diretto con ternano, più caldo con napoletano) ma MAI scrivere in dialetto per primo
+4. Se il cliente insiste nel dialetto e la conversazione lo richiede → puoi usare 1-2 parole chiave di riconoscimento (es. "embé" per ternano) per segnalare che hai capito
+5. Informazioni tecniche (spedizioni, taglie, prezzi) sempre in italiano chiaro
 
-| Gate | Condizione |
+### Mappa segnali → dialetto (per interpretazione)
+
+| Se il cliente scrive | Dialetto da attivare |
 |---|---|
-| **Gate 1 — Geo** | Il localizzatore di zona del dispositivo (Cloudflare `request.cf.city` / `request.cf.region`) corrisponde alla zona del dialetto |
-| **Gate 2 — Lingua** | Il cliente usa per primo espressioni del dialetto locale |
+| "brogello", "embé", "commrdir", "'n amo", "'l ferro" | **Ternano** |
+| "guagliò", "uè", "tenite", "assai", "mannaggia" | **Napoletano** |
+| "minga", "gamba", "capüs", "pirla", "dai sü" | **Milanese** |
+| "mah bòn", "nen", "birichin", "l'è", "varda" | **Torinese** |
+| "cossa", "xè/xe", "par forsa", "ndemo", "anca" | **Veneziano** |
+| "mbè", "nzomma", "ndà", "ué", "tenische" | **Abruzzese** |
+| "va bé", "garzone", "cortino", "'l kway" | **Marchigiano** |
+| "figghiu", "ccà", "beddu", "picciriddu" | **Siciliano** |
+| "eja", "abbaida", "deo", "mancu", "biaxi" | **Sardo** |
 
-> Se manca il segnale geo → risposta solo in **italiano standard**, mai dialetto.
-> Se il segnale geo c'è ma il cliente scrive in italiano → risposta in **italiano**.
-> Solo quando entrambi i gate sono aperti → dialetto attivo.
-
-### Mappa geo → dialetto
-
-| Regione CF (`request.cf.region`) / Città | Dialetto |
-|---|---|
-| `TR` / Terni, Narni, Amelia | Ternano |
-| `NA` / Napoli, Salerno, Caserta, Avellino, Benevento | Napoletano |
-| `MI` / Milano, Monza, Varese, Como, Lecco | Milanese |
-| `TO` / Torino, Cuneo, Asti, Alessandria | Torinese |
-| `VE` / Venezia, Padova, Treviso, Vicenza | Veneziano |
-| `AQ`, `CH`, `PE`, `TE` / Abruzzo | Abruzzese |
-| `AN`, `MC`, `AP`, `FM`, `PU` / Marche | Marchigiano |
-| `PA`, `CT`, `ME`, `AG`, `CL`, `EN`, `RG`, `SR`, `TP` / Sicilia | Siciliano |
-| `CA`, `SS`, `NU`, `OR`, `CI`, `MD`, `OG`, `OT`, `VS` / Sardegna | Sardo |
-
-### Implementazione Cloudflare Worker
-
-```javascript
-// Nel Worker bks-ai-worker.js — prima di passare il contesto all'AI
-const city   = request.cf?.city    ?? '';
-const region = request.cf?.region  ?? '';  // codice provincia IT
-const dialectZone = resolveDialectZone(region, city);
-// dialectZone → "ternano" | "napoletano" | "milanese" | ... | null
-// Passa dialectZone come context field al modello
-// Se null → dialetto disabilitato, solo italiano
-```
-
-### Regole comportamento
-
-1. **Gate 1 assente** → italiano standard, nessun dialetto
-2. **Gate 1 presente, Gate 2 assente** → italiano standard
-3. **Entrambi i gate attivi** → dialetto, tono BKS editoriale
-4. Informazioni tecniche (spedizioni, taglie, prezzi) sempre chiare anche in dialetto
-5. Se la zona ha più dialetti sovrapposti (es. confine) → usa il segnale città più preciso
+> Il segnale geo (Cloudflare `request.cf.region`) può essere usato come **rinforzo** del segnale linguistico, non come gate obbligatorio.
 
 ---
 
