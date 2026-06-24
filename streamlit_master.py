@@ -938,7 +938,7 @@ def read_live_audit() -> tuple[pd.DataFrame, dict[str, int]]:
     return frame, summary
 
 
-def render_services() -> None:
+def render_services(key_prefix: str = "") -> None:
     st.subheader("Servizi locali")
     rows = []
     for service in SERVICES:
@@ -960,7 +960,7 @@ def render_services() -> None:
             st.markdown(f"**{service.phase} {service.name}**")
             st.caption(service.role)
             if service.launcher:
-                if st.button(f"Avvia {service.phase}", key=f"start-{service.phase}-{index}", width="stretch"):
+                if st.button(f"Avvia {service.phase}", key=f"{key_prefix}start-{service.phase}-{index}", width="stretch"):
                     ok, message = start_launcher(service.launcher)
                     st.success(message) if ok else st.error(message)
             else:
@@ -968,9 +968,9 @@ def render_services() -> None:
             st.link_button(f"Apri {service.phase}", service.url, width="stretch")
 
 
-def render_command_center() -> None:
+def render_command_center(key_prefix: str = "") -> None:
     st.subheader("Pannello comandi generale")
-    render_services()
+    render_services(key_prefix=key_prefix)
 
     st.divider()
     st.write("Comandi rapidi")
@@ -1068,7 +1068,7 @@ def render_management_panel() -> None:
     st.divider()
     management_tabs = st.tabs(["Servizi & Comandi", "Asset attivi", "Monitoraggio"])
     with management_tabs[0]:
-        render_command_center()
+        render_command_center(key_prefix="mgmt-")
     with management_tabs[1]:
         render_critical_files()
     with management_tabs[2]:

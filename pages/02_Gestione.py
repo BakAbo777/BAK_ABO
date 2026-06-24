@@ -101,7 +101,16 @@ with tab_prices:
             st.code("35  39  45  49  55  59  65  69  75  79\n85  89  95  99 105 109 115 119 125 129 135 139")
             st.caption("No product published outside this ladder without explicit justification.")
     else:
-        st.info("No audit report found. Run audit first.")
+        st.info("Nessun report trovato — clicca **Run Price Audit Now** per generarlo.")
+        with st.spinner("Auto-running first audit..."):
+            _r = subprocess.run(
+                [sys.executable, str(BASE_DIR / "scripts" / "gmc_daily_sync.py")],
+                capture_output=True, text=True, cwd=str(BASE_DIR)
+            )
+        if _r.returncode == 0:
+            st.rerun()
+        else:
+            st.warning(f"Auto-run fallito: {_r.stderr[:200]}")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # TAB 3: SKILLS — overview tutte le skill installate
@@ -258,11 +267,4 @@ with tab_system:
                     st.error(r.stderr[:300])
 
     st.divider()
-    st.caption("Full system panel:")
-    # Inline existing management panel (command center + monitoring only)
-    from streamlit_master import render_command_center, render_monitoring
-    mgmt_tabs = st.tabs(["Commands", "Monitoring"])
-    with mgmt_tabs[0]:
-        render_command_center()
-    with mgmt_tabs[1]:
-        render_monitoring()
+    st.caption("Per servizi e monitoraggio completo → tab **Overview**.")
