@@ -1946,26 +1946,16 @@
     }
   },
   "6a1060eaebc1f93268028718": {
-    "ts": "2026-06-24T10:44:44.094370",
+    "ts": "2026-06-25T11:46:08.304220",
     "collection": "unknown",
     "title": "BKS Digital Citizens™ - Low Top Sneakers",
     "visible": true,
-    "status": "needs_rework",
+    "status": "updated",
     "result": {
-      "status": "needs_rework",
-      "new_image_id": "6a3b98f611785857d14aa621",
-      "areas_replaced": 6,
-      "template_used": "bks_glyph_028718_1782251141742.png",
-      "bks_score": 17,
-      "bks_decision": "REWORK",
-      "bks_feedback": "Adjust color palette and brightness for better alignment with BKS glyph standards.",
-      "bks_dims": {
-        "identity": 4,
-        "execution": 4,
-        "color": 3,
-        "invention": 3,
-        "commercial": 3
-      }
+      "status": "updated",
+      "new_image_id": "6a3cf8dda9609b2e183ad64f",
+      "areas_replaced": 0,
+      "template_used": "bks_glyph_028718_1782290677006.png"
     }
   },
   "65f71310d58dff0fe00d5695": {
@@ -2202,26 +2192,16 @@
     }
   },
   "6a1d799a291037b8c603e328": {
-    "ts": "2026-06-24T10:43:02.313537",
+    "ts": "2026-06-25T11:43:34.323854",
     "collection": "glyph",
     "title": "BKS Glyph Fracture™ Sneakers",
     "visible": true,
-    "status": "needs_rework",
+    "status": "updated",
     "result": {
-      "status": "needs_rework",
-      "new_image_id": "6a3b988e137b1cc8db6584b9",
+      "status": "updated",
+      "new_image_id": "6a3cf843ff2cf1a88cd7bf18",
       "areas_replaced": 5,
-      "template_used": "bks_glyph_03e328_1782250946149.png",
-      "bks_score": 17,
-      "bks_decision": "REWORK",
-      "bks_feedback": "Design needs clearer geometric precision and stronger BKS identity alignment.",
-      "bks_dims": {
-        "identity": 3,
-        "execution": 3,
-        "color": 4,
-        "invention": 3,
-        "commercial": 4
-      }
+      "template_used": "bks_glyph_03e328_1782290573256.png"
     }
   },
   "653feca9a0c7afd7f10278f7": {
@@ -2409,26 +2389,16 @@
     }
   },
   "6a15a69056ded98cbb02c912": {
-    "ts": "2026-06-24T10:43:51.412248",
+    "ts": "2026-06-25T11:45:00.701049",
     "collection": "riviera",
     "title": "BKS Riviera Weave™ Athletic Long Shorts",
     "visible": true,
-    "status": "needs_rework",
+    "status": "updated",
     "result": {
-      "status": "needs_rework",
-      "new_image_id": "6a3b98c3096bc9fbef42ee76",
-      "areas_replaced": 4,
-      "template_used": "bks_riviera_02c912_1782251022092.png",
-      "bks_score": 17,
-      "bks_decision": "REWORK",
-      "bks_feedback": "Needs improvement in execution for better harmony and placement.",
-      "bks_dims": {
-        "identity": 4,
-        "execution": 3,
-        "color": 4,
-        "invention": 3,
-        "commercial": 3
-      }
+      "status": "updated",
+      "new_image_id": "6a3cf8987d25f3eb6771f2d3",
+      "areas_replaced": 0,
+      "template_used": "bks_riviera_02c912_1782290625993.png"
     }
   },
   "65f356105b2513e70e01491e": {
@@ -2978,26 +2948,16 @@
     }
   },
   "6a1d7cb66d9987e14104ab24": {
-    "ts": "2026-06-24T10:42:09.749824",
+    "ts": "2026-06-25T11:42:40.807649",
     "collection": "riviera",
     "title": "BKS Riviera Argyle™ Sneakers",
     "visible": true,
-    "status": "needs_rework",
+    "status": "updated",
     "result": {
-      "status": "needs_rework",
-      "new_image_id": "6a3b985abe397264a78d8c02",
+      "status": "updated",
+      "new_image_id": "6a3cf80ac6a3bed92af6e229",
       "areas_replaced": 4,
-      "template_used": "bks_riviera_04ab24_1782250893911.png",
-      "bks_score": 19,
-      "bks_decision": "REWORK",
-      "bks_feedback": "Strong identity and color use, but needs better execution on element sizing.",
-      "bks_dims": {
-        "identity": 4,
-        "execution": 3,
-        "color": 4,
-        "invention": 4,
-        "commercial": 4
-      }
+      "template_used": "bks_riviera_04ab24_1782290521439.png"
     }
   },
   "6a293e1abbf0294ff40c029d": {
@@ -3176,26 +3136,16 @@
     }
   },
   "6a00f1104ba2ff981a031032": {
-    "ts": "2026-06-24T10:45:48.971107",
+    "ts": "2026-06-25T11:47:48.849418",
     "collection": "origin",
     "title": "BKS Folklore Totem™ Swim Trunks",
     "visible": true,
-    "status": "needs_rework",
+    "status": "updated",
     "result": {
-      "status": "needs_rework",
-      "new_image_id": "6a3b992ebe397264a78d8d1c",
-      "areas_replaced": 5,
-      "template_used": "bks_origin_031032_1782238954529.png",
-      "bks_score": 18,
-      "bks_decision": "REWORK",
-      "bks_feedback": "Solid design with BKS essence but needs better element balance and execution.",
-      "bks_dims": {
-        "identity": 4,
-        "execution": 3,
-        "color": 4,
-        "invention": 4,
-        "commercial": 3
-      }
+      "status": "updated",
+      "new_image_id": "6a3cf93aff2cf1a88cd7bf85",
+      "areas_replaced": 0,
+      "template_used": "bks_origin_031032_1782290733354.png"
     }
   },
   "66045ea178c06dd0080f39d4": {

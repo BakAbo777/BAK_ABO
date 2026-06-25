@@ -3,15 +3,15 @@
     "bks_home_hero": {
       "type": "bks-home-hero",
       "settings": {
+        "bg_image": "shopify://shop_images/bks-home-hero.jpg",
         "kicker": "BKS Studio",
         "headline": "Wearable Art\nOn Demand",
         "subline": "AI-generated fashion. 8 collections, 670+ pieces. Every item designed, printed, and delivered on order.",
         "cta_primary_label": "Shop Collections",
         "cta_primary_url": "/collections/all",
-"overlay_strength": "medium",
+        "overlay_strength": "medium",
         "text_align": "center",
-        "min_height": 90,
-        "bg_image": "shopify://shop_images/bks-home-hero.jpg"
+        "min_height": 90
       }
     },
     "bks_editorial": {
@@ -22,11 +22,11 @@
         "tagline": "Summer Edition 2026",
         "cover_title": "Summer Catalog 2026 — Eight Collections. One Wardrobe.",
         "cover_deck": "674 pieces designed by AI. Made to order, shipped worldwide. Each piece a unique expression of the BKS visual language across 8 editorial collections.",
-        "show_strip": true,
-        "featured_product_1": "gid://shopify/Product/8819496812882",
-        "featured_product_2": "gid://shopify/Product/8604750446930",
-        "featured_product_3": "gid://shopify/Product/8620196233554",
-        "cover_collection": "gid://shopify/Collection/685331153234"
+        "cover_collection": "gid://shopify/collection/685331153234",
+        "featured_product_1": "gid://shopify/product/8819496812882",
+        "featured_product_2": "gid://shopify/product/8604750446930",
+        "featured_product_3": "gid://shopify/product/8620196233554",
+        "show_strip": true
       }
     },
     "bks_piano_hero": {
@@ -47,7 +47,9 @@
             "arm_desc": "Deep tones, warm neutrals. Dune, slate grey, antique ivory.",
             "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/125809527499689953_2048.jpg",
             "bpm": 36,
-            "decay": 4
+            "decay": 4,
+            "verse": "Le ore si pesano\nsenza che nessuno\nle stia contando.",
+            "model_url": ""
           }
         },
         "piano_glyph": {
@@ -65,7 +67,9 @@
             "arm_desc": "Gold, amber, graphite, ink.",
             "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/ChatGPT_Image_12_giu_2026_10_29_17_3.png",
             "bpm": 40,
-            "decay": 4
+            "decay": 4,
+            "verse": "Un alfabeto senza parole —\nsolo forma e vuoto.\nIl segno viene prima.",
+            "model_url": ""
           }
         },
         "piano_marker": {
@@ -83,7 +87,9 @@
             "arm_desc": "Terracotta, industrial red, raw paper cream.",
             "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/9047535510207771668_2048.jpg",
             "bpm": 44,
-            "decay": 3
+            "decay": 3,
+            "verse": "Ogni luogo lascia\nun segno sul corpo\nprima ancora che tu parta.",
+            "model_url": ""
           }
         },
         "piano_riviera": {
@@ -101,7 +107,9 @@
             "arm_desc": "Mediterranean teal, coral, salt white.",
             "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/4919242295829721514_2048.jpg",
             "bpm": 36,
-            "decay": 5
+            "decay": 5,
+            "verse": "La luce del mezzogiorno\nnon perdona\nné ombra né misura.",
+            "model_url": ""
           }
         },
         "piano_pulse": {
@@ -119,7 +127,9 @@
             "arm_desc": "Lavender, optical blue, kinetic white.",
             "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/1863987455781623013_2048.jpg",
             "bpm": 52,
-            "decay": 3
+            "decay": 3,
+            "verse": "Nel ritmo c'è una promessa\nche il tempo\nnon ha ancora tradito.",
+            "model_url": ""
           }
         },
         "piano_token": {
@@ -137,7 +147,9 @@
             "arm_desc": "Electric violet, arcade green, pixel gold.",
             "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/15098654075567303913_2048.jpg",
             "bpm": 48,
-            "decay": 4
+            "decay": 4,
+            "verse": "Quello che vale\nnon si vede —\nsi porta.",
+            "model_url": ""
           }
         },
         "piano_flag": {
@@ -155,7 +167,9 @@
             "arm_desc": "Flag red, Dada magenta, stencil yellow.",
             "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/1569918230506030129_2048.jpg",
             "bpm": 38,
-            "decay": 5
+            "decay": 5,
+            "verse": "Appartenere è involontario\ncome alzare gli occhi\nverso una bandiera.",
+            "model_url": ""
           }
         },
         "piano_origin": {
@@ -173,7 +187,9 @@
             "arm_desc": "Leaf green, warm stone, natural linen.",
             "image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/files/d99e5076-e446-4bf3-bea8-25c40f0f3307.png",
             "bpm": 42,
-            "decay": 5
+            "decay": 5,
+            "verse": "Le radici non cercano luce.\nSanno già\ndove andare.",
+            "model_url": ""
           }
         }
       },
@@ -191,7 +207,8 @@
         "height": 620,
         "fallboard_label": "BAK | ABO",
         "hint_text": "Press a key to explore",
-        "back_label": "Back to piano"
+        "back_label": "Back to piano",
+        "background_image_url": "https://cdn.shopify.com/s/files/1/0771/8758/0242/t/375/assets/bks-piano-hero-bg.png?v=1782376695"
       }
     },
     "bks_impact": {
@@ -215,8 +232,8 @@
             "tagline": "Measured urban stillness",
             "description": "Architectural B&W photography and underground textures rendered in ink on cotton.",
             "accent_color": "#c8c4be",
-            "url": "/collections/bks-hours",
-            "image": "shopify://shop_images/bks-hours-editorial.png"
+            "image": "shopify://shop_images/bks-hours-editorial.png",
+            "url": "/collections/bks-hours"
           }
         },
         "spread_2": {
@@ -227,8 +244,8 @@
             "tagline": "Where it all began",
             "description": "The founding collection. Raw nature, organic forms, and the green of new growth.",
             "accent_color": "#489808",
-            "url": "/collections/bks-origin",
-            "image": "shopify://shop_images/bks-origin-editorial.png"
+            "image": "shopify://shop_images/bks-origin-editorial.png",
+            "url": "/collections/bks-origin"
           }
         },
         "spread_3": {
@@ -239,8 +256,8 @@
             "tagline": "Ancient marks, future fabric",
             "description": "Symbols, scripts and ideographs from lost civilizations, translated into wearable art.",
             "accent_color": "#d4a030",
-            "url": "/collections/bks-glyph",
-            "image": "shopify://shop_images/bks-glyph-editorial.png"
+            "image": "shopify://shop_images/bks-glyph-editorial.png",
+            "url": "/collections/bks-glyph"
           }
         },
         "spread_4": {
@@ -251,8 +268,8 @@
             "tagline": "Urban codes, street grammar",
             "description": "Typography and signal from the city surface — the language of the street printed on premium cotton.",
             "accent_color": "#c04418",
-            "url": "/collections/bks-marker",
-            "image": "shopify://shop_images/bks-marker-editorial.png"
+            "image": "shopify://shop_images/bks-marker-editorial.png",
+            "url": "/collections/bks-marker"
           }
         },
         "spread_5": {
@@ -263,8 +280,8 @@
             "tagline": "Coast, light, velocity",
             "description": "Mediterranean heat and motion. Teal waves and the geometry of speed.",
             "accent_color": "#0ca898",
-            "url": "/collections/bks-riviera",
-            "image": "shopify://shop_images/bks-riviera-editorial.png"
+            "image": "shopify://shop_images/bks-riviera-editorial.png",
+            "url": "/collections/bks-riviera"
           }
         },
         "spread_6": {
@@ -275,8 +292,8 @@
             "tagline": "Frequencies",
             "description": "Synth-wave patterns and energy fields from the electronic frontier — wearable sound.",
             "accent_color": "#8888cc",
-            "url": "/collections/bks-pulse",
-            "image": "shopify://shop_images/bks-pulse-editorial.png"
+            "image": "shopify://shop_images/bks-pulse-editorial.png",
+            "url": "/collections/bks-pulse"
           }
         },
         "spread_7": {
@@ -287,8 +304,8 @@
             "tagline": "Digital artifacts",
             "description": "Blockchain aesthetics, pixel folklore and the cryptographic imagination — art-on-chain meets fabric.",
             "accent_color": "#9828d8",
-            "url": "/collections/bks-token",
-            "image": "shopify://shop_images/bks-token-editorial.png"
+            "image": "shopify://shop_images/bks-token-editorial.png",
+            "url": "/collections/bks-token"
           }
         },
         "spread_8": {
@@ -299,8 +316,8 @@
             "tagline": "Manifesto",
             "description": "Bold statements, political geometry and the iconography of resistance. Wear your position.",
             "accent_color": "#c82020",
-            "url": "/collections/bks-flag",
-            "image": "shopify://shop_images/bks-flag-editorial.png"
+            "image": "shopify://shop_images/bks-flag-editorial.png",
+            "url": "/collections/bks-flag"
           }
         }
       },
@@ -315,8 +332,8 @@
         "spread_8"
       ],
       "settings": {
-        "cover_image": "shopify://shop_images/bks-magazine-cover.png",
         "headline": "Eight worlds. One wardrobe.",
+        "cover_image": "shopify://shop_images/bks-magazine-cover.png",
         "show_pullquote": true,
         "pullquote_letter": "B",
         "pullquote_text": "L'intelligenza artificiale non sostituisce l'arte — la trasforma in qualcosa che non avremmo mai immaginato.",

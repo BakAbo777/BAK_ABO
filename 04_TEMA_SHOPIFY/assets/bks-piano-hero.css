@@ -610,3 +610,50 @@
   #bks-mq-body { height: 80px; }
   .bks-mq-leg  { height: 36px; }
 }
+
+/* ── BKS Verse — poesia per collezione ──────────────────────────────────── */
+#bks-coll-verse {
+  margin: 8px 0 14px;
+  padding: 0 0 0 12px;
+  border-left: 2px solid currentColor;
+  opacity: 0.75;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-style: italic;
+  line-height: 1.7;
+  white-space: pre-line;
+  letter-spacing: 0.02em;
+  color: inherit;
+  display: none;
+}
+#bks-coll-verse:not(:empty) { display: block; }
+
+/* ── 3D Model overlay — modello scontornato sul piano ───────────────────── */
+#bks-key-model {
+  position: absolute;
+  bottom: 12%;
+  width: auto;
+  max-width: 22%;
+  height: 82%;
+  pointer-events: none;
+  z-index: 8;
+  opacity: 0;
+  transform: translateX(-50%) translateY(18px) scale(0.88);
+  transition: opacity 0.38s ease, transform 0.38s ease;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.55));
+}
+#bks-key-model.bks-model-active {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+#bks-key-model img {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: bottom center;
+}

@@ -41,6 +41,17 @@
   const collCta    = document.getElementById('bks-coll-cta');
   const pianoEl    = cv ? cv.closest('.bks-piano-hero') : null;
 
+  // ── Background image (loaded from --bks-piano-bg CSS var) ────────────────────
+  let bgImg = null;
+  (function loadBg() {
+    if (!pianoEl) return;
+    const raw = getComputedStyle(pianoEl).getPropertyValue('--bks-piano-bg').trim();
+    const m = raw.match(/url\(['"]?([^'")\s]+)['"]?\)/);
+    if (!m) return;
+    bgImg = new Image();
+    bgImg.src = m[1];
+  })();
+
   // ── State ────────────────────────────────────────────────────────────────────
   let W, H, keys = [], activeKey = -1;
   const KS     = COLS.map(() => ({ anim: 0, pressed: false }));
@@ -229,41 +240,55 @@
   function buildKeys() {
     keys = [];
     const whites = COLS.filter(c => c.white);
-    const nW  = whites.length;
-    const fY  = H, bY = H * 0.06;
-    const fW  = W, bW = W * 0.46;
-    const sF  = 0, sB = (W - bW) / 2;
-    const wFW = fW / nW, wBW = bW / nW;
-    const g   = 1.2;
+    const nW = whites.length;
 
-    whites.forEach((c, i) => {
-      const idx = COLS.indexOf(c);
-      const fl  = sF + i * wFW, fr = fl + wFW;
-      const bl  = sB + i * wBW, br = bl + wBW;
+    // Front-facing low-angle perspective: camera at key level
+    const surTop  = H * 0.30;   // back edge of key surface (meets fallboard)
+    const surBot  = H * 0.73;   // front edge of surface / top of key front face
+    const faceBot = H * 0.88;   // bottom of key front face
+    const bkTop   = H * 0.06;   // top of black keys
+    const bkBot   = H * 0.67;   // bottom of black keys
+
+    // Width: back edge narrower (perspective convergence)
+    const frontW = W,        frontX0 = 0;
+    const backW  = W * 0.82, backX0  = W * 0.09;
+    const wFW = frontW / nW;
+    const wBW = backW  / nW;
+    const g   = 2.2;
+
+    whites.forEach((col, i) => {
+      const idx = COLS.indexOf(col);
+      const cxPct = (frontX0 + (i + 0.5) * wFW) / W;
       keys.push({
         idx, white: true,
-        tl: { x: bl + g, y: bY }, tr: { x: br - g, y: bY },
-        br: { x: fr - g, y: fY }, bl: { x: fl + g, y: fY },
+        tl:     { x: backX0  + i       * wBW + g, y: surTop  },
+        tr:     { x: backX0  + (i + 1) * wBW - g, y: surTop  },
+        bl:     { x: frontX0 + i       * wFW + g, y: faceBot },
+        br:     { x: frontX0 + (i + 1) * wFW - g, y: faceBot },
+        surBot, faceBot, cxPct, surBotPct: surBot / H,
       });
     });
 
+    // Black keys sit between white keys, sticking up above playing surface
     let wIdx = 0;
-    COLS.forEach((c) => {
-      if (c.white) { wIdx++; return; }
-      const idx = COLS.indexOf(c);
-      const pos = wIdx - 0.32;
-      const fl  = sF + pos * wFW, fr = fl + wFW * 0.52;
-      const bl  = sB + pos * wBW, br = bl + wBW * 0.52;
-      const bEndY = bY + (fY - bY) * 0.50;
+    COLS.forEach(col => {
+      if (col.white) { wIdx++; return; }
+      const idx  = COLS.indexOf(col);
+      const pos  = wIdx - 0.5;
+      const bkWF = wFW * 0.55, bkWB = wBW * 0.55;
+      const bkLF = frontX0 + pos * wFW + (wFW - bkWF) / 2;
+      const bkLB = backX0  + pos * wBW + (wBW - bkWB) / 2;
+      const bkCxPct = (bkLF + bkWF / 2) / W;
       keys.push({
         idx, white: false,
-        tl: { x: bl + g, y: bY }, tr: { x: br - g, y: bY },
-        br: { x: fr - g, y: bEndY }, bl: { x: fl + g, y: bEndY },
+        tl: { x: bkLB + g,        y: bkTop },
+        tr: { x: bkLB + bkWB - g, y: bkTop },
+        bl: { x: bkLF + g,        y: bkBot },
+        br: { x: bkLF + bkWF - g, y: bkBot },
+        surBot: bkBot, faceBot: bkBot, cxPct: bkCxPct, surBotPct: bkBot / H,
       });
     });
-  }
-
-  function inTrap(px, py, k) {
+  }function inTrap(px, py, k) {
     const minY = Math.min(k.tl.y, k.tr.y), maxY = Math.max(k.bl.y, k.br.y);
     if (py < minY || py > maxY) return false;
     const t = (py - minY) / (maxY - minY || 1);
@@ -282,9 +307,15 @@
   // ════════════════════════════════════════════════════════════════════════
 
   function drawFallboard() {
-    // Background — BakAbo brand dark
-    ctx.fillStyle = '#0A0A0A';
-    ctx.fillRect(0, 0, W, H);
+    // Background — editorial image or BakAbo brand dark
+    if (bgImg && bgImg.complete && bgImg.naturalWidth) {
+      ctx.drawImage(bgImg, 0, 0, W, H);
+      ctx.fillStyle = 'rgba(4,3,2,0.68)';
+      ctx.fillRect(0, 0, W, H);
+    } else {
+      ctx.fillStyle = '#0A0A0A';
+      ctx.fillRect(0, 0, W, H);
+    }
 
     // Active key accent wash over full canvas
     if (activeKey >= 0) {
@@ -296,7 +327,14 @@
       ctx.fillStyle = wash; ctx.fillRect(0, 0, W, H);
     }
 
-    const fbH = H * 0.10;
+    const fbH    = H * 0.30;
+    // Dark piano body below keys (faceBot=88% to bottom)
+    const bodyTop = H * 0.88;
+    const bodG = ctx.createLinearGradient(0, bodyTop, 0, H);
+    bodG.addColorStop(0,   '#0e0d0c');
+    bodG.addColorStop(0.4, '#080706');
+    bodG.addColorStop(1,   '#050403');
+    ctx.fillStyle = bodG; ctx.fillRect(0, bodyTop, W, H - bodyTop);
 
     // Lacquered body
     const bg = ctx.createLinearGradient(0, 0, 0, fbH);
@@ -354,13 +392,13 @@
     csc.addColorStop(0,    'rgba(0,0,0,0.60)');
     csc.addColorStop(0.45, 'rgba(0,0,0,0.20)');
     csc.addColorStop(1,    'rgba(0,0,0,0)');
-    ctx.fillStyle = csc; ctx.fillRect(0, fbH, W, H * 0.09);
+    ctx.fillStyle = csc; ctx.fillRect(0, fbH, W, H * 0.03);
     ctx.restore();
   }
 
   function drawBlackKeyShadow(k) {
     const pd = KS[k.idx].anim, dy = pd * 13;
-    const spread = 9, shadowLen = (k.bl.y - k.tl.y) + 28;
+    const spread = 8, shadowLen = Math.min((k.bl.y - k.tl.y) * 0.28 + 16, H * 0.16);
     ctx.save();
     ctx.beginPath();
     ctx.moveTo(k.tl.x - spread,       k.tl.y + dy * 0.2);
@@ -376,27 +414,33 @@
   }
 
   function drawWhiteKey(k, pd, col, active) {
-    const dy = pd * 20, faceH = 38;
+    const dy      = pd * 7;
+    const surBot  = k.surBot;
+    const faceBot = k.faceBot;
     ctx.save();
-    if (active) { ctx.shadowBlur = 28; ctx.shadowColor = col.color; }
+    if (active) { ctx.shadowBlur = 32; ctx.shadowColor = col.color + 'aa'; }
 
+    // ── Top playing surface (trapezoid) ──────────────────────────────────────
     ctx.beginPath();
-    ctx.moveTo(k.tl.x, k.tl.y + dy * 0.2); ctx.lineTo(k.tr.x, k.tr.y + dy * 0.2);
-    ctx.lineTo(k.br.x, k.br.y + dy);        ctx.lineTo(k.bl.x, k.bl.y + dy);
+    ctx.moveTo(k.tl.x, k.tl.y + dy * 0.4); ctx.lineTo(k.tr.x, k.tr.y + dy * 0.4);
+    ctx.lineTo(k.br.x, surBot + dy);         ctx.lineTo(k.bl.x, surBot + dy);
     ctx.closePath();
 
     if (active) {
-      const gr = ctx.createLinearGradient(0, k.tl.y, 0, k.bl.y);
+      const gr = ctx.createLinearGradient(0, k.tl.y, 0, surBot);
       gr.addColorStop(0,    '#0e0c0a');
-      gr.addColorStop(0.25, col.color + 'ee');
-      gr.addColorStop(0.65, col.color + 'bb');
-      gr.addColorStop(1,    '#0A0A0A');
+      gr.addColorStop(0.22, col.color + 'ee');
+      gr.addColorStop(0.68, col.color + 'bb');
+      gr.addColorStop(1,    '#1a1613');
       ctx.fillStyle = gr;
     } else {
-      const gr = ctx.createLinearGradient(0, k.tl.y, 0, k.bl.y);
-      gr.addColorStop(0,    '#a0998e'); gr.addColorStop(0.06, '#e8e2d4');
-      gr.addColorStop(0.50, '#e0dace'); gr.addColorStop(0.88, '#c8c4bc');
-      gr.addColorStop(1,    '#9a9690');
+      const gr = ctx.createLinearGradient(0, k.tl.y, 0, surBot);
+      gr.addColorStop(0,    col.color + '55');
+      gr.addColorStop(0.10, col.color + '2a');
+      gr.addColorStop(0.28, '#ddd8d0');
+      gr.addColorStop(0.72, '#d2cdc5');
+      gr.addColorStop(0.94, '#b8b4ac');
+      gr.addColorStop(1,    '#8c8880');
       ctx.fillStyle = gr;
     }
     ctx.fill();
@@ -404,71 +448,98 @@
 
     // Specular left strip
     if (!active) {
-      const sw = (k.br.x - k.bl.x) * 0.12;
-      const sg = ctx.createLinearGradient(0, k.tl.y, 0, k.bl.y);
-      sg.addColorStop(0,    'rgba(255,255,255,0.22)');
-      sg.addColorStop(0.18, 'rgba(255,255,255,0.10)');
+      const sw = (k.br.x - k.bl.x) * 0.11;
+      const sg = ctx.createLinearGradient(0, k.tl.y, 0, surBot);
+      sg.addColorStop(0,    'rgba(255,255,255,0.24)');
+      sg.addColorStop(0.20, 'rgba(255,255,255,0.10)');
       sg.addColorStop(1,    'rgba(255,255,255,0.01)');
       ctx.beginPath();
-      ctx.moveTo(k.tl.x + 2, k.tl.y + dy * 0.2 + 8);
-      ctx.lineTo(k.tl.x + 2 + sw, k.tr.y + dy * 0.2 + 8);
-      ctx.lineTo(k.bl.x + sw + 2, k.bl.y + dy);
-      ctx.lineTo(k.bl.x + 2, k.bl.y + dy);
+      ctx.moveTo(k.tl.x + 2,      k.tl.y + dy * 0.4 + 5);
+      ctx.lineTo(k.tl.x + sw + 2, k.tl.y + dy * 0.4 + 5);
+      ctx.lineTo(k.bl.x + sw + 2, surBot + dy);
+      ctx.lineTo(k.bl.x + 2,      surBot + dy);
       ctx.closePath();
       ctx.fillStyle = sg; ctx.fill();
     }
 
-    // Lip
+    // Color lip at back edge — collection accent
     ctx.beginPath();
-    ctx.moveTo(k.tl.x, k.tl.y + dy * 0.2);      ctx.lineTo(k.tr.x, k.tr.y + dy * 0.2);
-    ctx.lineTo(k.tr.x, k.tr.y + dy * 0.2 + 9);  ctx.lineTo(k.tl.x, k.tl.y + dy * 0.2 + 9);
+    ctx.moveTo(k.tl.x, k.tl.y + dy * 0.4);     ctx.lineTo(k.tr.x, k.tr.y + dy * 0.4);
+    ctx.lineTo(k.tr.x, k.tr.y + dy * 0.4 + 8); ctx.lineTo(k.tl.x, k.tl.y + dy * 0.4 + 8);
     ctx.closePath();
-    ctx.fillStyle = active ? '#1a1614' : '#706a62'; ctx.fill();
+    ctx.fillStyle = active ? '#1a1614' : (col.color + 'cc'); ctx.fill();
 
-    // Front vertical face
-    if (k.bl.y + dy < H + faceH + 10) {
+    // Right shadow edge
+    ctx.beginPath();
+    ctx.moveTo(k.tr.x, k.tr.y + dy * 0.4); ctx.lineTo(k.br.x, surBot + dy);
+    ctx.strokeStyle = 'rgba(0,0,0,0.65)'; ctx.lineWidth = 2.5; ctx.stroke();
+
+    // ── Front face (prominent rectangle) ─────────────────────────────────────
+    ctx.beginPath();
+    ctx.moveTo(k.bl.x, surBot  + dy); ctx.lineTo(k.br.x, surBot  + dy);
+    ctx.lineTo(k.br.x, faceBot + dy); ctx.lineTo(k.bl.x, faceBot + dy);
+    ctx.closePath();
+    const gf = ctx.createLinearGradient(0, surBot, 0, faceBot);
+    if (active) {
+      gf.addColorStop(0,    '#1e1a16');
+      gf.addColorStop(0.30, '#110e0b');
+      gf.addColorStop(1,    '#050403');
+    } else {
+      gf.addColorStop(0,    '#d0cbc2');
+      gf.addColorStop(0.28, '#b8b3ab');
+      gf.addColorStop(0.74, '#787470');
+      gf.addColorStop(1,    '#131110');
+    }
+    ctx.fillStyle = gf; ctx.fill();
+
+    // BKS accent stripe at bottom of front face
+    if (!active) {
+      const sh = Math.min(8, (faceBot - surBot) * 0.07);
       ctx.beginPath();
-      ctx.moveTo(k.bl.x, k.bl.y + dy); ctx.lineTo(k.br.x, k.br.y + dy);
-      ctx.lineTo(k.br.x, k.br.y + dy + faceH); ctx.lineTo(k.bl.x, k.bl.y + dy + faceH);
-      ctx.closePath();
-      const gf = ctx.createLinearGradient(0, k.bl.y + dy, 0, k.bl.y + dy + faceH);
-      if (active) {
-        gf.addColorStop(0, '#1e1a16'); gf.addColorStop(0.35, '#110e0b'); gf.addColorStop(1, '#050403');
-      } else {
-        gf.addColorStop(0, '#ccc7bf'); gf.addColorStop(0.28, '#b8b3ab');
-        gf.addColorStop(0.72, '#8a8680'); gf.addColorStop(1, '#1a1814');
-      }
-      ctx.fillStyle = gf; ctx.fill();
-      if (!active) {
-        const hg = ctx.createLinearGradient(k.bl.x, 0, k.br.x, 0);
-        hg.addColorStop(0, 'rgba(255,255,255,0.14)'); hg.addColorStop(0.22, 'rgba(255,255,255,0.07)');
-        hg.addColorStop(0.60, 'rgba(255,255,255,0.01)'); hg.addColorStop(1, 'rgba(0,0,0,0.10)');
-        ctx.beginPath();
-        ctx.moveTo(k.bl.x, k.bl.y + dy); ctx.lineTo(k.br.x, k.br.y + dy);
-        ctx.lineTo(k.br.x, k.br.y + dy + faceH); ctx.lineTo(k.bl.x, k.bl.y + dy + faceH);
-        ctx.closePath(); ctx.fillStyle = hg; ctx.fill();
-      }
+      ctx.moveTo(k.bl.x, faceBot + dy - sh); ctx.lineTo(k.br.x, faceBot + dy - sh);
+      ctx.lineTo(k.br.x, faceBot + dy);      ctx.lineTo(k.bl.x, faceBot + dy);
+      ctx.closePath(); ctx.fillStyle = col.color + 'bb'; ctx.fill();
     }
 
-    // Right shadow
-    ctx.beginPath();
-    ctx.moveTo(k.tr.x, k.tr.y + dy * 0.2); ctx.lineTo(k.br.x, k.br.y + dy);
-    ctx.strokeStyle = 'rgba(0,0,0,0.60)'; ctx.lineWidth = 2.5; ctx.stroke();
-
-    // Labels
+    // Left-to-right sheen on front face
     if (!active) {
-      const cx = (k.bl.x + k.br.x) / 2, my = (k.tl.y + k.bl.y) / 2 + 28;
+      const hg = ctx.createLinearGradient(k.bl.x, 0, k.br.x, 0);
+      hg.addColorStop(0,    'rgba(255,255,255,0.17)');
+      hg.addColorStop(0.20, 'rgba(255,255,255,0.07)');
+      hg.addColorStop(0.65, 'rgba(255,255,255,0.01)');
+      hg.addColorStop(1,    'rgba(0,0,0,0.09)');
+      ctx.beginPath();
+      ctx.moveTo(k.bl.x, surBot  + dy); ctx.lineTo(k.br.x, surBot  + dy);
+      ctx.lineTo(k.br.x, faceBot + dy); ctx.lineTo(k.bl.x, faceBot + dy);
+      ctx.closePath(); ctx.fillStyle = hg; ctx.fill();
+    }
+
+    // Key gap dividers
+    ctx.beginPath(); ctx.moveTo(k.bl.x, surBot + dy); ctx.lineTo(k.bl.x, faceBot + dy);
+    ctx.strokeStyle = 'rgba(0,0,0,0.48)'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(k.br.x, surBot + dy); ctx.lineTo(k.br.x, faceBot + dy);
+    ctx.strokeStyle = 'rgba(0,0,0,0.58)'; ctx.lineWidth = 2; ctx.stroke();
+
+    // ── Labels in front face ─────────────────────────────────────────────────
+    if (!active) {
+      const cx    = (k.bl.x + k.br.x) / 2;
+      const areaH = faceBot - surBot;
+      const nameY = surBot + dy + areaH * 0.40;
       ctx.textAlign = 'center';
-      ctx.font = '500 11px system-ui, sans-serif'; ctx.fillStyle = 'rgba(36,32,26,0.58)';
-      ctx.fillText(col.name.toUpperCase(), cx, my);
-      ctx.font = '400 9px system-ui, sans-serif'; ctx.fillStyle = 'rgba(36,32,26,0.32)';
-      ctx.fillText(col.note, cx, my + 15);
+      ctx.font      = '400 16px "Bebas Neue", sans-serif';
+      ctx.fillStyle = 'rgba(255,252,245,0.90)';
+      ctx.fillText(col.name.toUpperCase(), cx, nameY);
+      ctx.font      = '600 7px "DM Mono", monospace';
+      ctx.fillStyle = 'rgba(255,252,245,0.52)';
+      ctx.letterSpacing = '0.14em';
+      ctx.fillText(col.note.toUpperCase(), cx, nameY + areaH * 0.23);
+      ctx.letterSpacing = '0em';
     }
     ctx.restore();
   }
 
   function drawBlackKey(k, pd, col, active) {
-    const dy = pd * 13;
+    const dy = pd * 17;
     ctx.save();
     if (active) { ctx.shadowBlur = 22; ctx.shadowColor = col.color; }
 
@@ -486,8 +557,11 @@
       ctx.fillStyle = gr;
     } else {
       const gr = ctx.createLinearGradient(0, k.tl.y, 0, k.bl.y);
-      gr.addColorStop(0,    '#2e2a26'); gr.addColorStop(0.15, '#1c1814');
-      gr.addColorStop(0.75, '#0c0a08'); gr.addColorStop(1,    '#040302');
+      gr.addColorStop(0,    '#2e2a26');
+      gr.addColorStop(0.15, '#1c1814');
+      gr.addColorStop(0.65, '#0c0a08');
+      gr.addColorStop(0.88, col.color + '22');
+      gr.addColorStop(1,    col.color + '44');
       ctx.fillStyle = gr;
     }
     ctx.fill();
@@ -518,12 +592,12 @@
     ctx.closePath(); ctx.fillStyle = gg; ctx.fill();
 
     if (!active) {
-      const cx = (k.bl.x + k.br.x) / 2, my = (k.tl.y + k.bl.y) / 2 + 7;
+      const cx = (k.bl.x + k.br.x) / 2, my = k.tl.y + (k.bl.y - k.tl.y) * 0.78;
       ctx.textAlign = 'center';
-      ctx.font = '500 8px system-ui, sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.30)';
+      ctx.font = '600 7px "DM Mono", monospace'; ctx.fillStyle = 'rgba(255,255,255,0.60)';
+      ctx.letterSpacing = "0.14em";
       ctx.fillText(col.name.toUpperCase(), cx, my);
-      ctx.font = '400 7px system-ui, sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.16)';
-      ctx.fillText(col.note, cx, my + 11);
+      ctx.letterSpacing = "0em";
     }
     ctx.restore();
   }
@@ -730,7 +804,7 @@
   function animate() {
     COLS.forEach((_, i) => {
       const t = KS[i].pressed ? 1 : 0;
-      KS[i].anim += (t - KS[i].anim) * 0.11;
+      KS[i].anim += (t - KS[i].anim) * 0.28;
     });
     ctx.clearRect(0, 0, W, H);
     drawScene();
@@ -789,6 +863,25 @@
     screen.classList.add('bks-show');
     hint.classList.add('bks-hidden');
     backBtn.classList.add('bks-visible');
+
+    // BKS Verse — show collection poem
+    const verseEl = document.getElementById('bks-coll-verse');
+    if (verseEl) verseEl.textContent = col.verse || '';
+
+    // 3D model overlay — positioned at the active key on canvas
+    const modelEl  = document.getElementById('bks-key-model');
+    const modelImg = document.getElementById('bks-key-model-img');
+    if (modelEl && col.model_url) {
+      const k = keys.find(kk => kk.idx === idx);
+      if (k) {
+        if (modelImg) { modelImg.src = col.model_url; modelImg.alt = col.name; }
+        modelEl.style.left = (k.cxPct * 100) + '%';
+        modelEl.style.bottom = ((1 - k.surBotPct) * 100) + '%';
+        requestAnimationFrame(() => modelEl.classList.add('bks-model-active'));
+      }
+    } else if (modelEl) {
+      modelEl.classList.remove('bks-model-active');
+    }
   }
 
   function closeCollection() {
@@ -798,23 +891,40 @@
       pianoEl.style.removeProperty('--bks-coll-accent');
     }
     screen.classList.remove('bks-show');
+    // Release only the key whose panel was open
     if (activeKey >= 0) KS[activeKey].pressed = false;
-    activeKey = -1;
+    activeKey = KS.findIndex((s, i) => i !== activeKey && s.pressed);
     stopAudio();
     hint.classList.remove('bks-hidden');
     backBtn.classList.remove('bks-visible');
     if (collCta) collCta.style.color = '';
+    const mEl = document.getElementById('bks-key-model');
+    if (mEl) mEl.classList.remove('bks-model-active');
   }
 
   // ── Interaction ───────────────────────────────────────────────────────────────
+  let _collTimer = null;
   function handleClick(mx, my) {
-    if (screen.classList.contains('bks-show')) return;
     const k = getKeyAt(mx, my);
     if (!k) return;
-    if (activeKey >= 0) KS[activeKey].pressed = false;
+    // Toggle off: release this key
+    if (KS[k.idx].pressed) {
+      KS[k.idx].pressed = false;
+      clearTimeout(_collTimer);
+      if (activeKey === k.idx) {
+        activeKey = KS.findIndex((s, i) => i !== k.idx && s.pressed);
+        stopAudio();
+      }
+      return;
+    }
+    // Press: multi-key — other keys stay pressed
     activeKey = k.idx; KS[k.idx].pressed = true;
     startAudio(COLS[k.idx]);
-    setTimeout(() => openCollection(k.idx), 380);
+    // Open collection panel only if still pressed after 650ms (debounce fast playing)
+    clearTimeout(_collTimer);
+    _collTimer = setTimeout(() => {
+      if (KS[k.idx] && KS[k.idx].pressed) openCollection(k.idx);
+    }, 650);
   }
 
   cv.addEventListener('click', e => {
@@ -824,8 +934,10 @@
 
   cv.addEventListener('touchstart', e => {
     e.preventDefault();
-    const r = cv.getBoundingClientRect(), t = e.touches[0];
-    handleClick((t.clientX - r.left) * (W / r.width), (t.clientY - r.top) * (H / r.height));
+    const r = cv.getBoundingClientRect();
+    Array.from(e.changedTouches).forEach(t => {
+      handleClick((t.clientX - r.left) * (W / r.width), (t.clientY - r.top) * (H / r.height));
+    });
   }, { passive: false });
 
   cv.addEventListener('mousemove', e => {

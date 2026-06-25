@@ -21,6 +21,8 @@ HDR     = {"X-Shopify-Access-Token": TOKEN, "Content-Type": "application/json"}
 FILES = [
     ("04_TEMA_SHOPIFY/sections/bks-piano-hero.liquid", "sections/bks-piano-hero.liquid"),
     ("04_TEMA_SHOPIFY/templates/index.json",           "templates/index.json"),
+    ("04_TEMA_SHOPIFY/assets/bks-piano-hero.js",       "assets/bks-piano-hero.js"),
+    ("04_TEMA_SHOPIFY/assets/bks-piano-hero.css",      "assets/bks-piano-hero.css"),
 ]
 
 for src_rel, key in FILES:

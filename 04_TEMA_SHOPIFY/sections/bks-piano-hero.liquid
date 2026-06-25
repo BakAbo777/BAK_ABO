@@ -46,7 +46,9 @@
         "audio_src":  {% if block.settings.audio_url != blank %}{{ block.settings.audio_url | json }}{% elsif block.settings.audio_file != blank %}{{ block.settings.audio_file | asset_url | json }}{% else %}""{% endif %},
         "bpm":       {{ block.settings.bpm       | default: 36 }},
         "decay":     {{ block.settings.decay     | default: 4  }},
-        "image_url": {{ block.settings.image_url | default: "" | json }}
+        "image_url": {{ block.settings.image_url | default: "" | json }},
+        "verse":     {{ block.settings.verse     | default: "" | json }},
+        "model_url": {{ block.settings.model_url | default: "" | json }}
       }
     {%- endfor -%}
   ]
@@ -121,6 +123,7 @@
       <h2 id="bks-coll-name"></h2>
       <p id="bks-coll-note"></p>
       <blockquote id="bks-coll-quote"></blockquote>
+      <blockquote id="bks-coll-verse" aria-label="{{ 'Collection verse' | escape }}"></blockquote>
       <div id="bks-coll-pills" role="list" aria-label="{{ 'Available product types' | escape }}"></div>
       <a id="bks-coll-cta"
          class="bks-cta-link"
@@ -159,6 +162,10 @@
 
   <div id="bks-hint" aria-hidden="true">
     {{ section.settings.hint_text | default: 'Tap a key to explore the collection' }}
+  </div>
+
+  <div id="bks-key-model" aria-hidden="true">
+    <img id="bks-key-model-img" src="" alt="" draggable="false">
   </div>
 
 </div>
@@ -346,6 +353,18 @@
           "id": "image_url",
           "label": "Panel artwork URL",
           "info": "Direct HTTPS URL to a portrait image (Canva export, Shopify CDN, R2). Replaces gradient in model panel. Leave empty for default gradient."
+        },
+        {
+          "type": "textarea",
+          "id": "verse",
+          "label": "BKS Verse — poesia della collezione",
+          "info": "Versi brevi (2-3 righe). Separare i versi con \\n. Appare nel pannello quando il tasto è premuto."
+        },
+        {
+          "type": "text",
+          "id": "model_url",
+          "label": "Modello 3D — URL immagine scontornata",
+          "info": "PNG con sfondo trasparente. Il modello appare sul pianoforte quando il tasto è premuto. Lascia vuoto per nessun effetto."
         },
         {
           "type": "header",
