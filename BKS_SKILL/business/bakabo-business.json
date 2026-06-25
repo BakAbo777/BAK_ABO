@@ -1,31 +1,42 @@
 {
   "_meta": {
-    "version": "2.5",
-    "last_updated": "2026-06-24",
+    "version": "2.6",
+    "last_updated": "2026-06-25",
     "source": "COST_TABLE da bks_agent_dashboard.py (fonte autoritativa) + Printify API shipping sync",
     "note": "base_cost = costo reale Printify da COST_TABLE verificato. shipping_EU/US = da Printify API sync. Tutti i prezzi in USD.",
     "alignment_verified": "2026-06-20 v2.3 — tutti i puffer verificati $129 (29 prodotti, nessun repricing necessario). Woven Blanket non presente nel catalogo attivo. Cozy Slipper $55, Flip Flop $49, One-Piece $55: tutti OK. 202 prodotti attivi verificati."
   },
 
   "system_status": {
-    "as_of": "2026-06-24",
+    "as_of": "2026-06-25",
+    "last_session_fixes": "2026-06-26: wishlist hearts double-listener bug fixed (injectHeartButtons _bksWired guard + toast link /pages/bks-members); tier detection updated (tags first: bks_tier_gold > order count); header account icon → /pages/bks-members when logged in; Google OAuth button removed (incompatible with Shopify new accounts); GMC excluded_destination set on 115 products (resolves 35K limited availability); iOS try-on download fix (Safari new tab); login DNS fixed (account.bakabo.club → DNS only); bks.member_tier metafield=gold set on Roberto; Verse templates synced locally.",
     "store": {
-      "products_live": 200,
-      "products_draft": 0,
+      "products_live": 114,
+      "products_draft": 112,
+      "products_total_shopify": 226,
+      "target_catalog_size": 114,
+      "reduction_completed": "2026-06-25 — catalog_reduction_v3.py: 110 products moved to DRAFT (strategy: max 1 per Tier1 type, max 2 per Tier2 type, per collection). Report: output/catalog_reduction_v3_report.json",
       "language": "EN (fixed 2026-06-24 — all Italian UI text translated)",
       "theme": "TM04 live (ID 202392961362)",
+      "theme_pages": "8 collection editorial pages + 16 product-type pages — all updated 2026-06-25 with editorial_matrix + trust_strip",
       "collections": 8,
-      "product_type_pages": 17
+      "product_type_pages": 16,
+      "price_alerts_fixed": "2026-06-25 — 6 products repriced: 2 windbreakers $112→$109, 3 one-piece swimsuits $35-42→$45, 1 Hawaiian shirt $82→$79",
+      "zero_image_products": "2 windbreakers (Flag 02, Token 02) already in DRAFT",
+      "shopify_tags": "FIXED 2026-06-25 — 225 active products tagged collection:X, brand:bks, type, drop:catalog-2026",
+      "pattern_registry": "148 patterns live in Worker KV (2026-06-25: 53 orphan patterns deleted — confirmed Shopify 404s). Script: scripts/_clean_orphan_patterns.py",
+      "notes": "2026-06-25: catalog reduced 225→114 active; price audit 6 fixes; theme editorial matrix 24 pages; GMC feed regenerated (228 products, 1400 rows, in_stock/999 — upload to GMC pending)"
     },
     "images": {
-      "mockup_sync": "147/159 updated products synced from Printify to Shopify (11 orphans ignored)",
-      "hero_shots_openai": "5/159 generated and uploaded (in progress — batch pending)",
-      "setstyle_heroes": "8/8 collection heroes live on Shopify"
+      "mockup_sync": "225 products live — Printify mockups applied",
+      "hero_shots_openai": "5 generated and uploaded; BKS Riviera Fluid Puffer design corrected 2026-06-25 (flat seamless pattern, new image ID 6a3d0fd9fadb38667e3c21ca)",
+      "setstyle_heroes": "8/8 collection heroes live on Shopify",
+      "v2_puffer_creator": "scripts/_create_product_v2.py — Single Product Creator v2 LIVE; prompt gate GPT-4o ≥21/25; library-first scan; fill scales per-position; collar design-under-logo"
     },
     "channels": {
       "shopify": "LIVE — checkout active, EUR + USD",
       "google_merchant_center": "FIXED 2026-06-24 — local inventory feed corrected (in_stock/999). Upload to GMC done. 35.1K 'limited availability' warnings expected to resolve in 24-48h.",
-      "pinterest": "SUSPENDED — appeal sent 2026-06-20, awaiting review",
+      "pinterest": "SUSPENDED — account bakabofirm expires 2026-07-10. Decision: let expire, create new clean account from scratch when ready to relaunch.",
       "instagram": "ACTIVE account — 0 posts published, content needed",
       "youtube": "0 videos published",
       "tiktok": "pixel disconnected"
@@ -33,9 +44,9 @@
     "infrastructure": {
       "streamlit_dashboard": "LIVE — https://dashboard.bakabo.club (Hetzner 95.217.232.186, systemd bks-dashboard.service, nginx+SSL)",
       "bks_verse": "LIVE — verse-api.bakabo.club:8001 (FastAPI, Gran Giudice, 21 poets archive)",
-      "cloudflare_worker": "LIVE — bks-agent.bakabo.workers.dev"
+      "cloudflare_worker": "LIVE — bks-agent.bakabo.workers.dev v17 (token renewed 2026-06-24 after revocation by GitHub Secret Scanning)"
     },
-    "current_priority": "1. Complete hero photos (OpenAI — raise billing limit) → 2. Instagram first 3 posts → 3. Pinterest appeal follow-up",
+    "current_priority": "1. Instagram: first 3 posts (account active, 0 content) → 2. Pinterest: let bakabofirm expire 2026-07-10 → 3. Shopify Markets IT/EN setup (Admin > Settings > Markets) → 4. Email tier triggers (Shopify Flow or Klaviyo)",
     "sales": "0 orders to date — store launched June 2026, traffic channels being activated"
   },
 

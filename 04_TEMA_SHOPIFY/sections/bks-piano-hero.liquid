@@ -76,7 +76,7 @@
   {%- assign _has_bg = true -%}
 {%- endif -%}
 
-<div class="bks-piano-hero" data-section-id="{{ section.id }}"{% if _has_bg %} data-bg="1" style="--bks-piano-bg: url('{% if section.settings.background_image != blank %}{{ section.settings.background_image | image_url: width: 2400 }}{% else %}{{ section.settings.background_image_url }}{% endif %}')"{% endif %}>
+<div class="bks-piano-hero" data-section-id="{{ section.id }}"{% if _has_bg %} data-bg="1" style="--bks-piano-bg: url('{% if section.settings.background_image != blank %}{{ section.settings.background_image | image_url: width: 1440 }}{% else %}{{ section.settings.background_image_url }}{% endif %}')"{% endif %}>
 
   <canvas id="bks-piano-canvas"
           aria-label="{{ 'BKS Studio — interactive keyboard: 8 collections as piano keys' | escape }}"

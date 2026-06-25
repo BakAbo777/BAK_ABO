@@ -149,9 +149,9 @@
     gap: 12px;
     margin-bottom: 18px;
     font-family: var(--bks-font-mono,'DM Mono',monospace);
-    font-size: 0.76rem;
+    font-size: 0.68rem;
     text-transform: uppercase;
-    letter-spacing: 0;
+    letter-spacing: 0.24em;
     color: var(--bks-dune, #C9B79C);
     opacity: 0;
     animation: slideInLeft 1s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
@@ -859,6 +859,10 @@
             <div class="bks-collection-card__inner">
               {% if collection.image %}
                 <img src="{{ collection.image | image_url: width: 400 }}"
+                     srcset="{{ collection.image | image_url: width: 200 }} 200w,
+                             {{ collection.image | image_url: width: 300 }} 300w,
+                             {{ collection.image | image_url: width: 400 }} 400w"
+                     sizes="(max-width: 600px) 200px, (max-width: 900px) 300px, 400px"
                      alt="{{ collection.title | escape }}"
                      width="400"
                      height="400"

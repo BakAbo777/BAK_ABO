@@ -319,6 +319,11 @@
                   {%- if featured.featured_image -%}
                     <img
                       src="{{ featured.featured_image | image_url: width: 400 }}"
+                      srcset="{{ featured.featured_image | image_url: width: 200 }} 200w,
+                              {{ featured.featured_image | image_url: width: 300 }} 300w,
+                              {{ featured.featured_image | image_url: width: 400 }} 400w,
+                              {{ featured.featured_image | image_url: width: 540 }} 540w"
+                      sizes="(max-width: 480px) 200px, (max-width: 768px) 300px, 400px"
                       alt="{{ featured.featured_image.alt | escape }}"
                       class="bks-ed__prod-img"
                       loading="lazy"

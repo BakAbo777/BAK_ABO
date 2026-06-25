@@ -253,9 +253,20 @@
 
   window.bksTryOnDownload = function () {
     if (!canvas || !userPhoto) return;
+    var dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+    // iOS Safari: <a download> is ignored — open image in new tab so user can long-press → Save to Photos
+    var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    if (isIOS) {
+      var w = window.open();
+      if (w) {
+        w.document.write('<img src="' + dataUrl + '" style="max-width:100%;display:block;margin:auto"><p style="text-align:center;font-family:sans-serif;color:#888;font-size:13px">Tap and hold → Save to Photos</p>');
+        w.document.close();
+      }
+      return;
+    }
     var link = document.createElement('a');
     link.download = 'bks-tryon.jpg';
-    link.href = canvas.toDataURL('image/jpeg', 0.92);
+    link.href = dataUrl;
     link.click();
   };
 

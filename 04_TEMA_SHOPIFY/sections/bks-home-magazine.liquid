@@ -342,6 +342,10 @@
     <div class="bks-mag-cover__image">
       <img
         src="{{ section.settings.cover_image | image_url: width: 1000 }}"
+        srcset="{{ section.settings.cover_image | image_url: width: 500 }} 500w,
+                {{ section.settings.cover_image | image_url: width: 750 }} 750w,
+                {{ section.settings.cover_image | image_url: width: 1000 }} 1000w"
+        sizes="(max-width: 600px) 500px, (max-width: 900px) 750px, 1000px"
         alt="{{ section.settings.cover_image.alt | default: 'BKS Studio' | escape }}"
         loading="eager"
         fetchpriority="high"
@@ -395,6 +399,10 @@
         {%- if block.settings.image != blank -%}
           <img
             src="{{ block.settings.image | image_url: width: 1200 }}"
+            srcset="{{ block.settings.image | image_url: width: 600 }} 600w,
+                    {{ block.settings.image | image_url: width: 900 }} 900w,
+                    {{ block.settings.image | image_url: width: 1200 }} 1200w"
+            sizes="(max-width: 768px) 600px, (max-width: 1200px) 900px, 1200px"
             alt="{{ block.settings.title | escape }}"
             loading="lazy"
             width="{{ block.settings.image.width }}"
